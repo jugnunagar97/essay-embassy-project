@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Added useEffect import
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff, BookOpen } from 'lucide-react';
@@ -12,7 +12,7 @@ interface LoginForm {
 }
 
 export default function Login() {
-  const { login, isLoading } = useAuth();
+  const { login, isLoading, user } = useAuth(); // Destructure 'user' from useAuth
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -22,32 +22,50 @@ export default function Login() {
     formState: { errors }
   } = useForm<LoginForm>();
 
+  // NEW: Redirect if user is already logged in
+  useEffect(() => {
+    if (!isLoading && user) { // If loading is complete and a user object exists
+      navigate('/dashboard', { replace: true }); // Redirect to dashboard, replace history entry
+    }
+  }, [user, isLoading, navigate]); // Depend on user and isLoading to re-run when they change
+
   const onSubmit = async (data: LoginForm) => {
     try {
       await login(data.email, data.password);
       toast.success('Welcome back!');
-      navigate('/dashboard');
+      // The useEffect above will handle the navigation after successful login
+      // No need for navigate('/dashboard') here explicitly, as onAuthStateChanged
+      // will update 'user' and trigger the useEffect.
     } catch (error) {
       toast.error('Invalid email or password');
     }
   };
 
+  // If still loading or user is already logged in and being redirected, show nothing or a spinner
+  if (isLoading || user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner size="lg" /> {/* Use your LoadingSpinner component */}
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
         <div className="text-center mb-8">
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl w-16 h-16 mx-auto mb-4">
             <BookOpen className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome Back</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
+          <p className="text-gray-600 mt-2">
             Sign in to your Essay Embassy account
           </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Email Address
             </label>
             <input
@@ -59,7 +77,7 @@ export default function Login() {
                   message: 'Please enter a valid email'
                 }
               })}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
               placeholder="Enter your email"
             />
             {errors.email && (
@@ -68,7 +86,7 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Password
             </label>
             <div className="relative">
@@ -81,7 +99,7 @@ export default function Login() {
                     message: 'Password must be at least 6 characters'
                   }
                 })}
-                className="w-full px-4 py-3 pr-12 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
                 placeholder="Enter your password"
               />
               <button
@@ -100,7 +118,7 @@ export default function Login() {
           <div className="flex items-center justify-between">
             <Link
               to="/forgot-password"
-              className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+              className="text-sm text-blue-600 hover:underline"
             >
               Forgot password?
             </Link>
@@ -117,9 +135,9 @@ export default function Login() {
         </form>
 
         <div className="mt-8 text-center">
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600">
             Don't have an account?{' '}
-            <Link to="/register" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
+            <Link to="/register" className="text-blue-600 font-medium hover:underline">
               Sign up here
             </Link>
           </p>
