@@ -1,126 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Star, Users, ChevronDown, Plus, Minus, Search, X } from 'lucide-react';
+import EvolvingDocumentVisual from './EvolvingDocumentVisual'; // Import the new visual component
 
+// ==================================================================================
+// === TYPE DEFINITIONS & CONSTANTS ===
+// ==================================================================================
 interface PriceConfig {
   [key: string]: {
     [key: string]: {
-      [key: string]: number;
+      base: number;
+      urgent: number;
     };
   };
 }
 
 const priceConfig: PriceConfig = {
   "College": {
-    "3 hours": { base: 25, urgent: 1.8 },
-    "6 hours": { base: 22, urgent: 1.6 },
-    "12 hours": { base: 18, urgent: 1.4 },
-    "24 hours": { base: 15, urgent: 1.2 },
-    "48 hours": { base: 12, urgent: 1.0 },
-    "3 days": { base: 12, urgent: 1.0 },
-    "5 days": { base: 12, urgent: 1.0 },
-    "7 days": { base: 12, urgent: 1.0 },
-    "10 days": { base: 12, urgent: 1.0 },
-    "14 days": { base: 12, urgent: 1.0 }
+    "3 hours": { base: 25, urgent: 1.8 }, "6 hours": { base: 22, urgent: 1.6 }, "12 hours": { base: 18, urgent: 1.4 }, "24 hours": { base: 15, urgent: 1.2 }, "48 hours": { base: 12, urgent: 1.0 }, "3 days": { base: 12, urgent: 1.0 }, "5 days": { base: 12, urgent: 1.0 }, "7 days": { base: 12, urgent: 1.0 }, "10 days": { base: 12, urgent: 1.0 }, "14 days": { base: 12, urgent: 1.0 }
   },
   "Undergraduate": {
-    "3 hours": { base: 28, urgent: 1.8 },
-    "6 hours": { base: 25, urgent: 1.6 },
-    "12 hours": { base: 21, urgent: 1.4 },
-    "24 hours": { base: 18, urgent: 1.2 },
-    "48 hours": { base: 15, urgent: 1.0 },
-    "3 days": { base: 15, urgent: 1.0 },
-    "5 days": { base: 15, urgent: 1.0 },
-    "7 days": { base: 15, urgent: 1.0 },
-    "10 days": { base: 15, urgent: 1.0 },
-    "14 days": { base: 15, urgent: 1.0 }
+    "3 hours": { base: 28, urgent: 1.8 }, "6 hours": { base: 25, urgent: 1.6 }, "12 hours": { base: 21, urgent: 1.4 }, "24 hours": { base: 18, urgent: 1.2 }, "48 hours": { base: 15, urgent: 1.0 }, "3 days": { base: 15, urgent: 1.0 }, "5 days": { base: 15, urgent: 1.0 }, "7 days": { base: 15, urgent: 1.0 }, "10 days": { base: 15, urgent: 1.0 }, "14 days": { base: 15, urgent: 1.0 }
   },
   "Masters": {
-    "3 hours": { base: 32, urgent: 1.8 },
-    "6 hours": { base: 29, urgent: 1.6 },
-    "12 hours": { base: 25, urgent: 1.4 },
-    "24 hours": { base: 22, urgent: 1.2 },
-    "48 hours": { base: 19, urgent: 1.0 },
-    "3 days": { base: 19, urgent: 1.0 },
-    "5 days": { base: 19, urgent: 1.0 },
-    "7 days": { base: 19, urgent: 1.0 },
-    "10 days": { base: 19, urgent: 1.0 },
-    "14 days": { base: 19, urgent: 1.0 }
+    "3 hours": { base: 32, urgent: 1.8 }, "6 hours": { base: 29, urgent: 1.6 }, "12 hours": { base: 25, urgent: 1.4 }, "24 hours": { base: 22, urgent: 1.2 }, "48 hours": { base: 19, urgent: 1.0 }, "3 days": { base: 19, urgent: 1.0 }, "5 days": { base: 19, urgent: 1.0 }, "7 days": { base: 19, urgent: 1.0 }, "10 days": { base: 19, urgent: 1.0 }, "14 days": { base: 19, urgent: 1.0 }
   },
   "PhD": {
-    "3 hours": { base: 38, urgent: 1.8 },
-    "6 hours": { base: 35, urgent: 1.6 },
-    "12 hours": { base: 31, urgent: 1.4 },
-    "24 hours": { base: 28, urgent: 1.2 },
-    "48 hours": { base: 25, urgent: 1.0 },
-    "3 days": { base: 25, urgent: 1.0 },
-    "5 days": { base: 25, urgent: 1.0 },
-    "7 days": { base: 25, urgent: 1.0 },
-    "10 days": { base: 25, urgent: 1.0 },
-    "14 days": { base: 25, urgent: 1.0 }
+    "3 hours": { base: 38, urgent: 1.8 }, "6 hours": { base: 35, urgent: 1.6 }, "12 hours": { base: 31, urgent: 1.4 }, "24 hours": { base: 28, urgent: 1.2 }, "48 hours": { base: 25, urgent: 1.0 }, "3 days": { base: 25, urgent: 1.0 }, "5 days": { base: 25, urgent: 1.0 }, "7 days": { base: 25, urgent: 1.0 }, "10 days": { base: 25, urgent: 1.0 }, "14 days": { base: 25, urgent: 1.0 }
   }
 };
 
 const paperTypes = [
-  "Acceptance Letter",
-  "Admission Essay",
-  "Analysis",
-  "Annotated Bibliography",
-  "Application Paper",
-  "Article (Any Type)",
-  "Article Review",
-  "Assignment",
-  "Blog Writing",
-  "Book/Movie Review",
-  "Brochure",
-  "Business Plan",
-  "Capstone Project",
-  "Case Study",
-  "Combined Sections",
-  "Content (Any Type)",
-  "Coursework",
-  "Creative Writing",
-  "Critical Thinking",
-  "Dissertation",
-  "Dissertation Chapter",
-  "Dissertation Editing",
-  "Essay (Any Type)",
-  "Executive Summary",
-  "Extended Revision",
-  "Grant Proposal",
-  "Lab Report",
-  "Math Problem",
-  "Memo/Letter",
-  "Microsoft Project",
-  "Nursing Calculations",
-  "Online Exam",
-  "Other",
-  "Outline",
-  "Paper Editing",
-  "Pages (increase/decrease functionality only)",
-  "Personal Reflection",
-  "Presentation or Speech",
-  "Presentation/PPT",
-  "Progressive Paper",
-  "Proofreading/Editing",
-  "Q&A",
-  "Report (Any Type)",
-  "Research Paper",
-  "Research Proposal",
-  "Research Summary",
-  "Response Essay",
-  "Revision Paper",
-  "Scholarship Essay",
-  "Speech",
-  "Speech Work",
-  "Statistic Project",
-  "Term Paper",
-  "Thesis/Thesis Chapter"
+  "Acceptance Letter", "Admission Essay", "Analysis", "Annotated Bibliography", "Application Paper",
+  "Article (Any Type)", "Article Review", "Assignment", "Blog Writing", "Book/Movie Review",
+  "Brochure", "Business Plan", "Capstone Project", "Case Study", "Combined Sections",
+  "Content (Any Type)", "Coursework", "Creative Writing", "Critical Thinking", "Dissertation",
+  "Dissertation Chapter", "Dissertation Editing", "Essay (Any Type)", "Executive Summary",
+  "Extended Revision", "Grant Proposal", "Lab Report", "Math Problem", "Memo/Letter",
+  "Microsoft Project", "Nursing Calculations", "Online Exam", "Other", "Outline",
+  "Paper Editing", "Pages (increase/decrease functionality only)", "Personal Reflection",
+  "Presentation or Speech", "Presentation/PPT", "Progressive Paper", "Proofreading/Editing",
+  "Q&A", "Report (Any Type)", "Research Paper", "Research Proposal", "Research Summary",
+  "Response Essay", "Revision Paper", "Scholarship Essay", "Speech", "Speech Work",
+  "Statistic Project", "Term Paper", "Thesis/Thesis Chapter"
 ];
 
 const academicLevels = ["College", "Undergraduate", "Masters", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
+
+// ==================================================================================
+// === HeroSection Component ===
+// ==================================================================================
 export default function HeroSection() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -178,12 +109,12 @@ export default function HeroSection() {
     <section className="bg-gradient-to-br from-gray-50 to-white py-12 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Hero Content */}
+          {/* Left Column - Hero Content & NEW: Evolving Document Visual */}
           <div className="space-y-6 lg:pt-6">
             <div className="space-y-5">
-              <h1 
+              <h1
                 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight tracking-tight"
-                style={{ 
+                style={{
                   fontFamily: 'Outfit, sans-serif',
                   color: '#1A1A1A'
                 }}
@@ -191,9 +122,9 @@ export default function HeroSection() {
                 Looking For An Expert To Write My Essay?
               </h1>
               
-              <p 
+              <p
                 className="text-lg lg:text-xl leading-relaxed max-w-xl"
-                style={{ 
+                style={{
                   fontFamily: 'Inter, sans-serif',
                   color: '#4A4A4A',
                   lineHeight: '1.6'
@@ -210,9 +141,9 @@ export default function HeroSection() {
                   <Users className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <p 
+                  <p
                     className="font-semibold"
-                    style={{ 
+                    style={{
                       fontFamily: 'Inter, sans-serif',
                       color: '#2E2E2E',
                       fontSize: '15px'
@@ -228,9 +159,9 @@ export default function HeroSection() {
                   <Star className="w-6 h-6 text-yellow-600 fill-current" />
                 </div>
                 <div>
-                  <p 
+                  <p
                     className="font-semibold"
-                    style={{ 
+                    style={{
                       fontFamily: 'Inter, sans-serif',
                       color: '#2E2E2E',
                       fontSize: '15px'
@@ -241,13 +172,18 @@ export default function HeroSection() {
                 </div>
               </div>
             </div>
+
+            {/* NEW: Evolving Document Visual Component */}
+            <div className="pt-8"> {/* Add some top padding to separate from text */}
+              <EvolvingDocumentVisual />
+            </div>
           </div>
 
           {/* Right Column - Compact Quick Order Form */}
           <div className="bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300">
-            <h2 
+            <h2
               className="text-center mb-6 font-bold"
-              style={{ 
+              style={{
                 fontFamily: 'Outfit, sans-serif',
                 color: '#1A1A1A',
                 fontSize: '22px'
@@ -435,9 +371,9 @@ export default function HeroSection() {
               {/* Price Display */}
               <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-4 text-center border border-gray-200">
                 <p className="text-sm font-medium text-gray-600 mb-1">Price (USD)</p>
-                <p 
+                <p
                   className="font-bold"
-                  style={{ 
+                  style={{
                     fontFamily: 'Outfit, sans-serif',
                     color: '#1A1A1A',
                     fontSize: '24px'
@@ -456,7 +392,7 @@ export default function HeroSection() {
                 type="button"
                 onClick={handleOrderNow}
                 className="w-full font-bold text-black rounded-xl transition-all duration-200 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-yellow-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
-                style={{ 
+                style={{
                   backgroundColor: '#FFB800',
                   padding: '14px 28px',
                   fontSize: '15px',
@@ -473,8 +409,8 @@ export default function HeroSection() {
 
       {/* Click outside to close dropdowns */}
       {(showPaperTypes || showAcademicLevels || showDeadlines) && (
-        <div 
-          className="fixed inset-0 z-10" 
+        <div
+          className="fixed inset-0 z-10"
           onClick={() => {
             setShowPaperTypes(false);
             setShowAcademicLevels(false);

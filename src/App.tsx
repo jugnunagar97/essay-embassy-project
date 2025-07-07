@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
+// Removed: import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/Layout/Layout';
 
 // === PAGE IMPORTS ===
@@ -26,7 +26,7 @@ import AdminDashboard from './pages/Dashboard/AdminDashboard';
 import LiveChat from './pages/Dashboard/LiveChat';
 import ProfileSettings from './pages/Dashboard/ProfileSettings';
 import OrderDetailPage from './pages/Dashboard/OrderDetailPage';
-import Messages from './pages/Dashboard/Messages'; // 1. Import the new Messages page
+import Messages from './pages/Dashboard/Messages';
 
 // Order Pages
 import OrderForm from './pages/Order/OrderForm';
@@ -103,7 +103,6 @@ function AppContent() {
         <Route path="/dashboard/orders/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} />
         <Route path="/dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
         <Route path="/dashboard/settings" element={<ProtectedRoute><ProfileSettings /></ProtectedRoute>} />
-        {/* === THIS IS THE NEW, CORRECTED LINE === */}
         <Route path="/dashboard/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
 
         {/* Admin Only Routes */}
@@ -121,14 +120,13 @@ function AppContent() {
 // === ROOT APP COMPONENT ===
 function App() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <Router>
-          <AppContent />
-          <Toaster position="top-right" toastOptions={{ duration: 4000, style: { background: 'var(--toast-bg)', color: 'var(--toast-color)' } }} />
-        </Router>
-      </AuthProvider>
-    </ThemeProvider>
+    // Removed ThemeProvider wrapper
+    <AuthProvider>
+      <Router>
+        <AppContent />
+        <Toaster position="top-right" toastOptions={{ duration: 4000, style: { background: 'var(--toast-bg)', color: 'var(--toast-color)' } }} />
+      </Router>
+    </AuthProvider>
   );
 }
 

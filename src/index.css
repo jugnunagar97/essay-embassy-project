@@ -10,11 +10,6 @@
   --toast-color: theme('colors.gray.900');
 }
 
-.dark {
-  --toast-bg: theme('colors.gray.800');
-  --toast-color: theme('colors.white');
-}
-
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
@@ -23,8 +18,7 @@
   
   body {
     @apply antialiased;
-    @apply text-gray-900 dark:text-white;
-    @apply bg-gray-50 dark:bg-gray-900;
+    @apply text-gray-900 bg-gray-50;
   }
 
   /* Custom scrollbar */
@@ -34,15 +28,15 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-gray-800;
+    @apply bg-gray-100;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+    @apply bg-gray-300 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400 dark:bg-gray-500;
+    @apply bg-gray-400;
   }
 
   /* Hide scrollbar for carousel */
@@ -63,7 +57,7 @@
   }
 
   .btn-secondary {
-    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-soft hover:shadow-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 hover:scale-105;
+    @apply bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-200 shadow-soft hover:shadow-medium focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 hover:scale-105;
   }
 
   .btn-outline {
@@ -71,12 +65,12 @@
   }
 
   .btn-ghost {
-    @apply text-gray-600 dark:text-gray-300 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105;
+    @apply text-gray-600 hover:text-primary-500 hover:bg-primary-50 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105;
   }
 
   /* Card Components */
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-xl shadow-soft border border-gray-100 dark:border-gray-700 p-6 hover:shadow-medium transition-all duration-300 hover:scale-105;
+    @apply bg-white rounded-xl shadow-soft border border-gray-100 p-6 hover:shadow-medium transition-all duration-300 hover:scale-105;
   }
 
   .card-hover {
@@ -84,20 +78,20 @@
   }
 
   .card-feature {
-    @apply bg-white dark:bg-gray-800 rounded-2xl shadow-soft border border-gray-100 dark:border-gray-700 p-8 text-center hover:shadow-medium transition-all duration-300 hover:scale-105;
+    @apply bg-white rounded-2xl shadow-soft border border-gray-100 p-8 text-center hover:shadow-medium transition-all duration-300 hover:scale-105;
   }
 
   /* Form Components */
   .form-input {
-    @apply w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors placeholder-gray-400 dark:placeholder-gray-500 hover:border-primary-300;
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white text-gray-900 transition-colors placeholder-gray-400 hover:border-primary-300;
   }
 
   .form-label {
-    @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2;
+    @apply block text-sm font-medium text-gray-700 mb-2;
   }
 
   .form-select {
-    @apply form-input appearance-none bg-white dark:bg-gray-700 cursor-pointer;
+    @apply form-input appearance-none bg-white cursor-pointer;
   }
 
   /* Section Components */
@@ -106,7 +100,7 @@
   }
 
   .section-alt {
-    @apply bg-gray-50 dark:bg-gray-800/50;
+    @apply bg-gray-50;
   }
 
   .container {
@@ -115,116 +109,40 @@
 
   /* Typography */
   .heading-xl {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900;
   }
 
   .heading-lg {
-    @apply text-3xl md:text-4xl font-bold text-gray-900 dark:text-white;
+    @apply text-3xl md:text-4xl font-bold text-gray-900;
   }
 
   .heading-md {
-    @apply text-2xl md:text-3xl font-bold text-gray-900 dark:text-white;
+    @apply text-2xl md:text-3xl font-bold text-gray-900;
   }
 
   .heading-sm {
-    @apply text-xl md:text-2xl font-semibold text-gray-900 dark:text-white;
+    @apply text-xl md:text-2xl font-semibold text-gray-900;
   }
 
   .text-muted {
-    @apply text-gray-600 dark:text-gray-400;
+    @apply text-gray-600;
   }
 
   /* Trust Badges */
   .trust-badge {
-    @apply flex items-center space-x-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow-soft border border-gray-100 dark:border-gray-700 hover:shadow-medium transition-all duration-300 hover:scale-105;
-  }
-
-  /* Animations */
-  .animate-in {
-    animation: fadeIn 0.6s ease-out;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.4s ease-out;
-  }
-
-  .animate-slide-in-left {
-    animation: slideInLeft 0.5s ease-out;
-  }
-
-  .animate-slide-in-right {
-    animation: slideInRight 0.5s ease-out;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-  }
-
-  /* Gradient Text */
-  .text-gradient {
-    @apply bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent;
-  }
-
-  /* Hero Slideshow */
-  .slideshow-item {
-    @apply opacity-0 transform translate-x-4 transition-all duration-500 ease-in-out;
-  }
-
-  .slideshow-item.active {
-    @apply opacity-100 transform translate-x-0;
-  }
-
-  /* Service Cards */
-  .service-card {
-    @apply bg-white dark:bg-gray-800 rounded-xl p-6 shadow-soft hover:shadow-medium transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:scale-105;
-  }
-
-  .service-card:hover {
-    @apply transform -translate-y-1;
-  }
-
-  /* Testimonial Cards */
-  .testimonial-card {
-    @apply bg-white dark:bg-gray-800 rounded-xl p-6 shadow-soft border border-gray-100 dark:border-gray-700 hover:shadow-medium transition-all duration-300 hover:scale-105 border-l-4 border-l-primary-500;
-  }
-
-  /* Blog Cards */
-  .blog-card {
-    @apply bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:scale-105;
-  }
-
-  .blog-card:hover {
-    @apply transform -translate-y-1;
-  }
-
-  /* Pricing Cards */
-  .pricing-card {
-    @apply bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-gray-100 dark:border-gray-700 relative hover:scale-105;
-  }
-
-  .pricing-card.featured {
-    @apply border-primary-500 shadow-medium;
-  }
-
-  .pricing-card.featured::before {
-    content: 'Most Popular';
-    @apply absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary-500 text-white px-4 py-1 rounded-full text-sm font-medium;
+    @apply flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-soft border border-gray-100 hover:shadow-medium transition-all duration-300 hover:scale-105;
   }
 }
 
 @layer utilities {
   /* Focus styles for better accessibility */
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
   }
 
   /* Custom selection colors */
   ::selection {
     @apply bg-primary-200 text-primary-900;
-  }
-
-  .dark ::selection {
-    @apply bg-primary-800 text-primary-100;
   }
 
   /* Smooth transitions */
@@ -236,11 +154,11 @@
 
   /* Glass effect */
   .glass {
-    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border border-white/20 dark:border-gray-700/20;
+    @apply bg-white/80 backdrop-blur-sm border border-white/20;
   }
 }
 
-/* Enhanced Keyframes */
+/* General Animations (already present) */
 @keyframes fadeIn {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -330,3 +248,23 @@
     box-shadow: 0 0 0 0 rgba(38, 133, 121, 0);
   }
 }
+
+/* === NEW KEYFRAMES FOR EVOLVING DOCUMENT VISUAL === */
+
+/* Blinking cursor (already present from previous iteration, ensuring it's here) */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Removed old keyframes from Student Transformation Visual */
+/*
+@keyframes pulse-slow { ... }
+@keyframes float-fast { ... }
+@keyframes float-slow { ... }
+@keyframes pop-in { ... }
+@keyframes sparkle { ... }
+*/
