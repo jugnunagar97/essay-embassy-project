@@ -30,14 +30,12 @@ interface OrderFormData {
 interface User {
   id: string;
   name: string;
-  // Add other user properties if they exist in your AuthContext's User interface
-  // e.g., role: 'client' | 'admin';
 }
 
 interface AuthContextType {
   user: User | null;
-  register: (email: string, password: string, name: string) => Promise<void>;
-  login: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string, name: string) => Promise<any>;
+  login: (email: string, password: string) => Promise<any>;
   isLoading: boolean;
 }
 
@@ -80,7 +78,6 @@ const convertDeadlineToDate = (relativeDeadline: string): Date => {
 };
 
 export default function OrderNow() {
-  // Ensure useAuth provides all expected properties, cast for safety
   const { user, register: registerUser, login: loginUser, isLoading: isAuthLoading } = useAuth() as AuthContextType;
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -126,7 +123,7 @@ export default function OrderNow() {
       const totalPrice = watchedValues.pages * config.base * config.urgent * pageMultiplier;
       setPrice(Math.round(totalPrice * 100) / 100);
     } else {
-      setPrice(0); // Fallback to 0 if config is undefined
+      setPrice(0);
     }
   }, [watchedValues.academicLevel, watchedValues.deadline, watchedValues.pages, watchedValues.spacing]);
 
@@ -134,47 +131,38 @@ export default function OrderNow() {
     calculatePrice();
   }, [calculatePrice]);
 
-  // Redirect if user is already logged in and not in the middle of submitting an order
-  useEffect(() => {
-    // Only redirect if auth is loaded, user exists, AND we are NOT currently in the middle of submitting
-    // (isSubmitting is true during the auth modal process and order creation)
-    if (!isAuthLoading && user && !isSubmitting) {
-      navigate('/dashboard', { replace: true });
-    }
-  }, [user, isAuthLoading, navigate, isSubmitting]);
-
   const getNextOrderNumber = async (): Promise<number> => {
-    if (!db) throw new Error("Firebase database is not initialized.");
     const counterRef = doc(db, 'counters', 'orderCounter');
-    try {
-      const newOrderNumber = await runTransaction(db, async (transaction) => {
-        const counterDoc = await transaction.get(counterRef);
-        if (!counterDoc.exists()) {
-          transaction.set(counterRef, { currentNumber: 1001 });
-          return 1001;
-        }
-        const newNumber = counterDoc.data().currentNumber + 1;
-        transaction.update(counterRef, { currentNumber: newNumber });
-        return newNumber;
-      });
-      return newOrderNumber;
-    } catch (e) {
-      console.error("Transaction to get order number failed: ", e);
-      toast.error("Failed to generate order number. Please check your connection or try again.");
-      throw e;
-    }
+    const newOrderNumber = await runTransaction(db, async (transaction) => {
+      const counterDoc = await transaction.get(counterRef);
+      if (!counterDoc.exists()) {
+        transaction.set(counterRef, { currentNumber: 1001 });
+        return 1001;
+      }
+      const newNumber = counterDoc.data().currentNumber + 1;
+      transaction.update(counterRef, { currentNumber: newNumber });
+      return newNumber;
+    });
+    return newOrderNumber;
   };
   
   const createOrderInFirestore = useCallback(async (orderData: OrderFormData, author: { id: string, name: string }) => {
-    setIsSubmitting(true); // Keep submitting true during order creation
     try {
-      if (!db || !storage) throw new Error("Firebase is not initialized."); // Added check for storage
+      let uploadedFileUrls: string[] = [];
+      
+      if (files.length > 0) {
+        const fileUploadPromises = files.map(file => {
+          const fileRef = ref(storage, `order_files/${author.id}/${Date.now()}/${file.name}`);
+          return uploadBytes(fileRef, file).then(snapshot => getDownloadURL(snapshot.ref));
+        });
+        uploadedFileUrls = await Promise.all(fileUploadPromises);
+        console.log("Files uploaded successfully:", uploadedFileUrls);
+      } else {
+        console.log("No files to upload.");
+      }
+
       const orderNumber = await getNextOrderNumber();
-      const fileUploadPromises = files.map(file => {
-        const fileRef = ref(storage, `order_files/${author.id}/${orderNumber}/${file.name}`);
-        return uploadBytes(fileRef, file).then(snapshot => getDownloadURL(snapshot.ref));
-      });
-      const uploadedFileUrls = await Promise.all(fileUploadPromises);
+      console.log("Assigned order number:", orderNumber);
 
       const newOrderData = {
         orderNumber,
@@ -199,79 +187,80 @@ export default function OrderNow() {
         writerId: null,
       };
 
-      const docRef = await addDoc(collection(db, 'orders'), newOrderData);
-      toast.success(`Order #${orderNumber} created successfully!`);
-      navigate(`/dashboard/orders/${docRef.id}`);
+      await addDoc(collection(db, 'orders'), newOrderData);
+      console.log("Order document created successfully for order #", orderNumber);
+      toast.success(`Order #${orderNumber} created! Redirecting...`);
+      if (user) {
+        navigate('/dashboard', { replace: true }); // Only for logged-in users
+      }
+      return { success: true, orderNumber }; // Return success indicator
     } catch (error) {
-      console.error("Error creating order in Firestore: ", error);
-      toast.error(`Failed to create order. Please try again. ${error instanceof Error ? error.message : ''}`);
-    } finally {
-      setIsSubmitting(false); // Set false only after order creation attempt (success or fail)
+      console.error("Error in createOrderInFirestore:", error);
+      toast.error("Failed to create order. Please try again.");
+      throw error; // Propagate error to caller
     }
-  }, [navigate, price, files]);
-
-  // This useEffect is crucial for triggering order creation AFTER user state updates
-  useEffect(() => {
-    // Only proceed if user is logged in AND there's pending order data AND not already submitting
-    // (isSubmitting is used to prevent re-triggering if createOrderInFirestore is already running)
-    if (user && user.id && user.name && pendingOrderData && !isSubmitting) {
-      createOrderInFirestore(pendingOrderData, { id: user.id, name: user.name });
-      setPendingOrderData(null); // Clear pending data after initiating order creation
-      setShowAuthModal(false); // Close the modal
-    }
-  }, [user, pendingOrderData, createOrderInFirestore, isSubmitting]);
+  }, [navigate, price, files, user]);
 
   const handleFormSubmit = (data: OrderFormData) => {
     if (user) {
-      // If user is already logged in, proceed directly to create order
-      createOrderInFirestore(data, { id: user.id, name: user.name });
+      setIsSubmitting(true);
+      createOrderInFirestore(data, { id: user.id, name: user.name })
+        .catch(err => {
+          console.error("Error during direct order creation:", err);
+          toast.error("Failed to create order. Please try again.");
+        })
+        .finally(() => setIsSubmitting(false));
     } else {
-      // If user is not logged in, store pending data and show auth modal
       setPendingOrderData(data);
       setShowAuthModal(true);
-      setAuthModalMode('signup'); // Default to signup mode
+      setAuthModalMode('signup');
     }
   };
 
   const handleAuthSubmit = async () => {
-    setIsSubmitting(true); // Start submitting state for auth modal
+    if (!pendingOrderData) {
+      toast.error("Something went wrong, pending order data is missing.");
+      return;
+    }
+    
+    setIsSubmitting(true);
+
     try {
+      let authResult;
+      let finalUserName;
+
+      console.log("Starting auth process:", authModalMode);
       if (authModalMode === 'signup') {
-        if (!authName || !authEmail || !authPassword) {
-          toast.error('Please fill in all signup fields');
-          setIsSubmitting(false); // Reset submitting state if validation fails
-          return;
-        }
-        // Ensure registerUser is defined before calling
-        if (!registerUser) {
-          toast.error("Registration function not available.");
-          setIsSubmitting(false);
-          return;
-        }
-        await registerUser(authEmail, authPassword, authName);
+        if (!authName || !authEmail || !authPassword) throw new Error('Please fill in all signup fields');
+        authResult = await registerUser(authEmail, authPassword, authName);
+        finalUserName = authName;
+        console.log("Signup successful, user:", authResult.user.uid);
         toast.success('Account created! Finalizing your order...');
-      } else { // login mode
-        if (!authEmail || !authPassword) {
-          toast.error('Please fill in email and password');
-          setIsSubmitting(false); // Reset submitting state if validation fails
-          return;
-        }
-        // Ensure loginUser is defined before calling
-        if (!loginUser) {
-          toast.error("Login function not available.");
-          setIsSubmitting(false);
-          return;
-        }
-        await loginUser(authEmail, authPassword);
+      } else {
+        if (!authEmail || !authPassword) throw new Error('Please fill in email and password');
+        authResult = await loginUser(authEmail, authPassword);
+        finalUserName = authResult.user.displayName;
+        console.log("Login successful, user:", authResult.user.uid);
         toast.success('Logged in! Finalizing your order...');
       }
-      // Do NOT set setIsSubmitting(false) here. The useEffect above will be triggered
-      // by the `user` state change (from AuthContext) and will then call `createOrderInFirestore`,
-      // which has its own `setIsSubmitting(false)` in its finally block.
-      // This ensures `isSubmitting` remains true until the entire process (auth + order creation) completes.
+      
+      const loggedInUser = authResult?.user;
+      if (!loggedInUser || !loggedInUser.uid) {
+        throw new Error("Authentication succeeded but user details are missing.");
+      }
+
+      console.log("Creating order with user:", loggedInUser.uid);
+      await createOrderInFirestore(pendingOrderData, { id: loggedInUser.uid, name: finalUserName });
+      console.log("Order creation completed, navigating to dashboard");
+      navigate('/dashboard', { replace: true }); // Explicit navigation for auth flow
     } catch (error: any) {
+      console.error("Error in handleAuthSubmit:", error);
       toast.error(error.message || `Failed to ${authModalMode === 'signup' ? 'create account' : 'log in'}`);
-      setIsSubmitting(false); // Only set false on auth error, allowing user to retry auth
+    } finally {
+      console.log("Resetting states in finally block");
+      setIsSubmitting(false);
+      setPendingOrderData(null);
+      setShowAuthModal(false);
     }
   };
   
@@ -304,20 +293,12 @@ export default function OrderNow() {
   const errorStyle = "text-red-500 text-sm mt-1 flex items-center";
   const stepperButtonStyle = "w-10 h-10 border-2 border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
 
-  // Conditional rendering at the top level to handle loading and redirection
   if (isAuthLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <LoadingSpinner size="lg" />
       </div>
     );
-  }
-
-  // If user is logged in and not currently processing an order, redirect them
-  // The isSubmitting check is crucial here to allow the order creation process to complete
-  if (user && !isSubmitting) {
-    navigate('/dashboard', { replace: true });
-    return null; // Render nothing while redirecting
   }
 
   return (
@@ -532,10 +513,10 @@ export default function OrderNow() {
         {showAuthModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl p-8 max-w-md w-full relative">
-              {/* Close Button */}
               <button
-                onClick={() => { setShowAuthModal(false); setPendingOrderData(null); }}
+                onClick={() => { setShowAuthModal(false); setPendingOrderData(null); setIsSubmitting(false); }}
                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                disabled={isSubmitting}
               >
                 <X size={24} />
               </button>
@@ -557,6 +538,7 @@ export default function OrderNow() {
                       value={authName}
                       onChange={(e) => setAuthName(e.target.value)}
                       className={inputStyle}
+                      disabled={isSubmitting}
                     />
                   </div>
                 )}
@@ -568,6 +550,7 @@ export default function OrderNow() {
                     value={authEmail}
                     onChange={(e) => setAuthEmail(e.target.value)}
                     className={inputStyle}
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div>
@@ -579,11 +562,13 @@ export default function OrderNow() {
                       value={authPassword}
                       onChange={(e) => setAuthPassword(e.target.value)}
                       className={inputStyle}
+                      disabled={isSubmitting}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      disabled={isSubmitting}
                     >
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
@@ -595,13 +580,12 @@ export default function OrderNow() {
                 <button
                   onClick={handleAuthSubmit}
                   disabled={isSubmitting}
-                  className="flex-1 px-4 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-semibold transition-colors disabled:opacity-50 flex items-center justify-center"
                 >
                   {isSubmitting ? <LoadingSpinner size="sm" /> : (authModalMode === 'signup' ? 'Create Account & Submit' : 'Login & Submit')}
                 </button>
               </div>
 
-              {/* Toggle between Login and Signup */}
               <div className="mt-6 text-center">
                 {authModalMode === 'signup' ? (
                   <p className="text-gray-600">
@@ -610,6 +594,7 @@ export default function OrderNow() {
                       type="button"
                       onClick={() => setAuthModalMode('login')}
                       className="text-primary-500 font-medium hover:underline"
+                      disabled={isSubmitting}
                     >
                       Log In
                     </button>
@@ -621,6 +606,7 @@ export default function OrderNow() {
                       type="button"
                       onClick={() => setAuthModalMode('signup')}
                       className="text-primary-500 font-medium hover:underline"
+                      disabled={isSubmitting}
                     >
                       Sign Up
                     </button>

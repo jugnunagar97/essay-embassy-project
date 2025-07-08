@@ -1,148 +1,126 @@
 // src/context/AuthContext.tsx
 
-import React, { createContext, useContext, useState, useEffect } from 'react'; // Ensure createContext and useContext are imported
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '../types';
-import { auth, db } from '../firebase'; // Import auth and db from firebase.ts
+import { auth, db } from '../firebase';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
   onAuthStateChanged,
-  User as FirebaseAuthUser // Alias User from firebase/auth to avoid naming conflict
+  updateProfile,
+  User as FirebaseAuthUser
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import toast from 'react-hot-toast'; // Import toast for notifications
+import toast from 'react-hot-toast';
 
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<any>;
+  register: (email: string, password: string, name: string) => Promise<any>;
+  logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
 }
 
-// Declare AuthContext at the top level, outside of any components
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // This listener observes changes in Firebase Authentication state (login, logout)
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseAuthUser | null) => {
       if (firebaseUser) {
-        // User is signed in. Now, fetch their custom profile from Firestore.
         try {
           const userDocRef = doc(db, 'users', firebaseUser.uid);
           const userDocSnap = await getDoc(userDocRef);
 
           if (userDocSnap.exists()) {
-            // Found user profile in Firestore
-            const userDataFromFirestore = userDocSnap.data() as User; // Cast to your User interface
+            const userDataFromFirestore = userDocSnap.data();
             setUser({
               id: firebaseUser.uid,
-              // Prioritize email from firebaseUser, then from Firestore, then empty string
-              email: firebaseUser.email || userDataFromFirestore.email || '',
-              name: userDataFromFirestore.name,
-              role: userDataFromFirestore.role,
+              email: firebaseUser.email || '',
+              name: userDataFromFirestore.name || firebaseUser.displayName || 'User',
+              role: userDataFromFirestore.role || 'client',
               createdAt: userDataFromFirestore.createdAt,
               avatar: userDataFromFirestore.avatar
             });
           } else {
-            // Scenario: User exists in Firebase Auth but not in Firestore (e.g., if a user was created directly in console
-            // or an old account without a Firestore profile). Create a basic profile.
-            console.warn("User profile not found in Firestore for UID:", firebaseUser.uid, "Creating basic profile.");
-            const basicUser: User = {
-                id: firebaseUser.uid,
-                email: firebaseUser.email || '',
-                name: firebaseUser.displayName || 'New User', // Use Firebase displayName or default
-                role: 'client', // Default role
-                createdAt: new Date().toISOString(),
-                avatar: firebaseUser.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(firebaseUser.displayName || firebaseUser.email || '')}&background=random&color=fff`
-            };
-            await setDoc(doc(db, 'users', firebaseUser.uid), basicUser); // Create the Firestore document
-            setUser(basicUser); // Set the user state with the basic profile
+            console.warn(`Firestore document for user ${firebaseUser.uid} not found. This is expected during the registration process.`);
           }
         } catch (error) {
           console.error("Error fetching user profile from Firestore:", error);
-          toast.error("Failed to load user profile. Please try again.");
-          setUser(null); // Clear user if fetching profile fails
-          signOut(auth); // Sign out if profile is corrupted/unreachable
+          toast.error("Failed to load user profile.");
+          setUser(null);
+          await signOut(auth);
         }
       } else {
-        // User is signed out
         setUser(null);
       }
-      setIsLoading(false); // Authentication check is complete
+      setIsLoading(false);
     });
 
-    // Cleanup subscription on unmount to prevent memory leaks
     return () => unsubscribe();
-  }, []); // Empty dependency array: runs only once on component mount
+  }, []);
 
   const login = async (email: string, password: string) => {
-    setIsLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       toast.success("Logged in successfully!");
-      // The onAuthStateChanged listener will handle setting the user state after successful login
+      return userCredential;
     } catch (error: any) {
       console.error("Login error:", error);
-      toast.error(`Login failed: ${error.message}`);
-      throw error; // Re-throw to allow component (e.g., Login.tsx) to catch and display specific error
-    } finally {
-      setIsLoading(false);
+      const message = error.code === 'auth/invalid-credential' 
+        ? 'Invalid email or password.' 
+        : error.message;
+      toast.error(`Login failed: ${message}`);
+      throw error;
     }
   };
 
   const register = async (email: string, password: string, name: string) => {
-    setIsLoading(true);
     try {
-      // 1. Create user with Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const firebaseUser = userCredential.user;
+      
+      await updateProfile(firebaseUser, { displayName: name });
 
-      // 2. Create a corresponding user document in Firestore with custom fields
       const newUserProfile: User = {
         id: firebaseUser.uid,
-        email: firebaseUser.email || email, // Use email from Firebase Auth, fallback to input
+        email: firebaseUser.email || email,
         name,
-        role: 'client', // Default role for newly registered users
+        role: 'client',
         createdAt: new Date().toISOString(),
-        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&color=fff` // Generate a simple avatar
+        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&color=fff`
       };
+      
       await setDoc(doc(db, 'users', firebaseUser.uid), newUserProfile);
       
-      toast.success("Registration successful! Welcome to Essay Embassy.");
-      // The onAuthStateChanged listener will handle setting the user state after successful registration
+      setUser(newUserProfile);
+      
+      toast.success("Registration successful! Welcome.");
+      
+      return userCredential;
     } catch (error: any) {
       console.error("Registration error:", error);
       toast.error(`Registration failed: ${error.message}`);
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const logout = async () => {
-    setIsLoading(true);
     try {
       await signOut(auth);
       toast.success("Logged out successfully.");
-      // The onAuthStateChanged listener will handle clearing the user state
     } catch (error: any) {
       console.error("Logout error:", error);
       toast.error(`Logout failed: ${error.message}`);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const forgotPassword = async (email: string) => {
-    setIsLoading(true);
     try {
       await sendPasswordResetEmail(auth, email);
       toast.success("Password reset email sent! Check your inbox.");
@@ -150,26 +128,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error("Forgot password error:", error);
       toast.error(`Failed to send reset email: ${error.message}`);
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
 
+  const value = {
+    user,
+    isLoading,
+    login,
+    register,
+    logout,
+    forgotPassword
+  };
+
   return (
-    <AuthContext.Provider value={{
-      user,
-      isLoading,
-      login,
-      register,
-      logout,
-      forgotPassword
-    }}>
-      {children}
+    <AuthContext.Provider value={value}>
+      {!isLoading && children}
     </AuthContext.Provider>
   );
 }
 
-// Custom hook to consume the AuthContext
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
