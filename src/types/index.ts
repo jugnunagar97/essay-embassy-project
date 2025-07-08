@@ -1,6 +1,5 @@
 // src/types/index.ts
 
-// Add this import at the top of the file
 import { Timestamp } from 'firebase/firestore';
 
 export interface User {
@@ -12,9 +11,9 @@ export interface User {
   avatar?: string;
 }
 
-// === THIS IS THE CORRECTED ORDER INTERFACE ===
 export interface Order {
   id: string;
+  orderNumber: number; // <<< THE FIX IS HERE: This line has been added.
   clientId: string;
   clientName: string;
   academicLevel: string;
@@ -23,8 +22,8 @@ export interface Order {
   topic: string;
   pages: number;
   words: number;
-  deadline: Timestamp; // Corrected from string
-  citationStyle: string; // This field was missing/mismatched
+  deadline: Timestamp;
+  citationStyle: string;
   spacing: string;
   sources: number;
   instructions: string;
@@ -32,8 +31,8 @@ export interface Order {
   status: 'pending-payment' | 'in-progress' | 'revision' | 'editing' | 'completed' | 'cancelled';
   paymentStatus: 'pending' | 'completed';
   amount: number;
-  createdAt: Timestamp; // Corrected from string
-  writerId: string | null; // Corrected from 'writer?: string'
+  createdAt: Timestamp;
+  writerId: string | null;
   // Optional fields
   files?: any[];
   completedFiles?: any[];
@@ -49,7 +48,6 @@ export interface FileUpload {
   uploadedAt: string;
 }
 
-// Rest of the interfaces (BlogPost, Payment, etc.) remain unchanged
 export interface BlogPost {
   id: string;
   title: string;

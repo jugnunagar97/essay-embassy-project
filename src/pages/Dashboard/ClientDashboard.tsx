@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FileText, CheckCircle, XCircle, PlusCircle } from 'lucide-react';
+import { FileText, CheckCircle, XCircle, PlusCircle, Loader } from 'lucide-react';
 import StatusBadge from '../../components/Common/StatusBadge';
-import { isValid } from 'date-fns';
 import { useAuth } from '../../context/AuthContext';
-import { useOrders } from '../../hooks/useData';
 import { Order } from '../../types';
+import { db } from '../../firebase';
+import { collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
 
 // ==================================================================================
 // === REUSABLE STAT CARD COMPONENT ===
@@ -34,20 +34,22 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, iconBgColor }) 
 // ==================================================================================
 // === HELPER FUNCTION ===
 // ==================================================================================
-const formatDate = (dateString: string): string | React.ReactElement => {
-  if (!dateString) return 'N/A';
-  const date = new Date(dateString);
-  if (!isValid(date)) return 'N/A';
+const formatDate = (date: Timestamp | undefined): string | React.ReactElement => {
+  if (!date) return 'N/A';
+  // Convert Firebase Timestamp to JavaScript Date object
+  const jsDate = date.toDate();
   
   const now = new Date();
-  const diff = date.getTime() - now.getTime();
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const diff = jsDate.getTime() - now.getTime();
 
   if (diff < 0) {
     return <span className="text-red-500 font-semibold">Overdue</span>;
   }
-  return `${days} days ${hours} hours`;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+  return `${days}d ${hours}h left`;
 };
 
 // ==================================================================================
@@ -55,11 +57,43 @@ const formatDate = (dateString: string): string | React.ReactElement => {
 // ==================================================================================
 const ClientDashboard = () => {
   const { user } = useAuth();
-  const { orders } = useOrders();
+  // FIX #2: Fetch orders directly in the component
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [activeTab, setActiveTab] = useState<'in-progress' | 'revision' | 'editing' | 'completed'>('in-progress');
 
-  const pendingPaymentOrders = orders.filter(o => o.status === 'pending-payment');
+  // FIX #2: Add useEffect to fetch and listen for orders from Firestore
+  useEffect(() => {
+    if (!user) {
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+    const ordersRef = collection(db, 'orders');
+    const q = query(ordersRef, where('clientId', '==', user.id));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const fetchedOrders: Order[] = [];
+      querySnapshot.forEach((doc) => {
+        // Combine the document ID with the rest of the data
+        fetchedOrders.push({ id: doc.id, ...doc.data() } as Order);
+      });
+      setOrders(fetchedOrders);
+      setIsLoading(false);
+    }, (error) => {
+      console.error("Error fetching orders: ", error);
+      setIsLoading(false);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [user]);
+
+  const pendingPaymentOrders = useMemo(() => {
+    return orders.filter(o => o.status === 'pending-payment');
+  }, [orders]);
   
   const assignedOrders = useMemo(() => {
     return orders.filter(o => o.status === activeTab);
@@ -71,14 +105,20 @@ const ClientDashboard = () => {
     cancelled: orders.filter(o => o.status === 'cancelled').length,
   }), [orders]);
   
-  // === START: MODIFIED THIS LINE ===
   const tabs: { name: string; status: 'in-progress' | 'revision' | 'editing' | 'completed' }[] = [
     { name: 'In Progress', status: 'in-progress' },
     { name: 'Revision', status: 'revision' },
     { name: 'Editing', status: 'editing' },
     { name: 'Completed', status: 'completed' },
   ];
-  // === END: MODIFIED THIS LINE ===
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Loader className="animate-spin text-primary-500" size={48} />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -124,17 +164,27 @@ const ClientDashboard = () => {
         <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-soft border border-gray-200 dark:border-secondary-700">
           <div className="p-6 border-b border-gray-200 dark:border-secondary-700"><h3 className="text-lg font-semibold text-secondary-900 dark:text-white">Pending Payments</h3></div>
           <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead><tr className="bg-secondary-50 dark:bg-secondary-900/50"><th className="th-cell">#ID</th><th className="th-cell">Title</th><th className="th-cell">Type of Paper</th><th className="th-cell">Words</th><th className="th-cell">Writer</th><th className="th-cell">Action</th></tr></thead>
+            <table className="w-full text-sm text-left">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">#ID</th>
+                  <th scope="col" className="px-6 py-3">Title</th>
+                  <th scope="col" className="px-6 py-3">Type of Paper</th>
+                  <th scope="col" className="px-6 py-3">Words</th>
+                  <th scope="col" className="px-6 py-3">Writer</th>
+                  <th scope="col" className="px-6 py-3">Action</th>
+                </tr>
+              </thead>
               <tbody className="divide-y divide-secondary-200 dark:divide-secondary-700">
                 {pendingPaymentOrders.map((order: Order) => (
                   <tr key={order.id} className="hover:bg-secondary-50 dark:hover:bg-secondary-900/50">
-                    <td className="td-cell text-primary-500 font-medium"><Link to={`/dashboard/orders/${order.id.replace('#', '')}`}>{order.id}</Link></td>
-                    <td className="td-cell">{order.topic}</td>
-                    <td className="td-cell">{order.paperType}</td>
-                    <td className="td-cell">{order.words}</td>
-                    <td className="td-cell">{order.writer || 'N/A'}</td>
-                    <td className="td-cell"><button className="btn-danger px-4 py-2 text-sm">Pay Now (USD {order.amount})</button></td>
+                    {/* FIX #1: Display formatted orderNumber instead of ugly ID */}
+                    <td className="px-6 py-4 text-primary-500 font-medium"><Link to={`/dashboard/orders/${order.id}`}>EE{order.orderNumber}</Link></td>
+                    <td className="px-6 py-4">{order.topic}</td>
+                    <td className="px-6 py-4">{order.paperType}</td>
+                    <td className="px-6 py-4">{order.words}</td>
+                    <td className="px-6 py-4">{order.writerId || 'N/A'}</td>
+                    <td className="px-6 py-4"><button className="btn-primary px-4 py-2 text-sm">Pay Now (USD {order.amount})</button></td>
                   </tr>
                 ))}
               </tbody>
@@ -162,22 +212,35 @@ const ClientDashboard = () => {
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead><tr className="bg-secondary-50 dark:bg-secondary-900/50"><th className="th-cell">#ID</th><th className="th-cell">Title</th><th className="th-cell">Words</th><th className="th-cell">Deadline</th><th className="th-cell">Writer</th><th className="th-cell">Status</th></tr></thead>
+          <table className="w-full text-sm text-left">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-3">#ID</th>
+                <th scope="col" className="px-6 py-3">Title</th>
+                <th scope="col" className="px-6 py-3">Words</th>
+                <th scope="col" className="px-6 py-3">Deadline</th>
+                <th scope="col" className="px-6 py-3">Writer</th>
+                <th scope="col" className="px-6 py-3">Status</th>
+              </tr>
+            </thead>
             <tbody className="divide-y divide-secondary-200 dark:divide-secondary-700">
-              {assignedOrders.map((order: Order) => (
+              {assignedOrders.length > 0 ? assignedOrders.map((order: Order) => (
                 <tr key={order.id} className="hover:bg-secondary-50 dark:hover:bg-secondary-900/50">
-                  <td className="td-cell text-primary-500 font-medium"><Link to={`/dashboard/orders/${order.id.replace('#', '')}`}>{order.id}</Link></td>
-                  <td className="td-cell">{order.topic}</td>
-                  <td className="td-cell">{order.words}</td>
-                  <td className="td-cell font-medium">{formatDate(order.deadline)}</td>
-                  <td className="td-cell">{order.writer || 'Assigning...'}</td>
-                  <td className="td-cell"><StatusBadge status={order.status} /></td>
+                  {/* FIX #1: Display formatted orderNumber instead of ugly ID */}
+                  <td className="px-6 py-4 text-primary-500 font-medium"><Link to={`/dashboard/orders/${order.id}`}>EE{order.orderNumber}</Link></td>
+                  <td className="px-6 py-4">{order.topic}</td>
+                  <td className="px-6 py-4">{order.words}</td>
+                  <td className="px-6 py-4 font-medium">{formatDate(order.deadline)}</td>
+                  <td className="px-6 py-4">{order.writerId || 'Assigning...'}</td>
+                  <td className="px-6 py-4"><StatusBadge status={order.status} /></td>
                 </tr>
-              ))}
+              )) : (
+                <tr>
+                  <td colSpan={6} className="text-center text-muted py-8">No orders in this category.</td>
+                </tr>
+              )}
             </tbody>
           </table>
-          {assignedOrders.length === 0 && <p className="text-center text-muted py-8">No orders in this category.</p>}
         </div>
       </div>
     </div>

@@ -1,11 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
-  PlusCircle,
   MessageSquare,
   Settings,
   X,
-  MessageCircle as LiveChatIcon // Using an alias for clarity
+  MessageCircle as LiveChatIcon,
+  PlusCircle // Keep for admin menu
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -20,11 +20,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   if (!user) return null;
 
-  // === THIS IS THE CORRECTED MENU FOR CLIENTS ===
+  // === THE FIX IS HERE ===
+  // The "Place New Order" button has been removed from this list.
   const clientMenuItems = [
     { icon: LayoutDashboard, label: 'My Orders', path: '/dashboard' },
-    // === THIS IS THE CORRECTED LINE ===
-    { icon: PlusCircle, label: 'Place New Order', path: '/order-now' },
     { icon: MessageSquare, label: 'Messages', path: '/dashboard/messages' },
     { icon: LiveChatIcon, label: 'Live Chat', path: '/dashboard/chat' },
     { icon: Settings, label: 'Edit Profile', path: '/dashboard/settings' },
@@ -41,7 +40,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const menuItems = user.role === 'admin' ? adminMenuItems : clientMenuItems;
 
   const isActive = (path: string) => {
-    // Make the main dashboard active for both "/" and "/dashboard"
     if (path === '/dashboard') {
       return location.pathname === '/dashboard' || location.pathname === '/dashboard/';
     }
@@ -79,7 +77,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         {/* Navigation */}
         <nav className="p-4">
           <div className="mb-6">
-            <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 px-4">
+            <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-4">
               {user.role === 'admin' ? 'Admin Panel' : 'Client Portal'}
             </h3>
           </div>

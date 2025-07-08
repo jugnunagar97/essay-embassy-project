@@ -1,84 +1,25 @@
-import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  BookOpen, 
   Users, 
-  Award, 
   Clock, 
   CheckCircle, 
   Star,
   ArrowRight,
-  PenTool,
   FileText,
   GraduationCap,
   Shield,
   RefreshCw,
   Headphones,
-  Upload,
-  Calendar,
   Download,
-  TrendingUp,
   DollarSign,
-  MessageCircle,
-  Zap,
-  Target,
-  Globe,
-  ChevronLeft,
-  ChevronRight
+  Calendar
 } from 'lucide-react';
 import TestimonialTabs from '../components/Testimonials/TestimonialTabs';
 import HeroSection from '../components/Hero/HeroSection';
 import { useTestimonials } from '../hooks/useTestimonials';
 
 export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const { testimonials } = useTestimonials();
-
-  const slides = [
-    {
-      title: "Plagiarism-Free Work",
-      subtitle: "100% original content with detailed reports",
-      description: "Every paper is written from scratch by our expert writers with comprehensive plagiarism checking",
-      image: "https://images.pexels.com/photos/261763/pexels-photo-261763.jpeg?auto=compress&cs=tinysrgb&w=800&h=400",
-      gradient: "from-emerald-600 to-teal-600"
-    },
-    {
-      title: "Delivered On Time",
-      subtitle: "We meet your deadlines, always",
-      description: "100% on-time delivery guarantee with express options for urgent assignments",
-      image: "https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=800&h=400",
-      gradient: "from-blue-600 to-indigo-600"
-    },
-    {
-      title: "Affordable Rates",
-      subtitle: "Student-friendly pricing from $12/page",
-      description: "Quality academic help that fits your budget without compromising on excellence",
-      image: "https://images.pexels.com/photos/259027/pexels-photo-259027.jpeg?auto=compress&cs=tinysrgb&w=800&h=400",
-      gradient: "from-purple-600 to-pink-600"
-    },
-    {
-      title: "24/7 Expert Support",
-      subtitle: "Always here when you need us",
-      description: "Round-the-clock customer support and expert guidance throughout your order",
-      image: "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800&h=400",
-      gradient: "from-orange-600 to-red-600"
-    }
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
 
   const trustSignals = [
     { 
@@ -554,7 +495,7 @@ export default function Home() {
                   ))}
                 </ul>
                 <Link
-                  to="/order"
+                  to="/order-now"
                   className={`inline-flex items-center justify-center w-full px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 ${
                     plan.popular 
                       ? 'bg-primary-500 hover:bg-primary-600 text-white transform shadow-medium hover:shadow-strong' 
@@ -651,7 +592,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/order"
+                to="/order-now"
                 className="bg-white text-primary-500 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors inline-flex items-center justify-center shadow-medium transform hover:scale-105"
               >
                 <GraduationCap className="mr-2" size={20} />

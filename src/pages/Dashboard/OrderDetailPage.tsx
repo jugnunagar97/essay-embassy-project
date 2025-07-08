@@ -38,23 +38,10 @@ interface ChatMessage {
 // ==================================================================================
 // === HELPER FUNCTIONS ===
 // ==================================================================================
-const formatDate = (timestamp: Timestamp | null, formatString: string = 'MMM dd, yyyy HH:mm'): string => {
+const formatDateFromTimestamp = (timestamp: Timestamp | null, formatString: string = 'MMM dd, yyyy HH:mm'): string => {
   if (!timestamp?.toDate) return 'N/A';
   const date = timestamp.toDate();
   return isValid(date) ? format(date, formatString) : 'N/A';
-};
-
-const mapStatus = (status: Order['status']): 'pending-payment' | 'in-progress' | 'revision' | 'editing' | 'completed' | 'cancelled' => {
-  const validStatuses: { [key: string]: 'pending-payment' | 'in-progress' | 'revision' | 'editing' | 'completed' | 'cancelled' } = {
-    'pending': 'pending-payment',
-    'pending-payment': 'pending-payment',
-    'in-progress': 'in-progress',
-    'revision': 'revision',
-    'editing': 'editing',
-    'completed': 'completed',
-    'cancelled': 'cancelled',
-  };
-  return validStatuses[status] || 'pending-payment';
 };
 
 // ==================================================================================
@@ -68,7 +55,7 @@ export default function OrderDetailPage() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
-  const [activeTab, setActiveTab] = useState('details'); // State for active tab
+  const [activeTab, setActiveTab] = useState('details');
 
   // Effect to fetch the specific order data
   useEffect(() => {
@@ -142,14 +129,15 @@ export default function OrderDetailPage() {
     return <Navigate to="/dashboard" replace />;
   }
 
-  const uploadedFiles = order.files || [];
+  const uploadedFiles = order.fileUrls || []; // Using fileUrls as per the type
   const completedFiles = order.completedFiles || [];
 
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-secondary-900 dark:text-white">Order ID: #{order.id.substring(0, 7)}...</h1>
+          {/* === THE FIX IS HERE === */}
+          <h1 className="text-3xl font-bold text-secondary-900 dark:text-white">Order ID: #EE{order.orderNumber}</h1>
           <p className="text-muted mt-1">Topic: {order.topic}</p>
         </div>
         <div className="flex items-center gap-4">
@@ -165,10 +153,10 @@ export default function OrderDetailPage() {
             {/* Tab Navigation */}
             <div className="border-b border-gray-200 dark:border-gray-700">
               <nav className="-mb-px flex space-x-6 px-6">
-                <button onClick={() => setActiveTab('details')} className={`tab-button ${activeTab === 'details' ? 'tab-active' : 'tab-inactive'}`}>
+                <button onClick={() => setActiveTab('details')} className={`py-4 px-1 inline-flex items-center gap-2 text-sm font-medium text-center border-b-2 ${activeTab === 'details' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
                   <ClipboardList className="mr-2" size={16} /> Details
                 </button>
-                <button onClick={() => setActiveTab('files')} className={`tab-button ${activeTab === 'files' ? 'tab-active' : 'tab-inactive'}`}>
+                <button onClick={() => setActiveTab('files')} className={`py-4 px-1 inline-flex items-center gap-2 text-sm font-medium text-center border-b-2 ${activeTab === 'files' ? 'border-primary-500 text-primary-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}>
                   <FileUp className="mr-2" size={16} /> Files
                 </button>
               </nav>
@@ -186,8 +174,8 @@ export default function OrderDetailPage() {
                       <div className="flex justify-between"><span className="text-muted">Amount:</span> <span className="font-medium">${order.amount.toFixed(2)}</span></div>
                       <div className="flex justify-between"><span className="text-muted">Writer:</span> <span className="font-medium">{order.writerId || 'Pending'}</span></div>
                       <div className="flex justify-between"><span className="text-muted">Pages:</span> <span className="font-medium">{order.pages} (~{order.words} words)</span></div>
-                      <div className="flex justify-between"><span className="text-muted">Deadline:</span> <span className="font-medium">{formatDate(order.deadline)}</span></div>
-                      <div className="flex justify-between"><span className="text-muted">Status:</span> <span><StatusBadge status={mapStatus(order.status)} /></span></div>
+                      <div className="flex justify-between"><span className="text-muted">Deadline:</span> <span className="font-medium">{formatDateFromTimestamp(order.deadline)}</span></div>
+                      <div className="flex justify-between"><span className="text-muted">Status:</span> <span><StatusBadge status={order.status} /></span></div>
                       <div className="flex justify-between">
                         <span className="text-muted">Payment:</span> 
                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${paymentStatusClasses[order.paymentStatus]}`}>
@@ -207,19 +195,22 @@ export default function OrderDetailPage() {
                 <div className="space-y-6">
                   <div>
                     <h4 className="font-medium text-lg mb-4">Files You Uploaded</h4>
-                    {uploadedFiles.length > 0 ? uploadedFiles.map((file, index) => (
-                      <div key={index} className="bg-secondary-50 dark:bg-secondary-700/50 p-3 rounded-lg flex justify-between items-center mb-2">
-                        <div className="flex items-center gap-3"><FileText className="h-5 w-5 text-muted"/> <span className="font-medium">{file.name}</span> <span className="text-xs text-muted">({(file.size / 1024).toFixed(1)} KB)</span></div>
-                        <a href={file.url} download className="btn-icon-sm"><Download className="h-4 w-4"/></a>
-                      </div>
-                    )) : <p className="text-sm text-muted">No files were uploaded for this order.</p>}
+                    {uploadedFiles.length > 0 ? uploadedFiles.map((url, index) => {
+                      const fileName = url.split('/').pop()?.split('?')[0] || `file-${index+1}`;
+                      return (
+                        <div key={index} className="bg-secondary-50 dark:bg-secondary-700/50 p-3 rounded-lg flex justify-between items-center mb-2">
+                          <div className="flex items-center gap-3"><FileText className="h-5 w-5 text-muted"/> <span className="font-medium">{decodeURIComponent(fileName)}</span></div>
+                          <a href={url} target="_blank" rel="noopener noreferrer" className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600"><Download className="h-4 w-4"/></a>
+                        </div>
+                      )
+                    }) : <p className="text-sm text-muted">No files were uploaded for this order.</p>}
                   </div>
                   <div className="pt-6 border-t border-secondary-200 dark:border-secondary-700">
                     <h4 className="font-medium text-lg mb-4">Completed Files from Writer</h4>
                     {completedFiles.length > 0 ? completedFiles.map((file, index) => (
                       <div key={index} className="bg-green-50 dark:bg-green-900/50 p-3 rounded-lg flex justify-between items-center mb-2">
                         <div className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-green-500"/> <span className="font-medium">{file.name}</span> <span className="text-xs text-muted">({(file.size / 1024).toFixed(1)} KB)</span></div>
-                        <a href={file.url} download className="btn-icon-sm bg-green-500 hover:bg-green-600 text-white"><Download className="h-4 w-4"/></a>
+                        <a href={file.url} download className="p-2 rounded-md bg-green-500 hover:bg-green-600 text-white"><Download className="h-4 w-4"/></a>
                       </div>
                     )) : <p className="text-sm text-muted">The writer has not uploaded any completed files yet.</p>}
                   </div>
@@ -241,7 +232,7 @@ export default function OrderDetailPage() {
                   </div>
                   <div className={`p-3 rounded-lg max-w-xs ${msg.senderId === user?.id ? 'bg-primary-500 text-white' : 'bg-secondary-100 dark:bg-secondary-700'}`}>
                     <p className="text-sm">{msg.text}</p>
-                    <p className={`text-xs mt-1 ${msg.senderId === user?.id ? 'text-primary-100' : 'text-muted'} text-right`}>{formatDate(msg.timestamp, 'HH:mm')}</p>
+                    <p className={`text-xs mt-1 ${msg.senderId === user?.id ? 'text-primary-100' : 'text-muted'} text-right`}>{formatDateFromTimestamp(msg.timestamp, 'HH:mm')}</p>
                   </div>
                 </div>
               ))}
@@ -257,7 +248,7 @@ export default function OrderDetailPage() {
                   rows={2}
                 />
                 <div className="absolute right-2 top-2 flex items-center gap-1">
-                  <button className="btn-icon-sm"><Paperclip className="h-4 w-4"/></button>
+                  <button className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600"><Paperclip className="h-4 w-4"/></button>
                   <button onClick={handleSendMessage} className="btn-primary rounded-md p-2"><Send className="h-4 w-4"/></button>
                 </div>
               </div>
