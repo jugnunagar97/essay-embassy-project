@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useSearchParams, Navigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Upload, FileText, Plus, Minus, X, AlertCircle, CreditCard, DollarSign, Eye, EyeOff
 } from 'lucide-react';
@@ -30,13 +30,15 @@ interface OrderFormData {
 interface User {
   id: string;
   name: string;
+  // Add other user properties if they exist in your AuthContext's User interface
+  // e.g., role: 'client' | 'admin';
 }
 
 interface AuthContextType {
-  user?: User | null; // Optional user to handle undefined cases
-  register?: (email: string, password: string, name: string) => Promise<void>; // Optional to avoid errors if not provided
-  login?: (email: string, password: string) => Promise<void>; // Optional
-  isLoading?: boolean; // Optional
+  user: User | null;
+  register: (email: string, password: string, name: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  isLoading: boolean;
 }
 
 interface PriceConfig {
@@ -78,8 +80,8 @@ const convertDeadlineToDate = (relativeDeadline: string): Date => {
 };
 
 export default function OrderNow() {
-  const authResult = useAuth();
-  const { user = null, register: registerUser = () => Promise.resolve(), login: loginUser = () => Promise.resolve(), isLoading: isAuthLoading = false } = authResult as Partial<AuthContextType>;
+  // Ensure useAuth provides all expected properties, cast for safety
+  const { user, register: registerUser, login: loginUser, isLoading: isAuthLoading } = useAuth() as AuthContextType;
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -132,7 +134,10 @@ export default function OrderNow() {
     calculatePrice();
   }, [calculatePrice]);
 
+  // Redirect if user is already logged in and not in the middle of submitting an order
   useEffect(() => {
+    // Only redirect if auth is loaded, user exists, AND we are NOT currently in the middle of submitting
+    // (isSubmitting is true during the auth modal process and order creation)
     if (!isAuthLoading && user && !isSubmitting) {
       navigate('/dashboard', { replace: true });
     }
@@ -161,12 +166,11 @@ export default function OrderNow() {
   };
   
   const createOrderInFirestore = useCallback(async (orderData: OrderFormData, author: { id: string, name: string }) => {
-    if (!db || !storage) throw new Error("Firebase is not initialized.");
-    setIsSubmitting(true);
+    setIsSubmitting(true); // Keep submitting true during order creation
     try {
+      if (!db || !storage) throw new Error("Firebase is not initialized."); // Added check for storage
       const orderNumber = await getNextOrderNumber();
       const fileUploadPromises = files.map(file => {
-        if (!storage) throw new Error("Firebase storage is not initialized.");
         const fileRef = ref(storage, `order_files/${author.id}/${orderNumber}/${file.name}`);
         return uploadBytes(fileRef, file).then(snapshot => getDownloadURL(snapshot.ref));
       });
@@ -202,53 +206,72 @@ export default function OrderNow() {
       console.error("Error creating order in Firestore: ", error);
       toast.error(`Failed to create order. Please try again. ${error instanceof Error ? error.message : ''}`);
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false); // Set false only after order creation attempt (success or fail)
     }
   }, [navigate, price, files]);
 
+  // This useEffect is crucial for triggering order creation AFTER user state updates
   useEffect(() => {
+    // Only proceed if user is logged in AND there's pending order data AND not already submitting
+    // (isSubmitting is used to prevent re-triggering if createOrderInFirestore is already running)
     if (user && user.id && user.name && pendingOrderData && !isSubmitting) {
       createOrderInFirestore(pendingOrderData, { id: user.id, name: user.name });
-      setPendingOrderData(null);
-      setShowAuthModal(false);
+      setPendingOrderData(null); // Clear pending data after initiating order creation
+      setShowAuthModal(false); // Close the modal
     }
   }, [user, pendingOrderData, createOrderInFirestore, isSubmitting]);
 
   const handleFormSubmit = (data: OrderFormData) => {
     if (user) {
+      // If user is already logged in, proceed directly to create order
       createOrderInFirestore(data, { id: user.id, name: user.name });
     } else {
+      // If user is not logged in, store pending data and show auth modal
       setPendingOrderData(data);
       setShowAuthModal(true);
-      setAuthModalMode('signup');
+      setAuthModalMode('signup'); // Default to signup mode
     }
   };
 
   const handleAuthSubmit = async () => {
-    setIsSubmitting(true);
+    setIsSubmitting(true); // Start submitting state for auth modal
     try {
       if (authModalMode === 'signup') {
         if (!authName || !authEmail || !authPassword) {
           toast.error('Please fill in all signup fields');
+          setIsSubmitting(false); // Reset submitting state if validation fails
+          return;
+        }
+        // Ensure registerUser is defined before calling
+        if (!registerUser) {
+          toast.error("Registration function not available.");
           setIsSubmitting(false);
           return;
         }
-        if (!registerUser) throw new Error("Registration function is not available.");
         await registerUser(authEmail, authPassword, authName);
         toast.success('Account created! Finalizing your order...');
-      } else {
+      } else { // login mode
         if (!authEmail || !authPassword) {
           toast.error('Please fill in email and password');
+          setIsSubmitting(false); // Reset submitting state if validation fails
+          return;
+        }
+        // Ensure loginUser is defined before calling
+        if (!loginUser) {
+          toast.error("Login function not available.");
           setIsSubmitting(false);
           return;
         }
-        if (!loginUser) throw new Error("Login function is not available.");
         await loginUser(authEmail, authPassword);
         toast.success('Logged in! Finalizing your order...');
       }
+      // Do NOT set setIsSubmitting(false) here. The useEffect above will be triggered
+      // by the `user` state change (from AuthContext) and will then call `createOrderInFirestore`,
+      // which has its own `setIsSubmitting(false)` in its finally block.
+      // This ensures `isSubmitting` remains true until the entire process (auth + order creation) completes.
     } catch (error: any) {
       toast.error(error.message || `Failed to ${authModalMode === 'signup' ? 'create account' : 'log in'}`);
-      setIsSubmitting(false);
+      setIsSubmitting(false); // Only set false on auth error, allowing user to retry auth
     }
   };
   
@@ -281,6 +304,7 @@ export default function OrderNow() {
   const errorStyle = "text-red-500 text-sm mt-1 flex items-center";
   const stepperButtonStyle = "w-10 h-10 border-2 border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
 
+  // Conditional rendering at the top level to handle loading and redirection
   if (isAuthLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -289,8 +313,11 @@ export default function OrderNow() {
     );
   }
 
+  // If user is logged in and not currently processing an order, redirect them
+  // The isSubmitting check is crucial here to allow the order creation process to complete
   if (user && !isSubmitting) {
-    return <Navigate to="/dashboard" replace />;
+    navigate('/dashboard', { replace: true });
+    return null; // Render nothing while redirecting
   }
 
   return (
@@ -327,280 +354,282 @@ export default function OrderNow() {
                 </div>
               </div>
               <div>
-                  <label className={labelStyle}>Subject</label>
-                  <select
-                    {...register('subject', { required: "Subject is required" })}
-                    className={`${inputStyle} form-select`}
-                  >
-                    {subjects.map(subject => <option key={subject} value={subject}>{subject}</option>)}
-                  </select>
-                  {errors.subject && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.subject.message}</p>}
-                </div>
-                <div>
-                  <label className={labelStyle}>Topic</label>
-                  <input type="text" {...register('topic', { required: "Topic is required." })} className={inputStyle} placeholder="e.g., The Impact of AI on Modern Society" />
-                  {errors.topic && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.topic.message}</p>}
-                </div>
-                <div>
-                  <label className={labelStyle}>Number of Sources</label>
-                  <input
-                    type="number"
-                    {...register('sources', { required: "Number of sources is required", min: 0 })}
-                    className={inputStyle}
-                    placeholder="e.g., 5"
-                  />
-                  {errors.sources && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.sources.message}</p>}
-                </div>
-                <div>
-                  <label className={labelStyle}>Paper Instructions</label>
-                  <textarea
-                    {...register('instructions', { required: "Instructions are required" })}
-                    rows={5}
-                    className={inputStyle}
-                    placeholder="Include all necessary details for your assignment..."
-                  ></textarea>
-                  {errors.instructions && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.instructions.message}</p>}
-                </div>
-                <div className="border-t border-gray-200 pt-6">
-                  <label className={labelStyle}>Upload Files (Optional)</label>
-                  <div
-                    className={`border-2 border-dashed rounded-lg p-6 transition-colors ${isDragOver ? 'border-primary-500 bg-primary-50' : 'border-gray-300'}`}
-                    onDrop={handleDrop}
-                    onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
-                    onDragLeave={() => setIsDragOver(false)}
-                  >
-                    <div className="text-center">
-                      <Upload className="mx-auto h-10 w-10 text-gray-400" />
-                      <p className="mt-2 text-sm text-gray-600">
-                        Drag & drop files or{' '}
-                        <label htmlFor="file-upload" className="text-primary-500 cursor-pointer hover:underline">
-                          browse
-                        </label>
-                      </p>
-                      <input
-                        type="file"
-                        multiple
-                        onChange={handleFileChange}
-                        className="hidden"
-                        id="file-upload"
-                      />
-                    </div>
-                  </div>
-                  {files.length > 0 && (
-                    <div className="mt-4 space-y-2">
-                      {files.map((file, index) => (
-                        <div key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded-lg">
-                          <div className="flex items-center text-sm">
-                            <FileText size={16} className="mr-2 text-gray-500" />
-                            <span>{file.name}</span>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => removeFile(index)}
-                            className="text-red-500 hover:text-red-700"
-                          >
-                            <X size={16} />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </form>
-            </div>
-
-            <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24 space-y-6">
-                <h3 className="text-xl font-bold text-gray-900 flex items-center">
-                  <DollarSign className="mr-2 text-primary-500" size={24} />
-                  Order Summary
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className={labelStyle}>Pages</label>
-                    <div className="flex items-center">
-                      <button
-                        type="button"
-                        onClick={() => handlePagesChange(false)}
-                        className={stepperButtonStyle}
-                        disabled={watchedValues.pages <= 1}
-                      >
-                        <Minus size={16} />
-                      </button>
-                      <input
-                        type="number"
-                        {...register('pages', { required: true, min: 1, valueAsNumber: true })}
-                        className={`${inputStyle} text-center mx-2`}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => handlePagesChange(true)}
-                        className={stepperButtonStyle}
-                      >
-                        <Plus size={16} />
-                      </button>
-                    </div>
-                    {errors.pages && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.pages.message || "Pages are required"}</p>}
-                  </div>
-                  <div>
-                    <label className={labelStyle}>Spacing</label>
-                    <select {...register('spacing')} className={inputStyle}>
-                      <option value="double">Double</option>
-                      <option value="single">Single</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label className={labelStyle}>Deadline</label>
-                  <select
-                    {...register('deadline', { required: "Deadline is required" })}
-                    className={inputStyle}
-                  >
-                    {deadlines.map(d => (
-                      <option key={d} value={d}>{d}</option>
-                    ))}
-                  </select>
-                  {errors.deadline && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.deadline.message}</p>}
-                </div>
-                <div>
-                  <label className={labelStyle}>Citation Style</label>
-                  <select
-                    {...register('citationStyle', { required: "Citation style is required" })}
-                    className={inputStyle}
-                  >
-                    {citationStyles.map(style => (
-                      <option key={style} value={style}>{style}</option>
-                    ))}
-                  </select>
-                  {errors.citationStyle && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.citationStyle.message}</p>}
-                </div>
-                <div className="border-t border-gray-200 pt-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold text-gray-900">Total Price:</span>
-                    <p className="text-3xl font-bold text-primary-500">${price}</p>
-                  </div>
-                </div>
-                <button
-                  onClick={handleSubmit(handleFormSubmit)}
-                  disabled={isSubmitting}
-                  className="w-full btn-primary py-3 flex items-center justify-center text-lg"
+                <label className={labelStyle}>Subject</label>
+                <select
+                  {...register('subject', { required: "Subject is required" })}
+                  className={`${inputStyle} form-select`}
                 >
-                  {isSubmitting ? (
-                    <>
-                      <LoadingSpinner size="sm" className="mr-2" />
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      <CreditCard size={20} className="mr-2" />
-                      Submit & Continue
-                    </>
-                  )}
-                </button>
+                  {subjects.map(subject => <option key={subject} value={subject}>{subject}</option>)}
+                </select>
+                {errors.subject && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.subject.message}</p>}
               </div>
-            </div>
+              <div>
+                <label className={labelStyle}>Topic</label>
+                <input type="text" {...register('topic', { required: "Topic is required." })} className={inputStyle} placeholder="e.g., The Impact of AI on Modern Society" />
+                {errors.topic && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.topic.message}</p>}
+              </div>
+              <div>
+                <label className={labelStyle}>Number of Sources</label>
+                <input
+                  type="number"
+                  {...register('sources', { required: "Number of sources is required", min: 0 })}
+                  className={inputStyle}
+                  placeholder="e.g., 5"
+                />
+                {errors.sources && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.sources.message}</p>}
+              </div>
+              <div>
+                <label className={labelStyle}>Paper Instructions</label>
+                <textarea
+                  {...register('instructions', { required: "Instructions are required" })}
+                  rows={5}
+                  className={inputStyle}
+                  placeholder="Include all necessary details for your assignment..."
+                ></textarea>
+                {errors.instructions && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.instructions.message}</p>}
+              </div>
+              <div className="border-t border-gray-200 pt-6">
+                <label className={labelStyle}>Upload Files (Optional)</label>
+                <div
+                  className={`border-2 border-dashed rounded-lg p-6 transition-colors ${isDragOver ? 'border-primary-500 bg-primary-50' : 'border-gray-300'}`}
+                  onDrop={handleDrop}
+                  onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+                  onDragLeave={() => setIsDragOver(false)}
+                >
+                  <div className="text-center">
+                    <Upload className="mx-auto h-10 w-10 text-gray-400" />
+                    <p className="mt-2 text-sm text-gray-600">
+                      Drag & drop files or{' '}
+                      <label htmlFor="file-upload" className="text-primary-500 cursor-pointer hover:underline">
+                        browse
+                      </label>
+                    </p>
+                    <input
+                      type="file"
+                      multiple
+                      onChange={handleFileChange}
+                      className="hidden"
+                      id="file-upload"
+                    />
+                  </div>
+                </div>
+                {files.length > 0 && (
+                  <div className="mt-4 space-y-2">
+                    {files.map((file, index) => (
+                      <div key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded-lg">
+                        <div className="flex items-center text-sm">
+                          <FileText size={16} className="mr-2 text-gray-500" />
+                          <span>{file.name}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => removeFile(index)}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </form>
           </div>
 
-          {showAuthModal && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-              <div className="bg-white rounded-2xl p-8 max-w-md w-full relative">
-                <button
-                  onClick={() => { setShowAuthModal(false); setPendingOrderData(null); }}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-                >
-                  <X size={24} />
-                </button>
-
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">
-                  {authModalMode === 'signup' ? 'Create Account to Continue' : 'Login to Continue'}
-                </h3>
-                <p className="text-gray-600 mb-6 text-center">
-                  {authModalMode === 'signup' ? "We'll create your account and place your order immediately." : "Log in to finalize your order."}
-                </p>
-
-                <div className="space-y-4">
-                  {authModalMode === 'signup' && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                      <input
-                        type="text"
-                        placeholder="Full Name"
-                        value={authName}
-                        onChange={(e) => setAuthName(e.target.value)}
-                        className={inputStyle}
-                      />
-                    </div>
-                  )}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24 space-y-6">
+              <h3 className="text-xl font-bold text-gray-900 flex items-center">
+                <DollarSign className="mr-2 text-primary-500" size={24} />
+                Order Summary
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className={labelStyle}>Pages</label>
+                  <div className="flex items-center">
+                    <button
+                      type="button"
+                      onClick={() => handlePagesChange(false)}
+                      className={stepperButtonStyle}
+                      disabled={watchedValues.pages <= 1}
+                    >
+                      <Minus size={16} />
+                    </button>
                     <input
-                      type="email"
-                      placeholder="Email Address"
-                      value={authEmail}
-                      onChange={(e) => setAuthEmail(e.target.value)}
+                      type="number"
+                      {...register('pages', { required: true, min: 1, valueAsNumber: true })}
+                      className={`${inputStyle} text-center mx-2`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handlePagesChange(true)}
+                      className={stepperButtonStyle}
+                    >
+                      <Plus size={16} />
+                    </button>
+                  </div>
+                  {errors.pages && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.pages.message || "Pages are required"}</p>}
+                </div>
+                <div>
+                  <label className={labelStyle}>Spacing</label>
+                  <select {...register('spacing')} className={inputStyle}>
+                    <option value="double">Double</option>
+                    <option value="single">Single</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className={labelStyle}>Deadline</label>
+                <select
+                  {...register('deadline', { required: "Deadline is required" })}
+                  className={inputStyle}
+                >
+                  {deadlines.map(d => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+                {errors.deadline && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.deadline.message}</p>}
+              </div>
+              <div>
+                <label className={labelStyle}>Citation Style</label>
+                <select
+                  {...register('citationStyle', { required: "Citation style is required" })}
+                  className={inputStyle}
+                >
+                  {citationStyles.map(style => (
+                    <option key={style} value={style}>{style}</option>
+                  ))}
+                </select>
+                {errors.citationStyle && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.citationStyle.message}</p>}
+              </div>
+              <div className="border-t border-gray-200 pt-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-lg font-semibold text-gray-900">Total Price:</span>
+                  <p className="text-3xl font-bold text-primary-500">${price}</p>
+                </div>
+              </div>
+              <button
+                onClick={handleSubmit(handleFormSubmit)}
+                disabled={isSubmitting}
+                className="w-full btn-primary py-3 flex items-center justify-center text-lg"
+              >
+                {isSubmitting ? (
+                  <>
+                    <LoadingSpinner size="sm" className="mr-2" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <CreditCard size={20} className="mr-2" />
+                    Submit & Continue
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Authentication Modal (Login/Signup) */}
+        {showAuthModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full relative">
+              {/* Close Button */}
+              <button
+                onClick={() => { setShowAuthModal(false); setPendingOrderData(null); }}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              >
+                <X size={24} />
+              </button>
+
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+                {authModalMode === 'signup' ? 'Create Account to Continue' : 'Login to Continue'}
+              </h3>
+              <p className="text-gray-600 mb-6 text-center">
+                {authModalMode === 'signup' ? "We'll create your account and place your order immediately." : "Log in to finalize your order."}
+              </p>
+
+              <div className="space-y-4">
+                {authModalMode === 'signup' && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      value={authName}
+                      onChange={(e) => setAuthName(e.target.value)}
                       className={inputStyle}
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="Password"
-                        value={authPassword}
-                        onChange={(e) => setAuthPassword(e.target.value)}
-                        className={inputStyle}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                      >
-                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                      </button>
-                    </div>
+                )}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    value={authEmail}
+                    onChange={(e) => setAuthEmail(e.target.value)}
+                    className={inputStyle}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Password"
+                      value={authPassword}
+                      onChange={(e) => setAuthPassword(e.target.value)}
+                      className={inputStyle}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
                   </div>
                 </div>
+              </div>
 
-                <div className="flex space-x-4 mt-6">
-                  <button
-                    onClick={handleAuthSubmit}
-                    disabled={isSubmitting}
-                    className="flex-1 px-4 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
-                  >
-                    {isSubmitting ? <LoadingSpinner size="sm" /> : (authModalMode === 'signup' ? 'Create Account & Submit' : 'Login & Submit')}
-                  </button>
-                </div>
+              <div className="flex space-x-4 mt-6">
+                <button
+                  onClick={handleAuthSubmit}
+                  disabled={isSubmitting}
+                  className="flex-1 px-4 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-semibold transition-colors disabled:opacity-50"
+                >
+                  {isSubmitting ? <LoadingSpinner size="sm" /> : (authModalMode === 'signup' ? 'Create Account & Submit' : 'Login & Submit')}
+                </button>
+              </div>
 
-                <div className="mt-6 text-center">
-                  {authModalMode === 'signup' ? (
-                    <p className="text-gray-600">
-                      Already have an account?{' '}
-                      <button
-                        type="button"
-                        onClick={() => setAuthModalMode('login')}
-                        className="text-primary-500 font-medium hover:underline"
-                      >
-                        Log In
-                      </button>
-                    </p>
-                  ) : (
-                    <p className="text-gray-600">
-                      Don't have an account?{' '}
-                      <button
-                        type="button"
-                        onClick={() => setAuthModalMode('signup')}
-                        className="text-primary-500 font-medium hover:underline"
-                      >
-                        Sign Up
-                      </button>
-                    </p>
-                  )}
-                </div>
+              {/* Toggle between Login and Signup */}
+              <div className="mt-6 text-center">
+                {authModalMode === 'signup' ? (
+                  <p className="text-gray-600">
+                    Already have an account?{' '}
+                    <button
+                      type="button"
+                      onClick={() => setAuthModalMode('login')}
+                      className="text-primary-500 font-medium hover:underline"
+                    >
+                      Log In
+                    </button>
+                  </p>
+                ) : (
+                  <p className="text-gray-600">
+                    Don't have an account?{' '}
+                    <button
+                      type="button"
+                      onClick={() => setAuthModalMode('signup')}
+                      className="text-primary-500 font-medium hover:underline"
+                    >
+                      Sign Up
+                    </button>
+                  </p>
+                )}
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
