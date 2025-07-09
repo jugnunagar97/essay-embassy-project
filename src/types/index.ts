@@ -9,6 +9,7 @@ export interface User {
   role: 'admin' | 'client';
   createdAt: string;
   avatar?: string;
+  phone?: string; 
 }
 
 export interface Order {
@@ -31,8 +32,7 @@ export interface Order {
   paymentStatus: 'pending' | 'completed';
   amount: number;
   createdAt: Timestamp;
-  writerId: string | null;
-  // Optional fields
+  writerId?: string | null;
   files?: any[];
   completedFiles?: any[];
   updatedAt?: Timestamp;
@@ -54,11 +54,13 @@ export interface BlogPost {
   excerpt: string;
   featuredImage: string;
   author: string;
-  publishedAt: string;
+  publishedAt: Timestamp | null;
   tags: string[];
   category: string;
   slug: string;
   published: boolean;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }
 
 export interface Payment {
@@ -94,7 +96,7 @@ export interface Testimonial {
 export interface ServiceCategory {
   id: string;
   name: string;
-  description?: string;
+  description: string;
   icon?: string;
   order: number;
   isActive: boolean;
@@ -106,8 +108,8 @@ export interface SubService {
   id: string;
   categoryId: string;
   name: string;
-  description?: string;
-  link?: string;
+  description: string;
+  link: string;
   order: number;
   isActive: boolean;
   createdAt: string;
@@ -119,7 +121,7 @@ export interface Review {
   name: string;
   rating: number;
   content: string;
-  orderId?: string; // Made optional as it will no longer be strictly required from user input
+  orderId?: string; 
   location?: string;
   purchaseDate?: string;
   platform?: 'google' | 'trustpilot' | 'sitejabber' | 'website';
@@ -139,7 +141,7 @@ export interface ReviewSubmission {
   name: string;
   rating: number;
   content: string;
-  orderId?: string; // <-- CHANGED THIS LINE: Made orderId optional
+  orderId?: string; 
   isAnonymous?: boolean;
 }
 
@@ -162,4 +164,16 @@ export interface ReviewStats {
     sitejabber: number;
     website: number;
   };
+}
+
+export interface Sample {
+  id: string;
+  title: string;
+  subject: string;
+  academicLevel: string;
+  fileUrl: string;
+  fileName: string;
+  fileType: string;
+  fileSize: number;
+  createdAt: Timestamp;
 }

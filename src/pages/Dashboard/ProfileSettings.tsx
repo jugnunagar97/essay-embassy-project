@@ -1,218 +1,143 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { 
-  User, 
-  Lock, 
-  Save, 
-  Eye, 
-  EyeOff,
-  Edit
-} from 'lucide-react';
+// src/pages/Dashboard/ProfileSettings.tsx
+
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import LoadingSpinner from '../../components/Common/LoadingSpinner';
+import { db, auth } from '../../firebase'; // FIXED: import 'auth' alongside 'db'
+import { doc, updateDoc } from 'firebase/firestore';
+import { updateProfile } from 'firebase/auth';
 import toast from 'react-hot-toast';
+import { User, KeyRound, AlertTriangle, Save } from 'lucide-react'; // FIXED: Removed unused 'Mail' icon
+import LoadingSpinner from '../../components/Common/LoadingSpinner';
 
-// === FIREBASE IMPORTS ===
-import { getAuth, updateProfile, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
-
-// ==================================================================================
-// === TYPE DEFINITIONS ===
-// ==================================================================================
-interface ProfileFormData {
-  name: string;
-  email: string;
-}
-
-interface PasswordFormData {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-}
-
-// ==================================================================================
-// === MAIN COMPONENT ===
-// ==================================================================================
 export default function ProfileSettings() {
-  const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState('my-profile'); // 'my-profile' or 'edit-profile'
-  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
-  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { user, forgotPassword, isLoading: isAuthLoading } = useAuth();
+  
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const {
-    register: registerProfile,
-    handleSubmit: handleProfileSubmit,
-    formState: { errors: profileErrors }
-  } = useForm<ProfileFormData>({
-    defaultValues: {
-      name: user?.name || '',
-      email: user?.email || ''
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
     }
-  });
+  }, [user]);
 
-  const {
-    register: registerPassword,
-    handleSubmit: handlePasswordSubmit,
-    watch,
-    reset: resetPasswordForm,
-    formState: { errors: passwordErrors }
-  } = useForm<PasswordFormData>();
-
-  const newPassword = watch('newPassword');
-
-  const onProfileSubmit = async (data: ProfileFormData) => {
-    setIsUpdatingProfile(true);
-    const auth = getAuth();
-    const currentUser = auth.currentUser;
-
-    if (!currentUser) {
-      toast.error("You must be logged in to update your profile.");
-      setIsUpdatingProfile(false);
-      return;
+  const handleProfileUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) return;
+    if (name === user.name) {
+        toast('No changes to save.');
+        return;
     }
+
+    setIsSubmitting(true);
+    const toastId = toast.loading('Updating profile...');
 
     try {
-      await updateProfile(currentUser, { displayName: data.name });
-      toast.success('Profile updated successfully! Refresh the page to see changes.');
-    } catch (error) {
-      toast.error('Failed to update profile. Please try again.');
-      console.error("Profile update error:", error);
-    } finally {
-      setIsUpdatingProfile(false);
-    }
-  };
-
-  const onPasswordSubmit = async (data: PasswordFormData) => {
-    setIsUpdatingPassword(true);
-    const auth = getAuth();
-    const currentUser = auth.currentUser;
-
-    if (!currentUser || !currentUser.email) {
-      toast.error("User not found. Please log in again.");
-      setIsUpdatingPassword(false);
-      return;
-    }
-
-    try {
-      const credential = EmailAuthProvider.credential(currentUser.email, data.currentPassword);
-      await reauthenticateWithCredential(currentUser, credential);
-      await updatePassword(currentUser, data.newPassword);
-      
-      toast.success('Password updated successfully!');
-      resetPasswordForm();
-    } catch (error: any) {
-      if (error.code === 'auth/wrong-password') {
-        toast.error('Incorrect current password.');
-      } else {
-        toast.error('Failed to update password. Please try again.');
+      // FIXED: Changed from 'db.app.auth()' to the correct 'auth' object
+      if (auth.currentUser) {
+        // Update Firebase Auth profile (this changes user.displayName)
+        await updateProfile(auth.currentUser, { displayName: name });
       }
-      console.error("Password update error:", error);
+
+      // Update Firestore document
+      const userDocRef = doc(db, 'users', user.id);
+      await updateDoc(userDocRef, { name });
+
+      toast.success('Profile updated successfully! Changes will be fully visible on next login.', { id: toastId });
+    } catch (error: any) {
+      console.error("Error updating profile:", error);
+      toast.error(error.message || 'Failed to update profile.', { id: toastId });
     } finally {
-      setIsUpdatingPassword(false);
+      setIsSubmitting(false);
     }
   };
 
-  const labelStyle = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2";
-  const inputStyle = "w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors";
-  const errorStyle = "text-red-500 text-sm mt-1";
-  const infoRowStyle = "flex justify-between py-3 border-b border-gray-200 dark:border-gray-700";
-  const infoLabelStyle = "text-gray-600 dark:text-gray-400";
-  const infoValueStyle = "font-medium text-gray-900 dark:text-white";
+  const handlePasswordReset = async () => {
+    if (!user) return;
+    try {
+      await forgotPassword(user.email);
+    } catch (error) {
+      // Error toast is already handled inside the forgotPassword function
+      console.error("Failed to send password reset email from settings page.");
+    }
+  };
+
+  if (isAuthLoading || !user) {
+    return <div className="min-h-screen flex items-center justify-center"><LoadingSpinner size="lg" /></div>;
+  }
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-        {/* Tab Navigation */}
-        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-          <div className="flex space-x-2 bg-gray-100 dark:bg-gray-900/50 p-1 rounded-lg">
-            <button onClick={() => setActiveTab('my-profile')} className={`flex-1 px-3 py-2 text-sm font-semibold rounded-md transition-colors ${activeTab === 'my-profile' ? 'bg-primary-500 text-white shadow' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}>
-              My Profile
-            </button>
-            <button onClick={() => setActiveTab('edit-profile')} className={`flex-1 px-3 py-2 text-sm font-semibold rounded-md transition-colors ${activeTab === 'edit-profile' ? 'bg-primary-500 text-white shadow' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}>
-              Edit Profile
-            </button>
-          </div>
-        </div>
+    <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white p-4 lg:p-8 space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold">Settings</h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-1">Manage your account preferences and profile.</p>
+      </div>
 
-        {/* Tab Content */}
-        <div className="p-6">
-          {activeTab === 'my-profile' && (
-            <div className="space-y-4 animate-fade-in">
-              <div className={infoRowStyle}><span className={infoLabelStyle}>My ID:</span> <span className={infoValueStyle}>#{user?.id.substring(0, 8)}...</span></div>
-              <div className={infoRowStyle}><span className={infoLabelStyle}>Full Name:</span> <span className={infoValueStyle}>{user?.name}</span></div>
-              <div className={infoRowStyle}><span className={infoLabelStyle}>Email:</span> <span className={infoValueStyle}>{user?.email}</span></div>
-              <div className={infoRowStyle}><span className={infoLabelStyle}>Password:</span> <span className={infoValueStyle}>**********</span></div>
-              <div className="pt-4 text-center">
-                <button onClick={() => setActiveTab('edit-profile')} className="btn-primary">
-                  <Edit size={16} className="mr-2" />
-                  Edit My Profile
-                </button>
+      {/* Profile Information Card */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+        <form onSubmit={handleProfileUpdate}>
+          <div className="p-6">
+            <h2 className="text-xl font-bold flex items-center"><User className="mr-3 text-primary-500"/>Profile Information</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Update your personal details.</p>
+            <div className="mt-6 space-y-4">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium mb-1">Full Name</label>
+                <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700" />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-1">Email Address</label>
+                <input type="email" id="email" value={email} disabled
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 opacity-70 cursor-not-allowed" />
+                <p className="text-xs text-gray-400 mt-1">Changing your email address requires support assistance.</p>
               </div>
             </div>
-          )}
-
-          {activeTab === 'edit-profile' && (
-            <div className="grid lg:grid-cols-2 gap-8 animate-fade-in">
-              {/* Profile Information Form */}
-              <form onSubmit={handleProfileSubmit(onProfileSubmit)} className="space-y-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
-                  <User className="mr-2 text-primary-500" size={20} />
-                  Update Information
-                </h3>
-                <div>
-                  <label className={labelStyle}>Full Name</label>
-                  <input type="text" {...registerProfile('name', { required: 'Name is required' })} className={inputStyle} />
-                  {profileErrors.name && <p className={errorStyle}>{profileErrors.name.message}</p>}
-                </div>
-                <div>
-                  <label className={labelStyle}>Email Address (Cannot be changed)</label>
-                  <input type="email" {...registerProfile('email')} className={`${inputStyle} bg-gray-100 dark:bg-gray-900 cursor-not-allowed`} readOnly />
-                </div>
-                <button type="submit" disabled={isUpdatingProfile} className="w-full btn-primary py-3 flex items-center justify-center">
-                  {isUpdatingProfile ? <><LoadingSpinner size="sm" className="mr-2" />Updating...</> : <><Save size={20} className="mr-2" />Save Changes</>}
-                </button>
-              </form>
-
-              {/* Password Security Form */}
-              <form onSubmit={handlePasswordSubmit(onPasswordSubmit)} className="space-y-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
-                  <Lock className="mr-2 text-primary-500" size={20} />
-                  Update Password
-                </h3>
-                <div>
-                  <label className={labelStyle}>Current Password</label>
-                  <div className="relative">
-                    <input type={showCurrentPassword ? 'text' : 'password'} {...registerPassword('currentPassword', { required: 'Current password is required' })} className={inputStyle} />
-                    <button type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">{showCurrentPassword ? <EyeOff size={20} /> : <Eye size={20} />}</button>
-                  </div>
-                  {passwordErrors.currentPassword && <p className={errorStyle}>{passwordErrors.currentPassword.message}</p>}
-                </div>
-                <div>
-                  <label className={labelStyle}>New Password</label>
-                  <div className="relative">
-                    <input type={showNewPassword ? 'text' : 'password'} {...registerPassword('newPassword', { required: 'New password is required', minLength: { value: 8, message: 'Password must be at least 8 characters' } })} className={inputStyle} />
-                    <button type="button" onClick={() => setShowNewPassword(!showNewPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">{showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}</button>
-                  </div>
-                  {passwordErrors.newPassword && <p className={errorStyle}>{passwordErrors.newPassword.message}</p>}
-                </div>
-                <div>
-                  <label className={labelStyle}>Confirm New Password</label>
-                  <div className="relative">
-                    <input type={showConfirmPassword ? 'text' : 'password'} {...registerPassword('confirmPassword', { required: 'Please confirm your new password', validate: value => value === newPassword || 'Passwords do not match' })} className={inputStyle} />
-                    <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">{showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}</button>
-                  </div>
-                  {passwordErrors.confirmPassword && <p className={errorStyle}>{passwordErrors.confirmPassword.message}</p>}
-                </div>
-                <button type="submit" disabled={isUpdatingPassword} className="w-full btn-primary py-3 flex items-center justify-center">
-                  {isUpdatingPassword ? <><LoadingSpinner size="sm" className="mr-2" />Updating...</> : <><Lock size={20} className="mr-2" />Update Password</>}
-                </button>
-              </form>
-            </div>
-          )}
-        </div>
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-800/50 px-6 py-4 rounded-b-xl flex justify-end">
+            <button type="submit" disabled={isSubmitting || name === user.name}
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold flex items-center justify-center disabled:opacity-50 hover:bg-primary-700 transition-colors">
+              {isSubmitting ? <LoadingSpinner size="sm" className="mr-2" /> : <Save size={16} className="mr-2"/>}
+              {isSubmitting ? 'Saving...' : 'Save Changes'}
+            </button>
+          </div>
+        </form>
       </div>
+
+      {/* Security Settings Card */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+          <div className="p-6">
+            <h2 className="text-xl font-bold flex items-center"><KeyRound className="mr-3 text-primary-500"/>Security</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your password.</p>
+            <div className="mt-4 flex justify-between items-center">
+                <p className="font-medium">Password</p>
+                <button onClick={handlePasswordReset} className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-semibold rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    Send Password Reset Email
+                </button>
+            </div>
+          </div>
+      </div>
+      
+      {/* Danger Zone Card */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-2 border-red-500/50 dark:border-red-500/30">
+          <div className="p-6">
+            <h2 className="text-xl font-bold flex items-center text-red-500"><AlertTriangle className="mr-3"/>Danger Zone</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Irreversible and destructive actions.</p>
+            <div className="mt-4 flex justify-between items-center">
+                <div>
+                    <p className="font-bold">Delete This Account</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Once deleted, all data will be gone forever.</p>
+                </div>
+                <button 
+                  onClick={() => toast.error('This action is disabled on the admin panel for security reasons.')}
+                  className="px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition-colors">
+                    Delete Account
+                </button>
+            </div>
+          </div>
+      </div>
+
     </div>
   );
 }

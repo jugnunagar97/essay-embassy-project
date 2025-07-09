@@ -9,8 +9,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
-import BlogPage from './pages/BlogPage';
-import BlogPostPage from './pages/BlogPostPage';
+import BlogPage from './pages/BlogPage'; // Public Blog Page
+import BlogPostPage from './pages/BlogPostPage'; // Public Blog Post Page
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import RefundPolicy from './pages/RefundPolicy';
@@ -21,13 +21,15 @@ import Register from './pages/Auth/Register';
 
 // Dashboard Pages
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
-import AdminDashboard from './pages/Dashboard/AdminDashboard'; // Corrected import path
+import AdminDashboard from './pages/Dashboard/AdminDashboard'; 
 import LiveChat from './pages/Dashboard/LiveChat';
 import ProfileSettings from './pages/Dashboard/ProfileSettings';
 import OrderDetailPage from './pages/Dashboard/OrderDetailPage';
-import Messages from './pages/Dashboard/Messages';
+import Messages from './pages/Dashboard/AdminMessages'; 
 import NewOrder from './pages/Dashboard/NewOrder'; 
-import Orders from './pages/Dashboard/Orders'; // <-- NEW: Import Orders component
+import Orders from './pages/Dashboard/Orders'; 
+import UserManagement from './pages/Dashboard/UserManagement'; 
+import UserDetail from './pages/Dashboard/UserDetail'; 
 
 // Order Pages
 import OrderForm from './pages/Order/OrderForm';
@@ -44,7 +46,7 @@ import ScholarshipEssay from './pages/Services/ScholarshipEssay';
 import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
 import NarrativeEssay from './pages/Services/NarrativeEssay';
 import AssignmentHelp from './pages/Services/AssignmentHelp';
-import EnglishAssignmentHelp from './pages/Services/EnglishAssignmentHelp';
+import EnglishAssignmentHelp from './pages/Services/EnglishAssignmentHelp'; 
 import PhysicsAssignmentHelp from './pages/Services/PhysicsAssignmentHelp';
 import ProgrammingHelp from './pages/Services/ProgrammingHelp';
 import CaseStudyHelp from './pages/Services/CaseStudyHelp';
@@ -63,14 +65,18 @@ import TestimonialManager from './components/Admin/TestimonialManager';
 import ServiceManager from './components/Admin/ServiceManager';
 import SampleManager from './components/Admin/SampleManager';
 import ReviewManager from './components/Admin/ReviewManager';
-
+import BlogManager from './components/Admin/BlogManager'; // <-- NEW: Import BlogManager
 
 // === HELPER COMPONENTS ===
 function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode, adminOnly?: boolean }) {
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div></div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500"></div>
+      </div>
+    );
   }
   if (!user) { return <Navigate to="/login" replace />; }
   if (adminOnly && user.role !== 'admin') { return <Navigate to="/dashboard" replace />; }
@@ -109,7 +115,7 @@ function AppContent() {
         <Route path="/services/argumentative-essay" element={<ArgumentativeEssay />} />
         <Route path="/services/narrative-essay" element={<NarrativeEssay />} />
         <Route path="/services/assignment-help" element={<AssignmentHelp />} />
-        <Route path="/services/english-assignment-help" element={<EnglishAssignmentHelp />} />
+        <Route path="/services/english-assignment-help" element={<EnglishAssignmentHelp />} /> 
         <Route path="/services/physics-assignment-help" element={<PhysicsAssignmentHelp />} />
         <Route path="/services/programming-help" element={<ProgrammingHelp />} />
         <Route path="/services/case-study-help" element={<CaseStudyHelp />} />
@@ -133,19 +139,21 @@ function AppContent() {
         
         {/* Protected Routes */}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
-        <Route path="/dashboard/orders" element={<ProtectedRoute adminOnly><Orders /></ProtectedRoute>} /> {/* <-- NEW: Orders Management Route */}
+        <Route path="/dashboard/orders" element={<ProtectedRoute adminOnly><Orders /></ProtectedRoute>} /> 
         <Route path="/dashboard/orders/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} />
         <Route path="/dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
         <Route path="/dashboard/settings" element={<ProtectedRoute><ProfileSettings /></ProtectedRoute>} />
-        <Route path="/dashboard/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
+        <Route path="/dashboard/messages" element={<ProtectedRoute adminOnly><Messages /></ProtectedRoute>} /> 
         <Route path="/dashboard/new-order" element={<ProtectedRoute adminOnly><NewOrder /></ProtectedRoute>} /> 
+        <Route path="/dashboard/users" element={<ProtectedRoute adminOnly><UserManagement /></ProtectedRoute>} /> 
+        <Route path="/dashboard/users/:userId" element={<ProtectedRoute adminOnly><UserDetail /></ProtectedRoute>} /> 
 
         {/* Admin Only Routes */}
         <Route path="/dashboard/testimonials" element={<ProtectedRoute adminOnly><TestimonialManager /></ProtectedRoute>} />
         <Route path="/dashboard/services" element={<ProtectedRoute adminOnly><ServiceManager /></ProtectedRoute>} />
         <Route path="/dashboard/samples" element={<ProtectedRoute adminOnly><SampleManager /></ProtectedRoute>} />
         <Route path="/dashboard/reviews" element={<ProtectedRoute adminOnly><ReviewManager /></ProtectedRoute>} />
-        <Route path="/dashboard/blog" element={<ProtectedRoute adminOnly><BlogPage /></ProtectedRoute>} /> 
+        <Route path="/dashboard/blog" element={<ProtectedRoute adminOnly><BlogManager /></ProtectedRoute>} /> {/* <-- NEW: Route /dashboard/blog to BlogManager for admins */}
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
