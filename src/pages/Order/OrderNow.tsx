@@ -45,16 +45,38 @@ interface PriceConfig {
   };
 }
 
+// === UPDATED priceConfig and academicLevels to match HomePage ===
 const priceConfig: PriceConfig = {
-  "College": { "3 hours": { base: 25, urgent: 1.8 }, "6 hours": { base: 22, urgent: 1.6 }, "12 hours": { base: 18, urgent: 1.4 }, "24 hours": { base: 15, urgent: 1.2 }, "48 hours": { base: 12, urgent: 1.0 }, "3 days": { base: 12, urgent: 1.0 }, "5 days": { base: 12, urgent: 1.0 }, "7 days": { base: 12, urgent: 1.0 }, "10 days": { base: 12, urgent: 1.0 }, "14 days": { base: 12, urgent: 1.0 } },
-  "Undergraduate": { "3 hours": { base: 28, urgent: 1.8 }, "6 hours": { base: 25, urgent: 1.6 }, "12 hours": { base: 21, urgent: 1.4 }, "24 hours": { base: 18, urgent: 1.2 }, "48 hours": { base: 15, urgent: 1.0 }, "3 days": { base: 15, urgent: 1.0 }, "5 days": { base: 15, urgent: 1.0 }, "7 days": { base: 15, urgent: 1.0 }, "10 days": { base: 15, urgent: 1.0 }, "14 days": { base: 15, urgent: 1.0 } },
-  "Masters": { "3 hours": { base: 32, urgent: 1.8 }, "6 hours": { base: 29, urgent: 1.6 }, "12 hours": { base: 25, urgent: 1.4 }, "24 hours": { base: 22, urgent: 1.2 }, "48 hours": { base: 19, urgent: 1.0 }, "3 days": { base: 19, urgent: 1.0 }, "5 days": { base: 19, urgent: 1.0 }, "7 days": { base: 19, urgent: 1.0 }, "10 days": { base: 19, urgent: 1.0 }, "14 days": { base: 19, urgent: 1.0 } },
-  "PhD": { "3 hours": { base: 38, urgent: 1.8 }, "6 hours": { base: 35, urgent: 1.6 }, "12 hours": { base: 31, urgent: 1.4 }, "24 hours": { base: 28, urgent: 1.2 }, "48 hours": { base: 25, urgent: 1.0 }, "3 days": { base: 25, urgent: 1.0 }, "5 days": { base: 25, urgent: 1.0 }, "7 days": { base: 25, urgent: 1.0 }, "10 days": { base: 25, urgent: 1.0 }, "14 days": { base: 25, urgent: 1.0 } }
+  // Assuming 'High School' base price is $12
+  "High School": {
+    "3 hours": { base: 18, urgent: 1.8 }, "6 hours": { base: 16, urgent: 1.6 }, "12 hours": { base: 14, urgent: 1.4 },
+    "24 hours": { base: 12, urgent: 1.2 }, "48 hours": { base: 12, urgent: 1.0 }, "3 days": { base: 12, urgent: 1.0 },
+    "5 days": { base: 12, urgent: 1.0 }, "7 days": { base: 12, urgent: 1.0 }, "10 days": { base: 12, urgent: 1.0 }, "14 days": { base: 12, urgent: 1.0 }
+  },
+  // 'College' base price is $15
+  "College": {
+    "3 hours": { base: 25, urgent: 1.8 }, "6 hours": { base: 22, urgent: 1.6 }, "12 hours": { base: 18, urgent: 1.4 },
+    "24 hours": { base: 15, urgent: 1.2 }, "48 hours": { base: 15, urgent: 1.0 }, "3 days": { base: 15, urgent: 1.0 },
+    "5 days": { base: 15, urgent: 1.0 }, "7 days": { base: 15, urgent: 1.0 }, "10 days": { base: 15, urgent: 1.0 }, "14 days": { base: 15, urgent: 1.0 }
+  },
+  // 'University' base price is $18
+  "University": { // Renamed from "Undergraduate" or "Masters" to match Home.tsx
+    "3 hours": { base: 28, urgent: 1.8 }, "6 hours": { base: 25, urgent: 1.6 }, "12 hours": { base: 21, urgent: 1.4 },
+    "24 hours": { base: 18, urgent: 1.2 }, "48 hours": { base: 18, urgent: 1.0 }, "3 days": { base: 18, urgent: 1.0 },
+    "5 days": { base: 18, urgent: 1.0 }, "7 days": { base: 18, urgent: 1.0 }, "10 days": { base: 18, urgent: 1.0 }, "14 days": { base: 18, urgent: 1.0 }
+  },
+  // Keeping PhD as it is, as it's a higher level not explicitly on home page pricing
+  "PhD": {
+    "3 hours": { base: 38, urgent: 1.8 }, "6 hours": { base: 35, urgent: 1.6 }, "12 hours": { base: 31, urgent: 1.4 },
+    "24 hours": { base: 28, urgent: 1.2 }, "48 hours": { base: 25, urgent: 1.0 }, "3 days": { base: 25, urgent: 1.0 },
+    "5 days": { base: 25, urgent: 1.0 }, "7 days": { base: 25, urgent: 1.0 }, "10 days": { base: 25, urgent: 1.0 }, "14 days": { base: 25, urgent: 1.0 }
+  }
 };
 
 const paperTypes = ["Essay (Any Type)", "Admission Essay", "Analysis", "Annotated Bibliography", "Article Review", "Assignment", "Book/Movie Review", "Business Plan", "Capstone Project", "Case Study", "Coursework", "Creative Writing", "Critical Thinking", "Dissertation", "Lab Report", "Research Paper", "Research Proposal", "Speech", "Term Paper", "Thesis"];
 const subjects = ["Business Studies", "Computer Science", "Economics", "Education", "Engineering", "English", "Health Sciences", "History", "Law", "Literature", "Management", "Marketing", "Nursing", "Political Science", "Psychology", "Sociology", "Other"];
-const academicLevels = ["College", "Undergraduate", "Masters", "PhD"];
+// === UPDATED academicLevels to match Home.tsx ===
+const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 const citationStyles = ["APA", "MLA", "Chicago", "Harvard", "Other"];
 
@@ -72,7 +94,7 @@ const convertDeadlineToDate = (relativeDeadline: string): Date => {
     case "7 days": futureDate.setDate(now.getDate() + 7); break;
     case "10 days": futureDate.setDate(now.getDate() + 10); break;
     case "14 days": futureDate.setDate(now.getDate() + 14); break;
-    default: futureDate.setDate(now.getDate() + 2);
+    default: futureDate.setDate(now.getDate() + 2); // Fallback for safety
   }
   return futureDate;
 };
@@ -101,6 +123,7 @@ export default function OrderNow() {
     formState: { errors }
   } = useForm<OrderFormData>({
     defaultValues: {
+      // Read academicLevel from URL, if present. Otherwise, default to "College".
       academicLevel: searchParams.get('academicLevel') || "College",
       paperType: searchParams.get('paperType') || "Essay (Any Type)",
       pages: parseInt(searchParams.get('pages') || '1'),
@@ -123,13 +146,26 @@ export default function OrderNow() {
       const totalPrice = watchedValues.pages * config.base * config.urgent * pageMultiplier;
       setPrice(Math.round(totalPrice * 100) / 100);
     } else {
-      setPrice(0);
+      // Fallback for cases where config is not found (e.g., mismatch or invalid selection)
+      // This will set a default price if an unsupported academic level or deadline is chosen.
+      // You might want to display an error or a default message instead of 0 if this happens in production.
+      setPrice(0); 
+      console.warn("Price configuration not found for:", watchedValues.academicLevel, watchedValues.deadline);
     }
   }, [watchedValues.academicLevel, watchedValues.deadline, watchedValues.pages, watchedValues.spacing]);
 
   useEffect(() => {
+    // This effect ensures the price is calculated when component mounts or relevant values change
     calculatePrice();
   }, [calculatePrice]);
+
+  // === NEW EFFECT TO SET FORM VALUE FROM URL PARAMETER ===
+  useEffect(() => {
+    const academicLevelFromUrl = searchParams.get('academicLevel');
+    if (academicLevelFromUrl && academicLevels.includes(academicLevelFromUrl)) {
+      setValue('academicLevel', academicLevelFromUrl);
+    }
+  }, [searchParams, setValue]); // Re-run if searchParams or setValue changes
 
   const getNextOrderNumber = async (): Promise<number> => {
     const counterRef = doc(db, 'counters', 'orderCounter');

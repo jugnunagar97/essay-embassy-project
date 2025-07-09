@@ -15,7 +15,16 @@ import toast from 'react-hot-toast';
 
 // === FIREBASE IMPORTS ===
 import { db } from '../../firebase';
-import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, Timestamp } from 'firebase/firestore';
+import { 
+  collection, 
+  addDoc, 
+  query, 
+  orderBy, 
+  onSnapshot, 
+  serverTimestamp, 
+  Timestamp,
+  doc // Added doc import for subcollections
+} from 'firebase/firestore';
 
 // ==================================================================================
 // === TYPE DEFINITIONS & HELPERS (with Firestore Timestamp) ===
@@ -41,7 +50,7 @@ const formatDate = (timestamp: Timestamp | null, formatString: string = 'HH:mm')
 };
 
 // ==================================================================================
-// === REUSABLE UI SUB-COMPONENTS ===
+// === REUSABLE UI SUB-COMPONENTS === (No changes needed here)
 // ==================================================================================
 const ChatHeader: React.FC<{ isOnline: boolean }> = ({ isOnline }) => (
   <div className="p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-primary-500 to-primary-600 rounded-t-xl">
@@ -130,14 +139,21 @@ const MessageInput: React.FC<{
 // === MAIN LIVE CHAT COMPONENT ===
 // ==================================================================================
 export default function LiveChat() {
-  const { user } = useAuth();
+  const { user } = useAuth(); // Get the current authenticated user
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const messagesCollectionRef = collection(db, 'live-chat-messages');
-    const q = query(messagesCollectionRef, orderBy('timestamp'));
+    // Only proceed if user is logged in
+    if (!user?.id) {
+      setMessages([]); // Clear messages if no user is logged in
+      return; 
+    }
+
+    // Reference to the subcollection of messages for the current user
+    const userMessagesCollectionRef = collection(db, 'users', user.id, 'messages');
+    const q = query(userMessagesCollectionRef, orderBy('timestamp'));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const msgs = querySnapshot.docs.map(doc => ({
@@ -145,22 +161,25 @@ export default function LiveChat() {
         ...doc.data()
       } as ChatMessage));
       setMessages(msgs);
+    }, (error) => {
+        console.error("Error fetching chat messages: ", error);
+        toast.error("Failed to load chat messages.");
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user?.id]); // Re-run effect if user ID changes (e.g., after login/logout)
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   const handleSendMessage = async () => {
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim() || !user?.id) return; // Ensure user is logged in and message is not empty
 
     const messageData = {
-      senderId: user?.id || 'client_guest',
-      senderName: user?.name || 'Client',
-      senderRole: 'client' as const,
+      senderId: user.id, // Use actual user ID
+      senderName: user.name, // Use actual user name
+      senderRole: user.role, // Use actual user role
       message: newMessage,
       timestamp: serverTimestamp(),
       type: 'text' as const,
@@ -168,8 +187,9 @@ export default function LiveChat() {
     };
 
     try {
-      const messagesCollectionRef = collection(db, 'live-chat-messages');
-      await addDoc(messagesCollectionRef, messageData);
+      // Add message to the user's specific subcollection
+      const userMessagesCollectionRef = collection(db, 'users', user.id, 'messages');
+      await addDoc(userMessagesCollectionRef, messageData);
       setNewMessage('');
     } catch (error) {
       console.error("Error sending message: ", error);

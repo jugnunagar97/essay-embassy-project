@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { 
-  Users, 
-  Clock, 
-  CheckCircle, 
+import {
+  Users,
+  Clock,
+  CheckCircle,
   Star,
   ArrowRight,
   FileText,
@@ -22,10 +22,10 @@ export default function Home() {
   const { testimonials } = useTestimonials();
 
   const trustSignals = [
-    { 
-      name: "Google Reviews", 
-      rating: "4.8/5", 
-      reviews: "2,500+", 
+    {
+      name: "Google Reviews",
+      rating: "4.8/5",
+      reviews: "2,500+",
       logo: (
         <div className="flex items-center">
           <div className="w-8 h-8 bg-blue-500 rounded-sm flex items-center justify-center mr-3">
@@ -42,10 +42,10 @@ export default function Home() {
         </div>
       )
     },
-    { 
-      name: "Trustpilot", 
-      rating: "4.9/5", 
-      reviews: "1,800+", 
+    {
+      name: "Trustpilot",
+      rating: "4.9/5",
+      reviews: "1,800+",
       logo: (
         <div className="flex items-center">
           <div className="w-8 h-8 bg-green-500 rounded-sm flex items-center justify-center mr-3">
@@ -62,10 +62,10 @@ export default function Home() {
         </div>
       )
     },
-    { 
-      name: "Sitejabber", 
-      rating: "4.7/5", 
-      reviews: "3,200+", 
+    {
+      name: "Sitejabber",
+      rating: "4.7/5",
+      reviews: "3,200+",
       logo: (
         <div className="flex items-center">
           <div className="w-8 h-8 bg-orange-500 rounded-sm flex items-center justify-center mr-3">
@@ -311,7 +311,7 @@ export default function Home() {
             </h2>
             <div className="w-24 h-1 bg-primary-500 mx-auto mb-4"></div>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              We provide comprehensive academic writing services with a focus on quality, 
+              We provide comprehensive academic writing services with a focus on quality,
               reliability, and student success.
             </p>
           </div>
@@ -394,7 +394,7 @@ export default function Home() {
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                       <CheckCircle size={16} className="text-primary-500 mr-2 flex-shrink-0" />
-                      {feature}
+                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -495,10 +495,10 @@ export default function Home() {
                   ))}
                 </ul>
                 <Link
-                  to="/order-now"
+                  to={`/order-now?academicLevel=${encodeURIComponent(plan.name)}`} // <-- MODIFIED LINE
                   className={`inline-flex items-center justify-center w-full px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 ${
-                    plan.popular 
-                      ? 'bg-primary-500 hover:bg-primary-600 text-white transform shadow-medium hover:shadow-strong' 
+                    plan.popular
+                      ? 'bg-primary-500 hover:bg-primary-600 text-white transform shadow-medium hover:shadow-strong'
                       : 'border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white'
                   }`}
                 >
