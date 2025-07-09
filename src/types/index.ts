@@ -13,7 +13,7 @@ export interface User {
 
 export interface Order {
   id: string;
-  orderNumber: number; // <<< THE FIX IS HERE: This line has been added.
+  orderNumber: number;
   clientId: string;
   clientName: string;
   academicLevel: string;
@@ -21,7 +21,6 @@ export interface Order {
   subject: string;
   topic: string;
   pages: number;
-  words: number;
   deadline: Timestamp;
   citationStyle: string;
   spacing: string;
@@ -120,7 +119,7 @@ export interface Review {
   name: string;
   rating: number;
   content: string;
-  orderId?: string;
+  orderId?: string; // Made optional as it will no longer be strictly required from user input
   location?: string;
   purchaseDate?: string;
   platform?: 'google' | 'trustpilot' | 'sitejabber' | 'website';
@@ -140,7 +139,7 @@ export interface ReviewSubmission {
   name: string;
   rating: number;
   content: string;
-  orderId: string;
+  orderId?: string; // <-- CHANGED THIS LINE: Made orderId optional
   isAnonymous?: boolean;
 }
 

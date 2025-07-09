@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react'; // <-- FIXED: Removed 'React' from import
 import { useForm } from 'react-hook-form';
 import { 
   X, 
@@ -6,8 +6,7 @@ import {
   User, 
   AlertCircle, 
   CheckCircle,
-  Loader,
-  Hash
+  Loader
 } from 'lucide-react';
 import { ReviewSubmission } from '../../types';
 import { useReviews } from '../../hooks/useReviews';
@@ -19,12 +18,13 @@ interface ReviewSubmissionFormProps {
 }
 
 export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmissionFormProps) {
-  const { submitReview, verifyOrderId } = useReviews();
+  // Removed verifyOrderId as it's no longer needed for user input
+  const { submitReview } = useReviews(); 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [isAnonymous, setIsAnonymous] = useState(false);
-  const [orderVerified, setOrderVerified] = useState<boolean | null>(null);
+  // Removed orderVerified state as Order ID input is removed
 
   const {
     register,
@@ -35,17 +35,9 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
   } = useForm<ReviewSubmission>();
 
   const watchedContent = watch('content', '');
-  const watchedOrderId = watch('orderId', '');
+  // Removed watchedOrderId as Order ID input is removed
 
-  // Verify order ID when it changes
-  React.useEffect(() => {
-    if (watchedOrderId && watchedOrderId.length > 3) {
-      const isValid = verifyOrderId(watchedOrderId);
-      setOrderVerified(isValid);
-    } else {
-      setOrderVerified(null);
-    }
-  }, [watchedOrderId, verifyOrderId]);
+  // Removed useEffect for verifying order ID
 
   const handleRatingClick = (rating: number) => {
     setSelectedRating(rating);
@@ -64,7 +56,10 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
       const submissionData: ReviewSubmission = {
         ...data,
         rating: selectedRating,
-        isAnonymous
+        isAnonymous,
+        // orderId is now optional, so it's not explicitly added here unless it comes from elsewhere
+        // If you later want to link reviews to orders without user input,
+        // this is where you'd add logic to get the orderId (e.g., from a user's completed orders list)
       };
 
       const success = await submitReview(submissionData);
@@ -199,8 +194,8 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
             </div>
           )}
 
-          {/* Order ID */}
-          <div>
+          {/* Removed Order ID section completely */}
+          {/* <div>
             <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Order ID *
             </label>
@@ -244,6 +239,7 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
               Your order ID is required to verify your purchase
             </p>
           </div>
+          */}
 
           {/* Review Content */}
           <div>
@@ -284,7 +280,8 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
               <li>• Focus on your experience with our service</li>
               <li>• Avoid personal information or inappropriate content</li>
               <li>• Reviews are moderated and may take 24-48 hours to appear</li>
-              <li>• Your Order ID helps verify your purchase</li>
+              {/* Removed Order ID guideline */}
+              {/* <li>• Your Order ID helps verify your purchase</li> */}
             </ul>
           </div>
 

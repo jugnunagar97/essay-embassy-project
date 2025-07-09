@@ -1,92 +1,126 @@
 import { useState, useEffect } from 'react';
-import { Order, BlogPost, DashboardStats } from '../types';
-import { useAuth } from '../context/AuthContext';
+import { collection, query, onSnapshot, orderBy } from 'firebase/firestore'; // <-- FIXED: Removed 'doc' from import
+import { db } from '../firebase'; 
+import { Order, DashboardStats, User as AppUser } from '../types'; 
 
-// === FIREBASE IMPORTS ===
-import { db } from '../firebase';
-import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
+// --- useOrders Hook ---
+interface UseOrdersResult {
+  orders: Order[];
+  isLoading: boolean;
+  error: any | null; 
+}
 
-// ==================================================================================
-// === REAL-TIME ORDERS HOOK ===
-// ==================================================================================
-export function useOrders() {
-  const { user } = useAuth();
+export function useOrders(): UseOrdersResult {
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<any | null>(null); 
 
   useEffect(() => {
-    if (!user) {
-      setOrders([]);
-      setIsLoading(false);
-      return;
-    }
-
-    setIsLoading(true);
-    
     const ordersCollectionRef = collection(db, 'orders');
-    const q = query(
-      ordersCollectionRef, 
-      where('clientId', '==', user.id),
-      orderBy('createdAt', 'desc')
+    const q = query(ordersCollectionRef, orderBy('createdAt', 'desc')); 
+
+    const unsubscribe = onSnapshot(q, 
+      (querySnapshot) => {
+        const fetchedOrders: Order[] = querySnapshot.docs.map(doc => ({
+          ...doc.data() as Order, 
+          id: doc.id,              
+        }));
+        setOrders(fetchedOrders);
+        setIsLoading(false);
+        setError(null); 
+      }, 
+      (err) => {
+        console.error("Error fetching orders:", err);
+        setError(err); 
+        setIsLoading(false);
+      }
     );
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const userOrders = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      } as Order));
-      setOrders(userOrders);
+    return () => unsubscribe();
+  }, []); 
+
+  return { orders, isLoading, error }; 
+}
+
+// --- useDashboardStats Hook ---
+interface UseDashboardStatsResult {
+  stats: DashboardStats;
+  isLoading: boolean;
+  error: any | null; 
+}
+
+export function useDashboardStats(): UseDashboardStatsResult {
+  const [stats, setStats] = useState<DashboardStats>({
+    totalUsers: 0,
+    totalOrders: 0,
+    totalRevenue: 0,
+    completedOrders: 0,
+    pendingOrders: 0,
+    monthlyGrowth: 0,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<any | null>(null);
+
+  useEffect(() => {
+    // This is a placeholder. For actual stats, you'd fetch from Firestore
+    // or use Firebase Cloud Functions.
+    // The 'doc' import was previously here for a commented-out section,
+    // but since it's not used in the current active code, it was removed.
+    
+    // Using mock data for now to ensure no errors with current setup
+    setTimeout(() => {
+      setStats({
+        totalUsers: 1250,
+        totalOrders: 3420,
+        totalRevenue: 125000,
+        completedOrders: 3180,
+        pendingOrders: 240, 
+        monthlyGrowth: 12.5,
+      });
       setIsLoading(false);
-    }, (error) => {
-      console.error("Error fetching user orders:", error);
-      setIsLoading(false);
-    });
+      setError(null);
+    }, 1000); 
+
+  }, []);
+
+  return { stats, isLoading, error };
+}
+
+// --- useUsers Hook ---
+interface UseUsersResult {
+  users: AppUser[];
+  isLoading: boolean;
+  error: any | null;
+}
+
+export function useUsers(): UseUsersResult {
+  const [users, setUsers] = useState<AppUser[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<any | null>(null);
+
+  useEffect(() => {
+    const usersCollectionRef = collection(db, 'users');
+    const q = query(usersCollectionRef, orderBy('name')); 
+
+    const unsubscribe = onSnapshot(q, 
+      (querySnapshot) => {
+        const fetchedUsers: AppUser[] = querySnapshot.docs.map(doc => ({
+          ...doc.data() as AppUser, 
+          id: doc.id,               
+        }));
+        setUsers(fetchedUsers);
+        setIsLoading(false);
+        setError(null); 
+      }, 
+      (err) => {
+        console.error("Error fetching users:", err);
+        setError(err); 
+        setIsLoading(false);
+      }
+    );
 
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
-  return { orders, isLoading };
-}
-
-
-// ==================================================================================
-// === MOCK DATA HOOKS (Corrected) ===
-// ==================================================================================
-const mockBlogPosts: BlogPost[] = [
-  {
-    id: '1',
-    title: 'How to Write an Effective Essay Introduction',
-    content: 'Writing a compelling essay introduction is crucial for engaging your readers...',
-    excerpt: 'Learn the key elements of a strong essay introduction that captures attention.',
-    featuredImage: 'https://images.pexels.com/photos/159844/pencil-office-design-creative-159844.jpeg?auto=compress&cs=tinysrgb&w=800',
-    author: 'Essay Embassy Team',
-    publishedAt: '2024-01-20T10:00:00Z',
-    tags: ['Writing Tips', 'Essays', 'Academic'],
-    category: 'Writing Guide',
-    slug: 'effective-essay-introduction',
-    published: true
-  }
-];
-
-const mockStats: DashboardStats = {
-  totalUsers: 1250,
-  totalOrders: 3420,
-  totalRevenue: 125000,
-  completedOrders: 3180,
-  pendingOrders: 240,
-  monthlyGrowth: 12.5
-};
-
-export function useBlogPosts() {
-  // This hook now simply returns the mock data without unused state setters.
-  const posts = mockBlogPosts;
-  const isLoading = false;
-  return { posts, isLoading };
-}
-
-export function useDashboardStats() {
-  // This hook now simply returns the mock data without unused state setters.
-  const stats = mockStats;
-  const isLoading = false;
-  return { stats, isLoading };
+  return { users, isLoading, error };
 }

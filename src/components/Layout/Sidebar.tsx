@@ -1,12 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
-  MessageSquare,
   Settings,
   X,
-  MessageCircle as LiveChatIcon,
-  PlusCircle // Keep for admin menu
-} from 'lucide-react';
+  MessageCircle as LiveChatIcon, // Used for Live Chat and Messages
+  PlusCircle, // For New Order
+  FileText, // For Manage Orders
+  Users, // For Manage Users
+  BookOpen, // For Manage Blog and Samples
+  Star // For Testimonials (or Reviews)
+} from 'lucide-react'; // Removed unused icons: MessageSquare, ClipboardList
 import { useAuth } from '../../context/AuthContext';
 
 interface SidebarProps {
@@ -20,21 +23,25 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   if (!user) return null;
 
-  // === THE FIX IS HERE ===
-  // The "Place New Order" button has been removed from this list.
   const clientMenuItems = [
     { icon: LayoutDashboard, label: 'My Orders', path: '/dashboard' },
-    { icon: MessageSquare, label: 'Messages', path: '/dashboard/messages' },
     { icon: LiveChatIcon, label: 'Live Chat', path: '/dashboard/chat' },
     { icon: Settings, label: 'Edit Profile', path: '/dashboard/settings' },
   ];
 
-  // Admin menu remains the same for now
+  // === UPDATED ADMIN MENU ITEMS ===
+  // This list now contains all the items you want in the sidebar
   const adminMenuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
-    { icon: PlusCircle, label: 'All Orders', path: '/dashboard/orders' },
-    { icon: LiveChatIcon, label: 'Live Chat', path: '/dashboard/chat' },
-    { icon: Settings, label: 'Settings', path: '/dashboard/settings' },
+    { icon: PlusCircle, label: 'New Order', path: '/dashboard/new-order' }, // New Order for Admin
+    { icon: FileText, label: 'Orders', path: '/dashboard/orders' }, // Manage Orders
+    { icon: Users, label: 'Users', path: '/dashboard/users' }, // Manage Users
+    { icon: LiveChatIcon, label: 'Messages', path: '/dashboard/messages' }, // Messages (Admin Chat)
+    { icon: BookOpen, label: 'Blog', path: '/dashboard/blog' }, // Manage Blog
+    { icon: Star, label: 'Reviews', path: '/dashboard/reviews' }, // Testimonials/Reviews
+    { icon: Settings, label: 'Services', path: '/dashboard/services' }, // Manage Services
+    { icon: BookOpen, label: 'Samples', path: '/dashboard/samples' }, // Manage Samples
+    { icon: Settings, label: 'Settings', path: '/dashboard/settings' }, // Admin Settings (General)
   ];
 
   const menuItems = user.role === 'admin' ? adminMenuItems : clientMenuItems;
