@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import { 
-  Order, DashboardStats, User as AppUser, Review, ReviewStats, ServiceCategory, SubService, Sample 
+  Order, DashboardStats, User as AppUser, Review, ReviewStats, ServiceCategory, SubService, Sample, BlogPost, ServicePage 
 } from '../types';
 
 // --- useOrders Hook ---
@@ -191,4 +191,52 @@ export function useSamples() {
   }, []);
 
   return { samples, isLoading, error };
+}
+
+// --- useBlogs Hook ---
+export function useBlogs() {
+  const [blogs, setBlogs] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<any | null>(null);
+
+  useEffect(() => {
+    const q = query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const fetchedBlogs = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as BlogPost));
+      setBlogs(fetchedBlogs);
+      setIsLoading(false);
+      setError(null);
+    }, (err) => {
+      console.error("Error fetching blogs:", err);
+      setError(err);
+      setIsLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  return { blogs, isLoading, error };
+}
+
+// --- useServicePages Hook ---
+export function useServicePages() {
+  const [pages, setPages] = useState<ServicePage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<any | null>(null);
+
+  useEffect(() => {
+    const q = query(collection(db, 'servicePages'), orderBy('order', 'asc'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const fetchedPages = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as ServicePage));
+      setPages(fetchedPages);
+      setIsLoading(false);
+      setError(null);
+    }, (err) => {
+      console.error("Error fetching service pages:", err);
+      setError(err);
+      setIsLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  return { pages, isLoading, error };
 }

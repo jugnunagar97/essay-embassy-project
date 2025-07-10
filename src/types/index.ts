@@ -179,3 +179,23 @@ export interface Sample {
   fileSize: number;
   createdAt: Timestamp;
 }
+// Add this to the bottom of src/types/index.ts
+
+export interface ServicePage {
+  id: string;
+  title: string;
+  slug: string;
+  category: string;
+  status: 'published' | 'draft';
+  order: number;
+  // SEO
+  seoTitle: string;
+  metaDescription: string;
+  // Page Content
+  heroHeading: string;
+  mainContent: string; // This will hold the rich text content
+  faqs: { question: string; answer: string; }[];
+  // Timestamps
+  createdAt: Timestamp;
+  updatedAt: Timestamp | null;
+}

@@ -48,14 +48,13 @@ export default function ReviewManager() {
 
   const filteredAndSortedReviews = useMemo(() => {
     let filtered = reviews.filter(review => {
-      const lowercasedTerm = searchTerm.toLowerCase();
-      const matchesSearch = searchTerm === '' || review.name.toLowerCase().includes(lowercasedTerm) || review.content.toLowerCase().includes(lowercasedTerm);
+      const matchesSearch = searchTerm === '' || review.name.toLowerCase().includes(searchTerm.toLowerCase()) || review.content.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = filterStatus === 'all' || (filterStatus === 'approved' && review.isApproved) || (filterStatus === 'pending' && review.isPending);
       return matchesSearch && matchesStatus;
     });
     return [...filtered].sort((a, b) => {
       const aVal = a[sortColumn]; const bVal = b[sortColumn];
-      if (aVal && bVal && (aVal.constructor.name === 'Timestamp' || bVal.constructor.name === 'Timestamp')) {
+      if (aVal && bVal && (aVal.constructor.name === 'Timestamp' && bVal.constructor.name === 'Timestamp')) {
           const aTime = (aVal as any).toDate().getTime();
           const bTime = (bVal as any).toDate().getTime();
           return sortDirection === 'asc' ? aTime - bTime : bTime - aTime;
@@ -70,7 +69,7 @@ export default function ReviewManager() {
   const handleToggleApproval = async (review: Review) => {
     const toastId = toast.loading('Updating status...');
     try {
-      await updateDoc(doc(db, 'reviews', review.id), { isApproved: !review.isApproved, isPending: false, updatedAt: serverTimestamp() });
+      await updateDoc(doc(db, 'reviews', review.id), { isApproved: !review.isApproved, isPending: false, updatedAt: new Date().toISOString() });
       toast.success(`Review ${!review.isApproved ? 'approved' : 'unapproved'}.`, { id: toastId });
     } catch (e) { toast.error('Failed to update status.', { id: toastId }); }
   };
@@ -120,7 +119,7 @@ export default function ReviewManager() {
   if (error) return <div className="p-10 text-red-500">Error: {error.message}</div>;
 
   return (
-    <>
+    <div className="container mx-auto px-6 py-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Manage <span className="text-primary-500">Reviews</span></h1>
         <button onClick={() => openModal()} className="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg flex items-center">
@@ -135,7 +134,6 @@ export default function ReviewManager() {
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"><h3 className="text-sm font-medium text-gray-500">Verified Purchases</h3><p className="text-3xl font-bold mt-1 text-blue-500">{stats.verifiedPurchases}</p></div>
       </div>
        
-      {/* ADDED: Search and Filter bar UI */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-200 dark:border-gray-700">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2">
@@ -161,7 +159,6 @@ export default function ReviewManager() {
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                {/* ADDED: Sorting direction arrows to table headers */}
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase cursor-pointer" onClick={() => handleSort('name')}><div className="flex items-center">Customer {sortColumn === 'name' && (sortDirection === 'asc' ? <ArrowUp size={14}/> : <ArrowDown size={14}/>)}</div></th>
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase cursor-pointer" onClick={() => handleSort('rating')}><div className="flex items-center">Rating {sortColumn === 'rating' && (sortDirection === 'asc' ? <ArrowUp size={14}/> : <ArrowDown size={14}/>)}</div></th>
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase">Content</th>
@@ -193,7 +190,7 @@ export default function ReviewManager() {
     {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
             <form onSubmit={handleFormSubmit} className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-lg">
-                <div className="p-6 border-b dark:border-gray-700 flex justify-between items-center">
+                <div className="p-6 border-b flex justify-between items-center">
                     <h3 className="text-lg font-bold">{currentReview?.id ? "Edit Review" : "Add New Review"}</h3>
                     <button type="button" onClick={() => setIsModalOpen(false)}><XCircle className="text-gray-400"/></button>
                 </div>
@@ -221,6 +218,6 @@ export default function ReviewManager() {
             </form>
         </div>
     )}
-    </>
+    </div>
   );
 }
