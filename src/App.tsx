@@ -1,14 +1,13 @@
 // src/App.tsx
 
 import React from 'react';
-// FIXED: Removed unused 'Outlet' import from this line
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/Layout/Layout';
 import LoadingSpinner from './components/Common/LoadingSpinner';
 
-// --- All Page Imports ---
+// --- Page Imports ---
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -38,14 +37,14 @@ import ServiceManager from './components/Admin/ServiceManager';
 import SampleManager from './components/Admin/SampleManager';
 import ReviewManager from './components/Admin/ReviewManager';
 import BlogManager from './components/Admin/BlogManager';
-import EssayWriting from './pages/Services/EssayWriting';
-// ... import all other service pages similarly
+import ServicePageEditor from './pages/Admin/ServicePageEditor';
+// ... other page imports
 
 // === Helper Components ===
 function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode, adminOnly?: boolean }) {
   const { user, isLoading } = useAuth();
   if (isLoading) {
-    return <div className="h-full w-full flex items-center justify-center"><LoadingSpinner size="lg" /></div>;
+    return <div className="h-full w-full flex items-center justify-center p-20"><LoadingSpinner size="lg" /></div>;
   }
   if (!user) { return <Navigate to="/login" replace />; }
   if (adminOnly && user.role !== 'admin') { return <Navigate to="/dashboard" replace />; }
@@ -63,13 +62,9 @@ function App() {
       <Router>
         <Toaster position="top-right" />
         <Routes>
-          {/* Auth Routes are outside the main layout */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
-          {/* All other routes are now children of the main Layout */}
           <Route path="/" element={<Layout />}>
-            {/* Public Routes */}
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
@@ -82,13 +77,12 @@ function App() {
             <Route path="terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="refund-policy" element={<RefundPolicy />} />
             <Route path="order-now" element={<OrderNow />} />
-            <Route path="services/essay-writing" element={<EssayWriting />} />
-            {/* Add all other individual service page routes here */}
-
-            {/* Dashboard & Protected Routes */}
-            <Route path="dashboard" element={<ProtectedRoute><div className="p-8"><DashboardRouter /></div></ProtectedRoute>} />
+            
+            <Route path="dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
             <Route path="dashboard/reviews" element={<ProtectedRoute adminOnly><ReviewManager /></ProtectedRoute>} />
             <Route path="dashboard/services" element={<ProtectedRoute adminOnly><ServiceManager /></ProtectedRoute>} />
+            <Route path="dashboard/services/new" element={<ProtectedRoute adminOnly><ServicePageEditor /></ProtectedRoute>} />
+            <Route path="dashboard/services/edit/:pageId" element={<ProtectedRoute adminOnly><ServicePageEditor /></ProtectedRoute>} />
             <Route path="dashboard/samples" element={<ProtectedRoute adminOnly><SampleManager /></ProtectedRoute>} />
             <Route path="dashboard/blog" element={<ProtectedRoute adminOnly><BlogManager /></ProtectedRoute>} />
             <Route path="dashboard/settings" element={<ProtectedRoute adminOnly><ProfileSettings /></ProtectedRoute>} />
@@ -98,13 +92,10 @@ function App() {
             <Route path="dashboard/users/:userId" element={<ProtectedRoute adminOnly><UserDetail /></ProtectedRoute>} />
             <Route path="dashboard/messages" element={<ProtectedRoute adminOnly><Messages /></ProtectedRoute>} />
             
-            {/* Client-specific protected routes */}
-            <Route path="dashboard/order/:orderId" element={<ProtectedRoute><div className="p-8"><OrderDetailPage /></div></ProtectedRoute>} />
-            <Route path="dashboard/chat" element={<ProtectedRoute><div className="p-8"><LiveChat /></div></ProtectedRoute>} />
-            <Route path="dashboard/my-settings" element={<ProtectedRoute><div className="p-8"><ClientProfileSettings /></div></ProtectedRoute>} />
+            <Route path="dashboard/order/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} />
+            <Route path="dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
+            <Route path="dashboard/my-settings" element={<ProtectedRoute><ClientProfileSettings /></ProtectedRoute>} />
           </Route>
-
-          {/* Fallback Route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
