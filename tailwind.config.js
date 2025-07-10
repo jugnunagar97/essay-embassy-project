@@ -82,5 +82,8 @@ export default {
       },
     },
   },
-  plugins: [],
+  // FIXED: Added the typography plugin
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };

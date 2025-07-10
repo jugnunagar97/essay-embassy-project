@@ -54,6 +54,8 @@ export interface BlogPost {
   excerpt: string;
   featuredImage: string;
   author: string;
+  authorAvatar?: string; // ADDED
+  readTime?: string;   // ADDED
   publishedAt: Timestamp | null;
   tags: string[];
   category: string;
