@@ -1,17 +1,17 @@
 // src/App.tsx
 
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/Layout/Layout';
 import LoadingSpinner from './components/Common/LoadingSpinner';
 
-// --- Page Imports ---
+// --- Core Page Imports ---
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Services from './pages/Services';
+import Services from './pages/Services'; // The main services overview page (likely lists categories/popular services)
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -22,80 +22,156 @@ import Reviews from './pages/Reviews';
 import OrderNow from './pages/Order/OrderNow';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+
+// --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
 import AdminDashboard from './pages/Dashboard/AdminDashboard';
 import LiveChat from './pages/Dashboard/LiveChat';
-import ProfileSettings from './pages/Dashboard/ProfileSettings';
-import ClientProfileSettings from './pages/Dashboard/ClientProfileSettings';
+import ProfileSettings from './pages/Dashboard/ProfileSettings'; // Admin profile settings
+import ClientProfileSettings from './pages/Dashboard/ClientProfileSettings'; // Client profile settings
 import OrderDetailPage from './pages/Dashboard/OrderDetailPage';
-import Messages from './pages/Dashboard/AdminMessages';
+import Messages from './pages/Dashboard/AdminMessages'; // Assuming this is for admin messages
 import NewOrder from './pages/Dashboard/NewOrder';
 import Orders from './pages/Dashboard/Orders';
 import UserManagement from './pages/Dashboard/UserManagement';
 import UserDetail from './pages/Dashboard/UserDetail';
+
+// --- Admin Management Component Imports (from components/Admin) ---
 import ServiceManager from './components/Admin/ServiceManager';
 import SampleManager from './components/Admin/SampleManager';
 import ReviewManager from './components/Admin/ReviewManager';
 import BlogManager from './components/Admin/BlogManager';
-import ServicePageEditor from './pages/Admin/ServicePageEditor';
-// ... other page imports
 
-// === Helper Components ===
+// --- Admin Page Editor Imports (from pages/Admin) ---
+import ServicePageEditor from './pages/Admin/ServicePageEditor';
+
+// --- Dynamic Service Page Import (NEW & CRUCIAL) ---
+// This single component will now handle all your dynamically created service pages.
+import DynamicServicePage from './pages/Services/DynamicServicePage';
+
+// --- REMOVED INDIVIDUAL SERVICE PAGE IMPORTS ---
+// No longer needed as DynamicServicePage handles them:
+// import AdmissionEssay from './pages/Services/AdmissionEssay';
+// import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
+// ... and all other individual service page imports ...
+
+
+/**
+ * ProtectedRoute component
+ * Renders children only if the user is authenticated.
+ * Can also restrict access to admin users.
+ * Displays a loading spinner while authentication state is being determined.
+ * Redirects unauthenticated users to the login page.
+ * Redirects non-admin users from admin-only routes to the client dashboard.
+ * @param {object} props - The component props.
+ * @param {React.ReactNode} props.children - The child components to render if authenticated.
+ * @param {boolean} [props.adminOnly=false] - If true, only allows access to admin users.
+ */
 function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode, adminOnly?: boolean }) {
   const { user, isLoading } = useAuth();
+
+  // Show a loading spinner while authentication state is being loaded
   if (isLoading) {
-    return <div className="h-full w-full flex items-center justify-center p-20"><LoadingSpinner size="lg" /></div>;
+    return (
+      <div className="h-full w-full flex items-center justify-center p-20">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
   }
-  if (!user) { return <Navigate to="/login" replace />; }
-  if (adminOnly && user.role !== 'admin') { return <Navigate to="/dashboard" replace />; }
+
+  // If user is not authenticated, redirect to login page
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // If route is admin-only and user is not an admin, redirect to client dashboard
+  if (adminOnly && user.role !== 'admin') {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  // If authenticated and authorized, render the children
   return <>{children}</>;
 }
 
+/**
+ * DashboardRouter component
+ * Dynamically renders either the AdminDashboard or ClientDashboard
+ * based on the authenticated user's role.
+ */
 function DashboardRouter() {
   const { user } = useAuth();
+  // Render AdminDashboard if user is admin, otherwise render ClientDashboard
   return user?.role === 'admin' ? <AdminDashboard /> : <ClientDashboard />;
 }
 
+/**
+ * App component
+ * Sets up the main routing for the Essay Embassy platform.
+ * Includes public routes, protected routes for authenticated users,
+ * and admin-only protected routes.
+ */
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Toaster position="top-right" />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+    <AuthProvider> {/* Provides authentication context to all child components */}
+      <Router> {/* Enables client-side routing */}
+        <Toaster position="top-right" /> {/* Global notification system */}
+        <Routes> {/* Defines all possible routes in the application */}
+          {/* Public routes accessible to everyone */}
+          <Route path="/login" element={<Login />} />  {/* <--- MOVED INSIDE LAYOUT */}
+          <Route path="/register" element={<Register />} /> {/* <--- MOVED INSIDE LAYOUT */}
+
+          {/* Main layout route - all nested routes will render within the Layout component */}
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
+            <Route index element={<Home />} /> {/* Home page */}
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="services" element={<Services />} />
+            <Route path="services" element={<Services />} /> {/* Main services overview page */}
+
+            {/* NEW DYNAMIC ROUTE FOR SERVICE PAGES (CRUCIAL) */}
+            {/* This route will catch all paths like /services/essay-writing-tips */}
+            {/* and render the DynamicServicePage component, passing the slug. */}
+            <Route path="services/:slug" element={<DynamicServicePage />} />
+
+            {/* REMOVED OLD INDIVIDUAL SERVICE ROUTES */}
+            {/* No longer needed: */}
+            {/* <Route path="services/admission-essay" element={<AdmissionEssay />} /> */}
+            {/* <Route path="services/argumentative-essay" element={<ArgumentativeEssay />} /> */}
+            {/* ... and all other individual service routes ... */}
+
             <Route path="samples" element={<Samples />} />
             <Route path="reviews" element={<Reviews />} />
             <Route path="blog" element={<BlogPage />} />
-            <Route path="blog/:slug" element={<BlogPostPage />} />
+            <Route path="blog/:slug" element={<BlogPostPage />} /> {/* Dynamic blog post page */}
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="refund-policy" element={<RefundPolicy />} />
             <Route path="order-now" element={<OrderNow />} />
-            
+
+            {/* Protected routes - require authentication */}
+            {/* Dashboard route - dynamically renders admin or client dashboard */}
             <Route path="dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
+
+            {/* Admin-only protected routes */}
             <Route path="dashboard/reviews" element={<ProtectedRoute adminOnly><ReviewManager /></ProtectedRoute>} />
             <Route path="dashboard/services" element={<ProtectedRoute adminOnly><ServiceManager /></ProtectedRoute>} />
             <Route path="dashboard/services/new" element={<ProtectedRoute adminOnly><ServicePageEditor /></ProtectedRoute>} />
-            <Route path="dashboard/services/edit/:pageId" element={<ProtectedRoute adminOnly><ServicePageEditor /></ProtectedRoute>} />
+            <Route path="dashboard/services/edit/:pageId" element={<ProtectedRoute adminOnly><ServicePageEditor /></ProtectedRoute>} /> {/* Edit existing service page */}
             <Route path="dashboard/samples" element={<ProtectedRoute adminOnly><SampleManager /></ProtectedRoute>} />
             <Route path="dashboard/blog" element={<ProtectedRoute adminOnly><BlogManager /></ProtectedRoute>} />
-            <Route path="dashboard/settings" element={<ProtectedRoute adminOnly><ProfileSettings /></ProtectedRoute>} />
+            <Route path="dashboard/settings" element={<ProtectedRoute adminOnly><ProfileSettings /></ProtectedRoute>} /> {/* Admin profile settings */}
             <Route path="dashboard/new-order" element={<ProtectedRoute adminOnly><NewOrder /></ProtectedRoute>} />
             <Route path="dashboard/orders" element={<ProtectedRoute adminOnly><Orders /></ProtectedRoute>} />
             <Route path="dashboard/users" element={<ProtectedRoute adminOnly><UserManagement /></ProtectedRoute>} />
-            <Route path="dashboard/users/:userId" element={<ProtectedRoute adminOnly><UserDetail /></ProtectedRoute>} />
+            <Route path="dashboard/users/:userId" element={<ProtectedRoute adminOnly><UserDetail /></ProtectedRoute>} /> {/* View/edit specific user details */}
             <Route path="dashboard/messages" element={<ProtectedRoute adminOnly><Messages /></ProtectedRoute>} />
-            
-            <Route path="dashboard/order/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} />
+
+            {/* Routes accessible to both authenticated clients and admins */}
+            <Route path="dashboard/order/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} /> {/* Dynamic order detail page */}
             <Route path="dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
-            <Route path="dashboard/my-settings" element={<ProtectedRoute><ClientProfileSettings /></ProtectedRoute>} />
+            <Route path="dashboard/my-settings" element={<ProtectedRoute><ClientProfileSettings /></ProtectedRoute>} /> {/* Client profile settings */}
           </Route>
+
+          {/* Fallback route for any unmatched paths, redirects to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
