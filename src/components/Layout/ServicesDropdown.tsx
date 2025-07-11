@@ -1,7 +1,7 @@
 // src/components/Layout/ServicesDropdown.tsx
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react'; // Make sure ChevronDown is imported
 // Import the hooks to fetch dynamic data from Firestore
 import { useServiceCategories, useSubServices } from '../../hooks/useData';
 import { ServiceCategory, SubService } from '../../types'; // Import types
@@ -61,7 +61,7 @@ export default function ServicesDropdown() {
 
   // Show nothing if still loading or no active categories with services
   if (isLoadingCategories || isLoadingServices || structuredServicesMenu.length === 0) {
-    return null; // Or a loading spinner if you prefer, but usually dropdowns are hidden until ready
+    return null; // The component returns null, so the button itself won't be rendered if no data
   }
 
   return (
