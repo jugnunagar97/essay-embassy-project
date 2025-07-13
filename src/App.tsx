@@ -1,5 +1,3 @@
-// src/App.tsx
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
@@ -116,12 +114,11 @@ function App() {
       <Router> {/* Enables client-side routing */}
         <Toaster position="top-right" /> {/* Global notification system */}
         <Routes> {/* Defines all possible routes in the application */}
-          {/* Public routes accessible to everyone */}
-          <Route path="/login" element={<Login />} />  {/* <--- MOVED INSIDE LAYOUT */}
-          <Route path="/register" element={<Register />} /> {/* <--- MOVED INSIDE LAYOUT */}
-
           {/* Main layout route - all nested routes will render within the Layout component */}
           <Route path="/" element={<Layout />}>
+            {/* Public routes accessible to everyone */}
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
             <Route index element={<Home />} /> {/* Home page */}
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />

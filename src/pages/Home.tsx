@@ -17,72 +17,34 @@ import {
 import TestimonialTabs from '../components/Testimonials/TestimonialTabs';
 import HeroSection from '../components/Hero/HeroSection';
 import { useTestimonials } from '../hooks/useTestimonials';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const { testimonials } = useTestimonials();
 
-  const trustSignals = [
-    {
-      name: "Google Reviews",
-      rating: "4.8/5",
-      reviews: "2,500+",
-      logo: (
-        <div className="flex items-center">
-          <div className="w-8 h-8 bg-blue-500 rounded-sm flex items-center justify-center mr-3">
-            <span className="text-white text-sm font-bold">G</span>
-          </div>
-          <div>
-            <div className="flex text-yellow-400 mb-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={14} fill="currentColor" />
-              ))}
-            </div>
-            <div className="text-xs text-gray-600 dark:text-gray-400">4.8/5 (2,500+ reviews)</div>
-          </div>
-        </div>
-      )
-    },
-    {
-      name: "Trustpilot",
-      rating: "4.9/5",
-      reviews: "1,800+",
-      logo: (
-        <div className="flex items-center">
-          <div className="w-8 h-8 bg-green-500 rounded-sm flex items-center justify-center mr-3">
-            <Star size={16} fill="white" className="text-white" />
-          </div>
-          <div>
-            <div className="flex text-green-500 mb-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={14} fill="currentColor" />
-              ))}
-            </div>
-            <div className="text-xs text-gray-600 dark:text-gray-400">4.9/5 (1,800+ reviews)</div>
-          </div>
-        </div>
-      )
-    },
-    {
-      name: "Sitejabber",
-      rating: "4.7/5",
-      reviews: "3,200+",
-      logo: (
-        <div className="flex items-center">
-          <div className="w-8 h-8 bg-orange-500 rounded-sm flex items-center justify-center mr-3">
-            <span className="text-white text-sm font-bold">S</span>
-          </div>
-          <div>
-            <div className="flex text-orange-500 mb-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={14} fill="currentColor" />
-              ))}
-            </div>
-            <div className="text-xs text-gray-600 dark:text-gray-400">4.7/5 (3,200+ reviews)</div>
-          </div>
-        </div>
-      )
-    }
-  ];
+  // Animated stats state
+  const [students, setStudents] = useState(0);
+  const [success, setSuccess] = useState(0);
+  const [support, setSupport] = useState(0);
+  const [writers, setWriters] = useState(0);
+
+  useEffect(() => {
+    // Animate numbers up
+    let s = 0, su = 0, sp = 0, w = 0;
+    const sTarget = 5000, suTarget = 98, spTarget = 24, wTarget = 500;
+    const interval = setInterval(() => {
+      if (s < sTarget) s += Math.ceil(sTarget / 60);
+      if (su < suTarget) su += 2;
+      if (sp < spTarget) sp += 2;
+      if (w < wTarget) w += 10;
+      setStudents(Math.min(s, sTarget));
+      setSuccess(Math.min(su, suTarget));
+      setSupport(Math.min(sp, spTarget));
+      setWriters(Math.min(w, wTarget));
+      if (s >= sTarget && su >= suTarget && sp >= spTarget && w >= wTarget) clearInterval(interval);
+    }, 20);
+    return () => clearInterval(interval);
+  }, []);
 
   const whyChooseUs = [
     {
@@ -250,61 +212,73 @@ export default function Home() {
     }
   ];
 
+  const [testimonialTab, setTestimonialTab] = useState('Google');
+  const testimonialData = [
+    { title: 'Discussion post', text: 'I keep coming back to Kaylin because her work is always amazing. She delivers on time and always makes suggestions so that the work is top of the line. Thank you so much Kaylin.', rating: 5, customerId: '679646', date: 'Nov 23, 2024', platform: 'Google' },
+    { title: 'Essay (any type)', text: 'Katie always provides 10/10 work. She is fast and reliable.', rating: 5, customerId: '1808319', date: 'Nov 19, 2024', platform: 'Google' },
+    { title: 'Case Study', text: 'The writer followed all my instructions and delivered a well-researched case study. Will use again!', rating: 4, customerId: '202311', date: 'Nov 17, 2024', platform: 'Google' },
+    { title: 'Assignment', text: 'I was skeptical at first, but Essay Embassy delivered beyond my expectations. The support team was always available and the quality was top-notch. I received my dissertation chapter ahead of schedule.', rating: 5, customerId: '123456', date: 'Nov 15, 2024', platform: 'Trustpilot' },
+    { title: 'Lab Report', text: 'Quick turnaround and clear explanations. Lost one star for minor formatting issues, but overall great!', rating: 4, customerId: '998877', date: 'Nov 13, 2024', platform: 'Trustpilot' },
+    { title: 'Homework', text: 'I was skeptical at first, but Essay Embassy delivered beyond my expectations. The support team was always available and the quality was top-notch. I received my dissertation chapter ahead of schedule.', rating: 5, customerId: '789012', date: 'Nov 10, 2024', platform: 'Sitejabber' },
+    { title: 'Book Review', text: 'Impressed with the depth of analysis and timely delivery. Highly recommend!', rating: 5, customerId: '556677', date: 'Nov 08, 2024', platform: 'Sitejabber' },
+    { title: 'Research Paper', text: 'I was skeptical at first, but Essay Embassy delivered beyond my expectations. The support team was always available and the quality was top-notch. I received my dissertation chapter ahead of schedule.', rating: 5, customerId: '345678', date: 'Nov 05, 2024', platform: 'Google' },
+    { title: 'Scholarship Essay', text: 'My essay helped me win a scholarship! Thank you for the excellent work.', rating: 5, customerId: '334455', date: 'Nov 03, 2024', platform: 'Trustpilot' },
+    { title: 'Term Paper', text: 'Solid research and clear writing. Would have liked a bit more detail in the conclusion.', rating: 4, customerId: '112233', date: 'Nov 01, 2024', platform: 'Sitejabber' },
+  ];
+  const filteredTestimonials = testimonialData.filter(t => t.platform === testimonialTab);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
       <HeroSection />
 
       {/* Trust Signals Bar */}
-      <section className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 py-6 shadow-soft">
-        <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-            <div className="text-center md:text-left animate-fade-in">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                Trusted by Students Worldwide
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Join thousands of satisfied customers
-              </p>
-            </div>
-            <div className="flex flex-wrap justify-center gap-8">
-              {trustSignals.map((signal, index) => (
-                <div key={index} className="bg-white dark:bg-gray-700 px-6 py-4 rounded-xl shadow-soft border border-gray-100 dark:border-gray-600 hover:shadow-medium transition-all duration-300 hover:scale-105 animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                  {signal.logo}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Removed old review bar section here */}
 
       {/* Stats Section */}
       <section className="py-16 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700">
         <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-soft border border-gray-100 dark:border-gray-700 hover:shadow-medium transition-all duration-300 hover:scale-105 animate-slide-up">
-              <div className="text-4xl font-bold text-primary-500 mb-2">5000+</div>
-              <div className="text-gray-600 dark:text-gray-400">Happy Students</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {/* Happy Students */}
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center group">
+              <Users className="w-10 h-10 mb-3 text-primary-500 group-hover:scale-110 transition-transform" />
+              <div className="text-4xl font-extrabold text-primary-500 mb-2">
+                {students.toLocaleString()}+
+              </div>
+              <div className="text-gray-700 dark:text-gray-300 font-medium">Happy Students</div>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-soft border border-gray-100 dark:border-gray-700 hover:shadow-medium transition-all duration-300 hover:scale-105 animate-slide-up" style={{animationDelay: '0.1s'}}>
-              <div className="text-4xl font-bold text-primary-500 mb-2">98%</div>
-              <div className="text-gray-600 dark:text-gray-400">Success Rate</div>
+            {/* Success Rate */}
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center group">
+              <CheckCircle className="w-10 h-10 mb-3 text-green-500 group-hover:scale-110 transition-transform" />
+              <div className="text-4xl font-extrabold text-green-500 mb-2">
+                {success}%
+              </div>
+              <div className="text-gray-700 dark:text-gray-300 font-medium">Success Rate</div>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-soft border border-gray-100 dark:border-gray-700 hover:shadow-medium transition-all duration-300 hover:scale-105 animate-slide-up" style={{animationDelay: '0.2s'}}>
-              <div className="text-4xl font-bold text-primary-500 mb-2">24/7</div>
-              <div className="text-gray-600 dark:text-gray-400">Support</div>
+            {/* Support */}
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center group">
+              <Headphones className="w-10 h-10 mb-3 text-blue-500 group-hover:scale-110 transition-transform" />
+              <div className="text-4xl font-extrabold text-blue-500 mb-2">
+                {support}/7
+              </div>
+              <div className="text-gray-700 dark:text-gray-300 font-medium">Support</div>
             </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-soft border border-gray-100 dark:border-gray-700 hover:shadow-medium transition-all duration-300 hover:scale-105 animate-slide-up" style={{animationDelay: '0.3s'}}>
-              <div className="text-4xl font-bold text-primary-500 mb-2">500+</div>
-              <div className="text-gray-600 dark:text-gray-400">Expert Writers</div>
+            {/* Expert Writers */}
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center group">
+              <GraduationCap className="w-10 h-10 mb-3 text-purple-500 group-hover:scale-110 transition-transform" />
+              <div className="text-4xl font-extrabold text-purple-500 mb-2">
+                {writers}+
+              </div>
+              <div className="text-gray-700 dark:text-gray-300 font-medium">Expert Writers</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Why Choose Essay Embassy */}
-      <section className="py-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="container">
+      <section className="py-20 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+        <div className="container relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Why Choose <span className="text-primary-500">Essay Embassy</span>?
@@ -316,16 +290,25 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {whyChooseUs.map((item, index) => {
               const Icon = item.icon;
               return (
-                <div key={index} className="bg-white dark:bg-gray-700 rounded-2xl p-8 text-center hover:shadow-medium transition-all duration-300 border border-gray-100 dark:border-gray-600 animate-slide-up hover:scale-105 shadow-soft" style={{animationDelay: `${index * 0.1}s`}}>
-                  <div className="bg-primary-100 dark:bg-primary-900/20 w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto hover:scale-110 transition-transform duration-300">
+                <div
+                  key={index}
+                  className="group bg-white/90 dark:bg-gray-800/90 rounded-2xl p-8 text-center shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] flex flex-col items-center relative overflow-hidden animate-fade-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="absolute -top-8 -right-8 w-24 h-24 bg-primary-100 dark:bg-primary-900/10 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+                  <div className="bg-primary-50 dark:bg-primary-900/20 w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-md">
                     <Icon className="text-primary-500" size={32} />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{item.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-base">
+                    {item.description}
+                  </p>
                 </div>
               );
             })}
@@ -333,31 +316,99 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Modern Dynamic Testimonials Section */}
+      <section className="py-20 bg-gradient-to-br from-[#f5f7fa] to-[#c3cfe2] dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="w-full">
+          <div className="text-center mb-8 max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-2">Honest feedback about EssayEmbassy</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Check out real reviews from those who've nailed their assignments with our essay writing service. Your next great paper could be just an order away!</p>
+          </div>
+          {/* Tabs */}
+          <div className="flex justify-center gap-4 mb-8 flex-wrap">
+            {['Google', 'Trustpilot', 'Sitejabber'].map((platform, idx) => (
+              <button
+                key={platform}
+                onClick={() => setTestimonialTab(platform)}
+                className={`flex items-center gap-2 px-6 py-2 rounded-full border-2 transition font-semibold text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-400
+                  ${testimonialTab === platform ? 'bg-white border-primary-400 text-primary-700 shadow-md' : 'bg-gray-100 border-gray-200 text-gray-600 hover:bg-white hover:border-primary-300'}`}
+              >
+                {platform === 'Google' && <span className="bg-blue-500 text-white rounded w-6 h-6 flex items-center justify-center font-bold">G</span>}
+                {platform === 'Trustpilot' && <span className="bg-green-500 text-white rounded w-6 h-6 flex items-center justify-center font-bold">T</span>}
+                {platform === 'Sitejabber' && <span className="bg-orange-500 text-white rounded w-6 h-6 flex items-center justify-center font-bold">S</span>}
+                {platform}
+              </button>
+            ))}
+          </div>
+          {/* Carousel with infinite auto-scroll, full-bleed */}
+          <div className="overflow-x-hidden w-screen relative left-1/2 right-1/2 -mx-[50vw] px-0" style={{ transform: 'translateX(-50%)' }}>
+            <div
+              className="flex gap-6 animate-testimonial-scroll group hover:[animation-play-state:paused]"
+              style={{ animationDuration: '40s' }}
+            >
+              {[...filteredTestimonials, ...filteredTestimonials].map((review, idx) => (
+                <div key={idx} className="bg-white rounded-2xl shadow-md p-6 min-w-[320px] max-w-[340px] flex-shrink-0 flex flex-col justify-between border border-gray-100">
+                  <div>
+                    <div className="text-lg font-semibold text-gray-800 mb-2">{review.title}</div>
+                    <div className="text-gray-600 mb-4">{review.text}</div>
+                  </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.045 9.394c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.967z" /></svg>
+                    ))}
+                  </div>
+                  <div className="text-sm text-gray-500 font-mono">Customer ID: {review.customerId}</div>
+                  <div className="text-xs text-gray-400">{review.date}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Core Benefits */}
-      <section className="py-20 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+        <div className="container relative z-10">
+          <div className="text-center mb-10 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
               Our <span className="text-primary-500">Core Benefits</span>
             </h2>
-            <div className="w-24 h-1 bg-primary-500 mx-auto mb-4"></div>
+            <div className="w-24 h-1 bg-primary-500 mx-auto mb-4 rounded-full"></div>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Experience the advantages that make us the preferred choice for academic assistance.
             </p>
+            <div className="flex justify-center mt-4">
+              <span className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-4 py-1 rounded-full text-sm font-semibold shadow-sm animate-pulse">
+                <CheckCircle className="text-green-500" size={18} />
+                Trusted by 10,000+ students
+              </span>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 items-stretch">
             {benefits.map((benefit, index) => {
               const Icon = benefit.icon;
               return (
-                <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-soft hover:shadow-medium transition-all duration-300 text-center border border-gray-100 dark:border-gray-700 animate-slide-up hover:scale-105 border-l-4 border-l-primary-500" style={{animationDelay: `${index * 0.1}s`}}>
-                  <div className="bg-primary-100 dark:bg-primary-900/20 w-14 h-14 rounded-lg flex items-center justify-center mb-4 mx-auto hover:scale-110 transition-transform duration-300">
-                    <Icon className="text-primary-500" size={24} />
+                <div
+                  key={index}
+                  className="group bg-white/90 dark:bg-gray-800/90 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300 hover:scale-[1.04] flex flex-col items-center relative overflow-hidden animate-fade-in h-full min-h-[320px]"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="absolute -top-8 -right-8 w-20 h-20 bg-primary-100 dark:bg-primary-900/10 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+                  <div className="bg-primary-50 dark:bg-primary-900/20 w-16 h-16 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-md">
+                    <Icon className="text-primary-500 group-hover:text-primary-600 transition-colors duration-300" size={32} />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight group-hover:text-primary-500 transition-colors duration-300 text-center">
                     {benefit.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">{benefit.description}</p>
+                  <p className="text-gray-600 dark:text-gray-300 text-base text-center flex-1 flex items-center justify-center">
+                    {benefit.description}
+                  </p>
+                  {benefit.title === 'Plagiarism-Free Guarantee' && (
+                    <span className="absolute top-4 right-4 bg-primary-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md animate-bounce z-10">
+                      Verified
+                    </span>
+                  )}
                 </div>
               );
             })}
@@ -366,8 +417,9 @@ export default function Home() {
       </section>
 
       {/* Popular Services */}
-      <section className="py-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="container">
+      <section className="py-20 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+        <div className="container relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               <span className="text-primary-500">Popular</span> Services
@@ -378,33 +430,43 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {services.slice(0, 5).map((service, index) => (
-              <div key={index} className="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-soft hover:shadow-medium transition-all duration-300 border border-gray-100 dark:border-gray-600 hover:transform hover:-translate-y-1 animate-slide-up hover:scale-105" style={{animationDelay: `${index * 0.1}s`}}>
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-48 object-cover rounded-lg mb-6 hover:scale-105 transition-transform duration-300"
-                />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{service.description}</p>
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                      <CheckCircle size={16} className="text-primary-500 mr-2 flex-shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to={service.link}
-                  className="inline-flex items-center justify-center w-full px-6 py-3 border-2 border-primary-500 text-primary-500 rounded-lg font-medium hover:bg-primary-500 hover:text-white transition-all duration-200 group hover:scale-105"
-                >
-                  Learn More
-                  <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </Link>
+              <div
+                key={index}
+                className="group bg-white/90 dark:bg-gray-800/90 rounded-2xl p-0 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] flex flex-col overflow-hidden animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="relative h-48 w-full overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <span className="absolute top-4 left-4 bg-primary-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">{service.title}</span>
+                </div>
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 flex-1">{service.description}</p>
+                  <ul className="mb-4 space-y-2">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                        <CheckCircle size={16} className="text-primary-500 mr-2 flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    to={service.link}
+                    className="inline-flex items-center justify-center w-full px-6 py-3 border-2 border-primary-500 text-primary-500 rounded-lg font-medium hover:bg-primary-500 hover:text-white transition-all duration-200 group-hover:scale-105"
+                  >
+                    Learn More
+                    <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -419,36 +481,51 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <section className="py-20 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+        <div className="container relative z-10">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
               How It <span className="text-primary-500">Works</span>
             </h2>
-            <div className="w-24 h-1 bg-primary-500 mx-auto mb-4"></div>
+            <div className="w-24 h-1 bg-primary-500 mx-auto mb-4 rounded-full"></div>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Get your assignment completed in three simple steps.
             </p>
+            <div className="flex justify-center mt-4">
+              <span className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-1 rounded-full text-sm font-semibold shadow-sm animate-fade-in">
+                🚀 Fast & Secure Process
+              </span>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="relative grid md:grid-cols-3 gap-10 max-w-5xl mx-auto items-stretch">
+            {/* Premium connecting line for desktop */}
+            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-1 z-0" style={{transform: 'translateY(-50%)'}}>
+              <div className="w-full h-full bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200 rounded-full opacity-60 blur-[1px]" />
+            </div>
             {howItWorks.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div key={index} className="text-center animate-slide-up bg-white dark:bg-gray-800 rounded-xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:scale-105" style={{animationDelay: `${index * 0.2}s`}}>
+                <div
+                  key={index}
+                  className="relative z-10 backdrop-blur-lg bg-white/80 dark:bg-gray-800/80 rounded-2xl p-10 shadow-xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300 hover:scale-[1.04] flex flex-col items-center text-center animate-fade-in group h-full min-h-[340px]"
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
                   <div className="relative mb-8">
-                    <div className="bg-primary-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-medium hover:scale-110 transition-transform duration-300">
-                      <Icon className="text-white" size={32} />
+                    <div className="bg-gradient-to-br from-primary-500 to-primary-400 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-2 shadow-lg group-hover:scale-110 group-hover:shadow-2xl transition-transform duration-300 border-4 border-white dark:border-gray-900">
+                      <Icon className="text-white group-hover:scale-110 transition-transform duration-300" size={38} />
                     </div>
-                    <div className="absolute -top-2 -right-2 bg-white dark:bg-gray-800 border-2 border-primary-500 w-8 h-8 rounded-full flex items-center justify-center text-primary-500 font-bold text-sm shadow-soft">
+                    <div className="absolute -top-2 -right-2 bg-white dark:bg-gray-800 border-2 border-primary-500 w-10 h-10 rounded-full flex items-center justify-center text-primary-500 font-bold text-lg shadow-soft group-hover:bg-primary-500 group-hover:text-white transition-colors duration-300 animate-bounce">
                       {step.step}
                     </div>
-                    {index < howItWorks.length - 1 && (
-                      <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gray-300 dark:bg-gray-600 -translate-y-1/2"></div>
-                    )}
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{step.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight group-hover:text-primary-500 transition-colors duration-300">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-base flex-1 flex items-center justify-center">
+                    {step.description}
+                  </p>
                 </div>
               );
             })}
@@ -457,52 +534,63 @@ export default function Home() {
       </section>
 
       {/* Pricing Overview */}
-      <section className="py-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+      <section className="py-20 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+        <div className="container relative z-10">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
               <span className="text-primary-500">Transparent</span> Pricing
             </h2>
-            <div className="w-24 h-1 bg-primary-500 mx-auto mb-4"></div>
+            <div className="w-24 h-1 bg-primary-500 mx-auto mb-4 rounded-full"></div>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Choose the plan that fits your academic level and budget.
             </p>
+            <div className="flex justify-center mt-4">
+              <span className="inline-flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 px-4 py-1 rounded-full text-sm font-semibold shadow-sm animate-fade-in">
+                💎 100% Value Guarantee
+              </span>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-10 max-w-5xl mx-auto items-stretch">
             {pricingPlans.map((plan, index) => (
-              <div key={index} className={`bg-white dark:bg-gray-700 rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all duration-300 border border-gray-100 dark:border-gray-600 relative animate-slide-up hover:scale-105 ${plan.popular ? 'ring-2 ring-primary-500' : ''}`} style={{animationDelay: `${index * 0.1}s`}}>
+              <div
+                key={index}
+                className={`group relative backdrop-blur-lg bg-white/80 dark:bg-gray-800/80 rounded-3xl p-10 shadow-xl border border-gray-100 dark:border-gray-700 hover:shadow-2xl hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300 flex flex-col items-center animate-fade-in h-full min-h-[420px] ${plan.popular ? 'scale-105 z-10 ring-4 ring-primary-200 dark:ring-primary-900/40 shadow-2xl' : 'scale-100'} ${plan.popular ? 'shadow-2xl' : ''}`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                    Most Popular
+                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary-500 to-primary-400 text-white px-6 py-2 rounded-full text-base font-bold shadow-lg z-20 animate-bounce flex items-center gap-2">
+                    <Star className="text-yellow-300" size={20} /> Most Popular
                   </div>
                 )}
-                <div className="text-center mb-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-2 tracking-tight group-hover:text-primary-500 transition-colors duration-300">
                     {plan.name}
                   </h3>
-                  <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold text-primary-500">{plan.price}</span>
-                    <span className="text-gray-600 dark:text-gray-400 ml-2">{plan.period}</span>
+                  <div className="flex items-baseline justify-center mb-2">
+                    <span className="text-5xl font-black text-primary-500 drop-shadow-sm mr-2">{plan.price}</span>
+                    <span className="text-lg text-gray-600 dark:text-gray-400">{plan.period}</span>
                   </div>
                 </div>
-                <ul className="space-y-3 mb-8">
+                <ul className="mb-8 space-y-4 w-full">
                   {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm">
-                      <CheckCircle size={16} className="text-primary-500 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                    <li key={idx} className="flex items-center text-lg text-gray-700 dark:text-gray-300 font-medium gap-2">
+                      <CheckCircle size={22} className="text-primary-500 mr-2 flex-shrink-0" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Link
-                  to={`/order-now?academicLevel=${encodeURIComponent(plan.name)}`} // <-- MODIFIED LINE
-                  className={`inline-flex items-center justify-center w-full px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 ${
+                  to={`/order-now?academicLevel=${encodeURIComponent(plan.name)}`}
+                  className={`inline-flex items-center justify-center w-full px-8 py-4 rounded-xl font-extrabold text-lg transition-all duration-200 shadow-md group-hover:scale-105 ${
                     plan.popular
-                      ? 'bg-primary-500 hover:bg-primary-600 text-white transform shadow-medium hover:shadow-strong'
-                      : 'border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white'
+                      ? 'bg-gradient-to-r from-primary-500 to-primary-400 text-white hover:from-primary-600 hover:to-primary-500 shadow-2xl'
+                      : 'border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white bg-white dark:bg-gray-900'
                   }`}
                 >
                   Get Started
+                  <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             ))}
@@ -510,26 +598,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Advanced Testimonials Section */}
-      <section className="py-20 bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              What Our <span className="text-primary-500">Students Say</span>
-            </h2>
-            <div className="w-24 h-1 bg-primary-500 mx-auto mb-4"></div>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Real feedback from students who achieved academic success with our help.
-            </p>
-          </div>
-
-          <TestimonialTabs testimonials={testimonials} />
-        </div>
-      </section>
-
       {/* Latest Blog Posts */}
-      <section className="py-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <div className="container">
+      <section className="py-20 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+        <div className="container relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Latest <span className="text-primary-500">Blog Posts</span>
@@ -540,15 +612,23 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-10">
             {blogPosts.map((post, index) => (
-              <article key={index} className="bg-white dark:bg-gray-700 rounded-xl overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300 border border-gray-100 dark:border-gray-600 hover:transform hover:-translate-y-1 animate-slide-up hover:scale-105" style={{animationDelay: `${index * 0.1}s`}}>
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
-                />
-                <div className="p-6">
+              <article
+                key={index}
+                className="group bg-white/90 dark:bg-gray-700/90 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-600 hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] animate-fade-in flex flex-col"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="relative h-48 w-full overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <span className="absolute top-4 left-4 bg-primary-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">Blog</span>
+                </div>
+                <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-3">
                     <Calendar size={14} className="mr-2 text-primary-500" />
                     <span>{post.date}</span>
@@ -558,7 +638,7 @@ export default function Home() {
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 hover:text-primary-500 transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">{post.excerpt}</p>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 flex-1">{post.excerpt}</p>
                   <Link
                     to={`/blog/${post.slug}`}
                     className="text-primary-500 hover:text-primary-600 font-medium inline-flex items-center hover:scale-105 transition-transform duration-200"
@@ -581,33 +661,36 @@ export default function Home() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary-500 to-primary-600">
-        <div className="container text-center">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+      <section className="py-20 bg-gradient-to-br from-primary-600/90 to-primary-800 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+        <div className="container text-center relative z-10">
+          <div className="max-w-4xl mx-auto bg-white/90 dark:bg-gray-900/90 rounded-2xl shadow-2xl p-10 md:p-16 border border-primary-200 dark:border-primary-900 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-primary-800 dark:text-white mb-6">
               Ready to Get Started?
             </h2>
-            <p className="text-xl text-primary-100 mb-8">
+            <p className="text-xl text-primary-700 dark:text-primary-100 mb-8">
               Join thousands of successful students who trust Essay Embassy for their academic needs.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <Link
                 to="/order-now"
-                className="bg-white text-primary-500 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors inline-flex items-center justify-center shadow-medium transform hover:scale-105"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors inline-flex items-center justify-center shadow-lg transform hover:scale-105"
               >
                 <GraduationCap className="mr-2" size={20} />
                 Place Your Order Now
               </Link>
               <Link
                 to="/contact"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-primary-500 transition-colors hover:scale-105"
+                className="border-2 border-primary-600 text-primary-700 dark:text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors hover:scale-105"
               >
                 Contact Us
               </Link>
             </div>
-            <div className="mt-8 text-primary-100">
-              <p className="text-sm">
-                🔒 Secure Payment • 📞 24/7 Support • ✅ Money-Back Guarantee
+            <div className="mt-8 text-primary-700 dark:text-primary-100">
+              <p className="text-sm flex flex-wrap items-center justify-center gap-4">
+                <span className="inline-flex items-center"><span className="mr-1">🔒</span> Secure Payment</span>
+                <span className="inline-flex items-center"><span className="mr-1">📞</span> 24/7 Support</span>
+                <span className="inline-flex items-center"><span className="mr-1">✅</span> Money-Back Guarantee</span>
               </p>
             </div>
           </div>

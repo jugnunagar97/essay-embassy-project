@@ -75,7 +75,20 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
               Sign Out
             </button>
           ) : (
-            <Link to="/login" className="text-sm font-semibold text-gray-600 dark:text-gray-300">Login</Link>
+            <div className="flex space-x-2">
+              <Link
+                to="/login"
+                className="text-sm font-semibold px-4 py-2 rounded-lg border border-primary-600 text-primary-600 bg-white hover:bg-primary-50 dark:bg-gray-900 dark:text-primary-400 dark:border-primary-400 dark:hover:bg-primary-900/10 transition-colors shadow-sm"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="text-sm font-semibold px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow-sm"
+              >
+                Sign Up
+              </Link>
+            </div>
           )}
 
           {/* Mobile Menu Toggle Button (for non-admin pages) */}
