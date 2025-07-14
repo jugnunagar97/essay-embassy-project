@@ -2,7 +2,7 @@
 
 import { useState } from 'react'; // FIXED: Removed unused 'React' import, kept useState
 import { Link, useLocation } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import ServicesDropdown from './ServicesDropdown';
 import MobileServicesMenu from './MobileServicesMenu'; // Correctly import the external MobileServicesMenu component
@@ -19,6 +19,11 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
 
   // State for controlling the mobile navigation menu
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  // State for profile dropdown
+  const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
+
+  // Only show profile dropdown if logged in and NOT in dashboard
+  const showProfileDropdown = user && !isAdminPage && location.pathname !== '/dashboard';
 
   return (
     <header className="bg-white dark:bg-gray-900 shadow-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
@@ -67,13 +72,44 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           <Link to="/order-now" className="btn-primary text-sm px-4 py-2">
             Order Now
           </Link>
-          {user ? (
-            <button
-              onClick={logout}
-              className="text-sm font-semibold bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors"
-            >
-              Sign Out
-            </button>
+          {showProfileDropdown ? (
+            <div className="relative">
+              <button
+                onClick={() => setProfileDropdownOpen((open) => !open)}
+                className="flex items-center px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-primary-700 dark:text-primary-300 font-bold text-base focus:outline-none focus:ring-2 focus:ring-primary-500"
+              >
+                <span className="w-8 h-8 flex items-center justify-center rounded-full bg-primary-500 text-white mr-2 uppercase">
+                  {(user.displayName?.charAt(0) || user.email?.charAt(0) || 'U').toUpperCase()}
+                </span>
+                <ChevronDown size={18} />
+              </button>
+              {isProfileDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+                  <Link
+                    to="/dashboard"
+                    className="block px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-t-lg text-sm font-medium"
+                    onClick={() => setProfileDropdownOpen(false)}
+                  >
+                    Go to Dashboard
+                  </Link>
+                  <button
+                    onClick={logout}
+                    className="block w-full text-left px-4 py-3 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-b-lg text-sm font-medium"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : user ? (
+            isAdminPage ? null : (
+              <button
+                onClick={logout}
+                className="text-sm font-semibold bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors"
+              >
+                Sign Out
+              </button>
+            )
           ) : (
             <div className="flex space-x-2">
               <Link

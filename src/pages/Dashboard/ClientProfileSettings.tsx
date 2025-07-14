@@ -14,6 +14,8 @@ import toast from 'react-hot-toast';
 
 // === FIREBASE IMPORTS ===
 import { getAuth, updateProfile, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { db } from '../../firebase';
 
 // ==================================================================================
 // === TYPE DEFINITIONS ===
@@ -74,8 +76,14 @@ export default function ProfileSettings() {
     }
 
     try {
+      // Update Firebase Auth profile
       await updateProfile(currentUser, { displayName: data.name });
-      toast.success('Profile updated successfully! Refresh the page to see changes.');
+      // Update Firestore user document
+      const userDocRef = doc(db, 'users', currentUser.uid);
+      await updateDoc(userDocRef, { name: data.name });
+      // Force reload user context (or reload page as fallback)
+      toast.success('Profile updated successfully!');
+      window.location.reload();
     } catch (error) {
       toast.error('Failed to update profile. Please try again.');
       console.error("Profile update error:", error);

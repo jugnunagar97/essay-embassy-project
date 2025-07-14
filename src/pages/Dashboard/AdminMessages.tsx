@@ -156,7 +156,7 @@ export default function AdminMessages() {
 
   // Auto-scroll to bottom of chat
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [messages]);
 
   // Handle sending messages (text and files)
@@ -189,17 +189,18 @@ export default function AdminMessages() {
       }
 
       // 2. Send message to Firestore
-      const messageData: ChatMessage = {
+      // Only include fileUrl and fileName if they are defined
+      const messageData: any = {
         senderId: adminUser?.id || 'admin_guest',
-        senderName: adminUser?.name || 'Admin',
+        senderName: adminUser?.displayName || 'Admin',
         senderRole: 'admin',
         message: messageContent,
         timestamp: serverTimestamp() as Timestamp,
         type: messageType,
         status: 'sent', 
-        fileUrl: fileUrl,
-        fileName: fileName,
       };
+      if (fileUrl) messageData.fileUrl = fileUrl;
+      if (fileName) messageData.fileName = fileName;
 
       const messagesCollectionRef = collection(db, 'users', selectedConversation.id, 'messages');
       await addDoc(messagesCollectionRef, messageData);
@@ -339,55 +340,59 @@ export default function AdminMessages() {
             {/* Messages Display */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900">
               {messages.length > 0 ? (
-                messages.map((message) => (
-                  <div 
-                    key={message.id} 
-                    className={`flex items-start gap-3 ${message.senderRole === 'admin' ? 'justify-end' : 'justify-start'}`}
-                  >
-                    {message.senderRole !== 'admin' && ( 
-                      <div className="w-8 h-8 rounded-full flex-shrink-0 bg-blue-500 text-white flex items-center justify-center text-sm">
-                        <UserIcon size={16} /> 
-                      </div>
-                    )}
-                    <div className={`flex flex-col ${message.senderRole === 'admin' ? 'items-end' : 'items-start'}`}>
-                      <div className={`px-4 py-3 rounded-2xl max-w-xs lg:max-w-md ${
-                        message.senderRole === 'admin'
-                          ? 'bg-primary-500 text-white rounded-br-none'
-                          : 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600 rounded-bl-none'
-                      }`}>
-                        {message.type === 'file' && message.fileUrl ? (
-                            <div className="mb-2">
-                                <a 
-                                    href={message.fileUrl} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="flex items-center text-blue-300 hover:underline"
-                                >
-                                    <Paperclip size={16} className="mr-1" />
-                                    {message.fileName || 'Attached File'}
-                                </a>
+                messages.map((message) => {
+                  const isAdmin = message.senderRole === 'admin';
+                  return (
+                    <div
+                      key={message.id}
+                      className={`flex items-end gap-2 mb-2 ${isAdmin ? 'justify-end' : 'justify-start'}`}
+                    >
+                      {!isAdmin && (
+                        <div className="w-7 h-7 rounded-full flex-shrink-0 bg-gray-300 text-gray-600 flex items-center justify-center text-xs font-semibold">
+                          <UserIcon size={14} />
+                        </div>
+                      )}
+                      <div className={`flex flex-col ${isAdmin ? 'items-end' : 'items-start'}`}
+                        style={{ fontFamily: 'Inter, sans-serif' }}
+                      >
+                        <div
+                          className={`px-4 py-2 rounded-xl max-w-xs shadow-sm text-sm whitespace-pre-line ${
+                            isAdmin
+                              ? 'bg-[#e6f0fa] text-gray-900'
+                              : 'bg-[#f5f5f5] text-gray-800'
+                          }`}
+                          style={{ lineHeight: 1.5 }}
+                        >
+                          {message.fileUrl && message.fileName ? (
+                            <div className="flex items-center mb-1">
+                              <Paperclip size={16} className="w-4 h-4 mr-1 text-blue-500" />
+                              <a
+                                href={message.fileUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`font-medium underline hover:text-blue-700 transition-colors duration-150 ${isAdmin ? 'text-blue-700' : 'text-blue-600'}`}
+                                style={{ fontSize: '0.97em' }}
+                              >
+                                {message.fileName}
+                              </a>
                             </div>
-                        ) : null}
-                        <p className="text-sm whitespace-pre-wrap">{message.message}</p>
+                          ) : null}
+                          {message.message}
+                        </div>
+                        <span className="text-xs text-gray-400 mt-1" style={{ fontSize: '0.75em' }}>
+                          {formatTimestamp(message.timestamp, 'p')}
+                        </span>
                       </div>
-                      <div className="flex items-center mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        <span>{formatTimestamp(message.timestamp, 'p')}</span>
-                        {message.senderRole === 'admin' && ( 
-                          <div className="ml-2">
-                            <CheckCircle size={12} className={message.status === 'read' ? 'text-blue-400' : 'text-gray-400'} />
-                          </div>
-                        )}
-                      </div>
+                      {isAdmin && (
+                        <div className="w-7 h-7 rounded-full flex-shrink-0 bg-blue-200 text-blue-700 flex items-center justify-center text-xs font-bold border border-blue-300">
+                          {adminUser?.displayName?.charAt(0).toUpperCase() || 'A'}
+                        </div>
+                      )}
                     </div>
-                    {message.senderRole === 'admin' && ( 
-                      <div className="w-8 h-8 rounded-full flex-shrink-0 bg-primary-500 text-white flex items-center justify-center text-sm">
-                        {adminUser?.name.charAt(0).toUpperCase() || 'A'}
-                      </div>
-                    )}
-                  </div>
-                ))
+                  );
+                })
               ) : (
-                <p className="text-center text-gray-500 py-8">Start a conversation!</p>
+                <div className="text-gray-400 text-center py-8">No messages yet.</div>
               )}
               <div ref={chatEndRef} />
             </div>

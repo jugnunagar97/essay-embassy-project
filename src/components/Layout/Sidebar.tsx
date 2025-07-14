@@ -26,7 +26,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const clientMenuItems = [
     { icon: LayoutDashboard, label: 'My Orders', path: '/dashboard' },
     { icon: LiveChatIcon, label: 'Live Chat', path: '/dashboard/chat' },
-    { icon: Settings, label: 'Edit Profile', path: '/dashboard/settings' },
+    { icon: Settings, label: 'Edit Profile', path: '/dashboard/my-settings' },
   ];
 
   // === UPDATED ADMIN MENU ITEMS ===
