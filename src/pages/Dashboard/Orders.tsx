@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react'; 
+import { useState, useCallback, useMemo, useEffect } from 'react'; 
 import { Link } from 'react-router-dom';
 import {
   Search,
@@ -35,6 +35,8 @@ export default function Orders() {
   const [filterStatus, setFilterStatus] = useState('all');
   const [sortColumn, setSortColumn] = useState<keyof Order>('createdAt');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   // Filtered and Sorted Orders
   const filteredOrders = useMemo(() => { 
@@ -76,6 +78,16 @@ export default function Orders() {
       setSortDirection('desc'); 
     }
   }, [sortColumn]); 
+
+  // Modal close on ESC
+  useEffect(() => {
+    if (!showModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowModal(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showModal]);
 
   if (isLoading) {
     return (
@@ -273,9 +285,13 @@ export default function Orders() {
                       {formatDate(order.deadline)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <Link to={`/dashboard/orders/${order.id}`} className="text-primary-600 hover:text-primary-900">
+                      <button
+                        className="text-primary-600 hover:text-primary-900"
+                        onClick={() => { setSelectedOrder(order); setShowModal(true); }}
+                        aria-label="View Order Details"
+                      >
                         <Eye size={20} />
-                      </Link>
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -290,6 +306,43 @@ export default function Orders() {
           </table>
         </div>
       </div>
+
+      {/* Order Details Modal */}
+      {showModal && selectedOrder && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl max-w-2xl w-full p-6 relative animate-fade-in">
+            <button
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl"
+              onClick={() => setShowModal(false)}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <h2 className="text-2xl font-bold mb-2">Order ID: #EE{selectedOrder.orderNumber}</h2>
+            <p className="text-muted mb-4">Topic: {selectedOrder.topic}</p>
+            <div className="grid sm:grid-cols-2 gap-x-6 gap-y-4 text-sm mb-4">
+              <div className="flex justify-between"><span className="text-muted">Type of Service:</span> <span className="font-medium text-right">{selectedOrder.paperType}</span></div>
+              <div className="flex justify-between"><span className="text-muted">Format:</span> <span className="font-medium">{selectedOrder.citationStyle}</span></div>
+              <div className="flex justify-between"><span className="text-muted">Amount:</span> <span className="font-medium">${selectedOrder.amount.toFixed(2)}</span></div>
+              <div className="flex justify-between"><span className="text-muted">Writer:</span> <span className="font-medium">{selectedOrder.writerId || 'Unassigned'}</span></div>
+              <div className="flex justify-between"><span className="text-muted">Pages:</span> <span className="font-medium">{selectedOrder.words ? `~${selectedOrder.words} words` : 'N/A'}</span></div>
+              <div className="flex justify-between"><span className="text-muted">Deadline:</span> <span className="font-medium">{formatDate(selectedOrder.deadline)}</span></div>
+              <div className="flex justify-between"><span className="text-muted">Status:</span> <span><StatusBadge status={selectedOrder.status} /></span></div>
+              <div className="flex justify-between">
+                <span className="text-muted">Payment:</span>
+                <span className={`px-2 py-1 text-xs font-medium rounded-full ${selectedOrder.paymentStatus === 'pending' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300' : 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300'}`}>
+                  {selectedOrder.paymentStatus.charAt(0).toUpperCase() + selectedOrder.paymentStatus.slice(1)}
+                </span>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-secondary-200 dark:border-secondary-700">
+              <h3 className="font-semibold text-lg mb-2">Instructions</h3>
+              <p className="text-muted text-sm whitespace-pre-wrap">{selectedOrder.instructions || "No specific instructions were provided."}</p>
+            </div>
+            {/* Add more details as needed */}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

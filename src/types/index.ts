@@ -64,12 +64,22 @@ export interface User {
 // Interface for Order
 export interface Order {
     id: string;
+    orderNumber: number;
+    topic: string;
+    clientName: string;
     userId: string;
-    status: 'pending' | 'in-progress' | 'completed' | 'cancelled';
-    serviceName: string;
-    // Add any other order details
+    status: 'pending-payment' | 'in-progress' | 'completed' | 'cancelled' | 'editing' | 'revision';
+    amount: number;
+    deadline: Timestamp;
+    paperType: string;
+    citationStyle: string;
+    writerId?: string;
+    words?: number;
+    instructions?: string;
+    paymentStatus: 'pending' | 'completed';
     createdAt: Timestamp;
     updatedAt?: Timestamp;
+    // Add any other fields you use in your UI
 }
 
 // Interface for Review - FIXED: Added missing properties based on useReviewStats
