@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ShieldCheck, Plus, Minus, Mail, Phone, Download, Eye } from 'lucide-react';
-import TestimonialTabs from '../../components/Testimonials/TestimonialTabs';
-import { useTestimonials } from '../../hooks/useTestimonials';
 
 // ==================================================================================
 // === TYPE DEFINITIONS ===
@@ -63,7 +61,6 @@ const SampleModal: React.FC<SampleModalProps> = ({ sample, onClose }) => (
 // ==================================================================================
 
 const ScholarshipEssay = () => {
-  const { testimonials } = useTestimonials();
   
   const samples: Sample[] = [
     { title: 'Essay for the Gates Millennium Scholarship', pages: 2, style: 'Essay', content: 'This essay details the applicant\'s journey of overcoming adversity in their community and their commitment to using education as a tool for social change, aligning with the scholarship\'s mission...', downloadUrl: '#' },
@@ -131,7 +128,6 @@ const ScholarshipEssay = () => {
             Real feedback from students who secured funding with our help.
           </p>
         </div>
-        <TestimonialTabs testimonials={testimonials} />
       </section>
 
       <section className="section bg-secondary-50 dark:bg-secondary-900">

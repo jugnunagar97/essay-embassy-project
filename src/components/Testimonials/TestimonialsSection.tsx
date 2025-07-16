@@ -172,7 +172,7 @@ export default function TestimonialsSection() {
   const reviews = REVIEWS[activeTab];
 
   return (
-    <section className="w-full py-20 bg-gradient-to-b from-[#F7F9FF] to-white font-sans">
+    <section className="w-full py-20 bg-white dark:bg-gray-900 font-sans">
       <div className="max-w-6xl mx-auto px-4 flex flex-col items-center">
         {/* Header */}
         <h1 className="text-3xl md:text-5xl font-bold text-primary text-center mb-3">

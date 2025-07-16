@@ -9,6 +9,7 @@ import ReviewSubmissionForm from '../components/Reviews/ReviewSubmissionForm';
 import { format, isValid } from 'date-fns';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
+import { useAuth } from '../context/AuthContext';
 
 type SortOption = 'newest' | 'oldest' | 'highest-rated' | 'lowest-rated' | 'most-helpful';
 type FilterOption = 'all' | '5' | '4' | '3' | '2' | '1' | 'verified' | 'platform';
@@ -21,6 +22,7 @@ const formatDate = (dateString: string): string => {
 
 export default function Reviews() {
   const { reviews: allReviews, isLoading } = useDatabaseReviews();
+  const { user } = useAuth();
   const [showSubmissionForm, setShowSubmissionForm] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   
@@ -106,7 +108,7 @@ export default function Reviews() {
     },
     sitejabber: {
       name: 'Sitejabber',
-      logo: 'https://www.sitejabber.com/img/new/logo_small.png',
+      logo: '/images/Sitejabber_logo.png',
       alt: 'Sitejabber',
       bg: 'bg-orange-100',
     },
@@ -121,7 +123,29 @@ export default function Reviews() {
     return (
       <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${platformConfig.bg}`}
         style={{ minHeight: 24 }}>
-        <img src={platformConfig.logo} alt={platformConfig.alt} style={{ height: 20, width: 'auto', marginRight: showName ? 6 : 0, display: 'inline-block', verticalAlign: 'middle' }} />
+        {platformConfig.logo && (
+          <img 
+            src={platformConfig.logo} 
+            alt={platformConfig.alt} 
+            style={{ 
+              height: 18, 
+              width: 'auto', 
+              marginRight: showName ? 6 : 0, 
+              display: 'inline-block', 
+              verticalAlign: 'middle',
+              objectFit: 'contain'
+            }} 
+            onError={(e) => {
+              // Fallback to text if image fails to load
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              const parent = target.parentElement;
+              if (parent) {
+                parent.textContent = platformConfig.name;
+              }
+            }}
+          />
+        )}
         {showName && platformConfig.name}
       </span>
     );

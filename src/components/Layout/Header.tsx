@@ -51,7 +51,9 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           )}
           {/* Brand name as text replaced with logo */}
           <div className="flex items-center gap-2">
-            <img src="/images/logo.png" alt="Essay Embassy Logo" className="h-16 max-h-16 w-auto" />
+            <Link to="/">
+              <img src="/images/logo.png" alt="Essay Embassy Logo" className="h-16 max-h-16 w-auto" />
+            </Link>
           </div>
         </div>
 

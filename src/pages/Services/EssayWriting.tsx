@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ShieldCheck, Plus, Minus, Mail, Phone, Download, Eye, Users, BookOpen } from 'lucide-react';
-import TestimonialTabs from '../../components/Testimonials/TestimonialTabs';
-import { useTestimonials } from '../../hooks/useTestimonials';
 
 // ==================================================================================
 // === TYPE DEFINITIONS ===
@@ -63,7 +61,6 @@ const SampleModal: React.FC<SampleModalProps> = ({ sample, onClose }) => (
 // ==================================================================================
 
 const EssayWriting = () => {
-  const { testimonials } = useTestimonials();
   
   const writers = [
     { name: 'Isabel T.', degree: 'MA | English Teacher', photo: 'https://placehold.co/100x100/EBF4FF/134e4a?text=IT', focus: ['Literature', 'Poetry'], loves: 'Essays, book reviews', stats: { satisfaction: '97%', onTime: '100%', rating: '4.8/5' } },
@@ -178,7 +175,6 @@ const EssayWriting = () => {
             Real feedback from students who achieved academic success with our help.
           </p>
         </div>
-        <TestimonialTabs testimonials={testimonials} />
       </section>
 
       <section className="section bg-secondary-50 dark:bg-secondary-900">

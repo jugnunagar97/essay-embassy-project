@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ShieldCheck, Plus, Minus, Mail, Phone, Download, Eye, Terminal } from 'lucide-react';
-import TestimonialTabs from '../../components/Testimonials/TestimonialTabs';
-import { useTestimonials } from '../../hooks/useTestimonials';
 
 // TYPE DEFINITIONS
 interface FaqItemProps { question: string; answer: string; isOpen: boolean; onClick: () => void; }
@@ -38,7 +36,6 @@ const SampleModal: React.FC<SampleModalProps> = ({ sample, onClose }) => (
 
 // MAIN COMPONENT
 const ProgrammingHelp = () => {
-  const { testimonials } = useTestimonials();
   const samples: Sample[] = [
     { title: 'Python Script for Data Scraping', pages: 1, style: 'Python', content: 'import requests\nfrom bs4 import BeautifulSoup\n\nURL = "http://example.com"\npage = requests.get(URL)\n\nsoup = BeautifulSoup(page.content, "html.parser")\n# ... rest of the script', downloadUrl: '#' },
     { title: 'Java: Binary Search Tree Implementation', pages: 2, style: 'Java', content: 'class Node {\n  int key;\n  Node left, right;\n\n  public Node(int item) {\n    key = item;\n    left = right = null;\n  }\n}\n// ... rest of the class implementation', downloadUrl: '#' },
@@ -96,40 +93,25 @@ const ProgrammingHelp = () => {
       </section>
 
       <section className="section container">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Hear From Our <span className="text-primary-500">Future Developers</span>
-          </h2>
-          <div className="w-24 h-1 bg-primary-500 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Real feedback from students who debugged their projects with our help.
-          </p>
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <h2 className="heading-lg">Programming Samples</h2>
+          <p className="text-lg text-muted mt-4">See examples of our clean, well-commented code.</p>
         </div>
-        <TestimonialTabs testimonials={testimonials} />
-      </section>
-
-      <section className="section bg-secondary-50 dark:bg-secondary-900">
-        <div className="container">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="heading-lg">Programming Samples</h2>
-            <p className="text-lg text-muted mt-4">See examples of our clean, well-commented code.</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {samples.map((sample, i) => (
-              <div key={i} className="bg-white dark:bg-secondary-800 rounded-lg shadow-soft p-6 flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-medium">
-                <h3 className="text-lg font-bold text-secondary-900 dark:text-white mb-2">{sample.title}</h3>
-                <div className="flex items-center space-x-4 text-sm text-muted mb-4">
-                  <Terminal className="h-4 w-4" />
-                  <span>{sample.style}</span>
-                </div>
-                <div className="flex-grow"></div>
-                <div className="flex items-center space-x-4 mt-4">
-                  <button onClick={() => setSelectedSample(sample)} className="btn-outline w-full flex items-center justify-center"><Eye className="h-4 w-4 mr-2" /> Preview</button>
-                  <a href={sample.downloadUrl} download className="btn-primary w-full flex items-center justify-center"><Download className="h-4 w-4 mr-2" /> Download</a>
-                </div>
+        <div className="grid md:grid-cols-2 gap-8">
+          {samples.map((sample, i) => (
+            <div key={i} className="bg-white dark:bg-secondary-800 rounded-lg shadow-soft p-6 flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-medium">
+              <h3 className="text-lg font-bold text-secondary-900 dark:text-white mb-2">{sample.title}</h3>
+              <div className="flex items-center space-x-4 text-sm text-muted mb-4">
+                <Terminal className="h-4 w-4" />
+                <span>{sample.style}</span>
               </div>
-            ))}
-          </div>
+              <div className="flex-grow"></div>
+              <div className="flex items-center space-x-4 mt-4">
+                <button onClick={() => setSelectedSample(sample)} className="btn-outline w-full flex items-center justify-center"><Eye className="h-4 w-4 mr-2" /> Preview</button>
+                <a href={sample.downloadUrl} download className="btn-primary w-full flex items-center justify-center"><Download className="h-4 w-4 mr-2" /> Download</a>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

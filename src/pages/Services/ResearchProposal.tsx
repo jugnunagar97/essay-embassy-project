@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ShieldCheck, Plus, Minus, Mail, Phone, Download, Eye } from 'lucide-react';
-import TestimonialTabs from '../../components/Testimonials/TestimonialTabs';
-import { useTestimonials } from '../../hooks/useTestimonials';
 
 // TYPE DEFINITIONS
 interface FaqItemProps { question: string; answer: string; isOpen: boolean; onClick: () => void; }
@@ -38,7 +36,6 @@ const SampleModal: React.FC<SampleModalProps> = ({ sample, onClose }) => (
 
 // MAIN COMPONENT
 const ResearchProposal = () => {
-  const { testimonials } = useTestimonials();
   const samples: Sample[] = [
     { title: 'Research Proposal: The Efficacy of Mindfulness Apps', pages: 10, style: 'APA', content: 'This proposal outlines a study to investigate the efficacy of mindfulness mobile applications in reducing stress and anxiety among college students. It includes a literature review, research questions, proposed methodology, and a timeline...', downloadUrl: '#' },
     { title: 'Grant Proposal: Community Garden Initiative', pages: 12, style: 'Grant Format', content: 'A proposal seeking funding for a community garden initiative in an urban food desert. Details the project goals, budget, community impact, and evaluation plan...', downloadUrl: '#' },
@@ -93,19 +90,6 @@ const ResearchProposal = () => {
              <Link to="/order-now" className="btn-primary text-lg px-8 py-3 shadow-soft hover:shadow-medium transition-shadow">Get Started Now</Link>
           </div>
         </div>
-      </section>
-
-      <section className="section container">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Hear From Our <span className="text-primary-500">Funded Researchers</span>
-          </h2>
-          <div className="w-24 h-1 bg-primary-500 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Real feedback from students whose projects were approved with our help.
-          </p>
-        </div>
-        <TestimonialTabs testimonials={testimonials} />
       </section>
 
       <section className="section bg-secondary-50 dark:bg-secondary-900">

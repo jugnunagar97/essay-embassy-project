@@ -21,6 +21,27 @@ import OrderNow from './pages/Order/OrderNow';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 
+// --- Static Service Page Imports ---
+import AdmissionEssay from './pages/Services/AdmissionEssay';
+import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
+import AssignmentHelpFixed from './pages/Services/AssignmentHelpFixed';
+import BookReview from './pages/Services/BookReview';
+import CaseStudy from './pages/Services/CaseStudy';
+import CaseStudyHelp from './pages/Services/CaseStudyHelp';
+import DissertationWriting from './pages/Services/DissertationWriting';
+import EnglishAssignmentHelp from './pages/Services/EnglishAssignmentHelp';
+import EssayWriting from './pages/Services/EssayWriting';
+import HomeworkHelp from './pages/Services/HomeworkHelp';
+import LabReport from './pages/Services/LabReport';
+import NarrativeEssay from './pages/Services/NarrativeEssay';
+import PhysicsAssignmentHelp from './pages/Services/PhysicsAssignmentHelp';
+import ProgrammingHelp from './pages/Services/ProgrammingHelp';
+import ResearchPaperWriting from './pages/Services/ResearchPaperWriting';
+import ResearchProposal from './pages/Services/ResearchProposal';
+import ScholarshipEssay from './pages/Services/ScholarshipEssay';
+import TermPaper from './pages/Services/TermPaper';
+import ThesisWriting from './pages/Services/ThesisWriting';
+
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
 import AdminDashboard from './pages/Dashboard/AdminDashboard';
@@ -124,9 +145,28 @@ function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="services" element={<Services />} /> {/* Main services overview page */}
 
-            {/* NEW DYNAMIC ROUTE FOR SERVICE PAGES (CRUCIAL) */}
-            {/* This route will catch all paths like /services/essay-writing-tips */}
-            {/* and render the DynamicServicePage component, passing the slug. */}
+            {/* Static service page routes */}
+            <Route path="services/admission-essay" element={<AdmissionEssay />} />
+            <Route path="services/argumentative-essay" element={<ArgumentativeEssay />} />
+            <Route path="services/assignment-help" element={<AssignmentHelpFixed />} />
+            <Route path="services/book-review" element={<BookReview />} />
+            <Route path="services/case-study" element={<CaseStudy />} />
+            <Route path="services/case-study-help" element={<CaseStudyHelp />} />
+            <Route path="services/dissertation-writing" element={<DissertationWriting />} />
+            <Route path="services/english-assignment-help" element={<EnglishAssignmentHelp />} />
+            <Route path="services/essay-writing" element={<EssayWriting />} />
+            <Route path="services/homework-help" element={<HomeworkHelp />} />
+            <Route path="services/lab-report" element={<LabReport />} />
+            <Route path="services/narrative-essay" element={<NarrativeEssay />} />
+            <Route path="services/physics-assignment-help" element={<PhysicsAssignmentHelp />} />
+            <Route path="services/programming-help" element={<ProgrammingHelp />} />
+            <Route path="services/research-paper-writing" element={<ResearchPaperWriting />} />
+            <Route path="services/research-proposal" element={<ResearchProposal />} />
+            <Route path="services/scholarship-essay" element={<ScholarshipEssay />} />
+            <Route path="services/term-paper" element={<TermPaper />} />
+            <Route path="services/thesis-writing" element={<ThesisWriting />} />
+
+            {/* Dynamic service route - fallback for any service slugs not covered above */}
             <Route path="services/:slug" element={<DynamicServicePage />} />
 
             {/* REMOVED OLD INDIVIDUAL SERVICE ROUTES */}

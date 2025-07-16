@@ -42,8 +42,12 @@ export default function Register() {
     <div className="min-h-screen bg-gradient-to-b from-[#F7F9FF] via-[#E3E8F0] to-white dark:bg-gray-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 rounded-xl w-16 h-16 mx-auto mb-4">
-            <BookOpen className="w-10 h-10 text-white" />
+          <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+            <img 
+              src="/images/logo.png" 
+              alt="Essay Embassy" 
+              className="w-16 h-16 object-contain"
+            />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create Account</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2">
@@ -154,7 +158,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            className="w-full bg-gradient-to-r from-primary-500 to-primary-700 text-white py-3 rounded-lg font-medium hover:from-primary-600 hover:to-primary-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
             {isLoading ? <LoadingSpinner size="sm" className="mr-2" /> : null}
             {isLoading ? 'Creating Account...' : 'Create Account'}

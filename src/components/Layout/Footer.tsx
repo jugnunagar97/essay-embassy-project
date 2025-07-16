@@ -54,8 +54,12 @@ export default function Footer() {
           {/* Company Info */}
           <div className="md:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="bg-primary-500 p-2 rounded-lg">
-                <BookOpen className="h-6 w-6 text-white" />
+              <div className="flex items-center justify-center">
+                <img 
+                  src="/images/logo.png" 
+                  alt="Essay Embassy" 
+                  className="h-16 w-16 object-contain"
+                />
               </div>
               <div>
                 <span className="text-xl font-bold">Essay Embassy</span>
@@ -95,10 +99,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6 text-primary-400">Contact Info</h3>
             <div className="space-y-4">
-              <div className="flex items-center space-x-3"><Mail size={18} className="text-primary-400" /><span className="text-gray-300">support@essayembassy.com</span></div>
-              <div className="flex items-center space-x-3"><Phone size={18} className="text-primary-400" /><span className="text-gray-300">+1 (555) 123-4567</span></div>
-              <div className="flex items-center space-x-3"><Clock size={18} className="text-primary-400" /><span className="text-gray-300">24/7 Support Available</span></div>
-              <div className="flex items-start space-x-3"><MapPin size={18} className="text-primary-400 mt-1" /><span className="text-gray-300">Serving students worldwide</span></div>
+              <div className="flex items-center space-x-3"><Mail size={20} className="text-primary-400" /><span className="text-gray-300">support@essayembassy.com</span></div>
+              <div className="flex items-center space-x-3"><Phone size={20} className="text-primary-400" /><span className="text-gray-300">+1 (555) 123-4567</span></div>
+              <div className="flex items-center space-x-3"><Clock size={20} className="text-primary-400" /><span className="text-gray-300">24/7 Support Available</span></div>
+              <div className="flex items-center space-x-3"><MapPin size={20} className="text-primary-400" /><span className="text-gray-300">1309 Beacon Street, Suite 300, Brookline, Massachusetts 02446</span></div>
             </div>
           </div>
         </div>

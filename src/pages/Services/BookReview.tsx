@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, ShieldCheck, Plus, Minus, Mail, Phone, Download, Eye } from 'lucide-react';
-import TestimonialTabs from '../../components/Testimonials/TestimonialTabs';
-import { useTestimonials } from '../../hooks/useTestimonials';
 
 // ==================================================================================
 // === TYPE DEFINITIONS ===
@@ -63,7 +61,6 @@ const SampleModal: React.FC<SampleModalProps> = ({ sample, onClose }) => (
 // ==================================================================================
 
 const BookReview = () => {
-  const { testimonials } = useTestimonials();
   
   const samples: Sample[] = [
     { title: 'Book Review: "Sapiens: A Brief History of Humankind"', pages: 3, style: 'MLA', content: 'This review analyzes Yuval Noah Harari\'s "Sapiens," evaluating its main arguments on cognitive, agricultural, and scientific revolutions. It critiques the book\'s broad scope while praising its engaging narrative and thought-provoking insights...', downloadUrl: '#' },
@@ -119,19 +116,6 @@ const BookReview = () => {
              <Link to="/order-now" className="btn-primary text-lg px-8 py-3 shadow-soft hover:shadow-medium transition-shadow">Get Started Now</Link>
           </div>
         </div>
-      </section>
-
-      <section className="section container">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Hear From Our <span className="text-primary-500">Literary Critics</span>
-          </h2>
-          <div className="w-24 h-1 bg-primary-500 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Real feedback from students who mastered their literary analysis with us.
-          </p>
-        </div>
-        <TestimonialTabs testimonials={testimonials} />
       </section>
 
       <section className="section bg-secondary-50 dark:bg-secondary-900">

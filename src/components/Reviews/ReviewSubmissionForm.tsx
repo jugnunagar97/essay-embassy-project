@@ -6,6 +6,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import toast from 'react-hot-toast';
 import { XCircle, Send } from 'lucide-react';
 import LoadingSpinner from '../Common/LoadingSpinner'; // FIXED: Corrected the import path for LoadingSpinner
+import { useAuth } from '../../context/AuthContext';
 
 interface ReviewSubmissionFormProps {
   onClose: () => void;
@@ -13,16 +14,20 @@ interface ReviewSubmissionFormProps {
 }
 
 export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmissionFormProps) {
+  const { user } = useAuth();
   const [userName, setUserName] = useState('');
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
   const [orderId, setOrderId] = useState('');
-  const [isAnonymous, setIsAnonymous] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!comment || (!isAnonymous && !userName)) {
+    if (!user) {
+      toast.error('You must be registered and logged in to submit a review. Please log in or create an account.');
+      return;
+    }
+    if (!comment || !userName) {
       toast.error('Please fill out your name and review content.');
       return;
     }
@@ -31,11 +36,11 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
     const toastId = toast.loading('Submitting your review...');
 
     const newReview = {
-      userName: isAnonymous ? 'Anonymous User' : userName,
+      userName,
       comment,
       rating,
       orderId: orderId || '',
-      isAnonymous,
+      isAnonymous: false,
       isApproved: false,
       isPending: true,
       isFlagged: false,
@@ -51,7 +56,7 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
       toast.success('Review submitted for approval!', { id: toastId });
       onSuccess();
     } catch (error) {
-      toast.error('Failed to submit review.', { id: toastId });
+      toast.error('Failed to submit review. Please try again later.', { id: toastId });
       console.error("Error submitting review: ", error);
     } finally {
       setIsSubmitting(false);
@@ -68,28 +73,23 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
         <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-1">Full Name</label>
-            <input id="name" type="text" value={userName} onChange={(e) => setUserName(e.target.value)} disabled={isAnonymous}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 disabled:opacity-50" />
+            <input id="name" type="text" value={userName} onChange={(e) => setUserName(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700" />
           </div>
-          <div className="flex items-center">
-            <input type="checkbox" id="isAnonymous" checked={isAnonymous} onChange={(e) => setIsAnonymous(e.target.checked)} className="h-4 w-4 rounded"/>
-            <label htmlFor="isAnonymous" className="ml-2 text-sm">Submit as Anonymous</label>
-          </div>
+          {/* Removed anonymous option */}
           <div>
             <label htmlFor="orderId" className="block text-sm font-medium mb-1">Order ID (Optional)</label>
             <input id="orderId" type="text" value={orderId} onChange={(e) => setOrderId(e.target.value)}
               className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700" placeholder="e.g., #12345 to get a 'Verified' badge"/>
           </div>
-          <div>
-            <label htmlFor="rating" className="block text-sm font-medium mb-1">Your Rating</label>
-            <select id="rating" value={rating} onChange={(e) => setRating(parseInt(e.target.value))} className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700">
-              <option value="5">5 Stars - Excellent</option>
-              <option value="4">4 Stars - Good</option>
-              <option value="3">3 Stars - Average</option>
-              <option value="2">2 Stars - Poor</option>
-              <option value="1">1 Star - Bad</option>
-            </select>
-          </div>
+          <label htmlFor="rating" className="block text-sm font-medium mb-1">Your Rating</label>
+          <select id="rating" value={rating} onChange={(e) => setRating(parseInt(e.target.value))} className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700">
+            <option value="5">5 Stars - Excellent</option>
+            <option value="4">4 Stars - Good</option>
+            <option value="3">3 Stars - Average</option>
+            <option value="2">2 Stars - Poor</option>
+            <option value="1">1 Star - Bad</option>
+          </select>
           <div>
             <label htmlFor="content" className="block text-sm font-medium mb-1">Your Review</label>
             <textarea id="content" value={comment} onChange={(e) => setComment(e.target.value)}

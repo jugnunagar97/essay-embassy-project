@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Star, CheckCircle, Plus, Minus, Mail, Phone, Download, Eye, ShieldCheck } from 'lucide-react';
-import TestimonialTabs from '../../components/Testimonials/TestimonialTabs';
-import { useTestimonials } from '../../hooks/useTestimonials';
 
 // ==================================================================================
 // === TYPE DEFINITIONS (To fix all TypeScript errors) ===
@@ -63,7 +61,6 @@ const SampleModal: React.FC<SampleModalProps> = ({ sample, onClose }) => (
 // ==================================================================================
 
 const HomeworkHelp = () => {
-  const { testimonials } = useTestimonials();
   
   const samples: Sample[] = [
     { title: 'Algebra II: Solving Quadratic Equations', pages: 2, style: 'Worksheet', content: 'This document provides step-by-step solutions for a set of 10 quadratic equation problems, demonstrating the use of the quadratic formula and factoring methods...', downloadUrl: '#' },
@@ -120,17 +117,6 @@ const HomeworkHelp = () => {
              <Link to="/order-now" className="btn-primary text-lg px-8 py-3 shadow-soft hover:shadow-medium transition-shadow">Place An Order</Link>
           </div>
         </div>
-      </section>
-
-      <section className="section container">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            What Our <span className="text-primary-500">Students Say</span>
-          </h2>
-          <div className="w-24 h-1 bg-primary-500 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Real feedback from students who achieved academic success with our help.</p>
-        </div>
-        <TestimonialTabs testimonials={testimonials} />
       </section>
 
       <section className="section bg-secondary-50 dark:bg-secondary-900">

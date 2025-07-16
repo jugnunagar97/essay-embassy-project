@@ -1,19 +1,12 @@
 // src/components/Layout/ServicesDropdown.tsx
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react'; // Make sure ChevronDown is imported
-// Import the hooks to fetch dynamic data from Firestore
-import { useServiceCategories, useSubServices } from '../../hooks/useData';
-import { ServiceCategory, SubService } from '../../types'; // Import types
+import { ChevronDown } from 'lucide-react';
 
 export default function ServicesDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<number | null>(null);
-
-  // Fetch categories and services from Firestore using your existing hooks
-  const { categories, isLoading: isLoadingCategories } = useServiceCategories();
-  const { services, isLoading: isLoadingServices } = useSubServices();
 
   // Effect to handle clicking outside the dropdown to close it
   useEffect(() => {
@@ -36,33 +29,43 @@ export default function ServicesDropdown() {
     timeoutRef.current = window.setTimeout(() => setIsOpen(false), 200);
   };
 
-  // Memoize the structured menu data for efficient rendering
-  const structuredServicesMenu = useMemo(() => {
-    if (isLoadingCategories || isLoadingServices) {
-      return []; // Return empty array while loading
+  // Static services data - your existing service pages
+  const servicesData = [
+    {
+      category: "Essay Writing",
+      services: [
+        { name: "Essay Writing", link: "essay-writing" },
+        { name: "Argumentative Essay", link: "argumentative-essay" },
+        { name: "Narrative Essay", link: "narrative-essay" },
+        { name: "Admission Essay", link: "admission-essay" },
+        { name: "Scholarship Essay", link: "scholarship-essay" },
+      ]
+    },
+    {
+      category: "Academic Writing",
+      services: [
+        { name: "Assignment Help", link: "assignment-help" },
+        { name: "Homework Help", link: "homework-help" },
+        { name: "Term Paper", link: "term-paper" },
+        { name: "Research Paper", link: "research-paper-writing" },
+        { name: "Research Proposal", link: "research-proposal" },
+        { name: "Thesis Writing", link: "thesis-writing" },
+        { name: "Dissertation Writing", link: "dissertation-writing" },
+      ]
+    },
+    {
+      category: "Specialized Help",
+      services: [
+        { name: "Case Study", link: "case-study" },
+        { name: "Case Study Help", link: "case-study-help" },
+        { name: "Book Review", link: "book-review" },
+        { name: "Lab Report", link: "lab-report" },
+        { name: "Programming Help", link: "programming-help" },
+        { name: "English Assignment Help", link: "english-assignment-help" },
+        { name: "Physics Assignment Help", link: "physics-assignment-help" },
+      ]
     }
-
-    // Filter and sort active categories
-    const activeCategories = categories
-      .filter((cat: ServiceCategory) => cat.isActive)
-      .sort((a: ServiceCategory, b: ServiceCategory) => (a.order || 0) - (b.order || 0));
-
-    // Structure the data: each category with its active, sorted sub-services
-    return activeCategories.map((category: ServiceCategory) => {
-      const subServices = services
-        .filter((service: SubService) => service.categoryId === category.id && service.isActive)
-        .sort((a: SubService, b: SubService) => (a.order || 0) - (b.order || 0));
-      return {
-        ...category, // Include all category properties
-        subServices: subServices,
-      };
-    }).filter(category => category.subServices.length > 0); // Only show categories that have active services
-  }, [categories, services, isLoadingCategories, isLoadingServices]);
-
-  // Show nothing if still loading or no active categories with services
-  if (isLoadingCategories || isLoadingServices || structuredServicesMenu.length === 0) {
-    return null; // The component returns null, so the button itself won't be rendered if no data
-  }
+  ];
 
   return (
     <div
@@ -80,20 +83,20 @@ export default function ServicesDropdown() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 z-50 w-max min-w-[200px] md:min-w-[400px] lg:min-w-[600px] xl:min-w-[800px]"> {/* Adjusted min-width for better display */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-4"> {/* Adjusted grid for responsiveness */}
-            {structuredServicesMenu.map((category) => (
-              <div key={category.id} className="space-y-2"> {/* Use category.id as key */}
+        <div className="absolute top-full left-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 z-50 w-max min-w-[200px] md:min-w-[400px] lg:min-w-[600px] xl:min-w-[800px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4">
+            {servicesData.map((category, index) => (
+              <div key={index} className="space-y-2">
                 <h3 className="font-bold text-sm text-gray-900 dark:text-white border-b border-primary-500 pb-1 mb-2">
-                  {category.name}
+                  {category.category}
                 </h3>
                 <ul className="space-y-1">
-                  {category.subServices.map((service) => (
-                    <li key={service.id}> {/* Use service.id as key */}
+                  {category.services.map((service, serviceIndex) => (
+                    <li key={serviceIndex}>
                       <Link
-                        to={`/services/${service.link}`} // Link to the dynamic service page using its slug
+                        to={`/services/${service.link}`}
                         className="block text-sm text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-                        onClick={() => setIsOpen(false)} // Close dropdown on link click
+                        onClick={() => setIsOpen(false)}
                       >
                         {service.name}
                       </Link>
