@@ -62,6 +62,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           <ServicesDropdown /> {/* This is your dynamic services dropdown */}
           <Link to="/samples" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">Samples</Link>
           <Link to="/reviews" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">Reviews</Link>
+          <Link to="/qa-library" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 font-semibold">Q&amp;A Library</Link>
           <Link to="/about" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">About</Link>
           <Link to="/blog" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">Blog</Link>
           <Link to="/contact" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">Contact</Link>
@@ -143,6 +144,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
 
       {/* Mobile Navigation Menu */}
       {/* The MobileServicesMenu component is correctly imported and passed props now. */}
+      {/* TODO: Add Q&A Library link to MobileServicesMenu if not present */}
       {!isAdminPage && isMobileNavOpen && (
         <MobileServicesMenu onClose={() => setIsMobileNavOpen(false)} />
       )}

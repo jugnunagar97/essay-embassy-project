@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/Layout/Layout';
 import LoadingSpinner from './components/Common/LoadingSpinner';
+import SocialProofNotificationSystem from './components/Common/SocialProofNotificationSystem';
 
 // --- Core Page Imports ---
 import Home from './pages/Home';
@@ -20,6 +21,10 @@ import Reviews from './pages/Reviews';
 import OrderNow from './pages/Order/OrderNow';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import QALibrary from './pages/QALibrary';
+import QASolutionPage from './pages/QASolutionPage';
+import Checkout from './pages/Checkout';
+import ThankYou from './pages/ThankYou';
 
 // --- Static Service Page Imports ---
 import AdmissionEssay from './pages/Services/AdmissionEssay';
@@ -54,6 +59,9 @@ import NewOrder from './pages/Dashboard/NewOrder';
 import Orders from './pages/Dashboard/Orders';
 import UserManagement from './pages/Dashboard/UserManagement';
 import UserDetail from './pages/Dashboard/UserDetail';
+import AdminLogin from './pages/Admin/AdminLogin';
+import AdminQAManager from './pages/Admin/AdminQAManager';
+import AdminQAManagerForm from './pages/Admin/AdminQAManagerForm';
 
 // --- Admin Management Component Imports (from components/Admin) ---
 import ServiceManager from './components/Admin/ServiceManager';
@@ -134,6 +142,7 @@ function App() {
     <AuthProvider> {/* Provides authentication context to all child components */}
       <Router> {/* Enables client-side routing */}
         <Toaster position="top-right" /> {/* Global notification system */}
+        <SocialProofNotificationSystem />
         <Routes> {/* Defines all possible routes in the application */}
           {/* Main layout route - all nested routes will render within the Layout component */}
           <Route path="/" element={<Layout />}>
@@ -183,10 +192,19 @@ function App() {
             <Route path="terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="refund-policy" element={<RefundPolicy />} />
             <Route path="order-now" element={<OrderNow />} />
+            <Route path="/qa-library" element={<QALibrary />} />
+            <Route path="/qa-library/:subject/:questionTitleId" element={<QASolutionPage />} />
+            <Route path="/checkout/:qaId" element={<Checkout />} />
+            <Route path="/thank-you/:orderId" element={<ThankYou />} />
 
             {/* Protected routes - require authentication */}
             {/* Dashboard route - dynamically renders admin or client dashboard */}
             <Route path="dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/qa" element={<AdminQAManager />} />
+            <Route path="/admin/qa/new" element={<AdminQAManagerForm />} />
+            <Route path="/admin/qa/:id/edit" element={<AdminQAManagerForm />} />
 
             {/* Admin-only protected routes */}
             <Route path="dashboard/reviews" element={<ProtectedRoute adminOnly><ReviewManager /></ProtectedRoute>} />

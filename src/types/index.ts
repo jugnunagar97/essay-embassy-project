@@ -157,3 +157,38 @@ export interface ServicePage {
     createdAt?: Timestamp;
     updatedAt?: Timestamp;
 }
+
+// Q&A Library Types
+
+export interface Subject {
+  id: string; // Firestore doc ID
+  name: string;
+}
+
+export interface PaperType {
+  id: string; // Firestore doc ID
+  name: string;
+}
+
+export interface QASolution {
+  id: string; // Firestore doc ID
+  questionTitle: string;
+  questionText: string;
+  answerText: string; // Rich text (HTML or similar)
+  subjectId: string;
+  subjectName: string; // For denormalized display
+  paperTypeId: string;
+  paperTypeName: string; // For denormalized display
+  priceUSD: number;
+  files: QASolutionFile[];
+  status: 'published' | 'draft';
+  createdAt: number; // Timestamp
+  updatedAt: number; // Timestamp
+}
+
+export interface QASolutionFile {
+  name: string; // Filename
+  url: string; // Firebase Storage URL
+  size: number; // Bytes
+  type: string; // MIME type
+}
