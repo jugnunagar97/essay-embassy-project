@@ -49,11 +49,10 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
               <Menu size={24} />
             </button>
           )}
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-gray-800 dark:text-white">
-              Essay Embassy
-            </span>
-          </Link>
+          {/* Brand name as text replaced with logo */}
+          <div className="flex items-center gap-2">
+            <img src="/images/logo.png" alt="Essay Embassy Logo" className="h-16 max-h-16 w-auto" />
+          </div>
         </div>
 
         {/* Center Section: Main Navigation (Desktop ONLY) */}

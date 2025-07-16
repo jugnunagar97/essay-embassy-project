@@ -13,16 +13,16 @@ interface ReviewSubmissionFormProps {
 }
 
 export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmissionFormProps) {
-  const [name, setName] = useState('');
+  const [userName, setUserName] = useState('');
   const [rating, setRating] = useState(5);
-  const [content, setContent] = useState('');
+  const [comment, setComment] = useState('');
   const [orderId, setOrderId] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!content || (!isAnonymous && !name)) {
+    if (!comment || (!isAnonymous && !userName)) {
       toast.error('Please fill out your name and review content.');
       return;
     }
@@ -31,9 +31,9 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
     const toastId = toast.loading('Submitting your review...');
 
     const newReview = {
-      name: isAnonymous ? 'Anonymous User' : name,
+      userName: isAnonymous ? 'Anonymous User' : userName,
+      comment,
       rating,
-      content,
       orderId: orderId || '',
       isAnonymous,
       isApproved: false,
@@ -68,7 +68,7 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
         <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-1">Full Name</label>
-            <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} disabled={isAnonymous}
+            <input id="name" type="text" value={userName} onChange={(e) => setUserName(e.target.value)} disabled={isAnonymous}
               className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700 disabled:opacity-50" />
           </div>
           <div className="flex items-center">
@@ -92,8 +92,8 @@ export default function ReviewSubmissionForm({ onClose, onSuccess }: ReviewSubmi
           </div>
           <div>
             <label htmlFor="content" className="block text-sm font-medium mb-1">Your Review</label>
-            <textarea id="content" required value={content} onChange={(e) => setContent(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700" rows={5} placeholder="Tell us about your experience..."/>
+            <textarea id="content" value={comment} onChange={(e) => setComment(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg dark:bg-gray-700" rows={4} />
           </div>
         </div>
         <div className="flex justify-end space-x-3 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-b-lg">

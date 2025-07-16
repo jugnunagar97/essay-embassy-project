@@ -3,7 +3,7 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useReviews, useReviewStats } from '../../hooks/useData';
 import { Search, Star, ThumbsUp, Trash2, ArrowUp, ArrowDown, ShieldCheck, PlusCircle, XCircle, Edit } from 'lucide-react';
-import { doc, updateDoc, deleteDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc, addDoc, collection, serverTimestamp, Timestamp } from 'firebase/firestore';
 import { db } from '../../firebase';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns'; // FIXED: Removed unused 'isValid' import
@@ -41,14 +41,30 @@ export default function ReviewManager() {
     else { setSortColumn(column); setSortDirection('desc'); }
   }, [sortColumn]);
   
+  // Fix: Use correct Review field names and handle publishDate for display
   const openModal = (review: Partial<Review> | null = null) => {
-    setCurrentReview(review ? {...review} : { name: '', rating: 5, content: '', platform: 'website', isApproved: true, isPending: false, isVerifiedPurchase: true });
+    setCurrentReview(review ? {
+      ...review,
+      publishDate: review?.publishDate && typeof (review.publishDate as any).toDate === 'function'
+        ? (review.publishDate as any).toDate()
+        : review?.publishDate || undefined,
+    } : {
+      userName: '',
+      rating: 5,
+      comment: '',
+      platform: 'website',
+      isApproved: true,
+      isPending: false,
+      isVerifiedPurchase: true,
+      helpfulCount: 0,
+      publishDate: undefined,
+    });
     setIsModalOpen(true);
   }
 
   const filteredAndSortedReviews = useMemo(() => {
     let filtered = reviews.filter(review => {
-      const matchesSearch = searchTerm === '' || review.name.toLowerCase().includes(searchTerm.toLowerCase()) || review.content.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch = searchTerm === '' || review.userName.toLowerCase().includes(searchTerm.toLowerCase()) || review.comment.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = filterStatus === 'all' || (filterStatus === 'approved' && review.isApproved) || (filterStatus === 'pending' && review.isPending);
       return matchesSearch && matchesStatus;
     });
@@ -85,12 +101,22 @@ export default function ReviewManager() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!currentReview?.name || !currentReview?.content) { toast.error("Name and Content are required."); return; }
+    if (!currentReview?.userName || !currentReview?.comment) { toast.error("Name and Content are required."); return; }
     
     setIsSubmitting(true);
     const toastId = toast.loading("Saving review...");
     
     const { id, ...reviewData } = currentReview;
+
+    // Convert publishDate to Firestore Timestamp if it's a JS Date
+    if (reviewData.publishDate) {
+      if (reviewData.publishDate instanceof Date) {
+        reviewData.publishDate = Timestamp.fromDate(reviewData.publishDate);
+      } else if (typeof reviewData.publishDate === 'string') {
+        // If it's a string (from input type=date), convert to Date then Timestamp
+        reviewData.publishDate = Timestamp.fromDate(new Date(reviewData.publishDate));
+      }
+    }
 
     try {
       if (id) {
@@ -159,22 +185,22 @@ export default function ReviewManager() {
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase cursor-pointer" onClick={() => handleSort('name')}><div className="flex items-center">Customer {sortColumn === 'name' && (sortDirection === 'asc' ? <ArrowUp size={14}/> : <ArrowDown size={14}/>)}</div></th>
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase cursor-pointer" onClick={() => handleSort('userName')}><div className="flex items-center">Customer {sortColumn === 'userName' && (sortDirection === 'asc' ? <ArrowUp size={14}/> : <ArrowDown size={14}/>)}</div></th>
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase cursor-pointer" onClick={() => handleSort('rating')}><div className="flex items-center">Rating {sortColumn === 'rating' && (sortDirection === 'asc' ? <ArrowUp size={14}/> : <ArrowDown size={14}/>)}</div></th>
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase">Content</th>
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase cursor-pointer" onClick={() => handleSort('isApproved')}><div className="flex items-center">Status {sortColumn === 'isApproved' && (sortDirection === 'asc' ? <ArrowUp size={14}/> : <ArrowDown size={14}/>)}</div></th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase cursor-pointer" onClick={() => handleSort('createdAt')}><div className="flex items-center">Date {sortColumn === 'createdAt' && (sortDirection === 'asc' ? <ArrowUp size={14}/> : <ArrowDown size={14}/>)}</div></th>
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase cursor-pointer" onClick={() => handleSort('publishDate')}><div className="flex items-center">Date {sortColumn === 'publishDate' && (sortDirection === 'asc' ? <ArrowUp size={14}/> : <ArrowDown size={14}/>)}</div></th>
                 <th className="relative px-6 py-3"><span className="sr-only">Actions</span></th>
               </tr>
             </thead>
             <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {filteredAndSortedReviews.map(review => (
                 <tr key={review.id}>
-                    <td className="px-6 py-4 whitespace-nowrap"><div className="font-medium">{review.name}</div>{review.isVerifiedPurchase && <div className="text-xs text-blue-500 flex items-center"><ShieldCheck size={12} className="mr-1"/>Verified</div>}</td>
+                    <td className="px-6 py-4 whitespace-nowrap"><div className="font-medium">{review.userName}</div>{review.isVerifiedPurchase && <div className="text-xs text-blue-500 flex items-center"><ShieldCheck size={12} className="mr-1"/>Verified</div>}</td>
                     <td className="px-6 py-4 whitespace-nowrap"><RatingStars rating={review.rating} /></td>
-                    <td className="px-6 py-4"><p className="text-sm max-w-sm truncate">{review.content}</p></td>
+                    <td className="px-6 py-4"><p className="text-sm max-w-sm truncate">{review.comment}</p></td>
                     <td className="px-6 py-4 whitespace-nowrap"><StatusBadge review={review} /></td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">{formatDateSafe(review.createdAt)}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm">{formatDateSafe(review.publishDate || review.createdAt)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
                       <button onClick={() => handleToggleApproval(review)} className="text-green-500 hover:text-green-700" title={review.isApproved ? 'Unapprove' : 'Approve'}><ThumbsUp size={18} /></button>
                       <button onClick={() => openModal(review)} className="text-blue-500 hover:text-blue-700" title="Edit"><Edit size={18} /></button>
@@ -195,14 +221,16 @@ export default function ReviewManager() {
                     <button type="button" onClick={() => setIsModalOpen(false)}><XCircle className="text-gray-400"/></button>
                 </div>
                 <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
-                    <div><label className="block text-sm">Customer Name</label><input type="text" required value={currentReview?.name || ''} onChange={e => setCurrentReview(p => ({...p!, name: e.target.value}))} className="w-full mt-1 p-2 border rounded-lg dark:bg-gray-700"/></div>
+                    <div><label className="block text-sm">Customer Name</label><input type="text" required value={currentReview?.userName || ''} onChange={e => setCurrentReview(p => ({...p!, userName: e.target.value}))} className="w-full mt-1 p-2 border rounded-lg dark:bg-gray-700"/></div>
                     <div><label className="block text-sm">Rating</label><select value={currentReview?.rating || 5} onChange={e => setCurrentReview(p => ({...p!, rating: parseInt(e.target.value)}))} className="w-full mt-1 p-2 border rounded-lg dark:bg-gray-700">{[5,4,3,2,1].map(r => <option key={r} value={r}>{r} Stars</option>)}</select></div>
-                    <div><label className="block text-sm">Content</label><textarea required value={currentReview?.content || ''} onChange={e => setCurrentReview(p => ({...p!, content: e.target.value}))} className="w-full mt-1 p-2 border rounded-lg dark:bg-gray-700" rows={4}/></div>
+                    <div><label className="block text-sm">Content</label><textarea required value={currentReview?.comment || ''} onChange={e => setCurrentReview(p => ({...p!, comment: e.target.value}))} className="w-full mt-1 p-2 border rounded-lg dark:bg-gray-700" rows={4}/></div>
                     <div><label className="block text-sm">Platform</label>
                         <select value={currentReview?.platform || 'website'} onChange={e => setCurrentReview(p => ({...p!, platform: e.target.value as Review['platform']}))} className="w-full mt-1 p-2 border rounded-lg dark:bg-gray-700">
                            <option value="website">Website</option><option value="google">Google</option><option value="trustpilot">Trustpilot</option><option value="sitejabber">Sitejabber</option>
                         </select>
                     </div>
+                    <div><label className="block text-sm">Helpful Count</label><input type="number" min="0" value={currentReview?.helpfulCount ?? 0} onChange={e => setCurrentReview(p => ({...p!, helpfulCount: parseInt(e.target.value)}))} className="w-full mt-1 p-2 border rounded-lg dark:bg-gray-700"/></div>
+                    <div><label className="block text-sm">Publish Date</label><input type="date" value={currentReview?.publishDate ? (currentReview.publishDate instanceof Date ? currentReview.publishDate.toISOString().slice(0,10) : (typeof currentReview.publishDate === 'string' ? currentReview.publishDate : '')) : ''} onChange={e => setCurrentReview({...currentReview, publishDate: e.target.value ? new Date(e.target.value) : undefined})} className="w-full mt-1 p-2 border rounded-lg dark:bg-gray-700"/></div>
                      <div className="flex items-center space-x-4">
                          <label className="flex items-center"><input type="checkbox" checked={currentReview?.isApproved} onChange={e => setCurrentReview(p => ({...p!, isApproved: e.target.checked}))} /> <span className="ml-2">Approved</span></label>
                          <label className="flex items-center"><input type="checkbox" checked={currentReview?.isVerifiedPurchase} onChange={e => setCurrentReview(p => ({...p!, isVerifiedPurchase: e.target.checked}))} /> <span className="ml-2">Verified Purchase</span></label>

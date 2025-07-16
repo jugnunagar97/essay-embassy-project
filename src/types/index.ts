@@ -96,6 +96,8 @@ export interface Review {
     platform?: 'google' | 'trustpilot' | 'sitejabber' | 'website'; // Optional, where review came from
     createdAt: Timestamp;
     updatedAt?: Timestamp;
+    helpfulCount?: number; // Number of helpful hits (admin editable)
+    publishDate?: Timestamp | Date; // Date when review is published (admin editable)
 }
 
 // Interface for Review Stats - FIXED: Exported

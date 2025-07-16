@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, ThumbsUp, Filter, Search, ChevronDown, Calendar, User, Shield, MessageSquare, Plus, ArrowRight, MapPin, Hash } from 'lucide-react';
+import { Star, ThumbsUp, Filter, Search, ChevronDown, Calendar, MessageSquare, Plus, ArrowRight } from 'lucide-react';
 import { useReviews as useDatabaseReviews } from '../hooks/useData';
 import { Review, ReviewStats } from '../types';
 import ReviewSubmissionForm from '../components/Reviews/ReviewSubmissionForm';
@@ -50,7 +50,11 @@ export default function Reviews() {
   useEffect(() => {
     let filtered = [...approvedReviews];
     if (searchTerm) {
-      filtered = filtered.filter(review => review.name.toLowerCase().includes(searchTerm.toLowerCase()) || review.content.toLowerCase().includes(searchTerm.toLowerCase()));
+      filtered = filtered.filter(review => {
+        const name = review.userName || '';
+        const comment = review.comment || '';
+        return name.toLowerCase().includes(searchTerm.toLowerCase()) || comment.toLowerCase().includes(searchTerm.toLowerCase());
+      });
     }
     if (filterBy !== 'all') {
       if (filterBy === 'verified') filtered = filtered.filter(r => r.isVerifiedPurchase);
@@ -58,12 +62,22 @@ export default function Reviews() {
       else filtered = filtered.filter(r => r.rating === parseInt(filterBy));
     }
     filtered.sort((a, b) => {
+      // Use publishDate if present, otherwise createdAt
+      function getDateField(r: Review) {
+        if (r.publishDate && typeof (r.publishDate as any).toDate === 'function') return (r.publishDate as any).toDate();
+        if (r.publishDate instanceof Date) return r.publishDate;
+        if (r.createdAt && typeof (r.createdAt as any).toDate === 'function') return (r.createdAt as any).toDate();
+        if (r.createdAt instanceof Date) return r.createdAt;
+        return new Date(); // fallback
+      }
+      const aDate = getDateField(a);
+      const bDate = getDateField(b);
       switch (sortBy) {
-        case 'newest': return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-        case 'oldest': return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+        case 'newest': return bDate.getTime() - aDate.getTime();
+        case 'oldest': return aDate.getTime() - bDate.getTime();
         case 'highest-rated': return b.rating - a.rating;
         case 'lowest-rated': return a.rating - b.rating;
-        case 'most-helpful': return b.helpfulCount - a.helpfulCount;
+        case 'most-helpful': return (b.helpfulCount ?? 0) - (a.helpfulCount ?? 0);
         default: return 0;
       }
     });
@@ -76,12 +90,41 @@ export default function Reviews() {
     </div>
   );
   
+  // Place getPlatformBadge at the top level, not inside another function
+  const platformLogoConfig: Record<string, { name: string; logo: string; alt: string; bg: string }> = {
+    google: {
+      name: 'Google',
+      logo: 'https://cdn.worldvectorlogo.com/logos/google-g-2015.svg',
+      alt: 'Google',
+      bg: 'bg-blue-100',
+    },
+    trustpilot: {
+      name: 'Trustpilot',
+      logo: 'https://cdn.worldvectorlogo.com/logos/trustpilot-1.svg',
+      alt: 'Trustpilot',
+      bg: 'bg-green-100',
+    },
+    sitejabber: {
+      name: 'Sitejabber',
+      logo: 'https://www.sitejabber.com/img/new/logo_small.png',
+      alt: 'Sitejabber',
+      bg: 'bg-orange-100',
+    },
+  };
+
   const getPlatformBadge = (review: Review) => {
     if (!review.platform || review.platform === 'website') return null;
-    const config = { google: { name: 'Google', color: 'bg-blue-100 text-blue-800' }, trustpilot: { name: 'Trustpilot', color: 'bg-green-100 text-green-800' }, sitejabber: { name: 'Sitejabber', color: 'bg-orange-100 text-orange-800' }};
-    const platformConfig = config[review.platform];
+    const platformConfig = platformLogoConfig[review.platform];
     if (!platformConfig) return null;
-    return <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${platformConfig.color}`}><Shield size={12} className="mr-1" />{platformConfig.name}</span>;
+    // Only show the name for Google, not for Trustpilot or Sitejabber
+    const showName = review.platform === 'google';
+    return (
+      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${platformConfig.bg}`}
+        style={{ minHeight: 24 }}>
+        <img src={platformConfig.logo} alt={platformConfig.alt} style={{ height: 20, width: 'auto', marginRight: showName ? 6 : 0, display: 'inline-block', verticalAlign: 'middle' }} />
+        {showName && platformConfig.name}
+      </span>
+    );
   };
 
   const handleMarkAsHelpful = (reviewId: string) => {
@@ -158,34 +201,37 @@ export default function Reviews() {
           <h2 className="text-2xl font-bold mb-8">Customer Reviews ({displayedReviews.length})</h2>
           {displayedReviews.length > 0 ? (
             <div className="grid lg:grid-cols-2 gap-8">
-              {displayedReviews.map((review) => (
-                <div key={review.id} className="bg-white dark:bg-gray-800 rounded-xl p-6 border">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      {review.isAnonymous ? (
-                        <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center"><User size={24} /></div>
-                      ) : (
-                        <div className="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center"><span className="text-white font-bold text-lg">{review.name.charAt(0)}</span></div>
-                      )}
-                      <div>
-                        <h3 className="font-semibold">{review.name}</h3>
-                        <div className="flex items-center space-x-2 mt-1">{renderStars(review.rating)}</div>
+              {displayedReviews.map((review) => {
+                const name = review.userName || '';
+                const comment = review.comment || '';
+                const reviewDate = (() => {
+                  if (review.publishDate && typeof (review.publishDate as any).toDate === 'function') return (review.publishDate as any).toDate();
+                  if (review.publishDate instanceof Date) return review.publishDate;
+                  if (review.createdAt && typeof (review.createdAt as any).toDate === 'function') return (review.createdAt as any).toDate();
+                  if (review.createdAt instanceof Date) return review.createdAt;
+                  return new Date();
+                })();
+                return (
+                  <div key={review.id} className="bg-white dark:bg-gray-800 rounded-xl p-6 border">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center"><span className="text-white font-bold text-lg">{name.charAt(0)}</span></div>
+                        <div>
+                          <h3 className="font-semibold">{name}</h3>
+                          <div className="flex items-center space-x-2 mt-1">{renderStars(review.rating)}</div>
+                        </div>
                       </div>
+                      {getPlatformBadge(review)}
                     </div>
-                    {getPlatformBadge(review)}
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{comment}</p>
+                    {/* Footer: Helpful left, date right, same line */}
+                    <div className="flex items-center justify-between mt-4 mb-2 w-full">
+                      <button onClick={() => handleMarkAsHelpful(review.id)} className="flex items-center space-x-2 text-gray-600 hover:text-primary-600"><ThumbsUp size={16} /><span>Helpful ({review.helpfulCount ?? 0})</span></button>
+                      <div className="flex items-center text-sm text-gray-500"><Calendar size={14} className="mr-2"/>{formatDate(reviewDate.toISOString())}</div>
+                    </div>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{review.content}</p>
-                   <div className="space-y-2 mt-4 mb-4">
-                    {/* FIXED: Replaced CheckCircle with the Hash icon to use the import */}
-                    {review.orderId && (<div className="flex items-center text-sm text-gray-500"><Hash size={14} className="mr-2 text-primary-500"/>Verified Purchase {review.orderId}</div>)}
-                    {review.location && (<div className="flex items-center text-sm text-gray-500"><MapPin size={14} className="mr-2"/>{review.location}</div>)}
-                   </div>
-                  <div className="flex items-center justify-between pt-4 border-t">
-                    <button onClick={() => handleMarkAsHelpful(review.id)} className="flex items-center space-x-2 text-gray-600 hover:text-primary-600"><ThumbsUp size={16} /><span>Helpful ({review.helpfulCount})</span></button>
-                    <div className="flex items-center text-sm text-gray-500"><Calendar size={14} className="mr-2"/>{formatDate(review.createdAt)}</div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-16">
