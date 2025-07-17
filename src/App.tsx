@@ -192,8 +192,8 @@ function App() {
             <Route path="terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="refund-policy" element={<RefundPolicy />} />
             <Route path="order-now" element={<OrderNow />} />
-            <Route path="/qa-library" element={<QALibrary />} />
-            <Route path="/qa-library/:subject/:questionTitleId" element={<QASolutionPage />} />
+            <Route path="qa-library" element={<QALibrary />} />
+            <Route path="qa-library/:subject/:questionTitleId" element={<QASolutionPage />} />
             <Route path="/checkout/:qaId" element={<Checkout />} />
             <Route path="/thank-you/:orderId" element={<ThankYou />} />
 

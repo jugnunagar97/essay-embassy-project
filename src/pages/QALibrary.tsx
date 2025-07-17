@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
@@ -103,6 +103,16 @@ const QALibrary: React.FC = () => {
   const [qaEntries, setQaEntries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedPaperType, setSelectedPaperType] = useState('');
+  const [selectedSubject, setSelectedSubject] = useState('');
+  const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 8;
+  const totalPages = Math.ceil(filteredEntries.length / pageSize);
+  const paginatedEntries = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredEntries.slice(start, start + pageSize);
+  }, [filteredEntries, currentPage]);
 
   useEffect(() => {
     const q = query(
@@ -120,6 +130,21 @@ const QALibrary: React.FC = () => {
     });
     return () => unsubscribe();
   }, []);
+
+  // Extract unique paper types and subjects
+  const paperTypes = useMemo(() => Array.from(new Set(qaEntries.map(e => e.paperType).filter(Boolean))), [qaEntries]);
+  const subjects = useMemo(() => Array.from(new Set(qaEntries.map(e => e.subject).filter(Boolean))), [qaEntries]);
+
+  // Filtered entries
+  const filteredEntries = useMemo(() => qaEntries.filter(entry => {
+    const matchesPaperType = selectedPaperType ? entry.paperType === selectedPaperType : true;
+    const matchesSubject = selectedSubject ? entry.subject === selectedSubject : true;
+    const matchesSearch = search ? (
+      (entry.title && entry.title.toLowerCase().includes(search.toLowerCase())) ||
+      (entry.question && entry.question.toLowerCase().includes(search.toLowerCase()))
+    ) : true;
+    return matchesPaperType && matchesSubject && matchesSearch;
+  }), [qaEntries, selectedPaperType, selectedSubject, search]);
 
   return (
     <>
@@ -173,14 +198,28 @@ const QALibrary: React.FC = () => {
               <input
                 className="flex-1 border border-gray-200 rounded-lg px-4 py-2 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition"
                 placeholder="Search questions..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
               />
-              <select className="border border-gray-200 rounded-lg px-4 py-2 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition">
-                <option>Select a Paper Type</option>
-                {/* TODO: Render paper types */}
+              <select
+                className="border border-gray-200 rounded-lg px-4 py-2 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition"
+                value={selectedPaperType}
+                onChange={e => setSelectedPaperType(e.target.value)}
+              >
+                <option value="">Select a Paper Type</option>
+                {paperTypes.map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
               </select>
-              <select className="border border-gray-200 rounded-lg px-4 py-2 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition">
-                <option>Select a Subject</option>
-                {/* TODO: Render subjects */}
+              <select
+                className="border border-gray-200 rounded-lg px-4 py-2 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition"
+                value={selectedSubject}
+                onChange={e => setSelectedSubject(e.target.value)}
+              >
+                <option value="">Select a Subject</option>
+                {subjects.map(sub => (
+                  <option key={sub} value={sub}>{sub}</option>
+                ))}
               </select>
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 rounded-lg font-semibold shadow-md transition">Search</button>
             </div>
@@ -194,7 +233,7 @@ const QALibrary: React.FC = () => {
       {/* Results Count */}
       <section className="max-w-6xl mx-auto mb-2">
         <div className="text-sm text-gray-500 mb-2">
-          {loading ? 'Loading solutions...' : error ? error : `Showing ${qaEntries.length} solution${qaEntries.length !== 1 ? 's' : ''}`}
+          {loading ? 'Loading solutions...' : error ? error : `Showing ${filteredEntries.length} solution${filteredEntries.length !== 1 ? 's' : ''}`}
         </div>
       </section>
 
@@ -205,24 +244,53 @@ const QALibrary: React.FC = () => {
             <div className="col-span-full text-center py-12 text-gray-400">Loading...</div>
           ) : error ? (
             <div className="col-span-full text-center py-12 text-red-500">{error}</div>
-          ) : qaEntries.length === 0 ? (
+          ) : paginatedEntries.length === 0 ? (
             <div className="col-span-full text-center py-12 text-gray-400">No Q&A solutions found.</div>
-          ) : qaEntries.map(entry => (
-            <div key={entry.id} className="bg-white shadow rounded p-4 flex flex-col gap-2">
-              <span className="text-xs font-semibold text-gray-500">{entry.subject || 'Subject'}</span>
-              <div className="font-medium text-gray-800" dangerouslySetInnerHTML={{ __html: entry.title || entry.question || 'Untitled' }} />
-              <div className="flex justify-between items-center mt-2">
-                <span className="text-blue-600 font-bold">{entry.price ? `$${entry.price}` : ''}</span>
-                <Link to={`/qa/${entry.id}`} className="bg-blue-500 text-white px-3 py-1 rounded text-sm">View This Solution</Link>
+          ) : paginatedEntries.map(entry => {
+            // Get a short preview from question or answer
+            const preview = (() => {
+              const div = document.createElement('div');
+              div.innerHTML = entry.question || entry.answer || '';
+              return (div.textContent || div.innerText || '').slice(0, 120) + (div.textContent && div.textContent.length > 120 ? '...' : '');
+            })();
+            return (
+              <div
+                key={entry.id}
+                className="bg-white shadow-lg rounded-2xl p-6 flex flex-col gap-3 transition-transform hover:-translate-y-1 hover:shadow-xl border border-gray-100"
+                style={{ minHeight: 220 }}
+              >
+                <span className="inline-block px-3 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded-full mb-1 w-fit">{entry.subject || 'Subject'}</span>
+                <div className="font-bold text-lg text-gray-900 mb-1 line-clamp-2" dangerouslySetInnerHTML={{ __html: entry.title || entry.question || 'Untitled' }} />
+                <div className="text-gray-500 text-sm mb-2 line-clamp-2" title={preview}>{preview}</div>
+                <div className="flex items-center justify-between mt-auto gap-2">
+                  <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 font-bold text-base rounded-full px-3 py-1 shadow-sm">
+                    <svg xmlns='http://www.w3.org/2000/svg' className='h-4 w-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 16v-4' /></svg>
+                    {entry.price ? `$${entry.price}` : ''}
+                  </span>
+                  <Link
+                    to={`/qa-library/${entry.subject ? encodeURIComponent(entry.subject.toLowerCase()) : 'general'}/${entry.id}`}
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition"
+                  >
+                    View This Solution
+                    <svg xmlns='http://www.w3.org/2000/svg' className='h-4 w-4 ml-1' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7' /></svg>
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         {/* Pagination (future) */}
         <div className="flex justify-center gap-2 mb-12">
-          <button className="px-3 py-1 rounded border">1</button>
-          <button className="px-3 py-1 rounded border">2</button>
-          <button className="px-3 py-1 rounded border">3</button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i + 1}
+              className={`px-3 py-1 rounded border ${currentPage === i + 1 ? 'bg-green-600 text-white border-green-600 font-bold' : 'bg-white text-gray-700 border-gray-300 hover:bg-green-50'}`}
+              onClick={() => setCurrentPage(i + 1)}
+              disabled={currentPage === i + 1}
+            >
+              {i + 1}
+            </button>
+          ))}
         </div>
 
         {/* Value Proposition Section */}
