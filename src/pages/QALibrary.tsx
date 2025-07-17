@@ -1,9 +1,125 @@
-import React from 'react';
-// TODO: Import Firestore and types
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { db } from '../firebase';
+import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
+
+// FAQAccordion component for the FAQ section
+const FAQAccordion: React.FC = () => {
+  const faqs = [
+    {
+      question: 'What is the Q&A Library?',
+      answer:
+        'The Q&A Library is a curated collection of expertly solved homework questions across a wide range of subjects and paper types. You can search, preview, and purchase solutions instantly.',
+    },
+    {
+      question: 'How do I purchase a solution?',
+      answer:
+        'Simply search for your question, select the solution you need, and follow the checkout process. Once your purchase is complete, you will have instant access to the full solution.',
+    },
+    {
+      question: 'Are the solutions reviewed for quality?',
+      answer:
+        'Yes! All solutions are reviewed by our academic team to ensure accuracy, clarity, and educational value before being added to the library.',
+    },
+    {
+      question: 'Can I request a refund if I am not satisfied?',
+      answer:
+        'We offer a satisfaction guarantee. If you believe a solution does not meet our quality standards, please contact support within 7 days for assistance or a possible refund.',
+    },
+    {
+      question: 'Is my payment information secure?',
+      answer:
+        'Absolutely. We use industry-leading security protocols to protect your payment and personal information at all times.',
+    },
+  ];
+
+  const [openIndex, setOpenIndex] = React.useState<number | null>(null);
+
+  const handleToggle = (idx: number) => {
+    setOpenIndex(openIndex === idx ? null : idx);
+  };
+
+  return (
+    <div>
+      {faqs.map((faq, idx) => (
+        <div key={idx}>
+          <div
+            className="flex justify-between items-center cursor-pointer border-b"
+            style={{
+              borderColor: '#E9ECEF',
+              padding: '20px 0',
+              userSelect: 'none',
+            }}
+            onClick={() => handleToggle(idx)}
+            aria-expanded={openIndex === idx}
+            tabIndex={0}
+            onKeyPress={e => {
+              if (e.key === 'Enter' || e.key === ' ') handleToggle(idx);
+            }}
+            role="button"
+          >
+            <span
+              className="font-medium"
+              style={{ fontSize: 18, color: '#212529', fontWeight: 500 }}
+            >
+              {faq.question}
+            </span>
+            <span
+              className="transition-transform duration-300"
+              style={{
+                fontSize: 24,
+                fontWeight: 'bold',
+                color: '#2563eb',
+                transform: openIndex === idx ? 'rotate(45deg)' : 'rotate(0deg)',
+                transition: 'transform 0.3s ease',
+              }}
+              aria-label={openIndex === idx ? 'Collapse' : 'Expand'}
+            >
+              +
+            </span>
+          </div>
+          <div
+            style={{
+              maxHeight: openIndex === idx ? 500 : 0,
+              overflow: 'hidden',
+              transition: 'max-height 0.3s ease',
+              padding: openIndex === idx ? '16px 5px 24px 5px' : '0 5px',
+              fontSize: 16,
+              color: '#6C757D',
+              lineHeight: 1.6,
+              background: 'transparent',
+            }}
+            aria-hidden={openIndex !== idx}
+          >
+            {openIndex === idx && <div>{faq.answer}</div>}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const QALibrary: React.FC = () => {
-  // TODO: State for Q&A entries, search, filters, pagination
-  // TODO: Fetch Q&A entries from Firestore and apply filters
+  const [qaEntries, setQaEntries] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, 'qaLibrary'),
+      where('status', '==', 'published'),
+      orderBy('createdAt', 'desc')
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setQaEntries(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      setLoading(false);
+      setError(null);
+    }, () => {
+      setError('Failed to load Q&A entries.');
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <>
@@ -77,27 +193,33 @@ const QALibrary: React.FC = () => {
 
       {/* Results Count */}
       <section className="max-w-6xl mx-auto mb-2">
-        {/* TODO: Show results count */}
-        <div className="text-sm text-gray-500 mb-2">Showing X solutions</div>
+        <div className="text-sm text-gray-500 mb-2">
+          {loading ? 'Loading solutions...' : error ? error : `Showing ${qaEntries.length} solution${qaEntries.length !== 1 ? 's' : ''}`}
+        </div>
       </section>
 
       {/* Results Grid */}
       <section className="max-w-6xl mx-auto">
-        {/* TODO: Render Q&A cards from state */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {/* Example card placeholder */}
-          <div className="bg-white shadow rounded p-4 flex flex-col gap-2">
-            <span className="text-xs font-semibold text-gray-500">Subject</span>
-            <div className="font-medium text-gray-800">Question preview goes here...</div>
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-blue-600 font-bold">$12.99</span>
-              <button className="bg-blue-500 text-white px-3 py-1 rounded text-sm">View This Solution</button>
+          {loading ? (
+            <div className="col-span-full text-center py-12 text-gray-400">Loading...</div>
+          ) : error ? (
+            <div className="col-span-full text-center py-12 text-red-500">{error}</div>
+          ) : qaEntries.length === 0 ? (
+            <div className="col-span-full text-center py-12 text-gray-400">No Q&A solutions found.</div>
+          ) : qaEntries.map(entry => (
+            <div key={entry.id} className="bg-white shadow rounded p-4 flex flex-col gap-2">
+              <span className="text-xs font-semibold text-gray-500">{entry.subject || 'Subject'}</span>
+              <div className="font-medium text-gray-800" dangerouslySetInnerHTML={{ __html: entry.title || entry.question || 'Untitled' }} />
+              <div className="flex justify-between items-center mt-2">
+                <span className="text-blue-600 font-bold">{entry.price ? `$${entry.price}` : ''}</span>
+                <Link to={`/qa/${entry.id}`} className="bg-blue-500 text-white px-3 py-1 rounded text-sm">View This Solution</Link>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-        {/* Pagination */}
+        {/* Pagination (future) */}
         <div className="flex justify-center gap-2 mb-12">
-          {/* TODO: Implement pagination logic */}
           <button className="px-3 py-1 rounded border">1</button>
           <button className="px-3 py-1 rounded border">2</button>
           <button className="px-3 py-1 rounded border">3</button>
@@ -138,11 +260,99 @@ const QALibrary: React.FC = () => {
           </div>
         </section>
 
-        {/* FAQ Section Placeholder */}
-        <section className="max-w-4xl mx-auto py-12">
-          {/* TODO: Implement FAQ accordion */}
-          <h2 className="text-2xl font-bold text-center mb-6">Frequently Asked Questions</h2>
-          {/* FAQ items go here */}
+        {/* FAQ Section */}
+        <section
+          style={{ backgroundColor: '#F8F9FA', padding: '80px 0' }}
+          className="w-full"
+        >
+          <div
+            className="mx-auto rounded-lg shadow-none"
+            style={{ backgroundColor: '#fff', maxWidth: 800 }}
+          >
+            <div className="text-center" style={{ padding: '0 24px' }}>
+              <span
+                className="inline-block mb-4 font-bold uppercase"
+                style={{ fontSize: 14, color: '#2563eb', letterSpacing: 1 }}
+              >
+                FAQ
+              </span>
+              <h2
+                className="font-bold mb-12"
+                style={{ fontSize: 36, color: '#212529' }}
+              >
+                Frequently Asked Questions
+              </h2>
+            </div>
+            <div style={{ padding: '0 24px' }}>
+              <FAQAccordion />
+            </div>
+          </div>
+        </section>
+
+        {/* Submit Your Homework CTA Section */}
+        <section
+          style={{
+            width: '100vw',
+            position: 'relative',
+            left: '50%',
+            marginLeft: '-50vw',
+            marginRight: '-50vw',
+            backgroundColor: '#147873',
+            backgroundImage:
+              'radial-gradient(circle at 50% 40%, rgba(255,255,255,0.07) 1px, transparent 80%), radial-gradient(circle at 70% 70%, rgba(255,255,255,0.04) 1px, transparent 80%)',
+            padding: '100px 0',
+            textAlign: 'center',
+          }}
+        >
+          <div style={{ maxWidth: 900, margin: '0 auto' }}>
+            <h1
+              style={{
+                fontSize: 42,
+                fontWeight: 'bold',
+                color: '#fff',
+                marginBottom: 16,
+              }}
+            >
+              Submit Your Homework
+            </h1>
+            <p
+              style={{
+                fontSize: 18,
+                color: '#E0E0E0',
+                maxWidth: 600,
+                margin: '0 auto 32px auto',
+              }}
+            >
+              Let us help you with your homework, we will match you with one of our professional tutors.
+            </p>
+            <Link
+              to="/order-now"
+              style={{
+                display: 'inline-block',
+                backgroundColor: '#fff',
+                color: '#147873',
+                border: '2px solid #147873',
+                padding: '16px 32px',
+                fontSize: 18,
+                fontWeight: 'bold',
+                borderRadius: 8,
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(20,120,115,0.08)',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease',
+              }}
+              onMouseOver={e => {
+                e.currentTarget.style.backgroundColor = '#147873';
+                e.currentTarget.style.color = '#fff';
+              }}
+              onMouseOut={e => {
+                e.currentTarget.style.backgroundColor = '#fff';
+                e.currentTarget.style.color = '#147873';
+              }}
+            >
+              Submit My Homework
+            </Link>
+          </div>
         </section>
       </section>
     </>

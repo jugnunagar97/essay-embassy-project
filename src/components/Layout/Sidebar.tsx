@@ -8,8 +8,9 @@ import {
   FileText, // For Manage Orders
   Users, // For Manage Users
   BookOpen, // For Manage Blog and Samples
-  Star // For Testimonials (or Reviews)
-} from 'lucide-react'; // Removed unused icons: MessageSquare, ClipboardList
+  Star, // For Testimonials (or Reviews)
+  HelpCircle // For Q&A Library
+} from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 interface SidebarProps {
@@ -33,15 +34,16 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   // This list now contains all the items you want in the sidebar
   const adminMenuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
-    { icon: PlusCircle, label: 'New Order', path: '/dashboard/new-order' }, // New Order for Admin
-    { icon: FileText, label: 'Orders', path: '/dashboard/orders' }, // Manage Orders
-    { icon: Users, label: 'Users', path: '/dashboard/users' }, // Manage Users
-    { icon: LiveChatIcon, label: 'Messages', path: '/dashboard/messages' }, // Messages (Admin Chat)
-    { icon: BookOpen, label: 'Blog', path: '/dashboard/blog' }, // Manage Blog
-    { icon: Star, label: 'Reviews', path: '/dashboard/reviews' }, // Testimonials/Reviews
-    { icon: Settings, label: 'Services', path: '/dashboard/services' }, // Manage Services
-    { icon: BookOpen, label: 'Samples', path: '/dashboard/samples' }, // Manage Samples
-    { icon: Settings, label: 'Settings', path: '/dashboard/settings' }, // Admin Settings (General)
+    { icon: PlusCircle, label: 'New Order', path: '/dashboard/new-order' },
+    { icon: FileText, label: 'Orders', path: '/dashboard/orders' },
+    { icon: Users, label: 'Users', path: '/dashboard/users' },
+    { icon: LiveChatIcon, label: 'Messages', path: '/dashboard/messages' },
+    { icon: BookOpen, label: 'Blog', path: '/dashboard/blog' },
+    { icon: Star, label: 'Reviews', path: '/dashboard/reviews' },
+    { icon: Settings, label: 'Services', path: '/dashboard/services' },
+    { icon: BookOpen, label: 'Samples', path: '/dashboard/samples' },
+    { icon: HelpCircle, label: 'Q&A Library', path: '/admin/qa' },
+    { icon: Settings, label: 'Settings', path: '/dashboard/settings' },
   ];
 
   const menuItems = user.role === 'admin' ? adminMenuItems : clientMenuItems;
