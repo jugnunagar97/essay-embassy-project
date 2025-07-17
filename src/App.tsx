@@ -193,8 +193,8 @@ function App() {
             <Route path="refund-policy" element={<RefundPolicy />} />
             <Route path="order-now" element={<OrderNow />} />
             <Route path="qa-library" element={<QALibrary />} />
-            <Route path="qa-library/:subject/:questionTitleId" element={<QASolutionPage />} />
-            <Route path="/checkout/:qaId" element={<Checkout />} />
+            <Route path="qa-library/:subject/:id" element={<QASolutionPage />} />
+            <Route path="checkout" element={<Checkout />} />
             <Route path="/thank-you/:orderId" element={<ThankYou />} />
 
             {/* Protected routes - require authentication */}

@@ -2,6 +2,8 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
+import toast from 'react-hot-toast';
+import { useAuth } from '../context/AuthContext';
 
 // FAQAccordion component for the FAQ section
 const FAQAccordion: React.FC = () => {
@@ -108,6 +110,19 @@ const QALibrary: React.FC = () => {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
+  const { user } = useAuth();
+
+  // Filtered entries (move this up)
+  const filteredEntries = useMemo(() => qaEntries.filter(entry => {
+    const matchesPaperType = selectedPaperType ? entry.paperType === selectedPaperType : true;
+    const matchesSubject = selectedSubject ? entry.subject === selectedSubject : true;
+    const matchesSearch = search ? (
+      (entry.title && entry.title.toLowerCase().includes(search.toLowerCase())) ||
+      (entry.question && entry.question.toLowerCase().includes(search.toLowerCase()))
+    ) : true;
+    return matchesPaperType && matchesSubject && matchesSearch;
+  }), [qaEntries, selectedPaperType, selectedSubject, search]);
+
   const totalPages = Math.ceil(filteredEntries.length / pageSize);
   const paginatedEntries = useMemo(() => {
     const start = (currentPage - 1) * pageSize;
@@ -135,16 +150,35 @@ const QALibrary: React.FC = () => {
   const paperTypes = useMemo(() => Array.from(new Set(qaEntries.map(e => e.paperType).filter(Boolean))), [qaEntries]);
   const subjects = useMemo(() => Array.from(new Set(qaEntries.map(e => e.subject).filter(Boolean))), [qaEntries]);
 
-  // Filtered entries
-  const filteredEntries = useMemo(() => qaEntries.filter(entry => {
-    const matchesPaperType = selectedPaperType ? entry.paperType === selectedPaperType : true;
-    const matchesSubject = selectedSubject ? entry.subject === selectedSubject : true;
-    const matchesSearch = search ? (
-      (entry.title && entry.title.toLowerCase().includes(search.toLowerCase())) ||
-      (entry.question && entry.question.toLowerCase().includes(search.toLowerCase()))
-    ) : true;
-    return matchesPaperType && matchesSubject && matchesSearch;
-  }), [qaEntries, selectedPaperType, selectedSubject, search]);
+  // Stripe payment handler
+  const handleBuyNow = async (entry: any) => {
+    if (!user) {
+      toast.error('Please log in to purchase this solution.');
+      return;
+    }
+    toast.loading('Redirecting to payment...');
+    try {
+      const response = await fetch('http://localhost:4242/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          price: entry.price || 1000, // fallback price for demo
+          qaId: entry.id,
+          userId: user.id,
+        }),
+      });
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        toast.error(data.error || 'Failed to start payment.');
+      }
+    } catch (err) {
+      toast.error('Payment error. Please try again.');
+    } finally {
+      toast.dismiss();
+    }
+  };
 
   return (
     <>
