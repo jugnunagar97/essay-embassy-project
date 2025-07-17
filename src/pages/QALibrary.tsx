@@ -2,8 +2,6 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
-import toast from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
 
 // FAQAccordion component for the FAQ section
 const FAQAccordion: React.FC = () => {
@@ -93,7 +91,9 @@ const FAQAccordion: React.FC = () => {
             }}
             aria-hidden={openIndex !== idx}
           >
-            {openIndex === idx && <div>{faq.answer}</div>}
+            {openIndex === idx && (
+              <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
+            )}
           </div>
         </div>
       ))}
@@ -110,7 +110,6 @@ const QALibrary: React.FC = () => {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
-  const { user } = useAuth();
 
   // Filtered entries (move this up)
   const filteredEntries = useMemo(() => qaEntries.filter(entry => {
@@ -149,36 +148,6 @@ const QALibrary: React.FC = () => {
   // Extract unique paper types and subjects
   const paperTypes = useMemo(() => Array.from(new Set(qaEntries.map(e => e.paperType).filter(Boolean))), [qaEntries]);
   const subjects = useMemo(() => Array.from(new Set(qaEntries.map(e => e.subject).filter(Boolean))), [qaEntries]);
-
-  // Stripe payment handler
-  const handleBuyNow = async (entry: any) => {
-    if (!user) {
-      toast.error('Please log in to purchase this solution.');
-      return;
-    }
-    toast.loading('Redirecting to payment...');
-    try {
-      const response = await fetch('http://localhost:4242/create-checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          price: entry.price || 1000, // fallback price for demo
-          qaId: entry.id,
-          userId: user.id,
-        }),
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        toast.error(data.error || 'Failed to start payment.');
-      }
-    } catch (err) {
-      toast.error('Payment error. Please try again.');
-    } finally {
-      toast.dismiss();
-    }
-  };
 
   return (
     <>
