@@ -3,9 +3,9 @@
 import { useState, useMemo } from 'react';
 import { useSamples } from '../../hooks/useData';
 import { db, storage } from '../../firebase';
-import { collection, addDoc, deleteDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, deleteDoc, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-import { PlusCircle, Trash2, Download, UploadCloud, XCircle, FileText, Book, GraduationCap } from 'lucide-react';
+import { PlusCircle, Trash2, Download, UploadCloud, XCircle, FileText, Book, GraduationCap, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Sample } from '../../types';
 import LoadingSpinner from '../Common/LoadingSpinner';
@@ -26,19 +26,43 @@ export default function SampleManager() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // State for the upload form
+  // State for the upload form (new fields)
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState('');
+  const [description, setDescription] = useState('');
   const [academicLevel, setAcademicLevel] = useState('Undergraduate');
+  const [documentType, setDocumentType] = useState('Research Paper');
+  const [citationStyle, setCitationStyle] = useState('APA');
+  const [pageCount, setPageCount] = useState<number | ''>('');
+  const [publicationDate, setPublicationDate] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const [fileToUpload, setFileToUpload] = useState<File | null>(null);
-  
+
   const memoizedSamples = useMemo(() => samples, [samples]);
+
+  const academicLevels = ["High School", "Undergraduate", "Master", "Ph.D."];
+  const documentTypes = [
+    "Research Paper",
+    "Essay",
+    "Case Study",
+    "Literature Review",
+    "Assignment",
+    "Report",
+    "Other",
+  ];
+  const citationStyles = ["APA", "MLA", "Chicago", "Harvard", "Other"];
 
   const resetForm = () => {
     setTitle('');
     setSubject('');
-    setAcademicLevel('Undergraduate');
+    setDescription('');
+    setAcademicLevel(academicLevels[1]);
+    setDocumentType(documentTypes[0]);
+    setCitationStyle(citationStyles[0]);
+    setPageCount('');
+    setPublicationDate('');
     setFileToUpload(null);
+    setError(null);
   };
 
   const openModal = () => {
@@ -57,42 +81,88 @@ export default function SampleManager() {
     }
   };
 
-  const handleUploadSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!fileToUpload || !title || !subject) {
-      toast.error('Please fill out all fields and select a file.');
-      return;
+  const validate = () => {
+    if (
+      !title.trim() ||
+      !subject.trim() ||
+      !description.trim() ||
+      !academicLevel ||
+      !documentType ||
+      !citationStyle ||
+      !pageCount ||
+      !publicationDate ||
+      !fileToUpload
+    ) {
+      setError('Please fill out all required fields.');
+      return false;
     }
+    setError(null);
+    return true;
+  };
 
-    setIsSubmitting(true);
-    const toastId = toast.loading(`Uploading "${fileToUpload.name}"...`);
-
+  // --- Robust handleSaveSample function ---
+  const handleSaveSample = async (sampleData: any) => {
     try {
-      // 1. Upload file to Firebase Storage
-      const fileRef = ref(storage, `samples/${Date.now()}_${fileToUpload.name}`);
-      const uploadResult = await uploadBytes(fileRef, fileToUpload);
-      const fileUrl = await getDownloadURL(uploadResult.ref);
+      // 1. Generate a new Firestore document reference to get a unique ID
+      const newSampleRef = doc(collection(db, "samples"));
+      const newSampleId = newSampleRef.id;
 
-      // 2. Create document in Firestore
-      await addDoc(collection(db, 'samples'), {
-        title,
-        subject,
-        academicLevel,
-        fileUrl,
-        fileName: fileToUpload.name,
-        fileType: fileToUpload.type,
-        fileSize: fileToUpload.size,
+      // 2. Prepare the storage path using the new document ID
+      const file = sampleData.file;
+      if (!file) throw new Error("No file provided.");
+      const storagePath = `samples/${newSampleId}/${file.name}`;
+      const fileRef = ref(storage, storagePath);
+
+      // 3. Upload the file to Firebase Storage
+      await uploadBytes(fileRef, file);
+
+      // 4. Get the download URL
+      const downloadURL = await getDownloadURL(fileRef);
+
+      // 5. Prepare the data object for Firestore (exclude the raw file object)
+      const {
+        file: _omitFile, // Exclude the file object
+        ...rest
+      } = sampleData;
+
+      const sampleDoc = {
+        ...rest,
+        fileName: file.name,
+        fileSize: file.size,
+        fileType: file.type,
+        fileUrl: downloadURL,
         createdAt: serverTimestamp(),
-      });
+      };
 
-      toast.success('Sample uploaded successfully!', { id: toastId });
+      // 6. Save the complete data object to Firestore using setDoc and the same ID
+      await setDoc(newSampleRef, sampleDoc);
+
+      toast.success("Sample uploaded successfully!");
       closeModal();
-    } catch (err) {
-      console.error("Upload failed:", err);
-      toast.error("Failed to upload sample.", { id: toastId });
+    } catch (error: any) {
+      console.error("Failed to upload sample:", error);
+      toast.error(error.message || "Failed to upload sample.");
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleUploadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    setIsSubmitting(true);
+    const sampleData = {
+      title,
+      subject,
+      description,
+      academicLevel,
+      documentType,
+      citationStyle,
+      pageCount: Number(pageCount),
+      publicationDate,
+      file: fileToUpload,
+    };
+    await handleSaveSample(sampleData);
   };
   
   const handleDeleteSample = async (sample: Sample) => {
@@ -186,54 +256,69 @@ export default function SampleManager() {
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-lg">
             <div className="p-6 border-b dark:border-gray-700 flex justify-between items-center">
               <h3 className="text-lg font-bold">Upload New Sample</h3>
-              <button onClick={closeModal}><XCircle className="text-gray-400 hover:text-gray-600"/></button>
+              <button onClick={closeModal}><X className="text-gray-400 hover:text-gray-600"/></button>
             </div>
             <form onSubmit={handleUploadSubmit} className="p-6 space-y-4">
+              {error && (
+                <div className="bg-red-100 text-red-700 px-4 py-2 rounded">{error}</div>
+              )}
               <div>
-                <label htmlFor="title" className="block text-sm font-medium mb-1 flex items-center"><FileText size={14} className="mr-2"/>Title *</label>
-                <input id="title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} required className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700"/>
+                <label className="block font-medium mb-1">Title *</label>
+                <input type="text" className="w-full border rounded-lg px-3 py-2" value={title} onChange={(e) => setTitle(e.target.value)} required />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-1 flex items-center"><Book size={14} className="mr-2"/>Subject *</label>
-                  <input id="subject" type="text" value={subject} onChange={(e) => setSubject(e.target.value)} required className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700"/>
+              <div>
+                <label className="block font-medium mb-1">Subject *</label>
+                <input type="text" className="w-full border rounded-lg px-3 py-2" value={subject} onChange={(e) => setSubject(e.target.value)} required />
+              </div>
+              <div>
+                <label className="block font-medium mb-1">Description *</label>
+                <textarea className="w-full border rounded-lg px-3 py-2" rows={3} value={description} onChange={(e) => setDescription(e.target.value)} required />
+              </div>
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <label className="block font-medium mb-1">Academic Level *</label>
+                  <select className="w-full border rounded-lg px-3 py-2" value={academicLevel} onChange={(e) => setAcademicLevel(e.target.value)} required>
+                    {academicLevels.map((level) => (
+                      <option key={level} value={level}>{level}</option>
+                    ))}
+                  </select>
                 </div>
-                <div>
-                  <label htmlFor="academicLevel" className="block text-sm font-medium mb-1 flex items-center"><GraduationCap size={14} className="mr-2"/>Academic Level *</label>
-                  <select id="academicLevel" value={academicLevel} onChange={(e) => setAcademicLevel(e.target.value)} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700">
-                    <option>Undergraduate</option>
-                    <option>Bachelor</option>
-                    <option>Master</option>
-                    <option>PhD</option>
+                <div className="flex-1">
+                  <label className="block font-medium mb-1">Document Type *</label>
+                  <select className="w-full border rounded-lg px-3 py-2" value={documentType} onChange={(e) => setDocumentType(e.target.value)} required>
+                    {documentTypes.map((type) => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
                   </select>
                 </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Sample File *</label>
-                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md">
-                  <div className="space-y-1 text-center">
-                    <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />
-                    <div className="flex text-sm text-gray-600 dark:text-gray-400">
-                      <label htmlFor="file-upload" className="relative cursor-pointer bg-white dark:bg-gray-800 rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none">
-                        <span>Upload a file</span>
-                        <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFileChange} required accept=".pdf,.doc,.docx" />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
-                    </div>
-                    {fileToUpload ? (
-                        <p className="text-sm text-green-500 font-semibold">{fileToUpload.name}</p>
-                    ) : (
-                        <p className="text-xs text-gray-500 dark:text-gray-400">PDF, DOC, DOCX up to 10MB</p>
-                    )}
-                  </div>
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <label className="block font-medium mb-1">Citation Style *</label>
+                  <select className="w-full border rounded-lg px-3 py-2" value={citationStyle} onChange={(e) => setCitationStyle(e.target.value)} required>
+                    {citationStyles.map((style) => (
+                      <option key={style} value={style}>{style}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex-1">
+                  <label className="block font-medium mb-1">Page Count *</label>
+                  <input type="number" min={1} className="w-full border rounded-lg px-3 py-2" value={pageCount} onChange={(e) => setPageCount(Number(e.target.value))} required />
                 </div>
               </div>
-              <div className="flex justify-end space-x-3 pt-4">
-                <button type="button" onClick={closeModal} disabled={isSubmitting} className="px-4 py-2 bg-gray-200 dark:bg-gray-600 rounded-lg disabled:opacity-50">Cancel</button>
-                <button type="submit" disabled={isSubmitting} className="px-4 py-2 bg-primary-500 text-white rounded-lg disabled:opacity-50 flex items-center">
-                  {isSubmitting && <LoadingSpinner size="sm" className="mr-2"/>}
-                  {isSubmitting ? 'Uploading...' : 'Upload Sample'}
-                </button>
+              <div>
+                <label className="block font-medium mb-1">Publication Date *</label>
+                <input type="date" className="w-full border rounded-lg px-3 py-2" value={publicationDate} onChange={(e) => setPublicationDate(e.target.value)} required />
+              </div>
+              <div>
+                <label className="block font-medium mb-1">Sample File *</label>
+                <input type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="w-full border rounded-lg px-3 py-2" onChange={handleFileChange} required />
+                <div className="text-xs text-gray-500 mt-1">PDF, DOC, DOCX up to 10MB</div>
+                {fileToUpload && <div className="text-xs text-green-600 mt-1">{fileToUpload.name}</div>}
+              </div>
+              <div className="flex justify-end gap-2 mt-4">
+                <button type="button" className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300" onClick={closeModal} disabled={isSubmitting}>Cancel</button>
+                <button type="submit" className="px-4 py-2 rounded bg-primary-600 text-white hover:bg-primary-700" disabled={isSubmitting}>{isSubmitting ? "Uploading..." : "Upload Sample"}</button>
               </div>
             </form>
           </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
-import { doc, getDoc, collection, query, where, getDocs, DocumentData } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs, DocumentData, setDoc } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import visaIcon from '../images/visa.svg';
@@ -67,6 +67,29 @@ const QASolutionPage: React.FC = () => {
     };
     fetchSolution();
   }, [id, navigate]);
+
+  useEffect(() => {
+    // Check Firestore for purchase record on page load
+    const checkPurchase = async () => {
+      if (!user || !id) {
+        setHasAccess(false);
+        return;
+      }
+      try {
+        const purchaseDocId = `${user.id}_${id}`;
+        const purchaseDocRef = doc(db, 'purchases', purchaseDocId);
+        const purchaseSnap = await getDoc(purchaseDocRef);
+        if (purchaseSnap.exists()) {
+          setHasAccess(true);
+        } else {
+          setHasAccess(false);
+        }
+      } catch (err) {
+        setHasAccess(false);
+      }
+    };
+    checkPurchase();
+  }, [user, id]);
 
   useEffect(() => {
     // Mock: allow access if redirected from Stripe success
@@ -135,9 +158,20 @@ const QASolutionPage: React.FC = () => {
         name: 'Essay Embassy',
         description: solution?.title || 'Q&A Solution',
         order_id: data.order.id,
-        handler: function (_response: any) {
+        handler: async function (_response: any) {
           toast.success('Payment successful! Solution unlocked.');
-          setHasAccess(true);
+          // Record purchase in Firestore
+          try {
+            const purchaseDocId = `${user.id}_${solution?.id}`;
+            await setDoc(doc(db, 'purchases', purchaseDocId), {
+              userId: user.id,
+              qaId: solution?.id,
+              purchasedAt: new Date().toISOString(),
+            });
+            setHasAccess(true);
+          } catch (err) {
+            toast.error('Failed to record purchase, but payment succeeded. Please contact support if you cannot access your solution.');
+          }
         },
         prefill: {
           email: user.email || '',

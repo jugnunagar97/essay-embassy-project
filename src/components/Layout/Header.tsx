@@ -22,8 +22,9 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
   // State for profile dropdown
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
-  // Only show profile dropdown if logged in and NOT in dashboard
-  const showProfileDropdown = user && !isAdminPage && location.pathname !== '/dashboard';
+  // Only hide profile dropdown if logged in and on the main dashboard page ("/dashboard")
+  const isMainDashboard = location.pathname === '/dashboard';
+  const showProfileDropdown = user && !isMainDashboard;
 
   return (
     <header className="bg-white dark:bg-gray-900 shadow-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
@@ -37,7 +38,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
       </div>
 
       {/* Main Header Content */}
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="flex items-center justify-between px-6 py-2">
         {/* Left Section: Logo and Admin Sidebar Toggle */}
         <div className="flex items-center">
           {isAdminPage && (
@@ -69,7 +70,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
         </nav>
 
         {/* Right Section: Action Buttons and User Auth */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-4">
           <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 hidden sm:block">WhatsApp</a>
           <Link to="/order-now" className="btn-primary text-sm px-4 py-2">
             Order Now
@@ -104,7 +105,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
               )}
             </div>
           ) : user ? (
-            isAdminPage ? null : (
+            isMainDashboard ? null : (
               <button
                 onClick={logout}
                 className="text-sm font-semibold bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors"
@@ -130,15 +131,13 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           )}
 
           {/* Mobile Menu Toggle Button (for non-admin pages) */}
-          {!isAdminPage && (
-            <button
-              onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-              className="lg:hidden text-gray-600 dark:text-gray-300 ml-4"
-              aria-label="Toggle mobile menu"
-            >
-              <Menu size={24} />
-            </button>
-          )}
+          <button
+            onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+            className="lg:hidden text-gray-600 dark:text-gray-300 ml-4"
+            aria-label="Toggle mobile menu"
+          >
+            <Menu size={24} />
+          </button>
         </div>
       </div>
 

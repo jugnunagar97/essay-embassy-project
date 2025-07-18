@@ -192,3 +192,9 @@ export interface QASolutionFile {
   size: number; // Bytes
   type: string; // MIME type
 }
+
+export interface QAPurchase {
+  userId: string;
+  qaId: string;
+  purchasedAt: string; // ISO string
+}
