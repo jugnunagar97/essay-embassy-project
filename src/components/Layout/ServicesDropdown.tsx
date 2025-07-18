@@ -75,7 +75,10 @@ export default function ServicesDropdown() {
       onMouseLeave={handleMouseLeave}
     >
       <button
-        className="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition-colors"
+        className={`flex items-center space-x-1 font-medium transition-colors px-3 py-2 rounded-lg
+    ${isOpen ? 'bg-primary-500 text-white' : 'text-gray-700 dark:text-gray-300 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-700/20 dark:hover:text-primary-300'}
+  `}
+        style={{ minWidth: 110 }}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>Services</span>

@@ -142,6 +142,16 @@ export interface Sample {
     category: string;
     createdAt?: Timestamp;
     updatedAt?: Timestamp;
+    // Added fields for SampleManager compatibility
+    subject?: string;
+    academicLevel?: string;
+    fileSize?: number;
+    documentType?: string;
+    citationStyle?: string;
+    pageCount?: number;
+    publicationDate?: string;
+    fileName?: string;
+    fileType?: string;
 }
 
 // Interface for ServicePage (if distinct from SubService, otherwise use SubService)

@@ -99,6 +99,64 @@ const convertDeadlineToDate = (relativeDeadline: string): Date => {
   return futureDate;
 };
 
+// --- Dynamic Pricing Model ---
+const disciplinePriceMap: Record<string, number> = {
+  'Architecture': 40.91,
+  'Engineering': 40.91,
+  'Biology': 48.34,
+  'Healthcare': 48.34,
+  'Mathematics': 48.34,
+  'Medicine': 48.34,
+  'Nursing': 48.34,
+  'Chemistry': 44.63,
+  'Physics': 44.63,
+  'Programming': 44.63,
+  'Statistics': 59.50,
+};
+const defaultPriceTable: Record<string, Record<string, number>> = {
+  'College': {
+    '24 hours': 37.19,
+    '12 hours': 49.19,
+    '6 hours': 36.00,
+    '48 hours': 34.79,
+    '3 days': 33.59,
+    '5 days': 32.39,
+    '7 days': 25.19,
+  },
+  'Undergraduate': {
+    '24 hours': 38.74,
+    '12 hours': 51.24,
+    '6 hours': 37.50,
+    '48 hours': 36.24,
+    '3 days': 34.99,
+    '5 days': 33.74,
+    '7 days': 26.24,
+  },
+  'Masters': {
+    '24 hours': 46.48,
+    '12 hours': 61.48,
+    '6 hours': 45.00,
+    '48 hours': 43.48,
+    '3 days': 41.98,
+    '5 days': 40.48,
+    '7 days': 31.48,
+  },
+  'PhD': {
+    '24 hours': 49.58,
+    '12 hours': 65.58,
+    '6 hours': 48.00,
+    '48 hours': 46.38,
+    '3 days': 44.78,
+    '5 days': 43.18,
+    '7 days': 33.58,
+  },
+};
+const getBasePrice = (academicLevel: string, deadline: string, discipline: string, spacing: string) => {
+  let price = disciplinePriceMap[discipline] ?? defaultPriceTable[academicLevel]?.[deadline] ?? 0;
+  if (spacing === 'single') price *= 2;
+  return price;
+};
+
 export default function OrderNow() {
   const { user, register: registerUser, login: loginUser, isLoading: isAuthLoading } = useAuth() as AuthContextType;
   const navigate = useNavigate();
@@ -140,19 +198,10 @@ export default function OrderNow() {
   const watchedValues = watch();
 
   const calculatePrice = useCallback(() => {
-    const config = priceConfig[watchedValues.academicLevel]?.[watchedValues.deadline];
-    if (config) {
-      const pageMultiplier = watchedValues.spacing === 'double' ? 1 : 2;
-      const totalPrice = watchedValues.pages * config.base * config.urgent * pageMultiplier;
-      setPrice(Math.round(totalPrice * 100) / 100);
-    } else {
-      // Fallback for cases where config is not found (e.g., mismatch or invalid selection)
-      // This will set a default price if an unsupported academic level or deadline is chosen.
-      // You might want to display an error or a default message instead of 0 if this happens in production.
-      setPrice(0); 
-      console.warn("Price configuration not found for:", watchedValues.academicLevel, watchedValues.deadline);
-    }
-  }, [watchedValues.academicLevel, watchedValues.deadline, watchedValues.pages, watchedValues.spacing]);
+    const basePrice = getBasePrice(watchedValues.academicLevel, watchedValues.deadline, watchedValues.subject, watchedValues.spacing);
+    const totalPrice = basePrice * (watchedValues.pages || 1);
+    setPrice(Math.round(totalPrice * 100) / 100);
+  }, [watchedValues]);
 
   useEffect(() => {
     // This effect ensures the price is calculated when component mounts or relevant values change

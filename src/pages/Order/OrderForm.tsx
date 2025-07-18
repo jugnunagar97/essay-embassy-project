@@ -70,6 +70,41 @@ const convertDeadlineToDate = (relativeDeadline: string): Date => {
   return futureDate;
 };
 
+// --- Dynamic Pricing Model ---
+const disciplinePriceMap: Record<string, number> = {
+  'Architecture': 40.91,
+  'Engineering': 40.91,
+  'Biology': 48.34,
+  'Healthcare': 48.34,
+  'Mathematics': 48.34,
+  'Medicine': 48.34,
+  'Nursing': 48.34,
+  'Chemistry': 44.63,
+  'Physics': 44.63,
+  'Programming': 44.63,
+  'Statistics': 59.50,
+};
+const defaultPriceTable: Record<string, Record<string, number>> = {
+  'College': {
+    '24 hours': 37.19,
+    // ...add other deadlines as needed
+  },
+  'Undergraduate': {
+    '24 hours': 38.74,
+  },
+  'Masters': {
+    '24 hours': 46.48,
+  },
+  'PhD': {
+    '24 hours': 49.58,
+  },
+};
+const getBasePrice = (academicLevel: string, deadline: string, discipline: string, spacing: string) => {
+  let price = disciplinePriceMap[discipline] ?? defaultPriceTable[academicLevel]?.[deadline] ?? 0;
+  if (spacing === 'single') price *= 2;
+  return price;
+};
+
 export default function OrderForm() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -102,13 +137,10 @@ export default function OrderForm() {
   const watchedValues = watch();
 
   const calculatePrice = useCallback(() => {
-    const config = priceConfig[watchedValues.academicLevel]?.[watchedValues.deadline];
-    if (config) {
-      const pageMultiplier = watchedValues.spacing === 'double' ? 1 : 2;
-      const totalPrice = watchedValues.pages * config.base * config.urgent * pageMultiplier;
-      setPrice(Math.round(totalPrice * 100) / 100);
-    }
-  }, [watchedValues.academicLevel, watchedValues.deadline, watchedValues.pages, watchedValues.spacing]);
+    const basePrice = getBasePrice(watchedValues.academicLevel, watchedValues.deadline, watchedValues.subject, watchedValues.spacing);
+    const totalPrice = basePrice * (watchedValues.pages || 1);
+    setPrice(Math.round(totalPrice * 100) / 100);
+  }, [watchedValues]);
 
   useEffect(() => {
     calculatePrice();

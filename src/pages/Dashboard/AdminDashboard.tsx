@@ -327,16 +327,6 @@ export default function AdminDashboard() {
             </div>
             <h3 className="text-sm font-medium text-gray-900 dark:text-white">Manage Services</h3>
           </Link>
-
-          <Link
-            to="/dashboard/samples"
-            className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300 group text-center"
-          >
-            <div className="bg-red-100 dark:bg-red-900/20 p-3 rounded-lg inline-block group-hover:bg-red-200 dark:group-hover:bg-red-900/30 transition-colors mb-2">
-              <BookOpen className="text-red-600 dark:text-red-400" size={24} />
-            </div>
-            <h3 className="text-sm font-medium text-gray-900 dark:text-white">Manage Samples</h3>
-          </Link>
         </div>
         */}
       </div>

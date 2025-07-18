@@ -65,7 +65,6 @@ import AdminQAManagerForm from './pages/Admin/AdminQAManagerForm';
 
 // --- Admin Management Component Imports (from components/Admin) ---
 import ServiceManager from './components/Admin/ServiceManager';
-import SampleManager from './components/Admin/SampleManager';
 import ReviewManager from './components/Admin/ReviewManager';
 import BlogManager from './components/Admin/BlogManager';
 
@@ -211,7 +210,6 @@ function App() {
             <Route path="dashboard/services" element={<ProtectedRoute adminOnly><ServiceManager /></ProtectedRoute>} />
             <Route path="dashboard/services/new" element={<ProtectedRoute adminOnly><ServicePageEditor /></ProtectedRoute>} />
             <Route path="dashboard/services/edit/:pageId" element={<ProtectedRoute adminOnly><ServicePageEditor /></ProtectedRoute>} /> {/* Edit existing service page */}
-            <Route path="dashboard/samples" element={<ProtectedRoute adminOnly><SampleManager /></ProtectedRoute>} />
             <Route path="dashboard/blog" element={<ProtectedRoute adminOnly><BlogManager /></ProtectedRoute>} />
             <Route path="dashboard/settings" element={<ProtectedRoute adminOnly><ProfileSettings /></ProtectedRoute>} /> {/* Admin profile settings */}
             <Route path="dashboard/new-order" element={<ProtectedRoute adminOnly><NewOrder /></ProtectedRoute>} />

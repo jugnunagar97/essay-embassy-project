@@ -5,23 +5,13 @@ const SECONDARY_COLOR = '#1976d2'; // Modern blue
 
 // --- Data lists and utility ---
 const PAPER_TYPES = [
-  'Research Paper', 'Admissions Essay', 'Thesis Chapter', 'Case Study', 'Book Review',
-  'Lab Report', 'Dissertation', 'Term Paper', 'Scholarship Essay', 'Argumentative Essay',
-  'Programming Assignment', 'Homework Help', 'Assignment Help', 'English Essay', 'Physics Assignment',
+  'Research Paper', 'Essay', 'Literature Review', 'Case Study', 'Annotated Bibliography', 'Thesis', 'Dissertation', 'Research Proposal', 'Term Paper', 'Lab Report', 'Book Review', 'Article Critique', 'Systematic Review', 'Meta-Analysis', 'Position Paper', 'White Paper', 'Policy Brief', 'Feasibility Report', 'Technical Report', 'Project Report', 'Progress Report', 'Reflective Journal', 'Personal Statement', 'Statement of Purpose', 'Admission Essay', 'Scholarship Essay', 'Expository Essay', 'Argumentative Paper', 'Persuasive Essay', 'Compare and Contrast Essay', 'Cause and Effect Paper', 'Analytical Paper', 'Interpretive Paper', 'Discussion Board Post', 'Capstone Project', 'Field Report', 'Grant Proposal', 'Business Plan', 'Marketing Plan', 'SWOT Analysis', 'Manuscript', 'Conference Paper', 'Abstract', 'Executive Summary', 'Legal Brief', 'Memorandum of Law', 'Clinical Case Report', 'Patient Case Study', 'Research Summary', 'Thesis Chapter', 'Dissertation Prospectus', 'Concept Paper', 'Quantitative Analysis Report', 'Qualitative Study', 'Survey Research Paper', 'Experimental Paper', 'Observational Study Report'
 ];
 const SUBJECTS = [
-  'History', 'Computer Science', 'Psychology', 'Business', 'Nursing', 'Economics',
-  'Sociology', 'Political Science', 'Literature', 'Engineering', 'Mathematics',
-  'Biology', 'Philosophy', 'Education', 'Law',
+  'History', 'Psychology', 'Sociology', 'Literature', 'Philosophy', 'Political Science', 'Economics', 'Business Administration', 'Marketing', 'Finance', 'Nursing', 'Public Health', 'Computer Science', 'Biology', 'Chemistry', 'Physics', 'Environmental Science', 'Mechanical Engineering', 'Law', 'Criminology', 'Anthropology', 'International Relations', 'Art History', 'Music Theory', 'Architecture', 'Film Studies', 'Linguistics', 'Education', 'Social Work', 'Data Science', 'Neuroscience', 'Gender Studies', 'Urban Planning', 'Marine Biology', 'Astrophysics', 'Chemical Engineering', 'Civil Engineering', 'Electrical Engineering', 'Macroeconomics', 'Microeconomics', 'Corporate Finance', 'Human Resource Management', 'Strategic Management', 'Supply Chain Management', 'English Literature', 'American History', 'European History', 'Ancient Philosophy', 'Ethics', 'Political Theory', 'Developmental Psychology', 'Cognitive Science', 'Abnormal Psychology', 'Social Psychology', 'Quantum Physics', 'Organic Chemistry', 'Genetics', 'Ecology', 'Statistics', 'Calculus', 'Software Development', 'Artificial Intelligence', 'Cybersecurity', 'Medical Science', 'Pharmacy', 'Kinesiology', 'Nutrition Science', 'Occupational Therapy', 'Physical Therapy', 'Early Childhood Education', 'Higher Education Administration', 'International Law', 'Constitutional Law', 'Criminal Justice', 'Forensic Science', 'Cultural Anthropology', 'Archaeology', 'Religious Studies', 'Theology', 'Classical Studies', 'East Asian Studies', 'African Studies', 'Latin American Studies', 'Communication Studies', 'Journalism', 'Public Relations', 'Graphic Design', 'Industrial Design', 'Theatre Arts', 'Dance', 'Geology', 'Geography', 'Meteorology', 'Oceanography', 'Agricultural Science', 'Veterinary Science', 'Forestry', 'Hospitality Management', 'Tourism Studies', 'Real Estate', 'Public Policy', 'Human Rights', 'Peace and Conflict Studies'
 ];
 const LOCATIONS = [
-  'Bristol', 'Ghent', 'Toledo', 'Brno', 'Graz', 'Turku', 'Lille', 'Halifax', 'Odense',
-  'Bergen', 'Pécs', 'Trieste', 'Kobe', 'Lodz', 'Debrecen', 'Aarhus', 'Cork', 'Uppsala',
-  'Bielefeld', 'Perth', 'Boulder', 'Bendigo', 'Nancy', 'Sibiu', 'Tampere', 'Klaipeda',
-  'Potsdam', 'Kingston', 'Rouen', 'Kalamazoo', 'Eindhoven', 'Kassel', 'Linz', 'Tartu',
-  'Regina', 'Swansea', 'Jyvaskyla', 'Kolding', 'Kiel', 'Kecskemét', 'Kragujevac', 'Koper',
-  'Kielce', 'Kokkola', 'Klagenfurt', 'Kaposvár', 'Kalisz', 'Kalamata', 'Kalisz', 'Kalisz',
-  'Kalisz', 'Kalisz', 'Kalisz', 'Kalisz', 'Kalisz', 'Kalisz', 'Kalisz', 'Kalisz',
+  'Bozeman', 'Ames', 'Fayetteville', 'Bend', 'Ithaca', 'Flagstaff', 'Carbondale', 'Athens', 'Oshkosh', 'Laramie', 'Leamington Spa', 'Harrogate', 'Aberystwyth', 'Chichester', 'Stirling', 'Frome', 'Ludlow', 'Alnwick', 'Buxton', 'Enniskillen', 'Guelph', 'Kelowna', 'Moncton', 'Red Deer', 'Chicoutimi', 'Kamloops', 'Nanaimo', 'Fredericton', 'Moose Jaw', 'Whitehorse', 'Wollongong', 'Toowoomba', 'Ballarat', 'Bendigo', 'Launceston', 'Albany', 'Hervey Bay', 'Coffs Harbour', 'Bunbury', 'Rockhampton', 'Dunedin', 'Napier', 'New Plymouth', 'Invercargill', 'Whanganui', 'Gisborne', 'Nelson', 'Timaru', 'Blenheim', 'Rotorua', 'Ghent', 'Utrecht', 'Aarhus', 'Bergen', 'Malmö', 'Leipzig', 'Bologna', 'Seville', 'Brno', 'Wrocław', 'Marfa', 'Galena', 'Joseph', 'Whitefish', 'Beaufort', 'Decorah', 'Selma', 'Nantucket', 'Lunenburg', 'North Hatley', 'Brigus', 'Goderich', 'Tenterfield', 'Armidale', 'Bellingen', 'Montville', 'Rutherglen', 'Warburton', 'Sassafras', 'Broome', 'Townsville', 'Hyden', 'Humpty Doo', 'Kingston SE', 'Penguin', 'Silverton', 'Oodnadatta', 'Bungendore', 'Marysville', 'Winton', 'Coromandel', 'Taihape', 'Martinborough', 'Akaroa', 'Cromwell', 'Havelock', 'Clyde', 'Hanmer Springs', 'Görlitz', 'Granada', 'Toulouse', 'Sighisoara', 'Bremen', 'Zagreb', 'Graz', 'Berat', 'Annecy', 'Durham', 'Erfurt', 'Bansko', 'Nisyros', 'Monsanto', 'Plovdiv', 'Olomouc', 'Debrecen', 'Kaunas', 'Tartu', 'Haarlem', 'Lugano', 'Coimbra', 'Trondheim', 'San Sebastián', 'Lucerne', 'Dinant', 'Colmar', 'Giethoorn', 'Albi', 'Ronda', 'Orvieto', 'Ptuj', 'Kuldīga', 'Piran', 'Hallstatt', 'Guimarães', 'Bibury', 'Cochem', 'Telč', 'Rothenburg', 'Cesky Krumlov', 'Alberobello', 'Carcassonne', 'Portree', 'Oban', 'Tenby', 'Whitby', 'Haworth', 'Bakewell', 'Ripon', 'St Davids', 'Inveraray', 'Plockton', 'Tobermory', 'Portmeirion', 'Matlock', 'Hexham', 'Bakewell', 'Uppingham', 'Stamford', 'Ely', 'Bury St Edmunds', 'Sherborne', 'Shaftesbury', 'Dartmouth', 'Salcombe', 'Fowey', 'Padstow', 'St Ives', 'Penzance', 'Falmouth', 'Truro', 'Orange', 'Bathurst', 'Dubbo', 'Tamworth', 'Armidale', 'Lismore', 'Kalgoorlie', 'Geraldton', 'Port Hedland', 'Karratha', 'Broome', 'Mount Gambier', 'Port Lincoln', 'Whyalla', 'Port Pirie', 'Murray Bridge', 'Victor Harbor', 'Palmerston North', 'Hastings', 'Tauranga', 'Hamilton', 'Queenstown', 'Wanaka', 'Greymouth', 'Hokitika', 'Westport', 'Revelstoke', 'Canmore', 'Banff', 'Jasper', 'Penticton', 'Vernon', 'Nelson', 'Whistler', 'Squamish', 'Tofino', 'Ucluelet', 'Corner Brook', 'Gander', 'Grand Falls-Windsor', 'Charlottetown', 'Summerside', 'Yellowknife', 'Iqaluit', 'Dawson City', 'Aspen', 'Vail', 'Telluride', 'Park City', 'Jackson', 'Taos', 'Sedona', 'Bisbee', 'Carmel-by-the-Sea', 'Sausalito', 'Eureka', 'Ashland', 'Hood River', 'Coeur d\'Alene', 'Sandpoint', 'Whitefish', 'Kalispell', 'Missoula', 'Helena', 'Cody', 'Sheridan'
 ];
 function getRandomItem<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -87,8 +77,6 @@ const parseContent = (content: string) => {
 };
 
 const SocialProofNotification: React.FC<SocialProofNotificationProps> = ({ visible, content, animationState, timeAgo }) => {
-  const { location, paperType, subject, plural, pluralCount } = parseContent(content);
-
   // Animation classes
   let animationClass = '';
   if (animationState === 'entering') {
@@ -123,24 +111,7 @@ const SocialProofNotification: React.FC<SocialProofNotificationProps> = ({ visib
       <ServiceIcon />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{ fontSize: '0.92rem', lineHeight: 1.32, marginBottom: 1, fontWeight: 400 }}>
-          {plural ? (
-            <>
-              <span style={{ fontWeight: 600 }}>{pluralCount}</span>
-              <span style={{ fontWeight: 400, opacity: 0.92 }}>&nbsp;people recently ordered a&nbsp;</span>
-              <span style={{ fontWeight: 600 }}>{paperType}</span>
-              <span style={{ fontWeight: 400, opacity: 0.92 }}>.</span>
-            </>
-          ) : (
-            <>
-              <span style={{ fontWeight: 400, opacity: 0.92 }}>Someone from </span>
-              <span style={{ fontWeight: 600 }}>{location}</span>
-              <span style={{ fontWeight: 400, opacity: 0.92 }}>&nbsp;just ordered a&nbsp;</span>
-              <span style={{ fontWeight: 600 }}>{paperType}</span>
-              <span style={{ fontWeight: 400, opacity: 0.92 }}>&nbsp;in&nbsp;</span>
-              <span style={{ fontWeight: 600 }}>{subject}</span>
-              <span style={{ fontWeight: 400, opacity: 0.92 }}>.</span>
-            </>
-          )}
+          {content}
         </div>
         {/* Timestamp line */}
         {timeAgo && (
@@ -178,25 +149,115 @@ const SocialProofNotification: React.FC<SocialProofNotificationProps> = ({ visib
 
 export { SocialProofNotification };
 
-export function generateNotificationContent() {
-  const paperType = getRandomItem(PAPER_TYPES);
-  const subject = getRandomItem(SUBJECTS);
-  const location = getRandomItem(LOCATIONS);
-  const timeAgo = getRandomItem(TIME_AGO_LIST);
-  const pluralCount = Math.floor(Math.random() * 4) + 2; // 2-5
+// General & Common Paper Types
+const GENERAL_PAPER_TYPES = [
+  'Research Paper', 'Essay', 'Term Paper', 'Annotated Bibliography', 'Literature Review', 'Article Critique', 'Research Proposal', 'Abstract', 'Presentation', 'Reflective Journal'
+];
 
-  // Message templates
-  const templates = [
-    // Template 1: Someone from {city} just ordered a {paperType} in {subject}.
-    `Someone from ${location} just ordered a ${paperType} in ${subject}.`,
-    // Template 2: A {paperType} on {subject} was just ordered from {city}.
-    `A ${paperType} on ${subject} was just ordered from ${location}.`,
-    // Template 3: {N} people recently ordered a {paperType}.
-    `${pluralCount} people recently ordered a ${paperType}.`,
-  ];
+// Category-specific subjects and paper types
+const CATEGORY_MAP: Record<string, { subjects: string[]; paperTypes: string[]; userTypes: string[] }> = {
+  STEM: {
+    subjects: [
+      'Biology', 'Chemistry', 'Physics', 'Computer Science', 'Data Science', 'Environmental Science', 'Mechanical Engineering', 'Civil Engineering', 'Electrical Engineering', 'Astrophysics', 'Genetics', 'Ecology', 'Statistics', 'Calculus', 'Software Development', 'Artificial Intelligence', 'Cybersecurity', 'Geology'
+    ],
+    paperTypes: [
+      'Lab Report', 'Technical Report', 'Feasibility Study', 'Systematic Review', 'Quantitative Analysis Report', 'Experimental Paper', 'Data Analysis Report', 'Project Report', 'Manuscript'
+    ],
+    userTypes: ['PhD researcher', 'graduate student', 'researcher', 'student']
+  },
+  Humanities: {
+    subjects: [
+      'History', 'Psychology', 'Sociology', 'Literature', 'Philosophy', 'Political Science', 'Anthropology', 'International Relations', 'Gender Studies', 'Religious Studies', 'Classical Studies', 'Communication Studies', 'Archaeology'
+    ],
+    paperTypes: [
+      'Argumentative Paper', 'Persuasive Essay', 'Compare and Contrast Essay', 'Book Review', 'Position Paper', 'Qualitative Study', 'Discourse Analysis', 'Interpretive Paper', 'Expository Essay', 'Thesis Chapter'
+    ],
+    userTypes: ['university student', 'college student', 'student']
+  },
+  Business: {
+    subjects: [
+      'Business Administration', 'Marketing', 'Finance', 'Economics', 'Human Resource Management', 'Strategic Management', 'Supply Chain Management', 'Hospitality Management', 'Real Estate', 'Public Policy'
+    ],
+    paperTypes: [
+      'Case Study', 'Business Plan', 'Marketing Plan', 'SWOT Analysis', 'Feasibility Report', 'White Paper', 'Policy Brief', 'Executive Summary', 'Progress Report'
+    ],
+    userTypes: ['business student', 'MBA candidate', 'student']
+  },
+  Health: {
+    subjects: [
+      'Nursing', 'Public Health', 'Medical Science', 'Pharmacy', 'Kinesiology', 'Nutrition Science', 'Occupational Therapy', 'Physical Therapy', 'Neuroscience'
+    ],
+    paperTypes: [
+      'Clinical Case Report', 'Patient Case Study', 'Systematic Review', 'Meta-Analysis', 'Grant Proposal', 'Observational Study Report', 'Health Policy Brief'
+    ],
+    userTypes: ['medical student', 'nursing student', 'student']
+  },
+  Law: {
+    subjects: [
+      'Law', 'Criminology', 'International Law', 'Constitutional Law', 'Criminal Justice', 'Forensic Science', 'Human Rights'
+    ],
+    paperTypes: [
+      'Legal Brief', 'Memorandum of Law', 'Case Brief', 'Policy Analysis', 'Position Paper'
+    ],
+    userTypes: ['law student', 'paralegal', 'student']
+  },
+  Arts: {
+    subjects: [
+      'Art History', 'Music Theory', 'Architecture', 'Film Studies', 'Graphic Design', 'Theatre Arts', 'Education', 'Early Childhood Education'
+    ],
+    paperTypes: [
+      'Admission Essay', 'Personal Statement', 'Statement of Purpose', 'Capstone Project', 'Portfolio Statement', 'Curriculum Plan', 'Exhibition Review'
+    ],
+    userTypes: ['art student', 'music student', 'architecture student', 'student']
+  }
+};
+
+// Helper to get category by subject
+function getCategoryBySubject(subject: string): string | null {
+  for (const [cat, data] of Object.entries(CATEGORY_MAP)) {
+    if (data.subjects.includes(subject)) return cat;
+  }
+  return null;
+}
+
+// Helper to get a logical paper type for a subject
+function getLogicalPaperType(subject: string): string {
+  const category = getCategoryBySubject(subject);
+  let paperTypes = [...GENERAL_PAPER_TYPES];
+  if (category) paperTypes = paperTypes.concat(CATEGORY_MAP[category].paperTypes);
+  return getRandomItem(paperTypes);
+}
+
+// Helper to get a logical user type for a subject
+function getLogicalUserType(subject: string): string {
+  const category = getCategoryBySubject(subject);
+  if (category) return getRandomItem(CATEGORY_MAP[category].userTypes);
+  return 'student';
+}
+
+// Helper to get a random time reference
+const TIME_REFERENCES = [
+  'Just now', 'A few minutes ago', 'Earlier today', 'Recently'
+];
+
+export function generateNotificationContent() {
+  const subject = getRandomItem(SUBJECTS);
+  const paperType = getLogicalPaperType(subject);
+  const city = getRandomItem(LOCATIONS);
+  const userType = getLogicalUserType(subject);
+  const timeRef = getRandomItem(TIME_REFERENCES);
+
+  // Template 1: Classic & Trustworthy
+  const template1 = `A ${userType} from ${city} has just commissioned a ${paperType} in ${subject}.`;
+  // Template 2: Expertise Angle
+  const template2 = `Our ${subject} specialist is now working on a detailed ${paperType} for a ${userType} from ${city}.`;
+  // Template 3: Simple & Quick
+  const template3 = `${timeRef}, a ${paperType} in ${subject} was ordered by a ${userType} in ${city}.`;
+
+  const templates = [template1, template2, template3];
   const message = getRandomItem(templates);
   return {
     message,
-    timeAgo,
+    timeAgo: undefined // Not needed, as timeRef is in template3
   };
 } 

@@ -41,7 +41,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     { icon: BookOpen, label: 'Blog', path: '/dashboard/blog' },
     { icon: Star, label: 'Reviews', path: '/dashboard/reviews' },
     { icon: Settings, label: 'Services', path: '/dashboard/services' },
-    { icon: BookOpen, label: 'Samples', path: '/dashboard/samples' },
     { icon: HelpCircle, label: 'Q&A Library', path: '/admin/qa' },
     { icon: Settings, label: 'Settings', path: '/dashboard/settings' },
   ];
