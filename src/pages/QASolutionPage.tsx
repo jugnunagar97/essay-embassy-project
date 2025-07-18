@@ -1,26 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
-import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs, DocumentData } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-import visaIcon from '../../public/images/visa.svg';
-import mastercardIcon from '../../public/images/mastercard.svg';
-import amexIcon from '../../public/images/amex.svg';
-import discoverIcon from '../../public/images/discover.svg';
-import paypalIcon from '../../public/images/paypal.svg';
-import stripeIcon from '../../public/images/stripe.svg';
-import gpayIcon from '../../public/images/Gpay.svg';
+import visaIcon from '../images/visa.svg';
+import mastercardIcon from '../images/mastercard.svg';
+import amexIcon from '../images/amex.svg';
+import discoverIcon from '../images/discover.svg';
+import paypalIcon from '../images/paypal.svg';
+import stripeIcon from '../images/stripe.svg';
+import gpayIcon from '../images/Gpay.svg';
+
+interface Solution {
+  id: string;
+  title: string;
+  question: string;
+  answer: string;
+  subject: string;
+  price: number;
+  status: string;
+  attachments?: string[];
+}
+
+interface SimilarSolution {
+  id: string;
+  title?: string;
+  question?: string;
+  subject: string;
+  price: number;
+}
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 const QASolutionPage: React.FC = () => {
-  const { subject, id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const [solution, setSolution] = useState<any>(null);
+  const [solution, setSolution] = useState<Solution | null>(null);
   const [loading, setLoading] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
-  const [similarSolutions, setSimilarSolutions] = useState<any[]>([]);
+  const [similarSolutions, setSimilarSolutions] = useState<SimilarSolution[]>([]);
 
   useEffect(() => {
     const fetchSolution = async () => {
@@ -29,7 +54,7 @@ const QASolutionPage: React.FC = () => {
         const docRef = doc(db, 'qaLibrary', id!);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setSolution({ id: docSnap.id, ...docSnap.data() });
+          setSolution({ id: docSnap.id, ...docSnap.data() } as Solution);
         } else {
           toast.error('Solution not found.');
           navigate('/qa-library');
@@ -64,12 +89,22 @@ const QASolutionPage: React.FC = () => {
       );
       const querySnapshot = await getDocs(q);
       const results = querySnapshot.docs
-        .map(doc => ({ id: doc.id, ...doc.data() }))
-        .filter((item: any) => item.id !== solution.id);
+        .map((doc: DocumentData) => ({ id: doc.id, ...doc.data() } as SimilarSolution))
+        .filter((item: SimilarSolution) => item.id !== solution.id);
       setSimilarSolutions(results);
     };
     fetchSimilar();
   }, [solution]);
+
+  // Razorpay checkout script loader
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = resolve;
+      document.body.appendChild(script);
+    });
+  };
 
   const handleBuyNow = async () => {
     if (!user) {
@@ -78,21 +113,45 @@ const QASolutionPage: React.FC = () => {
     }
     toast.loading('Redirecting to payment...');
     try {
-      const response = await fetch('http://localhost:4242/create-checkout-session', {
+      await loadRazorpayScript();
+      const response = await fetch('http://localhost:4242/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          price: solution.price || 1000, // fallback price for demo
-          qaId: solution.id,
+          price: solution?.price || 1000, // fallback price for demo
+          qaId: solution?.id,
           userId: user.id,
         }),
       });
       const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
+      if (!data.order) {
         toast.error(data.error || 'Failed to start payment.');
+        return;
       }
+      const options = {
+        key: 'rzp_test_jq4PMCEUOD8J5U', // Razorpay Key ID (test)
+        amount: data.order.amount,
+        currency: data.order.currency,
+        name: 'Essay Embassy',
+        description: solution?.title || 'Q&A Solution',
+        order_id: data.order.id,
+        handler: function (_response: any) {
+          toast.success('Payment successful! Solution unlocked.');
+          setHasAccess(true);
+        },
+        prefill: {
+          email: user.email || '',
+        },
+        notes: {
+          qaId: solution?.id,
+          userId: user.id,
+        },
+        theme: {
+          color: '#28a745',
+        },
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err) {
       toast.error('Payment error. Please try again.');
     } finally {
@@ -117,28 +176,32 @@ const QASolutionPage: React.FC = () => {
   return (
     <div className="bg-[#F9F9F9] min-h-screen font-sans">
       <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
-        {/* Main Content (Left Column) */}
+        {/* Main Content Area (Left Column - 65-70% width) */}
         <div className="lg:col-span-8">
-          {/* Question Header */}
+          {/* 1.1 Question Header */}
           {solution.title && /<[^>]+>/.test(solution.title) ? (
             <h1 className="text-4xl md:text-5xl font-extrabold text-[#212529] mb-4" style={{ lineHeight: 1.2 }} dangerouslySetInnerHTML={{ __html: solution.title }} />
           ) : (
             <h1 className="text-4xl md:text-5xl font-extrabold text-[#212529] mb-4" style={{ lineHeight: 1.2 }}>{solution.title}</h1>
           )}
-          {/* Question Body */}
+          
+          {/* 1.2 Question Body */}
           <div className="border-t border-[#DEE2E6] pt-6 mb-8">
             <div className="text-base font-semibold text-[#28a745] mb-2">❓ Question</div>
-            <div className="prose max-w-none text-[#212529] text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: solution.question }} />
+            <div className="prose max-w-none text-[#212529] text-lg leading-relaxed" style={{ lineHeight: 1.6 }} dangerouslySetInnerHTML={{ __html: solution.question }} />
           </div>
-          {/* Solution Preview Block */}
+          
+          {/* 1.3 Solution Preview Block */}
           <div className="mb-12">
             <div className="text-base font-semibold text-[#28a745] mb-2">📋 Solution Preview</div>
             <div className="relative">
+              {/* Fading Text Container */}
               <div
                 className="bg-white border border-[#DEE2E6] rounded-xl p-6 text-[#212529] text-base leading-relaxed"
                 style={{ height: 250, overflow: 'hidden', ...fadeMask }}
                 dangerouslySetInnerHTML={{ __html: solution.answer }}
               />
+              
               {/* Locked Overlay */}
               {!hasAccess && (
                 <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-end h-32 bg-gradient-to-t from-white/90 to-transparent rounded-b-xl">
@@ -154,11 +217,19 @@ const QASolutionPage: React.FC = () => {
                 </div>
               )}
             </div>
+            
+            {/* Included Files Section (Optional) */}
+            {solution.attachments && solution.attachments.length > 0 && (
+              <div className="mt-4 text-sm text-[#495057]">
+                By purchasing, you also get: 📄 {solution.attachments.map((file: string) => file).join(', ')}
+              </div>
+            )}
           </div>
         </div>
-        {/* Sidebar (Right Column, Sticky) */}
+        
+        {/* Sidebar (Right Column - 30-35% width, Sticky) */}
         <aside className="lg:col-span-4 w-full lg:sticky lg:top-10">
-          {/* Purchase Box */}
+          {/* 2.1 Purchase Box */}
           <div className="bg-[#F8F9FA] border border-[#DEE2E6] rounded-2xl shadow p-6 mb-6">
             <div className="text-xs font-bold text-[#868e96] tracking-widest mb-2">PURCHASE SOLUTION</div>
             <div className="text-4xl font-extrabold text-[#212529] mb-2">{formatPrice(solution.price)}</div>
@@ -178,7 +249,8 @@ const QASolutionPage: React.FC = () => {
               <img src={stripeIcon} alt="Stripe" className="h-6" />
             </div>
           </div>
-          {/* Registration CTA Block */}
+          
+          {/* 2.2 Registration CTA Block */}
           <div className="bg-[#E6F4FF] border border-[#B6E0FE] rounded-2xl shadow p-6">
             <div className="text-lg font-bold text-[#212529] mb-1">New Here?</div>
             <div className="text-[#495057] mb-4">Create a free account to track your purchases, access exclusive discounts, and get personalized support.</div>
@@ -190,7 +262,8 @@ const QASolutionPage: React.FC = () => {
           </div>
         </aside>
       </div>
-      {/* Similar Solutions Section */}
+      
+      {/* 3. Similar Solutions Section (Full-Width, Bottom) */}
       <section className="w-full bg-white border-t border-[#DEE2E6] py-12 mt-8">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl font-bold text-[#212529] mb-6">Similar Homework Solutions</h2>
@@ -207,11 +280,12 @@ const QASolutionPage: React.FC = () => {
             >
               <svg width="24" height="24" fill="none" stroke="#212529" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </button>
-            {/* Cards */}
+            
+            {/* Cards Container */}
             <div id="similar-scroll" className="flex gap-6 overflow-x-auto pb-2 scroll-smooth">
               {similarSolutions.length === 0 ? (
                 <div className="text-gray-400 p-8">No similar solutions found.</div>
-              ) : similarSolutions.map((item) => (
+              ) : similarSolutions.map((item: SimilarSolution) => (
                 <div key={item.id} className="min-w-[280px] max-w-xs bg-white border border-[#DEE2E6] rounded-xl shadow hover:shadow-lg transition p-5 flex flex-col">
                   <span className="inline-block bg-[#E6F4FF] text-[#2563eb] text-xs font-semibold rounded-full px-3 py-1 mb-2 w-fit">{item.subject}</span>
                   <div className="font-bold text-lg text-[#212529] mb-2 line-clamp-2" dangerouslySetInnerHTML={{ __html: item.title || item.question || 'Untitled' }} />
@@ -222,6 +296,7 @@ const QASolutionPage: React.FC = () => {
                 </div>
               ))}
             </div>
+            
             {/* Right Scroll Button */}
             <button
               className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white border border-[#DEE2E6] rounded-full shadow p-2 hover:bg-[#F8F9FA] transition hidden md:block"
