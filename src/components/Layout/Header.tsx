@@ -27,10 +27,10 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
   const showProfileDropdown = user && !isMainDashboard;
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
+    <header className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
       {/* Top Bar for Contact Info and Support */}
-      <div className="bg-primary-700 text-white text-xs px-6 py-1 flex justify-between items-center">
-        <div className="flex items-center space-x-4">
+      <div className="bg-primary-700 text-white text-xs px-4 py-1 flex justify-between items-center">
+        <div className="flex items-center space-x-3">
           <span>📞 +1 (555) 123-4567</span>
           <span>✉️ support@essayembassy.com</span>
         </div>
@@ -38,53 +38,51 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
       </div>
 
       {/* Main Header Content */}
-      <div className="flex items-center justify-between px-6 py-2">
+      <div className="flex items-center justify-between px-4 py-2 max-w-7xl mx-auto">
         {/* Left Section: Logo and Admin Sidebar Toggle */}
         <div className="flex items-center">
           {isAdminPage && (
             <button
               onClick={onToggleSidebar}
-              className="text-gray-600 dark:text-gray-300 mr-4 lg:hidden"
+              className="text-gray-600 dark:text-gray-300 mr-3 lg:hidden"
               aria-label="Open sidebar"
             >
-              <Menu size={24} />
+              <Menu size={20} />
             </button>
           )}
           {/* Brand name as text replaced with logo */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <Link to="/">
-              <img src="/images/logo.png" alt="Essay Embassy Logo" className="h-16 max-h-16 w-auto" />
+              <img src="/images/logo.png" alt="Essay Embassy Logo" className="h-14 w-auto" />
             </Link>
           </div>
         </div>
 
         {/* Center Section: Main Navigation (Desktop ONLY) */}
-        <nav className="hidden lg:flex items-center space-x-6">
+        <nav className="hidden lg:flex items-center space-x-5">
           <ServicesDropdown /> {/* This is your dynamic services dropdown */}
-          <Link to="/samples" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">Samples</Link>
-          <Link to="/reviews" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">Reviews</Link>
-          <Link to="/qa-library" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 font-semibold">Q&amp;A Library</Link>
-          <Link to="/about" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">About</Link>
-          <Link to="/blog" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">Blog</Link>
-          <Link to="/contact" className="text-gray-600 dark:text-gray-300 hover:text-primary-600">Contact</Link>
+          <Link to="/samples" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 text-sm font-medium transition-colors">Samples</Link>
+          <Link to="/reviews" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 text-sm font-medium transition-colors">Reviews</Link>
+          <Link to="/qa-library" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 text-sm font-semibold transition-colors">Q&amp;A Library</Link>
+          <Link to="/writers" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 text-sm font-medium transition-colors">Our Writers</Link>
         </nav>
 
         {/* Right Section: Action Buttons and User Auth */}
-        <div className="flex items-center gap-4">
-          <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 hidden sm:block">WhatsApp</a>
-          <Link to="/order-now" className="btn-primary text-sm px-4 py-2">
+        <div className="flex items-center gap-3">
+          <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 hidden sm:block font-medium transition-colors">WhatsApp</a>
+          <Link to="/order-now" className="btn-primary text-sm px-3 py-2">
             Order Now
           </Link>
           {showProfileDropdown ? (
             <div className="relative">
               <button
                 onClick={() => setProfileDropdownOpen((open) => !open)}
-                className="flex items-center px-3 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-primary-700 dark:text-primary-300 font-bold text-base focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="flex items-center px-2 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-primary-700 dark:text-primary-300 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
               >
-                <span className="w-8 h-8 flex items-center justify-center rounded-full bg-primary-500 text-white mr-2 uppercase">
+                <span className="w-6 h-6 flex items-center justify-center rounded-full bg-primary-500 text-white mr-1.5 uppercase text-xs">
                   {(user.displayName?.charAt(0) || user.email?.charAt(0) || 'U').toUpperCase()}
                 </span>
-                <ChevronDown size={18} />
+                <ChevronDown size={16} />
               </button>
               {isProfileDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
@@ -108,7 +106,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             isMainDashboard ? null : (
               <button
                 onClick={logout}
-                className="text-sm font-semibold bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors"
+                className="text-sm font-semibold bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 px-3 py-2 rounded-lg transition-colors"
               >
                 Sign Out
               </button>
@@ -117,13 +115,13 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             <div className="flex space-x-2">
               <Link
                 to="/login"
-                className="text-sm font-semibold px-4 py-2 rounded-lg border border-primary-600 text-primary-600 bg-white hover:bg-primary-50 dark:bg-gray-900 dark:text-primary-400 dark:border-primary-400 dark:hover:bg-primary-900/10 transition-colors shadow-sm"
+                className="text-sm font-semibold px-3 py-2 rounded-lg border border-primary-600 text-primary-600 bg-white hover:bg-primary-50 dark:bg-gray-900 dark:text-primary-400 dark:border-primary-400 dark:hover:bg-primary-900/10 transition-colors shadow-sm"
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="text-sm font-semibold px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow-sm"
+                className="text-sm font-semibold px-3 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow-sm"
               >
                 Sign Up
               </Link>
@@ -133,10 +131,10 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           {/* Mobile Menu Toggle Button (for non-admin pages) */}
           <button
             onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-            className="lg:hidden text-gray-600 dark:text-gray-300 ml-4"
+            className="lg:hidden text-gray-600 dark:text-gray-300 ml-2"
             aria-label="Toggle mobile menu"
           >
-            <Menu size={24} />
+            <Menu size={20} />
           </button>
         </div>
       </div>

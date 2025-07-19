@@ -16,6 +16,9 @@ import BlogPostPage from './pages/BlogPostPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import RefundPolicy from './pages/RefundPolicy';
+import HonorCode from './pages/HonorCode';
+import FAQ from './pages/FAQ';
+import Writers from './pages/Writers';
 import Samples from './pages/Samples';
 import Reviews from './pages/Reviews';
 import OrderNow from './pages/Order/OrderNow';
@@ -29,7 +32,7 @@ import ThankYou from './pages/ThankYou';
 // --- Static Service Page Imports ---
 import AdmissionEssay from './pages/Services/AdmissionEssay';
 import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
-import AssignmentHelpFixed from './pages/Services/AssignmentHelpFixed';
+import AssignmentHelp from './pages/Services/AssignmentHelp';
 import BookReview from './pages/Services/BookReview';
 import CaseStudy from './pages/Services/CaseStudy';
 import CaseStudyHelp from './pages/Services/CaseStudyHelp';
@@ -156,7 +159,7 @@ function App() {
             {/* Static service page routes */}
             <Route path="services/admission-essay" element={<AdmissionEssay />} />
             <Route path="services/argumentative-essay" element={<ArgumentativeEssay />} />
-            <Route path="services/assignment-help" element={<AssignmentHelpFixed />} />
+            <Route path="services/assignment-help" element={<AssignmentHelp />} />
             <Route path="services/book-review" element={<BookReview />} />
             <Route path="services/case-study" element={<CaseStudy />} />
             <Route path="services/case-study-help" element={<CaseStudyHelp />} />
@@ -190,6 +193,9 @@ function App() {
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="terms-and-conditions" element={<TermsAndConditions />} />
             <Route path="refund-policy" element={<RefundPolicy />} />
+            <Route path="honor-code" element={<HonorCode />} />
+            <Route path="faq" element={<FAQ />} />
+            <Route path="writers" element={<Writers />} />
             <Route path="order-now" element={<OrderNow />} />
             <Route path="qa-library" element={<QALibrary />} />
             <Route path="qa-library/:subject/:id" element={<QASolutionPage />} />

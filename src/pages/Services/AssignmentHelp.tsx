@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, BookOpen, Users, ShieldCheck, Plus, Minus, Mail, Phone, Download, Eye } from 'lucide-react';
 
-// ==================================================================================
-// === TYPE DEFINITIONS (To fix all TypeScript errors) ===
-// ==================================================================================
 interface FaqItemProps {
   question: string;
   answer: string;
@@ -24,10 +21,6 @@ interface SampleModalProps {
   sample: Sample;
   onClose: () => void;
 }
-
-// ==================================================================================
-// === REUSABLE SUB-COMPONENTS (With correct types) ===
-// ==================================================================================
 
 const FaqItem: React.FC<FaqItemProps> = ({ question, answer, isOpen, onClick }) => (
   <div className="border-b border-secondary-200 dark:border-secondary-700">
@@ -55,13 +48,7 @@ const SampleModal: React.FC<SampleModalProps> = ({ sample, onClose }) => (
   </div>
 );
 
-
-// ==================================================================================
-// === MAIN ASSIGNMENT HELP PAGE COMPONENT ===
-// ==================================================================================
-
 const AssignmentHelp = () => {
-  
   const writers = [
     { name: 'Noah V.', degree: 'BA | Historian', photo: 'https://placehold.co/100x100/EBF4FF/134e4a?text=NV', focus: ['History', 'Geopolitics'], loves: 'Case studies, essays', stats: { satisfaction: '99%', onTime: '98%', rating: '4.9/5' } },
     { name: 'Susan R.', degree: 'MA | Certified Nurse', photo: 'https://placehold.co/100x100/EBF4FF/134e4a?text=SR', focus: ['Healthcare', 'Nursing'], loves: 'Lab reports, research', stats: { satisfaction: '99%', onTime: '100%', rating: '5/5' } },
@@ -85,7 +72,6 @@ const AssignmentHelp = () => {
   return (
     <div className="animate-fade-in bg-white dark:bg-secondary-900">
       {selectedSample && <SampleModal sample={selectedSample} onClose={() => setSelectedSample(null)} />}
-      
       <section className="bg-secondary-50 dark:bg-secondary-900 py-20">
         <div className="container mx-auto px-6 text-center">
           <span className="font-semibold text-primary-600 dark:text-primary-400">Assignment Writing Service</span>
@@ -100,19 +86,17 @@ const AssignmentHelp = () => {
           <p className="text-xs text-secondary-500 mt-4">(AI & Plagiarism Free)</p>
         </div>
       </section>
-
       <section className="section container">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="heading-lg">Why choose our assignment writing services?</h2>
           <p className="text-lg text-muted mt-4">Rely on us to handle any kind of assignment</p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white dark:bg-secondary-800 shadow-soft rounded-lg p-8 text-center transition-transform duration-300 hover:scale-105 hover:shadow-medium"><Users className="h-12 w-12 mx-auto text-primary-500 mb-4" /><h3 className="heading-sm mb-2">A Team of Pros</h3><p className="text-muted">We carefully select the qualified writers who join our team.</p></div>
-            <div className="bg-white dark:bg-secondary-800 shadow-soft rounded-lg p-8 text-center transition-transform duration-300 hover:scale-105 hover:shadow-medium"><BookOpen className="h-12 w-12 mx-auto text-primary-500 mb-4" /><h3 className="heading-sm mb-2">A-Level Quality</h3><p className="text-muted">We closely review each order before delivering it to you.</p></div>
-            <div className="bg-white dark:bg-secondary-800 shadow-soft rounded-lg p-8 text-center transition-transform duration-300 hover:scale-105 hover:shadow-medium"><ShieldCheck className="h-12 w-12 mx-auto text-primary-500 mb-4" /><h3 className="heading-sm mb-2">19+ Years of Work</h3><p className="text-muted">No request is too tricky for us to handle. Give it a try!</p></div>
+          <div className="bg-white dark:bg-secondary-800 shadow-soft rounded-lg p-8 text-center transition-transform duration-300 hover:scale-105 hover:shadow-medium"><Users className="h-12 w-12 mx-auto text-primary-500 mb-4" /><h3 className="heading-sm mb-2">A Team of Pros</h3><p className="text-muted">We carefully select the qualified writers who join our team.</p></div>
+          <div className="bg-white dark:bg-secondary-800 shadow-soft rounded-lg p-8 text-center transition-transform duration-300 hover:scale-105 hover:shadow-medium"><BookOpen className="h-12 w-12 mx-auto text-primary-500 mb-4" /><h3 className="heading-sm mb-2">A-Level Quality</h3><p className="text-muted">We closely review each order before delivering it to you.</p></div>
+          <div className="bg-white dark:bg-secondary-800 shadow-soft rounded-lg p-8 text-center transition-transform duration-300 hover:scale-105 hover:shadow-medium"><ShieldCheck className="h-12 w-12 mx-auto text-primary-500 mb-4" /><h3 className="heading-sm mb-2">19+ Years of Work</h3><p className="text-muted">No request is too tricky for us to handle. Give it a try!</p></div>
         </div>
       </section>
-
       <section className="section bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-secondary-900 dark:to-secondary-800">
         <div className="container">
           <div className="text-center max-w-3xl mx-auto mb-12">
@@ -141,7 +125,6 @@ const AssignmentHelp = () => {
           </div>
         </div>
       </section>
-
       <section className="section container">
         <h2 className="heading-lg text-center mb-8">Your Go-To Source for Professional Assignment Help</h2>
         <div className="prose prose-lg dark:prose-invert max-w-4xl mx-auto text-secondary-600 dark:text-secondary-300">
@@ -149,7 +132,6 @@ const AssignmentHelp = () => {
           <p>We believe that quality assignment help goes beyond simply providing answers. It's about fostering a deeper understanding of the subject matter. Our experts craft detailed, step-by-step solutions that are not only accurate but also illustrative, helping you grasp core concepts and improve your own academic skills. We focus on delivering content that is not just a submission but a learning tool. Every paper is structured logically, argued coherently, and formatted perfectly according to your specified citation style, be it APA, MLA, Chicago, or Harvard.</p>
         </div>
       </section>
-
       <section className="section bg-secondary-50 dark:bg-secondary-900">
         <div className="container text-center">
           <h2 className="heading-lg mb-8">Get Top-Grade Help With Your Assignment!</h2>
@@ -162,36 +144,33 @@ const AssignmentHelp = () => {
             ))}
           </div>
           <div className="mt-12">
-             <Link to="/order-now" className="btn-primary text-lg px-8 py-3 shadow-soft hover:shadow-medium transition-shadow">Place An Order</Link>
+            <Link to="/order-now" className="btn-primary text-lg px-8 py-3 shadow-soft hover:shadow-medium transition-shadow">Place An Order</Link>
           </div>
         </div>
       </section>
-
       <section className="section container">
         <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="heading-lg">Check Out Our Sample Works</h2>
-            <p className="text-lg text-muted mt-4">See the quality of our work for yourself. Explore samples written by our top experts.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {samples.map((sample, i) => (
-              <div key={i} className="bg-white dark:bg-secondary-800 rounded-lg shadow-soft p-6 flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-medium">
-                <h3 className="text-lg font-bold text-secondary-900 dark:text-white mb-2">{sample.title}</h3>
-                <div className="flex items-center space-x-4 text-sm text-muted mb-4">
-                  <span>{sample.pages} Pages</span>
-                  <span>&bull;</span>
-                  <span>{sample.style} Style</span>
-                </div>
-                <div className="flex-grow"></div>
-                <div className="flex items-center space-x-4 mt-4">
-                  <button onClick={() => setSelectedSample(sample)} className="btn-outline w-full flex items-center justify-center"><Eye className="h-4 w-4 mr-2" /> Preview</button>
-                  <a href={sample.downloadUrl} download className="btn-primary w-full flex items-center justify-center"><Download className="h-4 w-4 mr-2" /> Download</a>
-                </div>
+          <h2 className="heading-lg">Check Out Our Sample Works</h2>
+          <p className="text-lg text-muted mt-4">See the quality of our work for yourself. Explore samples written by our top experts.</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8">
+          {samples.map((sample, i) => (
+            <div key={i} className="bg-white dark:bg-secondary-800 rounded-lg shadow-soft p-6 flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-medium">
+              <h3 className="text-lg font-bold text-secondary-900 dark:text-white mb-2">{sample.title}</h3>
+              <div className="flex items-center space-x-4 text-sm text-muted mb-4">
+                <span>{sample.pages} Pages</span>
+                <span>&bull;</span>
+                <span>{sample.style} Style</span>
               </div>
-            ))}
-          </div>
+              <div className="flex-grow"></div>
+              <div className="flex items-center space-x-4 mt-4">
+                <button onClick={() => setSelectedSample(sample)} className="btn-outline w-full flex items-center justify-center"><Eye className="h-4 w-4 mr-2" /> Preview</button>
+                <a href={sample.downloadUrl} download className="btn-primary w-full flex items-center justify-center"><Download className="h-4 w-4 mr-2" /> Download</a>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
-
       <section className="section container">
         <div className="grid lg:grid-cols-3 gap-16 items-start">
           <div className="lg:col-span-1 space-y-4 bg-secondary-50 dark:bg-secondary-800 p-8 rounded-lg shadow-soft">

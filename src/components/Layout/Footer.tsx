@@ -1,125 +1,193 @@
 import { Link } from 'react-router-dom';
 import { 
-  BookOpen, 
-  Mail, 
-  Phone, 
-  MapPin, 
   Facebook, 
   Twitter, 
   Instagram, 
   Linkedin,
   Shield,
   CheckCircle,
-  Clock
+  Lock,
+  CreditCard
 } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 dark:bg-black text-white">
-      {/* Trust Badges and Payment Methods Header Row */}
-      <div className="bg-gray-100 py-5">
-        <div className="container">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-            {/* Trust Badges */}
-            <div className="flex items-center gap-8">
-              <div className="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm">
-                <Shield className="text-green-600 mr-2" size={24} />
-                <span className="text-gray-800 font-medium text-sm">McAfee Secure</span>
-              </div>
-              <div className="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm">
-                <CheckCircle className="text-blue-600 mr-2" size={24} />
-                <span className="text-gray-800 font-medium text-sm">100% Money Back Guarantee</span>
-              </div>
-            </div>
-
-            {/* Payment Methods */}
-            <div className="flex items-center gap-5">
-              <span className="text-gray-600 text-sm font-medium mr-2">We Accept:</span>
-              <div className="flex items-center gap-4">
-                <div className="bg-white px-3 py-2 rounded shadow-sm"><span className="text-blue-600 font-bold text-sm">VISA</span></div>
-                <div className="bg-white px-3 py-2 rounded shadow-sm"><span className="text-red-600 font-bold text-sm">MC</span></div>
-                <div className="bg-white px-3 py-2 rounded shadow-sm"><span className="text-blue-600 font-bold text-sm">AMEX</span></div>
-                <div className="bg-white px-3 py-2 rounded shadow-sm"><span className="text-orange-600 font-bold text-sm">DISC</span></div>
-                <div className="bg-white px-3 py-2 rounded shadow-sm"><span className="text-blue-600 font-bold text-sm">PayPal</span></div>
-                <div className="bg-white px-3 py-2 rounded shadow-sm"><span className="text-gray-800 font-bold text-sm">Apple Pay</span></div>
-                <div className="bg-white px-3 py-2 rounded shadow-sm"><span className="text-blue-600 font-bold text-sm">G Pay</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <footer className="bg-gray-900 dark:bg-black text-white relative overflow-hidden">
+      {/* Subtle geometric pattern overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}></div>
       </div>
 
-      <div className="container py-16">
-        <div className="grid md:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="flex items-center justify-center">
-                <img 
-                  src="/images/logo.png" 
-                  alt="Essay Embassy" 
-                  className="h-16 w-16 object-contain"
-                />
-              </div>
+      <div className="relative z-10">
+        {/* Footer Header Section */}
+        <div className="container mx-auto px-5 py-16 border-b border-gray-800">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+            {/* Left Side - Logo */}
+            <div className="flex items-center space-x-3">
+              <img 
+                src="/images/logo.png" 
+                alt="Essay Embassy" 
+                className="h-16 w-16 object-contain"
+              />
               <div>
-                <span className="text-xl font-bold">Essay Embassy</span>
-                <div className="text-sm text-gray-400">Academic Excellence</div>
+                <h2 className="text-2xl font-bold text-white">Essay Embassy</h2>
+                <p className="text-gray-400 text-sm">Academic Excellence</p>
               </div>
             </div>
-            <p className="text-gray-300 mb-4 max-w-md">
-              Your trusted partner in academic success. We provide professional writing services 
-              to help students achieve their educational goals with confidence.
-            </p>
-            <p className="text-sm text-gray-400 mb-6">
-              Serving students worldwide since 2016 • 8+ years of excellence
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors hover:scale-110"><Facebook size={20} /></a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors hover:scale-110"><Twitter size={20} /></a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors hover:scale-110"><Instagram size={20} /></a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors hover:scale-110"><Linkedin size={20} /></a>
-            </div>
-          </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6 text-primary-400">Quick Links</h3>
-            <ul className="space-y-3">
-              <li><Link to="/" className="text-gray-300 hover:text-primary-400 transition-colors">Home</Link></li>
-              <li><Link to="/services" className="text-gray-300 hover:text-primary-400 transition-colors">Services</Link></li>
-              <li><Link to="/samples" className="text-gray-300 hover:text-primary-400 transition-colors">Samples</Link></li>
-              <li><Link to="/order-now" className="text-gray-300 hover:text-primary-400 transition-colors">Order Now</Link></li>
-              <li><Link to="/about" className="text-gray-300 hover:text-primary-400 transition-colors">About Us</Link></li>
-              <li><Link to="/blog" className="text-gray-300 hover:text-primary-400 transition-colors">Blog</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-primary-400 transition-colors">Contact</Link></li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6 text-primary-400">Contact Info</h3>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3"><Mail size={20} className="text-primary-400" /><span className="text-gray-300">support@essayembassy.com</span></div>
-              <div className="flex items-center space-x-3"><Phone size={20} className="text-primary-400" /><span className="text-gray-300">+1 (555) 123-4567</span></div>
-              <div className="flex items-center space-x-3"><Clock size={20} className="text-primary-400" /><span className="text-gray-300">24/7 Support Available</span></div>
-              <div className="flex items-center space-x-3"><MapPin size={20} className="text-primary-400" /><span className="text-gray-300">1309 Beacon Street, Suite 300, Brookline, Massachusetts 02446</span></div>
+            {/* Right Side - Social Media */}
+            <div className="flex items-center space-x-4">
+              <span className="text-gray-300 font-medium">Let's get social:</span>
+              <div className="flex space-x-3">
+                <a href="#" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                  <Facebook size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                  <Twitter size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                  <Instagram size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                  <Linkedin size={20} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="container py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2025 EssayEmbassy.com. All rights reserved.
+        {/* Main Content - Multi-Column Link Structure */}
+        <div className="container mx-auto px-5 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+            
+            {/* Column 1: Essay Services */}
+            <div>
+              <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wide">Essay Services</h3>
+              <ul className="space-y-3">
+                <li><Link to="/services/argumentative-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Argumentative Essay Service</Link></li>
+                <li><Link to="/services/descriptive-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Descriptive Essay Service</Link></li>
+                <li><Link to="/services/persuasive-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Persuasive Essay Service</Link></li>
+                <li><Link to="/services/narrative-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Narrative Essay Service</Link></li>
+                <li><Link to="/services/analytical-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Analytical Essay Service</Link></li>
+                <li><Link to="/services/expository-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Expository Essay Service</Link></li>
+                <li><Link to="/services/comparison-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Comparison Essay Service</Link></li>
+              </ul>
             </div>
-            {/* CORRECTED LINKS */}
-            <div className="flex space-x-6 text-sm">
-              <Link to="/privacy-policy" className="text-gray-400 hover:text-primary-400 transition-colors">Privacy Policy</Link>
-              <Link to="/terms-and-conditions" className="text-gray-400 hover:text-primary-400 transition-colors">Terms & Conditions</Link>
-              <Link to="/refund-policy" className="text-gray-400 hover:text-primary-400 transition-colors">Refund Policy</Link>
+
+            {/* Column 2: Writing Help */}
+            <div>
+              <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wide">Writing Help</h3>
+              <ul className="space-y-3">
+                <li><Link to="/services/term-paper" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Term Paper Writing Help</Link></li>
+                <li><Link to="/services/research-paper" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Research Writing Help</Link></li>
+                <li><Link to="/services/thesis" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Thesis Help</Link></li>
+                <li><Link to="/services/dissertation" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Dissertation Help</Link></li>
+                <li><Link to="/services/report" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Report Writing Help</Link></li>
+                <li><Link to="/services/speech" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Speech Writing Help</Link></li>
+                <li><Link to="/services/assignment" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Assignment Help</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Legal & Policies */}
+            <div>
+              <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wide">Legal & Policies</h3>
+              <ul className="space-y-3">
+                <li><Link to="/privacy-policy" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Privacy Policy</Link></li>
+                <li><Link to="/terms-and-conditions" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Terms of Use</Link></li>
+                <li><Link to="/refund-policy" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Refunds & Cancellations</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 4: Company */}
+            <div>
+              <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wide">Company</h3>
+              <ul className="space-y-3">
+                <li><Link to="/about" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">About Us</Link></li>
+                <li><Link to="/writers" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Our Writers</Link></li>
+                <li><Link to="/honor-code" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Honor Code</Link></li>
+                <li><Link to="/contact" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Contact</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 5: Resources */}
+            <div>
+              <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wide">Resources</h3>
+              <ul className="space-y-3">
+                <li><Link to="/blog" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Blog</Link></li>
+                <li><Link to="/faq" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">FAQ</Link></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Trust and Security Section */}
+        <div className="border-t border-gray-800">
+          <div className="container mx-auto px-5 py-12">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+              {/* Left Side - Security Badges */}
+              <div className="flex items-center gap-6">
+                <div className="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm">
+                  <Shield className="text-green-600 mr-2" size={20} />
+                  <span className="text-gray-800 font-medium text-sm">DMCA Protected</span>
+                </div>
+                <div className="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm">
+                  <Lock className="text-blue-600 mr-2" size={20} />
+                  <span className="text-gray-800 font-medium text-sm">PCI DSS Compliant</span>
+                </div>
+                <div className="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm">
+                  <CheckCircle className="text-green-600 mr-2" size={20} />
+                  <span className="text-gray-800 font-medium text-sm">Secure</span>
+                </div>
+              </div>
+
+              {/* Right Side - Payment Methods */}
+              <div className="flex items-center gap-4">
+                <span className="text-gray-300 text-sm font-medium">We Accept:</span>
+                <div className="flex items-center gap-3">
+                  <div className="bg-white px-3 py-2 rounded shadow-sm">
+                    <span className="text-blue-600 font-bold text-sm">VISA</span>
+                  </div>
+                  <div className="bg-white px-3 py-2 rounded shadow-sm">
+                    <span className="text-red-600 font-bold text-sm">MC</span>
+                  </div>
+                  <div className="bg-white px-3 py-2 rounded shadow-sm">
+                    <span className="text-blue-600 font-bold text-sm">AMEX</span>
+                  </div>
+                  <div className="bg-white px-3 py-2 rounded shadow-sm">
+                    <span className="text-orange-600 font-bold text-sm">DISC</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Disclaimer Section */}
+        <div className="border-t border-gray-800 bg-gray-950">
+          <div className="container mx-auto px-5 py-6">
+            <div className="text-center">
+              <p className="text-gray-400 text-sm leading-relaxed max-w-4xl mx-auto">
+                <strong>Disclaimer:</strong> All client orders are completed by our team of highly qualified human writers. 
+                The essays and papers provided by us are not to be used for submission but rather as learning models only.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright Bar */}
+        <div className="border-t border-gray-800 bg-gray-950">
+          <div className="container mx-auto px-5 py-4">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <div className="text-gray-400 text-sm mb-2 md:mb-0">
+                © 2025 EssayEmbassy.com. All rights reserved.
+              </div>
+              <div className="flex space-x-6 text-sm">
+                <Link to="/privacy-policy" className="text-gray-400 hover:text-primary-400 transition-colors">Privacy Policy</Link>
+                <Link to="/terms-and-conditions" className="text-gray-400 hover:text-primary-400 transition-colors">Terms & Conditions</Link>
+                <Link to="/refund-policy" className="text-gray-400 hover:text-primary-400 transition-colors">Refund Policy</Link>
+              </div>
             </div>
           </div>
         </div>
