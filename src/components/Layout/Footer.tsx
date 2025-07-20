@@ -67,12 +67,11 @@ export default function Footer() {
               <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wide">Essay Services</h3>
               <ul className="space-y-3">
                 <li><Link to="/services/argumentative-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Argumentative Essay Service</Link></li>
-                <li><Link to="/services/descriptive-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Descriptive Essay Service</Link></li>
-                <li><Link to="/services/persuasive-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Persuasive Essay Service</Link></li>
                 <li><Link to="/services/narrative-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Narrative Essay Service</Link></li>
-                <li><Link to="/services/analytical-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Analytical Essay Service</Link></li>
-                <li><Link to="/services/expository-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Expository Essay Service</Link></li>
-                <li><Link to="/services/comparison-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Comparison Essay Service</Link></li>
+                <li><Link to="/services/admission-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Admission Essay Service</Link></li>
+                <li><Link to="/services/essay-writing" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Essay Writing Service</Link></li>
+                <li><Link to="/services/scholarship-essay" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Scholarship Essay Service</Link></li>
+                <li><Link to="/services/book-review" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Book Review Service</Link></li>
               </ul>
             </div>
 
@@ -81,12 +80,17 @@ export default function Footer() {
               <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wide">Writing Help</h3>
               <ul className="space-y-3">
                 <li><Link to="/services/term-paper" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Term Paper Writing Help</Link></li>
-                <li><Link to="/services/research-paper" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Research Writing Help</Link></li>
-                <li><Link to="/services/thesis" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Thesis Help</Link></li>
-                <li><Link to="/services/dissertation" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Dissertation Help</Link></li>
-                <li><Link to="/services/report" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Report Writing Help</Link></li>
-                <li><Link to="/services/speech" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Speech Writing Help</Link></li>
-                <li><Link to="/services/assignment" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Assignment Help</Link></li>
+                <li><Link to="/services/research-paper-writing" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Research Paper Writing Help</Link></li>
+                <li><Link to="/services/thesis-writing" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Thesis Writing Help</Link></li>
+                <li><Link to="/services/dissertation-writing" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Dissertation Writing Help</Link></li>
+                <li><Link to="/services/lab-report" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Lab Report Writing Help</Link></li>
+                <li><Link to="/services/programming-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Programming Help</Link></li>
+                <li><Link to="/services/assignment-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Assignment Help</Link></li>
+                <li><Link to="/services/english-assignment-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">English Assignment Help</Link></li>
+                <li><Link to="/services/physics-assignment-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Physics Assignment Help</Link></li>
+                <li><Link to="/services/homework-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Homework Help</Link></li>
+                <li><Link to="/services/case-study" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Case Study Help</Link></li>
+                <li><Link to="/services/case-study-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Case Study Analysis</Link></li>
               </ul>
             </div>
 

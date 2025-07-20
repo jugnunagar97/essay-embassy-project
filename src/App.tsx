@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/Layout/Layout';
 import LoadingSpinner from './components/Common/LoadingSpinner';
 import SocialProofNotificationSystem from './components/Common/SocialProofNotificationSystem';
+import ScrollToTop from './components/Common/ScrollToTop';
 
 // --- Core Page Imports ---
 import Home from './pages/Home';
@@ -143,6 +144,7 @@ function App() {
   return (
     <AuthProvider> {/* Provides authentication context to all child components */}
       <Router> {/* Enables client-side routing */}
+        <ScrollToTop />
         <Toaster position="top-right" /> {/* Global notification system */}
         <SocialProofNotificationSystem />
         <Routes> {/* Defines all possible routes in the application */}
