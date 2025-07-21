@@ -214,6 +214,22 @@ export default function OrderNow() {
     if (academicLevelFromUrl && academicLevels.includes(academicLevelFromUrl)) {
       setValue('academicLevel', academicLevelFromUrl);
     }
+    const paperTypeFromUrl = searchParams.get('paperType');
+    if (paperTypeFromUrl) {
+      setValue('paperType', paperTypeFromUrl);
+    }
+    const subjectFromUrl = searchParams.get('subject');
+    if (subjectFromUrl) {
+      setValue('subject', subjectFromUrl);
+    }
+    const deadlineFromUrl = searchParams.get('deadline');
+    if (deadlineFromUrl) {
+      setValue('deadline', deadlineFromUrl);
+    }
+    const pagesFromUrl = searchParams.get('pages');
+    if (pagesFromUrl && !isNaN(Number(pagesFromUrl))) {
+      setValue('pages', Number(pagesFromUrl));
+    }
   }, [searchParams, setValue]); // Re-run if searchParams or setValue changes
 
   const getNextOrderNumber = async (): Promise<number> => {

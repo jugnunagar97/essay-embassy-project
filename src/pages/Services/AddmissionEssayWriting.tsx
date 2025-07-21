@@ -1,0 +1,468 @@
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import WritersCarousel from './WritersCarousel';
+
+const academicLevels = ["High School", "College", "University", "PhD"];
+const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
+
+// Use real expert images and names from public/images
+
+
+export default function AddmissionEssayWriting() {
+  const navigate = useNavigate();
+  const { register, handleSubmit, watch, setValue } = useForm<{
+    academicLevel: string;
+    pages: number;
+    deadline: string;
+  }>({
+    defaultValues: {
+      academicLevel: "College",
+      pages: 1,
+      deadline: "48 hours",
+    },
+  });
+
+  const watchedValues = watch();
+  const WORDS_PER_PAGE = 275;
+  const totalWords = (watchedValues.pages || 1) * WORDS_PER_PAGE;
+
+  // Price config copied from OrderNow
+  const priceConfig = {
+    "High School": {
+      "3 hours": { base: 18, urgent: 1.8 }, "6 hours": { base: 16, urgent: 1.6 }, "12 hours": { base: 14, urgent: 1.4 },
+      "24 hours": { base: 12, urgent: 1.2 }, "48 hours": { base: 12, urgent: 1.0 }, "3 days": { base: 12, urgent: 1.0 },
+      "5 days": { base: 12, urgent: 1.0 }, "7 days": { base: 12, urgent: 1.0 }, "10 days": { base: 12, urgent: 1.0 }, "14 days": { base: 12, urgent: 1.0 }
+    },
+    "College": {
+      "3 hours": { base: 25, urgent: 1.8 }, "6 hours": { base: 22, urgent: 1.6 }, "12 hours": { base: 18, urgent: 1.4 },
+      "24 hours": { base: 15, urgent: 1.2 }, "48 hours": { base: 15, urgent: 1.0 }, "3 days": { base: 15, urgent: 1.0 },
+      "5 days": { base: 15, urgent: 1.0 }, "7 days": { base: 15, urgent: 1.0 }, "10 days": { base: 15, urgent: 1.0 }, "14 days": { base: 15, urgent: 1.0 }
+    },
+    "University": {
+      "3 hours": { base: 28, urgent: 1.8 }, "6 hours": { base: 25, urgent: 1.6 }, "12 hours": { base: 21, urgent: 1.4 },
+      "24 hours": { base: 18, urgent: 1.2 }, "48 hours": { base: 18, urgent: 1.0 }, "3 days": { base: 18, urgent: 1.0 },
+      "5 days": { base: 18, urgent: 1.0 }, "7 days": { base: 18, urgent: 1.0 }, "10 days": { base: 18, urgent: 1.0 }, "14 days": { base: 18, urgent: 1.0 }
+    },
+    "PhD": {
+      "3 hours": { base: 38, urgent: 1.8 }, "6 hours": { base: 35, urgent: 1.6 }, "12 hours": { base: 31, urgent: 1.4 },
+      "24 hours": { base: 28, urgent: 1.2 }, "48 hours": { base: 25, urgent: 1.0 }, "3 days": { base: 25, urgent: 1.0 },
+      "5 days": { base: 25, urgent: 1.0 }, "7 days": { base: 25, urgent: 1.0 }, "10 days": { base: 25, urgent: 1.0 }, "14 days": { base: 25, urgent: 1.0 }
+    }
+  };
+  function getBasePrice(academicLevel: keyof typeof priceConfig, deadline: string): number {
+    const config = (priceConfig[academicLevel] as Record<string, { base: number; urgent: number }>)[deadline];
+    return config ? config.base : 0;
+  }
+  // Update price calculation to multiply by number of pages
+  const price = getBasePrice(watchedValues.academicLevel as keyof typeof priceConfig, watchedValues.deadline) * (watchedValues.pages || 1);
+
+  const onSubmit = (data: { academicLevel: string; pages: number; deadline: string }) => {
+    const params = new URLSearchParams({
+      academicLevel: data.academicLevel,
+      pages: data.pages.toString(),
+      deadline: data.deadline,
+    });
+    navigate(`/order-now?${params.toString()}`);
+  };
+
+  return (
+    <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 py-6 md:py-10 relative">
+        <main className="grid md:grid-cols-2 gap-16 items-center">
+          {/* Left Column: Content */}
+          <div className="space-y-8">
+            <div className="inline-flex items-center bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-full">
+              <span className="bg-white text-gray-800 rounded-full h-6 w-6 flex items-center justify-center mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <text x="12" y="14" fontFamily="sans-serif" fontSize="6" textAnchor="middle" fill="currentColor" fontWeight="bold">AI</text>
+                </svg>
+              </span>
+              PLAGIARISM & AI FREE
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+              Write My College Essay
+            </h1>
+            <p className="text-lg text-gray-600">
+              Looking for a reliable expert to write college essays? Hire our professional writer and be done with your college essays.
+            </p>
+            {/* Ratings */}
+            <div className="flex flex-row justify-start items-end gap-6 pt-4">
+              {/* Google Reviews */}
+              <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2">
+                <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
+                  <img src="/images/google logo.svg" alt="Google Logo" className="h-5 w-5" />
+                </span>
+                <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                  4.1/5
+                  <span className="ml-1 text-yellow-400 text-sm">★</span>
+                </span>
+                <span className="text-gray-600 text-xs mt-1 font-medium">Google</span>
+              </div>
+              {/* Trustpilot */}
+              <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
+                <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
+                  <img src="/images/trustpilot logo 2.png" alt="Trustpilot Logo" className="h-5 w-5" />
+                </span>
+                <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                  4.4/5
+                  <span className="ml-1 text-green-500 text-sm">★</span>
+                </span>
+                <span className="text-gray-600 text-xs mt-1 font-medium">Trustpilot</span>
+              </div>
+              {/* Sitejabber */}
+              <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
+                <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
+                  <img src="/images/sitejabber-logo-2.png" alt="Sitejabber Logo" className="h-5 w-5" />
+                </span>
+                <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                  4.0/5
+                  <span className="ml-1 text-orange-400 text-sm">★</span>
+                </span>
+                <span className="text-gray-600 text-xs mt-1 font-medium">Sitejabber</span>
+              </div>
+            </div>
+          </div>
+          {/* Right Column: Order Form */}
+          <div className="bg-white p-8 rounded-2xl max-w-md mx-auto shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.04)]">
+            <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Place an order</h2>
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+              <div>
+                <label className="text-sm font-medium text-gray-700">Academic Level</label>
+                <select {...register('academicLevel')} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition mt-1">
+                  {academicLevels.map(level => <option key={level} value={level}>{level}</option>)}
+                </select>
+              </div>
+              <div className="flex items-center justify-between border border-gray-300 rounded-lg p-1 mt-4">
+                <button type="button" onClick={() => setValue('pages', Math.max(1, (watchedValues.pages || 1) - 1))} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md">-</button>
+                <div className="text-center">
+                  <input type="number" min={1} {...register('pages', { valueAsNumber: true })} className="text-lg font-semibold text-gray-800 w-16 text-center border-none outline-none" />
+                </div>
+                <button type="button" onClick={() => setValue('pages', (watchedValues.pages || 1) + 1)} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md">+</button>
+                <span className="bg-gray-100 text-gray-700 text-sm font-medium px-4 py-2 rounded-md">{totalWords} words</span>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-gray-700">Deadline</label>
+                <select {...register('deadline')} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition mt-1">
+                  {deadlines.map(d => <option key={d} value={d}>{d}</option>)}
+                </select>
+              </div>
+              {/* Price display */}
+              <div className="flex flex-col items-center justify-center mt-4">
+                <span className="text-xs text-gray-500">From</span>
+                <span className="font-bold text-2xl text-primary-600">${price.toFixed(2)}</span>
+              </div>
+              <button type="submit" className="w-full mt-8 bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+                Place your order
+              </button>
+            </form>
+            <p className="text-center text-sm text-gray-500 mt-4">
+              Already have an account? <Link to="/login" className="font-medium text-teal-600 hover:underline">Log in</Link>
+            </p>
+            <p className="text-center text-xs text-gray-400 mt-6">
+              This site is protected by reCAPTCHA and the Google
+              <Link to="/privacy-policy" className="text-blue-500 hover:underline ml-1">Privacy Policy</Link> and
+              <Link to="/terms-and-conditions" className="text-blue-500 hover:underline ml-1">Terms of Service</Link> apply.
+            </p>
+          </div>
+        </main>
+      </section>
+      <div className="w-full flex justify-center my-0">
+        <div className="h-px w-full max-w-5xl bg-gray-200" />
+      </div>
+      {/* Writers Block Section */}
+      <section className="container mx-auto px-6 py-6 md:py-10">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            Meet the Verified Experts Behind Your Essays
+          </h2>
+          <p className="text-gray-500 text-base">
+            Every applicant undergoes a rigorous multi-stage verification process, confirming their credentials, subject matter expertise, and commitment to our strict plagiarism-free and AI-free standards.
+          </p>
+        </div>
+        {/* University Logos Bar */}
+        <div className="flex items-center justify-center max-w-4xl mx-auto mt-2 mb-8 px-4">
+          <p className="text-sm text-gray-600 whitespace-nowrap mr-4">Cooperate with those who graduated<br />from the best universities and colleges</p>
+          <div className="h-8 w-1 bg-primary-600 mx-4 rounded" />
+          <div className="flex items-center gap-4">
+            <img src="/images/univ-logos.svg" alt="University Logos" className="h-8 filter grayscale" />
+            <img src="/images/univ-logos-1.svg" alt="University Logos 2" className="h-8 filter grayscale" />
+          </div>
+        </div>
+      </section>
+      {/* Writers Scrollable Area */}
+      <div className="container mx-auto px-6 pb-10">
+        <WritersCarousel />
+      </div>
+      {/* Next-Gen Features Grid Block */}
+      <section className="w-full bg-[#F7FAFC] py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-5xl md:text-6xl font-light tracking-wider text-center mb-20 animate-fade-in-up">
+            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent animate-gradient-x font-semibold">essay writing services</span>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+            {/* Card 1 */}
+            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-3 py-4 transition-all duration-300 animate-fade-in-up hover:scale-105 hover:shadow-xl">
+              <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-3 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+                {/* Star icon */}
+                <svg width="40" height="40" fill="none" stroke="url(#star-gradient)" strokeWidth="2" viewBox="0 0 24 24">
+                  <defs><linearGradient id="star-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              </span>
+              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Human-written content only</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Whenever you ask us for essay help and hire a professional writer, your paper will contain zero AI content.</div>
+            </div>
+            {/* Card 2 */}
+            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.1s'}}>
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+                {/* Report icon */}
+                <svg width="40" height="40" fill="none" stroke="url(#report-gradient)" strokeWidth="2" viewBox="0 0 24 24">
+                  <defs><linearGradient id="report-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <rect x="4" y="4" width="16" height="16" rx="2"/>
+                  <path d="M9 9h6M9 13h6M9 17h6"/>
+                </svg>
+              </span>
+              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Originality report included</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">We’re ready to prove that our papers are written from scratch with free reports for all “write my essay” requests.</div>
+            </div>
+            {/* Card 3 */}
+            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+                {/* Refund icon */}
+                <svg width="40" height="40" fill="none" stroke="url(#refund-gradient)" strokeWidth="2" viewBox="0 0 24 24">
+                  <defs><linearGradient id="refund-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <path d="M17 1l4 4-4 4"/>
+                  <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
+                </svg>
+              </span>
+              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Comprehensive refund policy</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Have peace of mind knowing your money is protected by our fair refund policy that covers a variety of scenarios.</div>
+            </div>
+            {/* Divider */}
+            <div className="col-span-1 sm:col-span-2 lg:col-span-3 my-2">
+              <div className="border-t border-white/30 w-full"></div>
+            </div>
+            {/* Card 4 */}
+            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.3s'}}>
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+                {/* Lock icon */}
+                <svg width="40" height="40" fill="none" stroke="url(#lock-gradient)" strokeWidth="2" viewBox="0 0 24 24">
+                  <defs><linearGradient id="lock-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <rect x="6" y="11" width="12" height="8" rx="2"/>
+                  <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
+                </svg>
+              </span>
+              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Robust data protections</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">EssayHub secures your data according to the strictest standards, from PCI DSS compliance for payment processing to end-to-end platform encryption.</div>
+            </div>
+            {/* Card 5 */}
+            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+                {/* Clock icon */}
+                <svg width="40" height="40" fill="none" stroke="url(#clock-gradient)" strokeWidth="2" viewBox="0 0 24 24">
+                  <defs><linearGradient id="clock-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              </span>
+              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Prompt delivery without quality risks</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Our essay writers online leverage their experience to deliver well-researched and carefully put-together papers with deadlines starting from three hours.</div>
+            </div>
+            {/* Card 6 */}
+            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.5s'}}>
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+                {/* Dollar icon */}
+                <svg width="40" height="40" fill="none" stroke="url(#dollar-gradient)" strokeWidth="2" viewBox="0 0 24 24">
+                  <defs><linearGradient id="dollar-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <path d="M12 1v22"/>
+                  <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
+                </svg>
+              </span>
+              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Pocket-friendly rates</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Prices for our writing services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center mt-4 animate-fade-in-up">
+          <a
+            href="/order-now"
+            className="inline-block px-10 py-4 rounded-full bg-primary-600 text-white text-lg font-semibold shadow-lg hover:bg-primary-700 hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
+          >
+            Get Started
+          </a>
+        </div>
+        <style>{`
+          @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fade-in-up {
+            animation: fade-in-up 0.8s cubic-bezier(.4,0,.2,1) both;
+          }
+          .animate-gradient-x {
+            background-size: 200% 200%;
+            animation: gradient-x 3s ease-in-out infinite;
+          }
+          @keyframes gradient-x {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+        `}</style>
+      </section>
+      {/* Prices and Services Block */}
+      <section className="w-full bg-white py-24">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
+          <div className="text-center text-lg text-gray-600 mb-4">
+            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and writer's level
+          </div>
+          <div className="flex justify-center mb-4">
+            <a href="#" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01"/><path d="M12 7v4"/><circle cx="12" cy="12" r="10"/></svg>
+              How we secure your payment
+            </a>
+          </div>
+          <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch mt-12 mb-10">
+            {/* Included services */}
+            <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
+              <h3 className="text-2xl font-bold text-gray-900 mb-1">Included services</h3>
+              <div className="text-gray-400 text-base mb-4">You’ll always get them for free</div>
+              <div className="border-t border-gray-100 mb-4"></div>
+              <ul className="flex-1 space-y-3">
+                <li className="flex justify-between items-center font-semibold text-gray-800">Topic suggestion <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Formatting <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Title page & references <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Editor quality check <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Unlimited revisions <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+              </ul>
+            </div>
+            {/* Additional services */}
+            <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
+              <h3 className="text-2xl font-bold text-gray-900 mb-1">Additional services</h3>
+              <div className="text-gray-400 text-base mb-4">You can add them for an extra payment</div>
+              <div className="border-t border-gray-100 mb-4"></div>
+              <ul className="flex-1 space-y-3">
+                <li className="flex justify-between items-center font-semibold text-gray-800">Grade A guarantee <span className="text-gray-500 font-normal">from $2.99</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Early draft <span className="text-gray-500 font-normal">+15% to the price</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">1-Page abstract <span className="text-gray-500 font-normal">from $13.99</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">VIP support <span className="text-gray-500 font-normal">$12.99</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Detailed outline <span className="text-gray-500 font-normal">$12.00</span></li>
+              </ul>
+            </div>
+          </div>
+          {/* Payment methods */}
+          <div className="flex flex-col items-center gap-2 mb-8">
+            <div className="text-gray-500 text-base">We accept:</div>
+            <div className="flex items-center gap-4">
+              <img src="/images/visa.svg" alt="Visa" className="h-10" />
+              <img src="/images/mastercard.svg" alt="Mastercard" className="h-10" />
+              <img src="/images/amex.svg" alt="Amex" className="h-10" />
+              <img src="/images/discover.svg" alt="Discover" className="h-10" />
+              <img src="/images/paypal.svg" alt="PayPal" className="h-10" />
+            </div>
+          </div>
+          {/* Create an order button */}
+          <div className="flex justify-center mt-2">
+            <a
+              href="/order-now"
+              className="inline-block px-12 py-4 rounded-full bg-primary-600 text-white text-lg font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
+            >
+              Create an order
+            </a>
+          </div>
+        </div>
+      </section>
+      {/* How It Works Journey Block */}
+      <section className="w-full bg-white py-24">
+        <div className="max-w-md mx-auto px-4">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Essay Embassy journey</h2>
+            <div className="flex flex-col items-center relative">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
+              <span className="text-2xl mb-1">✍️</span>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it’s free)</span></div>
+              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best writers</div>
+              <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
+            </div>
+            {/* Arrow */}
+            <div className="flex flex-col items-center mb-3">
+              <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+            {/* Step 3 */}
+            <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+              <span className="text-2xl mb-1">💳</span>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Make a payment</div>
+              <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
+            </div>
+            {/* Arrow */}
+            <div className="flex flex-col items-center mb-3">
+              <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </div>
+            {/* Step 4 */}
+            <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
+              <span className="text-2xl mb-1">📄</span>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">4. Get your paper</div>
+              <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <style>{`
+          @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fade-in-up {
+            animation: fade-in-up 0.8s cubic-bezier(.4,0,.2,1) both;
+          }
+        `}</style>
+      </section>
+      {/* Why Essay Embassy Stats Block */}
+      <section className="w-full bg-white py-24">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-16 text-gray-900 tracking-tight">Why Essay Embassy</h2>
+          <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-6 md:gap-0">
+            {/* Stat 1 */}
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-in-out py-6">
+              <span className="text-5xl md:text-6xl font-bold text-emerald-500">12+</span>
+              <span className="text-lg md:text-xl font-medium text-gray-500 mt-2">Years helping students<br className='hidden md:block'/>in their studies</span>
+            </div>
+            {/* Divider */}
+            <div className="hidden md:flex items-center"><div className="h-16 border-l border-gray-200 mx-4"></div></div>
+            {/* Stat 2 */}
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-in-out py-6">
+              <span className="text-5xl md:text-6xl font-bold text-emerald-500">5K+</span>
+              <span className="text-lg md:text-xl font-medium text-gray-500 mt-2">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
+            </div>
+            {/* Divider */}
+            <div className="hidden md:flex items-center"><div className="h-16 border-l border-gray-200 mx-4"></div></div>
+            {/* Stat 3 */}
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-in-out py-6">
+              <span className="text-5xl md:text-6xl font-bold text-emerald-500">400K+</span>
+              <span className="text-lg md:text-xl font-medium text-gray-500 mt-2">Successfully<br className='hidden md:block'/>completed orders</span>
+            </div>
+            {/* Divider */}
+            <div className="hidden md:flex items-center"><div className="h-16 border-l border-gray-200 mx-4"></div></div>
+            {/* Stat 4 */}
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-in-out py-6">
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-5xl md:text-6xl font-bold text-emerald-500">4.8</span>
+                <span className="flex items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="28" height="28" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                  ))}
+                </span>
+              </div>
+              <span className="text-lg md:text-xl font-medium text-gray-500 mt-2">Average<br className='hidden md:block'/>user rating</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

@@ -170,8 +170,8 @@ const EssayWritersSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="w-full bg-[#F7F8FA] py-12 px-2 md:px-0">
-      <div className="max-w-5xl mx-auto">
+    <section className="w-full py-6 md:py-10">
+      <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-theme-primary font-bold text-theme-primary mb-2">
@@ -182,7 +182,7 @@ const EssayWritersSection: React.FC = () => {
           </p>
         </div>
       </div>
-      {/* Scrollable Cards - moved outside max-w-5xl */}
+      {/* Scrollable Cards */}
       <div className="w-full overflow-x-auto hide-scrollbar scroll-smooth" ref={scrollRef} style={{ WebkitOverflowScrolling: 'touch' }}>
         <div className="flex gap-8 py-4 min-w-full">
           {writers.map((writer, idx) => (
@@ -191,7 +191,7 @@ const EssayWritersSection: React.FC = () => {
         </div>
       </div>
       {/* Progress Bar */}
-      <div className="max-w-5xl mx-auto w-full mt-4 mb-6">
+      <div className="container mx-auto w-full mt-4 mb-6 px-6">
         <div className="h-1 bg-gray-200 rounded-full relative">
           <div
             className="h-1 bg-theme-primary rounded-full absolute top-0 left-0 transition-all duration-200"

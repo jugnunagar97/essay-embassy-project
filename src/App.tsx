@@ -50,6 +50,7 @@ import ResearchProposal from './pages/Services/ResearchProposal';
 import ScholarshipEssay from './pages/Services/ScholarshipEssay';
 import TermPaper from './pages/Services/TermPaper';
 import ThesisWriting from './pages/Services/ThesisWriting';
+import AddmissionEssayWriting from './pages/Services/AddmissionEssayWriting';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -178,6 +179,7 @@ function App() {
             <Route path="services/scholarship-essay" element={<ScholarshipEssay />} />
             <Route path="services/term-paper" element={<TermPaper />} />
             <Route path="services/thesis-writing" element={<ThesisWriting />} />
+            <Route path="services/addmission-essay-writing" element={<AddmissionEssayWriting />} />
 
             {/* Dynamic service route - fallback for any service slugs not covered above */}
             <Route path="services/:slug" element={<DynamicServicePage />} />

@@ -39,6 +39,7 @@ export default function ServicesDropdown() {
         { name: "Narrative Essay", link: "narrative-essay" },
         { name: "Admission Essay", link: "admission-essay" },
         { name: "Scholarship Essay", link: "scholarship-essay" },
+        { name: "Addmission Essay Writing", link: "addmission-essay-writing" },
       ]
     },
     {
