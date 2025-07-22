@@ -3,6 +3,559 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import WritersCarousel from './WritersCarousel';
 
+// --- SpecialAssignmentHelpCarousel: React-based interactive carousel ---
+import React, { useRef, useState } from 'react';
+
+const carouselItems = [
+  {
+    imgSrc: '/images/verification.jpg',
+    title: 'Verification',
+    description: 'We care about your projects and pick the best specialists. To ensure your safety, we verify the identity of each candidate via social media.'
+  },
+  {
+    imgSrc: '/images/skill test.jpg',
+    title: 'Skill Test',
+    description: 'We test each candidate by examining their skills and knowledge with various examinations before they join our team.'
+  },
+  {
+    imgSrc: '/images/quality analysis.jpg',
+    title: 'Quality Analysis',
+    description: "We developed an AI-based system that analyses the quality of each expert's performance to ensure you get the best results."
+  },
+  {
+    imgSrc: '/images/education level.jpg',
+    title: 'Education Level',
+    description: 'Our experts have diverse educational backgrounds, ensuring you get help from someone who truly understands your field.'
+  },
+  {
+    imgSrc: '/images/broad expertise.jpg',
+    title: 'Broad Expertise',
+    description: 'No matter how complicated your assignment is, we can find a specialist that is competent enough to provide you with a clear and effective solution to any academic problem.'
+  },
+  {
+    imgSrc: '/images/communication skills.jpg',
+    title: 'Communication Skills',
+    description: 'You can chat with all the experts who can help you with your assignments, even before you hire them. Make your decision based not only on reviews and ratings but also on your own impression of the direct interaction.'
+  }
+];
+
+function SpecialAssignmentHelpCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [dragDelta, setDragDelta] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const cardWidthRef = useRef<number>(0);
+
+  // Calculate card width after mount
+  React.useEffect(() => {
+    if (trackRef.current && trackRef.current.children.length > 0) {
+      const card = trackRef.current.children[0] as HTMLElement;
+      cardWidthRef.current = card.offsetWidth;
+    }
+    const handleResize = () => {
+      if (trackRef.current && trackRef.current.children.length > 0) {
+        const card = trackRef.current.children[0] as HTMLElement;
+        cardWidthRef.current = card.offsetWidth;
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Navigation
+  const goTo = (idx: number) => {
+    if (idx < 0) idx = 0;
+    if (idx > carouselItems.length - 1) idx = carouselItems.length - 1;
+    setCurrentIndex(idx);
+  };
+  const handlePrev = () => goTo(currentIndex - 1);
+  const handleNext = () => goTo(currentIndex + 1);
+
+  // Drag/Swipe handlers
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    setIsDragging(true);
+    if ('touches' in e) {
+      setDragStartX(e.touches[0].pageX);
+    } else {
+      setDragStartX(e.pageX);
+    }
+    setDragDelta(0);
+  };
+  const handleDragMove = (e: MouseEvent | TouchEvent) => {
+    if (!isDragging || dragStartX === null) return;
+    let clientX = 0;
+    if ('touches' in e && e.touches.length > 0) {
+      clientX = e.touches[0].pageX;
+    } else if ('pageX' in e) {
+      clientX = (e as MouseEvent).pageX;
+    }
+    setDragDelta(clientX - dragStartX);
+  };
+  const handleDragEnd = (e: MouseEvent | TouchEvent) => {
+    if (!isDragging || dragStartX === null) return;
+    let clientX = 0;
+    if ('changedTouches' in e && e.changedTouches.length > 0) {
+      clientX = e.changedTouches[0].pageX;
+    } else if ('pageX' in e) {
+      clientX = (e as MouseEvent).pageX;
+    }
+    const dx = clientX - dragStartX;
+    setIsDragging(false);
+    setDragStartX(null);
+    setDragDelta(0);
+    if (dx > 50 && currentIndex > 0) {
+      goTo(currentIndex - 1);
+    } else if (dx < -50 && currentIndex < carouselItems.length - 1) {
+      goTo(currentIndex + 1);
+    }
+  };
+  // Attach/remove global listeners for drag
+  React.useEffect(() => {
+    if (!isDragging) return;
+    const move = (e: MouseEvent | TouchEvent) => handleDragMove(e);
+    const up = (e: MouseEvent | TouchEvent) => handleDragEnd(e);
+    window.addEventListener('mousemove', move as any);
+    window.addEventListener('mouseup', up as any);
+    window.addEventListener('touchmove', move as any);
+    window.addEventListener('touchend', up as any);
+    return () => {
+      window.removeEventListener('mousemove', move as any);
+      window.removeEventListener('mouseup', up as any);
+      window.removeEventListener('touchmove', move as any);
+      window.removeEventListener('touchend', up as any);
+    };
+    // eslint-disable-next-line
+  }, [isDragging, dragStartX, currentIndex]);
+
+  // Calculate transform
+  const gap = 32; // px, matches gap-8
+  const cardWidth = cardWidthRef.current || 380; // fallback
+  const offset = -currentIndex * (cardWidth + gap) + (isDragging ? dragDelta : 0);
+
+  return (
+    <section className="w-full bg-white py-24">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+        {/* Left Column: Static Content & Navigation */}
+        <div className="md:col-span-1 flex flex-col justify-between">
+          <div>
+            {/* Lighter, more elegant heading and description */}
+            <div className="mb-4 flex items-center">
+              <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
+              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
+                What Makes Assignment Help From Our Experts So Special?
+              </h2>
+            </div>
+            <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
+              Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top experts</span> in different fields. Get your projects guided by a professional and be sure everything will be done on time.
+            </p>
+          </div>
+          <div className="flex gap-4 mt-8">
+            <button onClick={handlePrev} aria-label="Previous" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === 0}>
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+            <button onClick={handleNext} aria-label="Next" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === carouselItems.length - 1}>
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        {/* Right Column: Dynamic Carousel */}
+        <div className="md:col-span-2 relative overflow-x-hidden select-none">
+          <div
+            className="w-full overflow-x-hidden"
+            onMouseDown={handleDragStart}
+            onTouchStart={handleDragStart}
+            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+          >
+            <div
+              ref={trackRef}
+              className="flex gap-8 transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(${offset}px)`,
+                transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(.4,0,.2,1)',
+              }}
+            >
+              {carouselItems.map((item) => (
+                <div
+                  key={item.title}
+                  className="flex-shrink-0 w-full md:w-[380px] bg-white rounded-2xl shadow-xl p-6"
+                  style={{ userSelect: 'none' }}
+                >
+                  <img src={item.imgSrc} alt={item.title} className="w-full aspect-video object-cover rounded-xl mb-4" />
+                  <h4 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h4>
+                  <p className="text-gray-600 text-base">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// --- SampleWorksCarousel: Horizontally scrolling sample cards carousel ---
+function SampleWorksCarousel() {
+  const samples = [
+    {
+      title: 'Essay on The White Tiger by The White Tiger',
+      type: 'Essay',
+      pages: 3,
+    },
+    {
+      title: 'Compare and Contrast Essay on Hinduism and Christianity',
+      type: 'Essay',
+      pages: 3,
+    },
+    {
+      title: 'Biochemistry and Genetics Essay Assignment',
+      type: 'Essay',
+      pages: 7,
+    },
+    {
+      title: 'The Impact of Social Media on Youth',
+      type: 'Essay',
+      pages: 5,
+    },
+    {
+      title: 'Analysis of Shakespearean Tragedies',
+      type: 'Essay',
+      pages: 4,
+    },
+    {
+      title: 'Climate Change: Causes and Effects',
+      type: 'Essay',
+      pages: 6,
+    },
+  ];
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [dragStartX, setDragStartX] = React.useState<number | null>(null);
+  const [dragDelta, setDragDelta] = React.useState(0);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const trackRef = React.useRef<HTMLDivElement>(null);
+  const cardWidthRef = React.useRef<number>(0);
+
+  // Calculate card width after mount
+  React.useEffect(() => {
+    if (trackRef.current && trackRef.current.children.length > 0) {
+      const card = trackRef.current.children[0] as HTMLElement;
+      cardWidthRef.current = card.offsetWidth;
+    }
+    const handleResize = () => {
+      if (trackRef.current && trackRef.current.children.length > 0) {
+        const card = trackRef.current.children[0] as HTMLElement;
+        cardWidthRef.current = card.offsetWidth;
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Navigation
+  const visibleCards = 3; // Show 3 cards at a time
+  const maxIndex = samples.length - visibleCards;
+  const goTo = (idx: number) => {
+    if (idx < 0) idx = 0;
+    if (idx > maxIndex) idx = maxIndex;
+    setCurrentIndex(idx);
+  };
+  const handlePrev = () => goTo(currentIndex - 1);
+  const handleNext = () => goTo(currentIndex + 1);
+
+  // Drag/Swipe handlers
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    setIsDragging(true);
+    if ('touches' in e) {
+      setDragStartX(e.touches[0].pageX);
+    } else {
+      setDragStartX(e.pageX);
+    }
+    setDragDelta(0);
+  };
+  const handleDragMove = (e: MouseEvent | TouchEvent) => {
+    if (!isDragging || dragStartX === null) return;
+    let clientX = 0;
+    if ('touches' in e && e.touches.length > 0) {
+      clientX = e.touches[0].pageX;
+    } else if ('pageX' in e) {
+      clientX = (e as MouseEvent).pageX;
+    }
+    setDragDelta(clientX - dragStartX);
+  };
+  const handleDragEnd = (e: MouseEvent | TouchEvent) => {
+    if (!isDragging || dragStartX === null) return;
+    let clientX = 0;
+    if ('changedTouches' in e && e.changedTouches.length > 0) {
+      clientX = e.changedTouches[0].pageX;
+    } else if ('pageX' in e) {
+      clientX = (e as MouseEvent).pageX;
+    }
+    const dx = clientX - dragStartX;
+    setIsDragging(false);
+    setDragStartX(null);
+    setDragDelta(0);
+    if (dx > 50 && currentIndex > 0) {
+      goTo(currentIndex - 1);
+    } else if (dx < -50 && currentIndex < maxIndex) {
+      goTo(currentIndex + 1);
+    }
+  };
+  // Attach/remove global listeners for drag
+  React.useEffect(() => {
+    if (!isDragging) return;
+    const move = (e: MouseEvent | TouchEvent) => handleDragMove(e);
+    const up = (e: MouseEvent | TouchEvent) => handleDragEnd(e);
+    window.addEventListener('mousemove', move as any);
+    window.addEventListener('mouseup', up as any);
+    window.addEventListener('touchmove', move as any);
+    window.addEventListener('touchend', up as any);
+    return () => {
+      window.removeEventListener('mousemove', move as any);
+      window.removeEventListener('mouseup', up as any);
+      window.removeEventListener('touchmove', move as any);
+      window.removeEventListener('touchend', up as any);
+    };
+    // eslint-disable-next-line
+  }, [isDragging, dragStartX, currentIndex]);
+
+  // Calculate transform
+  const gap = 32; // px, matches gap-8
+  const cardWidth = cardWidthRef.current || 384; // fallback w-96
+  const offset = -currentIndex * (cardWidth + gap) + (isDragging ? dragDelta : 0);
+
+  return (
+    <section className="w-full py-24">
+      <h2 className="text-4xl font-bold text-gray-800 text-center mb-12">Check Out Our Sample Works</h2>
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Carousel Viewport */}
+        <div className="overflow-x-hidden">
+          {/* Carousel Track */}
+          <div
+            ref={trackRef}
+            className="flex gap-8 transition-transform duration-500 ease-in-out"
+            style={{
+              cursor: isDragging ? 'grabbing' : 'grab',
+              transform: `translateX(${offset}px)`,
+              transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(.4,0,.2,1)',
+            }}
+            onMouseDown={handleDragStart}
+            onTouchStart={handleDragStart}
+          >
+            {samples.map((sample) => (
+              <div
+                key={sample.title}
+                className="flex-shrink-0 w-96 bg-slate-50 p-7 rounded-2xl shadow-sm flex flex-col justify-between border border-slate-100 transition hover:shadow-lg hover:border-primary-200"
+                style={{ minHeight: 280, maxWidth: '100%' }}
+              >
+                <h3 className="font-bold text-lg text-gray-900 text-center mb-3 leading-snug">{sample.title}</h3>
+                <div className="flex items-center justify-center gap-3 mt-0 mb-4">
+                  <span className="flex items-center gap-1 bg-white rounded-full px-3 py-1 text-sm text-primary-600 font-medium shadow-sm border border-primary-100">
+                    {/* Document icon */}
+                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#10B981" strokeWidth="2"/><path d="M8 8h8M8 12h8M8 16h4" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/></svg>
+                    {sample.type}
+                  </span>
+                  <span className="flex items-center gap-1 bg-white rounded-full px-3 py-1 text-sm text-primary-600 font-medium shadow-sm border border-primary-100">
+                    {/* Page icon */}
+                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16" rx="2" stroke="#10B981" strokeWidth="2"/><path d="M9 8h6M9 12h6M9 16h2" stroke="#10B981" strokeWidth="2" strokeLinecap="round"/></svg>
+                    {sample.pages} pages
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  <button className="rounded-lg border-2 border-primary-500 bg-white text-primary-600 font-semibold py-2.5 transition hover:bg-primary-50 hover:shadow-md hover:text-primary-600 text-base">
+                    View Sample
+                  </button>
+                  <button className="rounded-lg bg-primary-500 text-white font-semibold py-2.5 transition hover:brightness-110 hover:shadow-md text-base">
+                    Order Similar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Navigation Arrows */}
+        <div className="flex justify-center items-center gap-8 mt-8">
+          <button onClick={handlePrev} disabled={currentIndex === 0} className="text-2xl text-gray-400 hover:text-gray-600 transition disabled:opacity-40">
+            &#8592;
+          </button>
+          <button onClick={handleNext} disabled={currentIndex === maxIndex} className="text-2xl text-gray-400 hover:text-gray-600 transition disabled:opacity-40">
+            &#8594;
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// --- ClientTestimonialsCarousel: 3D-style testimonial carousel ---
+function ClientTestimonialsCarousel() {
+  const testimonials = [
+    {
+      id: 'EE-24467',
+      rating: 4,
+      text: "Didn't really trust writing services at first, but this changed my mind. Super clean, well-written essay. glad I gave them a shot.",
+      date: '04/14/2025',
+      level: 'Masters',
+    },
+    {
+      id: 'EE-23901',
+      rating: 5,
+      text: 'Was in a total panic with my deadline. They not only delivered fast but the essay was actually solid. Big lifesaver!',
+      date: '03/16/2025',
+      level: 'Bachelors',
+    },
+    {
+      id: 'EE-57281',
+      rating: 4,
+      text: 'Needed this essay fast and they came through big time. Everything from the structure to the points was on point. Really solid work.',
+      date: '06/16/2025',
+      level: 'Bachelors',
+    },
+    {
+      id: 'EE-19822',
+      rating: 5,
+      text: 'I was skeptical but the writer was super communicative and the result was great. Will use again.',
+      date: '02/10/2025',
+      level: 'PhD',
+    },
+    {
+      id: 'EE-33412',
+      rating: 5,
+      text: 'Essay Embassy made my life so much easier. The quality was top-notch and the support team was very helpful.',
+      date: '01/22/2025',
+      level: 'Masters',
+    },
+    {
+      id: 'EE-11234',
+      rating: 4,
+      text: 'Good service, quick turnaround, and the essay passed all checks. Would recommend.',
+      date: '05/05/2025',
+      level: 'College',
+    },
+  ];
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const cardCount = testimonials.length;
+
+  // Navigation logic
+  const goTo = (idx: number) => {
+    if (idx < 0) idx = cardCount - 1;
+    if (idx > cardCount - 1) idx = 0;
+    setCurrentIndex(idx);
+  };
+  const handlePrev = () => goTo(currentIndex - 1);
+  const handleNext = () => goTo(currentIndex + 1);
+
+  // For 3D effect: calculate transform for each card
+  const getCardStyle = (idx: number): React.CSSProperties => {
+    const offset = idx - currentIndex;
+    if (offset === 0) {
+      return {
+        transform: 'scale(1) translateY(0)',
+        opacity: 1,
+        zIndex: 2,
+        boxShadow: '0 8px 32px 0 rgba(16,30,54,0.18), 0 1.5px 6px 0 rgba(16,30,54,0.08)',
+      };
+    } else if (Math.abs(offset) === 1) {
+      return {
+        transform: `scale(0.85) translateX(${offset * 60}px) translateY(20px)` ,
+        opacity: 0.5,
+        zIndex: 1,
+        boxShadow: '0 4px 16px 0 rgba(16,30,54,0.10)',
+      };
+    } else {
+      return {
+        transform: `scale(0.7) translateX(${offset * 120}px) translateY(40px)` ,
+        opacity: 0.2,
+        zIndex: 0,
+        boxShadow: 'none',
+        pointerEvents: 'none' as const,
+      };
+    }
+  };
+
+  return (
+    <section className="w-full py-24 bg-white">
+      <div className="max-w-4xl mx-auto px-4">
+        {/* Section Header */}
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Client Testimonials: Hear What Our Clients Have To Say</h2>
+        <p className="text-center text-lg text-gray-500 mb-14">Read what some of our satisfied customers have to say about us:</p>
+        {/* Carousel Viewport */}
+        <div className="relative flex items-center justify-center" style={{minHeight: 340}}>
+          {/* Left Arrow */}
+          <button
+            onClick={handlePrev}
+            aria-label="Previous testimonial"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
+          >
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          {/* Carousel Track */}
+          <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
+            {testimonials.map((t, idx) => (
+              <div
+                key={t.id}
+                className={`bg-white rounded-2xl p-8 mx-2 transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
+                style={{
+                  ...getCardStyle(idx),
+                  width: '90%',
+                  maxWidth: 480,
+                  position: 'absolute',
+                  left: '50%',
+                  top: 0,
+                  transform: `${getCardStyle(idx).transform} translateX(-50%)`,
+                  transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
+                }}
+                aria-hidden={idx !== currentIndex}
+              >
+                {/* Card Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
+                  <div className="flex items-center gap-1">
+                    {[1,2,3,4,5].map((star) => (
+                      <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    ))}
+                  </div>
+                </div>
+                {/* Testimonial Text */}
+                <p className="text-gray-700 text-base mb-8">{t.text}</p>
+                {/* Metadata */}
+                <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
+                  <div>
+                    <div className="font-bold text-gray-700 text-sm">Date:</div>
+                    <div className="text-gray-600 text-sm">{t.date}</div>
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
+                    <div className="text-gray-600 text-sm">{t.level}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* Right Arrow */}
+          <button
+            onClick={handleNext}
+            aria-label="Next testimonial"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
+          >
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        </div>
+        {/* Navigation Dots */}
+        <div className="flex justify-center items-center gap-3 mt-8">
+          {testimonials.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => goTo(idx)}
+              className={`w-3 h-3 rounded-full border-2 ${idx === currentIndex ? 'bg-primary-600 border-primary-600 scale-125' : 'bg-white border-gray-300'} transition-all`}
+              aria-label={`Go to testimonial ${idx + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
@@ -123,8 +676,8 @@ export default function AddmissionEssayWriting() {
                 </span>
                 <span className="text-gray-600 text-xs mt-1 font-medium">Sitejabber</span>
               </div>
-            </div>
-          </div>
+            </div> {/* End of ratings flex-row */}
+          </div> {/* End of left column content */}
           {/* Right Column: Order Form */}
           <div className="bg-white p-8 rounded-2xl max-w-md mx-auto shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.04)]">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Place an order</h2>
@@ -169,9 +722,6 @@ export default function AddmissionEssayWriting() {
           </div>
         </main>
       </section>
-      <div className="w-full flex justify-center my-0">
-        <div className="h-px w-full max-w-5xl bg-gray-200" />
-      </div>
       {/* Writers Block Section */}
       <section className="container mx-auto px-6 py-6 md:py-10">
         <div className="text-center mb-8">
@@ -195,6 +745,29 @@ export default function AddmissionEssayWriting() {
       {/* Writers Scrollable Area */}
       <div className="container mx-auto px-6 pb-10">
         <WritersCarousel />
+        <div className="flex justify-center mt-8 relative">
+          <span className="absolute inset-0 flex justify-center items-center pointer-events-none">
+            <span className="pulse-radar block w-[170px] h-[56px] rounded-full bg-primary-500/20"></span>
+          </span>
+          <a
+            href="/writers"
+            className="relative inline-block px-8 py-3 rounded-full bg-primary-600 text-white text-lg font-semibold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
+            aria-label="View our Writers"
+            style={{ willChange: 'transform' }}
+          >
+            View our Writers
+          </a>
+        </div>
+        <style>{`
+          @keyframes pulseRadar {
+            0% { opacity: 0.8; transform: scale(1); }
+            70% { opacity: 0.18; transform: scale(1.7); }
+            100% { opacity: 0; transform: scale(1.7); }
+          }
+          .pulse-radar {
+            animation: pulseRadar 1.4s cubic-bezier(0.4,0,0.2,1) infinite;
+          }
+        `}</style>
       </div>
       {/* Next-Gen Features Grid Block */}
       <section className="w-full bg-[#F7FAFC] py-24">
@@ -226,7 +799,7 @@ export default function AddmissionEssayWriting() {
                 </svg>
               </span>
               <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Originality report included</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">We’re ready to prove that our papers are written from scratch with free reports for all “write my essay” requests.</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">We're ready to prove that our papers are written from scratch with free reports for all "write my essay" requests.</div>
             </div>
             {/* Card 3 */}
             <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
@@ -330,7 +903,7 @@ export default function AddmissionEssayWriting() {
             {/* Included services */}
             <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
               <h3 className="text-2xl font-bold text-gray-900 mb-1">Included services</h3>
-              <div className="text-gray-400 text-base mb-4">You’ll always get them for free</div>
+              <div className="text-gray-400 text-base mb-4">You'll always get them for free</div>
               <div className="border-t border-gray-100 mb-4"></div>
               <ul className="flex-1 space-y-3">
                 <li className="flex justify-between items-center font-semibold text-gray-800">Topic suggestion <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
@@ -385,7 +958,7 @@ export default function AddmissionEssayWriting() {
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
               <span className="text-2xl mb-1">✍️</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it’s free)</span></div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
               <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best writers</div>
               <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
             </div>
@@ -455,7 +1028,7 @@ export default function AddmissionEssayWriting() {
                 <span className="flex items-center">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} width="28" height="28" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  ))}
+                    ))}
                 </span>
               </div>
               <span className="text-lg md:text-xl font-medium text-gray-500 mt-2">Average<br className='hidden md:block'/>user rating</span>
@@ -463,6 +1036,10 @@ export default function AddmissionEssayWriting() {
           </div>
         </div>
       </section>
+      {/* What Makes Assignment Help From Our Experts So Special? - Interactive Carousel Section */}
+      <SpecialAssignmentHelpCarousel />
+      <SampleWorksCarousel />
+      <ClientTestimonialsCarousel />
     </div>
   );
 }
