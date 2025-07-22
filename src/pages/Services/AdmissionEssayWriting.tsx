@@ -10,7 +10,7 @@ const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 
 // Use real expert images and names from public/images
 
 
-export default function AddmissionEssayWriting() {
+export default function AdmissionEssayWriting() {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;
@@ -93,6 +93,14 @@ export default function AddmissionEssayWriting() {
   };
 
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const testimonials = [
+    { id: '24467', rating: 4, text: "Didn’t really trust writing services at first, but this changed my mind. Super clean, well-written essay. glad I gave them a shot.", date: "04/14/2025", level: "Masters" },
+    { id: '24468', rating: 5, text: "Absolutely amazing! The writer was incredibly professional and delivered a top-notch essay within the deadline. Highly recommend!", date: "04/15/2025", level: "PhD" },
+    { id: '24469', rating: 3, text: "Good service, but the essay could have been better. The writer was responsive and made some revisions, but overall, I was a bit disappointed.", date: "04/16/2025", level: "College" },
+    { id: '24470', rating: 5, text: "Outstanding! The writer understood my requirements perfectly and delivered a fantastic essay. Very happy with the result.", date: "04/17/2025", level: "High School" },
+    { id: '24471', rating: 4, text: "Very professional and reliable. The essay was delivered on time and met all my expectations. Will definitely use this service again.", date: "04/18/2025", level: "University" },
+  ];
 
   return (
     <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
@@ -236,7 +244,7 @@ export default function AddmissionEssayWriting() {
               <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-3 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
                 {/* Star icon */}
                 <svg width="40" height="40" fill="none" stroke="url(#star-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="star-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <defs><linearGradient id="star-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
               </span>
@@ -248,7 +256,7 @@ export default function AddmissionEssayWriting() {
               <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
                 {/* Report icon */}
                 <svg width="40" height="40" fill="none" stroke="url(#report-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="report-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <defs><linearGradient id="report-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
                   <rect x="4" y="4" width="16" height="16" rx="2"/>
                   <path d="M9 9h6M9 13h6M9 17h6"/>
                 </svg>
@@ -261,7 +269,7 @@ export default function AddmissionEssayWriting() {
               <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
                 {/* Refund icon */}
                 <svg width="40" height="40" fill="none" stroke="url(#refund-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="refund-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <defs><linearGradient id="refund-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
                   <path d="M17 1l4 4-4 4"/>
                   <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
                 </svg>
@@ -278,7 +286,7 @@ export default function AddmissionEssayWriting() {
               <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
                 {/* Lock icon */}
                 <svg width="40" height="40" fill="none" stroke="url(#lock-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="lock-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <defs><linearGradient id="lock-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
                   <rect x="6" y="11" width="12" height="8" rx="2"/>
                   <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
                 </svg>
@@ -291,7 +299,7 @@ export default function AddmissionEssayWriting() {
               <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
                 {/* Clock icon */}
                 <svg width="40" height="40" fill="none" stroke="url(#clock-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="clock-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <defs><linearGradient id="clock-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
                   <circle cx="12" cy="12" r="10"/>
                   <path d="M12 6v6l4 2"/>
                 </svg>
@@ -304,7 +312,7 @@ export default function AddmissionEssayWriting() {
               <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
                 {/* Dollar icon */}
                 <svg width="40" height="40" fill="none" stroke="url(#dollar-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="dollar-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#3b82f6"/><stop offset="1" stopColor="#6366f1"/></linearGradient></defs>
+                  <defs><linearGradient id="dollar-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
                   <path d="M12 1v22"/>
                   <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
                 </svg>
@@ -349,10 +357,10 @@ export default function AddmissionEssayWriting() {
             Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and writer's level
           </div>
           <div className="flex justify-center mb-4">
-            <a href="#" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
+            <Link to="/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01"/><path d="M12 7v4"/><circle cx="12" cy="12" r="10"/></svg>
               How we secure your payment
-            </a>
+            </Link>
           </div>
           <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch mt-12 mb-10">
             {/* Included services */}
@@ -450,46 +458,139 @@ export default function AddmissionEssayWriting() {
           }
         `}</style>
       </section>
-      {/* Why Essay Embassy Stats Block */}
-      <section className="w-full bg-white py-24">
+      {/* Why Essay Embassy Stats Block (Compact, Themed) */}
+      <section className="w-full bg-white py-12">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-16 text-gray-900 tracking-tight">Why Essay Embassy</h2>
-          <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-6 md:gap-0">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 tracking-tight">Why Essay Embassy</h2>
+          <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-4 md:gap-0">
             {/* Stat 1 */}
-            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-in-out py-6">
-              <span className="text-5xl md:text-6xl font-bold text-emerald-500">12+</span>
-              <span className="text-lg md:text-xl font-medium text-gray-500 mt-2">Years helping students<br className='hidden md:block'/>in their studies</span>
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
             </div>
             {/* Divider */}
-            <div className="hidden md:flex items-center"><div className="h-16 border-l border-gray-200 mx-4"></div></div>
+            <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 2 */}
-            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-in-out py-6">
-              <span className="text-5xl md:text-6xl font-bold text-emerald-500">5K+</span>
-              <span className="text-lg md:text-xl font-medium text-gray-500 mt-2">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
             </div>
             {/* Divider */}
-            <div className="hidden md:flex items-center"><div className="h-16 border-l border-gray-200 mx-4"></div></div>
+            <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 3 */}
-            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-in-out py-6">
-              <span className="text-5xl md:text-6xl font-bold text-emerald-500">400K+</span>
-              <span className="text-lg md:text-xl font-medium text-gray-500 mt-2">Successfully<br className='hidden md:block'/>completed orders</span>
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed orders</span>
             </div>
             {/* Divider */}
-            <div className="hidden md:flex items-center"><div className="h-16 border-l border-gray-200 mx-4"></div></div>
+            <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 4 */}
-            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-in-out py-6">
-              <div className="flex items-center justify-center gap-2">
-                <span className="text-5xl md:text-6xl font-bold text-emerald-500">4.8</span>
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
+              <div className="flex items-center justify-center gap-1">
+                <span className="text-3xl md:text-4xl font-bold text-emerald-500">4.8</span>
                 <span className="flex items-center">
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} width="28" height="28" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg key={i} width="20" height="20" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                   ))}
                 </span>
               </div>
-              <span className="text-lg md:text-xl font-medium text-gray-500 mt-2">Average<br className='hidden md:block'/>user rating</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Average<br className='hidden md:block'/>user rating</span>
             </div>
           </div>
         </div>
+      </section>
+      {/* Client Testimonials: 3D Carousel */}
+      <section className="w-full bg-white py-20">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-gray-900">Client Testimonials: Hear What Our Clients Have To Say</h2>
+          <p className="text-center text-lg text-gray-500 mb-12">Read what some of our satisfied customers have to say about us:</p>
+          {/* Carousel Viewport */}
+          <div className="relative flex justify-center items-center w-full" style={{ minHeight: '340px' }}>
+            {/* Left Arrow */}
+            <button
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center hover:bg-blue-50 transition"
+              onClick={() => setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+              aria-label="Previous testimonial"
+              type="button"
+            >
+              <svg width="28" height="28" fill="none" stroke="#2563eb" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+            {/* Carousel Track */}
+            <div className="overflow-hidden w-[700px] max-w-full mx-auto">
+              <div
+                className="flex items-center transition-transform duration-500 pl-[150px] pr-[150px]"
+                style={{
+                  width: `${testimonials.length * 400}px`,
+                  transform: `translateX(calc(${350 - testimonialIndex * 400}px))`,
+                }}
+              >
+                {testimonials.map((t, idx) => {
+                  const isActive = idx === testimonialIndex;
+                  return (
+                    <div
+                      key={t.id}
+                      className={`testimonial-card relative flex-shrink-0 w-[400px] bg-white p-8 rounded-2xl shadow-2xl transition-all duration-500 mx-4${isActive ? ' is-active' : ''}`}
+                      style={{
+                        boxShadow: isActive ? '0 8px 40px 0 rgba(16, 24, 40, 0.18)' : '0 2px 12px 0 rgba(16, 24, 40, 0.08)',
+                        pointerEvents: isActive ? 'auto' : 'none',
+                      }}
+                    >
+                      {/* Card Header */}
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="font-bold text-lg text-blue-700">Customer ID: EE-{t.id}</span>
+                        <span className="flex items-center">
+                          {[1,2,3,4,5].map((star) => (
+                            <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                          ))}
+                        </span>
+                      </div>
+                      <hr className="mb-4" />
+                      <p className="text-gray-700 text-base mb-8">{t.text}</p>
+                      <div className="grid grid-cols-2 gap-4 mt-8">
+                        <div><span className="font-bold">Date:</span> <span className="ml-1">{t.date}</span></div>
+                        <div><span className="font-bold">Academic Level:</span> <span className="ml-1">{t.level}</span></div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            {/* Right Arrow */}
+            <button
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center hover:bg-blue-50 transition"
+              onClick={() => setTestimonialIndex((prev) => (prev + 1) % testimonials.length)}
+              aria-label="Next testimonial"
+              type="button"
+            >
+              <svg width="28" height="28" fill="none" stroke="#2563eb" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+          </div>
+          {/* Navigation Dots */}
+          <div className="flex justify-center items-center gap-2 mt-8">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                className={`w-3 h-3 rounded-full border-2 ${testimonialIndex === idx ? 'bg-blue-600 border-blue-600 scale-110' : 'bg-gray-200 border-gray-300'} transition-all`}
+                style={{ outline: 'none' }}
+                onClick={() => setTestimonialIndex(idx)}
+                aria-label={`Go to testimonial ${idx + 1}`}
+                type="button"
+              />
+            ))}
+          </div>
+        </div>
+        <style>{`
+          .testimonial-card {
+            z-index: 1;
+            opacity: 0.5;
+            transform: scale(0.85);
+          }
+          .testimonial-card.is-active {
+            z-index: 10;
+            opacity: 1;
+            transform: scale(1);
+          }
+        `}</style>
       </section>
       {/* FAQ Block */}
       <section className="w-full bg-[#F7FAFC] py-16">
@@ -574,7 +675,7 @@ export default function AddmissionEssayWriting() {
                   { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
                   { name: 'Narrative Essay', link: '/services/narrative-essay' },
                   { name: 'Admission Essay', link: '/services/admission-essay' },
-                  { name: 'College Admission Essay', link: '/services/addmission-essay-writing' },
+                  { name: 'College Admission Essay', link: '/services/admission-essay-writing' },
                   { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
                   { name: 'Book Review', link: '/services/book-review' },
                 ],
@@ -723,28 +824,26 @@ export default function AddmissionEssayWriting() {
           }
         `}</style>
       </section>
-      {/* Final CTA Block - Join Our Happy Clients (No Card, Open Layout) */}
-      <section className="pt-8 pb-0 bg-emerald-50 w-full px-4 md:px-0">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full max-w-5xl mx-auto py-6">
+      {/* Final CTA Block - Join Our Happy Clients (Integrated, Subtle, Modern) */}
+      <section className="pt-8 pb-0 bg-gray-100 w-full px-4 md:px-0">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-5xl mx-auto py-6">
           <img
             src="/images/logo.png"
             alt="Essay Embassy Logo"
-            className="w-36 h-36 object-contain mb-2 md:mb-0 md:mr-6"
+            className="w-28 h-28 object-contain mb-2 md:mb-0 md:mr-6 shadow-md rounded-xl bg-white/80"
             loading="lazy"
+            style={{ boxShadow: '0 4px 16px 0 rgba(16, 185, 129, 0.08)' }}
           />
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-2">Join our 5,000+ happy clients</h2>
-            <ul className="text-gray-800 text-sm mb-4 list-disc list-inside">
-              <li>20,000+ papers delivered with a 98% success rate</li>
-              <li>Get original papers written according to your instructions
-                <ul className="list-disc ml-6">
-                  <li>Save time for what matters most</li>
-                </ul>
-              </li>
+            <ul className="text-gray-700 text-sm mb-4 list-disc list-inside">
+              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
+              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
+              <li className="flex items-center gap-2"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
             </ul>
             <Link
               to="/order-now"
-              className="inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold px-6 py-2 rounded-lg shadow-md transition-all duration-200 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
+              className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-2 rounded-lg shadow-sm transition-all duration-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
             >
               Place an order
             </Link>
