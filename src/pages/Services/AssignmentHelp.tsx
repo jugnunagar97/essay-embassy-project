@@ -147,14 +147,6 @@ export default function AssignmentHelp() {
   };
 
   const [openCategory, setOpenCategory] = useState<string | null>(null);
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const testimonials = [
-    { id: '24467', rating: 4, text: "Didn't really trust writing services at first, but this changed my mind. Super clean, well-written essay. glad I gave them a shot.", date: "04/14/2025", level: "Masters" },
-    { id: '24468', rating: 5, text: "This service is amazing! I received my research paper ahead of time and it was exactly what I needed. The writer was very professional and delivered a high-quality paper. I will definitely use them again.", date: "04/15/2025", level: "PhD" },
-    { id: '24469', rating: 3, text: "I had a few minor issues with my essay, but the support team was very responsive and helped me resolve them quickly. Overall, a good experience.", date: "04/16/2025", level: "College" },
-    { id: '24470', rating: 5, text: "I was very impressed with the quality of the essay. It was well-researched, well-written, and met all my requirements. The writer was very knowledgeable and professional.", date: "04/17/2025", level: "High School" },
-    { id: '24471', rating: 4, text: "The turnaround time was excellent. I submitted my assignment on a tight deadline, and they delivered it on time. The paper was also of high quality.", date: "04/18/2025", level: "University" },
-  ];
 
   return (
     <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
@@ -494,8 +486,29 @@ export default function AssignmentHelp() {
       </section>
       {/* How It Works Journey Block */}
       <section className="w-full bg-white py-24">
-        <div className="max-w-md mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center">
+        <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
+          {/* Decorative SVGs for left and right */}
+          <div className="hidden md:block absolute left-[-180px] top-1/2 -translate-y-1/2 opacity-30 blur-sm pointer-events-none select-none" style={{zIndex: 0}}>
+            {/* Books SVG */}
+            <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="90" width="100" height="18" rx="4" fill="#e0e7ef"/>
+              <rect x="28" y="70" width="84" height="16" rx="4" fill="#d1fae5"/>
+              <rect x="36" y="52" width="68" height="14" rx="4" fill="#fef9c3"/>
+              <rect x="44" y="36" width="52" height="10" rx="4" fill="#f3e8ff"/>
+              <rect x="52" y="24" width="36" height="8" rx="4" fill="#bae6fd"/>
+            </svg>
+          </div>
+          <div className="hidden md:block absolute right-[-180px] top-1/2 -translate-y-1/2 opacity-30 blur-sm pointer-events-none select-none" style={{zIndex: 0}}>
+            {/* Graduation Cap SVG */}
+            <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="70" cy="60" rx="60" ry="18" fill="#e0e7ef"/>
+              <rect x="40" y="62" width="60" height="18" rx="4" fill="#d1fae5"/>
+              <polygon points="70,30 120,60 70,90 20,60" fill="#fef9c3"/>
+              <rect x="66" y="90" width="8" height="24" rx="4" fill="#f3e8ff"/>
+              <circle cx="70" cy="116" r="6" fill="#bae6fd"/>
+            </svg>
+          </div>
+          <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Assignment Help journey</h2>
             <div className="flex flex-col items-center relative">
             {/* Step 1 */}
@@ -576,90 +589,6 @@ export default function AssignmentHelp() {
               </div>
               <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Average<br className='hidden md:block'/>user rating</span>
             </div>
-          </div>
-        </div>
-      </section>
-      {/* Client Testimonials: 3D Carousel */}
-      <section className="w-full bg-white py-20">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-gray-900">Client Testimonials: Hear What Our Clients Have To Say</h2>
-          <p className="text-center text-lg text-gray-500 mb-12">Read what some of our satisfied customers have to say about us:</p>
-          {/* Carousel Viewport */}
-          <div className="relative flex justify-center items-center w-full" style={{ minHeight: '340px' }}>
-            {/* Left Arrow */}
-            <button
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center hover:bg-blue-50 transition"
-              onClick={() => setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
-              aria-label="Previous testimonial"
-              type="button"
-            >
-              <svg width="28" height="28" fill="none" stroke="#2563eb" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-            {/* Carousel Track */}
-            <div className="overflow-hidden w-[700px] max-w-full mx-auto">
-              <div
-                className="flex items-center transition-transform duration-500 pl-[150px] pr-[150px]"
-                style={{
-                  width: `${testimonials.length * 400}px`,
-                  transform: `translateX(calc(${350 - testimonialIndex * 400}px))`,
-                }}
-              >
-                {testimonials.map((t, idx) => {
-                  const isActive = idx === testimonialIndex;
-                  return (
-                    <div
-                      key={t.id}
-                      className={`relative flex-shrink-0 w-[400px] bg-white p-8 rounded-2xl shadow-2xl transition-all duration-500 mx-4 ${isActive ? 'is-active z-20 opacity-100 scale-100' : 'opacity-50 scale-90 z-10'}`}
-                      style={{
-                        opacity: isActive ? 1 : 0.5,
-                        transform: isActive ? 'scale(1)' : 'scale(0.85)',
-                        zIndex: isActive ? 2 : 1,
-                        boxShadow: isActive ? '0 8px 40px 0 rgba(16, 24, 40, 0.18)' : '0 2px 12px 0 rgba(16, 24, 40, 0.08)',
-                        pointerEvents: isActive ? 'auto' : 'none',
-                      }}
-                    >
-                      {/* Card Header */}
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="font-bold text-lg text-blue-700">Customer ID: EE-{t.id}</span>
-                        <span className="flex items-center">
-                          {[1,2,3,4,5].map((star) => (
-                            <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                          ))}
-                        </span>
-                      </div>
-                      <hr className="mb-4" />
-                      <p className="text-gray-700 text-base mb-8">{t.text}</p>
-                      <div className="grid grid-cols-2 gap-4 mt-8">
-                        <div><span className="font-bold">Date:</span> <span className="ml-1">{t.date}</span></div>
-                        <div><span className="font-bold">Academic Level:</span> <span className="ml-1">{t.level}</span></div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            {/* Right Arrow */}
-            <button
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center hover:bg-blue-50 transition"
-              onClick={() => setTestimonialIndex((prev) => (prev + 1) % testimonials.length)}
-              aria-label="Next testimonial"
-              type="button"
-            >
-              <svg width="28" height="28" fill="none" stroke="#2563eb" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-          </div>
-          {/* Navigation Dots */}
-          <div className="flex justify-center items-center gap-2 mt-8">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                className={`w-3 h-3 rounded-full border-2 ${testimonialIndex === idx ? 'bg-blue-600 border-blue-600 scale-110' : 'bg-gray-200 border-gray-300'} transition-all`}
-                style={{ outline: 'none' }}
-                onClick={() => setTestimonialIndex(idx)}
-                aria-label={`Go to testimonial ${idx + 1}`}
-                type="button"
-              />
-            ))}
           </div>
         </div>
       </section>
@@ -921,6 +850,181 @@ export default function AssignmentHelp() {
           </div>
         </div>
       </section>
+      {/* Client Testimonials: 3D Carousel (replaced) */}
+      <section className="w-full py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <ClientTestimonialsCarousel />
+        </div>
+      </section>
     </div>
+  );
+}
+
+function ClientTestimonialsCarousel() {
+  const testimonials = [
+    {
+      id: 'EE-24467',
+      rating: 4,
+      text: "Didn't really trust writing services at first, but this changed my mind. Super clean, well-written essay. glad I gave them a shot.",
+      date: '04/14/2025',
+      level: 'Masters',
+    },
+    {
+      id: 'EE-23901',
+      rating: 5,
+      text: 'Was in a total panic with my deadline. They not only delivered fast but the essay was actually solid. Big lifesaver!',
+      date: '03/16/2025',
+      level: 'Bachelors',
+    },
+    {
+      id: 'EE-57281',
+      rating: 4,
+      text: 'Needed this essay fast and they came through big time. Everything from the structure to the points was on point. Really solid work.',
+      date: '06/16/2025',
+      level: 'Bachelors',
+    },
+    {
+      id: 'EE-19822',
+      rating: 5,
+      text: 'I was skeptical but the writer was super communicative and the result was great. Will use again.',
+      date: '02/10/2025',
+      level: 'PhD',
+    },
+    {
+      id: 'EE-33412',
+      rating: 5,
+      text: 'Essay Embassy made my life so much easier. The quality was top-notch and the support team was very helpful.',
+      date: '01/22/2025',
+      level: 'Masters',
+    },
+    {
+      id: 'EE-11234',
+      rating: 4,
+      text: 'Good service, quick turnaround, and the essay passed all checks. Would recommend.',
+      date: '05/05/2025',
+      level: 'College',
+    },
+  ];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const cardCount = testimonials.length;
+
+  // Navigation logic
+  const goTo = (idx: number) => {
+    if (idx < 0) idx = cardCount - 1;
+    if (idx > cardCount - 1) idx = 0;
+    setCurrentIndex(idx);
+  };
+  const handlePrev = () => goTo(currentIndex - 1);
+  const handleNext = () => goTo(currentIndex + 1);
+
+  // For 3D effect: calculate transform for each card
+  const getCardStyle = (idx: number): React.CSSProperties => {
+    const offset = idx - currentIndex;
+    if (offset === 0) {
+      return {
+        transform: 'scale(1) translateY(0)',
+        opacity: 1,
+        zIndex: 2,
+        boxShadow: '0 8px 32px 0 rgba(16,30,54,0.18), 0 1.5px 6px 0 rgba(16,30,54,0.08)',
+      };
+    } else if (Math.abs(offset) === 1) {
+      return {
+        transform: `scale(0.85) translateX(${offset * 60}px) translateY(20px)` ,
+        opacity: 0.5,
+        zIndex: 1,
+        boxShadow: '0 4px 16px 0 rgba(16,30,54,0.10)',
+      };
+    } else {
+      return {
+        transform: `scale(0.7) translateX(${offset * 120}px) translateY(40px)` ,
+        opacity: 0.2,
+        zIndex: 0,
+        boxShadow: 'none',
+        pointerEvents: 'none' as const,
+      };
+    }
+  };
+
+  return (
+    <section className="w-full py-24 bg-white">
+      <div className="max-w-4xl mx-auto px-4">
+        {/* Section Header */}
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Hear What Our Clients Have To Say</h2>
+        <p className="text-center text-lg text-gray-500 mb-14">Read what some of our satisfied customers have to say about us:</p>
+        {/* Carousel Viewport */}
+        <div className="relative flex items-center justify-center" style={{minHeight: 340}}>
+          {/* Left Arrow */}
+          <button
+            onClick={handlePrev}
+            aria-label="Previous testimonial"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
+          >
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          {/* Carousel Track */}
+          <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
+            {testimonials.map((t, idx) => (
+              <div
+                key={t.id}
+                className={`bg-white rounded-2xl p-8 mx-2 transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
+                style={{
+                  ...getCardStyle(idx),
+                  width: '90%',
+                  maxWidth: 480,
+                  position: 'absolute',
+                  left: '50%',
+                  top: 0,
+                  transform: `${getCardStyle(idx).transform} translateX(-50%)`,
+                  transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
+                }}
+                aria-hidden={idx !== currentIndex}
+              >
+                {/* Card Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
+                  <div className="flex items-center gap-1">
+                    {[1,2,3,4,5].map((star) => (
+                      <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    ))}
+                  </div>
+                </div>
+                {/* Testimonial Text */}
+                <p className="text-gray-700 text-base mb-8">{t.text}</p>
+                {/* Metadata */}
+                <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
+                  <div>
+                    <div className="font-bold text-gray-700 text-sm">Date:</div>
+                    <div className="text-gray-600 text-sm">{t.date}</div>
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
+                    <div className="text-gray-600 text-sm">{t.level}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* Right Arrow */}
+          <button
+            onClick={handleNext}
+            aria-label="Next testimonial"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
+          >
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        </div>
+        {/* Navigation Dots */}
+        <div className="flex justify-center items-center gap-3 mt-8">
+          {testimonials.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => goTo(idx)}
+              className={`w-3 h-3 rounded-full border-2 ${idx === currentIndex ? 'bg-primary-600 border-primary-600 scale-125' : 'bg-white border-gray-300'} transition-all`}
+              aria-label={`Go to testimonial ${idx + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
