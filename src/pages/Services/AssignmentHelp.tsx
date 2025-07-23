@@ -3,44 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import WritersCarousel from './WritersCarousel';
 import { useState } from 'react';
+import { SpecialAssignmentHelpCarousel } from './AdmissionEssayWriting';
 
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
-
-const sampleData = [
-  {
-    type: "Case Study",
-    level: "MBA",
-    subject: "Business",
-    status: "Verified",
-    title: "Market Entry Strategy for Tesla in India",
-    summary: "A comprehensive case study analyzing Tesla's potential market entry into India, including SWOT analysis, competitor review, and actionable recommendations for sustainable growth."
-  },
-  {
-    type: "Lab Report",
-    level: "Undergraduate",
-    subject: "Biochemistry",
-    status: "Peer Reviewed",
-    title: "Analysis of Enzyme Kinetics in Biochemistry",
-    summary: "A detailed lab report exploring enzyme activity under varying conditions, including data tables, graphs, and critical evaluation of results with Harvard referencing."
-  },
-  {
-    type: "Research Paper",
-    level: "PhD",
-    subject: "Education Tech",
-    status: "Published",
-    title: "The Impact of Social Media on Academic Performance",
-    summary: "A peer-reviewed research paper investigating the correlation between social media usage and student outcomes, featuring original survey data and statistical analysis."
-  },
-  {
-    type: "Literature Review",
-    level: "College",
-    subject: "English Lit",
-    status: "Verified",
-    title: "Exploring Feminist Themes in 21st Century Novels",
-    summary: "A critical literature review synthesizing recent scholarship on feminist themes in contemporary novels, with annotated bibliography and thematic mapping."
-  },
-];
 
 const sampleCards = [
   {
@@ -592,6 +558,12 @@ export default function AssignmentHelp() {
           </div>
         </div>
       </section>
+      {/* Client Testimonials: 3D Carousel (moved up) */}
+      <section className="w-full py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <ClientTestimonialsCarousel />
+        </div>
+      </section>
       {/* FAQ Block */}
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-2 md:px-4">
@@ -850,10 +822,11 @@ export default function AssignmentHelp() {
           </div>
         </div>
       </section>
-      {/* Client Testimonials: 3D Carousel (replaced) */}
-      <section className="w-full py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <ClientTestimonialsCarousel />
+
+      {/* What Makes Assignment Help From Our Experts So Special? Block (copied from AdmissionEssayWriting) */}
+      <section className="w-full bg-white py-12">
+        <div className="max-w-6xl mx-auto px-4">
+          <SpecialAssignmentHelpCarousel />
         </div>
       </section>
     </div>
