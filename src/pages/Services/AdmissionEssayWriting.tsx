@@ -574,6 +574,14 @@ export default function AdmissionEssayWriting() {
         </main>
       </section>
 
+      {/* Writers Section Title, Description, and University Logos */}
+      <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Meet Our Top Admission Essay Writers</h2>
+          <p className="text-lg text-gray-600 mb-4 max-w-2xl">Our team consists of highly qualified experts from top universities, ready to help you with any admission essay or academic challenge. Each writer is carefully vetted for expertise, reliability, and communication skills.</p>
+          <img src="/images/univ-logos.svg" alt="Top Universities" className="h-10 md:h-12 my-2" style={{maxWidth: '100%', height: 'auto'}} />
+        </div>
+      </section>
       {/* Writers Scrollable Area */}
       <div className="container mx-auto px-6 pb-6">
         <WritersCarousel />
