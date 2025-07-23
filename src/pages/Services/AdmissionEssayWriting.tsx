@@ -134,58 +134,60 @@ export function SpecialAssignmentHelpCarousel() {
   const offset = -currentIndex * (cardWidth + gap) + (isDragging ? dragDelta : 0);
 
   return (
-    <section className="w-full bg-white py-24">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-        {/* Left Column: Static Content & Navigation */}
-        <div className="md:col-span-1 flex flex-col justify-between">
-          <div>
-            {/* Lighter, more elegant heading and description */}
-            <div className="mb-4 flex items-center">
-              <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                What Makes Assignment Help From Our Experts So Special?
-              </h2>
+    <section className="w-full bg-[#F7FAFC] py-10">
+      <div className="max-w-6xl mx-auto px-4 bg-[#F7FAFC] shadow-none border-none">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+          {/* Left Column: Static Content & Navigation */}
+          <div className="md:col-span-1 flex flex-col justify-between">
+            <div>
+              {/* Lighter, more elegant heading and description */}
+              <div className="mb-4 flex items-center">
+                <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
+                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
+                  What Makes Assignment Help From Our Experts So Special?
+                </h2>
+              </div>
+              <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
+                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top experts</span> in different fields. Get your projects guided by a professional and be sure everything will be done on time.
+              </p>
             </div>
-            <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-              Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top experts</span> in different fields. Get your projects guided by a professional and be sure everything will be done on time.
-            </p>
+            <div className="flex gap-4 mt-8">
+              <button onClick={handlePrev} aria-label="Previous" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === 0}>
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+              <button onClick={handleNext} aria-label="Next" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === carouselItems.length - 1}>
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+            </div>
           </div>
-          <div className="flex gap-4 mt-8">
-            <button onClick={handlePrev} aria-label="Previous" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === 0}>
-              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-            <button onClick={handleNext} aria-label="Next" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === carouselItems.length - 1}>
-              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </button>
-          </div>
-        </div>
-        {/* Right Column: Dynamic Carousel */}
-        <div className="md:col-span-2 relative overflow-x-hidden select-none">
-          <div
-            className="w-full overflow-x-hidden"
-            onMouseDown={handleDragStart}
-            onTouchStart={handleDragStart}
-            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-          >
+          {/* Right Column: Dynamic Carousel */}
+          <div className="md:col-span-2 relative overflow-x-hidden select-none">
             <div
-              ref={trackRef}
-              className="flex gap-8 transition-transform duration-500 ease-in-out"
-              style={{
-                transform: `translateX(${offset}px)`,
-                transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(.4,0,.2,1)',
-              }}
+              className="w-full overflow-x-hidden"
+              onMouseDown={handleDragStart}
+              onTouchStart={handleDragStart}
+              style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
             >
-              {carouselItems.map((item) => (
-                <div
-                  key={item.title}
-                  className="flex-shrink-0 w-full md:w-[380px] bg-white rounded-2xl shadow-xl p-6"
-                  style={{ userSelect: 'none' }}
-                >
-                  <img src={item.imgSrc} alt={item.title} className="w-full aspect-video object-cover rounded-xl mb-4" />
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h4>
-                  <p className="text-gray-600 text-base">{item.description}</p>
-                </div>
-              ))}
+              <div
+                ref={trackRef}
+                className="flex gap-8 transition-transform duration-500 ease-in-out"
+                style={{
+                  transform: `translateX(${offset}px)`,
+                  transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(.4,0,.2,1)',
+                }}
+              >
+                {carouselItems.map((item) => (
+                  <div
+                    key={item.title}
+                    className="flex-shrink-0 w-full md:w-[380px] bg-[#F7FAFC] rounded-2xl shadow-xl p-6"
+                    style={{ userSelect: 'none' }}
+                  >
+                    <img src={item.imgSrc} alt={item.title} className="w-full aspect-video object-cover rounded-xl mb-4" />
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h4>
+                    <p className="text-gray-600 text-base">{item.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -281,69 +283,75 @@ function ClientTestimonialsCarousel() {
   };
 
   return (
-    <section className="w-full py-24 bg-white">
+    <section className="w-full py-24 bg-[#F7FAFC]">
       <div className="max-w-4xl mx-auto px-4">
         {/* Section Header */}
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Hear What Our Clients Have To Say</h2>
-        <p className="text-center text-lg text-gray-500 mb-14">Read what some of our satisfied customers have to say about us:</p>
         {/* Carousel Viewport */}
         <div className="relative flex items-center justify-center" style={{minHeight: 340}}>
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
             aria-label="Previous testimonial"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-[#F7FAFC] transition focus:outline-none"
           >
             <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
           {/* Carousel Track */}
           <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
-            {testimonials.map((t, idx) => (
-              <div
-                key={t.id}
-                className={`bg-white rounded-2xl p-8 mx-2 transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
-                style={{
-                  ...getCardStyle(idx),
-                  width: '90%',
-                  maxWidth: 480,
-                  position: 'absolute',
-                  left: '50%',
-                  top: 0,
-                  transform: `${getCardStyle(idx).transform} translateX(-50%)`,
-                  transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
-                }}
-                aria-hidden={idx !== currentIndex}
-              >
-                {/* Card Header */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
-                  <div className="flex items-center gap-1">
-                    {[1,2,3,4,5].map((star) => (
-                      <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                    ))}
+            {testimonials.map((t, idx) => {
+              const offset = idx - currentIndex;
+              return (
+                <div
+                  key={t.id}
+                  className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
+                  style={{
+                    ...getCardStyle(idx),
+                    width: '90%',
+                    maxWidth: 480,
+                    position: 'absolute',
+                    left: '50%',
+                    top: 0,
+                    transform: `${getCardStyle(idx).transform} translateX(-50%)`,
+                    transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
+                    background: '#fff',
+                    boxShadow: getCardStyle(idx).boxShadow,
+                    border: undefined,
+                    opacity: offset === 0 ? 1 : 0.25,
+                  }}
+                  aria-hidden={idx !== currentIndex}
+                >
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
+                    <div className="flex items-center gap-1">
+                      {[1,2,3,4,5].map((star) => (
+                        <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      ))}
+                    </div>
+                  </div>
+                  {/* Testimonial Text */}
+                  <p className="text-gray-700 text-base mb-8">{t.text}</p>
+                  {/* Metadata */}
+                  <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
+                    <div>
+                      <div className="font-bold text-gray-700 text-sm">Date:</div>
+                      <div className="text-gray-600 text-sm">{t.date}</div>
+                    </div>
+                    <div>
+                      <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
+                      <div className="text-gray-600 text-sm">{t.level}</div>
+                    </div>
                   </div>
                 </div>
-                {/* Testimonial Text */}
-                <p className="text-gray-700 text-base mb-8">{t.text}</p>
-                {/* Metadata */}
-                <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
-                  <div>
-                    <div className="font-bold text-gray-700 text-sm">Date:</div>
-                    <div className="text-gray-600 text-sm">{t.date}</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
-                    <div className="text-gray-600 text-sm">{t.level}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           {/* Right Arrow */}
           <button
             onClick={handleNext}
             aria-label="Next testimonial"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[#F7FAFC] transition focus:outline-none"
           >
             <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
@@ -358,6 +366,16 @@ function ClientTestimonialsCarousel() {
               aria-label={`Go to testimonial ${idx + 1}`}
             />
           ))}
+        </div>
+        {/* Verified reviews UI block (simple, subtle, competitor style) */}
+        <div className="flex items-center justify-center gap-2" style={{marginTop: '2.5rem', marginBottom: '0'}}>
+          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="10" fill="#34D399"/>
+              <path d="M6.5 10.2l2.1 2.1L13.5 8.2" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+          <span className="text-gray-500 text-base font-normal">All reviews are from verified users</span>
         </div>
       </div>
     </section>
@@ -452,12 +470,10 @@ export default function AdmissionEssayWriting() {
     navigate(`/order-now?${params.toString()}`);
   };
 
-  const [openCategory, setOpenCategory] = useState<string | null>(null);
-
   return (
     <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-6 md:py-10 relative">
+      <section className="container mx-auto px-6 py-8 md:py-10 relative">
         <main className="grid md:grid-cols-2 gap-16 items-center">
           {/* Left Column: Content */}
           <div className="space-y-8">
@@ -559,19 +575,12 @@ export default function AdmissionEssayWriting() {
       </section>
 
       {/* Writers Scrollable Area */}
-      <div className="container mx-auto px-6 pb-10">
+      <div className="container mx-auto px-6 pb-6">
         <WritersCarousel />
       </div>
 
-      {/* What Makes Assignment Help From Our Experts So Special? Block (copied from AdmissionEssayWriting) */}
-      <section className="w-full bg-white py-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <SpecialAssignmentHelpCarousel />
-        </div>
-      </section>
-
       {/* We go beyond assignment help services Block (copied from AssignmentHelp) */}
-      <section className="w-full bg-[#F7FAFC] py-24">
+      <section className="w-full bg-[#F7FAFC] py-12">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-5xl md:text-6xl font-light tracking-wider text-center mb-20 animate-fade-in-up">
             We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent animate-gradient-x font-semibold">assignment help services</span>
@@ -687,9 +696,78 @@ export default function AdmissionEssayWriting() {
           }
         `}</style>
       </section>
+      {/* What Makes Assignment Help From Our Experts So Special? Block (moved here) */}
+      <section className="w-full bg-[#F7FAFC] py-10">
+        <div className="max-w-6xl mx-auto px-4 bg-[#F7FAFC] shadow-none border-none">
+          <SpecialAssignmentHelpCarousel />
+        </div>
+      </section>
+      {/* Prices and Services Block (copied from AssignmentHelp) */}
+      <section className="w-full bg-[#F7FAFC] py-12">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
+          <div className="text-center text-lg text-gray-600 mb-4">
+            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
+          </div>
+          <div className="flex justify-center mb-4">
+            <Link to="/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01"/><path d="M12 7v4"/><circle cx="12" cy="12" r="10"/></svg>
+              How we secure your payment
+            </Link>
+          </div>
+          <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch mt-12 mb-10">
+            {/* Included services */}
+            <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
+              <h3 className="text-2xl font-bold text-gray-900 mb-1">Included services</h3>
+              <div className="text-gray-400 text-base mb-4">You'll always get them for free</div>
+              <div className="border-t border-gray-100 mb-4"></div>
+              <ul className="flex-1 space-y-3">
+                <li className="flex justify-between items-center font-semibold text-gray-800">Topic suggestion <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Formatting <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Title page & references <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Editor quality check <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Unlimited revisions <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
+              </ul>
+            </div>
+            {/* Additional services */}
+            <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
+              <h3 className="text-2xl font-bold text-gray-900 mb-1">Additional services</h3>
+              <div className="text-gray-400 text-base mb-4">You can add them for an extra payment</div>
+              <div className="border-t border-gray-100 mb-4"></div>
+              <ul className="flex-1 space-y-3">
+                <li className="flex justify-between items-center font-semibold text-gray-800">Grade A guarantee <span className="text-gray-500 font-normal">from $2.99</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Early draft <span className="text-gray-500 font-normal">+15% to the price</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">1-Page abstract <span className="text-gray-500 font-normal">from $13.99</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">VIP support <span className="text-gray-500 font-normal">$12.99</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Detailed outline <span className="text-gray-500 font-normal">$12.00</span></li>
+              </ul>
+            </div>
+          </div>
+          {/* Payment methods */}
+          <div className="flex flex-col items-center gap-2 mb-8">
+            <div className="text-gray-500 text-base">We accept:</div>
+            <div className="flex items-center gap-4">
+              <img src="/images/visa.svg" alt="Visa" className="h-10" />
+              <img src="/images/mastercard.svg" alt="Mastercard" className="h-10" />
+              <img src="/images/amex.svg" alt="Amex" className="h-10" />
+              <img src="/images/discover.svg" alt="Discover" className="h-10" />
+              <img src="/images/paypal.svg" alt="PayPal" className="h-10" />
+            </div>
+          </div>
+          {/* Create an order button */}
+          <div className="flex justify-center mt-2">
+            <a
+              href="/order-now"
+              className="inline-block px-12 py-4 rounded-full bg-primary-600 text-white text-lg font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
+            >
+              Create an order
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* Why Essay Embassy Stats Block (Compact, Themed) */}
-      <section className="w-full bg-white py-12">
+      <section className="w-full bg-[#F7FAFC] py-10">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 tracking-tight">Why Essay Embassy</h2>
           <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-4 md:gap-0">
@@ -730,13 +808,13 @@ export default function AdmissionEssayWriting() {
         </div>
       </section>
       {/* Client Testimonials Carousel */}
-      <section className="w-full bg-white py-24">
+      <section className="w-full bg-[#F7FAFC] py-12">
         <div className="max-w-4xl mx-auto px-4">
           <ClientTestimonialsCarousel />
         </div>
       </section>
       {/* Sample Assignments Block (copied from AssignmentHelp) */}
-      <section className="w-full py-20 px-2 bg-white">
+      <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-2 text-gray-900 tracking-tight">Sample Assignments</h2>
           <p className="text-center text-lg text-gray-600 mb-8 max-w-2xl mx-auto">Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.</p>
@@ -795,7 +873,7 @@ export default function AdmissionEssayWriting() {
       </section>
 
       {/* Your Assignment Help journey Block (copied from AssignmentHelp) */}
-      <section className="w-full bg-white py-24">
+      <section className="w-full bg-[#F7FAFC] py-12">
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
           {/* Removed decorative circles as requested */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
@@ -843,7 +921,7 @@ export default function AdmissionEssayWriting() {
       </section>
 
       {/* FAQ Block */}
-      <section className="w-full bg-[#F7FAFC] py-16">
+      <section className="w-full bg-[#F7FAFC] py-10">
         <div className="max-w-5xl mx-auto px-2 md:px-4">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-start">
             {/* FAQ Column */}
@@ -912,171 +990,128 @@ export default function AdmissionEssayWriting() {
         </div>
       </section>
 
-      {/* Services Interlink Block - Compact Accordion Version */}
-      <section className="w-full bg-white py-12 mt-10">
-        <div className="max-w-2xl mx-auto px-2">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-900">Explore All Our Services</h2>
-          {(() => {
-            const categories = [
-              {
-                name: 'Essay Services',
-                key: 'essay',
-                services: [
-                  { name: 'Essay Writing', link: '/services/essay-writing' },
-                  { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
-                  { name: 'Narrative Essay', link: '/services/narrative-essay' },
-                  { name: 'Admission Essay', link: '/services/admission-essay' },
-                  { name: 'College Admission Essay', link: '/services/admission-essay-writing' },
-                  { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
-                  { name: 'Book Review', link: '/services/book-review' },
-                ],
-              },
-              {
-                name: 'Assignment Services',
-                key: 'assignment',
-                services: [
-                  { name: 'Assignment Help', link: '/services/assignment-help' },
-                  { name: 'English Assignment Help', link: '/services/english-assignment-help' },
-                  { name: 'Case Study', link: '/services/case-study' },
-                  { name: 'Case Study Help', link: '/services/case-study-help' },
-                  { name: 'Lab Report', link: '/services/lab-report' },
-                  { name: 'Term Paper', link: '/services/term-paper' },
-                  { name: 'Thesis Writing', link: '/services/thesis-writing' },
-                  { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
-                  { name: 'Research Proposal', link: '/services/research-proposal' },
-                  { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
-                ],
-              },
-              {
-                name: 'STEM & Technical',
-                key: 'stem',
-                services: [
-                  { name: 'Programming Help', link: '/services/programming-help' },
-                  { name: 'Homework Help', link: '/services/homework-help' },
-                  { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
-                ],
-              },
-            ];
-            return (
-              <div className="space-y-2">
-                {categories.map(cat => (
-                  <div key={cat.key} className="rounded-lg border border-gray-100 bg-gray-50 shadow-sm overflow-hidden">
-                    <button
-                      type="button"
-                      className={`w-full flex justify-between items-center px-4 py-2 text-left font-medium text-base focus:outline-none transition-colors duration-200 ${openCategory === cat.key ? 'bg-yellow-400 text-gray-900' : 'bg-gray-50 text-gray-900 hover:bg-gray-100'}`}
-                      style={openCategory === cat.key ? { background: '#FACC15', color: '#232323' } : { color: '#232323' }}
-                      onClick={() => setOpenCategory(openCategory === cat.key ? null : cat.key)}
-                      aria-expanded={openCategory === cat.key}
-                      aria-controls={`services-cat-${cat.key}`}
-                    >
-                      <span>{cat.name}</span>
-                      <svg className={`w-5 h-5 text-emerald-500 transform transition-transform duration-300 ${openCategory === cat.key ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    <div
-                      id={`services-cat-${cat.key}`}
-                      className={`transition-all duration-300 ease-in-out bg-white ${openCategory === cat.key ? 'max-h-60 opacity-100 py-1' : 'max-h-0 opacity-0 py-0 overflow-hidden'}`}
-                    >
-                      <ul className="space-y-0.5 px-4">
-                        {cat.services.map(service => (
-                          <li key={service.link}>
+      {/* Services Interlink Block - Tabbed Professional Version (Only Existing Services, Improved Link UI, No Duplicates) */}
+      <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{background: '#F7FAFC'}}>
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center md:items-start">
+          {/* Left Side: Heading, Description, CTA */}
+          <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start mb-10 md:mb-0">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Your #1 paper writing service</h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert essay writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
+            <Link
+              to="/writers"
+              className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
+              style={{textAlign: 'center'}}
+            >
+              Find your writer <span className="ml-2">→</span>
+            </Link>
+          </div>
+          {/* Right Side: Tabs and Service List */}
+          <div className="flex-1 w-full">
+            {(() => {
+              // Only include services that have a corresponding file in src/pages/Services
+              const allServices = [
+                { name: 'Essay Writing', link: '/services/essay-writing' },
+                { name: 'Book Review', link: '/services/book-review' },
+                { name: 'Term Paper', link: '/services/term-paper' },
+                { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
+                { name: 'Research Proposal', link: '/services/research-proposal' },
+                { name: 'Thesis Writing', link: '/services/thesis-writing' },
+                { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
+                { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
+                { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
+                { name: 'Admission Essay', link: '/services/admission-essay' },
+                { name: 'Admission Essay Writing', link: '/services/admission-essay-writing' },
+                { name: 'Case Study', link: '/services/case-study' },
+                { name: 'Case Study Help', link: '/services/case-study-help' },
+                { name: 'Lab Report', link: '/services/lab-report' },
+                { name: 'Homework Help', link: '/services/homework-help' },
+                { name: 'English Assignment Help', link: '/services/english-assignment-help' },
+                { name: 'Programming Help', link: '/services/programming-help' },
+                { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
+                { name: 'Assignment Help', link: '/services/assignment-help' },
+                { name: 'Narrative Essay', link: '/services/narrative-essay' },
+              ];
+              // Remove duplicates for each tab
+              const paperwork = [
+                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study', 'Case Study Help', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Narrative Essay',
+              ];
+              const coursework = [
+                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'Physics Assignment Help', 'Assignment Help',
+              ];
+              const other = [
+                'Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study Help',
+              ];
+              const tabData = [
+                {
+                  key: 'paperwork',
+                  label: 'Paperwork',
+                  services: paperwork.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+                },
+                {
+                  key: 'coursework',
+                  label: 'Coursework / homework',
+                  services: coursework.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+                },
+                {
+                  key: 'other',
+                  label: 'Other assignments',
+                  services: other.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+                },
+              ];
+              const [activeTab, setActiveTab] = React.useState('paperwork');
+              const active = tabData.find(t => t.key === activeTab) || tabData[0];
+              // Split services into 3 columns
+              const filteredServices: { name: string; link: string }[] = (active.services.filter(Boolean) as { name: string; link: string }[]);
+              const columns: { name: string; link: string }[][] = [[], [], []];
+              filteredServices.forEach((s, i) => columns[i % 3].push(s));
+              return (
+                <div className="w-full">
+                  {/* Tabs */}
+                  <div className="flex gap-8 border-b border-gray-200 mb-6">
+                    {tabData.map(tab => {
+                      const isActive = activeTab === tab.key;
+                      return (
+                        <button
+                          key={tab.key}
+                          className={`relative pb-2 text-lg font-semibold transition-colors duration-200 tracking-tight focus:outline-none ${isActive ? 'text-primary-600' : 'text-gray-700 hover:text-primary-700'}`}
+                          style={{background: 'none', outline: 'none'}}
+                          onClick={() => setActiveTab(tab.key)}
+                        >
+                          <span className={isActive ? 'text-primary-600' : ''}>{tab.label}</span>
+                          {isActive && (
+                            <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{content: '""'}}></span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {/* Service List */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    {columns.map((col, idx) => (
+                      <ul key={idx} className="space-y-2">
+                        {col.map(service => (
+                          <li key={service.name} className="text-[15px] text-gray-800 flex items-center gap-2" >
+                            <span className="inline-block w-2 h-2 rounded-full bg-primary-200"></span>
                             <Link
                               to={service.link}
-                              className="block py-2 px-2 rounded-md text-gray-800 hover:bg-gray-100 hover:text-emerald-700 active:bg-emerald-50 active:text-emerald-600 transition-all text-sm font-normal"
+                              className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
+                              style={{textDecoration: 'none'}}
                             >
                               {service.name}
                             </Link>
                           </li>
                         ))}
                       </ul>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            );
-          })()}
-          <div className="flex justify-center mt-8">
-            <Link to="/order-now" className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold px-8 py-3 rounded-lg shadow-md transition-all duration-200 text-base focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95">
-              Place an order
-            </Link>
+                </div>
+              );
+            })()}
           </div>
         </div>
-      </section>
-
-      {/* Why You Need Our Argumentative Essay Writing Help - Scrollable Block (Polished, Compact) */}
-      <section className="py-16">
-        <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
-          <div className="flex items-center mb-4">
-            <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Argumentative Essay Writing Help</h2>
-          </div>
-          <p className="text-base text-gray-700 text-left mb-4">
-            Crafting a powerful argumentative essay requires more than just an opinion—it demands in-depth research, flawless structure, and a persuasive, logical flow. For many students, balancing these elements with a busy schedule is a significant challenge. That's where our expert writing help makes the difference.
-          </p>
-          <p className="text-sm text-gray-600 mb-3 text-left">
-            We understand the hurdles you face, which is why students consistently turn to Essay Embassy for support. Common challenges include:
-          </p>
-          <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
-            <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Constraints:</span> Juggling exams, jobs, and multiple assignments leaves little time for deep work.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Thesis & Structure:</span> Developing a strong, clear thesis and maintaining a coherent argument can be difficult.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Source Vetting:</span> Finding and citing credible, authoritative evidence is a skill that takes time to develop.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting Hurdles:</span> Inexperience with specific citation styles like APA, MLA, or Chicago can lead to lost marks.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The high stakes of academic performance can be incredibly stressful without the right support.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> The fear of accidentally submitting low-quality or plagiarized content is real.</li>
-            </ul>
-            <p className="text-sm text-gray-700 mb-3">
-              These obstacles can impact your grades and confidence. Our service exists to provide a reliable solution, ensuring you submit work that is not only on time but also clear, well-argued, and 100% original.
-            </p>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Argumentative Essay Types We Handle</h3>
-            <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Classical/Aristotelian:</span> Building a straightforward, evidence-based case for a strong thesis.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Rogerian:</span> Finding common ground and fostering understanding between opposing views.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Toulmin:</span> A deep analytical approach that dissects arguments, warrants, and backing.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Analytical & Persuasive:</span> Evaluating complex issues or persuading readers through evidence-based reasoning and critical thinking.</li>
-            </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
-            <ul className="list-none pl-0 mb-3">
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your essay will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> We build every essay from the ground up. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our writers have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
-            </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Written Argumentative Essay Today</h3>
-            <p className="text-sm text-gray-700 mb-1">
-              Stop wondering, "Who can write my argumentative essay with quality and integrity?" The answer is right here.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              At Essay Embassy, we deliver high-quality, custom-written argumentative essays that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              Place your order now and let a true subject matter expert handle the hard work for you.
-            </p>
-          </div>
-        </div>
-        <style>{`
-          .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-          }
-          .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-          }
-          .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 10px;
-          }
-          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #9ca3af;
-          }
-        `}</style>
       </section>
       {/* Final CTA Block - Join Our Happy Clients (Integrated, Subtle, Modern) */}
-      <section className="pt-8 pb-0 bg-gray-100 w-full px-4 md:px-0">
+      <section className="pt-6 pb-0 bg-[#F7FAFC] w-full px-4 md:px-0">
         <div className="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-5xl mx-auto py-6">
           <img
             src="/images/logo.png"
