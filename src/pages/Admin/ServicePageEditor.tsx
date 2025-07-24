@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { db } from '../../firebase';
 import { doc, getDoc, addDoc, updateDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { ServicePage } from '../../types';
 import toast from 'react-hot-toast';

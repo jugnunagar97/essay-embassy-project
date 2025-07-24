@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { db, auth } from '../../firebase'; // FIXED: import 'auth' alongside 'db'
 import { doc, updateDoc } from 'firebase/firestore';
 import { updateProfile } from 'firebase/auth';
 import toast from 'react-hot-toast';

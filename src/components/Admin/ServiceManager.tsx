@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useCallback, useRef } from 'react';
 import { useServiceCategories, useSubServices } from '../../hooks/useData';
-import { db, storage } from '../../firebase';
 import {
   collection, doc, addDoc, updateDoc, deleteDoc, writeBatch, query, where, getDocs, serverTimestamp,
 } from 'firebase/firestore';
@@ -14,6 +13,12 @@ import { ServiceCategory, SubService } from '../../types';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import LoadingSpinner from '../Common/LoadingSpinner';
+
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+const db = getFirestore();
+const storage = getStorage();
+
 
 type ModalState =
   | { type: 'category'; data: Partial<ServiceCategory> }
@@ -135,7 +140,7 @@ export default function ServiceManager() {
         };
 
         if (categoryData.id) {
-          await updateDoc(doc(db, 'serviceCategories', categoryData.id), { ...dataToSave, updatedAt: serverTimestamp() });
+          await updateDoc(doc(collection(db, 'serviceCategories'), categoryData.id), { ...dataToSave, updatedAt: serverTimestamp() });
         } else {
           const newOrder = categories.length > 0 ? Math.max(...categories.map((c: ServiceCategory) => c.order || 0)) + 1 : 1;
           await addDoc(collection(db, 'serviceCategories'), { ...dataToSave, order: newOrder, createdAt: serverTimestamp() });
@@ -182,7 +187,7 @@ export default function ServiceManager() {
         };
 
         if (serviceData.id) {
-          await updateDoc(doc(db, 'subServices', serviceData.id), { ...dataToSave, updatedAt: serverTimestamp() });
+          await updateDoc(doc(collection(db, 'subServices'), serviceData.id), { ...dataToSave, updatedAt: serverTimestamp() });
         } else {
           const newOrder = servicesForSelectedCategory.length > 0 ? Math.max(...servicesForSelectedCategory.map((s: SubService) => s.order || 0)) + 1 : 1;
           await addDoc(collection(db, 'subServices'), { ...dataToSave, order: newOrder, createdAt: serverTimestamp() });
@@ -238,7 +243,7 @@ export default function ServiceManager() {
         batch.delete(serviceDoc.ref);
       });
 
-      const categoryRef = doc(db, 'serviceCategories', categoryId);
+      const categoryRef = doc(collection(db, 'serviceCategories'), categoryId);
       batch.delete(categoryRef);
 
       await batch.commit();
@@ -282,7 +287,7 @@ export default function ServiceManager() {
 
     const toastId = toast.loading('Deleting service...');
     try {
-      await deleteDoc(doc(db, 'subServices', serviceId));
+      await deleteDoc(doc(collection(db, 'subServices'), serviceId));
       toast.success('Service deleted successfully!', { id: toastId });
     } catch (err: any) {
       console.error("Error deleting service:", err);
@@ -299,8 +304,8 @@ export default function ServiceManager() {
     const batch = writeBatch(db);
     const collectionName = 'categoryId' in item ? 'subServices' : 'serviceCategories';
 
-    const itemRef = doc(db, collectionName, item.id);
-    const otherItemRef = doc(db, collectionName, otherItem.id);
+    const itemRef = doc(collection(db, collectionName), item.id);
+    const otherItemRef = doc(collection(db, collectionName), otherItem.id);
 
     batch.update(itemRef, { order: otherItem.order });
     batch.update(otherItemRef, { order: item.order });

@@ -15,7 +15,6 @@ import toast from 'react-hot-toast';
 import { format, isValid } from 'date-fns';
 
 // Firebase Imports
-import { db, storage } from '../../firebase';
 import { 
   collection, 
   addDoc, 
@@ -178,7 +177,7 @@ export default function AdminMessages() {
       if (filesToUpload.length > 0) {
         setIsUploading(true);
         const file = filesToUpload[0]; 
-        const fileRef = ref(storage, `chat_files/${selectedConversation.id}/${Date.now()}_${file.name}`);
+        const fileRef = ref(db.storage, `chat_files/${selectedConversation.id}/${Date.now()}_${file.name}`);
         const snapshot = await uploadBytes(fileRef, file);
         fileUrl = await getDownloadURL(snapshot.ref);
         fileName = file.name;

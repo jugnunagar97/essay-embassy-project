@@ -4,7 +4,6 @@ import { FileText, CheckCircle, XCircle, PlusCircle, Loader } from 'lucide-react
 import StatusBadge from '../../components/Common/StatusBadge';
 import { useAuth } from '../../context/AuthContext';
 import { Order } from '../../types';
-import { db } from '../../firebase';
 import { collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
 
 // ==================================================================================

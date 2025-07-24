@@ -4,24 +4,22 @@ import { FaChevronLeft, FaChevronRight, FaCheckCircle } from 'react-icons/fa';
 // Writer mock data
 const writers = [
   {
-    name: 'Megan P.',
+    name: 'Ashley Thompson',
     degree: "Master's degree",
-    rating: 5.0,
-    imageUrl: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&w=400&q=80',
-    tags: ['Art', 'American History'],
+    rating: 4.9,
+    tags: ['English', 'Essay Writing'],
     stats: [
-      { label: 'Finish on time', value: '96%' },
-      { label: 'Last 50 reviews', value: '5.0' },
-      { label: 'Success', value: '99%' },
-      { label: 'Repeat hire rate', value: '54%' },
+      { label: 'Finish on time', value: '97%' },
+      { label: 'Last 50 reviews', value: '4.9' },
+      { label: 'Success', value: '98%' },
+      { label: 'Repeat hire rate', value: '53%' },
     ],
   },
   {
-    name: 'Kenji T.',
+    name: 'Bellamy K.',
     degree: "Master's degree",
     rating: 4.8,
-    imageUrl: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&w=400&q=80',
-    tags: ['Healthcare', 'Business and Finance'],
+    tags: ['History', 'Sociology'],
     stats: [
       { label: 'Finish on time', value: '95%' },
       { label: 'Last 50 reviews', value: '4.8' },
@@ -30,37 +28,22 @@ const writers = [
     ],
   },
   {
-    name: 'Emily K.',
+    name: 'Michael Johnson',
     degree: "Master's degree",
     rating: 5.0,
-    imageUrl: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&w=400&q=80',
-    tags: ['Healthcare', 'Sociology'],
-    stats: [
-      { label: 'Finish on time', value: '96%' },
-      { label: 'Last 50 reviews', value: '5.0' },
-      { label: 'Success', value: '98%' },
-      { label: 'Repeat hire rate', value: '52%' },
-    ],
-  },
-  {
-    name: 'Michael H.',
-    degree: "Master's degree",
-    rating: 4.9,
-    imageUrl: 'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&w=400&q=80',
     tags: ['Healthcare', 'Business and management'],
     stats: [
-      { label: 'Finish on time', value: '97%' },
-      { label: 'Last 50 reviews', value: '4.9' },
+      { label: 'Finish on time', value: '98%' },
+      { label: 'Last 50 reviews', value: '5.0' },
       { label: 'Success', value: '99%' },
-      { label: 'Repeat hire rate', value: '51%' },
+      { label: 'Repeat hire rate', value: '54%' },
     ],
   },
   {
-    name: 'Prisca E.',
+    name: 'Jessica Miller',
     degree: "Master's degree",
     rating: 4.7,
-    imageUrl: 'https://images.pexels.com/photos/1181696/pexels-photo-1181696.jpeg?auto=compress&w=400&q=80',
-    tags: ['American history'],
+    tags: ['Literature', 'Essay Writing'],
     stats: [
       { label: 'Finish on time', value: '94%' },
       { label: 'Last 50 reviews', value: '4.7' },
@@ -68,7 +51,22 @@ const writers = [
       { label: 'Repeat hire rate', value: '47%' },
     ],
   },
+  {
+    name: 'Stellan G.',
+    degree: "Master's degree",
+    rating: 4.9,
+    tags: ['Philosophy', 'Ethics'],
+    stats: [
+      { label: 'Finish on time', value: '97%' },
+      { label: 'Last 50 reviews', value: '4.9' },
+      { label: 'Success', value: '99%' },
+      { label: 'Repeat hire rate', value: '51%' },
+    ],
+  },
 ];
+
+// Dynamically assign imageUrl based on name
+writers.forEach(w => { w.imageUrl = `/images/${w.name}.jpg`; });
 
 const CARD_WIDTH = 280; // px
 const VISIBLE_CARDS = 3;

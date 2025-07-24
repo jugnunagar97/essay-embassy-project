@@ -9,7 +9,6 @@ import LoadingSpinner from '../../components/Common/LoadingSpinner';
 import toast from 'react-hot-toast';
 
 // Firebase Imports
-import { db, storage } from '../../firebase';
 import { collection, addDoc, serverTimestamp, doc, runTransaction } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 

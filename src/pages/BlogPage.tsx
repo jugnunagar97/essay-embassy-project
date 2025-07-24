@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { db } from '../firebase'; // ADDED: Firestore connection
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore'; // ADDED: Firestore functions
 import { BlogPost } from '../types'; // ADDED: Using the correct BlogPost type
 import LoadingSpinner from '../components/Common/LoadingSpinner';

@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
-import { db } from '../firebase';
 import {
   Order, DashboardStats, User as AppUser, Review, ReviewStats, ServiceCategory, SubService, Sample, BlogPost, ServicePage
 } from '../types'; // FIXED: Ensured all types are imported and correctly aliased User as AppUser

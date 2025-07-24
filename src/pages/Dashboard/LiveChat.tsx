@@ -14,7 +14,6 @@ import { format, isValid } from 'date-fns';
 import toast from 'react-hot-toast';
 
 // === FIREBASE IMPORTS ===
-import { db } from '../../firebase';
 import { 
   collection, 
   addDoc, 
@@ -25,7 +24,6 @@ import {
   Timestamp,
   doc // Added doc import for subcollections
 } from 'firebase/firestore';
-import { storage } from '../../firebase';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // ==================================================================================

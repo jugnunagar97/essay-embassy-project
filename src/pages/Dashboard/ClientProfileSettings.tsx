@@ -15,7 +15,6 @@ import toast from 'react-hot-toast';
 // === FIREBASE IMPORTS ===
 import { getAuth, updateProfile, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
-import { db } from '../../firebase';
 
 // ==================================================================================
 // === TYPE DEFINITIONS ===

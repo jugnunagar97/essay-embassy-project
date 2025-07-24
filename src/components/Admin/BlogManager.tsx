@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { db, storage } from '../../firebase';
 import {
   collection, addDoc, onSnapshot, query, orderBy, doc,
   updateDoc, deleteDoc, serverTimestamp, Timestamp

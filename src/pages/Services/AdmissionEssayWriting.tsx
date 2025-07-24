@@ -1,3 +1,5 @@
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../../firebase';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -470,6 +472,17 @@ export default function AdmissionEssayWriting() {
     navigate(`/order-now?${params.toString()}`);
   };
 
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      alert('Signed in with Google!');
+      // Optionally, redirect or update UI here
+    } catch (error: any) {
+      alert('Google sign-in failed: ' + (error && error.message ? error.message : error));
+    }
+  };
+
   return (
     <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
@@ -532,6 +545,18 @@ export default function AdmissionEssayWriting() {
           {/* Right Column: Order Form */}
           <div className="bg-white p-8 rounded-2xl max-w-md mx-auto shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.04)]">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Place an order</h2>
+            {/* Sign Up Buttons */}
+            <div className="flex gap-4 mb-6 justify-center">
+              <button
+                type="button"
+                onClick={handleGoogleSignIn}
+                className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2.5 px-6 text-base font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:border-primary-200 hover:shadow-md hover:scale-[1.03] active:bg-gray-100 active:shadow-lg transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-200 hover:text-gray-900"
+                style={{minWidth: '0'}}
+              >
+                <img src="/images/google logo.svg" alt="Google" className="h-5 w-5" />
+                Google
+              </button>
+            </div>
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label className="text-sm font-medium text-gray-700">Academic Level</label>
@@ -574,135 +599,112 @@ export default function AdmissionEssayWriting() {
         </main>
       </section>
 
-      {/* Writers Section Title, Description, and University Logos */}
+      {/* Writers Section Title, Description, and University Logos (Redesigned) */}
       <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Meet Our Top Admission Essay Writers</h2>
-          <p className="text-lg text-gray-600 mb-4 max-w-2xl">Our team consists of highly qualified experts from top universities, ready to help you with any admission essay or academic challenge. Each writer is carefully vetted for expertise, reliability, and communication skills.</p>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
+          <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
+            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
+            We carefully check each candidate's academic and professional background before hiring.
+          </div>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
+            <div className="text-base text-gray-600 mb-2 md:mb-0 md:mr-6 whitespace-nowrap">
+              Cooperate with those who graduated<br className="hidden md:block" />
+              from the best universities and colleges
+            </div>
+            <div className="hidden md:block h-8 border-l border-emerald-400 mx-4"></div>
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 w-full md:w-auto">
           <img src="/images/univ-logos.svg" alt="Top Universities" className="h-10 md:h-12 my-2" style={{maxWidth: '100%', height: 'auto'}} />
+            </div>
+          </div>
         </div>
       </section>
+      <div className="mt-8"></div>
       {/* Writers Scrollable Area */}
       <div className="container mx-auto px-6 pb-6">
         <WritersCarousel />
       </div>
 
-      {/* We go beyond assignment help services Block (copied from AssignmentHelp) */}
-      <section className="w-full bg-[#F7FAFC] py-12">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-5xl md:text-6xl font-light tracking-wider text-center mb-20 animate-fade-in-up">
-            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent animate-gradient-x font-semibold">assignment help services</span>
+      {/* We go beyond assignment help services Block (glassmorphism, floating, stylish) */}
+      <section className="w-full bg-[#F7FAFC] py-16">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
+            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">assignment help services</span>
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-3 py-4 transition-all duration-300 animate-fade-in-up hover:scale-105 hover:shadow-xl">
-              <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-3 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Star icon */}
-                <svg width="40" height="40" fill="none" stroke="url(#star-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="star-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
+                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
               </span>
-              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Human-written content only</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Whenever you ask us for assignment help and hire a professional writer, your paper will contain zero AI content.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Human-written content only</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Whenever you ask us for assignment help and hire a professional writer, your paper will contain zero AI content.</div>
             </div>
             {/* Card 2 */}
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.1s'}}>
-              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Report icon */}
-                <svg width="40" height="40" fill="none" stroke="url(#report-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="report-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
+                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
                   <rect x="4" y="4" width="16" height="16" rx="2"/>
                   <path d="M9 9h6M9 13h6M9 17h6"/>
                 </svg>
               </span>
-              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Originality report included</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">We're ready to prove that our papers are written from scratch with free reports for all "assignment help" requests.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Originality report included</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We're ready to prove that our papers are written from scratch with free reports for all "assignment help" requests.</div>
             </div>
             {/* Card 3 */}
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Refund icon */}
-                <svg width="40" height="40" fill="none" stroke="url(#refund-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="refund-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
+                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
                   <path d="M17 1l4 4-4 4"/>
                   <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
                 </svg>
               </span>
-              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Comprehensive refund policy</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Have peace of mind knowing your money is protected by our fair refund policy that covers a variety of scenarios.</div>
-            </div>
-            {/* Divider */}
-            <div className="col-span-1 sm:col-span-2 lg:col-span-3 my-2">
-              <div className="border-t border-white/30 w-full"></div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Comprehensive refund policy</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Have peace of mind knowing your money is protected by our fair refund policy that covers a variety of scenarios.</div>
             </div>
             {/* Card 4 */}
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.3s'}}>
-              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Lock icon */}
-                <svg width="40" height="40" fill="none" stroke="url(#lock-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="lock-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
+                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
                   <rect x="6" y="11" width="12" height="8" rx="2"/>
                   <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
                 </svg>
               </span>
-              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Robust data protections</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Essay Embassy secures your data according to the strictest standards, from PCI DSS compliance for payment processing to end-to-end platform encryption.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Robust data protections</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Essay Embassy secures your data according to the strictest standards, from PCI DSS compliance for payment processing to end-to-end platform encryption.</div>
             </div>
             {/* Card 5 */}
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
-              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Clock icon */}
-                <svg width="40" height="40" fill="none" stroke="url(#clock-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="clock-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
+                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="10"/>
                   <path d="M12 6v6l4 2"/>
                 </svg>
               </span>
-              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Prompt delivery without quality risks</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Our assignment experts leverage their experience to deliver well-researched and carefully put-together papers with deadlines starting from three hours.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Prompt delivery without quality risks</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Our assignment experts leverage their experience to deliver well-researched and carefully put-together papers with deadlines starting from three hours.</div>
             </div>
             {/* Card 6 */}
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-xl border border-white/30 shadow-lg rounded-xl px-4 py-6 transition-all duration-300 animate-fade-in-up" style={{animationDelay: '0.5s'}}>
-              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/40 backdrop-blur border border-white/40 shadow mb-5 transition-all duration-300 hover:scale-110 hover:shadow-primary-200">
+            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Dollar icon */}
-                <svg width="40" height="40" fill="none" stroke="url(#dollar-gradient)" strokeWidth="2" viewBox="0 0 24 24">
-                  <defs><linearGradient id="dollar-gradient" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#10b981"/><stop offset="1" stopColor="#10b981"/></linearGradient></defs>
+                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
                   <path d="M12 1v22"/>
                   <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
                 </svg>
               </span>
-              <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Pocket-friendly rates</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Prices for our assignment help services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Pocket-friendly rates</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Prices for our assignment help services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
             </div>
           </div>
         </div>
-        <div className="flex justify-center mt-4 animate-fade-in-up">
-          <a
-            href="/order-now"
-            className="inline-block px-10 py-4 rounded-full bg-primary-600 text-white text-lg font-semibold shadow-lg hover:bg-primary-700 hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
-          >
-            Get Started
-          </a>
-        </div>
-        <style>{`
-          @keyframes fade-in-up {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-          }
-          .animate-fade-in-up {
-            animation: fade-in-up 0.8s cubic-bezier(.4,0,.2,1) both;
-          }
-          .animate-gradient-x {
-            background-size: 200% 200%;
-            animation: gradient-x 3s ease-in-out infinite;
-          }
-          @keyframes gradient-x {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-        `}</style>
       </section>
       {/* What Makes Assignment Help From Our Experts So Special? Block (moved here) */}
       <section className="w-full bg-[#F7FAFC] py-10">
@@ -821,11 +823,16 @@ export default function AdmissionEssayWriting() {
           <ClientTestimonialsCarousel />
         </div>
       </section>
-      {/* Sample Assignments Block (copied from AssignmentHelp) */}
+      {/* Sample Assignments Block (centered, subtle, blended) */}
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-2 text-gray-900 tracking-tight">Sample Assignments</h2>
-          <p className="text-center text-lg text-gray-600 mb-8 max-w-2xl mx-auto">Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
+            Sample Assignments
+          </h2>
+          <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
+          <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
+            Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
@@ -1118,26 +1125,26 @@ export default function AdmissionEssayWriting() {
           </div>
         </div>
       </section>
-      {/* Final CTA Block - Join Our Happy Clients (Integrated, Subtle, Modern) */}
-      <section className="pt-6 pb-0 bg-[#F7FAFC] w-full px-4 md:px-0">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-5xl mx-auto py-6">
+      {/* Final CTA Block - Join Our Happy Clients (Larger, Balanced, Modern) */}
+      <section className="pt-10 pb-0 bg-[#F7FAFC] w-full px-4 md:px-0">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-5xl mx-auto py-14">
           <img
             src="/images/logo.png"
             alt="Essay Embassy Logo"
-            className="w-28 h-28 object-contain mb-2 md:mb-0 md:mr-6 shadow-md rounded-xl bg-white/80"
+            className="w-36 h-36 object-contain mb-4 md:mb-0 md:mr-10 shadow-lg rounded-2xl bg-white/80"
             loading="lazy"
-            style={{ boxShadow: '0 4px 16px 0 rgba(16, 185, 129, 0.08)' }}
+            style={{ boxShadow: '0 8px 32px 0 rgba(16, 185, 129, 0.10)' }}
           />
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-2">Join our 5,000+ happy clients</h2>
-            <ul className="text-gray-700 text-sm mb-4 list-disc list-inside">
-              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
-              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
-              <li className="flex items-center gap-2"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4">Join our 5,000+ happy clients</h2>
+            <ul className="text-gray-700 text-base md:text-lg mb-6 list-disc list-inside">
+              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
+              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
+              <li className="flex items-center gap-3"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
             </ul>
             <Link
               to="/order-now"
-              className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-2 rounded-lg shadow-sm transition-all duration-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
+              className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
             >
               Place an order
             </Link>

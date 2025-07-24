@@ -4,7 +4,6 @@ import { useState, useMemo, useCallback } from 'react';
 import { useReviews, useReviewStats } from '../../hooks/useData';
 import { Search, Star, ThumbsUp, Trash2, ArrowUp, ArrowDown, ShieldCheck, PlusCircle, XCircle, Edit } from 'lucide-react';
 import { doc, updateDoc, deleteDoc, addDoc, collection, serverTimestamp, Timestamp } from 'firebase/firestore';
-import { db } from '../../firebase';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns'; // FIXED: Removed unused 'isValid' import
 import { Review } from '../../types';

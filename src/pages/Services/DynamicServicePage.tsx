@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase';
 import { SubService } from '../../types'; // Assuming SubService type is defined in types.ts
 import LoadingSpinner from '../../components/Common/LoadingSpinner';
 import { Helmet } from 'react-helmet-async'; // For SEO meta tags

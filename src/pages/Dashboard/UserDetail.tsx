@@ -17,7 +17,6 @@ import toast from 'react-hot-toast';
 import StatusBadge from '../../components/Common/StatusBadge'; 
 
 // Firebase Imports
-import { db, auth } from '../../firebase';
 import { doc, getDoc, updateDoc, deleteDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { sendPasswordResetEmail } from 'firebase/auth'; 
 

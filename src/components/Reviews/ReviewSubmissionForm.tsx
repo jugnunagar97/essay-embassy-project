@@ -1,7 +1,6 @@
 // src/components/Reviews/ReviewSubmissionForm.tsx
 
 import { useState } from 'react';
-import { db } from '../../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import toast from 'react-hot-toast';
 import { XCircle, Send } from 'lucide-react';

@@ -9,7 +9,6 @@ import LoadingSpinner from '../../components/Common/LoadingSpinner';
 import toast from 'react-hot-toast';
 
 // Firebase Imports
-import { db, storage } from '../../firebase';
 import { collection, addDoc, serverTimestamp, doc, runTransaction, getDocs, query, orderBy } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -228,7 +227,7 @@ export default function NewOrder() {
       
       if (files.length > 0) {
         const fileUploadPromises = files.map(file => {
-          const fileRef = ref(storage, `order_files/${client.id}/${Date.now()}/${file.name}`);
+          const fileRef = ref(db.storage, `order_files/${client.id}/${Date.now()}/${file.name}`);
           return uploadBytes(fileRef, file).then(snapshot => getDownloadURL(snapshot.ref));
         });
         uploadedFileUrls = await Promise.all(fileUploadPromises);

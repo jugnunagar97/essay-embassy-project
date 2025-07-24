@@ -1,7 +1,7 @@
-import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { useEffect } from 'react';
 
 // Define the type for our form inputs
 type FormInputs = {
@@ -24,6 +24,74 @@ const Contact = () => {
     // Reset the form after submission
     reset();
   };
+
+  // --- Carousel Logic and Data (MOVED INSIDE COMPONENT) ---
+  const reviews = [
+    { rating: 5, isVerified: true, title: 'Double Success', text: 'We used IvyWise for both of our children, who went through the college admissions pro...', author: 'UK Parent', date: 'December 22, 2023' },
+    { rating: 5, isVerified: true, title: 'Great experience!', text: 'Helped me so much with the college admissions process, especially Round Table! My cou...', author: 'SR', date: 'November 4, 2024' },
+    { rating: 4, isVerified: true, title: 'Wonderful Dedicated Team', text: 'The entire IvyWise team was fully dedicated and driven to give our daughter getting i...', author: 'AS', date: 'January 2, 2025' },
+    { rating: 5, isVerified: true, title: 'Amazing Support', text: 'The support team was always there to answer my questions and guide me through the process.', author: 'Emily R.', date: 'March 15, 2024' },
+    { rating: 4, isVerified: false, title: 'Solid Service', text: 'I got the help I needed, but the process could have been a bit faster.', author: 'John D.', date: 'April 10, 2023' },
+    { rating: 5, isVerified: true, title: 'Highly Recommend', text: 'My essay was delivered on time and exceeded my expectations.', author: 'Priya S.', date: 'May 22, 2025' },
+    { rating: 5, isVerified: true, title: 'Professional Writers', text: 'The writer assigned to me was very professional and knowledgeable.', author: 'Carlos M.', date: 'June 8, 2024' },
+    { rating: 4, isVerified: false, title: 'Good but Pricey', text: 'The service is good, but I wish it was a bit more affordable.', author: 'Lina', date: 'July 19, 2023' },
+    { rating: 5, isVerified: true, title: 'Life Saver!', text: 'I was running out of time and this service saved my grade.', author: 'M. Chen', date: 'August 2, 2024' },
+    { rating: 5, isVerified: true, title: 'Top Notch', text: 'The quality of writing was top notch and the customer service was excellent.', author: 'Olga V.', date: 'September 12, 2025' },
+    { rating: 4, isVerified: true, title: 'Very Helpful', text: 'The feedback I received was very helpful for my next assignment.', author: 'Samir', date: 'October 5, 2023' },
+    { rating: 5, isVerified: true, title: 'Fast and Reliable', text: 'I got my paper quickly and it was exactly what I needed.', author: 'Ava T.', date: 'November 18, 2024' },
+    { rating: 5, isVerified: true, title: 'Great Communication', text: 'The writer communicated with me throughout the process.', author: 'Ben K.', date: 'December 1, 2023' },
+    { rating: 4, isVerified: false, title: 'Good Experience', text: 'Overall a good experience, but there was a small delay.', author: 'Nina', date: 'January 14, 2025' },
+    { rating: 5, isVerified: true, title: 'Exceeded Expectations', text: 'The essay was better than I expected. Thank you!', author: 'Lucas P.', date: 'February 9, 2024' },
+    { rating: 5, isVerified: true, title: 'Will Use Again', text: 'I will definitely use this service again for future assignments.', author: 'Sophie L.', date: 'March 27, 2025' },
+    { rating: 4, isVerified: true, title: 'Nice Service', text: 'Nice service, but the price was a bit high for me.', author: 'Ahmed', date: 'April 21, 2023' },
+    { rating: 5, isVerified: true, title: 'Impressive Results', text: 'The results were impressive and the process was smooth.', author: 'Julia F.', date: 'May 30, 2024' },
+    { rating: 5, isVerified: true, title: 'Friendly Staff', text: 'The staff was friendly and always ready to help.', author: 'Tom S.', date: 'June 14, 2025' },
+    { rating: 4, isVerified: false, title: 'Decent', text: 'Decent service, but could use more payment options.', author: 'Ravi', date: 'July 3, 2024' },
+    { rating: 5, isVerified: true, title: 'Superb Quality', text: 'The quality of the essay was superb and plagiarism-free.', author: 'Ella W.', date: 'August 25, 2023' },
+    { rating: 5, isVerified: true, title: 'Very Satisfied', text: 'I am very satisfied with the service and the results.', author: 'George B.', date: 'September 7, 2024' },
+    { rating: 4, isVerified: true, title: 'Met My Needs', text: 'The service met my needs, but the interface could be improved.', author: 'Isabel', date: 'October 29, 2025' },
+    { rating: 5, isVerified: true, title: 'Fantastic!', text: 'Fantastic service and great results every time.', author: 'Victor', date: 'November 16, 2023' },
+    { rating: 5, isVerified: true, title: 'Easy to Use', text: 'The website is easy to use and the process is straightforward.', author: 'Daria', date: 'December 3, 2024' },
+    { rating: 4, isVerified: false, title: 'Could Be Better', text: 'Could be better, but overall I am happy with the outcome.', author: 'Leo', date: 'January 20, 2025' },
+    { rating: 5, isVerified: true, title: 'Outstanding', text: 'Outstanding service and very professional writers.', author: 'Maya', date: 'February 11, 2023' },
+    { rating: 5, isVerified: true, title: 'Quick Turnaround', text: 'Quick turnaround and high quality work.', author: 'Oscar', date: 'March 8, 2024' },
+    { rating: 4, isVerified: true, title: 'Good Value', text: 'Good value for the price, would recommend.', author: 'Sana', date: 'April 17, 2025' },
+    { rating: 5, isVerified: true, title: 'Perfect!', text: 'Everything was perfect from start to finish.', author: 'Yuki', date: 'May 2, 2023' },
+  ];
+
+  // Mouse drag-to-scroll logic
+  useEffect(() => {
+    const track = document.getElementById('testimonial-carousel-track');
+    if (!track) return;
+    let isDown = false;
+    let startX: number;
+    let scrollLeft: number;
+    function handleMouseDown(e: MouseEvent) {
+      isDown = true;
+      startX = e.pageX - track!.offsetLeft;
+      scrollLeft = track!.scrollLeft;
+      track!.classList.add('cursor-grabbing');
+    }
+    function handleMouseLeave() { isDown = false; track!.classList.remove('cursor-grabbing'); }
+    function handleMouseUp() { isDown = false; track!.classList.remove('cursor-grabbing'); }
+    function handleMouseMove(e: MouseEvent) {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track!.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      track!.scrollLeft = scrollLeft - walk;
+    }
+    track.addEventListener('mousedown', handleMouseDown);
+    track.addEventListener('mouseleave', handleMouseLeave);
+    track.addEventListener('mouseup', handleMouseUp);
+    track.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      track.removeEventListener('mousedown', handleMouseDown);
+      track.removeEventListener('mouseleave', handleMouseLeave);
+      track.removeEventListener('mouseup', handleMouseUp);
+      track.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   return (
     <div className="animate-fade-in">
@@ -140,6 +208,234 @@ const Contact = () => {
                 Send Message
               </button>
             </form>
+          </div>
+        </div>
+      </section>
+
+      {/* Who We Are Section */}
+      <section className="py-24">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          {/* Left: Single Image Only, Even Larger */}
+          <div>
+            <img src="/images/Who-We-Are.png" alt="Who We Are" className="rounded-xl object-contain w-full h-[36rem] min-h-[28rem] max-h-[44rem]" />
+          </div>
+          {/* Right: Text Content */}
+          <div>
+            {/* Eyebrow Title */}
+            <div>
+              <span className="uppercase tracking-widest text-sm font-bold text-primary-600 font-sans">WHO WE ARE</span>
+              <div className="h-0.5 w-10 bg-primary-500 mt-2 rounded"></div>
+            </div>
+            {/* Main Headline */}
+            <h2 className="text-4xl font-medium text-gray-900 mt-6 font-sans tracking-tight">Every day, we set out to change the world...together</h2>
+            {/* Body Paragraphs */}
+            <p className="text-lg text-gray-600 mt-6 font-sans font-normal tracking-normal">
+              We are a passionate team of expert writers, editors, and support professionals dedicated to helping students achieve their academic goals. Our mission is to provide high-quality, original essays and assignments that empower learners to succeed with confidence.
+            </p>
+            <p className="text-lg text-gray-600 mt-4 font-sans font-normal tracking-normal">
+              With years of experience and a commitment to integrity, we believe in making a real difference—one paper at a time. Collaboration, trust, and excellence are at the heart of everything we do.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 bg-[#F5F4F0]">
+        <div className="max-w-6xl mx-auto px-4">
+          {/* Headline */}
+          <h2 className="text-4xl font-light mb-12 text-center" style={{fontFamily: 'Playfair Display, serif', color: '#20504F'}}>
+            Check out what others have to say about us:
+          </h2>
+          {/* Carousel Viewport */}
+          <div className="relative">
+            <div className="relative max-w-full mx-auto">
+              {/* Viewport */}
+              <div
+                id="testimonial-carousel-viewport"
+                className="overflow-x-auto scrollbar-hide relative mx-auto px-2"
+                style={{WebkitOverflowScrolling: 'touch'}}
+              >
+                {/* Carousel Track */}
+                <div
+                  id="testimonial-carousel-track"
+                  className="inline-flex gap-4 transition-transform duration-500 ease-in-out"
+                  style={{willChange: 'transform', minWidth: '100%'}}
+                >
+                  {reviews.map((review, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white rounded-lg p-4 w-80 flex-shrink-0 shadow flex flex-col"
+                      style={{minWidth: '20rem', maxWidth: '20rem'}}
+                    >
+                      {/* Top Row: Stars & Verified */}
+                      <div className="flex items-center mb-1">
+                        {/* Stars */}
+                        <div className="flex items-center mr-2">
+                          {[1,2,3,4,5].map(star => (
+                            <svg
+                              key={star}
+                              width="16" height="16" viewBox="0 0 20 20"
+                              fill={star <= review.rating ? '#10B981' : '#E5E7EB'}
+                              className="mr-0.5"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.385-2.46c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.967z"/>
+                            </svg>
+                          ))}
+                        </div>
+                        {/* Verified Badge */}
+                        {review.isVerified && (
+                          <div className="flex items-center gap-1 bg-emerald-50 text-emerald-600 text-xs font-semibold px-2 py-0.5 rounded ml-2">
+                            <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#10B981"/><path d="M6.5 10.2l2.1 2.1L13.5 8.2" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            Verified
+                          </div>
+                        )}
+                      </div>
+                      {/* Title */}
+                      <h3 className="font-bold text-base mt-2 mb-1 text-gray-900">{review.title}</h3>
+                      {/* Review Text */}
+                      <p className="text-gray-600 text-sm mb-3 overflow-hidden text-ellipsis" style={{display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical'}}>{review.text}</p>
+                      {/* Author Info */}
+                      <p className="text-xs text-gray-400 mt-auto">{review.author} &middot; {review.date}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Left Arrow */}
+              <button
+                id="testimonial-carousel-left"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 border border-gray-200 shadow transition-colors duration-200 hover:bg-emerald-100 active:bg-emerald-200 focus:bg-emerald-100"
+                style={{boxShadow: '0 2px 8px 0 rgba(0,0,0,0.08)'}}
+                aria-label="Scroll left"
+                onClick={() => {
+                  const viewport = document.getElementById('testimonial-carousel-viewport');
+                  if (!viewport) return;
+                  viewport.scrollBy({ left: -336, behavior: 'smooth' });
+                }}
+              >
+                <svg width="24" height="24" fill="none" stroke="#374151" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              {/* Right Arrow */}
+              <button
+                id="testimonial-carousel-right"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 border border-gray-200 shadow transition-colors duration-200 hover:bg-emerald-100 active:bg-emerald-200 focus:bg-emerald-100"
+                style={{boxShadow: '0 2px 8px 0 rgba(0,0,0,0.08)'}}
+                aria-label="Scroll right"
+                onClick={() => {
+                  const viewport = document.getElementById('testimonial-carousel-viewport');
+                  if (!viewport) return;
+                  viewport.scrollBy({ left: 336, behavior: 'smooth' });
+                }}
+              >
+                <svg width="24" height="24" fill="none" stroke="#374151" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+          {/* Footer: Trustpilot Badge */}
+          <div className="mt-12 flex flex-col items-center justify-center">
+            <p className="text-gray-700 text-base mb-2">Rated 4.7 / 5 based on 30 reviews. Showing our 5 star reviews.</p>
+            <div className="flex items-center gap-2">
+              {/* Trustpilot Image Logo */}
+              <img src="/images/trustpilot logo 2.png" alt="Trustpilot" className="h-7 w-7 object-contain" />
+              <span className="text-lg font-semibold text-[#00B67A]">Trustpilot</span>
+            </div>
+          </div>
+        </div>
+        {/* Carousel JS and reviews array below (to be implemented in the component) */}
+      </section>
+
+      {/* How It Works Section */}
+      <section className="max-w-6xl mx-auto mt-20 mb-16 px-4">
+        {/* Section Headline */}
+        <h2 className="text-4xl font-bold text-gray-900 mb-10 text-left">How It Works:</h2>
+        {/* Three-column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Card 1: Find your writer. (Essay Writing Service) */}
+          <div className="bg-white border border-black rounded-2xl p-8 flex flex-col">
+            {/* Numbered Tag */}
+            <div className="w-9 h-9 flex items-center justify-center bg-cyan-400 rounded-md text-white font-bold text-lg mb-4">1</div>
+            {/* Title */}
+            <h3 className="text-2xl font-bold mb-2">Find your writer.</h3>
+            {/* Description */}
+            <p className="text-gray-700 mb-6">We'll connect you with a writer who will motivate, challenge, and inspire you.</p>
+            {/* UI Mockup: Stacked Writer Row Cards (Essay Writing Service) */}
+            <div className="relative mt-12 h-56 w-full flex items-end justify-center">
+              {/* Bottom Card (Card #3) */}
+              <div className="bg-white rounded-xl border border-gray-200 shadow-md flex items-center p-4 w-80 mx-auto z-0 absolute left-0 right-0 bottom-0 opacity-95" style={{margin:'0 auto'}}>
+                <img src="/images/Jessica Miller.jpg" alt="Jessica Miller" className="w-12 h-12 rounded-full object-cover mr-4 border border-gray-100" />
+                <div className="flex-1 min-w-0">
+                  <span className="block font-semibold text-gray-900 text-base truncate">Jessica Miller</span>
+                  <span className="block text-xs text-gray-500 truncate">Essay writer</span>
+                  <span className="block text-xs text-gray-400 flex items-center mt-0.5 truncate">
+                    <svg className="inline-block mr-1" width="14" height="14" fill="none" stroke="#6b7280" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M12 20v-6m0 0V4m0 10H6m6 0h6"/></svg>
+                    Expert in English, Literature, +2
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 ml-2">
+                  <svg width="18" height="18" fill="#FACC15" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.385-2.46c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.967z"/></svg>
+                  <span className="font-semibold text-gray-900 text-base">4.8</span>
+                </div>
+              </div>
+              {/* Middle Card (Card #2) */}
+              <div className="bg-white rounded-xl border border-gray-200 shadow-lg flex items-center p-4 w-80 mx-auto z-10 absolute left-0 right-0 bottom-12 opacity-98" style={{margin:'0 auto'}}>
+                <img src="/images/Bellamy K..jpg" alt="Bellamy K." className="w-12 h-12 rounded-full object-cover mr-4 border border-gray-100" />
+                <div className="flex-1 min-w-0">
+                  <span className="block font-semibold text-gray-900 text-base truncate">Bellamy K.</span>
+                  <span className="block text-xs text-gray-500 truncate">Essay writer</span>
+                  <span className="block text-xs text-gray-400 flex items-center mt-0.5 truncate">
+                    <svg className="inline-block mr-1" width="14" height="14" fill="none" stroke="#6b7280" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M12 20v-6m0 0V4m0 10H6m6 0h6"/></svg>
+                    Expert in English, Literature, +2
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 ml-2">
+                  <svg width="18" height="18" fill="#FACC15" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.385-2.46c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.967z"/></svg>
+                  <span className="font-semibold text-gray-900 text-base">4.9</span>
+                </div>
+              </div>
+              {/* Top Card (Card #1) */}
+              <div className="bg-white rounded-xl border border-gray-200 shadow-2xl flex items-center p-5 w-80 mx-auto z-20 absolute left-0 right-0 bottom-24 scale-105" style={{margin:'0 auto'}}>
+                <img src="/images/Ashley Thompson.jpg" alt="Ashley Thompson" className="w-16 h-16 rounded-full object-cover mr-4 border-2 border-white shadow" />
+                <div className="flex-1 min-w-0">
+                  <span className="block font-bold text-gray-900 text-lg truncate">Ashley Thompson</span>
+                  <span className="block text-sm text-gray-500 truncate">Essay writer</span>
+                  <span className="block text-xs text-gray-400 flex items-center mt-0.5 truncate">
+                    <svg className="inline-block mr-1" width="14" height="14" fill="none" stroke="#6b7280" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M12 20v-6m0 0V4m0 10H6m6 0h6"/></svg>
+                    Expert in English, Literature, +2
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 ml-2">
+                  <svg width="20" height="20" fill="#FACC15" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.175 0l-3.385 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.385-2.46c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.286-3.967z"/></svg>
+                  <span className="font-bold text-gray-900 text-lg">4.9</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Start learning. */}
+          <div className="bg-white border border-black rounded-2xl p-8 flex flex-col">
+            {/* Numbered Tag */}
+            <div className="w-9 h-9 flex items-center justify-center bg-yellow-300 rounded-md text-white font-bold text-lg mb-4">2</div>
+            {/* Title */}
+            <h3 className="text-2xl font-bold mb-2">Start learning.</h3>
+            {/* Description */}
+            <p className="text-gray-700 mb-6">Your tutor will guide the way through your first lesson and help you plan your next steps.</p>
+            {/* UI Mockup: Main Image */}
+            <div className="flex-1 flex items-center justify-center">
+              <img src="/images/Start-learning.jpg" alt="Start learning" className="rounded-xl shadow-md w-full h-44 object-cover" style={{minHeight:'176px', maxHeight:'176px'}} />
+            </div>
+          </div>
+
+          {/* Card 3: Speak. Read. Write. Repeat. */}
+          <div className="bg-white border border-black rounded-2xl p-8 flex flex-col">
+            {/* Numbered Tag */}
+            <div className="w-9 h-9 flex items-center justify-center bg-blue-600 rounded-md text-white font-bold text-lg mb-4">3</div>
+            {/* Title */}
+            <h3 className="text-2xl font-bold mb-2">Speak. Read. Write. Repeat.</h3>
+            {/* Description */}
+            <p className="text-gray-700 mb-6">Choose how many lessons you want to take each week and get ready to reach your goals!</p>
+            {/* UI Mockup: Main Image */}
+            <div className="flex-1 flex items-center justify-center">
+              <img src="/images/Speak-Read.jpg" alt="Speak Read Write Repeat" className="rounded-xl shadow-md w-full h-44 object-cover" style={{minHeight:'176px', maxHeight:'176px'}} />
+            </div>
           </div>
         </div>
       </section>

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { db } from '../firebase';
 import { collection, query, where, getDocs, limit, orderBy } from 'firebase/firestore';
 import { BlogPost } from '../types';
 import LoadingSpinner from '../components/Common/LoadingSpinner';

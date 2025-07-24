@@ -21,10 +21,8 @@ import LoadingSpinner from '../../components/Common/LoadingSpinner';
 import toast from 'react-hot-toast';
 
 // === FIREBASE IMPORTS ===
-import { db } from '../../firebase';
 import { doc, onSnapshot, collection, addDoc, query, orderBy, serverTimestamp, Timestamp } from 'firebase/firestore';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../firebase';
 
 // ==================================================================================
 // === TYPE DEFINITIONS ===

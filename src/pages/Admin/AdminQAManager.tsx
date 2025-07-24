@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { db } from '../../firebase';
 import { collection, onSnapshot, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
 import LoadingSpinner from '../../components/Common/LoadingSpinner';
 
