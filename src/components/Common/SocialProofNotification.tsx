@@ -1,12 +1,6 @@
 import React from 'react';
 
-const PRIMARY_COLOR = '#20c997';
-const SECONDARY_COLOR = '#1976d2'; // Modern blue
-
 // --- Data lists and utility ---
-const PAPER_TYPES = [
-  'Research Paper', 'Essay', 'Literature Review', 'Case Study', 'Annotated Bibliography', 'Thesis', 'Dissertation', 'Research Proposal', 'Term Paper', 'Lab Report', 'Book Review', 'Article Critique', 'Systematic Review', 'Meta-Analysis', 'Position Paper', 'White Paper', 'Policy Brief', 'Feasibility Report', 'Technical Report', 'Project Report', 'Progress Report', 'Reflective Journal', 'Personal Statement', 'Statement of Purpose', 'Admission Essay', 'Scholarship Essay', 'Expository Essay', 'Argumentative Paper', 'Persuasive Essay', 'Compare and Contrast Essay', 'Cause and Effect Paper', 'Analytical Paper', 'Interpretive Paper', 'Discussion Board Post', 'Capstone Project', 'Field Report', 'Grant Proposal', 'Business Plan', 'Marketing Plan', 'SWOT Analysis', 'Manuscript', 'Conference Paper', 'Abstract', 'Executive Summary', 'Legal Brief', 'Memorandum of Law', 'Clinical Case Report', 'Patient Case Study', 'Research Summary', 'Thesis Chapter', 'Dissertation Prospectus', 'Concept Paper', 'Quantitative Analysis Report', 'Qualitative Study', 'Survey Research Paper', 'Experimental Paper', 'Observational Study Report'
-];
 const SUBJECTS = [
   'History', 'Psychology', 'Sociology', 'Literature', 'Philosophy', 'Political Science', 'Economics', 'Business Administration', 'Marketing', 'Finance', 'Nursing', 'Public Health', 'Computer Science', 'Biology', 'Chemistry', 'Physics', 'Environmental Science', 'Mechanical Engineering', 'Law', 'Criminology', 'Anthropology', 'International Relations', 'Art History', 'Music Theory', 'Architecture', 'Film Studies', 'Linguistics', 'Education', 'Social Work', 'Data Science', 'Neuroscience', 'Gender Studies', 'Urban Planning', 'Marine Biology', 'Astrophysics', 'Chemical Engineering', 'Civil Engineering', 'Electrical Engineering', 'Macroeconomics', 'Microeconomics', 'Corporate Finance', 'Human Resource Management', 'Strategic Management', 'Supply Chain Management', 'English Literature', 'American History', 'European History', 'Ancient Philosophy', 'Ethics', 'Political Theory', 'Developmental Psychology', 'Cognitive Science', 'Abnormal Psychology', 'Social Psychology', 'Quantum Physics', 'Organic Chemistry', 'Genetics', 'Ecology', 'Statistics', 'Calculus', 'Software Development', 'Artificial Intelligence', 'Cybersecurity', 'Medical Science', 'Pharmacy', 'Kinesiology', 'Nutrition Science', 'Occupational Therapy', 'Physical Therapy', 'Early Childhood Education', 'Higher Education Administration', 'International Law', 'Constitutional Law', 'Criminal Justice', 'Forensic Science', 'Cultural Anthropology', 'Archaeology', 'Religious Studies', 'Theology', 'Classical Studies', 'East Asian Studies', 'African Studies', 'Latin American Studies', 'Communication Studies', 'Journalism', 'Public Relations', 'Graphic Design', 'Industrial Design', 'Theatre Arts', 'Dance', 'Geology', 'Geography', 'Meteorology', 'Oceanography', 'Agricultural Science', 'Veterinary Science', 'Forestry', 'Hospitality Management', 'Tourism Studies', 'Real Estate', 'Public Policy', 'Human Rights', 'Peace and Conflict Studies'
 ];
@@ -18,129 +12,160 @@ function getRandomItem<T>(arr: T[]): T {
 }
 // --- End data lists ---
 
-const TIME_AGO_LIST = [
-  'just now',
-  'a moment ago',
-  '5 minutes ago',
-  '12 minutes ago',
-  '22 minutes ago',
-  'about an hour ago',
-  'earlier today',
-];
-
-// SVG icons
-const ServiceIcon = () => (
-  <div style={{
-    width: 28, height: 28, borderRadius: '0.9rem', background: 'rgba(255,255,255,0.16)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 1px 4px rgba(32,201,151,0.08)',
-    marginRight: 8, flexShrink: 0
-  }}>
-    <svg width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="6" width="20" height="16" rx="3" fill="#fff" fillOpacity="0.18"/>
-      <rect x="7" y="9" width="14" height="2" rx="1" fill={PRIMARY_COLOR}/>
-      <rect x="7" y="13" width="10" height="2" rx="1" fill={PRIMARY_COLOR}/>
-      <rect x="7" y="17" width="6" height="2" rx="1" fill={PRIMARY_COLOR}/>
-    </svg>
-  </div>
-);
-
-const HIGHLIGHT_COLOR = PRIMARY_COLOR;
-const PROVESOURCE_COLOR = PRIMARY_COLOR; // Use brand accent teal for highlight
-
-const CheckmarkIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: 6 }}>
-    <circle cx="9" cy="9" r="9" fill={HIGHLIGHT_COLOR} fillOpacity="0.15"/>
-    <path d="M5 9.5L8 12.5L13 7.5" stroke={HIGHLIGHT_COLOR} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
 interface SocialProofNotificationProps {
   visible: boolean;
   content: string;
-  animationState: 'entering' | 'exiting' | 'hidden' | 'visible';
   timeAgo?: string;
+  isHovered?: boolean;
+  onHover?: (hovered: boolean) => void;
+  onClose?: () => void;
 }
 
-const parseContent = (content: string) => {
-  // Try to extract key details for bolding
-  // Template 1: Someone from {city} just ordered a {paperType} in {subject}.
-  let match = content.match(/Someone from (.+?) just ordered a (.+?) in (.+?)\./);
-  if (match) return { location: match[1], paperType: match[2], subject: match[3], plural: false };
-  // Template 2: A {paperType} on {subject} was just ordered from {city}.
-  match = content.match(/A (.+?) on (.+?) was just ordered from (.+?)\./);
-  if (match) return { location: match[3], paperType: match[1], subject: match[2], plural: false };
-  // Template 3: {N} people recently ordered a {paperType}.
-  match = content.match(/(\d+) people recently ordered a (.+?)\./);
-  if (match) return { location: '', paperType: match[2], subject: '', plural: true, pluralCount: match[1] };
-  // Fallback
-  return { location: '', paperType: '', subject: '', plural: false };
-};
+const NOTIF_BG_COLOR = '#fff';
+const NOTIF_BORDER_COLOR = '#e3e8ee';
+const NOTIF_TEXT_COLOR = '#23272F';
+const NOTIF_FONT = 'Inter, system-ui, Arial, sans-serif';
 
-const SocialProofNotification: React.FC<SocialProofNotificationProps> = ({ visible, content, animationState, timeAgo }) => {
-  // Animation classes
-  let animationClass = '';
-  if (animationState === 'entering') {
-    animationClass = 'spn-enter';
-  } else if (animationState === 'exiting') {
-    animationClass = 'spn-exit';
-  } else if (animationState === 'hidden') {
-    animationClass = 'spn-hidden';
-  } else {
-    animationClass = 'spn-visible';
+const SocialProofNotification: React.FC<SocialProofNotificationProps> = ({ visible, content, timeAgo, isHovered, onHover, onClose }) => {
+  // Universal: Always highlight paper type and location using known lists
+  function highlightNotificationText(content: string) {
+    // Highlight paper type
+    let highlighted = content;
+    // Build regex for paper types and locations
+    const paperTypeRegex = new RegExp(`(${GENERAL_PAPER_TYPES.concat(...Object.values(CATEGORY_MAP).map(c => c.paperTypes)).sort((a,b)=>b.length-a.length).join('|')})`, 'i');
+    const locationRegex = new RegExp(`(${LOCATIONS.sort((a,b)=>b.length-a.length).join('|')})`, 'i');
+    // Only highlight first occurrence of each
+    highlighted = highlighted.replace(paperTypeRegex, '<span class="notif-paper">$1</span>');
+    highlighted = highlighted.replace(locationRegex, '<span class="notif-location">$1</span>');
+    return highlighted;
   }
 
   return (
     <div
-      className={`spn-notification fixed bottom-6 left-6 z-50 ${animationClass}`}
+      className={`spn-notification`}
       style={{
-        background: `linear-gradient(90deg, ${PRIMARY_COLOR} 0%, ${SECONDARY_COLOR} 100%)`,
-        borderRadius: '1rem',
-        boxShadow: '0 4px 16px rgba(25,118,210,0.10)',
-        padding: '0.5rem 1rem 0.5rem 0.5rem',
-        fontFamily: 'Inter, system-ui, Arial, sans-serif',
-        color: '#fff',
+        position: 'fixed',
+        left: '1.5rem',
+        bottom: '1.5rem',
+        zIndex: 50,
+        background: NOTIF_BG_COLOR,
+        borderRadius: '0.7rem',
+        boxShadow: '0 4px 24px rgba(44,62,80,0.10)',
+        padding: '0.7rem 1rem',
+        fontFamily: NOTIF_FONT,
+        color: NOTIF_TEXT_COLOR,
         pointerEvents: visible ? 'auto' : 'none',
-        minWidth: 200,
-        maxWidth: 320,
-        display: 'flex',
-        alignItems: 'center',
+        minWidth: 260,
+        maxWidth: 340,
         wordBreak: 'break-word',
+        border: `1.5px solid ${NOTIF_BORDER_COLOR}`,
+        transition: 'box-shadow 0.2s',
+        display: visible ? 'block' : 'none',
       }}
       aria-live="polite"
+      onMouseEnter={() => onHover && onHover(true)}
+      onMouseLeave={() => onHover && onHover(false)}
     >
-      <ServiceIcon />
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <div style={{ fontSize: '0.92rem', lineHeight: 1.32, marginBottom: 1, fontWeight: 400 }}>
-          {content}
+      {/* Inline style for notif-location and notif-paper */}
+      <style>{`
+        .notif-location {
+          color: #3bb77e;
+          font-weight: 600;
+          background: #f1f3f7;
+          border-radius: 0.35rem;
+          padding: 2px 6px;
+          margin: 0 2px;
+          display: inline-block;
+        }
+        .notif-paper {
+          color: #1976d2;
+          font-weight: 600;
+          background: #f1f3f7;
+          border-radius: 0.35rem;
+          padding: 2px 6px;
+          margin: 0 2px;
+          display: inline-block;
+        }
+      `}</style>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        {/* Close button: absolute top-right, always reserved space, no layout shift */}
+        <div style={{ position: 'absolute', top: 12, right: 12, width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <button
+            aria-label="Close notification"
+            onClick={onClose}
+            style={{
+              background: 'none',
+              border: 'none',
+              outline: 'none',
+              cursor: 'pointer',
+              padding: 0,
+              display: 'flex',
+              alignItems: 'center',
+              opacity: isHovered ? 0.7 : 0,
+              visibility: isHovered ? 'visible' : 'hidden',
+              transition: 'opacity 0.15s',
+              width: 22,
+              height: 22,
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="11" fill="#e3e8ee"/>
+              <path d="M7.5 7.5L14.5 14.5" stroke="#7b8794" strokeWidth="1.3" strokeLinecap="round"/>
+              <path d="M14.5 7.5L7.5 14.5" stroke="#7b8794" strokeWidth="1.3" strokeLinecap="round"/>
+            </svg>
+          </button>
         </div>
-        {/* Timestamp line */}
+        {/* Main text with responsive font size for long content */}
+        <div style={{
+          fontSize: content.length > 90 ? '0.78rem' : '0.91rem',
+          lineHeight: 1.5,
+          fontWeight: 500,
+          fontFamily: NOTIF_FONT,
+          color: NOTIF_TEXT_COLOR,
+          whiteSpace: 'normal',
+          wordBreak: 'break-word',
+          paddingRight: 32, // space for close button
+        }}
+        dangerouslySetInnerHTML={{
+          __html: highlightNotificationText(content)
+        }}
+        />
+        {/* Time ago */}
         {timeAgo && (
-          <div style={{ fontSize: '0.74rem', color: 'rgba(255,255,255,0.7)', fontWeight: 400, marginBottom: 1 }}>
-            {timeAgo}
-          </div>
+          <div style={{
+            fontSize: '0.7rem',
+            color: '#7b8794',
+            fontWeight: 500,
+            marginTop: 2,
+            fontFamily: NOTIF_FONT,
+          }}>{timeAgo}</div>
         )}
-        <div style={{ fontSize: '0.78rem', fontStyle: 'italic', display: 'flex', alignItems: 'center', fontWeight: 500, marginTop: 1 }}>
+        {/* Badge */}
+        <div style={{
+          fontSize: '0.7rem',
+          display: 'flex',
+          alignItems: 'center',
+          fontWeight: 500,
+          marginTop: 8,
+          background: '#f4f6fb',
+          borderRadius: '0.6rem',
+          padding: '2px 10px 2px 6px',
+          color: '#3bb77e',
+          fontStyle: 'normal',
+          boxShadow: 'none',
+        }}>
+          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: 3 }}>
+            <circle cx="9" cy="9" r="9" fill="#3bb77e" fillOpacity="0.13" />
+            <path d="M5 9.5L8 12.5L13 7.5" stroke="#3bb77e" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span style={{ fontWeight: 400, color: '#23272F', fontStyle: 'normal', marginRight: 2 }}>Verified by </span>
           <span style={{
-            display: 'flex', alignItems: 'center',
-            background: 'rgba(255,255,255,0.70)',
-            borderRadius: '0.9rem',
-            padding: '1.5px 10px 1.5px 4px',
-            color: HIGHLIGHT_COLOR,
+            fontFamily: NOTIF_FONT,
+            color: '#3bb77e',
             fontWeight: 600,
-            fontStyle: 'normal',
-            boxShadow: '0 1px 4px rgba(32,201,151,0.08)',
-          }}>
-            <CheckmarkIcon />
-            <span style={{ fontWeight: 500, color: '#222', fontStyle: 'normal' }}>Verified by </span>
-            <span style={{
-              fontFamily: 'Poppins, system-ui, Arial, sans-serif',
-              color: PROVESOURCE_COLOR,
-              fontWeight: 700,
-              letterSpacing: '0.01em',
-              marginLeft: 2,
-              fontSize: '0.82rem',
-            }}>ProveSource</span>
-          </span>
+            marginLeft: 2,
+            fontSize: '0.7rem',
+          }}>Mytruetraffic.com</span>
         </div>
       </div>
     </div>
@@ -260,4 +285,4 @@ export function generateNotificationContent() {
     message,
     timeAgo: undefined // Not needed, as timeRef is in template3
   };
-} 
+}

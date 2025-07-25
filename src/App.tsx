@@ -205,6 +205,7 @@ function App() {
             <Route path="qa-library/:subject/:id" element={<QASolutionPage />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="/thank-you/:orderId" element={<ThankYou />} />
+            <Route path="question/:questionNumber/:slug" element={<QASolutionPage />} />
 
             {/* Protected routes - require authentication */}
             {/* Dashboard route - dynamically renders admin or client dashboard */}

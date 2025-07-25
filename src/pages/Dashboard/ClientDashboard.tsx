@@ -5,6 +5,7 @@ import StatusBadge from '../../components/Common/StatusBadge';
 import { useAuth } from '../../context/AuthContext';
 import { Order } from '../../types';
 import { collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
+import { db } from '../../firebase';
 
 // ==================================================================================
 // === REUSABLE STAT CARD COMPONENT ===

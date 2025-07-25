@@ -17,6 +17,290 @@ import HeroSection from '../components/Hero/HeroSection';
 import { useEffect, useState } from 'react';
 import TestimonialsSection from '../components/Testimonials/TestimonialsSection';
 
+function ConcernsSolutionsBlock() {
+  const concerns = [
+    "I'm staring at a blank page. How do I even start my college essay?",
+    "My essay sounds generic. How can I make my application stand out?",
+    "I'm worried my grammar and structure aren't strong enough for top universities.",
+    "My student is a great kid, but they struggle to write about themselves.",
+    "I have no time to help with essays between work, school, and deadlines.",
+    "I'm overwhelmed by conflicting advice online about what admissions officers want."
+  ];
+  const solutions = [
+    "Strategic Brainstorming: We help you discover a unique personal story that captures your strengths and personality.",
+    "Compelling Narrative Structure: Our experts guide you in outlining and writing an essay that flows perfectly and holds the reader's attention.",
+    "Expert Editing & Polishing: Meticulous proofreading for grammar, style, and clarity to ensure your essay is flawless.",
+    "A Thematic Approach: We develop a unique brand and story to help your application stand out from thousands of others.",
+    "1-on-1 Personalized Guidance: A dedicated mentor provides a structured roadmap to keep you on track and confident.",
+    "Empowering Your Authentic Voice: We don't write for you; we empower you to write your best, most authentic essay."
+  ];
+  const [tab, setTab] = useState('concerns');
+  const [fade, setFade] = useState(false);
+  const handleTab = (newTab: string) => {
+    if (tab === newTab) return;
+    setFade(true);
+    setTimeout(() => {
+      setTab(newTab);
+      setFade(false);
+    }, 300);
+  };
+  return (
+    <section className="ee-concerns-solutions-block">
+      {/* Decorative Dots Left */}
+      <div className="ee-dots-left"></div>
+      {/* Decorative Dots Right */}
+      <div className="ee-dots-right">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      {/* Statistics Section */}
+      <div className="ee-stats">
+        <div className="ee-stat-item">
+          <h2>5,000+</h2>
+          <hr />
+          <p>Students Helped</p>
+        </div>
+        <div className="ee-stat-item">
+          <h2>Up to 12x</h2>
+          <hr />
+          <p>Improved Admission Odds</p>
+        </div>
+        <div className="ee-stat-item">
+          <h2>98%</h2>
+          <hr />
+          <p>Client Satisfaction</p>
+        </div>
+      </div>
+      {/* Tab Navigation */}
+      <nav className="ee-tabs">
+        <button
+          className={`ee-tab-btn${tab === 'concerns' ? ' active' : ''}`}
+          type="button"
+          onClick={() => handleTab('concerns')}
+        >Your Concerns</button>
+        <button
+          className={`ee-tab-btn${tab === 'solutions' ? ' active' : ''}`}
+          type="button"
+          onClick={() => handleTab('solutions')}
+        >How We Help</button>
+      </nav>
+      {/* Content Panel */}
+      <div className="ee-content-panel">
+        <ul className={`ee-content-list${fade ? ' ee-fade' : ''}`}>
+          {(tab === 'concerns' ? concerns : solutions).map((item, idx) => (
+            <li key={idx}>
+              {tab === 'concerns' ? (
+                <svg className="ee-icon ee-icon-warning" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M12 3L2 21h20L12 3z"/><circle cx="12" cy="17" r="1.2" fill="currentColor"/><path d="M12 9v4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/></svg>
+              ) : (
+                <svg className="ee-icon ee-icon-check" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              )}
+              <p>{item}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <style>{`
+.ee-concerns-solutions-block {
+  position: relative;
+  background: linear-gradient(to bottom, #f0f4f9, #ffffff);
+  padding: 64px 0 72px 0;
+  overflow: hidden;
+  z-index: 0;
+}
+@media (max-width: 600px) {
+  .ee-concerns-solutions-block {
+    padding: 36px 0 40px 0;
+  }
+}
+.ee-dots-left {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #e5eaf1 2px, transparent 2.5px) 0 0/18px 18px repeat;
+  opacity: 0.5;
+  z-index: 1;
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .ee-dots-left { width: 70px; height: 70px; }
+}
+.ee-dots-right {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  z-index: 1;
+  display: flex;
+  gap: 8px;
+  pointer-events: none;
+}
+.ee-dots-right span {
+  display: inline-block;
+  background: #0a2540;
+  border-radius: 50%;
+  opacity: 0.18;
+}
+.ee-dots-right span:nth-child(1) { width: 18px; height: 18px; }
+.ee-dots-right span:nth-child(2) { width: 10px; height: 10px; }
+.ee-dots-right span:nth-child(3) { width: 7px; height: 7px; }
+.ee-dots-right span:nth-child(4) { width: 13px; height: 13px; }
+.ee-dots-right span:nth-child(5) { width: 5px; height: 5px; }
+@media (max-width: 600px) {
+  .ee-dots-right { right: 10px; bottom: 10px; }
+}
+.ee-stats {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 48px;
+  margin-bottom: 56px;
+  z-index: 2;
+  position: relative;
+}
+.ee-stat-item {
+  background: transparent;
+  text-align: center;
+  min-width: 120px;
+  flex: 1 1 0;
+  max-width: 220px;
+}
+.ee-stat-item h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0a2540;
+  margin: 0;
+  letter-spacing: -1px;
+}
+.ee-stat-item hr {
+  border: none;
+  border-bottom: 2px solid #e5eaf1;
+  width: 36px;
+  margin: 12px auto 12px auto;
+}
+.ee-stat-item p {
+  font-size: 1rem;
+  color: #3b4a5a;
+  margin: 0;
+  font-weight: 500;
+}
+@media (max-width: 900px) {
+  .ee-stats { gap: 24px; }
+}
+@media (max-width: 700px) {
+  .ee-stats { flex-direction: column; gap: 18px; margin-bottom: 32px; }
+  .ee-stat-item { max-width: 100%; }
+}
+.ee-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -28px;
+}
+.ee-tab-btn {
+  position: relative;
+  background: transparent;
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 1.13rem;
+  border: none;
+  outline: none;
+  padding: 18px 44px 18px 44px;
+  margin: 0 2px;
+  border-radius: 12px 12px 0 0;
+  cursor: pointer;
+  transition: color 0.18s, background 0.18s;
+  z-index: 1;
+}
+.ee-tab-btn:hover:not(.active) {
+  color: #374151;
+  background: #f3f4f6;
+}
+.ee-tab-btn.active {
+  background: #fff;
+  color: #111827;
+  font-weight: 700;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -2px rgba(0,0,0,0.10);
+  z-index: 3;
+}
+.ee-content-panel {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -2px rgba(0,0,0,0.10);
+  padding: 2.5rem 2.5rem 2.2rem 2.5rem;
+  margin: 0 auto;
+  max-width: 720px;
+  min-height: 320px;
+  z-index: 4;
+  position: relative;
+  margin-top: -32px;
+  transition: box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  .ee-content-panel { padding: 1.5rem 1rem 1.2rem 1rem; min-height: 220px; }
+}
+@media (max-width: 600px) {
+  .ee-content-panel { padding: 1.1rem 0.5rem 1.1rem 0.5rem; min-height: 0; }
+}
+.ee-content-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px 32px;
+  width: 100%;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+.ee-content-list.ee-fade {
+  opacity: 0;
+}
+@media (max-width: 700px) {
+  .ee-content-list { grid-template-columns: 1fr; gap: 16px 0; }
+}
+.ee-content-list li {
+  display: flex;
+  align-items: flex-start;
+  font-size: 1.08rem;
+  color: #1f2937;
+  line-height: 1.6;
+  font-weight: 500;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.ee-content-list .ee-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 12px;
+  margin-top: 2px;
+}
+.ee-content-list .ee-icon-warning {
+  color: #f59e0b;
+}
+.ee-content-list .ee-icon-check {
+  color: #10b981;
+}
+.ee-content-list p {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.08rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+      `}</style>
+    </section>
+  );
+}
+
 export default function Home() {
   // Animated stats state
   const [students, setStudents] = useState(0);
@@ -185,49 +469,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-[#F7F9FF] via-[#E3E8F0] to-white dark:bg-gray-900">
       {/* Hero Section */}
       <HeroSection />
-
-      {/* Trust Signals Bar */}
-      {/* Removed old review bar section here */}
-
-      {/* Stats Section */}
-      <section className="py-10 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700">
-        <div className="container">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            {/* Happy Students */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center group">
-              <Users className="w-10 h-10 mb-3 text-primary-500 group-hover:scale-110 transition-transform" />
-              <div className="text-4xl font-extrabold text-primary-500 mb-2">
-                {students.toLocaleString()}+
-              </div>
-              <div className="text-gray-700 dark:text-gray-300 font-medium">Happy Students</div>
-            </div>
-            {/* Success Rate */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center group">
-              <CheckCircle className="w-10 h-10 mb-3 text-green-500 group-hover:scale-110 transition-transform" />
-              <div className="text-4xl font-extrabold text-green-500 mb-2">
-                {success}%
-              </div>
-              <div className="text-gray-700 dark:text-gray-300 font-medium">Success Rate</div>
-            </div>
-            {/* Support */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center group">
-              <Headphones className="w-10 h-10 mb-3 text-blue-500 group-hover:scale-110 transition-transform" />
-              <div className="text-4xl font-extrabold text-blue-500 mb-2">
-                {support}/7
-              </div>
-              <div className="text-gray-700 dark:text-gray-300 font-medium">Support</div>
-            </div>
-            {/* Expert Writers */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col items-center group">
-              <GraduationCap className="w-10 h-10 mb-3 text-purple-500 group-hover:scale-110 transition-transform" />
-              <div className="text-4xl font-extrabold text-purple-500 mb-2">
-                {writers}+
-              </div>
-              <div className="text-gray-700 dark:text-gray-300 font-medium">Expert Writers</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ConcernsSolutionsBlock />
 
       {/* Why Choose Essay Embassy */}
       <section className="py-12 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-slate-200 dark:border-gray-700 relative overflow-hidden">

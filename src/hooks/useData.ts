@@ -5,6 +5,7 @@ import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import {
   Order, DashboardStats, User as AppUser, Review, ReviewStats, ServiceCategory, SubService, Sample, BlogPost, ServicePage
 } from '../types'; // FIXED: Ensured all types are imported and correctly aliased User as AppUser
+import { db } from '../firebase';
 
 // --- useOrders Hook ---
 export function useOrders() {

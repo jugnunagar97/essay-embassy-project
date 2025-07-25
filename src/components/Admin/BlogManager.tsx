@@ -18,6 +18,7 @@ import {
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
+import { db } from '../../firebase';
 
 // Define the structure for a blog category
 interface BlogCategory {

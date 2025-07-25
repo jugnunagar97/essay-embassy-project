@@ -150,42 +150,45 @@ export default function HeroSection() {
               </span>
             </div>
             {/* Review Bar */}
-            <div className="w-full flex flex-col items-center mt-8">
-              <div className="font-bold text-lg sm:text-xl text-gray-900 mb-1 text-center">Trusted by Students Worldwide</div>
-              <div className="text-gray-500 text-sm mb-4 text-center">Join thousands of satisfied customers</div>
-              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">
-                {/* Google */}
-                <div className="flex items-center bg-white rounded-2xl shadow-md px-6 py-4 min-w-[220px] max-w-xs w-full border border-gray-100">
-                  <svg className="w-7 h-7 mr-3" viewBox="0 0 48 48"><g><path fill="#4285F4" d="M43.611 20.083H42V20H24v8h11.303C34.889 32.062 30.045 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c2.803 0 5.377.988 7.409 2.617l6.162-6.162C34.583 6.163 29.627 4 24 4 12.954 4 4 12.954 4 24s8.954 20 20 20c9.941 0 19.09-7.229 19.09-20 0-1.341-.138-2.651-.379-3.917z"/><path fill="#34A853" d="M6.306 14.691l6.571 4.819C14.655 16.163 19.001 13 24 13c2.803 0 5.377.988 7.409 2.617l6.162-6.162C34.583 6.163 29.627 4 24 4c-7.732 0-14.41 4.41-17.694 10.691z"/><path fill="#FBBC05" d="M24 44c5.994 0 11.019-1.977 14.689-5.377l-6.781-5.555C29.627 36.012 27.019 37 24 37c-6.022 0-11.12-4.06-12.927-9.553l-6.601 5.093C8.954 39.045 15.954 44 24 44z"/><path fill="#EA4335" d="M43.611 20.083H42V20H24v8h11.303c-1.377 3.62-5.303 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c2.803 0 5.377.988 7.409 2.617l6.162-6.162C34.583 6.163 29.627 4 24 4c-7.732 0-14.41 4.41-17.694 10.691l6.571 4.819C14.655 16.163 19.001 13 24 13c2.803 0 5.377.988 7.409 2.617l6.162-6.162C34.583 6.163 29.627 4 24 4c-7.732 0-14.41 4.41-17.694 10.691z"/></g></svg>
-                  <div>
-                    <div className="flex items-center mb-1">
-                      {renderStars(4.1, "text-yellow-400")}
-                    </div>
-                    <div className="text-gray-800 font-semibold text-sm">Google</div>
-                    <div className="text-gray-500 text-xs">4.1/5 (89 reviews)</div>
-                  </div>
+            <div className="w-full flex flex-col items-center md:items-start text-center md:text-left mt-8">
+              <div className="font-bold text-lg sm:text-xl text-gray-900 mb-1">Trusted by Students Worldwide</div>
+              <div className="text-gray-500 text-sm mb-4">Join thousands of satisfied customers</div>
+              <div className="flex flex-row justify-center md:justify-start items-end gap-6 pt-2">
+                {/* Google Reviews */}
+                <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2">
+                  <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
+                    <img src="/images/google-icon.svg" alt="Google Logo" className="h-5 w-5" />
+                  </span>
+                  <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                    4.1/5
+                    <span className="ml-1 text-yellow-400 text-sm">★</span>
+                  </span>
+                  <span className="text-gray-600 text-xs mt-1 font-medium">Google</span>
+                  <span className="text-gray-400 text-[11px] mt-0.5">59 reviews</span>
                 </div>
                 {/* Trustpilot */}
-                <div className="flex items-center bg-white rounded-2xl shadow-md px-6 py-4 min-w-[220px] max-w-xs w-full border border-gray-100">
-                  <svg className="w-7 h-7 mr-3" viewBox="0 0 24 24"><g><rect width="24" height="24" rx="6" fill="#00B67A"/><path d="M12 3l2.09 6.26H20l-5.18 3.76L16.18 21 12 16.27 7.82 21l1.18-7.98L4 9.26h5.91z" fill="#fff"/></g></svg>
-                  <div>
-                    <div className="flex items-center mb-1">
-                      {renderStars(4.4, "text-green-500")}
-                    </div>
-                    <div className="text-gray-800 font-semibold text-sm">Trustpilot</div>
-                    <div className="text-gray-500 text-xs">4.4/5 (105 reviews)</div>
-                  </div>
+                <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
+                  <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
+                    <img src="/images/trustpilot-icon.svg" alt="Trustpilot Logo" className="h-5 w-5" />
+                  </span>
+                  <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                    4.4/5
+                    <span className="ml-1 text-green-500 text-sm">★</span>
+                  </span>
+                  <span className="text-gray-600 text-xs mt-1 font-medium">Trustpilot</span>
+                  <span className="text-gray-400 text-[11px] mt-0.5">81 reviews</span>
                 </div>
                 {/* Sitejabber */}
-                <div className="flex items-center bg-white rounded-2xl shadow-md px-6 py-4 min-w-[220px] max-w-xs w-full border border-gray-100">
-                  <svg className="w-7 h-7 mr-3" viewBox="0 0 32 32"><g><rect width="32" height="32" rx="6" fill="#FF6600"/><text x="16" y="22" textAnchor="middle" fontSize="16" fill="#fff" fontFamily="Arial, sans-serif">S</text></g></svg>
-                  <div>
-                    <div className="flex items-center mb-1">
-                      {renderStars(4.0, "text-orange-400")}
-                    </div>
-                    <div className="text-gray-800 font-semibold text-sm">Sitejabber</div>
-                    <div className="text-gray-500 text-xs">4.0/5 (264 reviews)</div>
-                  </div>
+                <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
+                  <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
+                    <img src="/images/sitejabber-icon.webp" alt="Sitejabber Logo" className="h-5 w-5" />
+                  </span>
+                  <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                    4.0/5
+                    <span className="ml-1 text-orange-400 text-sm">★</span>
+                  </span>
+                  <span className="text-gray-600 text-xs mt-1 font-medium">Sitejabber</span>
+                  <span className="text-gray-400 text-[11px] mt-0.5">75 reviews</span>
                 </div>
               </div>
             </div>

@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { collection, addDoc, doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, doc, getDoc, updateDoc, serverTimestamp, getDocs } from 'firebase/firestore';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'katex/dist/katex.min.css';
+import { db } from '../../firebase';
 
 const SUBJECTS = [
   'History', 'Math', 'Science', 'English', 'Economics', 'Business', 'Computer Science', 'Other'
@@ -11,6 +12,29 @@ const SUBJECTS = [
 const PAPER_TYPES = [
   'Essay', 'Research Paper', 'Case Study', 'Lab Report', 'Assignment', 'Other'
 ];
+
+// Utility to generate a slug from a string
+function slugify(text: string) {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/<[^>]+>/g, '') // Remove HTML tags
+    .replace(/&[a-z]+;/g, '') // Remove HTML entities
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-+/g, '-');
+}
+
+// Utility to get the next question number (auto-increment)
+async function getNextQuestionNumber() {
+  const snapshot = await getDocs(collection(db, 'qaLibrary'));
+  let max = 0;
+  snapshot.forEach(doc => {
+    const qn = doc.data().questionNumber;
+    if (typeof qn === 'number' && qn > max) max = qn;
+  });
+  return max + 1;
+}
 
 const AdminQAManagerForm: React.FC = () => {
   const { id } = useParams();
@@ -103,19 +127,32 @@ const AdminQAManagerForm: React.FC = () => {
     if (!validate()) return;
     setLoading(true);
     try {
-      const data = {
+      let data: any = {
         ...form,
         price: Number(form.price),
         updatedAt: serverTimestamp(),
       };
       if (isEdit) {
-        await updateDoc(doc(db, 'qaLibrary', id!), data);
+        // On edit, update slug if title changed, but keep questionNumber
+        const docRef = doc(db, 'qaLibrary', id!);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const oldData = docSnap.data();
+          data.questionNumber = oldData.questionNumber || null;
+          data.slug = slugify(form.title);
+        }
+        await updateDoc(docRef, data);
         setSuccess('Q&A entry updated successfully.');
       } else {
-        await addDoc(collection(db, 'qaLibrary'), {
+        // On create, generate questionNumber and slug
+        const questionNumber = await getNextQuestionNumber();
+        data = {
           ...data,
+          questionNumber,
+          slug: slugify(form.title),
           createdAt: serverTimestamp(),
-        });
+        };
+        await addDoc(collection(db, 'qaLibrary'), data);
         setSuccess('Q&A entry created successfully.');
         setForm({ title: '', question: '', answer: '', subject: '', paperType: '', price: '', status: 'draft' });
       }

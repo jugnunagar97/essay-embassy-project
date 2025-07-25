@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '../types';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -35,7 +35,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (firebaseUser) {
         try {
           const userDocRef = doc(db, 'users', firebaseUser.uid);
-          const userDocSnap = await getDoc(userDocRef);
+          let userDocSnap = await getDoc(userDocRef);
+
+          if (!userDocSnap.exists()) {
+            // Create user doc for Google sign-in users if missing
+            const newUserProfile: User = {
+              id: firebaseUser.uid,
+              email: firebaseUser.email || '',
+              name: firebaseUser.displayName || 'User',
+              role: 'client',
+              createdAt: new Date().toISOString(),
+              avatar: firebaseUser.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(firebaseUser.displayName || 'User')}&background=random&color=fff`
+            };
+            await setDoc(userDocRef, newUserProfile);
+            userDocSnap = await getDoc(userDocRef);
+          }
 
           if (userDocSnap.exists()) {
             const userDataFromFirestore = userDocSnap.data();

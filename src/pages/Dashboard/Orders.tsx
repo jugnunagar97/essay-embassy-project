@@ -11,6 +11,7 @@ import StatusBadge from '../../components/Common/StatusBadge';
 import LoadingSpinner from '../../components/Common/LoadingSpinner';
 import { Order } from '../../types';
 import { format, isValid } from 'date-fns';
+import { db } from '../../firebase';
 
 // Helper function to safely format dates (replicated for self-containment)
 const formatDate = (timestamp: any, formatString: string = 'MMM dd,yyyy HH:mm'): string => {

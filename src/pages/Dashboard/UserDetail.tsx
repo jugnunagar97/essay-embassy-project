@@ -19,6 +19,7 @@ import StatusBadge from '../../components/Common/StatusBadge';
 // Firebase Imports
 import { doc, getDoc, updateDoc, deleteDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { sendPasswordResetEmail } from 'firebase/auth'; 
+import { db } from '../../firebase';
 
 // Types
 import { User, Order } from '../../types';

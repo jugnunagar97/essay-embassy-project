@@ -27,6 +27,7 @@ import {
   limit 
 } from 'firebase/firestore'; 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../../firebase';
 
 // Types (replicated for self-containment, but ideally imported from ../../types)
 interface ChatMessage {
@@ -177,7 +178,7 @@ export default function AdminMessages() {
       if (filesToUpload.length > 0) {
         setIsUploading(true);
         const file = filesToUpload[0]; 
-        const fileRef = ref(db.storage, `chat_files/${selectedConversation.id}/${Date.now()}_${file.name}`);
+        const fileRef = ref(storage, `chat_files/${selectedConversation.id}/${Date.now()}_${file.name}`);
         const snapshot = await uploadBytes(fileRef, file);
         fileUrl = await getDownloadURL(snapshot.ref);
         fileName = file.name;

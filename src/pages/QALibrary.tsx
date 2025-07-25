@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
+import { db } from '../firebase.ts';
 
 // FAQAccordion component for the FAQ section
 const FAQAccordion: React.FC = () => {
@@ -270,7 +271,7 @@ const QALibrary: React.FC = () => {
                     {entry.price ? `$${entry.price}` : ''}
                   </span>
                   <Link
-                    to={`/qa-library/${entry.subject ? encodeURIComponent(entry.subject.toLowerCase()) : 'general'}/${entry.id}`}
+                    to={`/question/${entry.questionNumber}/${entry.slug}`}
                     className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition"
                   >
                     View This Solution

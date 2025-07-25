@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, linkWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import WritersCarousel from './WritersCarousel';
 
 // --- SpecialAssignmentHelpCarousel: React-based interactive carousel ---
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 const carouselItems = [
   {
@@ -404,6 +404,15 @@ export default function AdmissionEssayWriting() {
     },
   });
 
+  // Add state to track if user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoggedIn(!!user);
+    });
+    return () => unsubscribe();
+  }, []);
+
   // FAQ state and data moved here
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const faqData = [
@@ -479,7 +488,34 @@ export default function AdmissionEssayWriting() {
       alert('Signed in with Google!');
       // Optionally, redirect or update UI here
     } catch (error: any) {
-      alert('Google sign-in failed: ' + (error && error.message ? error.message : error));
+      // Handle account-exists-with-different-credential error for seamless linking
+      if (error.code === 'auth/account-exists-with-different-credential') {
+        const pendingCred = GoogleAuthProvider.credentialFromError(error);
+        const email = error.customData?.email;
+        if (email && pendingCred) {
+          // Prompt user for password
+          const password = window.prompt(
+            `An account already exists with this email (${email}). Please enter your password to link your Google account:`
+          );
+          if (!password) {
+            alert('Password is required to link accounts.');
+            return;
+          }
+          try {
+            // Sign in with email/password
+            const userCredential = await auth.signInWithEmailAndPassword(email, password);
+            // Link Google credential
+            await linkWithCredential(userCredential.user, pendingCred);
+            alert('Your Google account has been linked! You can now sign in with either method.');
+          } catch (linkError: any) {
+            alert('Failed to link Google account: ' + (linkError && linkError.message ? linkError.message : linkError));
+          }
+        } else {
+          alert('Google sign-in failed: Unable to retrieve credential or email for linking.');
+        }
+      } else {
+        alert('Google sign-in failed: ' + (error && error.message ? error.message : error));
+      }
     }
   };
 
@@ -547,15 +583,17 @@ export default function AdmissionEssayWriting() {
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Place an order</h2>
             {/* Sign Up Buttons */}
             <div className="flex gap-4 mb-6 justify-center">
-              <button
-                type="button"
-                onClick={handleGoogleSignIn}
-                className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2.5 px-6 text-base font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:border-primary-200 hover:shadow-md hover:scale-[1.03] active:bg-gray-100 active:shadow-lg transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-200 hover:text-gray-900"
-                style={{minWidth: '0'}}
-              >
-                <img src="/images/google logo.svg" alt="Google" className="h-5 w-5" />
-                Google
-              </button>
+              {!isLoggedIn && (
+                <button
+                  type="button"
+                  onClick={handleGoogleSignIn}
+                  className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2.5 px-6 text-base font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:border-primary-200 hover:shadow-md hover:scale-[1.03] active:bg-gray-100 active:shadow-lg transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-200 hover:text-gray-900"
+                  style={{minWidth: '0'}}
+                >
+                  <img src="/images/google logo.svg" alt="Google" className="h-5 w-5" />
+                  Google
+                </button>
+              )}
             </div>
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>

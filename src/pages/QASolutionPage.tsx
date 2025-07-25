@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { doc, getDoc, collection, query, where, getDocs, DocumentData, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import visaIcon from '../images/visa.svg';
@@ -20,6 +21,8 @@ interface Solution {
   price: number;
   status: string;
   attachments?: string[];
+  slug?: string; // Added for SEO
+  questionNumber?: number; // Added for SEO
 }
 
 interface SimilarSolution {
@@ -37,7 +40,7 @@ declare global {
 }
 
 const QASolutionPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id, questionNumber, slug } = useParams<{ id?: string; questionNumber?: string; slug?: string }>();
   const { user } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -50,11 +53,30 @@ const QASolutionPage: React.FC = () => {
     const fetchSolution = async () => {
       setLoading(true);
       try {
-        const docRef = doc(db, 'qaLibrary', id!);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setSolution({ id: docSnap.id, ...docSnap.data() } as Solution);
-        } else {
+        let found = null;
+        if (questionNumber) {
+          // New SEO-friendly route: fetch by questionNumber
+          const q = query(collection(db, 'qaLibrary'), where('questionNumber', '==', Number(questionNumber)));
+          const snap = await getDocs(q);
+          if (!snap.empty) {
+            found = { id: snap.docs[0].id, ...snap.docs[0].data() };
+            setSolution(found as Solution);
+            // Redirect to canonical slug if needed
+            if (slug && found.slug && slug !== found.slug) {
+              navigate(`/question/${questionNumber}/${found.slug}`, { replace: true });
+              return;
+            }
+          }
+        } else if (id) {
+          // Legacy route: fetch by Firestore doc ID
+          const docRef = doc(db, 'qaLibrary', id);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            found = { id: docSnap.id, ...docSnap.data() };
+            setSolution(found as Solution);
+          }
+        }
+        if (!found) {
           toast.error('Solution not found.');
           navigate('/qa-library');
         }
@@ -65,7 +87,7 @@ const QASolutionPage: React.FC = () => {
       }
     };
     fetchSolution();
-  }, [id, navigate]);
+  }, [id, questionNumber, slug, navigate]);
 
   useEffect(() => {
     // Check Firestore for purchase record on page load

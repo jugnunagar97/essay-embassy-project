@@ -13,6 +13,7 @@ import StatusBadge from '../../components/Common/StatusBadge';
 import { format, isValid } from 'date-fns'; 
 import { Order } from '../../types'; 
 import { Link } from 'react-router-dom'; // Re-added Link as it's used in "View All Orders"
+import { db } from '../../firebase';
 
 // Helper function to safely format dates
 const formatDate = (timestamp: any, formatString: string = 'MMM dd,yyyy'): string => { 

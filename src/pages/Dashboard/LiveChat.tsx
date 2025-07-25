@@ -25,6 +25,7 @@ import {
   doc // Added doc import for subcollections
 } from 'firebase/firestore';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../../firebase';
 
 // ==================================================================================
 // === TYPE DEFINITIONS & HELPERS (with Firestore Timestamp) ===
