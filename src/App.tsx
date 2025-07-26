@@ -31,7 +31,6 @@ import Checkout from './pages/Checkout';
 import ThankYou from './pages/ThankYou';
 
 // --- Static Service Page Imports ---
-import AdmissionEssay from './pages/Services/AdmissionEssay';
 import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
 import AssignmentHelp from './pages/Services/AssignmentHelp';
 import BookReview from './pages/Services/BookReview';
@@ -79,13 +78,6 @@ import ServicePageEditor from './pages/Admin/ServicePageEditor';
 // --- Dynamic Service Page Import (NEW & CRUCIAL) ---
 // This single component will now handle all your dynamically created service pages.
 import DynamicServicePage from './pages/Services/DynamicServicePage';
-
-// --- REMOVED INDIVIDUAL SERVICE PAGE IMPORTS ---
-// No longer needed as DynamicServicePage handles them:
-// import AdmissionEssay from './pages/Services/AdmissionEssay';
-// import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
-// ... and all other individual service page imports ...
-
 
 /**
  * ProtectedRoute component
@@ -159,36 +151,30 @@ function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="services" element={<Services />} /> {/* Main services overview page */}
 
-            {/* Static service page routes */}
-            <Route path="services/admission-essay" element={<AdmissionEssay />} />
-            <Route path="services/argumentative-essay" element={<ArgumentativeEssay />} />
-            <Route path="services/assignment-help" element={<AssignmentHelp />} />
-            <Route path="services/book-review" element={<BookReview />} />
-            <Route path="services/case-study" element={<CaseStudy />} />
-            <Route path="services/case-study-help" element={<CaseStudyHelp />} />
-            <Route path="services/dissertation-writing" element={<DissertationWriting />} />
-            <Route path="services/english-assignment-help" element={<EnglishAssignmentHelp />} />
-            <Route path="services/essay-writing" element={<EssayWriting />} />
-            <Route path="services/homework-help" element={<HomeworkHelp />} />
-            <Route path="services/lab-report" element={<LabReport />} />
-            <Route path="services/narrative-essay" element={<NarrativeEssay />} />
-            <Route path="services/physics-assignment-help" element={<PhysicsAssignmentHelp />} />
-            <Route path="services/programming-help" element={<ProgrammingHelp />} />
-            <Route path="services/research-paper-writing" element={<ResearchPaperWriting />} />
-            <Route path="services/research-proposal" element={<ResearchProposal />} />
-            <Route path="services/scholarship-essay" element={<ScholarshipEssay />} />
-            <Route path="services/term-paper" element={<TermPaper />} />
-            <Route path="services/thesis-writing" element={<ThesisWriting />} />
-            <Route path="services/admission-essay-writing" element={<AdmissionEssayWriting />} />
+            {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
+            <Route path="essay-writing/admission" element={<AdmissionEssayWriting />} />
+            <Route path="argumentative-essay" element={<ArgumentativeEssay />} />
+            <Route path="assignment-help" element={<AssignmentHelp />} />
+            <Route path="book-review" element={<BookReview />} />
+            <Route path="case-study" element={<CaseStudy />} />
+            <Route path="case-study-help" element={<CaseStudyHelp />} />
+            <Route path="dissertation-writing" element={<DissertationWriting />} />
+            <Route path="english-assignment-help" element={<EnglishAssignmentHelp />} />
+            <Route path="essay-writing" element={<EssayWriting />} />
+            <Route path="homework-help" element={<HomeworkHelp />} />
+            <Route path="lab-report" element={<LabReport />} />
+            <Route path="narrative-essay" element={<NarrativeEssay />} />
+            <Route path="physics-assignment-help" element={<PhysicsAssignmentHelp />} />
+            <Route path="programming-help" element={<ProgrammingHelp />} />
+            <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
+            <Route path="research-proposal" element={<ResearchProposal />} />
+            <Route path="scholarship-essay" element={<ScholarshipEssay />} />
+            <Route path="term-paper" element={<TermPaper />} />
+            <Route path="thesis-writing" element={<ThesisWriting />} />
 
             {/* Dynamic service route - fallback for any service slugs not covered above */}
-            <Route path="services/:slug" element={<DynamicServicePage />} />
-
-            {/* REMOVED OLD INDIVIDUAL SERVICE ROUTES */}
-            {/* No longer needed: */}
-            {/* <Route path="services/admission-essay" element={<AdmissionEssay />} /> */}
-            {/* <Route path="services/argumentative-essay" element={<ArgumentativeEssay />} /> */}
-            {/* ... and all other individual service routes ... */}
+            {/* Temporarily disabled to fix routing conflicts */}
+            {/* <Route path=":slug" element={<DynamicServicePage />} /> */}
 
             <Route path="samples" element={<Samples />} />
             <Route path="reviews" element={<Reviews />} />

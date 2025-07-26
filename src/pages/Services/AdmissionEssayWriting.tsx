@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup, linkWithCredential, EmailAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, linkWithCredential, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -503,7 +503,7 @@ export default function AdmissionEssayWriting() {
           }
           try {
             // Sign in with email/password
-            const userCredential = await auth.signInWithEmailAndPassword(email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             // Link Google credential
             await linkWithCredential(userCredential.user, pendingCred);
             alert('Your Google account has been linked! You can now sign in with either method.');

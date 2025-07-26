@@ -11,11 +11,14 @@ import {
   RefreshCw,
   Headphones,
   Download,
-  DollarSign
+  DollarSign,
+  BookOpen,
+  Search,
+  FileCheck,
+  ScrollText
 } from 'lucide-react';
 import HeroSection from '../components/Hero/HeroSection';
-import { useState } from 'react';
-import TestimonialsSection from '../components/Testimonials/TestimonialsSection';
+import { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation, faCheck } from '@fortawesome/free-solid-svg-icons';
 
@@ -31,7 +34,7 @@ function ConcernsSolutionsBlock() {
           <p>Students Helped</p>
         </div>
         <div className="stat-item">
-          <h2>PhD & Master’s</h2>
+          <h2>PhD & Master's</h2>
           <p>Level Writers Onboard</p>
         </div>
         <div className="stat-item">
@@ -57,22 +60,22 @@ function ConcernsSolutionsBlock() {
         <div className="content-panel">
           <div className={`tab-content${activeTab === 'concerns' ? ' active' : ''}`} id="concerns">
             <ul>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I'm staring at a blank page. How do I even start my college essay?"</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"My essay sounds generic. How can I make my application stand out?"</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I'm worried my grammar and structure aren't strong enough for top universities."</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"My student is a great kid, but they struggle to write about themselves."</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I have no time to help with essays between work, school, and deadlines."</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I'm overwhelmed by conflicting advice online about what admissions officers want."</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I'm staring at a blank page. How do I even start my assignment or project?"</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"My work sounds generic. How can I make my submission stand out?"</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I'm worried my grammar, structure, or technical accuracy aren't strong enough for top grades."</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"My student is bright, but struggles to write or code about themselves or their topic."</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I have no time to help with assignments between work, school, and deadlines."</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I'm overwhelmed by conflicting advice online about what professors or instructors want."</p></li>
             </ul>
           </div>
           <div className={`tab-content${activeTab === 'solutions' ? ' active' : ''}`} id="solutions">
             <ul>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Strategic Brainstorming:</strong> We help you discover a unique personal story that captures your strengths.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Compelling Narrative Structure:</strong> Our experts guide you in outlining and writing an essay that flows perfectly.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Expert Editing & Polishing:</strong> Meticulous proofreading for grammar, style, and clarity to ensure your essay is flawless.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>A Thematic Approach:</strong> We develop a unique brand to help your application stand out from thousands of others.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>1-on-1 Personalized Guidance:</strong> A dedicated mentor provides a structured roadmap to keep you on track and confident.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Empowering Your Authentic Voice:</strong> We empower you to write your best, most authentic essay.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Strategic Brainstorming:</strong> We help you discover a unique approach for any academic project—essays, research, programming, and more.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Compelling Structure & Technical Guidance:</strong> Our experts guide you in outlining, writing, or coding assignments that flow perfectly and meet academic standards.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Expert Editing & Polishing:</strong> Meticulous proofreading for grammar, style, clarity, and technical accuracy to ensure your work is flawless.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>A Thematic & Analytical Approach:</strong> We help you develop a unique academic voice and analytical rigor for any subject or discipline.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>1-on-1 Personalized Guidance:</strong> A dedicated mentor provides a structured roadmap for any academic challenge, keeping you on track and confident.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Empowering Your Authentic Work:</strong> We empower you to submit your best, most authentic academic work—written or technical.</p></li>
             </ul>
           </div>
         </div>
@@ -224,6 +227,1234 @@ function ConcernsSolutionsBlock() {
   );
 }
 
+// Add CSS styles for WritersSection
+const writersStyles = `
+  .writer-card {
+    transition: all 0.5s ease-out;
+    cursor: grab;
+  }
+  
+  .writer-card:active {
+    cursor: grabbing;
+  }
+  
+  .writer-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+  
+  .stats-overlay {
+    opacity: 0;
+    transition: all 0.5s ease-out;
+    background: linear-gradient(135deg, hsla(0, 0%, 0%, 0.45) 0%, hsla(0, 0%, 0%, 0.35) 100%);
+    backdrop-filter: blur(1px);
+  }
+  
+  .writer-card:hover .stats-overlay {
+    opacity: 1;
+  }
+  
+  .writer-card:hover .base-content {
+    opacity: 0;
+  }
+  
+  .base-content {
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .scroll-container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+    scroll-behavior: auto;
+  }
+  
+  .scroll-container:active {
+    cursor: grabbing;
+  }
+  
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .drag-scroll {
+    user-select: none;
+  }
+`;
+
+// Reviews Section Interfaces and Components
+interface ReviewData {
+  id: string;
+  customerName: string;
+  customerId: string;
+  rating: number;
+  reviewText: string;
+  date: string;
+  workType: string;
+}
+
+interface Platform {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  color: string;
+}
+
+// Platform configurations matching the exact design
+const platforms: Platform[] = [
+  {
+    id: "google",
+    name: "Google",
+    icon: (
+      <svg width="16" height="16" viewBox="-3 0 262 262" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+        <path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4"/>
+        <path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853"/>
+        <path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05"/>
+        <path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EB4335"/>
+      </svg>
+    ),
+    color: "text-blue-600"
+  },
+  {
+    id: "sitejabber", 
+    name: "Sitejabber",
+    icon: (
+      <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="6" fill="currentColor"/>
+        <path d="M8 5l1 2h2l-1.5 1.5L10.5 11 8 9.5 5.5 11l1-2.5L5 7h2L8 5z" fill="white"/>
+      </svg>
+    ),
+    color: "text-orange-500"
+  },
+  {
+    id: "trustpilot",
+    name: "TrustPilot", 
+    icon: (
+      <svg viewBox="0 0 799.89 761" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+        <path d="M799.89 290.83H494.44L400.09 0l-94.64 290.83L0 290.54l247.37 179.92L152.72 761l247.37-179.63L647.16 761l-94.35-290.54z" fill="#00b67a"/>
+        <path d="M574.04 536.24l-21.23-65.78-152.72 110.91z" fill="#005128"/>
+      </svg>
+    ),
+    color: "text-green-600"
+  }
+];
+
+// Reviews data for each platform
+const reviewsData = {
+  google: [
+    {
+      id: "1",
+      customerName: "Sarah M.",
+      customerId: "679646",
+      rating: 5,
+      reviewText: "I was struggling with my research paper deadline and these guys saved me. The writer really understood my topic and delivered exactly what I needed. Will definitely use again!",
+      date: "Jan 15, 2025",
+      workType: "Research Paper"
+    },
+    {
+      id: "2", 
+      customerName: "Michael T.",
+      customerId: "1808319",
+      rating: 5,
+      reviewText: "Amazing service! My essay was well-researched and perfectly formatted. The writer even included additional sources I hadn't thought of. Highly recommend!",
+      date: "Dec 28, 2024",
+      workType: "Essay"
+    },
+    {
+      id: "3",
+      customerName: "Jennifer L.", 
+      customerId: "1146736",
+      rating: 4,
+      reviewText: "Good quality work, delivered on time. Had to request one small revision but the writer was very responsive and fixed it quickly.",
+      date: "Dec 15, 2024",
+      workType: "Case Study"
+    },
+    {
+      id: "4",
+      customerName: "David R.",
+      customerId: "954836",
+      rating: 5,
+      reviewText: "Outstanding service! The writer went above and beyond with my dissertation chapter. The analysis was thorough and the writing was professional.",
+      date: "Nov 30, 2024", 
+      workType: "Dissertation Chapter"
+    },
+    {
+      id: "5",
+      customerName: "Emily K.",
+      customerId: "401493",
+      rating: 5,
+      reviewText: "Fast delivery and excellent quality. The writer clearly understood the assignment requirements and delivered exactly what I asked for.",
+      date: "Nov 22, 2024",
+      workType: "Term Paper"
+    },
+    {
+      id: "6",
+      customerName: "Robert P.",
+      customerId: "523891",
+      rating: 5,
+      reviewText: "I was skeptical at first but this service exceeded my expectations. The research was comprehensive and the arguments were well-structured.",
+      date: "Nov 10, 2024",
+      workType: "Argumentative Essay"
+    },
+    {
+      id: "7",
+      customerName: "Lisa W.",
+      customerId: "892456",
+      rating: 4,
+      reviewText: "Good work overall. The writer followed my instructions well and the paper was well-written. Would use again for future assignments.",
+      date: "Oct 28, 2024",
+      workType: "Literature Review"
+    },
+    {
+      id: "8",
+      customerName: "James H.",
+      customerId: "345672",
+      rating: 5,
+      reviewText: "Excellent service! The writer was knowledgeable about my subject and delivered a high-quality paper that helped me get an A.",
+      date: "Oct 15, 2024",
+      workType: "Analytical Essay"
+    },
+    {
+      id: "9",
+      customerName: "Amanda F.",
+      customerId: "789123",
+      rating: 5,
+      reviewText: "I'm so glad I found this service. The writer helped me with my thesis proposal and it was approved by my committee on the first try!",
+      date: "Oct 5, 2024",
+      workType: "Thesis Proposal"
+    },
+    {
+      id: "10",
+      customerName: "Thomas B.",
+      customerId: "456789",
+      rating: 4,
+      reviewText: "Solid work, delivered on time. The writer understood the assignment and provided good analysis. Minor formatting issues but overall satisfied.",
+      date: "Sep 20, 2024",
+      workType: "Book Review"
+    },
+    {
+      id: "11",
+      customerName: "Rachel G.",
+      customerId: "234567",
+      rating: 5,
+      reviewText: "Fantastic service! The writer was professional and delivered exactly what I needed. The paper was well-researched and properly cited.",
+      date: "Sep 8, 2024",
+      workType: "Research Proposal"
+    },
+    {
+      id: "12",
+      customerName: "Kevin M.",
+      customerId: "876543",
+      rating: 5,
+      reviewText: "I was struggling with my assignment and these guys really helped me out. The quality was excellent and the price was reasonable.",
+      date: "Aug 25, 2024",
+      workType: "Coursework"
+    },
+    {
+      id: "13",
+      customerName: "Nicole S.",
+      customerId: "654321",
+      rating: 4,
+      reviewText: "Good experience overall. The writer delivered on time and the work was of good quality. Would recommend to others.",
+      date: "Aug 12, 2024",
+      workType: "Lab Report"
+    },
+    {
+      id: "14",
+      customerName: "Christopher L.",
+      customerId: "987654",
+      rating: 5,
+      reviewText: "Outstanding quality and service! The writer was very professional and the paper exceeded my expectations. Will definitely use again.",
+      date: "Jul 30, 2024",
+      workType: "Critical Analysis"
+    },
+    {
+      id: "15",
+      customerName: "Melissa R.",
+      customerId: "123456",
+      rating: 5,
+      reviewText: "Excellent work! The writer really understood my topic and delivered a comprehensive analysis. Highly satisfied with the service.",
+      date: "Jul 18, 2024",
+      workType: "Comparative Essay"
+    },
+    {
+      id: "16",
+      customerName: "Daniel K.",
+      customerId: "567890",
+      rating: 4,
+      reviewText: "Good service, delivered on time. The writer followed my instructions and the work was well-done. Would use again.",
+      date: "Jul 5, 2024",
+      workType: "Reflection Paper"
+    },
+    {
+      id: "17",
+      customerName: "Stephanie W.",
+      customerId: "345678",
+      rating: 5,
+      reviewText: "Amazing quality! The writer was very knowledgeable and delivered exactly what I needed. The paper was well-researched and well-written.",
+      date: "Jun 22, 2024",
+      workType: "Position Paper"
+    },
+    {
+      id: "18",
+      customerName: "Andrew P.",
+      customerId: "789012",
+      rating: 5,
+      reviewText: "Great service! The writer was professional and the work was delivered on time. The quality exceeded my expectations.",
+      date: "Jun 10, 2024",
+      workType: "Discussion Post"
+    },
+    {
+      id: "19",
+      customerName: "Jessica T.",
+      customerId: "456123",
+      rating: 4,
+      reviewText: "Good experience overall. The writer understood the assignment and delivered quality work. Would recommend.",
+      date: "May 28, 2024",
+      workType: "Response Paper"
+    },
+    {
+      id: "20",
+      customerName: "Matthew S.",
+      customerId: "890123",
+      rating: 5,
+      reviewText: "Excellent service! The writer was very professional and delivered high-quality work. Will definitely use again for future assignments.",
+      date: "May 15, 2024",
+      workType: "Annotated Bibliography"
+    },
+    {
+      id: "21",
+      customerName: "Lauren M.",
+      customerId: "234890",
+      rating: 5,
+      reviewText: "Outstanding work! The writer really helped me understand the topic and delivered a comprehensive paper. Highly satisfied!",
+      date: "May 3, 2024",
+      workType: "Literature Analysis"
+    },
+    {
+      id: "22",
+      customerName: "Ryan B.",
+      customerId: "678901",
+      rating: 4,
+      reviewText: "Good quality work, delivered on time. The writer followed my instructions well and the paper was well-structured.",
+      date: "Apr 20, 2024",
+      workType: "Argumentative Essay"
+    },
+    {
+      id: "23",
+      customerName: "Ashley L.",
+      customerId: "345901",
+      rating: 5,
+      reviewText: "Fantastic service! The writer was very knowledgeable and delivered exactly what I needed. The quality was excellent.",
+      date: "Apr 8, 2024",
+      workType: "Research Summary"
+    },
+    {
+      id: "24",
+      customerName: "Brandon K.",
+      customerId: "789234",
+      rating: 5,
+      reviewText: "Great experience! The writer was professional and the work was delivered on time. The quality exceeded my expectations.",
+      date: "Mar 25, 2024",
+      workType: "Critical Review"
+    },
+    {
+      id: "25",
+      customerName: "Victoria R.",
+      customerId: "456789",
+      rating: 4,
+      reviewText: "Good work overall. The writer understood the assignment and delivered quality work. Would use again for future assignments.",
+      date: "Mar 12, 2024",
+      workType: "Essay Analysis"
+    }
+  ],
+  sitejabber: [
+    {
+      id: "26",
+      customerName: "Alex M.",
+      customerId: "745821",
+      rating: 5,
+      reviewText: "Excellent service and quick turnaround. The quality exceeded my expectations and the writer was very professional throughout the process.",
+      date: "Jan 20, 2025",
+      workType: "Research Paper"
+    },
+    {
+      id: "27",
+      customerName: "Samantha K.", 
+      customerId: "892304",
+      rating: 4,
+      reviewText: "Good work overall. Minor revisions needed but writer was responsive and fixed everything quickly. Satisfied with the final result.",
+      date: "Jan 8, 2025",
+      workType: "Case Study"
+    },
+    {
+      id: "28",
+      customerName: "Marcus T.",
+      customerId: "567123",
+      rating: 5,
+      reviewText: "Outstanding quality! The writer really understood my topic and delivered a comprehensive analysis. Will definitely use again.",
+      date: "Dec 30, 2024",
+      workType: "Dissertation Chapter"
+    },
+    {
+      id: "29",
+      customerName: "Hannah P.",
+      customerId: "234567",
+      rating: 5,
+      reviewText: "Amazing service! The writer was very knowledgeable and delivered exactly what I needed. The paper was well-researched and properly formatted.",
+      date: "Dec 18, 2024",
+      workType: "Literature Review"
+    },
+    {
+      id: "30",
+      customerName: "Jordan L.",
+      customerId: "789456",
+      rating: 4,
+      reviewText: "Good experience overall. The writer followed my instructions well and delivered quality work on time. Would recommend.",
+      date: "Dec 5, 2024",
+      workType: "Term Paper"
+    },
+    {
+      id: "31",
+      customerName: "Taylor R.",
+      customerId: "345678",
+      rating: 5,
+      reviewText: "Excellent work! The writer was professional and the quality exceeded my expectations. The paper was well-structured and well-written.",
+      date: "Nov 22, 2024",
+      workType: "Analytical Essay"
+    },
+    {
+      id: "32",
+      customerName: "Morgan S.",
+      customerId: "901234",
+      rating: 5,
+      reviewText: "Fantastic service! The writer really helped me understand the topic and delivered a comprehensive paper. Highly satisfied!",
+      date: "Nov 10, 2024",
+      workType: "Critical Analysis"
+    },
+    {
+      id: "33",
+      customerName: "Casey W.",
+      customerId: "567890",
+      rating: 4,
+      reviewText: "Good quality work, delivered on time. The writer understood the assignment and provided good analysis. Minor issues but overall satisfied.",
+      date: "Oct 28, 2024",
+      workType: "Book Review"
+    },
+    {
+      id: "34",
+      customerName: "Riley M.",
+      customerId: "123789",
+      rating: 5,
+      reviewText: "Outstanding service! The writer was very knowledgeable and delivered exactly what I needed. The research was comprehensive.",
+      date: "Oct 15, 2024",
+      workType: "Research Proposal"
+    },
+    {
+      id: "35",
+      customerName: "Quinn B.",
+      customerId: "456123",
+      rating: 5,
+      reviewText: "Great experience! The writer was professional and the work was delivered on time. The quality exceeded my expectations.",
+      date: "Oct 3, 2024",
+      workType: "Coursework"
+    },
+    {
+      id: "36",
+      customerName: "Avery K.",
+      customerId: "789012",
+      rating: 4,
+      reviewText: "Good work overall. The writer followed my instructions and delivered quality work. Would use again for future assignments.",
+      date: "Sep 20, 2024",
+      workType: "Lab Report"
+    },
+    {
+      id: "37",
+      customerName: "Parker L.",
+      customerId: "234901",
+      rating: 5,
+      reviewText: "Excellent quality! The writer really understood my topic and delivered a comprehensive analysis. Will definitely use again.",
+      date: "Sep 8, 2024",
+      workType: "Discussion Post"
+    },
+    {
+      id: "38",
+      customerName: "Drew R.",
+      customerId: "678345",
+      rating: 5,
+      reviewText: "Amazing service! The writer was very professional and delivered exactly what I needed. The paper was well-researched.",
+      date: "Aug 25, 2024",
+      workType: "Response Paper"
+    },
+    {
+      id: "39",
+      customerName: "Blake S.",
+      customerId: "901567",
+      rating: 4,
+      reviewText: "Good experience overall. The writer understood the assignment and delivered quality work on time. Would recommend.",
+      date: "Aug 12, 2024",
+      workType: "Position Paper"
+    },
+    {
+      id: "40",
+      customerName: "Cameron T.",
+      customerId: "345123",
+      rating: 5,
+      reviewText: "Fantastic work! The writer was knowledgeable and the quality exceeded my expectations. The paper was well-structured.",
+      date: "Jul 30, 2024",
+      workType: "Comparative Essay"
+    },
+    {
+      id: "41",
+      customerName: "Dakota M.",
+      customerId: "567234",
+      rating: 5,
+      reviewText: "Excellent service! The writer really helped me understand the topic and delivered a comprehensive paper. Highly satisfied!",
+      date: "Jul 18, 2024",
+      workType: "Reflection Paper"
+    },
+    {
+      id: "42",
+      customerName: "Emery L.",
+      customerId: "789345",
+      rating: 4,
+      reviewText: "Good quality work, delivered on time. The writer followed my instructions well and provided good analysis.",
+      date: "Jul 5, 2024",
+      workType: "Annotated Bibliography"
+    },
+    {
+      id: "43",
+      customerName: "Finley R.",
+      customerId: "123456",
+      rating: 5,
+      reviewText: "Outstanding quality! The writer was very professional and delivered exactly what I needed. Will definitely use again.",
+      date: "Jun 22, 2024",
+      workType: "Literature Analysis"
+    },
+    {
+      id: "44",
+      customerName: "Gray S.",
+      customerId: "456789",
+      rating: 5,
+      reviewText: "Great experience! The writer was knowledgeable and the work was delivered on time. The quality exceeded my expectations.",
+      date: "Jun 10, 2024",
+      workType: "Critical Review"
+    },
+    {
+      id: "45",
+      customerName: "Hayden W.",
+      customerId: "789123",
+      rating: 4,
+      reviewText: "Good work overall. The writer understood the assignment and delivered quality work. Would use again for future assignments.",
+      date: "May 28, 2024",
+      workType: "Essay Analysis"
+    },
+    {
+      id: "46",
+      customerName: "Indigo M.",
+      customerId: "234567",
+      rating: 5,
+      reviewText: "Excellent service! The writer was very knowledgeable and delivered a comprehensive analysis. Highly satisfied!",
+      date: "May 15, 2024",
+      workType: "Research Summary"
+    },
+    {
+      id: "47",
+      customerName: "Jules L.",
+      customerId: "567890",
+      rating: 5,
+      reviewText: "Amazing quality! The writer really understood my topic and delivered exactly what I needed. The paper was well-researched.",
+      date: "May 3, 2024",
+      workType: "Argumentative Essay"
+    },
+    {
+      id: "48",
+      customerName: "Kai R.",
+      customerId: "901234",
+      rating: 4,
+      reviewText: "Good experience overall. The writer followed my instructions and delivered quality work on time. Would recommend.",
+      date: "Apr 20, 2024",
+      workType: "Case Study"
+    },
+    {
+      id: "49",
+      customerName: "Lane S.",
+      customerId: "345678",
+      rating: 5,
+      reviewText: "Fantastic work! The writer was professional and the quality exceeded my expectations. Will definitely use again.",
+      date: "Apr 8, 2024",
+      workType: "Term Paper"
+    },
+    {
+      id: "50",
+      customerName: "Nova T.",
+      customerId: "678901",
+      rating: 5,
+      reviewText: "Excellent service! The writer really helped me understand the topic and delivered a comprehensive paper. Highly satisfied!",
+      date: "Mar 25, 2024",
+      workType: "Dissertation Chapter"
+    }
+  ],
+  trustpilot: [
+    {
+      id: "51",
+      customerName: "Oliver M.",
+      customerId: "567890",
+      rating: 5,
+      reviewText: "Professional service with attention to detail. The writer was very knowledgeable and delivered exactly what I needed. Highly recommended!",
+      date: "Jan 25, 2025",
+      workType: "Thesis"
+    },
+    {
+      id: "52",
+      customerName: "Emma L.",
+      customerId: "234567", 
+      rating: 5,
+      reviewText: "Amazing quality and delivered on time. The writer really understood my topic and provided excellent analysis. Will use again!",
+      date: "Jan 12, 2025",
+      workType: "Assignment"
+    },
+    {
+      id: "53",
+      customerName: "William T.",
+      customerId: "789123",
+      rating: 4,
+      reviewText: "Good work overall. The writer followed my instructions well and delivered quality work. Minor revisions needed but quickly resolved.",
+      date: "Dec 30, 2024",
+      workType: "Research Paper"
+    },
+    {
+      id: "54",
+      customerName: "Sophia R.",
+      customerId: "456789",
+      rating: 5,
+      reviewText: "Outstanding service! The writer was very professional and the quality exceeded my expectations. The paper was well-researched.",
+      date: "Dec 18, 2024",
+      workType: "Literature Review"
+    },
+    {
+      id: "55",
+      customerName: "James K.",
+      customerId: "123456",
+      rating: 5,
+      reviewText: "Excellent work! The writer really understood my topic and delivered a comprehensive analysis. Highly satisfied with the service.",
+      date: "Dec 5, 2024",
+      workType: "Case Study"
+    },
+    {
+      id: "56",
+      customerName: "Isabella M.",
+      customerId: "678901",
+      rating: 4,
+      reviewText: "Good experience overall. The writer delivered on time and the work was of good quality. Would recommend to others.",
+      date: "Nov 22, 2024",
+      workType: "Analytical Essay"
+    },
+    {
+      id: "57",
+      customerName: "Benjamin S.",
+      customerId: "234567",
+      rating: 5,
+      reviewText: "Fantastic service! The writer was knowledgeable and delivered exactly what I needed. The quality was excellent.",
+      date: "Nov 10, 2024",
+      workType: "Critical Analysis"
+    },
+    {
+      id: "58",
+      customerName: "Mia W.",
+      customerId: "789012",
+      rating: 5,
+      reviewText: "Amazing quality! The writer really helped me understand the topic and delivered a comprehensive paper. Highly satisfied!",
+      date: "Oct 28, 2024",
+      workType: "Book Review"
+    },
+    {
+      id: "59",
+      customerName: "Lucas P.",
+      customerId: "345678",
+      rating: 4,
+      reviewText: "Good work overall. The writer understood the assignment and delivered quality work. Would use again for future assignments.",
+      date: "Oct 15, 2024",
+      workType: "Research Proposal"
+    },
+    {
+      id: "60",
+      customerName: "Charlotte L.",
+      customerId: "567890",
+      rating: 5,
+      reviewText: "Excellent service! The writer was very professional and delivered exactly what I needed. The research was comprehensive.",
+      date: "Oct 3, 2024",
+      workType: "Coursework"
+    },
+    {
+      id: "61",
+      customerName: "Mason R.",
+      customerId: "901234",
+      rating: 5,
+      reviewText: "Outstanding quality! The writer really understood my topic and delivered a comprehensive analysis. Will definitely use again.",
+      date: "Sep 20, 2024",
+      workType: "Lab Report"
+    },
+    {
+      id: "62",
+      customerName: "Amelia S.",
+      customerId: "456123",
+      rating: 4,
+      reviewText: "Good experience overall. The writer followed my instructions and delivered quality work on time. Would recommend.",
+      date: "Sep 8, 2024",
+      workType: "Discussion Post"
+    },
+    {
+      id: "63",
+      customerName: "Ethan T.",
+      customerId: "789345",
+      rating: 5,
+      reviewText: "Fantastic work! The writer was knowledgeable and the quality exceeded my expectations. The paper was well-structured.",
+      date: "Aug 25, 2024",
+      workType: "Response Paper"
+    },
+    {
+      id: "64",
+      customerName: "Harper M.",
+      customerId: "123789",
+      rating: 5,
+      reviewText: "Excellent service! The writer really helped me understand the topic and delivered a comprehensive paper. Highly satisfied!",
+      date: "Aug 12, 2024",
+      workType: "Position Paper"
+    },
+    {
+      id: "65",
+      customerName: "Alexander K.",
+      customerId: "567234",
+      rating: 4,
+      reviewText: "Good quality work, delivered on time. The writer understood the assignment and provided good analysis. Overall satisfied.",
+      date: "Jul 30, 2024",
+      workType: "Comparative Essay"
+    },
+    {
+      id: "66",
+      customerName: "Evelyn L.",
+      customerId: "901567",
+      rating: 5,
+      reviewText: "Amazing quality! The writer was very professional and delivered exactly what I needed. The paper was well-researched.",
+      date: "Jul 18, 2024",
+      workType: "Reflection Paper"
+    },
+    {
+      id: "67",
+      customerName: "Henry R.",
+      customerId: "345901",
+      rating: 5,
+      reviewText: "Outstanding service! The writer really understood my topic and delivered a comprehensive analysis. Will definitely use again.",
+      date: "Jul 5, 2024",
+      workType: "Annotated Bibliography"
+    },
+    {
+      id: "68",
+      customerName: "Abigail S.",
+      customerId: "678234",
+      rating: 4,
+      reviewText: "Good work overall. The writer followed my instructions well and delivered quality work. Would use again for future assignments.",
+      date: "Jun 22, 2024",
+      workType: "Literature Analysis"
+    },
+    {
+      id: "69",
+      customerName: "Sebastian W.",
+      customerId: "234890",
+      rating: 5,
+      reviewText: "Excellent quality! The writer was very knowledgeable and delivered exactly what I needed. The research was comprehensive.",
+      date: "Jun 10, 2024",
+      workType: "Critical Review"
+    },
+    {
+      id: "70",
+      customerName: "Emily T.",
+      customerId: "789012",
+      rating: 5,
+      reviewText: "Fantastic service! The writer really helped me understand the topic and delivered a comprehensive paper. Highly satisfied!",
+      date: "May 28, 2024",
+      workType: "Essay Analysis"
+    },
+    {
+      id: "71",
+      customerName: "Jack M.",
+      customerId: "456789",
+      rating: 4,
+      reviewText: "Good experience overall. The writer understood the assignment and delivered quality work on time. Would recommend.",
+      date: "May 15, 2024",
+      workType: "Research Summary"
+    },
+    {
+      id: "72",
+      customerName: "Elizabeth L.",
+      customerId: "123456",
+      rating: 5,
+      reviewText: "Amazing quality! The writer was professional and the quality exceeded my expectations. Will definitely use again.",
+      date: "May 3, 2024",
+      workType: "Argumentative Essay"
+    },
+    {
+      id: "73",
+      customerName: "Owen R.",
+      customerId: "567890",
+      rating: 5,
+      reviewText: "Excellent service! The writer was very professional and delivered exactly what I needed. The paper was well-structured.",
+      date: "Apr 20, 2024",
+      workType: "Case Study"
+    },
+    {
+      id: "74",
+      customerName: "Sofia S.",
+      customerId: "901234",
+      rating: 4,
+      reviewText: "Good work overall. The writer followed my instructions and delivered quality work. Would use again for future assignments.",
+      date: "Apr 8, 2024",
+      workType: "Term Paper"
+    },
+    {
+      id: "75",
+      customerName: "Daniel W.",
+      customerId: "345678",
+      rating: 5,
+      reviewText: "Outstanding quality! The writer really understood my topic and delivered a comprehensive analysis. Highly satisfied!",
+      date: "Mar 25, 2024",
+      workType: "Dissertation Chapter"
+    }
+  ]
+};
+
+// Star Rating Component
+const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
+  return (
+    <div className="flex items-center space-x-0.5 mb-2">
+      {[...Array(5)].map((_, i) => (
+        <Star
+          key={i}
+          className={`w-4 h-4 ${i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Review Card Component matching the exact design
+const ReviewCard: React.FC<{ review: ReviewData }> = ({ review }) => (
+  <div className="bg-white rounded-xl border border-gray-200 p-6 w-[280px] h-[200px] shadow-sm flex-shrink-0 flex flex-col">
+    {/* Work Type Header */}
+    <div className="text-gray-600 text-sm font-medium mb-3">
+      {review.workType}
+    </div>
+    
+    {/* Review Text - Fixed height with proper wrapping */}
+    <p className="text-gray-800 text-sm leading-relaxed mb-4 flex-1 overflow-hidden break-words hyphens-auto">
+      {review.reviewText}
+    </p>
+    
+    {/* Bottom Section - Fixed at bottom */}
+    <div className="mt-auto">
+      {/* Star Rating */}
+      <StarRating rating={review.rating} />
+      
+      {/* Customer Info */}
+      <div className="text-xs text-gray-500 space-y-1">
+        <div>Customer ID: {review.customerId}</div>
+        <div>{review.date}</div>
+      </div>
+    </div>
+  </div>
+);
+
+// Platform Tab Component
+const PlatformTab: React.FC<{ 
+  platform: Platform; 
+  isActive: boolean; 
+  onClick: () => void; 
+}> = ({ platform, isActive, onClick }) => (
+  <button
+    onClick={onClick}
+    className={`
+      flex items-center space-x-2 px-4 py-2 rounded-full border transition-all duration-200
+      ${isActive 
+        ? 'bg-primary-500 text-white border-primary-500 shadow-sm' 
+        : 'bg-transparent border-gray-200 text-gray-600 hover:bg-gray-50'
+      }
+    `}
+  >
+    <span className={isActive ? 'text-white' : platform.color}>
+      {platform.icon}
+    </span>
+    <span className={`text-sm font-medium ${isActive ? 'text-white' : 'text-gray-600'}`}>
+      {platform.name}
+    </span>
+  </button>
+);
+
+// Writers Section Interfaces and Components
+interface WriterStats {
+  finishOnTime: number;
+  lastReviews: number;
+  successRate: number;
+  repeatHire: number;
+}
+
+interface Writer {
+  id: string;
+  name: string;
+  degree: string;
+  rating: number;
+  subjects: string[];
+  imageUrl: string;
+  stats: WriterStats;
+}
+
+const writers: Writer[] = [
+  {
+    id: '1',
+    name: 'Connor Beatty',
+    degree: "Master's degree",
+    rating: 5.0,
+    subjects: ['Business', 'Economics'],
+    imageUrl: '/images/writers/Connor-Beatty-Writer.jpg',
+    stats: { finishOnTime: 98, lastReviews: 52, successRate: 99, repeatHire: 67 }
+  },
+  {
+    id: '2',
+    name: 'David Berlin',
+    degree: "PhD degree",
+    rating: 4.9,
+    subjects: ['Computer Science', 'Engineering'],
+    imageUrl: '/images/writers/David-Berlin-Writer.jpg',
+    stats: { finishOnTime: 97, lastReviews: 48, successRate: 98, repeatHire: 72 }
+  },
+  {
+    id: '3',
+    name: 'Brett Fuller',
+    degree: "Master's degree",
+    rating: 4.8,
+    subjects: ['Healthcare', 'Biology'],
+    imageUrl: '/images/writers/Brett-Fuller-Writer.jpg',
+    stats: { finishOnTime: 96, lastReviews: 45, successRate: 97, repeatHire: 61 }
+  },
+  {
+    id: '4',
+    name: 'Jenifer Moralez',
+    degree: "Master's degree",
+    rating: 5.0,
+    subjects: ['Psychology', 'Sociology'],
+    imageUrl: '/images/writers/Jenifer-Moralez-Writer.webp',
+    stats: { finishOnTime: 99, lastReviews: 54, successRate: 100, repeatHire: 75 }
+  },
+  {
+    id: '5',
+    name: 'Lauren Miller',
+    degree: "Master's degree",
+    rating: 4.9,
+    subjects: ['Literature', 'History'],
+    imageUrl: '/images/writers/Lauren-Miller-Writer.jpg',
+    stats: { finishOnTime: 97, lastReviews: 49, successRate: 98, repeatHire: 68 }
+  },
+  {
+    id: '6',
+    name: 'Sarah Massari',
+    degree: "PhD degree",
+    rating: 5.0,
+    subjects: ['Education', 'Research'],
+    imageUrl: '/images/writers/Sarah-Massari-Writer.jpg',
+    stats: { finishOnTime: 98, lastReviews: 51, successRate: 99, repeatHire: 73 }
+  }
+];
+
+const WriterCard = ({ writer }: { writer: Writer }) => {
+  return (
+    <div className="writer-card flex-none w-80 bg-white rounded-xl shadow-md hover:shadow-2xl relative overflow-hidden">
+      <img 
+        src={writer.imageUrl}
+        alt={`${writer.name} - ${writer.degree} writer`}
+        className="w-full h-80 object-cover"
+      />
+      
+      {/* Base Content */}
+      <div className="base-content absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-5 text-white">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-lg font-medium">{writer.name}</h3>
+          <div className="flex items-center gap-1">
+            <Star className="w-3.5 h-3.5 fill-primary-500 text-primary-500" />
+            <span className="text-sm font-medium">{writer.rating}</span>
+          </div>
+        </div>
+        <p className="text-gray-300 text-xs mb-2 font-light">{writer.degree}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {writer.subjects.map((subject, index) => (
+            <span 
+              key={index}
+              className="bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-md text-xs font-light"
+            >
+              {subject}
+            </span>
+          ))}
+        </div>
+      </div>
+      
+      {/* Stats Overlay */}
+      <div className="stats-overlay absolute inset-0 flex flex-col justify-end p-4 text-white">
+        {/* Writer info at bottom */}
+        <div className="mb-3">
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="text-lg font-medium">{writer.name}</h3>
+            <div className="flex items-center gap-1">
+              <Star className="w-3.5 h-3.5 fill-primary-500 text-primary-500" />
+              <span className="text-sm font-medium">{writer.rating}</span>
+            </div>
+          </div>
+          <p className="text-gray-300 text-xs mb-2 font-light">{writer.degree}</p>
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {writer.subjects.map((subject, index) => (
+              <span 
+                key={index}
+                className="bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-md text-xs font-light"
+              >
+                {subject}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <div className="text-sm font-medium text-white mb-0.5">{writer.stats.finishOnTime}%</div>
+            <div className="text-xs text-gray-300 font-light">Finish on time</div>
+          </div>
+          <div>
+            <div className="flex items-center gap-1 mb-0.5">
+              <Star className="w-3 h-3 fill-primary-500 text-primary-500" />
+              <span className="text-sm font-medium text-white">{writer.rating}</span>
+            </div>
+            <div className="text-xs text-gray-300 font-light">Last {writer.stats.lastReviews} reviews</div>
+          </div>
+          <div>
+            <div className="text-sm font-medium text-white mb-0.5">{writer.stats.successRate}%</div>
+            <div className="text-xs text-gray-300 font-light">Success</div>
+          </div>
+          <div>
+            <div className="text-sm font-medium text-white mb-0.5">{writer.stats.repeatHire}%</div>
+            <div className="text-xs text-gray-300 font-light">Repeat hire rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const WritersSection: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Mouse wheel horizontal scrolling support
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        container.scrollLeft += e.deltaY * 0.8;
+      }
+    };
+
+    // Mouse drag scrolling
+    const handleMouseDown = (e: MouseEvent) => {
+      setIsDragging(true);
+      setStartX(e.pageX - container.offsetLeft);
+      setScrollLeft(container.scrollLeft);
+      container.style.cursor = 'grabbing';
+    };
+
+    const handleMouseLeave = () => {
+      setIsDragging(false);
+      container.style.cursor = 'grab';
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      container.style.cursor = 'grab';
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 1.2;
+      container.scrollLeft = scrollLeft - walk;
+    };
+
+    // Touch/swipe support for mobile devices
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isScrolling = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isScrolling = false;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isScrolling) {
+        const deltaX = e.touches[0].clientX - touchStartX;
+        const deltaY = e.touches[0].clientY - touchStartY;
+        
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          isScrolling = true;
+          e.preventDefault();
+        }
+      }
+      
+      if (isScrolling) {
+        const deltaX = touchStartX - e.touches[0].clientX;
+        container.scrollLeft += deltaX * 0.3;
+        touchStartX = e.touches[0].clientX;
+      }
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    container.addEventListener('mousedown', handleMouseDown);
+    container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('mouseup', handleMouseUp);
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('touchstart', handleTouchStart);
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener('mousedown', handleMouseDown);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('mouseup', handleMouseUp);
+      container.removeEventListener('mousemove', handleMouseMove);
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [isDragging, startX, scrollLeft]);
+
+  return (
+    <section className="py-16 px-4 bg-gray-50">
+      <style>{writersStyles}</style>
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-3">
+            Our team of <span className="text-primary-500">academic writers</span>
+          </h2>
+          <p className="text-gray-600 text-base max-w-2xl mx-auto font-light">
+            Top-rated academic writers for essays, research, programming, and more. Real experts. Real results.
+          </p>
+        </div>
+
+        {/* Writers Container */}
+        <div className="relative">
+          <div 
+            ref={containerRef}
+            className="flex gap-6 overflow-x-auto scroll-container pb-6 drag-scroll"
+          >
+            {writers.map((writer) => (
+              <WriterCard key={writer.id} writer={writer} />
+            ))}
+          </div>
+        </div>
+
+        {/* View All Writers Button */}
+        <div className="text-center mt-16">
+          <Link 
+            to="/writers"
+            className="bg-white text-gray-600 border border-gray-200 px-6 py-2.5 rounded-lg font-light hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 transition-all duration-300 shadow-sm hover:shadow-md text-sm"
+          >
+            View all writers
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Main Reviews Section Component
+const ReviewsSection: React.FC = () => {
+  const [activePlatform, setActivePlatform] = useState<string>("google");
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  // Auto-scroll effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setScrollPosition(prev => prev + 1);
+    }, 30); // Smooth scroll speed
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentReviews = reviewsData[activePlatform as keyof typeof reviewsData] || [];
+  
+  // Duplicate reviews for infinite scroll effect
+  const infiniteReviews = [...currentReviews, ...currentReviews, ...currentReviews];
+
+  return (
+    <section className="py-20 bg-gradient-to-br from-blue-50/30 via-purple-50/20 to-blue-50/30 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header Section - exactly as in image */}
+        <div className="text-center mb-12">
+          <div className="inline-block bg-primary-100 text-primary-500 px-3 py-1 rounded-full text-xs font-medium mb-6">
+            Reviews 🔥
+          </div>
+          
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4 leading-tight">
+            Honest feedback about 
+            <span className="block text-gray-700">
+              EssayEmbassy
+            </span>
+          </h2>
+          
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+            See what real students say about our academic writing, research, and technical assignment help. Your next top grade starts here!
+          </p>
+        </div>
+
+        {/* Platform Tabs Row - exactly as in image */}
+        <div className="flex justify-center space-x-4 mb-12">
+          {platforms.map((platform) => (
+            <PlatformTab
+              key={platform.id}
+              platform={platform}
+              isActive={activePlatform === platform.id}
+              onClick={() => setActivePlatform(platform.id)}
+            />
+          ))}
+        </div>
+
+        {/* Infinite Scrolling Reviews Container */}
+        <div className="relative overflow-hidden">
+          <div 
+            className="flex space-x-6 transition-transform duration-100 ease-linear"
+            style={{ 
+              transform: `translateX(-${scrollPosition % (304 * currentReviews.length)}px)`,
+              width: `${infiniteReviews.length * 304}px`
+            }}
+          >
+            {infiniteReviews.map((review, index) => (
+              <ReviewCard 
+                key={`${review.id}-${index}`} 
+                review={review} 
+              />
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+};
+
 export default function Home() {
   // Remove unused animated stats state and useEffect
   /*
@@ -304,44 +1535,6 @@ export default function Home() {
       icon: CheckCircle,
       title: "Plagiarism-Free Guarantee",
       description: "Original content with detailed plagiarism reports"
-    }
-  ];
-
-  const services = [
-    {
-      title: "Essay Writing",
-      description: "Custom essays for all academic levels and subjects",
-      features: ["Any citation style", "Original content", "Expert writers"],
-      image: "https://images.pexels.com/photos/261763/pexels-photo-261763.jpeg?auto=compress&cs=tinysrgb&w=600",
-      link: "/services/essay-writing"
-    },
-    {
-      title: "Assignment Help",
-      description: "Comprehensive assistance with various assignments",
-      features: ["All subjects", "Step-by-step solutions", "Detailed explanations"],
-      image: "https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg?auto=compress&cs=tinysrgb&w=600",
-      link: "/services/assignment-help"
-    },
-    {
-      title: "Homework Help",
-      description: "Quick and reliable homework assistance",
-      features: ["Fast turnaround", "Affordable pricing", "Quality guaranteed"],
-      image: "https://images.pexels.com/photos/159832/books-book-pages-read-literature-159832.jpeg?auto=compress&cs=tinysrgb&w=600",
-      link: "/services/homework-help"
-    },
-    {
-      title: "Dissertation Writing",
-      description: "Professional dissertation and thesis writing",
-      features: ["PhD writers", "Research included", "Chapter-wise delivery"],
-      image: "https://images.pexels.com/photos/159844/pencil-office-design-creative-159844.jpeg?auto=compress&cs=tinysrgb&w=600",
-      link: "/services/dissertation-writing"
-    },
-    {
-      title: "Research Paper Writing",
-      description: "In-depth research papers with proper citations",
-      features: ["Extensive research", "Proper formatting", "Quality sources"],
-      image: "https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=600",
-      link: "/services/research-paper-writing"
     }
   ];
 
@@ -491,74 +1684,160 @@ export default function Home() {
       </section>
 
       {/* Popular Services */}
-      <section className="py-12 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-slate-200 dark:border-gray-700 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
-        <div className="container relative z-10">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              <span className="text-primary-500">Popular</span> Services
+      <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-200 rounded-full opacity-10 animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-200 rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/4 w-20 h-20 bg-emerald-200 rounded-full opacity-10 animate-pulse" style={{ animationDelay: '2s' }} />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Section header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
+              <GraduationCap className="w-8 h-8 text-primary-500" />
+            </div>
+            
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              Our Academic Writing
+              <span className="block text-primary-500">
+                Services
+              </span>
             </h2>
-            <div className="w-16 h-1 bg-primary-500 mx-auto mb-2"></div>
-            <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-normal">
-              Comprehensive academic writing solutions for all your educational needs.
+            
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Comprehensive academic support across all disciplines with expert writers, 
+              guaranteed quality, and timely delivery for your educational success.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {services.slice(0, 5).map((service, index) => (
-              <div
-                key={index}
-                className="group bg-white/90 dark:bg-gray-800/90 rounded-xl p-0 shadow border border-slate-100 dark:border-gray-700 hover:shadow-md transition-all duration-300 hover:scale-[1.02] flex flex-col overflow-hidden animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="relative h-36 w-full overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <span className="absolute top-4 left-4 bg-primary-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">{service.title}</span>
+          {/* Services grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Essay Writing Services",
+                description: "Professional essay writing with original content, proper citations, and guaranteed quality for all academic levels.",
+                icon: FileText,
+                features: ["Original Content", "Proper Citations", "All Academic Levels"],
+                buttonText: "Order Essay",
+                href: "/services/essay-writing",
+                gradient: "from-blue-500 to-indigo-600",
+                iconBg: "bg-blue-50 text-blue-600"
+              },
+              {
+                title: "Assignment Help",
+                description: "Expert assistance with assignments across all subjects, ensuring timely delivery and academic excellence.",
+                icon: BookOpen,
+                features: ["All Subjects", "Timely Delivery", "Expert Writers"],
+                buttonText: "Get Help",
+                href: "/services/assignment-help",
+                gradient: "from-emerald-500 to-teal-600",
+                iconBg: "bg-emerald-50 text-emerald-600"
+              },
+              {
+                title: "Homework Help",
+                description: "Comprehensive homework support with step-by-step solutions and detailed explanations for better understanding.",
+                icon: GraduationCap,
+                features: ["Step-by-Step Solutions", "Detailed Explanations", "Quick Turnaround"],
+                buttonText: "Start Now",
+                href: "/services/homework-help",
+                gradient: "from-purple-500 to-violet-600",
+                iconBg: "bg-purple-50 text-purple-600"
+              },
+              {
+                title: "Research Paper Help",
+                description: "In-depth research papers with comprehensive analysis, credible sources, and academic formatting standards.",
+                icon: Search,
+                features: ["Comprehensive Analysis", "Credible Sources", "Academic Formatting"],
+                buttonText: "Order Research",
+                href: "/services/research-paper-writing",
+                gradient: "from-orange-500 to-red-600",
+                iconBg: "bg-orange-50 text-orange-600"
+              },
+              {
+                title: "Thesis Writing Help",
+                description: "Professional thesis writing support with extensive research, proper methodology, and academic rigor.",
+                icon: FileCheck,
+                features: ["Extensive Research", "Proper Methodology", "Academic Rigor"],
+                buttonText: "Get Started",
+                href: "/services/thesis-writing",
+                gradient: "from-pink-500 to-rose-600",
+                iconBg: "bg-pink-50 text-pink-600"
+              },
+              {
+                title: "Dissertation Writing Help",
+                description: "Complete dissertation support from proposal to defense with expert guidance and comprehensive research.",
+                icon: ScrollText,
+                features: ["Proposal to Defense", "Expert Guidance", "Comprehensive Research"],
+                buttonText: "Begin Dissertation",
+                href: "/services/dissertation-writing",
+                gradient: "from-cyan-500 to-blue-600",
+                iconBg: "bg-cyan-50 text-cyan-600"
+              }
+            ].map((service) => {
+              const IconComponent = service.icon;
+              return (
+                <div
+                  key={service.title}
+                  className="group relative overflow-hidden bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 rounded-xl"
+                >
+                  {/* Gradient background overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                  
+                  {/* Animated border effect */}
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+                  
+                  <div className="relative p-8 h-full flex flex-col">
+                    {/* Icon and title section */}
+                    <div className="flex items-start space-x-4 mb-6">
+                      <div className={`flex-shrink-0 w-14 h-14 rounded-xl ${service.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                        <IconComponent className="w-7 h-7" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-800 transition-colors duration-300">
+                          {service.title}
+                        </h3>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-gray-600 mb-6 leading-relaxed text-sm">
+                      {service.description}
+                    </p>
+
+                    {/* Features list */}
+                    <div className="space-y-3 mb-8 flex-1">
+                      {service.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center space-x-3">
+                          <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                          <span className="text-sm text-gray-700 font-medium">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Action button */}
+                    <Link
+                      to={service.href}
+                      className={`w-full bg-gradient-to-r ${service.gradient} text-white border-0 hover:shadow-lg group-hover:shadow-xl transition-all duration-300 font-semibold py-3 relative overflow-hidden rounded-lg flex items-center justify-center space-x-2`}
+                    >
+                      <span className="relative z-10 flex items-center justify-center space-x-2">
+                        <span>{service.buttonText}</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      </span>
+                      
+                      {/* Button shine effect */}
+                      <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+                    </Link>
+                  </div>
                 </div>
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-1">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-3 flex-1 text-sm font-normal">{service.description}</p>
-                  <ul className="mb-3 space-y-1">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-xs text-gray-600 dark:text-gray-400">
-                        <CheckCircle size={14} className="text-primary-500 mr-2 flex-shrink-0" />
-                        <span className="text-gray-700 dark:text-gray-300">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    to={service.link}
-                    className="inline-flex items-center justify-center w-full px-4 py-2 border border-primary-500 text-primary-500 rounded-md font-medium hover:bg-primary-500 hover:text-white transition-all duration-200 group-hover:scale-105 text-sm"
-                  >
-                    Learn More
-                    <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          <div className="text-center mt-8">
-            <Link to="/services" className="inline-flex items-center px-5 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-md font-medium text-base transition-all duration-200 transform hover:scale-105 shadow">
-              View All Services
-              <ArrowRight size={16} className="ml-2" />
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Team of Essay Writers */}
-      {/* Removed EssayWritersSection component */}
-
-      {/* Insert Testimonials Section here */}
-      <TestimonialsSection />
+      {/* Custom Reviews Section */}
+      <ReviewsSection />
 
       {/* How It Works */}
       <section className="py-14 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
@@ -612,6 +1891,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Writers Section */}
+      <WritersSection />
 
       {/* Pricing Overview */}
       <section className="py-14 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
