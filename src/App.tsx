@@ -44,6 +44,10 @@ import LabReport from './pages/Services/LabReport';
 import NarrativeEssay from './pages/Services/NarrativeEssay';
 import PhysicsAssignmentHelp from './pages/Services/PhysicsAssignmentHelp';
 import ProgrammingHelp from './pages/Services/ProgrammingHelp';
+import PythonProgrammingHelp from './pages/Services/PythonProgrammingHelp';
+import JavaProgrammingHelp from './pages/Services/JavaProgrammingHelp';
+import JSProgrammingHelp from './pages/Services/JSProgrammingHelp';
+import CProgrammingHelp from './pages/Services/CProgrammingHelp';
 import ResearchPaperWriting from './pages/Services/ResearchPaperWriting';
 import ResearchProposal from './pages/Services/ResearchProposal';
 import ScholarshipEssay from './pages/Services/ScholarshipEssay';
@@ -77,7 +81,7 @@ import ServicePageEditor from './pages/Admin/ServicePageEditor';
 
 // --- Dynamic Service Page Import (NEW & CRUCIAL) ---
 // This single component will now handle all your dynamically created service pages.
-import DynamicServicePage from './pages/Services/DynamicServicePage';
+// import DynamicServicePage from './pages/Services/DynamicServicePage';
 
 /**
  * ProtectedRoute component
@@ -166,6 +170,10 @@ function App() {
             <Route path="narrative-essay" element={<NarrativeEssay />} />
             <Route path="physics-assignment-help" element={<PhysicsAssignmentHelp />} />
             <Route path="programming-help" element={<ProgrammingHelp />} />
+            <Route path="programming-help/python" element={<PythonProgrammingHelp />} />
+            <Route path="programming-help/java" element={<JavaProgrammingHelp />} />
+            <Route path="programming-help/js" element={<JSProgrammingHelp />} />
+            <Route path="programming-help/c" element={<CProgrammingHelp />} />
             <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
             <Route path="research-proposal" element={<ResearchProposal />} />
             <Route path="scholarship-essay" element={<ScholarshipEssay />} />

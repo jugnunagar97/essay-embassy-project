@@ -9,6 +9,10 @@ import {
   Lock,
   CreditCard
 } from 'lucide-react';
+import visaLogo from '../../images/visa.svg';
+import mastercardLogo from '../../images/mastercard.svg';
+import amexLogo from '../../images/amex.svg';
+import discoverLogo from '../../images/discover.svg';
 
 export default function Footer() {
   return (
@@ -150,17 +154,17 @@ export default function Footer() {
               <div className="flex items-center gap-4">
                 <span className="text-gray-300 text-sm font-medium">We Accept:</span>
                 <div className="flex items-center gap-3">
-                  <div className="bg-white px-3 py-2 rounded shadow-sm">
-                    <span className="text-blue-600 font-bold text-sm">VISA</span>
+                  <div className="bg-white px-3 py-2 rounded shadow-sm flex items-center justify-center">
+                    <img src={visaLogo} alt="Visa" className="h-6 w-auto" />
                   </div>
-                  <div className="bg-white px-3 py-2 rounded shadow-sm">
-                    <span className="text-red-600 font-bold text-sm">MC</span>
+                  <div className="bg-white px-3 py-2 rounded shadow-sm flex items-center justify-center">
+                    <img src={mastercardLogo} alt="Mastercard" className="h-6 w-auto" />
                   </div>
-                  <div className="bg-white px-3 py-2 rounded shadow-sm">
-                    <span className="text-blue-600 font-bold text-sm">AMEX</span>
+                  <div className="bg-white px-3 py-2 rounded shadow-sm flex items-center justify-center">
+                    <img src={amexLogo} alt="American Express" className="h-6 w-auto" />
                   </div>
-                  <div className="bg-white px-3 py-2 rounded shadow-sm">
-                    <span className="text-orange-600 font-bold text-sm">DISC</span>
+                  <div className="bg-white px-3 py-2 rounded shadow-sm flex items-center justify-center">
+                    <img src={discoverLogo} alt="Discover" className="h-6 w-auto" />
                   </div>
                 </div>
               </div>
