@@ -48,12 +48,14 @@ import PythonProgrammingHelp from './pages/Services/PythonProgrammingHelp';
 import JavaProgrammingHelp from './pages/Services/JavaProgrammingHelp';
 import JSProgrammingHelp from './pages/Services/JSProgrammingHelp';
 import CProgrammingHelp from './pages/Services/CProgrammingHelp';
+import CSharpProgrammingHelp from './pages/Services/CSharpProgrammingHelp';
 import ResearchPaperWriting from './pages/Services/ResearchPaperWriting';
 import ResearchProposal from './pages/Services/ResearchProposal';
 import ScholarshipEssay from './pages/Services/ScholarshipEssay';
 import TermPaper from './pages/Services/TermPaper';
 import ThesisWriting from './pages/Services/ThesisWriting';
 import AdmissionEssayWriting from './pages/Services/AdmissionEssayWriting';
+import MatlabProgrammingHelp from './pages/Services/MatlabProgrammingHelp';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -174,6 +176,8 @@ function App() {
             <Route path="programming-help/java" element={<JavaProgrammingHelp />} />
             <Route path="programming-help/js" element={<JSProgrammingHelp />} />
             <Route path="programming-help/c" element={<CProgrammingHelp />} />
+            <Route path="programming-help/csharp" element={<CSharpProgrammingHelp />} />
+            <Route path="programming-help/matlab" element={<MatlabProgrammingHelp />} />
             <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
             <Route path="research-proposal" element={<ResearchProposal />} />
             <Route path="scholarship-essay" element={<ScholarshipEssay />} />

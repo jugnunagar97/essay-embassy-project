@@ -146,7 +146,7 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes C Programming Help From Our Experts So Special?
+                  What Makes C# Programming Help From Our Experts So Special?
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
@@ -511,10 +511,10 @@ export default function CProgrammingHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              C Programming Help
+              C# Programming Help
             </h1>
             <p className="text-lg text-gray-600">
-              Looking for a reliable expert to help with C programming? Hire our professional programmer and be done with your C assignments.
+              Looking for a reliable expert to help with C# programming? Hire our professional programmer and be done with your C# assignments.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">

@@ -146,7 +146,7 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes C Programming Help From Our Experts So Special?
+                  What Makes MATLAB Programming Help From Our Experts So Special?
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
@@ -204,42 +204,42 @@ function ClientTestimonialsCarousel() {
     {
       id: 'EE-24467',
       rating: 4,
-      text: "Didn't really trust programming help services at first, but this changed my mind. Super clean, well-written C code. glad I gave them a shot.",
+      text: "Didn't really trust programming help services at first, but this changed my mind. Super clean, well-written MATLAB code. glad I gave them a shot.",
       date: '04/14/2025',
       level: 'Masters',
     },
     {
       id: 'EE-23901',
       rating: 5,
-      text: 'Was in a total panic with my C assignment deadline. They not only delivered fast but the code was actually solid. Big lifesaver!',
+      text: 'Was in a total panic with my MATLAB assignment deadline. They not only delivered fast but the code was actually solid. Big lifesaver!',
       date: '03/16/2025',
       level: 'Bachelors',
     },
     {
       id: 'EE-57281',
       rating: 4,
-      text: 'Needed this C project fast and they came through big time. Everything from the structure to the implementation was on point. Really solid work.',
+      text: 'Needed this MATLAB project fast and they came through big time. Everything from the structure to the implementation was on point. Really solid work.',
       date: '06/16/2025',
       level: 'Bachelors',
     },
     {
       id: 'EE-19822',
       rating: 5,
-      text: 'I was skeptical but the C expert was super communicative and the result was great. Will use again.',
+      text: 'I was skeptical but the MATLAB expert was super communicative and the result was great. Will use again.',
       date: '02/10/2025',
       level: 'PhD',
     },
     {
       id: 'EE-33412',
       rating: 5,
-      text: 'Essay Embassy made my C programming life so much easier. The quality was top-notch and the support team was very helpful.',
+      text: 'Essay Embassy made my MATLAB programming life so much easier. The quality was top-notch and the support team was very helpful.',
       date: '01/22/2025',
       level: 'Masters',
     },
     {
       id: 'EE-11234',
       rating: 4,
-      text: 'Good service, quick turnaround, and the C code passed all checks. Would recommend.',
+      text: 'Good service, quick turnaround, and the MATLAB code passed all checks. Would recommend.',
       date: '05/05/2025',
       level: 'College',
     },
@@ -387,7 +387,7 @@ function ClientTestimonialsCarousel() {
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
-export default function CProgrammingHelp() {
+export default function MatlabProgrammingHelp() {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;
@@ -511,10 +511,10 @@ export default function CProgrammingHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              C Programming Help
+              MATLAB Programming Help
             </h1>
             <p className="text-lg text-gray-600">
-              Looking for a reliable expert to help with C programming? Hire our professional programmer and be done with your C assignments.
+              Looking for a reliable expert to help with MATLAB programming? Hire our professional programmer and be done with your MATLAB assignments.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -849,32 +849,32 @@ export default function CProgrammingHelp() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "C Data Structures",
+                title: "MATLAB Data Analysis",
                 pages: 6,
                 level: "College",
                 type: "Programming",
-                citation: "C"
+                citation: "MATLAB"
               },
               {
-                title: "Memory Management in C",
+                title: "Machine Learning Algorithm",
                 pages: 6,
                 level: "Bachelor",
                 type: "Code Review",
-                citation: "C"
+                citation: "MATLAB"
               },
               {
-                title: "File Handling in C",
+                title: "Web Scraping Project",
                 pages: 8,
                 level: "PhD",
                 type: "Research Paper",
-                citation: "C"
+                citation: "MATLAB"
               },
               {
-                title: "Basic C Functions",
+                title: "Basic MATLAB Functions",
                 pages: 5,
                 level: "High School",
                 type: "Report",
-                citation: "C"
+                citation: "MATLAB"
               },
             ].map((sample, idx) => (
               <div key={idx} className="bg-white border border-blue-200 rounded-2xl shadow-sm p-6 flex flex-col min-h-[270px] text-left">
@@ -959,23 +959,23 @@ export default function CProgrammingHelp() {
                 <div className="space-y-2">
                   {[
                     {
-                      question: 'Is your C programming help service confidential and safe?',
+                      question: 'Is your MATLAB programming help service confidential and safe?',
                       answer: 'Absolutely. We use end-to-end encryption and never share your personal information or order details with third parties. Your privacy and security are our top priorities.'
                     },
                     {
-                      question: 'Will my C code be written by a real expert?',
-                      answer: 'Yes! Every C assignment is written by a verified programming expert who has passed our rigorous selection and verification process. No AI-generated code, ever.'
+                      question: 'Will my MATLAB code be written by a real expert?',
+                      answer: 'Yes! Every MATLAB assignment is written by a verified programming expert who has passed our rigorous selection and verification process. No AI-generated code, ever.'
                     },
                     {
-                      question: 'How fast can I get my C assignment delivered?',
-                      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll match you with a C expert who can deliver on time.'
+                      question: 'How fast can I get my MATLAB assignment delivered?',
+                      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll match you with a MATLAB expert who can deliver on time.'
                     },
                     {
-                      question: 'What if I am not satisfied with the C code?',
+                      question: 'What if I am not satisfied with the MATLAB code?',
                       answer: 'We offer unlimited free revisions and a comprehensive refund policy. Your satisfaction is guaranteed, or you get your money back.'
                     },
                     {
-                      question: 'How do I place an order for C programming help?',
+                      question: 'How do I place an order for MATLAB programming help?',
                       answer: 'Simply fill out the order form at the top of this page, select your requirements, and follow the prompts. Our team will take care of the rest!'
                     }
                   ].map((faq, idx) => {
@@ -1076,20 +1076,20 @@ export default function CProgrammingHelp() {
                 { name: 'Homework Help', link: '/services/homework-help' },
                 { name: 'English Assignment Help', link: '/services/english-assignment-help' },
                 { name: 'Programming Help', link: '/services/programming-help' },
-                { name: 'C Programming Help', link: '/programming-help/c' },
+                { name: 'MATLAB Programming Help', link: '/programming-help/matlab' },
                 { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
                 { name: 'Assignment Help', link: '/services/assignment-help' },
                 { name: 'Narrative Essay', link: '/services/narrative-essay' },
               ];
               // Remove duplicates for each tab
               const paperwork = [
-                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study', 'Case Study Help', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'C Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Narrative Essay',
+                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study', 'Case Study Help', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'MATLAB Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Narrative Essay',
               ];
               const coursework = [
-                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'C Programming Help', 'Physics Assignment Help', 'Assignment Help',
+                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'MATLAB Programming Help', 'Physics Assignment Help', 'Assignment Help',
               ];
               const other = [
-                'Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study Help', 'C Programming Help',
+                'Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study Help', 'MATLAB Programming Help',
               ];
               const tabData = [
                 {
