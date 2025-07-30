@@ -56,6 +56,8 @@ import TermPaper from './pages/Services/TermPaper';
 import ThesisWriting from './pages/Services/ThesisWriting';
 import AdmissionEssayWriting from './pages/Services/AdmissionEssayWriting';
 import MatlabProgrammingHelp from './pages/Services/MatlabProgrammingHelp';
+import RubyProgrammingHelp from './pages/Services/RubyProgrammingHelp';
+import CPPProgrammingHelp from './pages/Services/CPPProgrammingHelp';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -177,6 +179,8 @@ function App() {
             <Route path="programming-help/js" element={<JSProgrammingHelp />} />
             <Route path="programming-help/c" element={<CProgrammingHelp />} />
             <Route path="programming-help/csharp" element={<CSharpProgrammingHelp />} />
+            <Route path="programming-help/ruby" element={<RubyProgrammingHelp />} />
+            <Route path="programming-help/cpp" element={<CPPProgrammingHelp />} />
             <Route path="programming-help/matlab" element={<MatlabProgrammingHelp />} />
             <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
             <Route path="research-proposal" element={<ResearchProposal />} />

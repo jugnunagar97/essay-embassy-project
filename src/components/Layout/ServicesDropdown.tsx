@@ -53,8 +53,10 @@ const PRIMARY_SERVICES = [
       { name: 'Java Programming Help', slug: 'java' },
       { name: 'JS Programming Help', slug: 'js' },
       { name: 'C Programming Help', slug: 'c' },
+      { name: 'C# Programming Help', slug: 'csharp' },
+      { name: 'C++ Programming Help', slug: 'cpp' },
       { name: 'MATLAB Programming Help', slug: 'matlab' },
-      { name: 'RUBY Programming Help', slug: 'ruby' },
+      { name: 'Ruby Programming Help', slug: 'ruby' },
     ],
   },
   {
