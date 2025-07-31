@@ -58,6 +58,7 @@ import AdmissionEssayWriting from './pages/Services/AdmissionEssayWriting';
 import MatlabProgrammingHelp from './pages/Services/MatlabProgrammingHelp';
 import RubyProgrammingHelp from './pages/Services/RubyProgrammingHelp';
 import CPPProgrammingHelp from './pages/Services/CPPProgrammingHelp';
+import ManagementAssignmentHelp from './pages/Services/ManagementAssignmentHelp';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -163,6 +164,7 @@ function App() {
             <Route path="essay-writing/admission" element={<AdmissionEssayWriting />} />
             <Route path="argumentative-essay" element={<ArgumentativeEssay />} />
             <Route path="assignment-help" element={<AssignmentHelp />} />
+            <Route path="assignment-help/management" element={<ManagementAssignmentHelp />} />
             <Route path="book-review" element={<BookReview />} />
             <Route path="case-study" element={<CaseStudy />} />
             <Route path="case-study-help" element={<CaseStudyHelp />} />
