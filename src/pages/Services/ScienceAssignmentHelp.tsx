@@ -387,7 +387,7 @@ function ClientTestimonialsCarousel() {
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
-export default function MathAssignmentHelp() {
+export default function ScienceAssignmentHelp() {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;

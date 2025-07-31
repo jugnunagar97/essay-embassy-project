@@ -146,11 +146,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                What Makes Management Assignment Help From Our Experts So Special?
+                What Makes Law Assignment Help From Our Experts So Special?
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top management experts</span> in different fields. Get your business assignments guided by a professional and be sure everything will be done on time.
+                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top legal experts</span> in different fields of law. Get your law assignments guided by a professional and be sure everything will be done on time.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -202,46 +202,46 @@ export function SpecialAssignmentHelpCarousel() {
 function ClientTestimonialsCarousel() {
   const testimonials = [
     {
-      id: 'EE-24467',
+      id: 'LAW-10021',
       rating: 5,
-      text: "My strategic management assignment was perfectly done! The analysis was thorough and the recommendations were practical. Really impressed with the quality.",
+      text: "My criminal law case brief was expertly written and well-argued. The legal analysis was spot on and helped me understand the case deeply. Highly recommend!",
       date: '04/14/2025',
-      level: 'Masters',
+      level: 'JD',
     },
     {
-      id: 'EE-23901',
+      id: 'LAW-10022',
       rating: 5,
-      text: 'Was struggling with my organizational behavior case study. The expert provided excellent insights and helped me understand complex management theories.',
+      text: 'Needed help with a constitutional law essay. The expert provided clear, concise arguments and cited relevant statutes and cases. Great service!',
       date: '03/16/2025',
-      level: 'Bachelors',
+      level: 'LLB',
     },
     {
-      id: 'EE-57281',
+      id: 'LAW-10023',
       rating: 4,
-      text: 'Needed help with my leadership assignment and they delivered exactly what I needed. Great research, clear writing, and on-time delivery.',
+      text: 'My contract law assignment was delivered on time and included thorough legal research. The writer even included a mock contract draft. Very satisfied.',
       date: '06/16/2025',
-      level: 'Bachelors',
+      level: 'LLM',
     },
     {
-      id: 'EE-19822',
+      id: 'LAW-10024',
       rating: 5,
-      text: 'The management expert was very knowledgeable about business strategy and operations. My assignment scored an A+!',
+      text: 'The legal research memo for my torts class was detailed and well-organized. I received an A on the assignment!',
       date: '02/10/2025',
-      level: 'PhD',
+      level: 'JD',
     },
     {
-      id: 'EE-33412',
+      id: 'LAW-10025',
       rating: 5,
-      text: 'Essay Embassy helped me with my MBA assignment on change management. The quality was outstanding and very professional.',
+      text: 'Essay Embassy helped me prepare for a mock trial in my corporate law course. The expert provided excellent case strategy and argument outlines.',
       date: '01/22/2025',
-      level: 'Masters',
+      level: 'JD',
     },
     {
-      id: 'EE-11234',
+      id: 'LAW-10026',
       rating: 4,
-      text: 'Excellent help with my project management assignment. Clear explanations and well-structured content. Highly recommend!',
+      text: 'Received great support for my international law research paper. The expert included up-to-date case law and treaty analysis.',
       date: '05/05/2025',
-      level: 'College',
+      level: 'LLM',
     },
   ];
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -384,10 +384,10 @@ function ClientTestimonialsCarousel() {
   );
 }
 
-const academicLevels = ["High School", "College", "University", "PhD"];
+const academicLevels = ["LLB", "JD", "LLM", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
-export default function MathAssignmentHelp() {
+export default function LawAssignmentHelp() {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;
@@ -395,7 +395,7 @@ export default function MathAssignmentHelp() {
     deadline: string;
   }>({
     defaultValues: {
-      academicLevel: "College",
+      academicLevel: "LLB",
       pages: 1,
       deadline: "48 hours",
     },
@@ -419,25 +419,25 @@ export default function MathAssignmentHelp() {
 
   // Price config copied from OrderNow
   const priceConfig = {
-    "High School": {
-      "3 hours": { base: 18, urgent: 1.8 }, "6 hours": { base: 16, urgent: 1.6 }, "12 hours": { base: 14, urgent: 1.4 },
-      "24 hours": { base: 12, urgent: 1.2 }, "48 hours": { base: 12, urgent: 1.0 }, "3 days": { base: 12, urgent: 1.0 },
-      "5 days": { base: 12, urgent: 1.0 }, "7 days": { base: 12, urgent: 1.0 }, "10 days": { base: 12, urgent: 1.0 }, "14 days": { base: 12, urgent: 1.0 }
-    },
-    "College": {
-      "3 hours": { base: 25, urgent: 1.8 }, "6 hours": { base: 22, urgent: 1.6 }, "12 hours": { base: 18, urgent: 1.4 },
-      "24 hours": { base: 15, urgent: 1.2 }, "48 hours": { base: 15, urgent: 1.0 }, "3 days": { base: 15, urgent: 1.0 },
-      "5 days": { base: 15, urgent: 1.0 }, "7 days": { base: 15, urgent: 1.0 }, "10 days": { base: 15, urgent: 1.0 }, "14 days": { base: 15, urgent: 1.0 }
-    },
-    "University": {
+    "LLB": {
       "3 hours": { base: 28, urgent: 1.8 }, "6 hours": { base: 25, urgent: 1.6 }, "12 hours": { base: 21, urgent: 1.4 },
       "24 hours": { base: 18, urgent: 1.2 }, "48 hours": { base: 18, urgent: 1.0 }, "3 days": { base: 18, urgent: 1.0 },
       "5 days": { base: 18, urgent: 1.0 }, "7 days": { base: 18, urgent: 1.0 }, "10 days": { base: 18, urgent: 1.0 }, "14 days": { base: 18, urgent: 1.0 }
     },
+    "JD": {
+      "3 hours": { base: 32, urgent: 1.8 }, "6 hours": { base: 29, urgent: 1.6 }, "12 hours": { base: 25, urgent: 1.4 },
+      "24 hours": { base: 22, urgent: 1.2 }, "48 hours": { base: 22, urgent: 1.0 }, "3 days": { base: 22, urgent: 1.0 },
+      "5 days": { base: 22, urgent: 1.0 }, "7 days": { base: 22, urgent: 1.0 }, "10 days": { base: 22, urgent: 1.0 }, "14 days": { base: 22, urgent: 1.0 }
+    },
+    "LLM": {
+      "3 hours": { base: 36, urgent: 1.8 }, "6 hours": { base: 33, urgent: 1.6 }, "12 hours": { base: 29, urgent: 1.4 },
+      "24 hours": { base: 26, urgent: 1.2 }, "48 hours": { base: 26, urgent: 1.0 }, "3 days": { base: 26, urgent: 1.0 },
+      "5 days": { base: 26, urgent: 1.0 }, "7 days": { base: 26, urgent: 1.0 }, "10 days": { base: 26, urgent: 1.0 }, "14 days": { base: 26, urgent: 1.0 }
+    },
     "PhD": {
-      "3 hours": { base: 38, urgent: 1.8 }, "6 hours": { base: 35, urgent: 1.6 }, "12 hours": { base: 31, urgent: 1.4 },
-      "24 hours": { base: 28, urgent: 1.2 }, "48 hours": { base: 25, urgent: 1.0 }, "3 days": { base: 25, urgent: 1.0 },
-      "5 days": { base: 25, urgent: 1.0 }, "7 days": { base: 25, urgent: 1.0 }, "10 days": { base: 25, urgent: 1.0 }, "14 days": { base: 25, urgent: 1.0 }
+      "3 hours": { base: 42, urgent: 1.8 }, "6 hours": { base: 39, urgent: 1.6 }, "12 hours": { base: 35, urgent: 1.4 },
+      "24 hours": { base: 32, urgent: 1.2 }, "48 hours": { base: 29, urgent: 1.0 }, "3 days": { base: 29, urgent: 1.0 },
+      "5 days": { base: 29, urgent: 1.0 }, "7 days": { base: 29, urgent: 1.0 }, "10 days": { base: 29, urgent: 1.0 }, "14 days": { base: 29, urgent: 1.0 }
     }
   };
   function getBasePrice(academicLevel: keyof typeof priceConfig, deadline: string): number {
@@ -511,10 +511,10 @@ export default function MathAssignmentHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Mathematics Assignment Help
+              Law Assignment Help
             </h1>
             <p className="text-lg text-gray-600">
-              Get expert help with your mathematics assignments from qualified professionals. Our experienced mathematicians deliver high-quality solutions across all math topics.
+              Get expert help with your law assignments from qualified legal professionals. Our experienced law writers deliver high-quality case briefs, legal essays, research memos, and more—on time and 100% original.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -617,13 +617,13 @@ export default function MathAssignmentHelp() {
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
           <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
-            We carefully check each candidate's academic and professional background before hiring.
+            We engage alumni of the world's top law schools and universities to become Essay Embassy experts.<br/>
+            We carefully check each candidate's legal education, bar status, and professional background before hiring.
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
             <div className="text-base text-gray-600 mb-2 md:mb-0 md:mr-6 whitespace-nowrap">
               Cooperate with those who graduated<br className="hidden md:block" />
-              from the best universities and colleges
+              from the best law schools and universities
             </div>
             <div className="hidden md:block h-8 border-l border-emerald-400 mx-4"></div>
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 w-full md:w-auto">
@@ -642,7 +642,7 @@ export default function MathAssignmentHelp() {
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">assignment help services</span>
+            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">law assignment help services</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
@@ -730,7 +730,7 @@ export default function MathAssignmentHelp() {
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
           <div className="text-center text-lg text-gray-600 mb-4">
-            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
+            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$18.00/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
           </div>
           <div className="flex justify-center mb-4">
             <Link to="/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
@@ -797,21 +797,21 @@ export default function MathAssignmentHelp() {
             {/* Stat 1 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping law students<br className='hidden md:block'/>in their studies</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 2 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted law experts</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 3 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed orders</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed law assignments</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
@@ -840,41 +840,41 @@ export default function MathAssignmentHelp() {
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
-            Sample Assignments
+            Sample Law Assignments
           </h2>
           <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
           <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
-            Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
+            Preview real law assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "Strategic Management Analysis",
-                pages: 8,
-                level: "College",
-                type: "Case Study",
-                citation: "Harvard"
+                title: "Criminal Law Case Brief",
+                pages: 6,
+                level: "JD",
+                type: "Case Brief",
+                citation: "Bluebook"
               },
               {
-                title: "Organizational Behavior",
-                pages: 6,
-                level: "Bachelor",
+                title: "Constitutional Law Essay",
+                pages: 8,
+                level: "LLB",
+                type: "Essay",
+                citation: "OSCOLA"
+              },
+              {
+                title: "International Law Research Paper",
+                pages: 12,
+                level: "LLM",
                 type: "Research Paper",
                 citation: "APA"
               },
               {
-                title: "Leadership & Change Management",
-                pages: 10,
-                level: "PhD",
-                type: "Dissertation Chapter",
-                citation: "APA"
-              },
-              {
-                title: "Business Process Management",
+                title: "Tort Law Statutory Interpretation",
                 pages: 5,
-                level: "High School",
-                type: "Report",
-                citation: "MLA"
+                level: "JD",
+                type: "Statutory Interpretation",
+                citation: "Harvard"
               },
             ].map((sample, idx) => (
               <div key={idx} className="bg-white border border-blue-200 rounded-2xl shadow-sm p-6 flex flex-col min-h-[270px] text-left">
@@ -891,7 +891,7 @@ export default function MathAssignmentHelp() {
                 <div className="flex-1 flex flex-col gap-2 text-sm">
                   <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Academic Level:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.level}</span></div>
                   <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Document Type:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.type}</span></div>
-                  <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Language:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.citation}</span></div>
+                  <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Citation Style:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.citation}</span></div>
                 </div>
                 <button className="mt-6 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-2 rounded-full shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 text-left pl-6">Read</button>
               </div>
@@ -954,28 +954,28 @@ export default function MathAssignmentHelp() {
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-start">
             {/* FAQ Column */}
             <div className="flex-1 w-full">
-              <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left mb-6 text-gray-900">Frequently Asked Questions</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Frequently Asked Questions</h2>
               <div className="bg-white/80 rounded-3xl shadow-lg p-4 md:p-8">
                 <div className="space-y-2">
                   {[
                     {
-                      question: 'Is your management assignment help service confidential and safe?',
+                      question: 'Is your law assignment help service confidential and safe?',
                       answer: 'Absolutely. We use end-to-end encryption and never share your personal information or order details with third parties. Your privacy and security are our top priorities.'
                     },
                     {
-                      question: 'Will my management assignment be handled by a real expert?',
-                      answer: 'Yes! Every management assignment is handled by a qualified expert who has passed our rigorous selection and verification process to ensure top quality.'
+                      question: 'Will my law assignment be handled by a real legal expert?',
+                      answer: 'Yes! Every law assignment is handled by a qualified legal expert who has passed our rigorous selection and verification process to ensure top quality.'
                     },
                     {
-                      question: 'How quickly can I receive help with my management assignment?',
-                      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll ensure timely delivery by a management expert.'
+                      question: 'Can you help with specific law topics like criminal, contract, or international law?',
+                      answer: 'Definitely! Our experts cover all major law fields, including criminal law, contract law, tort law, constitutional law, corporate law, and international law.'
                     },
                     {
-                      question: 'What if I am not satisfied with the management assignment help?',
+                      question: 'What if I am not satisfied with the law assignment help?',
                       answer: 'We offer unlimited free revisions and a comprehensive refund policy. Your satisfaction is guaranteed, or you get your money back.'
                     },
                     {
-                      question: 'How do I place an order for management assignment help?',
+                      question: 'How do I place an order for law assignment help?',
                       answer: 'Simply fill out the order form at the top of this page, select your requirements, and follow the prompts. Our team will take care of the rest!'
                     }
                   ].map((faq, idx) => {

@@ -61,7 +61,9 @@ import CPPProgrammingHelp from './pages/Services/CPPProgrammingHelp';
 import ManagementAssignmentHelp from './pages/Services/ManagementAssignmentHelp';
 import MathAssignmentHelp from './pages/Services/MathAssignmentHelp';
 import EngineeringAssignmentHelp from './pages/Services/EngineeringAssignmentHelp';
-import BiotechnologyAssignmentHelp from './pages/Services/BiotechnologyAssignment Help';
+import BiotechnologyAssignmentHelp from './pages/Services/BiotechnologyAssignmentHelp';
+import LawAssignmentHelp from './pages/Services/LawAssignmentHelp';
+import ScienceAssignmentHelp from './pages/Services/ScienceAssignmentHelp';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -169,6 +171,8 @@ function App() {
             <Route path="assignment-help" element={<AssignmentHelp />} />
             <Route path="assignment-help/management" element={<ManagementAssignmentHelp />} />
             <Route path="assignment-help/math" element={<MathAssignmentHelp />} />
+            <Route path="assignment-help/law" element={<LawAssignmentHelp />} />
+            <Route path="assignment-help/science" element={<ScienceAssignmentHelp />} />
             <Route path="assignment-help/engineering" element={<EngineeringAssignmentHelp />} />
             <Route path="assignment-help/biotechnology" element={<BiotechnologyAssignmentHelp />} />
             <Route path="book-review" element={<BookReview />} />
