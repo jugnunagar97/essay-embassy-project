@@ -90,6 +90,7 @@ export default function Footer() {
                 <li><Link to="/services/lab-report" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Lab Report Writing Help</Link></li>
                 <li><Link to="/services/programming-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Programming Help</Link></li>
                 <li><Link to="/services/assignment-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Assignment Help</Link></li>
+                <li><Link to="/assignment-help/engineering" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Engineering Assignment Help</Link></li>
                 <li><Link to="/services/english-assignment-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">English Assignment Help</Link></li>
                 <li><Link to="/services/physics-assignment-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Physics Assignment Help</Link></li>
                 <li><Link to="/services/homework-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Homework Help</Link></li>

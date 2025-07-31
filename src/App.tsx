@@ -59,6 +59,9 @@ import MatlabProgrammingHelp from './pages/Services/MatlabProgrammingHelp';
 import RubyProgrammingHelp from './pages/Services/RubyProgrammingHelp';
 import CPPProgrammingHelp from './pages/Services/CPPProgrammingHelp';
 import ManagementAssignmentHelp from './pages/Services/ManagementAssignmentHelp';
+import MathAssignmentHelp from './pages/Services/MathAssignmentHelp';
+import EngineeringAssignmentHelp from './pages/Services/EngineeringAssignmentHelp';
+import BiotechnologyAssignmentHelp from './pages/Services/BiotechnologyAssignment Help';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -165,6 +168,9 @@ function App() {
             <Route path="argumentative-essay" element={<ArgumentativeEssay />} />
             <Route path="assignment-help" element={<AssignmentHelp />} />
             <Route path="assignment-help/management" element={<ManagementAssignmentHelp />} />
+            <Route path="assignment-help/math" element={<MathAssignmentHelp />} />
+            <Route path="assignment-help/engineering" element={<EngineeringAssignmentHelp />} />
+            <Route path="assignment-help/biotechnology" element={<BiotechnologyAssignmentHelp />} />
             <Route path="book-review" element={<BookReview />} />
             <Route path="case-study" element={<CaseStudy />} />
             <Route path="case-study-help" element={<CaseStudyHelp />} />
