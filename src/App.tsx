@@ -60,6 +60,8 @@ import RubyProgrammingHelp from './pages/Services/RubyProgrammingHelp';
 import CPPProgrammingHelp from './pages/Services/CPPProgrammingHelp';
 import ManagementAssignmentHelp from './pages/Services/ManagementAssignmentHelp';
 import MathAssignmentHelp from './pages/Services/MathAssignmentHelp';
+import ComputerAssignmentHelp from './pages/Services/ComputerAssignmentHelp';
+import HumanitiesAssignmentHelp from './pages/Services/HumanitiesAssignmentHelp';
 import EngineeringAssignmentHelp from './pages/Services/EngineeringAssignmentHelp';
 import BiotechnologyAssignmentHelp from './pages/Services/BiotechnologyAssignmentHelp';
 import LawAssignmentHelp from './pages/Services/LawAssignmentHelp';
@@ -170,6 +172,8 @@ function App() {
             <Route path="argumentative-essay" element={<ArgumentativeEssay />} />
             <Route path="assignment-help" element={<AssignmentHelp />} />
             <Route path="assignment-help/management" element={<ManagementAssignmentHelp />} />
+            <Route path="assignment-help/computer" element={<ComputerAssignmentHelp />} />
+            <Route path="assignment-help/humanities" element={<HumanitiesAssignmentHelp />} />
             <Route path="assignment-help/math" element={<MathAssignmentHelp />} />
             <Route path="assignment-help/law" element={<LawAssignmentHelp />} />
             <Route path="assignment-help/science" element={<ScienceAssignmentHelp />} />

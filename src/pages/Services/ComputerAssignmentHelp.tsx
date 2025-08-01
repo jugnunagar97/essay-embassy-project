@@ -146,11 +146,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                What Makes Management Assignment Help From Our Experts So Special?
+                What Makes Computer Assignment Help From Our Experts So Special?
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top management experts</span> in different fields. Get your business assignments guided by a professional and be sure everything will be done on time.
+                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top computer science experts</span> in different fields. Get your computer assignments guided by a professional and be sure everything will be done on time.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -204,42 +204,42 @@ function ClientTestimonialsCarousel() {
     {
       id: 'EE-24467',
       rating: 5,
-      text: "My strategic management assignment was perfectly done! The analysis was thorough and the recommendations were practical. Really impressed with the quality.",
+      text: "My computer architecture assignment was perfectly done! The analysis was thorough and the technical explanations were clear. Really impressed with the quality.",
       date: '04/14/2025',
       level: 'Masters',
     },
     {
       id: 'EE-23901',
       rating: 5,
-      text: 'Was struggling with my organizational behavior case study. The expert provided excellent insights and helped me understand complex management theories.',
+      text: 'Was struggling with my operating systems case study. The expert provided excellent insights and helped me understand complex system concepts.',
       date: '03/16/2025',
       level: 'Bachelors',
     },
     {
       id: 'EE-57281',
       rating: 4,
-      text: 'Needed help with my leadership assignment and they delivered exactly what I needed. Great research, clear writing, and on-time delivery.',
+      text: 'Needed help with my data structures assignment and they delivered exactly what I needed. Great algorithms, clear code, and on-time delivery.',
       date: '06/16/2025',
       level: 'Bachelors',
     },
     {
       id: 'EE-19822',
       rating: 5,
-      text: 'The management expert was very knowledgeable about business strategy and operations. My assignment scored an A+!',
+      text: 'The computer science expert was very knowledgeable about algorithms and programming. My assignment scored an A+!',
       date: '02/10/2025',
       level: 'PhD',
     },
     {
       id: 'EE-33412',
       rating: 5,
-      text: 'Essay Embassy helped me with my MBA assignment on change management. The quality was outstanding and very professional.',
+      text: 'Essay Embassy helped me with my database management assignment. The quality was outstanding and very professional.',
       date: '01/22/2025',
       level: 'Masters',
     },
     {
       id: 'EE-11234',
       rating: 4,
-      text: 'Excellent help with my project management assignment. Clear explanations and well-structured content. Highly recommend!',
+      text: 'Excellent help with my networking assignment. Clear explanations and well-structured content. Highly recommend!',
       date: '05/05/2025',
       level: 'College',
     },
@@ -387,7 +387,7 @@ function ClientTestimonialsCarousel() {
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
-export default function MathAssignmentHelp() {
+export default function ComputerAssignmentHelp() {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;
@@ -511,10 +511,10 @@ export default function MathAssignmentHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Mathematics Assignment Help
+              Computer Assignment Help
             </h1>
             <p className="text-lg text-gray-600">
-              Get expert help with your mathematics assignments from qualified professionals. Our experienced mathematicians deliver high-quality solutions across all math topics.
+              Get expert help with your computer science assignments from qualified professionals. Our experienced computer scientists deliver high-quality solutions across all computer topics.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -642,7 +642,7 @@ export default function MathAssignmentHelp() {
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">assignment help services</span>
+            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">computer assignment help services</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
@@ -654,7 +654,7 @@ export default function MathAssignmentHelp() {
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Human-written content only</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Whenever you ask us for assignment help and hire a professional writer, your paper will contain zero AI content.</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Whenever you ask us for computer assignment help and hire a professional writer, your paper will contain zero AI content.</div>
             </div>
             {/* Card 2 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -666,7 +666,7 @@ export default function MathAssignmentHelp() {
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Originality report included</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We're ready to prove that our papers are written from scratch with free reports for all "assignment help" requests.</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We're ready to prove that our papers are written from scratch with free reports for all "computer assignment help" requests.</div>
             </div>
             {/* Card 3 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -702,7 +702,7 @@ export default function MathAssignmentHelp() {
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Prompt delivery without quality risks</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Our assignment experts leverage their experience to deliver well-researched and carefully put-together papers with deadlines starting from three hours.</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Our computer assignment experts leverage their experience to deliver well-researched and carefully put-together papers with deadlines starting from three hours.</div>
             </div>
             {/* Card 6 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -714,7 +714,7 @@ export default function MathAssignmentHelp() {
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Pocket-friendly rates</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Prices for our assignment help services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Prices for our computer assignment help services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
             </div>
           </div>
         </div>
@@ -849,32 +849,32 @@ export default function MathAssignmentHelp() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "Strategic Management Analysis",
+                title: "Computer Architecture Analysis",
                 pages: 8,
                 level: "College",
                 type: "Case Study",
-                citation: "Harvard"
+                citation: "IEEE"
               },
               {
-                title: "Organizational Behavior",
+                title: "Operating Systems Design",
                 pages: 6,
                 level: "Bachelor",
                 type: "Research Paper",
-                citation: "APA"
+                citation: "ACM"
               },
               {
-                title: "Leadership & Change Management",
+                title: "Algorithm Efficiency Comparison",
                 pages: 10,
                 level: "PhD",
                 type: "Dissertation Chapter",
-                citation: "APA"
+                citation: "ACM"
               },
               {
-                title: "Business Process Management",
+                title: "Database Schema Design",
                 pages: 5,
                 level: "High School",
                 type: "Report",
-                citation: "MLA"
+                citation: "IEEE"
               },
             ].map((sample, idx) => (
               <div key={idx} className="bg-white border border-blue-200 rounded-2xl shadow-sm p-6 flex flex-col min-h-[270px] text-left">
@@ -905,13 +905,13 @@ export default function MathAssignmentHelp() {
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
           {/* Removed decorative circles as requested */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Assignment Help journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Computer Assignment Help journey</h2>
             <div className="flex flex-col items-center relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
               <span className="text-2xl mb-1">✍️</span>
               <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
-              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
+              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best computer science experts</div>
               <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
             </div>
             {/* Arrow */}
@@ -931,7 +931,7 @@ export default function MathAssignmentHelp() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
               <span className="text-2xl mb-1">📄</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your computer assignment</div>
               <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
             </div>
           </div>
@@ -959,23 +959,23 @@ export default function MathAssignmentHelp() {
                 <div className="space-y-2">
                   {[
                     {
-                      question: 'Is your management assignment help service confidential and safe?',
+                      question: 'Is your computer assignment help service confidential and safe?',
                       answer: 'Absolutely. We use end-to-end encryption and never share your personal information or order details with third parties. Your privacy and security are our top priorities.'
                     },
                     {
-                      question: 'Will my management assignment be handled by a real expert?',
-                      answer: 'Yes! Every management assignment is handled by a qualified expert who has passed our rigorous selection and verification process to ensure top quality.'
+                      question: 'Will my computer assignment be handled by a real expert?',
+                      answer: 'Yes! Every computer assignment is handled by a qualified expert who has passed our rigorous selection and verification process to ensure top quality.'
                     },
                     {
-                      question: 'How quickly can I receive help with my management assignment?',
-                      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll ensure timely delivery by a management expert.'
+                      question: 'How quickly can I receive help with my computer assignment?',
+                      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll ensure timely delivery by a computer science expert.'
                     },
                     {
-                      question: 'What if I am not satisfied with the management assignment help?',
+                      question: 'What if I am not satisfied with the computer assignment help?',
                       answer: 'We offer unlimited free revisions and a comprehensive refund policy. Your satisfaction is guaranteed, or you get your money back.'
                     },
                     {
-                      question: 'How do I place an order for management assignment help?',
+                      question: 'How do I place an order for computer assignment help?',
                       answer: 'Simply fill out the order form at the top of this page, select your requirements, and follow the prompts. Our team will take care of the rest!'
                     }
                   ].map((faq, idx) => {
@@ -1044,8 +1044,8 @@ export default function MathAssignmentHelp() {
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center md:items-start">
           {/* Left Side: Heading, Description, CTA */}
           <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start mb-10 md:mb-0">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Your #1 paper writing service</h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert essay writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Your #1 computer assignment writing service</h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert computer science writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
             <Link
               to="/writers"
               className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
@@ -1174,8 +1174,8 @@ export default function MathAssignmentHelp() {
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4">Join our 5,000+ happy clients</h2>
             <ul className="text-gray-700 text-base md:text-lg mb-6 list-disc list-inside">
-              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
-              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
+              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ computer assignments delivered with a 98% success rate</li>
+              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original computer science papers written according to your instructions</li>
               <li className="flex items-center gap-3"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
             </ul>
             <Link

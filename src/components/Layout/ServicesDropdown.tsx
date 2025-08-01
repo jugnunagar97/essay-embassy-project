@@ -32,6 +32,7 @@ const PRIMARY_SERVICES = [
     slug: 'assignment-help',
     subServices: [
       { name: 'Management Assignment Help', slug: 'management' },
+      { name: 'Computer Assignment Help', slug: 'computer' },
       { name: 'Engineering Assignment Help', slug: 'engineering' },
       { name: 'Mathematics Assignment Help', slug: 'math' },
       { name: 'Law Assignment Help', slug: 'law' },
