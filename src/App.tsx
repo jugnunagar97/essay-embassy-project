@@ -34,7 +34,6 @@ import ThankYou from './pages/ThankYou';
 import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
 import AssignmentHelp from './pages/Services/AssignmentHelp';
 import BookReview from './pages/Services/BookReview';
-import CaseStudy from './pages/Services/CaseStudy';
 import CaseStudyHelp from './pages/Services/CaseStudyHelp';
 import DissertationWriting from './pages/Services/DissertationWriting';
 import EnglishAssignmentHelp from './pages/Services/EnglishAssignmentHelp';
@@ -180,7 +179,6 @@ function App() {
             <Route path="assignment-help/engineering" element={<EngineeringAssignmentHelp />} />
             <Route path="assignment-help/biotechnology" element={<BiotechnologyAssignmentHelp />} />
             <Route path="book-review" element={<BookReview />} />
-            <Route path="case-study" element={<CaseStudy />} />
             <Route path="case-study-help" element={<CaseStudyHelp />} />
             <Route path="dissertation-writing" element={<DissertationWriting />} />
             <Route path="english-assignment-help" element={<EnglishAssignmentHelp />} />

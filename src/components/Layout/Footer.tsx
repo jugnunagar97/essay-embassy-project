@@ -94,8 +94,7 @@ export default function Footer() {
                 <li><Link to="/services/english-assignment-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">English Assignment Help</Link></li>
                 <li><Link to="/services/physics-assignment-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Physics Assignment Help</Link></li>
                 <li><Link to="/services/homework-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Homework Help</Link></li>
-                <li><Link to="/services/case-study" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Case Study Help</Link></li>
-                <li><Link to="/services/case-study-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Case Study Analysis</Link></li>
+                <li><Link to="/case-study-help" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Case Study Help</Link></li>
               </ul>
             </div>
 

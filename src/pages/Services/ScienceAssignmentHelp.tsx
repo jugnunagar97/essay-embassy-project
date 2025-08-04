@@ -11,33 +11,33 @@ import React, { useRef, useState, useEffect } from 'react';
 const carouselItems = [
   {
     imgSrc: '/images/verification.jpg',
-    title: 'Verification',
-    description: 'We care about your projects and pick the best specialists. To ensure your safety, we verify the identity of each candidate via social media.'
+    title: 'Scientific Accuracy',
+    description: 'We prioritize precision in scientific work and select specialists with verified expertise in physics, chemistry, biology, and other science fields.'
   },
   {
     imgSrc: '/images/skill test.jpg',
-    title: 'Skill Test',
-    description: 'We test each candidate by examining their skills and knowledge with various examinations before they join our team.'
+    title: 'Laboratory Skills',
+    description: 'We test each candidate on their scientific methodology, data analysis skills, and understanding of experimental procedures before they join our team.'
   },
   {
     imgSrc: '/images/quality analysis.jpg',
-    title: 'Quality Analysis',
-    description: "We developed an AI-based system that analyses the quality of each expert's performance to ensure you get the best results."
+    title: 'Research Quality',
+    description: "We use advanced quality control systems to ensure scientific assignments meet academic standards and demonstrate proper research methodology."
   },
   {
     imgSrc: '/images/education level.jpg',
-    title: 'Education Level',
-    description: 'Our experts have diverse educational backgrounds, ensuring you get help from someone who truly understands your field.'
+    title: 'Scientific Credentials',
+    description: 'Our science experts hold advanced degrees in their respective fields, ensuring you receive help from someone with deep scientific knowledge.'
   },
   {
     imgSrc: '/images/broad expertise.jpg',
-    title: 'Broad Expertise',
-    description: 'No matter how complicated your assignment is, we can find a specialist that is competent enough to provide you with a clear and effective solution to any academic problem.'
+    title: 'Multi-Disciplinary Science',
+    description: 'From theoretical physics to environmental biology, we cover all scientific disciplines and can handle complex interdisciplinary assignments.'
   },
   {
     imgSrc: '/images/communication skills.jpg',
-    title: 'Communication Skills',
-    description: 'You can chat with all the experts who can help you with your assignments, even before you hire them. Make your decision based not only on reviews and ratings but also on your own impression of the direct interaction.'
+    title: 'Clear Scientific Communication',
+    description: 'Our science experts excel at explaining complex concepts clearly, making scientific principles accessible and easy to understand.'
   }
 ];
 
@@ -146,11 +146,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                What Makes Management Assignment Help From Our Experts So Special?
+                What Makes Science Assignment Help From Our Experts So Special?
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top management experts</span> in different fields. Get your business assignments guided by a professional and be sure everything will be done on time.
+                Essay Embassy connects you with <span className="text-primary-500 font-medium">top science experts</span> across multiple disciplines. Get your scientific assignments handled by professionals with deep expertise in physics, chemistry, biology, and more.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -204,42 +204,42 @@ function ClientTestimonialsCarousel() {
     {
       id: 'EE-24467',
       rating: 5,
-      text: "My strategic management assignment was perfectly done! The analysis was thorough and the recommendations were practical. Really impressed with the quality.",
+      text: "My organic chemistry assignment was perfectly done! The reaction mechanisms were clearly explained and the lab analysis was thorough. Really impressed with the scientific accuracy.",
       date: '04/14/2025',
       level: 'Masters',
     },
     {
       id: 'EE-23901',
       rating: 5,
-      text: 'Was struggling with my organizational behavior case study. The expert provided excellent insights and helped me understand complex management theories.',
+      text: 'Was struggling with my quantum physics problem set. The expert provided excellent step-by-step solutions and helped me understand complex wave functions.',
       date: '03/16/2025',
       level: 'Bachelors',
     },
     {
       id: 'EE-57281',
       rating: 4,
-      text: 'Needed help with my leadership assignment and they delivered exactly what I needed. Great research, clear writing, and on-time delivery.',
+      text: 'Needed help with my environmental science research paper and they delivered exactly what I needed. Great data analysis, clear methodology, and on-time delivery.',
       date: '06/16/2025',
       level: 'Bachelors',
     },
     {
       id: 'EE-19822',
       rating: 5,
-      text: 'The management expert was very knowledgeable about business strategy and operations. My assignment scored an A+!',
+      text: 'The biology expert was very knowledgeable about molecular genetics and cell biology. My assignment on DNA replication scored an A+!',
       date: '02/10/2025',
       level: 'PhD',
     },
     {
       id: 'EE-33412',
       rating: 5,
-      text: 'Essay Embassy helped me with my MBA assignment on change management. The quality was outstanding and very professional.',
+      text: 'Essay Embassy helped me with my biochemistry lab report on enzyme kinetics. The quality was outstanding and very professional.',
       date: '01/22/2025',
       level: 'Masters',
     },
     {
       id: 'EE-11234',
       rating: 4,
-      text: 'Excellent help with my project management assignment. Clear explanations and well-structured content. Highly recommend!',
+      text: 'Excellent help with my physics assignment on thermodynamics. Clear explanations of heat transfer and well-structured calculations. Highly recommend!',
       date: '05/05/2025',
       level: 'College',
     },
@@ -511,10 +511,10 @@ export default function ScienceAssignmentHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Mathematics Assignment Help
+              Science Assignment Help
             </h1>
             <p className="text-lg text-gray-600">
-              Get expert help with your mathematics assignments from qualified professionals. Our experienced mathematicians deliver high-quality solutions across all math topics.
+              Get expert help with your science assignments from qualified professionals. Our experienced scientists deliver high-quality solutions across physics, chemistry, biology, and environmental science.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">

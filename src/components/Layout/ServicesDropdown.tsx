@@ -21,7 +21,6 @@ const PRIMARY_SERVICES = [
     slug: 'academic-writing',
     subServices: [
       { name: 'Book Review', slug: 'book-review' },
-      { name: 'Case Study', slug: 'case-study' },
       { name: 'Case Study Help', slug: 'case-study-help' },
       { name: 'Lab Report', slug: 'lab-report' },
       { name: 'Term Paper', slug: 'term-paper' },
@@ -34,6 +33,7 @@ const PRIMARY_SERVICES = [
       { name: 'Management Assignment Help', slug: 'management' },
       { name: 'Computer Assignment Help', slug: 'computer' },
       { name: 'Engineering Assignment Help', slug: 'engineering' },
+      { name: 'Science Assignment Help', slug: 'science' },
       { name: 'Mathematics Assignment Help', slug: 'math' },
       { name: 'Law Assignment Help', slug: 'law' },
       { name: 'English Assignment Help', slug: 'english-assignment-help' },
@@ -66,19 +66,19 @@ const PRIMARY_SERVICES = [
   },
   {
     name: 'Thesis Writing Help',
-    slug: 'thesis-writing-help',
+    slug: 'thesis-writing',
     subServices: [],
   },
   {
     name: 'Dissertation Writing Help',
-    slug: 'dissertation-writing-help',
+    slug: 'dissertation-writing',
     subServices: [],
   },
   {
     name: 'Research Paper Writing Help',
-    slug: 'research-paper-help',
+    slug: 'research-paper-writing',
     subServices: [
-      { name: 'Research Proposal', slug: 'research-proposal' },
+      { name: 'Research Proposal', slug: 'research-proposal'},
     ],
   },
 ];
@@ -231,7 +231,7 @@ export default function ServicesDropdown() {
                         {service.subServices.map((sub) => (
                           <li key={sub.slug}>
                             <Link
-                              to={`/${service.slug}/${sub.slug}`}
+                              to={sub.slug === 'research-proposal' ? `/${sub.slug}` : `/${service.slug}/${sub.slug}`}
                               className="block px-5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-900/20 dark:hover:text-primary-300 rounded-md transition-colors"
                               onClick={() => { setIsOpen(false); setActivePrimary(null); setMobileSubOpen(null); }}
                             >

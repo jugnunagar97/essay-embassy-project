@@ -2,197 +2,44 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import WritersCarousel from './WritersCarousel';
-import React, { useRef, useState } from 'react';
-
-// --- SpecialEssayWritingCarousel: React-based interactive carousel ---
-const carouselItems = [
-  {
-    imgSrc: '/images/verification.jpg',
-    title: 'Verification',
-    description: 'We care about your projects and pick the best specialists. To ensure your safety, we verify the identity of each candidate via social media.'
-  },
-  {
-    imgSrc: '/images/skill test.jpg',
-    title: 'Skill Test',
-    description: 'We test each candidate by examining their skills and knowledge with various examinations before they join our team.'
-  },
-  {
-    imgSrc: '/images/quality analysis.jpg',
-    title: 'Quality Analysis',
-    description: "We developed an AI-based system that analyses the quality of each expert's performance to ensure you get the best results."
-  },
-  {
-    imgSrc: '/images/education level.jpg',
-    title: 'Education Level',
-    description: 'Our experts have diverse educational backgrounds, ensuring you get help from someone who truly understands your field.'
-  },
-  {
-    imgSrc: '/images/broad expertise.jpg',
-    title: 'Broad Expertise',
-    description: 'No matter how complicated your assignment is, we can find a specialist that is competent enough to provide you with a clear and effective solution to any academic problem.'
-  },
-  {
-    imgSrc: '/images/communication skills.jpg',
-    title: 'Communication Skills',
-    description: 'You can chat with all the experts who can help you with your assignments, even before you hire them. Make your decision based not only on reviews and ratings but also on your own impression of the direct interaction.'
-  }
-];
-
-function SpecialEssayWritingCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [dragStartX, setDragStartX] = useState<number | null>(null);
-  const [dragDelta, setDragDelta] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const cardWidthRef = useRef<number>(0);
-
-  React.useEffect(() => {
-    if (trackRef.current && trackRef.current.children.length > 0) {
-      const card = trackRef.current.children[0] as HTMLElement;
-      cardWidthRef.current = card.offsetWidth;
-    }
-    const handleResize = () => {
-      if (trackRef.current && trackRef.current.children.length > 0) {
-        const card = trackRef.current.children[0] as HTMLElement;
-        cardWidthRef.current = card.offsetWidth;
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const goTo = (idx: number) => {
-    if (idx < 0) idx = 0;
-    if (idx > carouselItems.length - 1) idx = carouselItems.length - 1;
-    setCurrentIndex(idx);
-  };
-  const handlePrev = () => goTo(currentIndex - 1);
-  const handleNext = () => goTo(currentIndex + 1);
-
-  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
-    setIsDragging(true);
-    if ('touches' in e) {
-      setDragStartX(e.touches[0].pageX);
-    } else {
-      setDragStartX(e.pageX);
-    }
-    setDragDelta(0);
-  };
-  const handleDragMove = (e: MouseEvent | TouchEvent) => {
-    if (!isDragging || dragStartX === null) return;
-    let clientX = 0;
-    if ('touches' in e && e.touches.length > 0) {
-      clientX = e.touches[0].pageX;
-    } else if ('pageX' in e) {
-      clientX = (e as MouseEvent).pageX;
-    }
-    setDragDelta(clientX - dragStartX);
-  };
-  const handleDragEnd = (e: MouseEvent | TouchEvent) => {
-    if (!isDragging || dragStartX === null) return;
-    let clientX = 0;
-    if ('changedTouches' in e && e.changedTouches.length > 0) {
-      clientX = e.changedTouches[0].pageX;
-    } else if ('pageX' in e) {
-      clientX = (e as MouseEvent).pageX;
-    }
-    const dx = clientX - dragStartX;
-    setIsDragging(false);
-    setDragStartX(null);
-    setDragDelta(0);
-    if (dx > 50 && currentIndex > 0) {
-      goTo(currentIndex - 1);
-    } else if (dx < -50 && currentIndex < carouselItems.length - 1) {
-      goTo(currentIndex + 1);
-    }
-  };
-  React.useEffect(() => {
-    if (!isDragging) return;
-    const move = (e: MouseEvent | TouchEvent) => handleDragMove(e);
-    const up = (e: MouseEvent | TouchEvent) => handleDragEnd(e);
-    window.addEventListener('mousemove', move as any);
-    window.addEventListener('mouseup', up as any);
-    window.addEventListener('touchmove', move as any);
-    window.addEventListener('touchend', up as any);
-    return () => {
-      window.removeEventListener('mousemove', move as any);
-      window.removeEventListener('mouseup', up as any);
-      window.removeEventListener('touchmove', move as any);
-      window.removeEventListener('touchend', up as any);
-    };
-  }, [isDragging, dragStartX, currentIndex]);
-
-  const gap = 32;
-  const cardWidth = cardWidthRef.current || 380;
-  const offset = -currentIndex * (cardWidth + gap) + (isDragging ? dragDelta : 0);
-
-  return (
-    <section className="w-full bg-[#F7FAFC] py-10">
-      <div className="max-w-6xl mx-auto px-4 bg-[#F7FAFC] shadow-none border-none">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-          {/* Left Column: Static Content & Navigation */}
-          <div className="md:col-span-1 flex flex-col justify-between">
-            <div>
-              {/* Lighter, more elegant heading and description */}
-              <div className="mb-4 flex items-center">
-                <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
-                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes Essay Writing Help From Our Experts So Special?
-                </h2>
-              </div>
-              <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top experts</span> in different fields. Get your essays guided by a professional and be sure everything will be done on time.
-              </p>
-            </div>
-            <div className="flex gap-4 mt-8">
-              <button onClick={handlePrev} aria-label="Previous" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === 0}>
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </button>
-              <button onClick={handleNext} aria-label="Next" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === carouselItems.length - 1}>
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
-          {/* Right Column: Dynamic Carousel */}
-          <div className="md:col-span-2 relative overflow-x-hidden select-none">
-            <div
-              className="w-full overflow-x-hidden"
-              onMouseDown={handleDragStart}
-              onTouchStart={handleDragStart}
-              style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-            >
-              <div
-                ref={trackRef}
-                className="flex gap-8 transition-transform duration-500 ease-in-out"
-                style={{
-                  transform: `translateX(${offset}px)`,
-                  transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(.4,0,.2,1)',
-                }}
-              >
-                {carouselItems.map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex-shrink-0 w-full md:w-[380px] bg-[#F7FAFC] rounded-2xl shadow-xl p-6"
-                    style={{ userSelect: 'none' }}
-                  >
-                    <img src={item.imgSrc} alt={item.title} className="w-full aspect-video object-cover rounded-xl mb-4" />
-                    <h4 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h4>
-                    <p className="text-gray-600 text-base">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+import { useState } from 'react';
+import { SpecialAssignmentHelpCarousel } from './AdmissionEssayWriting';
 
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
-export default function EssayWriting() {
+const sampleCards = [
+  {
+    title: "School Effectiveness",
+    pages: 6,
+    level: "College",
+    type: "Essay",
+    citation: "APA"
+  },
+  {
+    title: "LinkedIn Analysis",
+    pages: 6,
+    level: "Bachelor",
+    type: "Review",
+    citation: "MLA"
+  },
+  {
+    title: "Climate Change Policy",
+    pages: 8,
+    level: "PhD",
+    type: "Research Paper",
+    citation: "Harvard"
+  },
+  {
+    title: "Modern Art Movements",
+    pages: 5,
+    level: "High School",
+    type: "Report",
+    citation: "Chicago"
+  },
+];
+
+export default function AssignmentHelp() {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;
@@ -206,10 +53,27 @@ export default function EssayWriting() {
     },
   });
 
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const faqData = [
+    {
+      question: 'How much time does it take for an assignment to be ready?',
+      answer: 'The turnaround time depends on the complexity, length, and your specified deadline. We offer deadlines ranging from 3 hours to 14 days.'
+    },
+    {
+      question: 'What assignments can Essay Embassy do?',
+      answer: 'We handle a vast range of assignments including essays, research papers, case studies, lab reports, presentations, and more across all academic fields.'
+    },
+    {
+      question: 'Who will do my assignment?',
+      answer: 'Your assignment will be handled by a qualified expert with an advanced degree (Master\'s or PhD) in your specific subject area.'
+    },
+  ];
+
   const watchedValues = watch();
   const WORDS_PER_PAGE = 275;
   const totalWords = (watchedValues.pages || 1) * WORDS_PER_PAGE;
 
+  // Price config copied from OrderNow
   const priceConfig = {
     "High School": {
       "3 hours": { base: 18, urgent: 1.8 }, "6 hours": { base: 16, urgent: 1.6 }, "12 hours": { base: 14, urgent: 1.4 },
@@ -236,6 +100,7 @@ export default function EssayWriting() {
     const config = (priceConfig[academicLevel] as Record<string, { base: number; urgent: number }>)[deadline];
     return config ? config.base : 0;
   }
+  // Update price calculation to multiply by number of pages
   const price = getBasePrice(watchedValues.academicLevel as keyof typeof priceConfig, watchedValues.deadline) * (watchedValues.pages || 1);
 
   const onSubmit = (data: { academicLevel: string; pages: number; deadline: string }) => {
@@ -247,10 +112,12 @@ export default function EssayWriting() {
     navigate(`/order-now?${params.toString()}`);
   };
 
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
+
   return (
     <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-8 md:py-10 relative">
+      <section className="container mx-auto px-6 py-6 md:py-10 relative">
         <main className="grid md:grid-cols-2 gap-16 items-center">
           {/* Left Column: Content */}
           <div className="space-y-8">
@@ -264,10 +131,10 @@ export default function EssayWriting() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Write My Essay
+              Assignment Help Service
             </h1>
             <p className="text-lg text-gray-600">
-              Looking for a reliable expert to write your essay? Hire our professional writer and be done with your essay assignments.
+              Get expert help with your assignments and never miss a deadline again. Our professionals handle all subjects and academic levels.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -304,8 +171,8 @@ export default function EssayWriting() {
                 </span>
                 <span className="text-gray-600 text-xs mt-1 font-medium">Sitejabber</span>
               </div>
-            </div> {/* End of ratings flex-row */}
-          </div> {/* End of left column content */}
+            </div>
+          </div>
           {/* Right Column: Order Form */}
           <div className="bg-white p-8 rounded-2xl max-w-md mx-auto shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.04)]">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Place an order</h2>
@@ -350,21 +217,32 @@ export default function EssayWriting() {
           </div>
         </main>
       </section>
-      {/* Writers Section Title, Description, and University Logos */}
-      <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">Meet Our Top Essay Writers</h2>
-          <p className="text-lg text-gray-600 mb-4 max-w-2xl">Our team consists of highly qualified experts from top universities, ready to help you with any essay or academic challenge. Each writer is carefully vetted for expertise, reliability, and communication skills.</p>
-          <img src="/images/univ-logos.svg" alt="Top Universities" className="h-10 md:h-12 my-2" style={{maxWidth: '100%', height: 'auto'}} />
+      {/* Writers Block Section */}
+      <section className="container mx-auto px-6 py-6 md:py-10">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            Meet the Verified Experts Behind Your Assignments
+          </h2>
+          <p className="text-gray-500 text-base">
+            Every applicant undergoes a rigorous multi-stage verification process, confirming their credentials, subject matter expertise, and commitment to our strict plagiarism-free and AI-free standards.
+          </p>
+        </div>
+        {/* University Logos Bar */}
+        <div className="flex items-center justify-center max-w-4xl mx-auto mt-2 mb-8 px-4">
+          <p className="text-sm text-gray-600 whitespace-nowrap mr-4">Cooperate with those who graduated<br />from the best universities and colleges</p>
+          <div className="h-8 w-1 bg-primary-600 mx-4 rounded" />
+          <div className="flex items-center gap-4">
+            <img src="/images/univ-logos.svg" alt="University Logos" className="h-8 filter grayscale" />
+            <img src="/images/univ-logos-1.svg" alt="University Logos 2" className="h-8 filter grayscale" />
+          </div>
         </div>
       </section>
       {/* Writers Scrollable Area */}
-      <div className="container mx-auto px-6 pb-6">
+      <div className="container mx-auto px-6 pb-10">
         <WritersCarousel />
       </div>
-
-      {/* We go beyond assignment help services Block */}
-      <section className="w-full bg-[#F7FAFC] py-12">
+      {/* Next-Gen Features Grid Block */}
+      <section className="w-full bg-[#F7FAFC] py-24">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-5xl md:text-6xl font-light tracking-wider text-center mb-20 animate-fade-in-up">
             We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent animate-gradient-x font-semibold">assignment help services</span>
@@ -480,11 +358,8 @@ export default function EssayWriting() {
           }
         `}</style>
       </section>
-      {/* Special Essay Writing Carousel Block */}
-      <SpecialEssayWritingCarousel />
-
       {/* Prices and Services Block */}
-      <section className="w-full bg-[#F7FAFC] py-12">
+      <section className="w-full bg-white py-24">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
           <div className="text-center text-lg text-gray-600 mb-4">
@@ -546,56 +421,61 @@ export default function EssayWriting() {
           </div>
         </div>
       </section>
-      {/* Why Essay Embassy Stats Block (Compact, Themed) */}
-      <section className="w-full bg-[#F7FAFC] py-10">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 tracking-tight">Why Essay Embassy</h2>
-          <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-4 md:gap-0">
-            {/* Stat 1 */}
-            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
-            </div>
-            {/* Divider */}
-            <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
-            {/* Stat 2 */}
-            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
-            </div>
-            {/* Divider */}
-            <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
-            {/* Stat 3 */}
-            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed orders</span>
-            </div>
-            {/* Divider */}
-            <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
-            {/* Stat 4 */}
-            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <div className="flex items-center justify-center gap-1">
-                <span className="text-3xl md:text-4xl font-bold text-emerald-500">4.8</span>
-                <span className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} width="20" height="20" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                  ))}
-                </span>
+      {/* Samples Block - Clean, Professional, Reference Style */}
+      <section className="w-full py-20 px-2 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-2 text-gray-900 tracking-tight">Sample Assignments</h2>
+          <p className="text-center text-lg text-gray-600 mb-8 max-w-2xl mx-auto">Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {sampleCards.map((sample, idx) => (
+              <div key={idx} className="bg-white border border-blue-200 rounded-2xl shadow-sm p-6 flex flex-col min-h-[270px] text-left">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center justify-center w-7 h-7 bg-red-100 rounded-md">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#EF4444"/><text x="6" y="15" fontSize="9" fill="white" fontWeight="bold">PDF</text></svg>
+                    </span>
+                    <span className="font-bold text-gray-900 text-base">{sample.title}</span>
+                  </div>
+                  <span className="text-gray-400 text-sm font-medium">{sample.pages} Pages</span>
+                </div>
+                <hr className="my-3 border-gray-200" />
+                <div className="flex-1 flex flex-col gap-2 text-sm">
+                  <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Academic Level:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.level}</span></div>
+                  <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Document Type:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.type}</span></div>
+                  <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Citation Style:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.citation}</span></div>
+                </div>
+                <button className="mt-6 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-2 rounded-full shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 text-left pl-6">Read</button>
               </div>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Average<br className='hidden md:block'/>user rating</span>
-            </div>
+            ))}
           </div>
         </div>
       </section>
-
-      {/* Client Testimonials Carousel */}
-      <ClientTestimonialsCarousel />
-
-      {/* Your Essay Writing journey Block */}
-      <section className="w-full bg-[#F7FAFC] py-12">
+      {/* How It Works Journey Block */}
+      <section className="w-full bg-white py-24">
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
+          {/* Decorative SVGs for left and right */}
+          <div className="hidden md:block absolute left-[-180px] top-1/2 -translate-y-1/2 opacity-30 blur-sm pointer-events-none select-none" style={{zIndex: 0}}>
+            {/* Books SVG */}
+            <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="90" width="100" height="18" rx="4" fill="#e0e7ef"/>
+              <rect x="28" y="70" width="84" height="16" rx="4" fill="#d1fae5"/>
+              <rect x="36" y="52" width="68" height="14" rx="4" fill="#fef9c3"/>
+              <rect x="44" y="36" width="52" height="10" rx="4" fill="#f3e8ff"/>
+              <rect x="52" y="24" width="36" height="8" rx="4" fill="#bae6fd"/>
+            </svg>
+          </div>
+          <div className="hidden md:block absolute right-[-180px] top-1/2 -translate-y-1/2 opacity-30 blur-sm pointer-events-none select-none" style={{zIndex: 0}}>
+            {/* Graduation Cap SVG */}
+            <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="70" cy="60" rx="60" ry="18" fill="#e0e7ef"/>
+              <rect x="40" y="62" width="60" height="18" rx="4" fill="#d1fae5"/>
+              <polygon points="70,30 120,60 70,90 20,60" fill="#fef9c3"/>
+              <rect x="66" y="90" width="8" height="24" rx="4" fill="#f3e8ff"/>
+              <circle cx="70" cy="116" r="6" fill="#bae6fd"/>
+            </svg>
+          </div>
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Essay Writing journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Assignment Help journey</h2>
             <div className="flex flex-col items-center relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
@@ -637,8 +517,55 @@ export default function EssayWriting() {
           }
         `}</style>
       </section>
+      {/* Why Assignment Help Stats Block (Compact, Themed) */}
+      <section className="w-full bg-white py-12">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 tracking-tight">Why Assignment Help at Essay Embassy</h2>
+          <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-4 md:gap-0">
+            {/* Stat 1 */}
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
+            </div>
+            {/* Divider */}
+            <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
+            {/* Stat 2 */}
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
+            </div>
+            {/* Divider */}
+            <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
+            {/* Stat 3 */}
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed assignments</span>
+            </div>
+            {/* Divider */}
+            <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
+            {/* Stat 4 */}
+            <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
+              <div className="flex items-center justify-center gap-1">
+                <span className="text-3xl md:text-4xl font-bold text-emerald-500">4.8</span>
+                <span className="flex items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="20" height="20" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                  ))}
+                </span>
+              </div>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Average<br className='hidden md:block'/>user rating</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* Client Testimonials: 3D Carousel (moved up) */}
+      <section className="w-full py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <ClientTestimonialsCarousel />
+        </div>
+      </section>
       {/* FAQ Block */}
-      <section className="w-full bg-[#F7FAFC] py-10">
+      <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-2 md:px-4">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-start">
             {/* FAQ Column */}
@@ -646,29 +573,7 @@ export default function EssayWriting() {
               <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left mb-6 text-gray-900">Frequently Asked Questions</h2>
               <div className="bg-white/80 rounded-3xl shadow-lg p-4 md:p-8">
                 <div className="space-y-2">
-                  {[
-                    {
-                      question: 'Is your essay writing service confidential and safe?',
-                      answer: 'Absolutely. We use end-to-end encryption and never share your personal information or order details with third parties. Your privacy and security are our top priorities.'
-                    },
-                    {
-                      question: 'Will my essay be written by a real expert?',
-                      answer: 'Yes! Every essay is written by a verified subject-matter expert who has passed our rigorous selection and verification process. No AI-generated content, ever.'
-                    },
-                    {
-                      question: 'How fast can I get my essay delivered?',
-                      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll match you with a writer who can deliver on time.'
-                    },
-                    {
-                      question: 'What if I am not satisfied with the paper?',
-                      answer: 'We offer unlimited free revisions and a comprehensive refund policy. Your satisfaction is guaranteed, or you get your money back.'
-                    },
-                    {
-                      question: 'How do I place an order?',
-                      answer: 'Simply fill out the order form at the top of this page, select your requirements, and follow the prompts. Our team will take care of the rest!'
-                    }
-                  ].map((faq, idx) => {
-                    const [openFAQ, setOpenFAQ] = React.useState<number | null>(null);
+                  {faqData.map((faq, idx) => {
                     const isOpen = openFAQ === idx;
                     return (
                       <div
@@ -728,31 +633,171 @@ export default function EssayWriting() {
           </div>
         </div>
       </section>
-
-      {/* Services Interlink Block - Tabbed Professional Version (Only Existing Services, Improved Link UI, No Duplicates) */}
-      <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{background: '#F7FAFC'}}>
-        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center md:items-start">
-          {/* Left Side: Heading, Description, CTA */}
-          <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start mb-10 md:mb-0">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Your #1 paper writing service</h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert essay writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
-            <Link
-              to="/writers"
-              className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
-              style={{textAlign: 'center'}}
-            >
-              Find your writer <span className="ml-2">→</span>
+      {/* Services Interlink Block - Compact Accordion Version */}
+      <section className="w-full bg-white py-12 mt-10">
+        <div className="max-w-2xl mx-auto px-2">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-900">Explore All Our Services</h2>
+          {(() => {
+            const categories = [
+              {
+                name: 'Essay Services',
+                key: 'essay',
+                services: [
+                  { name: 'Essay Writing', link: '/services/essay-writing' },
+                  { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
+                  { name: 'Narrative Essay', link: '/services/narrative-essay' },
+                  { name: 'Admission Essay', link: '/services/admission-essay' },
+                  { name: 'College Admission Essay', link: '/services/admission-essay-writing' },
+                  { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
+                  { name: 'Book Review', link: '/services/book-review' },
+                ],
+              },
+              {
+                name: 'Assignment Services',
+                key: 'assignment',
+                services: [
+                  { name: 'Assignment Help', link: '/services/assignment-help' },
+                  { name: 'English Assignment Help', link: '/services/english-assignment-help' },
+                  { name: 'Case Study', link: '/services/case-study' },
+                  { name: 'Case Study Help', link: '/services/case-study-help' },
+                  { name: 'Lab Report', link: '/services/lab-report' },
+                  { name: 'Term Paper', link: '/services/term-paper' },
+                  { name: 'Thesis Writing', link: '/services/thesis-writing' },
+                  { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
+                  { name: 'Research Proposal', link: '/services/research-proposal' },
+                  { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
+                ],
+              },
+              {
+                name: 'STEM & Technical',
+                key: 'stem',
+                services: [
+                  { name: 'Programming Help', link: '/services/programming-help' },
+                  { name: 'Homework Help', link: '/services/homework-help' },
+                  { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
+                ],
+              },
+            ];
+            return (
+              <div className="space-y-2">
+                {categories.map(cat => (
+                  <div key={cat.key} className="rounded-lg border border-gray-100 bg-gray-50 shadow-sm overflow-hidden">
+                    <button
+                      type="button"
+                      className={`w-full flex justify-between items-center px-4 py-2 text-left font-medium text-base focus:outline-none transition-colors duration-200 ${openCategory === cat.key ? 'bg-yellow-400 text-gray-900' : 'bg-gray-50 text-gray-900 hover:bg-gray-100'}`}
+                      style={openCategory === cat.key ? { background: '#FACC15', color: '#232323' } : { color: '#232323' }}
+                      onClick={() => setOpenCategory(openCategory === cat.key ? null : cat.key)}
+                      aria-expanded={openCategory === cat.key}
+                      aria-controls={`services-cat-${cat.key}`}
+                    >
+                      <span>{cat.name}</span>
+                      <svg className={`w-5 h-5 text-emerald-500 transform transition-transform duration-300 ${openCategory === cat.key ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div
+                      id={`services-cat-${cat.key}`}
+                      className={`transition-all duration-300 ease-in-out bg-white ${openCategory === cat.key ? 'max-h-60 opacity-100 py-1' : 'max-h-0 opacity-0 py-0 overflow-hidden'}`}
+                    >
+                      <ul className="space-y-0.5 px-4">
+                        {cat.services.map(service => (
+                          <li key={service.link}>
+                            <Link
+                              to={service.link}
+                              className="block py-2 px-2 rounded-md text-gray-800 hover:bg-gray-100 hover:text-emerald-700 active:bg-emerald-50 active:text-emerald-600 transition-all text-sm font-normal"
+                            >
+                              {service.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+          <div className="flex justify-center mt-8">
+            <Link to="/order-now" className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold px-8 py-3 rounded-lg shadow-md transition-all duration-200 text-base focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95">
+              Place an order
             </Link>
-          </div>
-          {/* Right Side: Tabs and Service List */}
-          <div className="flex-1 w-full">
-            {/* Tabbed services UI from template goes here */}
           </div>
         </div>
       </section>
-
+      {/* Why You Need Our Assignment Help - Scrollable Block (Polished, Compact) */}
+      <section className="py-16">
+        <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
+          <div className="flex items-center mb-4">
+            <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+          </div>
+          <p className="text-base text-gray-700 text-left mb-4">
+            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
+          </p>
+          <p className="text-sm text-gray-600 mb-3 text-left">
+            Students turn to Essay Embassy for assignment help because:
+          </p>
+          <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
+            </ul>
+            <p className="text-sm text-gray-700 mb-3">
+              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
+            </p>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
+            </ul>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
+            <ul className="list-none pl-0 mb-3">
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
+            </ul>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
+            <p className="text-sm text-gray-700 mb-1">
+              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
+            </p>
+            <p className="text-sm text-gray-700 mb-1">
+              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
+            </p>
+            <p className="text-sm text-gray-700 mb-1">
+              Place your order now and let a true subject matter expert handle the hard work for you.
+            </p>
+          </div>
+        </div>
+        <style>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+          }
+        `}</style>
+      </section>
       {/* Final CTA Block - Join Our Happy Clients (Integrated, Subtle, Modern) */}
-      <section className="pt-6 pb-0 bg-[#F7FAFC] w-full px-4 md:px-0">
+      <section className="pt-8 pb-0 bg-gray-100 w-full px-4 md:px-0">
         <div className="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-5xl mx-auto py-6">
           <img
             src="/images/logo.png"
@@ -764,8 +809,8 @@ export default function EssayWriting() {
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-2">Join our 5,000+ happy clients</h2>
             <ul className="text-gray-700 text-sm mb-4 list-disc list-inside">
-              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
-              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
+              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ assignments delivered with a 98% success rate</li>
+              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original assignments written according to your instructions</li>
               <li className="flex items-center gap-2"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
             </ul>
             <Link
@@ -777,11 +822,17 @@ export default function EssayWriting() {
           </div>
         </div>
       </section>
+
+      {/* What Makes Assignment Help From Our Experts So Special? Block (copied from AdmissionEssayWriting) */}
+      <section className="w-full bg-white py-12">
+        <div className="max-w-6xl mx-auto px-4">
+          <SpecialAssignmentHelpCarousel />
+        </div>
+      </section>
     </div>
   );
 }
 
-// --- ClientTestimonialsCarousel: 3D-style testimonial carousel ---
 function ClientTestimonialsCarousel() {
   const testimonials = [
     {
@@ -827,7 +878,7 @@ function ClientTestimonialsCarousel() {
       level: 'College',
     },
   ];
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const cardCount = testimonials.length;
 
   // Navigation logic
@@ -868,75 +919,69 @@ function ClientTestimonialsCarousel() {
   };
 
   return (
-    <section className="w-full py-24 bg-[#F7FAFC]">
+    <section className="w-full py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4">
         {/* Section Header */}
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Hear What Our Clients Have To Say</h2>
+        <p className="text-center text-lg text-gray-500 mb-14">Read what some of our satisfied customers have to say about us:</p>
         {/* Carousel Viewport */}
         <div className="relative flex items-center justify-center" style={{minHeight: 340}}>
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
             aria-label="Previous testimonial"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-[#F7FAFC] transition focus:outline-none"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
           >
             <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
           {/* Carousel Track */}
           <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
-            {testimonials.map((t, idx) => {
-              const offset = idx - currentIndex;
-              return (
-                <div
-                  key={t.id}
-                  className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
-                  style={{
-                    ...getCardStyle(idx),
-                    width: '90%',
-                    maxWidth: 480,
-                    position: 'absolute',
-                    left: '50%',
-                    top: 0,
-                    transform: `${getCardStyle(idx).transform} translateX(-50%)`,
-                    transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
-                    background: '#fff',
-                    boxShadow: getCardStyle(idx).boxShadow,
-                    border: undefined,
-                    opacity: offset === 0 ? 1 : 0.25,
-                  }}
-                  aria-hidden={idx !== currentIndex}
-                >
-                  {/* Card Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
-                    <div className="flex items-center gap-1">
-                      {[1,2,3,4,5].map((star) => (
-                        <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                      ))}
-                    </div>
-                  </div>
-                  {/* Testimonial Text */}
-                  <p className="text-gray-700 text-base mb-8">{t.text}</p>
-                  {/* Metadata */}
-                  <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
-                    <div>
-                      <div className="font-bold text-gray-700 text-sm">Date:</div>
-                      <div className="text-gray-600 text-sm">{t.date}</div>
-                    </div>
-                    <div>
-                      <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
-                      <div className="text-gray-600 text-sm">{t.level}</div>
-                    </div>
+            {testimonials.map((t, idx) => (
+              <div
+                key={t.id}
+                className={`bg-white rounded-2xl p-8 mx-2 transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
+                style={{
+                  ...getCardStyle(idx),
+                  width: '90%',
+                  maxWidth: 480,
+                  position: 'absolute',
+                  left: '50%',
+                  top: 0,
+                  transform: `${getCardStyle(idx).transform} translateX(-50%)`,
+                  transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
+                }}
+                aria-hidden={idx !== currentIndex}
+              >
+                {/* Card Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
+                  <div className="flex items-center gap-1">
+                    {[1,2,3,4,5].map((star) => (
+                      <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    ))}
                   </div>
                 </div>
-              );
-            })}
+                {/* Testimonial Text */}
+                <p className="text-gray-700 text-base mb-8">{t.text}</p>
+                {/* Metadata */}
+                <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
+                  <div>
+                    <div className="font-bold text-gray-700 text-sm">Date:</div>
+                    <div className="text-gray-600 text-sm">{t.date}</div>
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
+                    <div className="text-gray-600 text-sm">{t.level}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
           {/* Right Arrow */}
           <button
             onClick={handleNext}
             aria-label="Next testimonial"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[#F7FAFC] transition focus:outline-none"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
           >
             <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
@@ -951,16 +996,6 @@ function ClientTestimonialsCarousel() {
               aria-label={`Go to testimonial ${idx + 1}`}
             />
           ))}
-        </div>
-        {/* Verified reviews UI block (simple, subtle, competitor style) */}
-        <div className="flex items-center justify-center gap-2" style={{marginTop: '2.5rem', marginBottom: '0'}}>
-          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full">
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="10" fill="#34D399"/>
-              <path d="M6.5 10.2l2.1 2.1L13.5 8.2" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </span>
-          <span className="text-gray-500 text-base font-normal">All reviews are from verified users</span>
         </div>
       </div>
     </section>
