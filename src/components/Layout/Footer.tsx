@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { 
-  Facebook, 
   Twitter, 
   Instagram, 
   Linkedin,
@@ -45,16 +44,13 @@ export default function Footer() {
             <div className="flex items-center space-x-4">
               <span className="text-gray-300 font-medium">Let's get social:</span>
               <div className="flex space-x-3">
-                <a href="#" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
-                  <Facebook size={20} />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                <a href="https://x.com/essayembassy/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
                   <Twitter size={20} />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                <a href="https://www.instagram.com/essayembassy/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
                   <Instagram size={20} />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                <a href="https://www.linkedin.com/company/essay-embassy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
                   <Linkedin size={20} />
                 </a>
               </div>

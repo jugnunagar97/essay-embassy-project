@@ -453,27 +453,6 @@ export default function AssignmentHelp() {
       {/* How It Works Journey Block */}
       <section className="w-full bg-white py-24">
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
-          {/* Decorative SVGs for left and right */}
-          <div className="hidden md:block absolute left-[-180px] top-1/2 -translate-y-1/2 opacity-30 blur-sm pointer-events-none select-none" style={{zIndex: 0}}>
-            {/* Books SVG */}
-            <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="20" y="90" width="100" height="18" rx="4" fill="#e0e7ef"/>
-              <rect x="28" y="70" width="84" height="16" rx="4" fill="#d1fae5"/>
-              <rect x="36" y="52" width="68" height="14" rx="4" fill="#fef9c3"/>
-              <rect x="44" y="36" width="52" height="10" rx="4" fill="#f3e8ff"/>
-              <rect x="52" y="24" width="36" height="8" rx="4" fill="#bae6fd"/>
-            </svg>
-          </div>
-          <div className="hidden md:block absolute right-[-180px] top-1/2 -translate-y-1/2 opacity-30 blur-sm pointer-events-none select-none" style={{zIndex: 0}}>
-            {/* Graduation Cap SVG */}
-            <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="70" cy="60" rx="60" ry="18" fill="#e0e7ef"/>
-              <rect x="40" y="62" width="60" height="18" rx="4" fill="#d1fae5"/>
-              <polygon points="70,30 120,60 70,90 20,60" fill="#fef9c3"/>
-              <rect x="66" y="90" width="8" height="24" rx="4" fill="#f3e8ff"/>
-              <circle cx="70" cy="116" r="6" fill="#bae6fd"/>
-            </svg>
-          </div>
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Assignment Help journey</h2>
             <div className="flex flex-col items-center relative">
@@ -630,97 +609,6 @@ export default function AssignmentHelp() {
                 </Link>
               </div>
             </aside>
-          </div>
-        </div>
-      </section>
-      {/* Services Interlink Block - Compact Accordion Version */}
-      <section className="w-full bg-white py-12 mt-10">
-        <div className="max-w-2xl mx-auto px-2">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-900">Explore All Our Services</h2>
-          {(() => {
-            const categories = [
-              {
-                name: 'Essay Services',
-                key: 'essay',
-                services: [
-                  { name: 'Essay Writing', link: '/services/essay-writing' },
-                  { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
-                  { name: 'Narrative Essay', link: '/services/narrative-essay' },
-                  { name: 'Admission Essay', link: '/services/admission-essay' },
-                  { name: 'College Admission Essay', link: '/services/admission-essay-writing' },
-                  { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
-                  { name: 'Book Review', link: '/services/book-review' },
-                ],
-              },
-              {
-                name: 'Assignment Services',
-                key: 'assignment',
-                services: [
-                  { name: 'Assignment Help', link: '/services/assignment-help' },
-                  { name: 'English Assignment Help', link: '/services/english-assignment-help' },
-                  { name: 'Case Study', link: '/services/case-study' },
-                  { name: 'Case Study Help', link: '/services/case-study-help' },
-                  { name: 'Lab Report', link: '/services/lab-report' },
-                  { name: 'Term Paper', link: '/services/term-paper' },
-                  { name: 'Thesis Writing', link: '/services/thesis-writing' },
-                  { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
-                  { name: 'Research Proposal', link: '/services/research-proposal' },
-                  { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
-                ],
-              },
-              {
-                name: 'STEM & Technical',
-                key: 'stem',
-                services: [
-                  { name: 'Programming Help', link: '/services/programming-help' },
-                  { name: 'Homework Help', link: '/services/homework-help' },
-                  { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
-                ],
-              },
-            ];
-            return (
-              <div className="space-y-2">
-                {categories.map(cat => (
-                  <div key={cat.key} className="rounded-lg border border-gray-100 bg-gray-50 shadow-sm overflow-hidden">
-                    <button
-                      type="button"
-                      className={`w-full flex justify-between items-center px-4 py-2 text-left font-medium text-base focus:outline-none transition-colors duration-200 ${openCategory === cat.key ? 'bg-yellow-400 text-gray-900' : 'bg-gray-50 text-gray-900 hover:bg-gray-100'}`}
-                      style={openCategory === cat.key ? { background: '#FACC15', color: '#232323' } : { color: '#232323' }}
-                      onClick={() => setOpenCategory(openCategory === cat.key ? null : cat.key)}
-                      aria-expanded={openCategory === cat.key}
-                      aria-controls={`services-cat-${cat.key}`}
-                    >
-                      <span>{cat.name}</span>
-                      <svg className={`w-5 h-5 text-emerald-500 transform transition-transform duration-300 ${openCategory === cat.key ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    <div
-                      id={`services-cat-${cat.key}`}
-                      className={`transition-all duration-300 ease-in-out bg-white ${openCategory === cat.key ? 'max-h-60 opacity-100 py-1' : 'max-h-0 opacity-0 py-0 overflow-hidden'}`}
-                    >
-                      <ul className="space-y-0.5 px-4">
-                        {cat.services.map(service => (
-                          <li key={service.link}>
-                            <Link
-                              to={service.link}
-                              className="block py-2 px-2 rounded-md text-gray-800 hover:bg-gray-100 hover:text-emerald-700 active:bg-emerald-50 active:text-emerald-600 transition-all text-sm font-normal"
-                            >
-                              {service.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            );
-          })()}
-          <div className="flex justify-center mt-8">
-            <Link to="/order-now" className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold px-8 py-3 rounded-lg shadow-md transition-all duration-200 text-base focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95">
-              Place an order
-            </Link>
           </div>
         </div>
       </section>
