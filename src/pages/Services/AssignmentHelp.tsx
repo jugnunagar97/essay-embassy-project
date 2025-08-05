@@ -121,7 +121,7 @@ export default function AssignmentHelp() {
         <main className="grid md:grid-cols-2 gap-16 items-center">
           {/* Left Column: Content */}
           <div className="space-y-8">
-            <div className="inline-flex items-center bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-full">
+            <div className="flex items-center bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-full">
               <span className="bg-white text-gray-800 rounded-full h-6 w-6 flex items-center justify-center mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -809,9 +809,9 @@ export default function AssignmentHelp() {
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-2">Join our 5,000+ happy clients</h2>
             <ul className="text-gray-700 text-sm mb-4 list-disc list-inside">
-              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ assignments delivered with a 98% success rate</li>
-              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original assignments written according to your instructions</li>
-              <li className="flex items-center gap-2"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
+              <li className="flex items-center gap-2 mb-1"><span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ assignments delivered with a 98% success rate</li>
+              <li className="flex items-center gap-2 mb-1"><span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original assignments written according to your instructions</li>
+              <li className="flex items-center gap-2"><span className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
             </ul>
             <Link
               to="/order-now"
@@ -939,7 +939,7 @@ function ClientTestimonialsCarousel() {
             {testimonials.map((t, idx) => (
               <div
                 key={t.id}
-                className={`bg-white rounded-2xl p-8 mx-2 transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
+                className={`bg-white rounded-2xl p-8 mx-2 transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0 ${idx === currentIndex ? 'is-active' : ''}`}
                 style={{
                   ...getCardStyle(idx),
                   width: '90%',
@@ -1001,3 +1001,5 @@ function ClientTestimonialsCarousel() {
     </section>
   );
 }
+
+{/* Additional component that was mistakenly inline */}

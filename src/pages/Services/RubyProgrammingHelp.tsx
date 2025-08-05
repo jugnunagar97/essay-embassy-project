@@ -730,7 +730,7 @@ export default function RubyProgrammingHelp() {
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
           <div className="text-center text-lg text-gray-600 mb-4">
-            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
+            Prices start at <span className="font-bold text-gray-900 relative block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
           </div>
           <div className="flex justify-center mb-4">
             <Link to="/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
@@ -1141,7 +1141,7 @@ export default function RubyProgrammingHelp() {
                       <ul key={idx} className="space-y-2">
                         {col.map(service => (
                           <li key={service.name} className="text-[15px] text-gray-800 flex items-center gap-2" >
-                            <span className="inline-block w-2 h-2 rounded-full bg-primary-200"></span>
+                            <span className="block w-2 h-2 rounded-full bg-primary-200"></span>
                             <Link
                               to={service.link}
                               className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
@@ -1170,16 +1170,16 @@ export default function RubyProgrammingHelp() {
             loading="lazy"
             style={{ boxShadow: '0 8px 32px 0 rgba(16, 185, 129, 0.10)' }}
           />
-          <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+          <div className="grow flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4">Join our 5,000+ happy clients</h2>
-            <ul className="text-gray-700 text-base md:text-lg mb-6 list-disc list-inside">
-              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
-              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
-              <li className="flex items-center gap-3"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
+            <ul className="text-gray-700 text-base md:text-lg mb-6 w-full">
+              <li className="inline-flex items-center gap-3 mb-2 w-full"><span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 inline-flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
+              <li className="inline-flex items-center gap-3 mb-2 w-full"><span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 inline-flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
+              <li className="inline-flex items-center gap-3 w-full"><span className="shrink-0 w-5 h-5 rounded-full bg-emerald-100 inline-flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
             </ul>
             <Link
               to="/order-now"
-              className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
+              className="block md:inline-flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
             >
               Place an order
             </Link>

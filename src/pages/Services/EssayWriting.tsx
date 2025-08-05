@@ -1,45 +1,65 @@
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import WritersCarousel from './WritersCarousel';
-import { useState } from 'react';
 import { SpecialAssignmentHelpCarousel } from './AdmissionEssayWriting';
+
 
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
 const sampleCards = [
   {
-    title: "School Effectiveness",
-    pages: 6,
+    title: "Impact of Social Media on Mental Health",
+    pages: 5,
     level: "College",
-    type: "Essay",
+    type: "Argumentative Essay",
     citation: "APA"
   },
   {
-    title: "LinkedIn Analysis",
-    pages: 6,
-    level: "Bachelor",
-    type: "Review",
+    title: "The Symbolism in The Great Gatsby",
+    pages: 4,
+    level: "University",
+    type: "Literary Analysis",
     citation: "MLA"
   },
   {
-    title: "Climate Change Policy",
-    pages: 8,
-    level: "PhD",
-    type: "Research Paper",
-    citation: "Harvard"
+    title: "Environmental Conservation Methods",
+    pages: 6,
+    level: "Masters",
+    type: "Expository Essay",
+    citation: "Chicago"
   },
   {
-    title: "Modern Art Movements",
-    pages: 5,
-    level: "High School",
-    type: "Report",
-    citation: "Chicago"
+    title: "Digital Privacy in Modern Era",
+    pages: 8,
+    level: "PhD",
+    type: "Research Essay",
+    citation: "Harvard"
   },
 ];
 
-export default function AssignmentHelp() {
+export default function EssayWriting() {
+  // FAQ state and data for FAQ block
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const faqData = [
+    {
+      question: 'What types of essays do you write?',
+      answer: 'We specialize in all types of essays including argumentative, expository, narrative, descriptive, analytical, and persuasive essays. Our expert writers are skilled in various writing styles and academic formats.'
+    },
+    {
+      question: 'How do you ensure essay quality and originality?',
+      answer: 'Every essay is written from scratch and goes through thorough research, drafting, and multiple rounds of editing. We use advanced plagiarism detection software and provide originality reports upon request.'
+    },
+    {
+      question: 'What is your essay writing process?',
+      answer: 'Our process involves understanding your requirements, research, outline creation, writing multiple drafts, and thorough editing. Each essay is reviewed by our quality assurance team before delivery.'
+    },
+    {
+      question: 'Do you offer essay revisions?',
+      answer: 'Yes, we offer unlimited free revisions within 14 days of delivery. Our writers will refine your essay based on your feedback until you\'re completely satisfied with the final version.'
+    },
+  ];
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;
@@ -53,21 +73,6 @@ export default function AssignmentHelp() {
     },
   });
 
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-  const faqData = [
-    {
-      question: 'How much time does it take for an assignment to be ready?',
-      answer: 'The turnaround time depends on the complexity, length, and your specified deadline. We offer deadlines ranging from 3 hours to 14 days.'
-    },
-    {
-      question: 'What assignments can Essay Embassy do?',
-      answer: 'We handle a vast range of assignments including essays, research papers, case studies, lab reports, presentations, and more across all academic fields.'
-    },
-    {
-      question: 'Who will do my assignment?',
-      answer: 'Your assignment will be handled by a qualified expert with an advanced degree (Master\'s or PhD) in your specific subject area.'
-    },
-  ];
 
   const watchedValues = watch();
   const WORDS_PER_PAGE = 275;
@@ -112,7 +117,6 @@ export default function AssignmentHelp() {
     navigate(`/order-now?${params.toString()}`);
   };
 
-  const [openCategory, setOpenCategory] = useState<string | null>(null);
 
   return (
     <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
@@ -121,7 +125,7 @@ export default function AssignmentHelp() {
         <main className="grid md:grid-cols-2 gap-16 items-center">
           {/* Left Column: Content */}
           <div className="space-y-8">
-            <div className="inline-flex items-center bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-full">
+            <div className="flex items-center bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-full">
               <span className="bg-white text-gray-800 rounded-full h-6 w-6 flex items-center justify-center mr-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -245,7 +249,7 @@ export default function AssignmentHelp() {
       <section className="w-full bg-[#F7FAFC] py-24">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-5xl md:text-6xl font-light tracking-wider text-center mb-20 animate-fade-in-up">
-            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent animate-gradient-x font-semibold">assignment help services</span>
+            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent animate-gradient-x font-semibold">essay writing help services</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
             {/* Card 1 */}
@@ -537,83 +541,15 @@ export default function AssignmentHelp() {
           </div>
         </div>
       </section>
-      {/* Client Testimonials: 3D Carousel (moved up) */}
-      <section className="w-full py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <ClientTestimonialsCarousel />
+      {/* What Makes Assignment Help From Our Experts So Special? Block */}
+      <section className="w-full bg-[#F7FAFC] py-10">
+        <div className="max-w-6xl mx-auto px-4 bg-[#F7FAFC] shadow-none border-none">
+          <SpecialAssignmentHelpCarousel />
         </div>
       </section>
-      {/* FAQ Block */}
-      <section className="w-full bg-[#F7FAFC] py-16">
-        <div className="max-w-5xl mx-auto px-2 md:px-4">
-          <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-start">
-            {/* FAQ Column */}
-            <div className="flex-1 w-full">
-              <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left mb-6 text-gray-900">Frequently Asked Questions</h2>
-              <div className="bg-white/80 rounded-3xl shadow-lg p-4 md:p-8">
-                <div className="space-y-2">
-                  {faqData.map((faq, idx) => {
-                    const isOpen = openFAQ === idx;
-                    return (
-                      <div
-                        key={idx}
-                        className={`transition-all duration-300 rounded-xl border border-gray-200 shadow-sm ${isOpen ? 'bg-gray-50' : 'bg-white'} overflow-hidden`}
-                      >
-                        <button
-                          type="button"
-                          className={`w-full flex justify-between items-center px-4 py-3 text-left focus:outline-none transition-colors duration-300 ${isOpen ? 'bg-gray-50' : 'hover:bg-gray-50'}`}
-                          style={{ background: isOpen ? '#f9fafb' : 'inherit' }}
-                          onClick={() => setOpenFAQ(isOpen ? null : idx)}
-                          aria-expanded={isOpen}
-                          aria-controls={`faq-content-${idx}`}
-                        >
-                          <span className={`text-sm md:text-base font-medium transition-colors duration-300 ${isOpen ? 'text-emerald-600' : 'text-gray-900'}`}>{faq.question}</span>
-                          <svg
-                            className={`w-4 h-4 ml-2 text-emerald-400 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
-                            fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </button>
-                        <div
-                          id={`faq-content-${idx}`}
-                          className={`px-4 pb-2 text-gray-600 text-sm transition-all duration-300 ease-in-out ${isOpen ? 'max-h-32 opacity-100 py-1' : 'max-h-0 opacity-0 py-0 overflow-hidden'}`}
-                        >
-                          {faq.answer}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-            {/* Support Widget Column */}
-            <aside className="w-full md:w-80 flex-shrink-0 flex flex-col items-center md:items-start">
-              <div className="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center text-center border border-gray-100 mt-0 md:mt-[38px] w-full">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Have more questions?</h3>
-                <img
-                  src="/images/andrea head of support.avif"
-                  alt="Andrea, Head of Support"
-                  className="w-32 h-32 object-cover rounded-2xl shadow ring-2 ring-transparent hover:ring-emerald-200 focus:ring-emerald-300 transition-all duration-200 mb-4"
-                  loading="lazy"
-                  tabIndex={0}
-                />
-                <div className="font-medium text-gray-800 mb-1">Andrea, Head of Support</div>
-                <Link
-                  to="/contact"
-                  className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 transform hover:scale-105 active:scale-95 hover:shadow-lg"
-                  aria-label="Contact support"
-                  tabIndex={0}
-                >
-                  Contact support
-                </Link>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>
+      
       {/* Why You Need Our Assignment Help - Scrollable Block (Polished, Compact) */}
-      <section className="py-16">
+      <section className="py-12 bg-white">
         <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
           <div className="flex items-center mb-4">
             <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
@@ -684,208 +620,222 @@ export default function AssignmentHelp() {
           }
         `}</style>
       </section>
-      {/* Final CTA Block - Join Our Happy Clients (Integrated, Subtle, Modern) */}
-      <section className="pt-8 pb-0 bg-gray-100 w-full px-4 md:px-0">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-5xl mx-auto py-6">
-          <img
-            src="/images/logo.png"
-            alt="Essay Embassy Logo"
-            className="w-28 h-28 object-contain mb-2 md:mb-0 md:mr-6 shadow-md rounded-xl bg-white/80"
-            loading="lazy"
-            style={{ boxShadow: '0 4px 16px 0 rgba(16, 185, 129, 0.08)' }}
-          />
-          <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
-            <h2 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-2">Join our 5,000+ happy clients</h2>
-            <ul className="text-gray-700 text-sm mb-4 list-disc list-inside">
-              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ assignments delivered with a 98% success rate</li>
-              <li className="flex items-center gap-2 mb-1"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original assignments written according to your instructions</li>
-              <li className="flex items-center gap-2"><span className="inline-block w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
-            </ul>
-            <Link
-              to="/order-now"
-              className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-2 rounded-lg shadow-sm transition-all duration-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
-            >
-              Place an order
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* What Makes Assignment Help From Our Experts So Special? Block (copied from AdmissionEssayWriting) */}
-      <section className="w-full bg-white py-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <SpecialAssignmentHelpCarousel />
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function ClientTestimonialsCarousel() {
-  const testimonials = [
-    {
-      id: 'EE-24467',
-      rating: 4,
-      text: "Didn't really trust writing services at first, but this changed my mind. Super clean, well-written essay. glad I gave them a shot.",
-      date: '04/14/2025',
-      level: 'Masters',
-    },
-    {
-      id: 'EE-23901',
-      rating: 5,
-      text: 'Was in a total panic with my deadline. They not only delivered fast but the essay was actually solid. Big lifesaver!',
-      date: '03/16/2025',
-      level: 'Bachelors',
-    },
-    {
-      id: 'EE-57281',
-      rating: 4,
-      text: 'Needed this essay fast and they came through big time. Everything from the structure to the points was on point. Really solid work.',
-      date: '06/16/2025',
-      level: 'Bachelors',
-    },
-    {
-      id: 'EE-19822',
-      rating: 5,
-      text: 'I was skeptical but the writer was super communicative and the result was great. Will use again.',
-      date: '02/10/2025',
-      level: 'PhD',
-    },
-    {
-      id: 'EE-33412',
-      rating: 5,
-      text: 'Essay Embassy made my life so much easier. The quality was top-notch and the support team was very helpful.',
-      date: '01/22/2025',
-      level: 'Masters',
-    },
-    {
-      id: 'EE-11234',
-      rating: 4,
-      text: 'Good service, quick turnaround, and the essay passed all checks. Would recommend.',
-      date: '05/05/2025',
-      level: 'College',
-    },
-  ];
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const cardCount = testimonials.length;
-
-  // Navigation logic
-  const goTo = (idx: number) => {
-    if (idx < 0) idx = cardCount - 1;
-    if (idx > cardCount - 1) idx = 0;
-    setCurrentIndex(idx);
-  };
-  const handlePrev = () => goTo(currentIndex - 1);
-  const handleNext = () => goTo(currentIndex + 1);
-
-  // For 3D effect: calculate transform for each card
-  const getCardStyle = (idx: number): React.CSSProperties => {
-    const offset = idx - currentIndex;
-    if (offset === 0) {
-      return {
-        transform: 'scale(1) translateY(0)',
-        opacity: 1,
-        zIndex: 2,
-        boxShadow: '0 8px 32px 0 rgba(16,30,54,0.18), 0 1.5px 6px 0 rgba(16,30,54,0.08)',
-      };
-    } else if (Math.abs(offset) === 1) {
-      return {
-        transform: `scale(0.85) translateX(${offset * 60}px) translateY(20px)` ,
-        opacity: 0.5,
-        zIndex: 1,
-        boxShadow: '0 4px 16px 0 rgba(16,30,54,0.10)',
-      };
-    } else {
-      return {
-        transform: `scale(0.7) translateX(${offset * 120}px) translateY(40px)` ,
-        opacity: 0.2,
-        zIndex: 0,
-        boxShadow: 'none',
-        pointerEvents: 'none' as const,
-      };
-    }
-  };
-
-  return (
-    <section className="w-full py-24 bg-white">
-      <div className="max-w-4xl mx-auto px-4">
-        {/* Section Header */}
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Hear What Our Clients Have To Say</h2>
-        <p className="text-center text-lg text-gray-500 mb-14">Read what some of our satisfied customers have to say about us:</p>
-        {/* Carousel Viewport */}
-        <div className="relative flex items-center justify-center" style={{minHeight: 340}}>
-          {/* Left Arrow */}
-          <button
-            onClick={handlePrev}
-            aria-label="Previous testimonial"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
-          >
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
-          {/* Carousel Track */}
-          <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
-            {testimonials.map((t, idx) => (
-              <div
-                key={t.id}
-                className={`bg-white rounded-2xl p-8 mx-2 transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
-                style={{
-                  ...getCardStyle(idx),
-                  width: '90%',
-                  maxWidth: 480,
-                  position: 'absolute',
-                  left: '50%',
-                  top: 0,
-                  transform: `${getCardStyle(idx).transform} translateX(-50%)`,
-                  transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
-                }}
-                aria-hidden={idx !== currentIndex}
-              >
-                {/* Card Header */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
-                  <div className="flex items-center gap-1">
-                    {[1,2,3,4,5].map((star) => (
-                      <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                    ))}
-                  </div>
-                </div>
-                {/* Testimonial Text */}
-                <p className="text-gray-700 text-base mb-8">{t.text}</p>
-                {/* Metadata */}
-                <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
-                  <div>
-                    <div className="font-bold text-gray-700 text-sm">Date:</div>
-                    <div className="text-gray-600 text-sm">{t.date}</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
-                    <div className="text-gray-600 text-sm">{t.level}</div>
-                  </div>
+      {/* FAQ Block */}
+      <section className="w-full bg-[#F7FAFC] py-16">
+        <div className="max-w-5xl mx-auto px-2 md:px-4">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-start">
+            {/* FAQ Column */}
+            <div className="flex-1 w-full">
+              <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left mb-6 text-gray-900">Frequently Asked Questions</h2>
+              <div className="bg-white/80 rounded-3xl shadow-lg p-4 md:p-8">
+                <div className="space-y-2">
+                  {faqData.map((faq, idx) => {
+                    const isOpen = openFAQ === idx;
+                    return (
+                      <div
+                        key={idx}
+                        className={`transition-all duration-300 rounded-xl border border-gray-200 shadow-sm ${isOpen ? 'bg-gray-50' : 'bg-white'} overflow-hidden`}
+                      >
+                        <button
+                          type="button"
+                          className={`w-full flex justify-between items-center px-4 py-3 text-left focus:outline-none transition-colors duration-300 ${isOpen ? 'bg-gray-50' : 'hover:bg-gray-50'}`}
+                          style={{ background: isOpen ? '#f9fafb' : 'inherit' }}
+                          onClick={() => setOpenFAQ(isOpen ? null : idx)}
+                          aria-expanded={isOpen}
+                          aria-controls={`faq-content-${idx}`}
+                        >
+                          <span className={`text-sm md:text-base font-medium transition-colors duration-300 ${isOpen ? 'text-emerald-600' : 'text-gray-900'}`}>{faq.question}</span>
+                          <svg
+                            className={`w-4 h-4 ml-2 text-emerald-400 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                            fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                        <div
+                          id={`faq-content-${idx}`}
+                          className={`px-4 pb-2 text-gray-600 text-sm transition-all duration-300 ease-in-out ${isOpen ? 'max-h-32 opacity-100 py-1' : 'max-h-0 opacity-0 py-0 overflow-hidden'}`}
+                        >
+                          {faq.answer}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-            ))}
+            </div>
+            {/* Support Widget Column */}
+            <aside className="w-full md:w-80 flex-shrink-0 flex flex-col items-center md:items-start">
+              <div className="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center text-center border border-gray-100 mt-0 md:mt-[38px] w-full">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Have more questions?</h3>
+                <img
+                  src="/images/andrea head of support.avif"
+                  alt="Andrea, Head of Support"
+                  className="w-32 h-32 object-cover rounded-2xl shadow ring-2 ring-transparent hover:ring-emerald-200 focus:ring-emerald-300 transition-all duration-200 mb-4"
+                  loading="lazy"
+                  tabIndex={0}
+                />
+                <div className="font-medium text-gray-800 mb-1">Andrea, Head of Support</div>
+                <Link
+                  to="/contact"
+                  className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 transform hover:scale-105 active:scale-95 hover:shadow-lg"
+                  aria-label="Contact support"
+                  tabIndex={0}
+                >
+                  Contact support
+                </Link>
+              </div>
+            </aside>
           </div>
-          {/* Right Arrow */}
-          <button
-            onClick={handleNext}
-            aria-label="Next testimonial"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-gray-200 shadow hover:bg-primary-50 transition focus:outline-none"
-          >
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </button>
         </div>
-        {/* Navigation Dots */}
-        <div className="flex justify-center items-center gap-3 mt-8">
-          {testimonials.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => goTo(idx)}
-              className={`w-3 h-3 rounded-full border-2 ${idx === currentIndex ? 'bg-primary-600 border-primary-600 scale-125' : 'bg-white border-gray-300'} transition-all`}
-              aria-label={`Go to testimonial ${idx + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+      </section>
+      {/* Services Interlink Block - Tabbed Professional Version (Only Existing Services, Improved Link UI, No Duplicates) */}
+            <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{background: '#F7FAFC'}}>
+              <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center md:items-start">
+                {/* Left Side: Heading, Description, CTA */}
+                <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start mb-10 md:mb-0">
+                  <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Your #1 paper writing service</h2>
+                  <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert essay writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
+                  <Link
+                    to="/writers"
+                    className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
+                    style={{textAlign: 'center'}}
+                  >
+                    Find your writer <span className="ml-2">→</span>
+                  </Link>
+                </div>
+                {/* Right Side: Tabs and Service List */}
+                <div className="flex-1 w-full">
+                  {(() => {
+                    // Only include services that have a corresponding file in src/pages/Services
+                    const allServices = [
+                      { name: 'Essay Writing', link: '/services/essay-writing' },
+                      { name: 'Book Review', link: '/services/book-review' },
+                      { name: 'Term Paper', link: '/services/term-paper' },
+                      { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
+                      { name: 'Research Proposal', link: '/services/research-proposal' },
+                      { name: 'Thesis Writing', link: '/services/thesis-writing' },
+                      { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
+                      { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
+                      { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
+                      { name: 'Admission Essay', link: '/services/admission-essay' },
+                      { name: 'Admission Essay Writing', link: '/services/admission-essay-writing' },
+                      { name: 'Case Study', link: '/services/case-study' },
+                      { name: 'Case Study Help', link: '/services/case-study-help' },
+                      { name: 'Lab Report', link: '/services/lab-report' },
+                      { name: 'Homework Help', link: '/services/homework-help' },
+                      { name: 'English Assignment Help', link: '/services/english-assignment-help' },
+                      { name: 'Programming Help', link: '/services/programming-help' },
+                      { name: 'Ruby Programming Help', link: '/programming-help/ruby' },
+                      { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
+                      { name: 'Assignment Help', link: '/services/assignment-help' },
+                      { name: 'Narrative Essay', link: '/services/narrative-essay' },
+                    ];
+                    // Remove duplicates for each tab
+                    const paperwork = [
+                      'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study', 'Case Study Help', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'C Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Narrative Essay',
+                    ];
+                    const coursework = [
+                      'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'Ruby Programming Help', 'Physics Assignment Help', 'Assignment Help',
+                    ];
+                    const other = [
+                      'Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study Help', 'Ruby Programming Help',
+                    ];
+                    const tabData = [
+                      {
+                        key: 'paperwork',
+                        label: 'Paperwork',
+                        services: paperwork.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+                      },
+                      {
+                        key: 'coursework',
+                        label: 'Coursework / homework',
+                        services: coursework.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+                      },
+                      {
+                        key: 'other',
+                        label: 'Other assignments',
+                        services: other.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+                      },
+                    ];
+                    const [activeTab, setActiveTab] = React.useState('paperwork');
+                    const active = tabData.find(t => t.key === activeTab) || tabData[0];
+                    // Split services into 3 columns
+                    const filteredServices: { name: string; link: string }[] = (active.services.filter(Boolean) as { name: string; link: string }[]);
+                    const columns: { name: string; link: string }[][] = [[], [], []];
+                    filteredServices.forEach((s, i) => columns[i % 3].push(s));
+                    return (
+                      <div className="w-full">
+                        {/* Tabs */}
+                        <div className="flex gap-8 border-b border-gray-200 mb-6">
+                          {tabData.map(tab => {
+                            const isActive = activeTab === tab.key;
+                            return (
+                              <button
+                                key={tab.key}
+                                className={`relative pb-2 text-lg font-semibold transition-colors duration-200 tracking-tight focus:outline-none ${isActive ? 'text-primary-600' : 'text-gray-700 hover:text-primary-700'}`}
+                                style={{background: 'none', outline: 'none'}}
+                                onClick={() => setActiveTab(tab.key)}
+                              >
+                                <span className={isActive ? 'text-primary-600' : ''}>{tab.label}</span>
+                                {isActive && (
+                                  <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{content: '""'}}></span>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                        {/* Service List */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                          {columns.map((col, idx) => (
+                            <ul key={idx} className="space-y-2">
+                              {col.map(service => (
+                                <li key={service.name} className="text-[15px] text-gray-800 flex items-center gap-2" >
+                                  <span className="block w-2 h-2 rounded-full bg-primary-200"></span>
+                                  <Link
+                                    to={service.link}
+                                    className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
+                                    style={{textDecoration: 'none'}}
+                                  >
+                                    {service.name}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </div>
+              </div>
+            </section>
+            {/* Final CTA Block - Join Our Happy Clients (Larger, Balanced, Modern) */}
+            <section className="pt-10 pb-0 bg-[#F7FAFC] w-full px-4 md:px-0">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-5xl mx-auto py-14">
+                <img
+                  src="/images/logo.png"
+                  alt="Essay Embassy Logo"
+                  className="w-36 h-36 object-contain mb-4 md:mb-0 md:mr-10 shadow-lg rounded-2xl bg-white/80"
+                  loading="lazy"
+                  style={{ boxShadow: '0 8px 32px 0 rgba(16, 185, 129, 0.10)' }}
+                />
+                <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+                  <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4">Join our 5,000+ happy clients</h2>
+                  <ul className="text-gray-700 text-base md:text-lg mb-6 list-disc list-inside">
+                    <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
+                    <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
+                    <li className="flex items-center gap-3"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
+                  </ul>
+                  <Link
+                    to="/order-now"
+                    className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
+                  >
+                    Place an order
+                  </Link>
+                </div>
+              </div>
+            </section>
+          </div>
+        );
+      }
