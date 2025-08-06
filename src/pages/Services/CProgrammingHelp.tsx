@@ -144,7 +144,7 @@ export function SpecialAssignmentHelpCarousel() {
             <div>
               {/* Lighter, more elegant heading and description */}
               <div className="mb-4 flex items-center">
-                <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
+                <span className="flex w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
                   What Makes C Programming Help From Our Experts So Special?
                 </h2>
@@ -781,7 +781,7 @@ export default function CProgrammingHelp() {
           <div className="flex justify-center mt-2">
             <a
               href="/order-now"
-              className="inline-block px-12 py-4 rounded-full bg-primary-600 text-white text-lg font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
+              className="flex items-center justify-center px-12 py-4 rounded-full bg-primary-600 text-white text-lg font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
             >
               Create an order
             </a>
@@ -912,7 +912,7 @@ export default function CProgrammingHelp() {
               <span className="text-2xl mb-1">✍️</span>
               <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
               <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
-              <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
+              <a href="/order-now" className="flex items-center justify-center px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
             </div>
             {/* Arrow */}
             <div className="flex flex-col items-center mb-3">
@@ -944,6 +944,79 @@ export default function CProgrammingHelp() {
           }
           .animate-fade-in-up {
             animation: fade-in-up 0.8s cubic-bezier(.4,0,.2,1) both;
+          }
+        `}</style>
+      </section>
+
+      {/* Why You Need Our Assignment Help - Scrollable Block (Polished, Compact) */}
+      <section className="py-12 bg-white">
+        <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
+          <div className="flex items-center mb-4">
+            <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+          </div>
+          <p className="text-base text-gray-700 text-left mb-4">
+            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
+          </p>
+          <p className="text-sm text-gray-600 mb-3 text-left">
+            Students turn to Essay Embassy for assignment help because:
+          </p>
+          <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
+            </ul>
+            <p className="text-sm text-gray-700 mb-3">
+              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
+            </p>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
+            </ul>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
+            <ul className="list-none pl-0 mb-3">
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
+            </ul>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
+            <p className="text-sm text-gray-700 mb-1">
+              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
+            </p>
+            <p className="text-sm text-gray-700 mb-1">
+              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
+            </p>
+            <p className="text-sm text-gray-700 mb-1">
+              Place your order now and let a true subject matter expert handle the hard work for you.
+            </p>
+          </div>
+        </div>
+        <style>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
           }
         `}</style>
       </section>
@@ -1141,7 +1214,7 @@ export default function CProgrammingHelp() {
                       <ul key={idx} className="space-y-2">
                         {col.map(service => (
                           <li key={service.name} className="text-[15px] text-gray-800 flex items-center gap-2" >
-                            <span className="inline-block w-2 h-2 rounded-full bg-primary-200"></span>
+                            <span className="flex w-2 h-2 rounded-full bg-primary-200"></span>
                             <Link
                               to={service.link}
                               className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
@@ -1173,13 +1246,13 @@ export default function CProgrammingHelp() {
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4">Join our 5,000+ happy clients</h2>
             <ul className="text-gray-700 text-base md:text-lg mb-6 list-disc list-inside">
-              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
-              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
-              <li className="flex items-center gap-3"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
+              <li className="flex items-center gap-3 mb-2"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
+              <li className="flex items-center gap-3 mb-2"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
+              <li className="flex items-center gap-3"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
             </ul>
             <Link
               to="/order-now"
-              className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
+              className="flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
             >
               Place an order
             </Link>
