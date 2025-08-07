@@ -1,14 +1,15 @@
 import { GoogleAuthProvider, signInWithPopup, linkWithCredential, signInWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 import { auth } from '../../firebase';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+// You need to create ClientTestimonialsCarousel component in the Testimonials folder
 import WritersCarousel from './WritersCarousel';
 import { SpecialAssignmentHelpCarousel } from './AdmissionEssayWriting';
 
-import React, { useRef, useState, useEffect } from 'react';
-
-// --- ClientTestimonialsCarousel: 3D-style testimonial carousel ---
+// Client Testimonials Carousel Component
 function ClientTestimonialsCarousel() {
   const testimonials = [
     {
@@ -78,14 +79,14 @@ function ClientTestimonialsCarousel() {
       };
     } else if (Math.abs(offset) === 1) {
       return {
-        transform: `scale(0.85) translateX(${offset * 60}px) translateY(20px)` ,
+        transform: `scale(0.85) translateX(${offset * 60}px) translateY(20px)`,
         opacity: 0.5,
         zIndex: 1,
         boxShadow: '0 4px 16px 0 rgba(16,30,54,0.10)',
       };
     } else {
       return {
-        transform: `scale(0.7) translateX(${offset * 120}px) translateY(40px)` ,
+        transform: `scale(0.7) translateX(${offset * 120}px) translateY(40px)`,
         opacity: 0.2,
         zIndex: 0,
         boxShadow: 'none',
@@ -116,7 +117,7 @@ function ClientTestimonialsCarousel() {
               return (
                 <div
                   key={t.id}
-                  className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
+                  className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0 ${idx === currentIndex ? 'is-active' : ''}`}
                   style={{
                     ...getCardStyle(idx),
                     width: '90%',
@@ -191,6 +192,116 @@ function ClientTestimonialsCarousel() {
         </div>
       </div>
     </section>
+  );
+}
+
+// Services Tab Component
+function ServicesTabComponent() {
+  // Only include services that have a corresponding file in src/pages/Services
+  const allServices = [
+    { name: 'Essay Writing', link: '/services/essay-writing' },
+    { name: 'Book Review', link: '/services/book-review' },
+    { name: 'Term Paper', link: '/services/term-paper' },
+    { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
+    { name: 'Research Proposal', link: '/services/research-proposal' },
+    { name: 'Thesis Writing', link: '/services/thesis-writing' },
+    { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
+    { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
+    { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
+    { name: 'Admission Essay', link: '/services/admission-essay' },
+    { name: 'Admission Essay Writing', link: '/services/admission-essay-writing' },
+    { name: 'Case Study', link: '/services/case-study' },
+    { name: 'Case Study Help', link: '/services/case-study-help' },
+    { name: 'Lab Report', link: '/services/lab-report' },
+    { name: 'Homework Help', link: '/services/homework-help' },
+    { name: 'English Assignment Help', link: '/services/english-assignment-help' },
+    { name: 'Programming Help', link: '/services/programming-help' },
+    { name: 'Python Programming Help', link: '/programming-help/python' },
+    { name: 'Java Programming Help', link: '/programming-help/java' },
+    { name: 'JS Programming Help', link: '/programming-help/js' },
+    { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
+    { name: 'Assignment Help', link: '/services/assignment-help' },
+    { name: 'Narrative Essay', link: '/services/narrative-essay' },
+  ];
+  
+  // Remove duplicates for each tab
+  const paperwork = [
+    'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study', 'Case Study Help', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'Python Programming Help', 'Java Programming Help', 'JS Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Narrative Essay',
+  ];
+  const coursework = [
+    'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'Python Programming Help', 'Java Programming Help', 'JS Programming Help', 'Physics Assignment Help', 'Assignment Help',
+  ];
+  const other = [
+    'Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study Help',
+  ];
+  
+  const tabData = [
+    {
+      key: 'paperwork',
+      label: 'Paperwork',
+      services: paperwork.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+    },
+    {
+      key: 'coursework',
+      label: 'Coursework / homework',
+      services: coursework.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+    },
+    {
+      key: 'other',
+      label: 'Other assignments',
+      services: other.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+    },
+  ];
+  
+  const [activeTab, setActiveTab] = React.useState('paperwork');
+  const active = tabData.find(t => t.key === activeTab) || tabData[0];
+  
+  // Split services into 3 columns
+  const filteredServices: { name: string; link: string }[] = (active.services.filter(Boolean) as { name: string; link: string }[]);
+  const columns: { name: string; link: string }[][] = [[], [], []];
+  filteredServices.forEach((s, i) => columns[i % 3].push(s));
+  
+  return (
+    <div className="w-full">
+      {/* Tabs */}
+      <div className="flex gap-8 border-b border-gray-200 mb-6">
+        {tabData.map(tab => {
+          const isActive = activeTab === tab.key;
+          return (
+            <button
+              key={tab.key}
+              className={`relative pb-2 text-lg font-semibold transition-colors duration-200 tracking-tight focus:outline-none ${isActive ? 'text-primary-600' : 'text-gray-700 hover:text-primary-700'}`}
+              style={{background: 'none', outline: 'none'}}
+              onClick={() => setActiveTab(tab.key)}
+            >
+              <span className={isActive ? 'text-primary-600' : ''}>{tab.label}</span>
+              {isActive && (
+                <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{content: '""'}}></span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+      {/* Service List */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {columns.map((col, idx) => (
+          <ul key={idx} className="space-y-2">
+            {col.map(service => (
+              <li key={service.name} className="text-[15px] text-gray-800 flex items-center gap-2" >
+                <span className="inline-block w-2 h-2 rounded-full bg-primary-200"></span>
+                <Link
+                  to={service.link}
+                  className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
+                  style={{textDecoration: 'none'}}
+                >
+                  {service.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -272,11 +383,15 @@ export default function JSProgrammingHelp() {
       await signInWithPopup(auth, provider);
       alert('Signed in with Google!');
       // Optionally, redirect or update UI here
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Handle account-exists-with-different-credential error for seamless linking
-      if (error.code === 'auth/account-exists-with-different-credential') {
-        const pendingCred = GoogleAuthProvider.credentialFromError(error);
-        const email = error.customData?.email;
+      const firebaseError = error as { code?: string; customData?: { email?: string }; message?: string };
+      if (firebaseError.code === 'auth/account-exists-with-different-credential') {
+        const pendingCred = firebaseError && firebaseError.code ? GoogleAuthProvider.credentialFromError({
+          name: 'FirebaseError',
+          ...firebaseError
+        } as FirebaseError) : null;
+        const email = firebaseError.customData?.email;
         if (email && pendingCred) {
           // Prompt user for password
           const password = window.prompt(
@@ -292,14 +407,15 @@ export default function JSProgrammingHelp() {
             // Link Google credential
             await linkWithCredential(userCredential.user, pendingCred);
             alert('Your Google account has been linked! You can now sign in with either method.');
-          } catch (linkError: any) {
-            alert('Failed to link Google account: ' + (linkError && linkError.message ? linkError.message : linkError));
+          } catch (linkError: unknown) {
+            const linkFirebaseError = linkError as { message?: string };
+            alert('Failed to link Google account: ' + (linkFirebaseError && linkFirebaseError.message ? linkFirebaseError.message : linkError));
           }
         } else {
           alert('Google sign-in failed: Unable to retrieve credential or email for linking.');
         }
       } else {
-        alert('Google sign-in failed: ' + (error && error.message ? error.message : error));
+        alert('Google sign-in failed: ' + (firebaseError && firebaseError.message ? firebaseError.message : error));
       }
     }
   };
@@ -446,6 +562,9 @@ export default function JSProgrammingHelp() {
       <div className="container mx-auto px-6 pb-6">
         <WritersCarousel />
       </div>
+      
+      {/* Client Testimonials Section */}
+      <ClientTestimonialsCarousel />
 
       {/* We go beyond assignment help services Block (glassmorphism, floating, stylish) */}
       <section className="w-full bg-[#F7FAFC] py-16">
@@ -752,6 +871,79 @@ export default function JSProgrammingHelp() {
         `}</style>
       </section>
 
+      {/* Why You Need Our Assignment Help - Scrollable Block (Polished, Compact) */}
+      <section className="py-12 bg-white">
+        <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
+          <div className="flex items-center mb-4">
+            <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+          </div>
+          <p className="text-base text-gray-700 text-left mb-4">
+            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
+          </p>
+          <p className="text-sm text-gray-600 mb-3 text-left">
+            Students turn to Essay Embassy for assignment help because:
+          </p>
+          <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
+            </ul>
+            <p className="text-sm text-gray-700 mb-3">
+              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
+            </p>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
+            </ul>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
+            <ul className="list-none pl-0 mb-3">
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
+            </ul>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
+            <p className="text-sm text-gray-700 mb-1">
+              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
+            </p>
+            <p className="text-sm text-gray-700 mb-1">
+              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
+            </p>
+            <p className="text-sm text-gray-700 mb-1">
+              Place your order now and let a true subject matter expert handle the hard work for you.
+            </p>
+          </div>
+        </div>
+        <style>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+          }
+        `}</style>
+      </section>
+
       {/* FAQ Block */}
       <section className="w-full bg-[#F7FAFC] py-10">
         <div className="max-w-5xl mx-auto px-2 md:px-4">
@@ -864,109 +1056,7 @@ export default function JSProgrammingHelp() {
           </div>
           {/* Right Side: Tabs and Service List */}
           <div className="flex-1 w-full">
-            {(() => {
-              // Only include services that have a corresponding file in src/pages/Services
-              const allServices = [
-                { name: 'Essay Writing', link: '/services/essay-writing' },
-                { name: 'Book Review', link: '/services/book-review' },
-                { name: 'Term Paper', link: '/services/term-paper' },
-                { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
-                { name: 'Research Proposal', link: '/services/research-proposal' },
-                { name: 'Thesis Writing', link: '/services/thesis-writing' },
-                { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
-                { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
-                { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
-                { name: 'Admission Essay', link: '/services/admission-essay' },
-                { name: 'Admission Essay Writing', link: '/services/admission-essay-writing' },
-                { name: 'Case Study', link: '/services/case-study' },
-                { name: 'Case Study Help', link: '/services/case-study-help' },
-                { name: 'Lab Report', link: '/services/lab-report' },
-                { name: 'Homework Help', link: '/services/homework-help' },
-                { name: 'English Assignment Help', link: '/services/english-assignment-help' },
-                { name: 'Programming Help', link: '/services/programming-help' },
-                { name: 'Python Programming Help', link: '/programming-help/python' },
-                { name: 'Java Programming Help', link: '/programming-help/java' },
-                { name: 'JS Programming Help', link: '/programming-help/js' },
-                { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
-                { name: 'Assignment Help', link: '/services/assignment-help' },
-                { name: 'Narrative Essay', link: '/services/narrative-essay' },
-              ];
-              // Remove duplicates for each tab
-              const paperwork = [
-                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study', 'Case Study Help', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'Python Programming Help', 'Java Programming Help', 'JS Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Narrative Essay',
-              ];
-              const coursework = [
-                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'Python Programming Help', 'Java Programming Help', 'JS Programming Help', 'Physics Assignment Help', 'Assignment Help',
-              ];
-              const other = [
-                'Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study Help',
-              ];
-              const tabData = [
-                {
-                  key: 'paperwork',
-                  label: 'Paperwork',
-                  services: paperwork.map(name => allServices.find(s => s.name === name)).filter(Boolean),
-                },
-                {
-                  key: 'coursework',
-                  label: 'Coursework / homework',
-                  services: coursework.map(name => allServices.find(s => s.name === name)).filter(Boolean),
-                },
-                {
-                  key: 'other',
-                  label: 'Other assignments',
-                  services: other.map(name => allServices.find(s => s.name === name)).filter(Boolean),
-                },
-              ];
-              const [activeTab, setActiveTab] = React.useState('paperwork');
-              const active = tabData.find(t => t.key === activeTab) || tabData[0];
-              // Split services into 3 columns
-              const filteredServices: { name: string; link: string }[] = (active.services.filter(Boolean) as { name: string; link: string }[]);
-              const columns: { name: string; link: string }[][] = [[], [], []];
-              filteredServices.forEach((s, i) => columns[i % 3].push(s));
-              return (
-                <div className="w-full">
-                  {/* Tabs */}
-                  <div className="flex gap-8 border-b border-gray-200 mb-6">
-                    {tabData.map(tab => {
-                      const isActive = activeTab === tab.key;
-                      return (
-                        <button
-                          key={tab.key}
-                          className={`relative pb-2 text-lg font-semibold transition-colors duration-200 tracking-tight focus:outline-none ${isActive ? 'text-primary-600' : 'text-gray-700 hover:text-primary-700'}`}
-                          style={{background: 'none', outline: 'none'}}
-                          onClick={() => setActiveTab(tab.key)}
-                        >
-                          <span className={isActive ? 'text-primary-600' : ''}>{tab.label}</span>
-                          {isActive && (
-                            <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{content: '""'}}></span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {/* Service List */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                    {columns.map((col, idx) => (
-                      <ul key={idx} className="space-y-2">
-                        {col.map(service => (
-                          <li key={service.name} className="text-[15px] text-gray-800 flex items-center gap-2" >
-                            <span className="inline-block w-2 h-2 rounded-full bg-primary-200"></span>
-                            <Link
-                              to={service.link}
-                              className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
-                              style={{textDecoration: 'none'}}
-                            >
-                              {service.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    ))}
-                  </div>
-                </div>
-              );
-            })()}
+<ServicesTabComponent />
           </div>
         </div>
       </section>
@@ -984,9 +1074,9 @@ export default function JSProgrammingHelp() {
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4">Join our 5,000+ happy clients</h2>
             <ul className="text-gray-700 text-base md:text-lg mb-6 list-disc list-inside">
-              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
-              <li className="flex items-center gap-3 mb-2"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
-              <li className="flex items-center gap-3"><span className="inline-block w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
+              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
+              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
+              <li className="flex items-center gap-3"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
             </ul>
             <Link
               to="/order-now"

@@ -49,11 +49,12 @@ import JSProgrammingHelp from './pages/Services/JSProgrammingHelp';
 import CProgrammingHelp from './pages/Services/CProgrammingHelp';
 import CSharpProgrammingHelp from './pages/Services/CSharpProgrammingHelp';
 import ResearchPaperWriting from './pages/Services/ResearchPaperWriting';
-import ResearchProposal from './pages/Services/ResearchProposal';
-import ScholarshipEssay from './pages/Services/ScholarshipEssay';
 import TermPaper from './pages/Services/TermPaper';
 import ThesisWriting from './pages/Services/ThesisWriting';
 import AdmissionEssayWriting from './pages/Services/AdmissionEssayWriting';
+import ReflectiveEssay from './pages/Services/ReflectiveEssay';
+import CompareContrastEssay from './pages/Services/CompareContrastEssay';
+import ScholarshipEssay from './pages/Services/ScholarshipEssay';
 import MatlabProgrammingHelp from './pages/Services/MatlabProgrammingHelp';
 import RubyProgrammingHelp from './pages/Services/RubyProgrammingHelp';
 import CPPProgrammingHelp from './pages/Services/CPPProgrammingHelp';
@@ -168,7 +169,14 @@ function App() {
 
             {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
             <Route path="essay-writing/admission" element={<AdmissionEssayWriting />} />
+            <Route path="essay-writing/reflective" element={<ReflectiveEssay />} />
+            <Route path="essay-writing/compare-contrast" element={<CompareContrastEssay />} />
+            <Route path="essay-writing/narrative" element={<NarrativeEssay />} />
+            <Route path="essay-writing/argumentative" element={<ArgumentativeEssay />} />
+            <Route path="essay-writing/scholarship" element={<ScholarshipEssay />} />
+            {/* Backward compatibility routes */}
             <Route path="argumentative-essay" element={<ArgumentativeEssay />} />
+            <Route path="narrative-essay" element={<NarrativeEssay />} />
             <Route path="assignment-help" element={<AssignmentHelp />} />
             <Route path="assignment-help/management" element={<ManagementAssignmentHelp />} />
             <Route path="assignment-help/computer" element={<ComputerAssignmentHelp />} />
@@ -197,8 +205,6 @@ function App() {
             <Route path="programming-help/cpp" element={<CPPProgrammingHelp />} />
             <Route path="programming-help/matlab" element={<MatlabProgrammingHelp />} />
             <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
-            <Route path="research-proposal" element={<ResearchProposal />} />
-            <Route path="scholarship-essay" element={<ScholarshipEssay />} />
             <Route path="term-paper" element={<TermPaper />} />
             <Route path="thesis-writing" element={<ThesisWriting />} />
 

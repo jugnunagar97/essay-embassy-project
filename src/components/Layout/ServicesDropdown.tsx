@@ -9,9 +9,9 @@ const PRIMARY_SERVICES = [
     slug: 'essay-writing',
     subServices: [
       { name: 'Admission Essay Writing', slug: 'admission' },
-      { name: 'Narrative Essay', slug: 'narrative-essay' },
-      { name: 'Argumentative Essay', slug: 'argumentative-essay' },
-      { name: 'Scholarship Essay Writing', slug: 'scholarship-essay' },
+      { name: 'Narrative Essay Writing', slug: 'narrative' },
+      { name: 'Argumentative Essay Writing', slug: 'argumentative' },
+      { name: 'Scholarship Essay Writing', slug: 'scholarship' },
       { name: 'Reflective Essay Writing', slug: 'reflective' },
       { name: 'Compare and Contrast Essay Writing', slug: 'compare-contrast' },
     ],
