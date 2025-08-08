@@ -60,22 +60,22 @@ function ConcernsSolutionsBlock() {
         <div className="content-panel">
           <div className={`tab-content${activeTab === 'concerns' ? ' active' : ''}`} id="concerns">
             <ul>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I'm staring at a blank page. How do I even start my assignment or project?"</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"My work sounds generic. How can I make my submission stand out?"</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I'm worried my grammar, structure, or technical accuracy aren't strong enough for top grades."</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"My student is bright, but struggles to write or code about themselves or their topic."</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I have no time to help with assignments between work, school, and deadlines."</p></li>
-              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>"I'm overwhelmed by conflicting advice online about what professors or instructors want."</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>Facing a blank page? Get expert guidance to start your next assignment or project.</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>Is your work generic? Receive personalized feedback so your submission stands out.</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>Are you concerned your grammar, structure, or technical accuracy aren't strong enough for top grades?</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>Your bright student struggles to write or code. Get specialized help to better articulate their ideas.</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>No time to help with assignments? Our expert academic assistance saves you time and stress.</p></li>
+              <li><FontAwesomeIcon icon={faTriangleExclamation} className="fa-triangle-exclamation" /><p>Tired of conflicting advice online? Get clear, expert guidance on what your instructors expect.</p></li>
             </ul>
           </div>
           <div className={`tab-content${activeTab === 'solutions' ? ' active' : ''}`} id="solutions">
             <ul>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Strategic Brainstorming:</strong> We help you discover a unique approach for any academic project—essays, research, programming, and more.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Compelling Structure & Technical Guidance:</strong> Our experts guide you in outlining, writing, or coding assignments that flow perfectly and meet academic standards.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Expert Editing & Polishing:</strong> Meticulous proofreading for grammar, style, clarity, and technical accuracy to ensure your work is flawless.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>A Thematic & Analytical Approach:</strong> We help you develop a unique academic voice and analytical rigor for any subject or discipline.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>1-on-1 Personalized Guidance:</strong> A dedicated mentor provides a structured roadmap for any academic challenge, keeping you on track and confident.</p></li>
-              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Empowering Your Authentic Work:</strong> We empower you to submit your best, most authentic academic work—written or technical.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Strategic Brainstorming:</strong> We'll help you craft a unique approach for any academic project, including essays, research papers, and programming assignments.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Flawless Structure:</strong> Our experts guide you in outlining, writing, or coding assignments that flow perfectly and meet high academic standards.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Meticulous Editing:</strong> Our team provides detailed proofreading for grammar, style, and technical accuracy, ensuring your work is truly flawless.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Analytical Approach:</strong> Develop your own unique academic voice and strong analytical rigor for any subject or discipline.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Personalized Guidance:</strong> A dedicated mentor creates a structured roadmap for your academic journey, keeping you on track and confident.</p></li>
+              <li><FontAwesomeIcon icon={faCheck} className="fa-check" /><p><strong>Empower Your Work:</strong> We give you the tools and confidence to submit your best, most authentic academic work, whether it's written or technical in nature.</p></li>
             </ul>
           </div>
         </div>
@@ -1486,32 +1486,32 @@ export default function Home() {
     {
       icon: Headphones,
       title: "24/7 Support",
-      description: "Round-the-clock customer service for all your needs"
+      description: "Our customer service team is here for you 24/7. Get quick answers and guidance for any academic question, day or night. We're always available."
     },
     {
       icon: GraduationCap,
-      title: "PhD Experts",
-      description: "Writers with advanced degrees in various academic fields"
+      title: "Expert Writers",
+      description: "Our expert writers hold advanced degrees and are specialists in various fields. Your project will be handled by a subject matter professional."
     },
     {
       icon: Shield,
-      title: "Originality Guarantee",
-      description: "100% plagiarism-free content with detailed reports"
+      title: "Original Content",
+      description: "Every document is custom-written from a blank page. We guarantee 100% unique work and provide a detailed report to prove its originality."
     },
     {
       icon: Clock,
-      title: "Timely Delivery",
-      description: "Never miss a deadline with our punctual service"
+      title: "Always On Time",
+      description: "We understand academic deadlines are crucial. Our streamlined process ensures your work is delivered on or before the agreed-upon submission time."
     },
     {
       icon: DollarSign,
-      title: "Affordable Rates",
-      description: "Student-friendly pricing without compromising quality"
+      title: "Affordable Prices",
+      description: "You can get the quality help you need without high costs. Our affordable rates are fair and friendly for any student's budget."
     },
     {
       icon: RefreshCw,
-      title: "Free Revisions",
-      description: "Unlimited revisions until you're completely satisfied"
+      title: "Free Unlimited Edits",
+      description: "Your satisfaction is our main goal. We offer free, unlimited revisions on every project until it meets your exact requirements."
     }
   ];
 
@@ -1599,8 +1599,8 @@ export default function Home() {
             </h2>
             <div className="w-16 h-1 bg-primary-500 mx-auto mb-2"></div>
             <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-normal">
-              We provide comprehensive academic writing services with a focus on quality,
-              reliability, and student success.
+              We deliver high-quality academic writing services with a focus on excellence,
+              dependability, and your ultimate student success.
             </p>
           </div>
 

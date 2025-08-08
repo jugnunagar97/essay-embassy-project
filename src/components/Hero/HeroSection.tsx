@@ -120,20 +120,20 @@ export default function HeroSection() {
           {/* Left: Headline & Trust */}
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left space-y-6">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-              Get Your <span className="text-primary-600">Essay</span> Done by Experts
+              The #1 <span className="text-primary-600">Essay Writing Service</span> for Stress-Free Academic Success
             </h1>
             <p className="text-base sm:text-lg text-gray-600 max-w-md">
-              Trusted by thousands of students. Fast, confidential, and 100% original work—starting at <span className="font-semibold text-primary-600">$12/page</span>.
+              Join 2,300+ students who trust our PhD & Master's writers for 100% original, confidential, and plagiarism-free papers. Starting at just <span className="font-semibold text-primary-600">$12/page</span>.
             </p>
             {/* Trust badges */}
             <div className="flex flex-wrap gap-4 items-center justify-center md:justify-start mt-2">
               <div className="flex items-center bg-white border border-gray-200 rounded-lg px-3 py-1 shadow-sm">
                 <Star className="w-5 h-5 text-yellow-400 mr-1" />
-                <span className="text-sm font-medium text-gray-700">4.9/5 Rating</span>
+                <span className="text-sm font-medium text-gray-700">4.5/5 Rating</span>
               </div>
               <div className="flex items-center bg-white border border-gray-200 rounded-lg px-3 py-1 shadow-sm">
                 <Users className="w-5 h-5 text-blue-500 mr-1" />
-                <span className="text-sm font-medium text-gray-700">4500+ Writers</span>
+                <span className="text-sm font-medium text-gray-700">500+ Writers</span>
               </div>
               <div className="flex items-center bg-white border border-gray-200 rounded-lg px-3 py-1 shadow-sm">
                 <span className="text-green-600 font-bold text-lg mr-1">✓</span>
