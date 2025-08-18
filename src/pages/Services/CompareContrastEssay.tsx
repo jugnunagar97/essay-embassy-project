@@ -1,18 +1,33 @@
-import { GoogleAuthProvider, signInWithPopup, linkWithCredential, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import WritersCarousel from './WritersCarousel';
+import { 
+  signInWithPopup, 
+  signInWithEmailAndPassword,
+  linkWithCredential,
+  GoogleAuthProvider
+} from 'firebase/auth';
+import { auth } from '../../firebase';
 
-// --- SpecialAssignmentHelpCarousel: React-based interactive carousel ---
-import React, { useRef, useState, useEffect } from 'react';
+interface TabData {
+  key: string;
+  title: string;
+  content: string;
+  label: string;
+  services: Array<{ name: string; link: string; }>;
+}
 
-const carouselItems = [
+interface CarouselItem {
+  imgSrc: string;
+  title: string;
+  description: string;
+}
+
+const serviceItems = [
   {
     imgSrc: '/images/verification.jpg',
     title: 'Verification',
-    description: 'We care about your projects and pick the best specialists. To ensure your safety, we verify the identity of each candidate via social media.'
+    description: 'To ensure your safety, we verify the identity of each candidate via social media. We care about your project and pick only the best specialists.'
   },
   {
     imgSrc: '/images/skill test.jpg',
@@ -22,26 +37,65 @@ const carouselItems = [
   {
     imgSrc: '/images/quality analysis.jpg',
     title: 'Quality Analysis',
-    description: "We developed an AI-based system that analyses the quality of each expert's performance to ensure you get the best results."
+    description: "We use an AI-based system to analyze the quality of each expert's performance, ensuring you get the best possible results on your compare and contrast essay.We thoroughly test each candidate, examining their knowledge and skills through various examinations before they join our team of experts."
   },
   {
     imgSrc: '/images/education level.jpg',
     title: 'Education Level',
-    description: 'Our experts have diverse educational backgrounds, ensuring you get help from someone who truly understands your field.'
+    description: 'Our experts have diverse educational backgrounds, ensuring you get help from someone who truly understands your specific field.'
   },
   {
     imgSrc: '/images/broad expertise.jpg',
     title: 'Broad Expertise',
-    description: 'No matter how complicated your assignment is, we can find a specialist that is competent enough to provide you with a clear and effective solution to any academic problem.'
+    description: 'No matter how complex your compare and contrast essay assignment is, we can find a specialist competent enough to provide a clear and effective solution.'
   },
   {
     imgSrc: '/images/communication skills.jpg',
     title: 'Communication Skills',
-    description: 'You can chat with all the experts who can help you with your assignments, even before you hire them. Make your decision based not only on reviews and ratings but also on your own impression of the direct interaction.'
+    description: 'Chat with all the experts who can help you, even before you hire them. Make your decision based on your direct impression, reviews, and ratings.'
   }
 ];
 
-export function SpecialAssignmentHelpCarousel() {
+const CompareContrastEssay = () => {
+  // Add state variables here as needed
+
+// Local utility function to move this component to Common folder later
+const carouselItems: CarouselItem[] = serviceItems;
+
+const tabData: TabData[] = [
+  {
+    key: 'paperwork',
+    title: 'Paperwork',
+    label: 'Paperwork',
+    content: 'Our experts follow your requirements strictly, ensuring all sources are properly cited and formatted.',
+    services: [
+      { name: 'Essay Formatting', link: '/services/essay-formatting' },
+      { name: 'Citation Help', link: '/services/citation-help' }
+    ]
+  },
+  {
+    key: 'research',
+    title: 'Research',
+    label: 'Research',
+    content: 'We conduct thorough research using credible academic sources to support your arguments.',
+    services: [
+      { name: 'Literature Review', link: '/services/literature-review' },
+      { name: 'Research Paper', link: '/services/research-paper' }
+    ]
+  },
+  {
+    key: 'writing',
+    title: 'Writing',
+    label: 'Writing',
+    content: 'Our professional writers deliver well-structured, engaging content that meets academic standards.',
+    services: [
+      { name: 'Essay Writing', link: '/services/essay-writing' },
+      { name: 'Academic Writing', link: '/services/academic-writing' }
+    ]
+  }
+];
+
+function CustomCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragStartX, setDragStartX] = useState<number | null>(null);
   const [dragDelta, setDragDelta] = useState(0);
@@ -50,7 +104,7 @@ export function SpecialAssignmentHelpCarousel() {
   const cardWidthRef = useRef<number>(0);
 
   // Calculate card width after mount
-  React.useEffect(() => {
+  useEffect(() => {
     if (trackRef.current && trackRef.current.children.length > 0) {
       const card = trackRef.current.children[0] as HTMLElement;
       cardWidthRef.current = card.offsetWidth;
@@ -113,7 +167,7 @@ export function SpecialAssignmentHelpCarousel() {
     }
   };
   // Attach/remove global listeners for drag
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isDragging) return;
     const move = (e: MouseEvent | TouchEvent) => handleDragMove(e);
     const up = (e: MouseEvent | TouchEvent) => handleDragEnd(e);
@@ -146,11 +200,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes MATLAB Programming Help From Our Experts So Special?
+                  What Makes Our Compare and Contrast Essay Experts So Special?
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top experts</span> in different fields. Get your projects guided by a professional and be sure everything will be done on time.
+                We connect you with <span className="text-primary-500 font-medium">top experts</span> to guide your project. Be confident that your compare and contrast essay will be handled by a professional, delivered on time, and with superior quality.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -202,49 +256,49 @@ export function SpecialAssignmentHelpCarousel() {
 function ClientTestimonialsCarousel() {
   const testimonials = [
     {
-      id: 'EE-24467',
-      rating: 4,
-      text: "Didn't really trust programming help services at first, but this changed my mind. Super clean, well-written MATLAB code. glad I gave them a shot.",
-      date: '04/14/2025',
-      level: 'Masters',
+      id: 'EE-24953',
+      rating: 5,
+      text: "I'm extremely satisfied with the essay you wrote for me. Your work was not only very thorough—covering all the key points with great depth and clarity—but also delivered in a timely manner, which I truly appreciate. It's clear you took the time to understand the topic and structure the content thoughtfully. Thank you for your professionalism and attention to detail. I'd absolutely work with you again!",
+      date: '05/11/2024',
+      level: 'Undergraduate',
     },
     {
-      id: 'EE-23901',
-      rating: 5,
-      text: 'Was in a total panic with my MATLAB assignment deadline. They not only delivered fast but the code was actually solid. Big lifesaver!',
-      date: '03/16/2025',
+      id: 'EE-98710',
+      rating: 4,
+      text: 'I was very picky about what I needed in the essay while also asking about the things that seemed strange and he walked me through everything helping me learn a little bit.',
+      date: '04/05/2020',
       level: 'Bachelors',
     },
     {
-      id: 'EE-57281',
+      id: 'EE-43067',
       rating: 4,
-      text: 'Needed this MATLAB project fast and they came through big time. Everything from the structure to the implementation was on point. Really solid work.',
-      date: '06/16/2025',
+      text: 'Jane was very helpful and communicated in a timely manner! She kept me updated throughout the process and even provided my essays before the deadline',
+      date: '11/17/2023',
       level: 'Bachelors',
     },
     {
-      id: 'EE-19822',
+      id: 'EE-76122',
       rating: 5,
-      text: 'I was skeptical but the MATLAB expert was super communicative and the result was great. Will use again.',
-      date: '02/10/2025',
+      text: 'My essay was delivered on time, and done to utmost precision. The grammar reads at a masters native level as requested. The delivery is timely and Helen was very patient while guiding me through the website.',
+      date: '02/09/2025',
       level: 'PhD',
     },
     {
-      id: 'EE-33412',
+      id: 'EE-55489',
       rating: 5,
-      text: 'Essay Embassy made my MATLAB programming life so much easier. The quality was top-notch and the support team was very helpful.',
-      date: '01/22/2025',
+      text: 'Second nursing discussion delivered this week. High level research has been integrated clearly into the paper and the essay writer was responsive to my input as he worked on the discussion. I confirm that Essayembassy is brilliant with nursing assignments, I will therefore be using them every time an assignment comes up in my class portal.',
+      date: '06/03/2021',
       level: 'Masters',
     },
     {
-      id: 'EE-11234',
+      id: 'EE-12378',
       rating: 4,
-      text: 'Good service, quick turnaround, and the MATLAB code passed all checks. Would recommend.',
-      date: '05/05/2025',
+      text: 'You guys have done a great job with my twenty page Durkheim theory essay. Explaining the rising cases of physician suicide in dentistry to bring out the anomie concept was a brilliant Idea. The paper was long, but the writer did not deflect from the subject at any point.',
+      date: '07/15/2024',
       level: 'College',
     },
   ];
-  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const cardCount = testimonials.length;
 
   // Navigation logic
@@ -387,7 +441,7 @@ function ClientTestimonialsCarousel() {
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
-export default function MatlabProgrammingHelp() {
+export default function CompareContrastEssay() {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;
@@ -511,10 +565,10 @@ export default function MatlabProgrammingHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              MATLAB Programming Help
+              Compare and Contrast Essay to Secure A+ Grades
             </h1>
             <p className="text-lg text-gray-600">
-              Looking for a reliable expert to help with MATLAB programming? Hire our professional programmer and be done with your MATLAB assignments.
+              Get a scholarly perspective. Our PhD-level writers author definitive compare and contrast essays that stand out from the rest.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -615,10 +669,10 @@ export default function MatlabProgrammingHelp() {
       {/* Writers Section Title, Description, and University Logos (Redesigned) */}
       <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Our Essay Experts</h2>
           <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
-            We carefully check each candidate's academic and professional background before hiring.
+            Our experts are graduates of the world's most prestigious universities and colleges.<br/>
+            We thoroughly vet each candidate, meticulously verifying their academic and professional credentials before they join our team.
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
             <div className="text-base text-gray-600 mb-2 md:mb-0 md:mr-6 whitespace-nowrap">
@@ -635,14 +689,14 @@ export default function MatlabProgrammingHelp() {
       <div className="mt-8"></div>
       {/* Writers Scrollable Area */}
       <div className="container mx-auto px-6 pb-6">
-        <WritersCarousel />
+        <CustomCarousel />
       </div>
 
       {/* We go beyond assignment help services Block (glassmorphism, floating, stylish) */}
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">assignment help services</span>
+            Why Our Compare and Contrast Essay Service is the Right Choice
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
@@ -653,8 +707,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Human-written content only</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Whenever you ask us for assignment help and hire a professional writer, your paper will contain zero AI content.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Expert Writers</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Our professional writers are skilled in crafting insightful and nuanced compare and contrast essays. Every paper is 100% human-written, ensuring a unique, thoughtful analysis with absolutely no AI-generated content.</div>
             </div>
             {/* Card 2 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -665,8 +719,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M9 9h6M9 13h6M9 17h6"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Originality report included</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We're ready to prove that our papers are written from scratch with free reports for all "assignment help" requests.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Proof of Originality</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We provide a free originality report with every compare and contrast essay order. This guarantees that your paper is written from scratch, adhering to your specific instructions and requirements.</div>
             </div>
             {/* Card 3 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -677,8 +731,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Comprehensive refund policy</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Have peace of mind knowing your money is protected by our fair refund policy that covers a variety of scenarios.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Money-Back Guarantee</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Your satisfaction is our priority. Our comprehensive refund policy protects your investment, giving you peace of mind that your money is safe under various scenarios.</div>
             </div>
             {/* Card 4 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -689,8 +743,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Robust data protections</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Essay Embassy secures your data according to the strictest standards, from PCI DSS compliance for payment processing to end-to-end platform encryption.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Secure and Confidential Service</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We prioritize your privacy and data security. Our platform uses end-to-end encryption and is PCI DSS compliant to protect your personal information and payment details at all times.</div>
             </div>
             {/* Card 5 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -701,8 +755,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 6v6l4 2"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Prompt delivery without quality risks</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Our assignment experts leverage their experience to deliver well-researched and carefully put-together papers with deadlines starting from three hours.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Timely Delivery for Urgent Needs</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Our experts are adept at working with strict deadlines. We can deliver a high-quality, well-researched compare and contrast essay in as little as three hours without compromising the quality of the analysis.</div>
             </div>
             {/* Card 6 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -713,8 +767,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Pocket-friendly rates</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Prices for our assignment help services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Affordable and Transparent Pricing</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Our rates are designed to be budget-friendly, with prices for our compare and contrast essay services starting at just $12 per page. We offer exceptional value, including all essential services and a range of complimentary perks.</div>
             </div>
           </div>
         </div>
@@ -722,7 +776,26 @@ export default function MatlabProgrammingHelp() {
       {/* What Makes Assignment Help From Our Experts So Special? Block (moved here) */}
       <section className="w-full bg-[#F7FAFC] py-10">
         <div className="max-w-6xl mx-auto px-4 bg-[#F7FAFC] shadow-none border-none">
-          <SpecialAssignmentHelpCarousel />
+          {/* Recommended Services */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tabData.map(service => (
+              <div key={service.key} className="bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold mb-4">{service.title}</h3>
+                <p className="text-gray-600 mb-4">{service.content}</p>
+                <div className="space-y-2">
+                  {service.services.map((item, idx) => (
+                    <Link
+                      key={idx}
+                      to={item.link}
+                      className="text-primary-600 hover:text-primary-700 block"
+                    >
+                      {item.name} →
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
       {/* Prices and Services Block (copied from AssignmentHelp) */}
@@ -730,7 +803,7 @@ export default function MatlabProgrammingHelp() {
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
           <div className="text-center text-lg text-gray-600 mb-4">
-            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
+            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$12/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
           </div>
           <div className="flex justify-center mb-4">
             <Link to="/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
@@ -796,21 +869,21 @@ export default function MatlabProgrammingHelp() {
           <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-4 md:gap-0">
             {/* Stat 1 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">7+</span>
               <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 2 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">500+</span>
               <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 3 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">10,000+</span>
               <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed orders</span>
             </div>
             {/* Divider */}
@@ -818,7 +891,7 @@ export default function MatlabProgrammingHelp() {
             {/* Stat 4 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <div className="flex items-center justify-center gap-1">
-                <span className="text-3xl md:text-4xl font-bold text-emerald-500">4.8</span>
+                <span className="text-3xl md:text-4xl font-bold text-emerald-500">4.5</span>
                 <span className="flex items-center">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} width="20" height="20" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -840,41 +913,45 @@ export default function MatlabProgrammingHelp() {
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
-            Sample Assignments
+            Compare Contrast Essay Samples
           </h2>
           <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
           <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
-            Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
+            Our academic writers deliver compare and contrast essays that go beyond the basics, offering precise, scholarly insight. Trust your work with a team that has successfully completed over 10,000+ orders.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                title: "MATLAB Data Analysis",
+                title: "Apples vs Oranges",
+                pages: 4,
+                level: "High School",
+                type: "Compare & Contrast",
+                citation: "MLA",
+                file: "/samples/CompareAndContrastSamples/Apples vs Oranges_ A Comparison Essay.pdf"
+              },
+              {
+                title: "Democracy vs Authoritarianism",
+                pages: 7,
+                level: "University",
+                type: "Compare & Contrast",
+                citation: "APA",
+                file: "/samples/CompareAndContrastSamples/Democracy vs Authoritarianism.pdf"
+              },
+              {
+                title: "High School Essay Example",
+                pages: 3,
+                level: "High School",
+                type: "Compare & Contrast",
+                citation: "MLA",
+                file: "/samples/CompareAndContrastSamples/high-school-comparative-essay-example-pdf.pdf"
+              },
+              {
+                title: "Nature vs Nurture",
                 pages: 6,
                 level: "College",
-                type: "Programming",
-                citation: "MATLAB"
-              },
-              {
-                title: "Machine Learning Algorithm",
-                pages: 6,
-                level: "Bachelor",
-                type: "Code Review",
-                citation: "MATLAB"
-              },
-              {
-                title: "Web Scraping Project",
-                pages: 8,
-                level: "PhD",
-                type: "Research Paper",
-                citation: "MATLAB"
-              },
-              {
-                title: "Basic MATLAB Functions",
-                pages: 5,
-                level: "High School",
-                type: "Report",
-                citation: "MATLAB"
+                type: "Compare & Contrast",
+                citation: "APA",
+                file: "/samples/CompareAndContrastSamples/Nature vs Nurture (Compare and Contrast Essay).pdf"
               },
             ].map((sample, idx) => (
               <div key={idx} className="bg-white border border-blue-200 rounded-2xl shadow-sm p-6 flex flex-col min-h-[270px] text-left">
@@ -891,9 +968,16 @@ export default function MatlabProgrammingHelp() {
                 <div className="flex-1 flex flex-col gap-2 text-sm">
                   <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Academic Level:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.level}</span></div>
                   <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Document Type:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.type}</span></div>
-                  <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Language:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.citation}</span></div>
+                  <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Citation Style:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.citation}</span></div>
                 </div>
-                <button className="mt-6 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-2 rounded-full shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 text-left pl-6">Read</button>
+                <a 
+                  href={sample.file}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-2 rounded-full shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 text-left pl-6 flex items-center"
+                >
+                  Read Sample
+                </a>
               </div>
             ))}
           </div>
@@ -905,7 +989,7 @@ export default function MatlabProgrammingHelp() {
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
           {/* Removed decorative circles as requested */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Assignment Help journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Compare Contrast Essay Help journey</h2>
             <div className="flex flex-col items-center relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
@@ -931,7 +1015,7 @@ export default function MatlabProgrammingHelp() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
               <span className="text-2xl mb-1">📄</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your essay</div>
               <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
             </div>
           </div>
@@ -953,26 +1037,27 @@ export default function MatlabProgrammingHelp() {
         <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
           <div className="flex items-center mb-4">
             <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Compare Contrast Essay Writing Help</h2>
           </div>
           <p className="text-base text-gray-700 text-left mb-4">
-            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
+            A great compare and contrast essay is more than just a list of similarities and differences. It’s an academic exercise in critical analysis and nuanced thinking. It requires a sharp thesis, a meticulous structure, and the ability to articulate connections that go beyond the obvious. For students who need to deliver a paper that stands out, our professional compare and contrast essay writing service provides the expertise you need to succeed. With over 10,000 successful orders completed, we are a trusted partner in academic excellence.
           </p>
           <p className="text-sm text-gray-600 mb-3 text-left">
-            Students turn to Essay Embassy for assignment help because:
+            Why Students Seek Professional Academic Help:
           </p>
           <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
             <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Crafting a Strong Thesis:</span> A compelling thesis statement is the foundation of your essay. Our writers are skilled at developing a focused, arguable thesis that guides your entire paper.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Logical Structure:</span> Whether you use a point-by-point method or a block method, the flow of your arguments must be flawless. Our writers ensure your essay has a cohesive and easy-to-follow structure.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Depth of Analysis:</span> Moving beyond simple descriptions to scholarly analysis can be a major challenge. Our writers delve into the subtleties of your topic to produce an insightful, evidence-based argument.</li>
             </ul>
             <p className="text-sm text-gray-700 mb-3">
               Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
             </p>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
+            <p className="text-base text-gray-700 text-left mb-4">
+            When you hire an academic writer from our team, you're not just getting a paper—you're getting a commitment to quality and academic integrity. We stand out from other services by ensuring every order is handled by a true expert.
+          </p>
             <ul className="list-disc pl-5 mb-3">
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
@@ -983,23 +1068,18 @@ export default function MatlabProgrammingHelp() {
             </ul>
             <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
             <ul className="list-none pl-0 mb-3">
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Expertise, Not AI:</span> Your assignment is crafted by a verified academic professional, not an algorithm. Our 500+ writers have advanced degrees in their fields, guaranteeing credible and authoritative work.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed Originality:</span> Every paper is written from scratch. You will receive a completely original, plagiarism-free essay that meets the highest standards.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent Pricing:</span> Our pricing is straightforward and fair. You will know the exact cost upfront based on your academic level and deadline, with no hidden fees.</span></li>
               <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Confidentiality:</span> Your privacy is absolute. We use end-to-end encryption to protect your personal information and ensure it is never shared.</span></li>
             </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
-            <p className="text-sm text-gray-700 mb-1">
-              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Your Path to Academic Excellence</h3>
+            <p className="text-sm text-gray-700 mb-3">
+              Ready to elevate your academic performance? Stop asking, "Who can write my compare and contrast essay?" The answer is here. Our professional service provides the peace of mind and academic support you need to succeed.
             </p>
-            <p className="text-sm text-gray-700 mb-1">
-              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              Place your order now and let a true subject matter expert handle the hard work for you.
+            <p className="text-sm text-gray-700 mb-3">
+              Place your order now and let a true subject matter expert provide you with a meticulously researched, perfectly structured, and original compare and contrast essay.
             </p>
           </div>
         </div>
@@ -1032,24 +1112,24 @@ export default function MatlabProgrammingHelp() {
                 <div className="space-y-2">
                   {[
                     {
-                      question: 'Is your MATLAB programming help service confidential and safe?',
-                      answer: 'Absolutely. We use end-to-end encryption and never share your personal information or order details with third parties. Your privacy and security are our top priorities.'
+                      question: 'What exactly is a compare and contrast essay?',
+                      answer: 'A compare and contrast essay is a paper that analyzes two subjects by highlighting their similarities and differences. It\'s more than a simple list; it requires a strong thesis statement and scholarly analysis to reveal new insights or a deeper understanding of the topics.'
                     },
                     {
-                      question: 'Will my MATLAB code be written by a real expert?',
-                      answer: 'Yes! Every MATLAB assignment is written by a verified programming expert who has passed our rigorous selection and verification process. No AI-generated code, ever.'
+                      question: 'Will my essay be 100% original and plagiarism-free?',
+                      answer: 'Yes. Every single essay is written from scratch by a verified academic professional. We do not use any AI generators or pre-written content. This ensures your paper is 100% original and unique to your assignment requirements.'
                     },
                     {
-                      question: 'How fast can I get my MATLAB assignment delivered?',
-                      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll match you with a MATLAB expert who can deliver on time.'
+                      question: 'How do you choose the right writer for my paper?',
+                      answer: 'Your order is matched with a writer who has a relevant academic background and expertise. With a team of over 500 Master\'s and PhD-level writers, we ensure your essay is handled by a subject-matter expert who understands the nuances of your topic.'
                     },
                     {
-                      question: 'What if I am not satisfied with the MATLAB code?',
-                      answer: 'We offer unlimited free revisions and a comprehensive refund policy. Your satisfaction is guaranteed, or you get your money back.'
+                      question: 'Is it safe and confidential to use your service?',
+                      answer: 'Your privacy is our top priority. We use secure, end-to-end encryption to protect your personal and payment information. All communications are confidential, and your data is never shared with third parties.'
                     },
                     {
-                      question: 'How do I place an order for MATLAB programming help?',
-                      answer: 'Simply fill out the order form at the top of this page, select your requirements, and follow the prompts. Our team will take care of the rest!'
+                      question: 'What if I\'m not satisfied with my compare and contrast essay?',
+                      answer: 'Your satisfaction is guaranteed. We offer free, unlimited revisions on every order until the paper meets your exact requirements. Additionally, you are covered by our money-back guarantee if we fail to meet a confirmed deadline.'
                     }
                   ].map((faq, idx) => {
                     const isOpen = openFAQ === idx;
@@ -1112,123 +1192,76 @@ export default function MatlabProgrammingHelp() {
         </div>
       </section>
 
-      {/* Services Interlink Block - Tabbed Professional Version (Only Existing Services, Improved Link UI, No Duplicates) */}
+      {/* Services Interlink Block - Clean Categories Version */}
       <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{background: '#F7FAFC'}}>
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center md:items-start">
           {/* Left Side: Heading, Description, CTA */}
           <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start mb-10 md:mb-0">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Your #1 paper writing service</h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert essay writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Professional Academic Services</h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-md">Expert assistance across all academic disciplines. Choose from our comprehensive range of professional services.</p>
             <Link
-              to="/writers"
+              to="/order-now"
               className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
               style={{textAlign: 'center'}}
             >
-              Find your writer <span className="ml-2">→</span>
+              Get Started <span className="ml-2">→</span>
             </Link>
           </div>
-          {/* Right Side: Tabs and Service List */}
+          {/* Right Side: Service Categories */}
           <div className="flex-1 w-full">
             {(() => {
-              // Only include services that have a corresponding file in src/pages/Services
-              const allServices = [
-                { name: 'Essay Writing', link: '/services/essay-writing' },
-                { name: 'Book Review', link: '/services/book-review' },
-                { name: 'Term Paper', link: '/services/term-paper' },
-                { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
-                { name: 'Research Proposal', link: '/services/research-proposal' },
-                { name: 'Thesis Writing', link: '/services/thesis-writing' },
-                { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
-                { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
-                { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
-                { name: 'Admission Essay', link: '/services/admission-essay' },
-                { name: 'Admission Essay Writing', link: '/services/admission-essay-writing' },
-                { name: 'Case Study', link: '/services/case-study' },
-                { name: 'Case Study Help', link: '/services/case-study-help' },
-                { name: 'Lab Report', link: '/services/lab-report' },
-                { name: 'Homework Help', link: '/services/homework-help' },
-                { name: 'English Assignment Help', link: '/services/english-assignment-help' },
-                { name: 'Programming Help', link: '/services/programming-help' },
-                { name: 'MATLAB Programming Help', link: '/programming-help/matlab' },
-                { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
-                { name: 'Assignment Help', link: '/services/assignment-help' },
-                { name: 'Narrative Essay', link: '/services/narrative-essay' },
-              ];
-              // Remove duplicates for each tab
-              const paperwork = [
-                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study', 'Case Study Help', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'MATLAB Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Narrative Essay',
-              ];
-              const coursework = [
-                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'MATLAB Programming Help', 'Physics Assignment Help', 'Assignment Help',
-              ];
-              const other = [
-                'Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study Help', 'MATLAB Programming Help',
-              ];
-              const tabData = [
+              const serviceCategories = [
                 {
-                  key: 'paperwork',
-                  label: 'Paperwork',
-                  services: paperwork.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+                  title: 'Essay & Research Help',
+                  services: [
+                    { name: 'Essay Help', link: '/services/essay-help' },
+                    { name: 'Research Paper Help', link: '/services/research-paper-help' }
+                  ]
                 },
                 {
-                  key: 'coursework',
-                  label: 'Coursework / homework',
-                  services: coursework.map(name => allServices.find(s => s.name === name)).filter(Boolean),
+                  title: 'Academic Support',
+                  services: [
+                    { name: 'Assignment Help', link: '/services/assignment-help' },
+                    { name: 'Homework Help', link: '/services/homework-help' },
+                    { name: 'Academic Writing', link: '/services/academic-writing' }
+                  ]
                 },
                 {
-                  key: 'other',
-                  label: 'Other assignments',
-                  services: other.map(name => allServices.find(s => s.name === name)).filter(Boolean),
-                },
+                  title: 'Specialized Services',
+                  services: [
+                    { name: 'Programming Help', link: '/services/programming-help' },
+                    { name: 'Thesis Writing', link: '/services/thesis-writing' },
+                    { name: 'Dissertation Writing', link: '/services/dissertation-writing' }
+                  ]
+                }
               ];
-              const [activeTab, setActiveTab] = React.useState('paperwork');
-              const active = tabData.find(t => t.key === activeTab) || tabData[0];
-              // Split services into 3 columns
-              const filteredServices: { name: string; link: string }[] = (active.services.filter(Boolean) as { name: string; link: string }[]);
-              const columns: { name: string; link: string }[][] = [[], [], []];
-              filteredServices.forEach((s, i) => columns[i % 3].push(s));
               return (
                 <div className="w-full">
-                  {/* Tabs */}
-                  <div className="flex gap-8 border-b border-gray-200 mb-6">
-                    {tabData.map(tab => {
-                      const isActive = activeTab === tab.key;
-                      return (
-                        <button
-                          key={tab.key}
-                          className={`relative pb-2 text-lg font-semibold transition-colors duration-200 tracking-tight focus:outline-none ${isActive ? 'text-primary-600' : 'text-gray-700 hover:text-primary-700'}`}
-                          style={{background: 'none', outline: 'none'}}
-                          onClick={() => setActiveTab(tab.key)}
-                        >
-                          <span className={isActive ? 'text-primary-600' : ''}>{tab.label}</span>
-                          {isActive && (
-                            <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{content: '""'}}></span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {/* Service List */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                    {columns.map((col, idx) => (
-                      <ul key={idx} className="space-y-2">
-                        {col.map(service => (
-                          <li key={service.name} className="text-[15px] text-gray-800 flex items-center gap-2" >
-                            <span className="inline-block w-2 h-2 rounded-full bg-primary-200"></span>
-                            <Link
-                              to={service.link}
-                              className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
-                              style={{textDecoration: 'none'}}
-                            >
-                              {service.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {serviceCategories.map((category, idx) => (
+                      <div key={idx} className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+                        <h3 className="text-xl font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">
+                          {category.title}
+                        </h3>
+                        <ul className="space-y-3">
+                          {category.services.map((service, serviceIdx) => (
+                            <li key={serviceIdx}>
+                              <Link
+                                to={service.link}
+                                className="group flex items-center text-gray-700 hover:text-primary-600 transition-colors duration-200"
+                              >
+                                <span className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                                {service.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     ))}
                   </div>
                 </div>
               );
+
             })()}
           </div>
         </div>
@@ -1261,4 +1294,6 @@ export default function MatlabProgrammingHelp() {
       </section>
     </div>
   );
-} 
+};
+
+export default CompareContrastEssay;
