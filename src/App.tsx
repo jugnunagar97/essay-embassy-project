@@ -29,6 +29,7 @@ import QALibrary from './pages/QALibrary';
 import QASolutionPage from './pages/QASolutionPage';
 import Checkout from './pages/Checkout';
 import ThankYou from './pages/ThankYou';
+import Studio from './components/Studio';
 
 // --- Static Service Page Imports ---
 import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
@@ -93,6 +94,8 @@ import ServicePageEditor from './pages/Admin/ServicePageEditor';
 
 // --- Dynamic Service Page Import (NEW & CRUCIAL) ---
 // This single component will now handle all your dynamically created service pages.
+import DynamicServicePage from './pages/Services/DynamicServicePage';
+
 // import DynamicServicePage from './pages/Services/DynamicServicePage';
 
 /**
@@ -210,7 +213,7 @@ function App() {
 
             {/* Dynamic service route - fallback for any service slugs not covered above */}
             {/* Temporarily disabled to fix routing conflicts */}
-            {/* <Route path=":slug" element={<DynamicServicePage />} /> */}
+            <Route path=":slug" element={<DynamicServicePage />} />
 
             <Route path="samples" element={<Samples />} />
             <Route path="reviews" element={<Reviews />} />
@@ -255,6 +258,7 @@ function App() {
             <Route path="dashboard/order/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} /> {/* Dynamic order detail page */}
             <Route path="dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
             <Route path="dashboard/my-settings" element={<ProtectedRoute><ClientProfileSettings /></ProtectedRoute>} /> {/* Client profile settings */}
+            <Route path="studio" element={<ProtectedRoute adminOnly><Studio /></ProtectedRoute>} /> {/* Sanity Studio */}
           </Route>
 
           {/* Fallback route for any unmatched paths, redirects to home */}

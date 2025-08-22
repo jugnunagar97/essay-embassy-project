@@ -56,7 +56,7 @@ const serviceItems = [
   }
 ];
 
-const CompareContrastEssay = () => {
+function CompareContrastEssay() {
   // Add state variables here as needed
 
 // Local utility function to move this component to Common folder later
@@ -1294,6 +1294,6 @@ export default function CompareContrastEssay() {
       </section>
     </div>
   );
-};
+}
 
 export default CompareContrastEssay;
