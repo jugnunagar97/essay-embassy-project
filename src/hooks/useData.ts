@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import {
-  Order, DashboardStats, User as AppUser, Review, ReviewStats, ServiceCategory, SubService, Sample, BlogPost, ServicePage
+  Order, DashboardStats, User as AppUser, Review, ReviewStats, ServiceCategory, SubService, Sample, BlogPost
 } from '../types'; // FIXED: Ensured all types are imported and correctly aliased User as AppUser
 import { db } from '../firebase';
 
@@ -240,30 +240,4 @@ export function useBlogs() {
   return { blogs, isLoading, error };
 }
 
-// --- useServicePages Hook ---
-// This hook seems to fetch from a 'servicePages' collection,
-// which is distinct from 'subServices' (your dynamic pages).
-// If 'servicePages' is meant to be the same as 'subServices',
-// you might want to remove this hook and use useSubServices instead.
-export function useServicePages() {
-  const [pages, setPages] = useState<ServicePage[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<any | null>(null);
 
-  useEffect(() => {
-    const q = query(collection(db, 'servicePages'), orderBy('order', 'asc'));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const fetchedPages = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as ServicePage));
-      setPages(fetchedPages);
-      setIsLoading(false);
-      setError(null);
-    }, (err) => {
-      console.error("Error fetching service pages:", err);
-      setError(err);
-      setIsLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  return { pages, isLoading, error };
-}

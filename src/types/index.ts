@@ -154,19 +154,7 @@ export interface Sample {
     fileType?: string;
 }
 
-// Interface for ServicePage (if distinct from SubService, otherwise use SubService)
-// Based on your useServicePages hook, you have a 'servicePages' collection.
-// If this is meant to be the same as SubService, you can remove this and use SubService directly.
-// For now, defining it as a separate interface to match your hook.
-export interface ServicePage {
-    id: string;
-    title: string; // Assuming 'title' is used in this collection
-    content: string;
-    order: number;
-    // Add other fields specific to your 'servicePages' collection if they differ from SubService
-    createdAt?: Timestamp;
-    updatedAt?: Timestamp;
-}
+
 
 // Q&A Library Types
 

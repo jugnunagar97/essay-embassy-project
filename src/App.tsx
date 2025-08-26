@@ -29,7 +29,7 @@ import QALibrary from './pages/QALibrary';
 import QASolutionPage from './pages/QASolutionPage';
 import Checkout from './pages/Checkout';
 import ThankYou from './pages/ThankYou';
-import Studio from './components/Studio';
+
 
 // --- Static Service Page Imports ---
 import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
@@ -89,14 +89,9 @@ import ServiceManager from './components/Admin/ServiceManager';
 import ReviewManager from './components/Admin/ReviewManager';
 import BlogManager from './components/Admin/BlogManager';
 
-// --- Admin Page Editor Imports (from pages/Admin) ---
-import ServicePageEditor from './pages/Admin/ServicePageEditor';
 
-// --- Dynamic Service Page Import (NEW & CRUCIAL) ---
-// This single component will now handle all your dynamically created service pages.
-import DynamicServicePage from './pages/Services/DynamicServicePage';
 
-// import DynamicServicePage from './pages/Services/DynamicServicePage';
+
 
 /**
  * ProtectedRoute component
@@ -211,9 +206,7 @@ function App() {
             <Route path="term-paper" element={<TermPaper />} />
             <Route path="thesis-writing" element={<ThesisWriting />} />
 
-            {/* Dynamic service route - fallback for any service slugs not covered above */}
-            {/* Temporarily disabled to fix routing conflicts */}
-            <Route path=":slug" element={<DynamicServicePage />} />
+
 
             <Route path="samples" element={<Samples />} />
             <Route path="reviews" element={<Reviews />} />
@@ -244,8 +237,7 @@ function App() {
             {/* Admin-only protected routes */}
             <Route path="dashboard/reviews" element={<ProtectedRoute adminOnly><ReviewManager /></ProtectedRoute>} />
             <Route path="dashboard/services" element={<ProtectedRoute adminOnly><ServiceManager /></ProtectedRoute>} />
-            <Route path="dashboard/services/new" element={<ProtectedRoute adminOnly><ServicePageEditor /></ProtectedRoute>} />
-            <Route path="dashboard/services/edit/:pageId" element={<ProtectedRoute adminOnly><ServicePageEditor /></ProtectedRoute>} /> {/* Edit existing service page */}
+
             <Route path="dashboard/blog" element={<ProtectedRoute adminOnly><BlogManager /></ProtectedRoute>} />
             <Route path="dashboard/settings" element={<ProtectedRoute adminOnly><ProfileSettings /></ProtectedRoute>} /> {/* Admin profile settings */}
             <Route path="dashboard/new-order" element={<ProtectedRoute adminOnly><NewOrder /></ProtectedRoute>} />
@@ -258,7 +250,7 @@ function App() {
             <Route path="dashboard/order/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} /> {/* Dynamic order detail page */}
             <Route path="dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
             <Route path="dashboard/my-settings" element={<ProtectedRoute><ClientProfileSettings /></ProtectedRoute>} /> {/* Client profile settings */}
-            <Route path="studio" element={<ProtectedRoute adminOnly><Studio /></ProtectedRoute>} /> {/* Sanity Studio */}
+
           </Route>
 
           {/* Fallback route for any unmatched paths, redirects to home */}
