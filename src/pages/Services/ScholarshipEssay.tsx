@@ -146,11 +146,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes MATLAB Programming Help From Our Experts So Special?
+                  What Makes Our Scholarship Essay Service Special?
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top experts</span> in different fields. Get your projects guided by a professional and be sure everything will be done on time.
+                Criteria‑first planning, data‑rich narratives, and distinctive positioning for competitive awards. We quantify achievements, connect to mission fit, and keep your voice. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> orders completed. Ready to apply? <a href="/order-now" className="text-primary-600 underline">Order Now</a>.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -202,46 +202,46 @@ export function SpecialAssignmentHelpCarousel() {
 function ClientTestimonialsCarousel() {
   const testimonials = [
     {
-      id: 'EE-24467',
-      rating: 4,
-      text: "Didn't really trust programming help services at first, but this changed my mind. Super clean, well-written MATLAB code. glad I gave them a shot.",
-      date: '04/14/2025',
-      level: 'Masters',
-    },
-    {
-      id: 'EE-23901',
+      id: 'EE-90671',
       rating: 5,
-      text: 'Was in a total panic with my MATLAB assignment deadline. They not only delivered fast but the code was actually solid. Big lifesaver!',
-      date: '03/16/2025',
-      level: 'Bachelors',
+      text: 'They aligned my achievements with the foundation’s mission and quantified impact. Persuasive without sounding boastful.',
+      date: '05/30/2025',
+      level: 'University',
     },
     {
-      id: 'EE-57281',
-      rating: 4,
-      text: 'Needed this MATLAB project fast and they came through big time. Everything from the structure to the implementation was on point. Really solid work.',
-      date: '06/16/2025',
-      level: 'Bachelors',
-    },
-    {
-      id: 'EE-19822',
+      id: 'EE-91422',
       rating: 5,
-      text: 'I was skeptical but the MATLAB expert was super communicative and the result was great. Will use again.',
-      date: '02/10/2025',
-      level: 'PhD',
-    },
-    {
-      id: 'EE-33412',
-      rating: 5,
-      text: 'Essay Embassy made my MATLAB programming life so much easier. The quality was top-notch and the support team was very helpful.',
-      date: '01/22/2025',
-      level: 'Masters',
-    },
-    {
-      id: 'EE-11234',
-      rating: 4,
-      text: 'Good service, quick turnaround, and the MATLAB code passed all checks. Would recommend.',
-      date: '05/05/2025',
+      text: 'I struggled to connect financial need with my goals. They built a narrative that flowed and matched the criteria perfectly.',
+      date: '06/07/2025',
       level: 'College',
+    },
+    {
+      id: 'EE-90288',
+      rating: 4,
+      text: 'Fast turnaround and smart edits. It matched my voice and used numbers to prove results from my projects.',
+      date: '04/18/2025',
+      level: 'Masters',
+    },
+    {
+      id: 'EE-90944',
+      rating: 5,
+      text: 'They tightened the narrative and emphasized leadership impact. The final draft hit every rubric point.',
+      date: '03/11/2025',
+      level: 'University',
+    },
+    {
+      id: 'EE-91173',
+      rating: 4,
+      text: 'Great balance of humility and evidence. They connected my community work to the donor’s mission clearly.',
+      date: '02/02/2025',
+      level: 'College',
+    },
+    {
+      id: 'EE-91822',
+      rating: 5,
+      text: 'Quantified results made a big difference. It read confidently without overselling.',
+      date: '06/15/2025',
+      level: 'Masters',
     },
   ];
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -801,22 +801,22 @@ export default function MatlabProgrammingHelp() {
           <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-4 md:gap-0">
             {/* Stat 1 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">7+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years in business</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 2 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">500+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Professional writers</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 3 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed orders</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">10,262+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successful orders completed</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
@@ -910,7 +910,7 @@ export default function MatlabProgrammingHelp() {
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
           {/* Removed decorative circles as requested */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Assignment Help journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Steps to a Winning Scholarship Essay</h2>
             <div className="flex flex-col items-center relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
@@ -1037,24 +1037,24 @@ export default function MatlabProgrammingHelp() {
                 <div className="space-y-2">
                   {[
                     {
-                      question: 'Is your MATLAB programming help service confidential and safe?',
-                      answer: 'Absolutely. We use end-to-end encryption and never share your personal information or order details with third parties. Your privacy and security are our top priorities.'
+                      question: 'What scholarships do you support?',
+                      answer: 'Merit, need‑based, STEM, first‑gen, athletic, and foundation‑specific awards across the US, UK, CA, AU, and EU.'
                     },
                     {
-                      question: 'Will my MATLAB code be written by a real expert?',
-                      answer: 'Yes! Every MATLAB assignment is written by a verified programming expert who has passed our rigorous selection and verification process. No AI-generated code, ever.'
+                      question: 'How do you show mission fit without sounding generic?',
+                      answer: 'We map your experiences to the donor’s criteria and quantify outcomes to demonstrate impact and alignment.'
                     },
                     {
-                      question: 'How fast can I get my MATLAB assignment delivered?',
-                      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll match you with a MATLAB expert who can deliver on time.'
+                      question: 'Can you help with short answers and prompts?',
+                      answer: 'Yes—succinct, criteria‑aligned responses with consistent voice across all application materials.'
                     },
                     {
-                      question: 'What if I am not satisfied with the MATLAB code?',
-                      answer: 'We offer unlimited free revisions and a comprehensive refund policy. Your satisfaction is guaranteed, or you get your money back.'
+                      question: 'What turnaround times are available?',
+                      answer: 'From 6–24 hour rush drafts to multi‑day packages. Set your deadline on <a href="/order-now" class="text-primary-600 underline">Order Now</a>.'
                     },
                     {
-                      question: 'How do I place an order for MATLAB programming help?',
-                      answer: 'Simply fill out the order form at the top of this page, select your requirements, and follow the prompts. Our team will take care of the rest!'
+                      question: 'Is my data private and the content original?',
+                      answer: 'Yes, fully confidential and 100% custom. See our <a href="/refund-policy" class="text-primary-600 underline">refund policy</a> and terms.'
                     }
                   ].map((faq, idx) => {
                     const isOpen = openFAQ === idx;

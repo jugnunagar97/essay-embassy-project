@@ -146,11 +146,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes Assignment Help From Our Experts So Special?
+                  What Makes Our Admission Essay Service Special?
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top experts</span> in different fields. Get your projects guided by a professional and be sure everything will be done on time.
+                Criteria‑aligned, human‑written personal statements that highlight impact, growth, and program fit. We preserve your voice while structuring a compelling narrative for US, UK, CA, AU, and EU admissions. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> successful orders. <a href="/order-now" className="text-primary-600 underline">Order Now</a>.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -202,46 +202,46 @@ export function SpecialAssignmentHelpCarousel() {
 function ClientTestimonialsCarousel() {
   const testimonials = [
     {
-      id: 'EE-24467',
-      rating: 4,
-      text: "Didn't really trust writing services at first, but this changed my mind. Super clean, well-written essay. glad I gave them a shot.",
-      date: '04/14/2025',
-      level: 'Masters',
-    },
-    {
-      id: 'EE-23901',
+      id: 'EE-77120',
       rating: 5,
-      text: 'Was in a total panic with my deadline. They not only delivered fast but the essay was actually solid. Big lifesaver!',
-      date: '03/16/2025',
-      level: 'Bachelors',
-    },
-    {
-      id: 'EE-57281',
-      rating: 4,
-      text: 'Needed this essay fast and they came through big time. Everything from the structure to the points was on point. Really solid work.',
-      date: '06/16/2025',
-      level: 'Bachelors',
-    },
-    {
-      id: 'EE-19822',
-      rating: 5,
-      text: 'I was skeptical but the writer was super communicative and the result was great. Will use again.',
-      date: '02/10/2025',
-      level: 'PhD',
-    },
-    {
-      id: 'EE-33412',
-      rating: 5,
-      text: 'Essay Embassy made my life so much easier. The quality was top-notch and the support team was very helpful.',
-      date: '01/22/2025',
-      level: 'Masters',
-    },
-    {
-      id: 'EE-11234',
-      rating: 4,
-      text: 'Good service, quick turnaround, and the essay passed all checks. Would recommend.',
-      date: '05/05/2025',
+      text: 'They kept my voice but made the story flow. The opening hook and theme fit my program perfectly—my advisor loved it.',
+      date: '05/18/2025',
       level: 'College',
+    },
+    {
+      id: 'EE-77934',
+      rating: 5,
+      text: 'We narrowed my topic fast and built a clear narrative about impact and fit. It felt authentic, not generic.',
+      date: '06/02/2025',
+      level: 'University',
+    },
+    {
+      id: 'EE-76519',
+      rating: 4,
+      text: 'Strong structure, clean language, and specific examples. The final reflection tied everything to my goals.',
+      date: '04/29/2025',
+      level: 'Masters',
+    },
+    {
+      id: 'EE-77388',
+      rating: 5,
+      text: 'They found a unique angle on a common prompt and avoided clichés. The tone sounded exactly like me.',
+      date: '03/06/2025',
+      level: 'College',
+    },
+    {
+      id: 'EE-77641',
+      rating: 4,
+      text: 'Quick turnaround without losing quality. They aligned every paragraph to the program’s values.',
+      date: '02/18/2025',
+      level: 'University',
+    },
+    {
+      id: 'EE-78102',
+      rating: 5,
+      text: 'Editor feedback tightened pacing and transitions. The final statement felt cohesive and memorable.',
+      date: '06/12/2025',
+      level: 'Masters',
     },
   ];
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -417,24 +417,24 @@ export default function AdmissionEssayWriting() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const faqData = [
     {
-      question: 'Is your essay writing service confidential and safe?',
-      answer: 'Absolutely. We use end-to-end encryption and never share your personal information or order details with third parties. Your privacy and security are our top priorities.'
+      question: 'How do you keep my admission essay authentic to my voice?',
+      answer: 'We use a short intake, optional writing samples, and iterative edits to preserve your tone while improving structure and clarity.'
     },
     {
-      question: 'Will my essay be written by a real expert?',
-      answer: 'Yes! Every essay is written by a verified subject-matter expert who has passed our rigorous selection and verification process. No AI-generated content, ever.'
+      question: 'Can you tailor the essay to a specific program prompt and rubric?',
+      answer: 'Yes. We align hooks, themes, and examples to the exact prompt, program values, and scoring criteria.'
     },
     {
-      question: 'How fast can I get my essay delivered?',
-      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll match you with a writer who can deliver on time.'
+      question: 'What timeline options are available?',
+      answer: 'Rush delivery starts at 3 hours; standard 24–72 hours depending on scope. Set yours via the <a href="/order-now" class="text-primary-600 underline">Order Now</a> form.'
     },
     {
-      question: 'What if I am not satisfied with the paper?',
-      answer: 'We offer unlimited free revisions and a comprehensive refund policy. Your satisfaction is guaranteed, or you get your money back.'
+      question: 'Is my data confidential and is the content original?',
+      answer: 'Yes—end‑to‑end confidentiality and 100% custom writing. Review our <a href="/refund-policy" class="text-primary-600 underline">refund policy</a> and terms anytime.'
     },
     {
-      question: 'How do I place an order?',
-      answer: 'Simply fill out the order form at the top of this page, select your requirements, and follow the prompts. Our team will take care of the rest!'
+      question: 'Can you help brainstorm topics if I\'m unsure what to write?',
+      answer: 'Absolutely. We run a guided discovery to surface strong experiences and align them with the program’s selection priorities.'
     }
   ];
 
@@ -821,22 +821,22 @@ export default function AdmissionEssayWriting() {
           <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-4 md:gap-0">
             {/* Stat 1 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">7+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years in business</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 2 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">500+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Professional writers</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 3 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed orders</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">10,262+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successful orders completed</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
@@ -930,7 +930,7 @@ export default function AdmissionEssayWriting() {
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
           {/* Removed decorative circles as requested */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Assignment Help journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Path to a Compelling Admission Essay</h2>
             <div className="flex flex-col items-center relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">

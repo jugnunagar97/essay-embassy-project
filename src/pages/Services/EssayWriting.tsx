@@ -135,7 +135,7 @@ export default function EssayWriting() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Assignment Help Service
+              Essay Writing Service
             </h1>
             <p className="text-lg text-gray-600">
               Get expert help with your assignments and never miss a deadline again. Our professionals handle all subjects and academic levels.
@@ -503,26 +503,26 @@ export default function EssayWriting() {
       {/* Why Assignment Help Stats Block (Compact, Themed) */}
       <section className="w-full bg-white py-12">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 tracking-tight">Why Assignment Help at Essay Embassy</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 tracking-tight">Why Essay Writing at Essay Embassy</h2>
           <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-4 md:gap-0">
             {/* Stat 1 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">7+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years in business</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 2 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">500+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Professional writers</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 3 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-              <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed assignments</span>
+              <span className="text-3xl md:text-4xl font-bold text-emerald-500">10,262+</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successful orders completed</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>

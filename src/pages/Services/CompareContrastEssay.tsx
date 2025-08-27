@@ -21,6 +21,64 @@ const CompareContrastEssay = () => {
         </div>
       </section>
 
+      {/* What Makes Our Compare & Contrast Service Special */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">What Makes Our Compare & Contrast Service Special?</h2>
+          <p className="text-lg text-gray-600 mb-6">Criteria‑led comparisons with balanced analysis, synthesized insights, and clear recommendations where appropriate. We tailor scope and depth for high school, undergraduate, and postgraduate students across the US, UK, Canada, Australia, and Europe. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> successful orders. <Link to="/order-now" className="text-primary-600 underline">Order Now</Link>.</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-xl shadow"><div className="font-semibold text-gray-900 mb-2">Criteria & thesis clarity</div><div className="text-gray-600">We define evaluation criteria up‑front and align each section to a defensible thesis.</div></div>
+            <div className="bg-white p-6 rounded-xl shadow"><div className="font-semibold text-gray-900 mb-2">Evidence & citations</div><div className="text-gray-600">Peer‑reviewed sources and course texts with APA/MLA/Chicago referencing on request.</div></div>
+            <div className="bg-white p-6 rounded-xl shadow"><div className="font-semibold text-gray-900 mb-2">Synthesis, not summary</div><div className="text-gray-600">We go beyond lists—highlighting significance and recommending positions when needed.</div></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Track Record */
+      }
+      <section className="py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-6 text-center">
+            <div className="bg-white rounded-xl p-6 shadow"><div className="text-3xl font-bold text-emerald-600">7+</div><div className="text-gray-600">Years in business</div></div>
+            <div className="bg-white rounded-xl p-6 shadow"><div className="text-3xl font-bold text-emerald-600">500+</div><div className="text-gray-600">Professional writers</div></div>
+            <div className="bg-white rounded-xl p-6 shadow"><div className="text-3xl font-bold text-emerald-600">10,262+</div><div className="text-gray-600">Successful orders completed</div></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Client Testimonials */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">What Students Say</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-xl shadow">
+              <p className="text-gray-700 mb-4">“They set clear criteria and compared theories without getting lost in summary. The synthesis section sealed it.”</p>
+              <div className="text-sm text-gray-600">Client: Hannah Q. • Order ID: EE-86741 • Date: May 12, 2025</div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow">
+              <p className="text-gray-700 mb-4">“Balanced analysis with citations I could verify. The conclusion recommended a stance with solid reasoning.”</p>
+              <div className="text-sm text-gray-600">Client: Jerome V. • Order ID: EE-87298 • Date: June 2, 2025</div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow">
+              <p className="text-gray-700 mb-4">“Fast turnaround and clean structure—my professor noted the clear criteria and transitions.”</p>
+              <div className="text-sm text-gray-600">Client: Laila M. • Order ID: EE-85930 • Date: April 21, 2025</div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow">
+              <p className="text-gray-700 mb-4">“They helped me pick fair criteria and weigh them. The matrix made my comparison easy to follow.”</p>
+              <div className="text-sm text-gray-600">Client: Victor S. • Order ID: EE-87521 • Date: March 8, 2025</div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow">
+              <p className="text-gray-700 mb-4">“Good use of sources and clear explanations of differences and similarities—no fluff, just analysis.”</p>
+              <div className="text-sm text-gray-600">Client: Naomi P. • Order ID: EE-87864 • Date: February 10, 2025</div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow">
+              <p className="text-gray-700 mb-4">“Conclusion tied the criteria together and justified a recommendation. Exactly what my rubric asked for.”</p>
+              <div className="text-sm text-gray-600">Client: Omar R. • Order ID: EE-88139 • Date: June 14, 2025</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Content Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,6 +152,36 @@ const CompareContrastEssay = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Your Journey Block */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Your Journey to a High‑Scoring Compare & Contrast Essay</h2>
+          <ol className="grid md:grid-cols-4 gap-4 list-decimal list-inside text-gray-700">
+            <li>Submit your prompt, criteria, word count, and deadline.</li>
+            <li>We match you with a compare‑and‑contrast specialist in your subject.</li>
+            <li>Draft delivery with balanced analysis, citations, and clear transitions.</li>
+            <li>Quality check and final delivery; request revisions if needed.</li>
+          </ol>
+          <div className="mt-6">
+            <Link to="/order-now" className="inline-block bg-primary-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-primary-700">Order Now</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white p-6 rounded-xl shadow"><div className="font-semibold text-gray-900 mb-2">Do you define comparison criteria?</div><div className="text-gray-700">Yes—criteria are set up‑front and guide sections to avoid summary‑only writing.</div></div>
+            <div className="bg-white p-6 rounded-xl shadow"><div className="font-semibold text-gray-900 mb-2">What sources do you use?</div><div className="text-gray-700">Peer‑reviewed literature, credible reports, and course texts; APA/MLA/Chicago formatting available.</div></div>
+            <div className="bg-white p-6 rounded-xl shadow"><div className="font-semibold text-gray-900 mb-2">Can you include a recommendation?</div><div className="text-gray-700">If your brief requires, we provide a justified position based on weighted criteria.</div></div>
+            <div className="bg-white p-6 rounded-xl shadow"><div className="font-semibold text-gray-900 mb-2">How fast is delivery?</div><div className="text-gray-700">Rush from 3 hours; standard 24–72 hours. Set your deadline via <Link to="/order-now" className="text-primary-600 underline">Order Now</Link>.</div></div>
+            <div className="bg-white p-6 rounded-xl shadow"><div className="font-semibold text-gray-900 mb-2">Is it private and original?</div><div className="text-gray-700">Yes. 100% custom, confidential work. See our <Link to="/refund-policy" className="text-primary-600 underline">refund policy</Link>.</div></div>
           </div>
         </div>
       </section>
