@@ -536,10 +536,10 @@ export default function AdmissionEssayWriting() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Write My College Essay
+              Admission Essay Writing Service
             </h1>
             <p className="text-lg text-gray-600">
-              Looking for a reliable expert to write college essays? Hire our professional writer and be done with your college essays.
+              Stand out in competitive US, UK, CA, AU, and European admissions with a compelling, authentic personal statement crafted by an experienced academic writer.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -667,7 +667,7 @@ export default function AdmissionEssayWriting() {
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">assignment help services</span>
+            Why choose our <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">admission essay service</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
@@ -678,8 +678,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Human-written content only</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Whenever you ask us for assignment help and hire a professional writer, your paper will contain zero AI content.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Authentic, human-written narratives</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Every essay is built from your experiences and goals—no templates, no AI. We prioritize originality and voice to pass holistic reviews.</div>
             </div>
             {/* Card 2 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -690,8 +690,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M9 9h6M9 13h6M9 17h6"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Originality report included</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We're ready to prove that our papers are written from scratch with free reports for all "assignment help" requests.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Clear structure and positioning</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Admissions readers scan for narrative clarity, academic fit, and contribution. We structure your essay to highlight impact, growth, and program alignment.</div>
             </div>
             {/* Card 3 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -702,8 +702,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Comprehensive refund policy</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Have peace of mind knowing your money is protected by our fair refund policy that covers a variety of scenarios.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Transparent policies</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We keep things simple—see our <a className="text-primary-600 underline" href="https://essayembassy.com/refund-policy">refund policy</a> and revision terms before you order.</div>
             </div>
             {/* Card 4 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -714,8 +714,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Robust data protections</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Essay Embassy secures your data according to the strictest standards, from PCI DSS compliance for payment processing to end-to-end platform encryption.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Confidential & secure</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Your documents and personal data are encrypted and never shared. You stay in control of what goes into your essay.</div>
             </div>
             {/* Card 5 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -726,8 +726,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M12 6v6l4 2"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Prompt delivery without quality risks</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Our assignment experts leverage their experience to deliver well-researched and carefully put-together papers with deadlines starting from three hours.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Deadline-ready collaboration</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We match your timeline and keep quick feedback cycles so you can submit confidently, even on tight deadlines.</div>
             </div>
             {/* Card 6 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -738,8 +738,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Pocket-friendly rates</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Prices for our assignment help services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Fair, flexible pricing</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Choose the level of help you need—from polishing drafts to full essay development—with upfront pricing and no surprises.</div>
             </div>
           </div>
         </div>
@@ -972,6 +972,80 @@ export default function AdmissionEssayWriting() {
           }
         `}</style>
       </section>
+
+      {/* Why You Need Our Assignment Help - Scrollable Block (Polished, Compact) */}
+      <section className="py-12 bg-white">
+        <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
+          <div className="flex items-center mb-4">
+            <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+          </div>
+          <p className="text-base text-gray-700 text-left mb-4">
+            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
+          </p>
+          <p className="text-sm text-gray-600 mb-3 text-left">
+            Students turn to Essay Embassy for assignment help because:
+          </p>
+          <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
+            </ul>
+            <p className="text-sm text-gray-700 mb-3">
+              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
+            </p>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
+            </ul>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
+            <ul className="list-none pl-0 mb-3">
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
+            </ul>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
+            <p className="text-sm text-gray-700 mb-1">
+              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
+            </p>
+            <p className="text-sm text-gray-700 mb-1">
+              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
+            </p>
+            <p className="text-sm text-gray-700 mb-1">
+              Place your order now and let a true subject matter expert handle the hard work for you.
+            </p>
+          </div>
+        </div>
+        <style>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+          }
+        `}</style>
+      </section>
+
 
       {/* FAQ Block */}
       <section className="w-full bg-[#F7FAFC] py-10">

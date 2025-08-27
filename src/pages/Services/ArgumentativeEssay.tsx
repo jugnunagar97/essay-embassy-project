@@ -511,10 +511,10 @@ export default function MatlabProgrammingHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              MATLAB Programming Help
+              Argumentative Essay Writing Service
             </h1>
             <p className="text-lg text-gray-600">
-              Looking for a reliable expert to help with MATLAB programming? Hire our professional programmer and be done with your MATLAB assignments.
+              Get a persuasive, evidence-based argumentative essay with clear claims, credible sources, and logical structure—tailored for US, UK, CA, AU, and EU curricula.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -642,7 +642,7 @@ export default function MatlabProgrammingHelp() {
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">assignment help services</span>
+            Built for clarity, logic, and impact
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
@@ -653,8 +653,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Human-written content only</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Whenever you ask us for assignment help and hire a professional writer, your paper will contain zero AI content.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Rigorous thesis-first approach</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We define a defensible claim, map counterarguments, and structure reasoning for maximum readability and score alignment.</div>
             </div>
             {/* Card 2 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -665,8 +665,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M9 9h6M9 13h6M9 17h6"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Originality report included</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We're ready to prove that our papers are written from scratch with free reports for all "assignment help" requests.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Credible, recent sources</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We incorporate peer‑reviewed studies, reputable news, and course texts with proper APA/MLA/Chicago citations.</div>
             </div>
             {/* Card 3 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -677,8 +677,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Comprehensive refund policy</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Have peace of mind knowing your money is protected by our fair refund policy that covers a variety of scenarios.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Clear service terms</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">See our <a className="text-primary-600 underline" href="https://essayembassy.com/refund-policy">refund policy</a> for transparent guarantees and conditions.</div>
             </div>
             {/* Card 4 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -689,8 +689,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Robust data protections</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Essay Embassy secures your data according to the strictest standards, from PCI DSS compliance for payment processing to end-to-end platform encryption.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Private research workflow</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We never resell content. Your brief and sources remain confidential and used solely for your paper.</div>
             </div>
             {/* Card 5 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -701,8 +701,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 6v6l4 2"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Prompt delivery without quality risks</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Our assignment experts leverage their experience to deliver well-researched and carefully put-together papers with deadlines starting from three hours.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Deadlines you set</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">From same‑day drafts to full essays, we meet your timeline without sacrificing evidence quality.</div>
             </div>
             {/* Card 6 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">

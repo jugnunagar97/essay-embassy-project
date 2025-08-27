@@ -10,7 +10,7 @@ const CompareContrastEssay = () => {
             Compare & Contrast Essay Writing Service
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            Expert academic writers help you create compelling compare and contrast essays that stand out
+            Expert academic writers build structured, insightful comparisons with clear criteria, balanced analysis, and precise citations.
           </p>
           <Link
             to="/order-now"
@@ -30,26 +30,31 @@ const CompareContrastEssay = () => {
                 Professional Compare & Contrast Essay Help
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Our expert writers specialize in creating well-structured compare and contrast essays that clearly analyze similarities and differences between subjects.
+                We define comparison criteria, synthesize similarities and differences, and recommend a position where appropriate—aligned with US, UK, CA, AU, and European academic standards.
               </p>
               <ul className="space-y-3 text-gray-600">
                 <li className="flex items-center">
                   <span className="text-green-500 mr-3">✓</span>
-                  Expert academic writers
+                  Expert academic writers in humanities and STEM
                 </li>
                 <li className="flex items-center">
                   <span className="text-green-500 mr-3">✓</span>
-                  Original, plagiarism-free content
+                  Original, plagiarism‑free content with proper references
                 </li>
                 <li className="flex items-center">
                   <span className="text-green-500 mr-3">✓</span>
-                  On-time delivery guarantee
+                  On‑time delivery with revision windows
                 </li>
                 <li className="flex items-center">
                   <span className="text-green-500 mr-3">✓</span>
-                  Free revisions
+                  Free revisions within scope
                 </li>
               </ul>
+              <div className="mt-6 text-gray-600">
+                Explore more options like <Link to="/services/argumentative-essay" className="text-primary-600 underline">argumentative essays</Link>,
+                <Link to="/services/research-paper-writing" className="text-primary-600 underline"> research papers</Link>, or
+                <Link to="/services/term-paper" className="text-primary-600 underline"> term papers</Link>. Have questions? <Link to="/contact" className="text-primary-600 underline">Contact us</Link> or read our <Link to="/reviews" className="text-primary-600 underline">reviews</Link> before you <Link to="/order-now" className="text-primary-600 underline">order</Link>.
+              </div>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-lg">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Why Choose Our Service?</h3>
@@ -61,8 +66,8 @@ const CompareContrastEssay = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Expert Writers</h4>
-                    <p className="text-gray-600">PhD and Master's degree holders with years of experience</p>
+                    <h4 className="font-semibold text-gray-900">Clear criteria & thesis</h4>
+                    <p className="text-gray-600">We establish evaluation criteria, weigh evidence, and articulate a defensible thesis where required.</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -73,7 +78,7 @@ const CompareContrastEssay = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Quality Guarantee</h4>
-                    <p className="text-gray-600">100% original content with comprehensive analysis</p>
+                    <p className="text-gray-600">100% original content, structured analysis, and correct referencing (APA/MLA/Chicago).</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -83,8 +88,8 @@ const CompareContrastEssay = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">24/7 Support</h4>
-                    <p className="text-gray-600">Round-the-clock customer support and assistance</p>
+                    <h4 className="font-semibold text-gray-900">Transparent terms</h4>
+                    <p className="text-gray-600">See our <a href="https://essayembassy.com/refund-policy" className="text-primary-600 underline">refund policy</a> and <Link to="/terms-and-conditions" className="text-primary-600 underline">terms</Link> any time.</p>
                   </div>
                 </div>
               </div>
