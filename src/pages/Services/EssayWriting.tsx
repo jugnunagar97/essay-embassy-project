@@ -211,12 +211,12 @@ export default function EssayWriting() {
               </button>
             </form>
             <p className="text-center text-sm text-gray-500 mt-4">
-              Already have an account? <Link to="/login" className="font-medium text-teal-600 hover:underline">Log in</Link>
+              Already have an account? <a href="https://essayembassy.com/login" className="font-medium text-teal-600 hover:underline">Log in</a>
             </p>
             <p className="text-center text-xs text-gray-400 mt-6">
               This site is protected by reCAPTCHA and the Google
-              <Link to="/privacy-policy" className="text-blue-500 hover:underline ml-1">Privacy Policy</Link> and
-              <Link to="/terms-and-conditions" className="text-blue-500 hover:underline ml-1">Terms of Service</Link> apply.
+              <a href="https://essayembassy.com/privacy-policy" className="text-blue-500 hover:underline ml-1">Privacy Policy</a> and
+              <a href="https://essayembassy.com/terms-and-conditions" className="text-blue-500 hover:underline ml-1">Terms of Service</a> apply.
             </p>
           </div>
         </main>
@@ -337,7 +337,7 @@ export default function EssayWriting() {
         </div>
         <div className="flex justify-center mt-4 animate-fade-in-up">
           <a
-            href="/order-now"
+            href="https://essayembassy.com/order-now"
             className="inline-block px-10 py-4 rounded-full bg-primary-600 text-white text-lg font-semibold shadow-lg hover:bg-primary-700 hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
           >
             Get Started
@@ -370,10 +370,10 @@ export default function EssayWriting() {
             Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
           </div>
           <div className="flex justify-center mb-4">
-            <Link to="/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
+            <a href="https://essayembassy.com/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01"/><path d="M12 7v4"/><circle cx="12" cy="12" r="10"/></svg>
               How we secure your payment
-            </Link>
+            </a>
           </div>
           <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch mt-12 mb-10">
             {/* Included services */}
@@ -417,7 +417,7 @@ export default function EssayWriting() {
           {/* Create an order button */}
           <div className="flex justify-center mt-2">
             <a
-              href="/order-now"
+              href="https://essayembassy.com/order-now"
               className="inline-block px-12 py-4 rounded-full bg-primary-600 text-white text-lg font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
             >
               Create an order
@@ -465,7 +465,7 @@ export default function EssayWriting() {
               <span className="text-2xl mb-1">✍️</span>
               <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
               <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
-              <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
+              <a href="https://essayembassy.com/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
             </div>
             {/* Arrow */}
             <div className="flex flex-col items-center mb-3">
@@ -553,54 +553,87 @@ export default function EssayWriting() {
         <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
           <div className="flex items-center mb-4">
             <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Expert Essay Writing Service Tailored for Your Success</h2>
           </div>
           <p className="text-base text-gray-700 text-left mb-4">
-            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
+            When your assignments pile up, deadlines loom, or a tricky topic gets in the way, having a reliable essay writing service on your side can change everything. At EssayEmbassy.com, we’re here to help you navigate academic challenges with ease, providing clear, professional, and personalized essay writing support no matter your level, from high school to PhD.
           </p>
-          <p className="text-sm text-gray-600 mb-3 text-left">
-            Students turn to Essay Embassy for assignment help because:
+          <p className="text-base text-gray-700 text-left mb-4">
+            This isn’t just about handing you a paper. It’s about giving you a tool to understand, improve, and succeed in your academic journey. Read on to discover how EssayEmbassy.com stands apart from typical writing help, how to make smart use of essay services, and why we are the trusted choice for thousands of students worldwide.
           </p>
           <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
-            <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
-            </ul>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">What Exactly Is an Essay Writing Service, And How Does It Help You?</h3>
             <p className="text-sm text-gray-700 mb-3">
-              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
+              You might already guess what an essay writing service is, but here’s why it matters more than just delivering essays on demand: it’s your academic partner when time, skills, or resources don’t meet the mark. Simply put, an essay writing service connects you with expert writers who craft well-researched, original essays according to your instructions. But EssayEmbassy.com goes deeper: we pair you with writers who have real knowledge in your subject area, so the papers you get aren’t generic—they’re meaningful, accurate, and academically sound. So it’s not about bypassing hard work; it’s about balancing your schedule, ensuring quality, and learning through studying solid examples.
             </p>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Why Students Choose EssayEmbassy.com for Their Essays</h3>
             <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Expert Writers Across All Levels:</span> From generalists who help high school essays to PhD experts who understand complex research and citations.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Guaranteed:</span> Each paper is crafted from scratch and checked with advanced plagiarism tools so your work is unique and safe.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Custom-Tailored To Your Instructions:</span> Your essay will follow your teacher’s exact requirements, formatting style, and academic level.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Strict Deadlines Met:</span> We deliver your essay on time, every time.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Transparent Pricing:</span> Clear costs upfront; no hidden fees or surprise charges. Plus, discounts for returning students.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">24/7 Support:</span> Questions? Need a revision? Our team is available whenever you need.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complete Confidentiality:</span> Your privacy matters. We never share your personal information or your use of our services.</li>
             </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
-            <ul className="list-none pl-0 mb-3">
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">What Makes a Good Essay Writing Service? How We Compare</h3>
+            <ol className="list-decimal pl-5 mb-3 text-sm text-gray-700">
+              <li className="mb-1"><span className="font-semibold">Professional Writers With Verified Expertise:</span> We carefully vet every writer. Whether your essay involves literary analysis, statistical reports, or scientific research, you get a writer who understands the topic.</li>
+              <li className="mb-1"><span className="font-semibold">Original & Plagiarism-Free Work:</span> Each essay is created from scratch and scanned with top plagiarism detection software.</li>
+              <li className="mb-1"><span className="font-semibold">Clear, Easy Communication:</span> Submit instructions and request drafts or revisions with direct messaging to your writer or support.</li>
+              <li className="mb-1"><span className="font-semibold">On-Time, Dependable Delivery:</span> Choose your deadline—we deliver. Urgent orders handled without sacrificing quality.</li>
+              <li className="mb-1"><span className="font-semibold">Revisions Until Satisfaction:</span> We offer free revisions so your paper meets your expectations fully.</li>
+            </ol>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">How to Make the Most of Your Essay Writing Service Experience</h3>
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Be Clear and Detailed in Your Instructions:</span> Include topic, length, sources, formatting style (APA, MLA, Chicago, Harvard), and any specific guidelines.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Set Realistic Deadlines:</span> More time allows deeper research and thoughtful revisions.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Use the Essay Responsibly:</span> Study the structure, arguments, and citations to learn and improve.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Ask Questions and Communicate:</span> Clarify anything that’s unclear to avoid misunderstandings.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Read and Request Revisions:</span> Review carefully and request free revisions if needed.</li>
             </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
-            <p className="text-sm text-gray-700 mb-1">
-              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Common Myths and Concerns About Essay Writing Services</h3>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #1: Using an Essay Service Is Cheating.</span> It’s not cheating if you use the essay to learn. Copying without understanding crosses the line; using examples and guidance is smart.</p>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #2: Essays are Low-Quality or Plagiarized.</span> Professional services like EssayEmbassy.com hire expert writers and check every paper for plagiarism.</p>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #3: It’s Too Expensive.</span> We offer competitive pricing and student discounts.</p>
+            <p className="text-sm text-gray-700 mb-3"><span className="font-semibold">Myth #4: I Won’t Get a Paper on Time.</span> We maintain an excellent on-time record, with proactive support if delays arise.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Why Students Worldwide Trust EssayEmbassy.com</h3>
+            <p className="text-sm text-gray-700 mb-2">
+              Students in the US, UK, Australia, Canada, and Europe rely on us because we understand diverse academic standards and subject requirements. Whether you need a high school essay or
+              <a href="https://essayembassy.com/academic-writing/book-review" className="text-primary-600 hover:underline ml-1">book report</a>, a university-level
+              <a href="https://essayembassy.com/research-paper-writing" className="text-primary-600 hover:underline ml-1">research paper</a> or
+              <a href="https://essayembassy.com/academic-writing/term-paper" className="text-primary-600 hover:underline ml-1">term paper</a>, a master’s
+              <a href="https://essayembassy.com/thesis-writing" className="text-primary-600 hover:underline ml-1">thesis proposal</a> or literature review, or a PhD
+              <a href="https://essayembassy.com/dissertation-writing" className="text-primary-600 hover:underline ml-1">dissertation draft</a> or journal article—our writers have you covered.
             </p>
-            <p className="text-sm text-gray-700 mb-1">
-              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              Place your order now and let a true subject matter expert handle the hard work for you.
-            </p>
+            <p className="text-sm text-gray-700 mb-3">Our services help you build confidence, sharpen your writing, and handle your academic life with one less burden.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Frequently Asked Questions (FAQs)</h3>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Q: Can I get a paper in any subject?</span> A: Yes. We have expert writers in Humanities, STEM, Business, Nursing, Law, and Social Sciences.</p>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Q: How do you ensure originality?</span> A: Every essay is scanned with advanced plagiarism detection software before delivery.</p>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Q: Can I communicate with the writer directly?</span> A: Absolutely. Our platform allows direct messaging for clear communication.</p>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Q: What if my essay needs changes?</span> A: We offer free revisions within the deadline scope.</p>
+            <p className="text-sm text-gray-700 mb-3"><span className="font-semibold">Q: Is my personal information safe?</span> A: Your security is a priority. We use secure payment options and never share your data.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Final Tips for Success With EssayEmbassy.com</h3>
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm">Plan ahead; use our service as a supplement, not a shortcut.</li>
+              <li className="mb-1 text-gray-600 text-sm">Be clear and detailed when placing your order.</li>
+              <li className="mb-1 text-gray-600 text-sm">Review your essay carefully and request revisions if needed.</li>
+              <li className="mb-1 text-gray-600 text-sm">Use your essay as a tool to learn, not just to submit.</li>
+              <li className="mb-1 text-gray-600 text-sm">Reach out any time — our support is here for you 24/7 (<a href="https://essayembassy.com/contact" className="text-primary-600 hover:underline">contact us</a>).</li>
+            </ul>
+
+            <p className="text-sm text-gray-700 mb-2">If school feels overwhelming and your essays are piling up, remember: help is just a few clicks away. EssayEmbassy.com provides expert, trustworthy, and affordable essay writing service you can rely on.</p>
+            <p className="text-sm text-gray-700 mb-3">Start with us today and get the academic support designed to help you succeed on your terms.</p>
+            <a href="https://essayembassy.com/order-now" className="inline-block text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-full px-4 py-2 mb-3">Place your order</a>
+
+            <p className="text-sm text-gray-700 mb-1">EssayEmbassy.com, Because Your Success Deserves the Best Writing Support</p>
           </div>
         </div>
         <style>{`
@@ -676,14 +709,14 @@ export default function EssayWriting() {
                   tabIndex={0}
                 />
                 <div className="font-medium text-gray-800 mb-1">Andrea, Head of Support</div>
-                <Link
-                  to="/contact"
+                <a
+                  href="https://essayembassy.com/contact"
                   className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 transform hover:scale-105 active:scale-95 hover:shadow-lg"
                   aria-label="Contact support"
                   tabIndex={0}
                 >
                   Contact support
-                </Link>
+                </a>
               </div>
             </aside>
           </div>
@@ -696,40 +729,40 @@ export default function EssayWriting() {
                 <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start mb-10 md:mb-0">
                   <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Your #1 paper writing service</h2>
                   <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert essay writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
-                  <Link
-                    to="/writers"
+                  <a
+                    href="https://essayembassy.com/writers"
                     className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
                     style={{textAlign: 'center'}}
                   >
                     Find your writer <span className="ml-2">→</span>
-                  </Link>
+                  </a>
                 </div>
                 {/* Right Side: Tabs and Service List */}
                 <div className="flex-1 w-full">
                   {(() => {
                     // Only include services that have a corresponding file in src/pages/Services
                     const allServices = [
-                      { name: 'Essay Writing', link: '/services/essay-writing' },
-                      { name: 'Book Review', link: '/services/book-review' },
-                      { name: 'Term Paper', link: '/services/term-paper' },
-                      { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
-                      { name: 'Research Proposal', link: '/services/research-proposal' },
-                      { name: 'Thesis Writing', link: '/services/thesis-writing' },
-                      { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
-                      { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
-                      { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
-                      { name: 'Admission Essay', link: '/services/admission-essay' },
-                      { name: 'Admission Essay Writing', link: '/services/admission-essay-writing' },
-                      { name: 'Case Study', link: '/services/case-study' },
-                      { name: 'Case Study Help', link: '/services/case-study-help' },
-                      { name: 'Lab Report', link: '/services/lab-report' },
-                      { name: 'Homework Help', link: '/services/homework-help' },
-                      { name: 'English Assignment Help', link: '/services/english-assignment-help' },
-                      { name: 'Programming Help', link: '/services/programming-help' },
-                      { name: 'Ruby Programming Help', link: '/programming-help/ruby' },
-                      { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
-                      { name: 'Assignment Help', link: '/services/assignment-help' },
-                      { name: 'Narrative Essay', link: '/services/narrative-essay' },
+                      { name: 'Essay Writing', link: 'https://essayembassy.com/essay-writing' },
+                      { name: 'Book Review', link: 'https://essayembassy.com/academic-writing/book-review' },
+                      { name: 'Term Paper', link: 'https://essayembassy.com/academic-writing/term-paper' },
+                      { name: 'Research Paper Writing', link: 'https://essayembassy.com/research-paper-writing' },
+                      { name: 'Research Proposal', link: 'https://essayembassy.com/research-proposal' },
+                      { name: 'Thesis Writing', link: 'https://essayembassy.com/thesis-writing' },
+                      { name: 'Dissertation Writing', link: 'https://essayembassy.com/dissertation-writing' },
+                      { name: 'Scholarship Essay', link: 'https://essayembassy.com/essay-writing/scholarship' },
+                      { name: 'Argumentative Essay', link: 'https://essayembassy.com/argumentative-essay' },
+                      { name: 'Admission Essay', link: 'https://essayembassy.com/essay-writing/admission' },
+                      { name: 'Admission Essay Writing', link: 'https://essayembassy.com/essay-writing/admission' },
+                      { name: 'Case Study', link: 'https://essayembassy.com/academic-writing/case-study-help' },
+                      { name: 'Case Study Help', link: 'https://essayembassy.com/academic-writing/case-study-help' },
+                      { name: 'Lab Report', link: 'https://essayembassy.com/academic-writing/lab-report' },
+                      { name: 'Homework Help', link: 'https://essayembassy.com/homework-help' },
+                      { name: 'English Assignment Help', link: 'https://essayembassy.com/english-assignment-help' },
+                      { name: 'Programming Help', link: 'https://essayembassy.com/programming-help' },
+                      { name: 'Ruby Programming Help', link: 'https://essayembassy.com/programming-help/ruby' },
+                      { name: 'Physics Assignment Help', link: 'https://essayembassy.com/physics-assignment-help' },
+                      { name: 'Assignment Help', link: 'https://essayembassy.com/assignment-help' },
+                      { name: 'Narrative Essay', link: 'https://essayembassy.com/narrative-essay' },
                     ];
                     // Remove duplicates for each tab
                     const paperwork = [
@@ -792,13 +825,13 @@ export default function EssayWriting() {
                               {col.map(service => (
                                 <li key={service.name} className="text-[15px] text-gray-800 flex items-center gap-2" >
                                   <span className="block w-2 h-2 rounded-full bg-primary-200"></span>
-                                  <Link
-                                    to={service.link}
+                                  <a
+                                    href={service.link}
                                     className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
                                     style={{textDecoration: 'none'}}
                                   >
                                     {service.name}
-                                  </Link>
+                                  </a>
                                 </li>
                               ))}
                             </ul>
@@ -827,12 +860,12 @@ export default function EssayWriting() {
                     <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
                     <li className="flex items-center gap-3"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
                   </ul>
-                  <Link
-                    to="/order-now"
+                  <a
+                    href="https://essayembassy.com/order-now"
                     className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
                   >
                     Place an order
-                  </Link>
+                  </a>
                 </div>
               </div>
             </section>

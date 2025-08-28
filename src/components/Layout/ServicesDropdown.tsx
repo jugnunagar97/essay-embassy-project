@@ -40,7 +40,6 @@ const PRIMARY_SERVICES = [
       { name: 'Physics Assignment Help', slug: 'physics-assignment-help' },
       { name: 'Accounting Assignment Help', slug: 'accounting' },
       { name: 'Chemistry Assignment Help', slug: 'chemistry' },
-      { name: 'Maths Assignment Help', slug: 'maths' },
     ],
   },
   {

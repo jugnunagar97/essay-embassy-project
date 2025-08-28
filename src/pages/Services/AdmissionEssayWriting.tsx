@@ -150,7 +150,7 @@ export function SpecialAssignmentHelpCarousel() {
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Criteria‑aligned, human‑written personal statements that highlight impact, growth, and program fit. We preserve your voice while structuring a compelling narrative for US, UK, CA, AU, and EU admissions. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> successful orders. <a href="/order-now" className="text-primary-600 underline">Order Now</a>.
+                Criteria‑aligned, human‑written personal statements that highlight impact, growth, and program fit. We preserve your voice while structuring a compelling narrative for US, UK, CA, AU, and EU admissions. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> successful orders. <a href="https://essayembassy.com/order-now" className="text-primary-600 underline">Order Now</a>.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -426,7 +426,7 @@ export default function AdmissionEssayWriting() {
     },
     {
       question: 'What timeline options are available?',
-      answer: 'Rush delivery starts at 3 hours; standard 24–72 hours depending on scope. Set yours via the <a href="/order-now" class="text-primary-600 underline">Order Now</a> form.'
+      answer: 'Rush delivery starts at 3 hours; standard 24–72 hours depending on scope. Set yours via the <a href="https://essayembassy.com/order-now" class="text-primary-600 underline">Order Now</a> form.'
     },
     {
       question: 'Is my data confidential and is the content original?',
@@ -805,7 +805,7 @@ export default function AdmissionEssayWriting() {
           {/* Create an order button */}
           <div className="flex justify-center mt-2">
             <a
-              href="/order-now"
+              href="https://essayembassy.com/order-now"
               className="inline-block px-12 py-4 rounded-full bg-primary-600 text-white text-lg font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
             >
               Create an order
@@ -937,7 +937,7 @@ export default function AdmissionEssayWriting() {
               <span className="text-2xl mb-1">✍️</span>
               <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
               <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
-              <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
+              <a href="https://essayembassy.com/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
             </div>
             {/* Arrow */}
             <div className="flex flex-col items-center mb-3">

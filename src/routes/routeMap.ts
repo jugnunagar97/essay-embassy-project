@@ -1,0 +1,58 @@
+// Centralized route map for absolute production URLs
+// Import this in components to avoid hardcoding paths
+
+export const ROUTES = {
+  home: 'https://essayembassy.com/',
+  orderNow: 'https://essayembassy.com/order-now',
+  login: 'https://essayembassy.com/login',
+  privacy: 'https://essayembassy.com/privacy-policy',
+  terms: 'https://essayembassy.com/terms-and-conditions',
+  refund: 'https://essayembassy.com/refund-policy',
+  contact: 'https://essayembassy.com/contact',
+  writers: 'https://essayembassy.com/writers',
+  samples: 'https://essayembassy.com/samples',
+  reviews: 'https://essayembassy.com/reviews',
+  qaLibrary: 'https://essayembassy.com/qa-library',
+  register: 'https://essayembassy.com/register',
+
+  // Services
+  researchPaperWriting: 'https://essayembassy.com/research-paper-writing',
+  termPaper: 'https://essayembassy.com/academic-writing/term-paper',
+  bookReview: 'https://essayembassy.com/academic-writing/book-review',
+  labReport: 'https://essayembassy.com/academic-writing/lab-report',
+  caseStudyHelp: 'https://essayembassy.com/academic-writing/case-study-help',
+  thesisWriting: 'https://essayembassy.com/thesis-writing',
+  dissertationWriting: 'https://essayembassy.com/dissertation-writing',
+  essayWriting: 'https://essayembassy.com/essay-writing',
+  essayAdmission: 'https://essayembassy.com/admission',
+  essayNarrative: 'https://essayembassy.com/narrative',
+  essayArgumentative: 'https://essayembassy.com/argumentative',
+  essayScholarship: 'https://essayembassy.com/scholarship',
+  essayReflective: 'https://essayembassy.com/reflective',
+  essayCompareContrast: 'https://essayembassy.com/compare-contrast',
+  academicWriting: 'https://essayembassy.com/academic-writing',
+  assignmentHelp: 'https://essayembassy.com/assignment-help/',
+  assignManagement: 'https://essayembassy.com/assignment-help/management',
+  assignComputer: 'https://essayembassy.com/assignment-help/computer',
+  assignEngineering: 'https://essayembassy.com/assignment-help/engineering',
+  assignScience: 'https://essayembassy.com/assignment-help/science',
+  assignMath: 'https://essayembassy.com/assignment-help/math',
+  assignLaw: 'https://essayembassy.com/assignment-help/law',
+  assignEnglish: 'https://essayembassy.com/assignment-help/english',
+  assignPhysics: 'https://essayembassy.com/assignment-help/physics',
+  assignAccounting: 'https://essayembassy.com/assignment-help/accounting',
+  assignChemistry: 'https://essayembassy.com/assignment-help/chemistry',
+  homeworkHelp: 'https://essayembassy.com/homework-help/',
+  programmingHelp: 'https://essayembassy.com/programming-help/',
+  progPython: 'https://essayembassy.com/programming-help/python',
+  progJava: 'https://essayembassy.com/programming-help/java',
+  progJs: 'https://essayembassy.com/programming-help/js',
+  progC: 'https://essayembassy.com/programming-help/c',
+  progCsharp: 'https://essayembassy.com/programming-help/csharp',
+  progCpp: 'https://essayembassy.com/programming-help/cpp',
+  progMatlab: 'https://essayembassy.com/programming-help/matlab',
+  progRuby: 'https://essayembassy.com/programming-help/ruby',
+};
+
+export type RouteKey = keyof typeof ROUTES;
+
