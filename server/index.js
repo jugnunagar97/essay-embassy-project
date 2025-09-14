@@ -135,7 +135,7 @@ app.post('/api/contact', async (req, res) => {
     await transporter.sendMail({
       from: `Essay Embassy <${process.env.SMTP_USER}>`,
       to: email,
-      subject: 'We've received your message! | Essay Embassy',
+      subject: 'We have received your message! | Essay Embassy',
       html: `
         <div style="font-family: Arial, sans-serif; background: #f9f9f9; padding: 30px;">
           <table width="100%" style="max-width: 600px; margin: auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee;">
@@ -145,8 +145,8 @@ app.post('/api/contact', async (req, res) => {
                 <h2 style="color: #2d3748;">Thank you for contacting Essay Embassy!</h2>
                 <p style="color: #4a5568;">Hi ${name},</p>
                 <p style="color: #4a5568;">
-                  We've received your message and our team will get back to you as soon as possible.<br/>
-                  Here's a copy of your message:
+                  We have received your message and our team will get back to you as soon as possible.<br/>
+                  Here is a copy of your message:
                 </p>
                 <blockquote style="background: #f1f5f9; border-left: 4px solid #3182ce; margin: 16px 0; padding: 12px 16px; color: #2d3748;">
                   <strong>Subject:</strong> ${subject}<br/>
