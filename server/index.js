@@ -25,12 +25,18 @@ app.use(cors({
 app.use(express.json());
 
 // Initialize Firebase Admin SDK (if not already initialized)
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-  });
+let firestore;
+try {
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.applicationDefault(),
+    });
+  }
+  firestore = admin.firestore();
+} catch (error) {
+  console.log('Firebase Admin SDK not configured:', error.message);
+  // Continue without Firebase for now
 }
-const firestore = admin.firestore();
 
 // Nodemailer transporter setup for Gmail
 const transporter = nodemailer.createTransport({
@@ -109,11 +115,18 @@ app.post('/api/contact', async (req, res) => {
   if (!name || !email || !subject || !message) {
     return res.status(400).json({ error: 'All fields are required.' });
   }
+  
   try {
+    // Check if SMTP is configured
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+      console.log('SMTP not configured, skipping email send');
+      return res.json({ success: true, message: 'Contact form received (email not configured)' });
+    }
+
     // 1. Send message to support
     await transporter.sendMail({
       from: `Contact Form <${process.env.SMTP_USER}>`,
-      to: process.env.SUPPORT_EMAIL,
+      to: process.env.SUPPORT_EMAIL || process.env.SMTP_USER,
       subject: `New Contact Form Submission: ${subject}`,
       html: `<b>Name:</b> ${name}<br/><b>Email:</b> ${email}<br/><b>Subject:</b> ${subject}<br/><b>Message:</b><br/>${message.replace(/\n/g, '<br/>')}`,
     });
@@ -122,7 +135,7 @@ app.post('/api/contact', async (req, res) => {
     await transporter.sendMail({
       from: `Essay Embassy <${process.env.SMTP_USER}>`,
       to: email,
-      subject: 'We’ve received your message! | Essay Embassy',
+      subject: 'We've received your message! | Essay Embassy',
       html: `
         <div style="font-family: Arial, sans-serif; background: #f9f9f9; padding: 30px;">
           <table width="100%" style="max-width: 600px; margin: auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee;">
@@ -132,8 +145,8 @@ app.post('/api/contact', async (req, res) => {
                 <h2 style="color: #2d3748;">Thank you for contacting Essay Embassy!</h2>
                 <p style="color: #4a5568;">Hi ${name},</p>
                 <p style="color: #4a5568;">
-                  We’ve received your message and our team will get back to you as soon as possible.<br/>
-                  Here’s a copy of your message:
+                  We've received your message and our team will get back to you as soon as possible.<br/>
+                  Here's a copy of your message:
                 </p>
                 <blockquote style="background: #f1f5f9; border-left: 4px solid #3182ce; margin: 16px 0; padding: 12px 16px; color: #2d3748;">
                   <strong>Subject:</strong> ${subject}<br/>

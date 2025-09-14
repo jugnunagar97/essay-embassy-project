@@ -16,7 +16,7 @@ const Contact = () => {
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:4242'}/api/contact`, {
+      const response = await fetch('https://essay-embassy-project.onrender.com/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
