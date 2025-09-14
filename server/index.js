@@ -1,23 +1,27 @@
 import express from 'express';
-import Razorpay from 'razorpay';
+// import Razorpay from 'razorpay';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import admin from 'firebase-admin';
-import crypto from 'crypto';
+// import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 dotenv.config();
 
 const app = express();
 
-let razorpay;
-if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
-  razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET,
-  });
-}
+// Temporarily disabled Razorpay
+// let razorpay;
+// if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
+//   razorpay = new Razorpay({
+//     key_id: process.env.RAZORPAY_KEY_ID,
+//     key_secret: process.env.RAZORPAY_KEY_SECRET,
+//   });
+// }
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ 
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173', 
+  credentials: true 
+}));
 app.use(express.json());
 
 // Initialize Firebase Admin SDK (if not already initialized)
@@ -28,76 +32,76 @@ if (!admin.apps.length) {
 }
 const firestore = admin.firestore();
 
-// Nodemailer transporter setup
+// Nodemailer transporter setup for Gmail
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: parseInt(process.env.SMTP_PORT, 10),
-  secure: true, // true for 465, false for other ports
+  service: 'gmail',
   auth: {
     user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    pass: process.env.SMTP_PASS, // Use App Password, not regular password
   },
 });
 
+// Temporarily disabled Razorpay endpoints
 // Create Razorpay Order
-app.post('/create-order', async (req, res) => {
-  if (!razorpay) {
-    return res.status(503).json({ error: 'Payment service unavailable.' });
-  }
-  const { price, qaId, userId } = req.body;
-  if (!price || !qaId || !userId) {
-    return res.status(400).json({ error: 'Missing required fields.' });
-  }
-  try {
-    const options = {
-      amount: Math.round(price * 100), // amount in paise
-      currency: 'INR',
-      receipt: `qa_${qaId}_${Date.now()}`,
-      notes: { qaId, userId },
-    };
-    const order = await razorpay.orders.create(options);
-    res.json({ order });
-  } catch (err) {
-    console.error('Razorpay error:', err);
-    res.status(500).json({ error: 'Failed to create Razorpay order.' });
-  }
-});
+// app.post('/create-order', async (req, res) => {
+//   if (!razorpay) {
+//     return res.status(503).json({ error: 'Payment service unavailable.' });
+//   }
+//   const { price, qaId, userId } = req.body;
+//   if (!price || !qaId || !userId) {
+//     return res.status(400).json({ error: 'Missing required fields.' });
+//   }
+//   try {
+//     const options = {
+//       amount: Math.round(price * 100), // amount in paise
+//       currency: 'INR',
+//       receipt: `qa_${qaId}_${Date.now()}`,
+//       notes: { qaId, userId },
+//     };
+//     const order = await razorpay.orders.create(options);
+//     res.json({ order });
+//   } catch (err) {
+//     console.error('Razorpay error:', err);
+//     res.status(500).json({ error: 'Failed to create Razorpay order.' });
+//   }
+// });
 
+// Temporarily disabled Razorpay webhook
 // Razorpay Webhook Endpoint
-app.post('/razorpay-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
-  const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
-  const signature = req.headers['x-razorpay-signature'];
-  const body = req.body;
+// app.post('/razorpay-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+//   const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
+//   const signature = req.headers['x-razorpay-signature'];
+//   const body = req.body;
 
-  // Verify signature
-  const expectedSignature = crypto
-    .createHmac('sha256', secret)
-    .update(req.body)
-    .digest('hex');
+//   // Verify signature
+//   const expectedSignature = crypto
+//     .createHmac('sha256', secret)
+//     .update(req.body)
+//     .digest('hex');
 
-  if (signature !== expectedSignature) {
-    return res.status(400).send('Invalid signature');
-  }
+//   if (signature !== expectedSignature) {
+//     return res.status(400).send('Invalid signature');
+//   }
 
-  const event = JSON.parse(body);
+//   const event = JSON.parse(body);
 
-  if (event.event === 'payment.captured') {
-    const payment = event.payload.payment.entity;
-    const qaId = payment.notes.qaId;
-    const userId = payment.notes.userId;
-    if (qaId && userId) {
-      const purchaseDocId = `${userId}_${qaId}`;
-      await firestore.collection('purchases').doc(purchaseDocId).set({
-        userId,
-        qaId,
-        purchasedAt: new Date().toISOString(),
-        paymentId: payment.id,
-        amount: payment.amount,
-      });
-    }
-  }
-  res.status(200).send('Webhook received');
-});
+//   if (event.event === 'payment.captured') {
+//     const payment = event.payload.payment.entity;
+//     const qaId = payment.notes.qaId;
+//     const userId = payment.notes.userId;
+//     if (qaId && userId) {
+//       const purchaseDocId = `${userId}_${qaId}`;
+//       await firestore.collection('purchases').doc(purchaseDocId).set({
+//         userId,
+//         qaId,
+//         purchasedAt: new Date().toISOString(),
+//         paymentId: payment.id,
+//         amount: payment.amount,
+//       });
+//     }
+//   }
+//   res.status(200).send('Webhook received');
+// });
 
 // Contact form endpoint
 app.post('/api/contact', async (req, res) => {
@@ -124,7 +128,7 @@ app.post('/api/contact', async (req, res) => {
           <table width="100%" style="max-width: 600px; margin: auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee;">
             <tr>
               <td style="padding: 24px; text-align: center;">
-                <img src="http://localhost:5173/images/logo.png" alt="Essay Embassy" style="height: 48px; margin-bottom: 16px;" />
+                <img src="${process.env.FRONTEND_URL || 'http://localhost:5173'}/images/logo.png" alt="Essay Embassy" style="height: 48px; margin-bottom: 16px;" />
                 <h2 style="color: #2d3748;">Thank you for contacting Essay Embassy!</h2>
                 <p style="color: #4a5568;">Hi ${name},</p>
                 <p style="color: #4a5568;">
@@ -141,7 +145,7 @@ app.post('/api/contact', async (req, res) => {
                 <div style="font-size: 14px; color: #718096; text-align: center;">
                   <strong>Essay Embassy</strong><br>
                   1309 Beacon Street, Suite 300, Brookline, MA, 02446<br>
-                  <a href="http://localhost:5173" style="color: #3182ce; text-decoration: none;">www.essayembassy.com</a>
+                  <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}" style="color: #3182ce; text-decoration: none;">www.essayembassy.com</a>
                   <div style="margin-top: 12px;">
                     <span style="display: inline-block; background: #e6fffa; color: #319795; border-radius: 4px; padding: 2px 8px; margin: 0 4px;">Verified Business</span>
                     <span style="display: inline-block; background: #ebf8ff; color: #3182ce; border-radius: 4px; padding: 2px 8px; margin: 0 4px;">SSL Secured</span>

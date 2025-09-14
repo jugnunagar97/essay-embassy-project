@@ -14,15 +14,27 @@ type FormInputs = {
 const Contact = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormInputs>();
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    // In a real app, you'd send this data to a backend API
-    console.log('Form Data Submitted:', data);
-    
-    // Show a success message
-    toast.success('Your message has been sent successfully!');
-    
-    // Reset the form after submission
-    reset();
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:4242'}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast.success('Your message has been sent successfully!');
+        reset();
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.error || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast.error('Failed to send message. Please try again.');
+    }
   };
 
   // --- Carousel Logic and Data (MOVED INSIDE COMPONENT) ---

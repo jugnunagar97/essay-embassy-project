@@ -158,7 +158,7 @@ const QASolutionPage: React.FC = () => {
     toast.loading('Redirecting to payment...');
     try {
       await loadRazorpayScript();
-      const response = await fetch('http://localhost:4242/create-order', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:4242'}/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
