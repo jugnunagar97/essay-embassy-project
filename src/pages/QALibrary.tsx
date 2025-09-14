@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
-import { db } from '../firebase.ts';
+import { db } from '../firebase';
 
 // FAQAccordion component for the FAQ section
 const FAQAccordion: React.FC = () => {
