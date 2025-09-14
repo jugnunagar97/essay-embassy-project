@@ -23,6 +23,7 @@ import toast from 'react-hot-toast';
 // === FIREBASE IMPORTS ===
 import { doc, onSnapshot, collection, addDoc, query, orderBy, serverTimestamp, Timestamp } from 'firebase/firestore';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../../firebase';
 
 // ==================================================================================
 // === TYPE DEFINITIONS ===

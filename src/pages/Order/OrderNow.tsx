@@ -11,6 +11,7 @@ import toast from 'react-hot-toast';
 // Firebase Imports
 import { collection, addDoc, serverTimestamp, doc, runTransaction } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../../firebase';
 
 // Interfaces
 interface OrderFormData {

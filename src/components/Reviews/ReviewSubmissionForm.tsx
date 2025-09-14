@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../../firebase';
 import toast from 'react-hot-toast';
 import { XCircle, Send } from 'lucide-react';
 import LoadingSpinner from '../Common/LoadingSpinner'; // FIXED: Corrected the import path for LoadingSpinner
