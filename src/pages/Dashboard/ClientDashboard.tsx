@@ -19,12 +19,12 @@ interface StatCardProps {
 
 const StatCard: React.FC<StatCardProps> = ({ title, value, icon, iconBgColor }) => {
   return (
-    <div className="bg-white dark:bg-secondary-800 p-6 rounded-xl shadow-soft border border-gray-200 dark:border-secondary-700 flex items-center justify-between">
+    <div className="bg-white dark:bg-secondary-800 p-4 md:p-6 rounded-xl shadow-soft border border-gray-200 dark:border-secondary-700 flex items-center justify-between">
       <div>
-        <p className="text-sm text-muted">{title}</p>
-        <p className="text-3xl font-bold text-secondary-900 dark:text-white">{value}</p>
+        <p className="text-xs md:text-sm text-muted">{title}</p>
+        <p className="text-2xl md:text-3xl font-bold text-secondary-900 dark:text-white">{value}</p>
       </div>
-      <div className={`p-3 rounded-lg ${iconBgColor}`}>
+      <div className={`p-2 md:p-3 rounded-lg ${iconBgColor}`}>
         {icon}
       </div>
     </div>
@@ -121,24 +121,24 @@ const ClientDashboard = () => {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-7xl mx-auto space-y-6">
       {/* Welcome Header */}
-      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl p-6 text-white">
-        <h2 className="text-2xl font-bold mb-2">Welcome back, {user?.name}!</h2>
-        <p className="text-primary-100">
+      <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl p-4 md:p-6 text-white">
+        <h2 className="text-xl md:text-2xl font-bold mb-2">Welcome back, {user?.name}!</h2>
+        <p className="text-primary-100 text-sm md:text-base">
           Ready to get help with your next assignment? Let's achieve academic excellence together.
         </p>
         <Link
           to="/order-now"
-          className="inline-flex items-center mt-4 bg-white text-primary-600 px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+          className="inline-flex items-center mt-4 bg-white text-primary-600 px-4 md:px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors text-sm md:text-base"
         >
-          <PlusCircle size={20} className="mr-2" />
+          <PlusCircle size={18} className="mr-2" />
           Place New Order
         </Link>
       </div>
 
       {/* Top Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         <StatCard 
           title="Total Orders" 
           value={stats.total}
@@ -162,29 +162,46 @@ const ClientDashboard = () => {
       {/* Pending Payments Table */}
       {pendingPaymentOrders.length > 0 && (
         <div className="bg-white dark:bg-secondary-800 rounded-xl shadow-soft border border-gray-200 dark:border-secondary-700">
-          <div className="p-6 border-b border-gray-200 dark:border-secondary-700"><h3 className="text-lg font-semibold text-secondary-900 dark:text-white">Pending Payments</h3></div>
+          <div className="p-4 md:p-6 border-b border-gray-200 dark:border-secondary-700">
+            <h3 className="text-lg font-semibold text-secondary-900 dark:text-white">Pending Payments</h3>
+          </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left">
+            <table className="min-w-full text-sm text-left">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                  <th scope="col" className="px-6 py-3">#ID</th>
-                  <th scope="col" className="px-6 py-3">Title</th>
-                  <th scope="col" className="px-6 py-3">Type of Paper</th>
-                  <th scope="col" className="px-6 py-3">Words</th>
-                  <th scope="col" className="px-6 py-3">Writer</th>
-                  <th scope="col" className="px-6 py-3">Action</th>
+                  <th scope="col" className="px-4 py-3 w-20">#ID</th>
+                  <th scope="col" className="px-4 py-3 min-w-[200px] max-w-[300px]">Title</th>
+                  <th scope="col" className="px-4 py-3 w-32">Type</th>
+                  <th scope="col" className="px-4 py-3 w-20">Words</th>
+                  <th scope="col" className="px-4 py-3 w-24">Writer</th>
+                  <th scope="col" className="px-4 py-3 w-40">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-secondary-200 dark:divide-secondary-700">
                 {pendingPaymentOrders.map((order: Order) => (
                   <tr key={order.id} className="hover:bg-secondary-50 dark:hover:bg-secondary-900/50">
-                    {/* FIX #1: Display formatted orderNumber instead of ugly ID */}
-                    <td className="px-6 py-4 text-primary-500 font-medium"><Link to={`/dashboard/orders/${order.id}`}>EE{order.orderNumber}</Link></td>
-                    <td className="px-6 py-4">{order.topic}</td>
-                    <td className="px-6 py-4">{order.paperType}</td>
-                    <td className="px-6 py-4">{order.words}</td>
-                    <td className="px-6 py-4">{order.writerId || 'N/A'}</td>
-                    <td className="px-6 py-4"><button className="btn-primary px-4 py-2 text-sm">Pay Now (USD {order.amount})</button></td>
+                    <td className="px-4 py-3 text-primary-500 font-medium">
+                      <Link to={`/dashboard/orders/${order.id}`} className="hover:underline">EE{order.orderNumber}</Link>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="truncate max-w-[280px]" title={order.topic}>
+                        {order.topic}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                      {order.paperType}
+                    </td>
+                    <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                      {order.words}
+                    </td>
+                    <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                      {order.writerId || 'N/A'}
+                    </td>
+                    <td className="px-4 py-3">
+                      <button className="bg-primary-500 hover:bg-primary-600 text-white px-3 py-1.5 text-xs rounded-md font-medium transition-colors">
+                        Pay Now (${order.amount})
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -212,31 +229,44 @@ const ClientDashboard = () => {
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
+          <table className="min-w-full text-sm text-left">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" className="px-6 py-3">#ID</th>
-                <th scope="col" className="px-6 py-3">Title</th>
-                <th scope="col" className="px-6 py-3">Words</th>
-                <th scope="col" className="px-6 py-3">Deadline</th>
-                <th scope="col" className="px-6 py-3">Writer</th>
-                <th scope="col" className="px-6 py-3">Status</th>
+                <th scope="col" className="px-4 py-3 w-20">#ID</th>
+                <th scope="col" className="px-4 py-3 min-w-[200px] max-w-[300px]">Title</th>
+                <th scope="col" className="px-4 py-3 w-20">Words</th>
+                <th scope="col" className="px-4 py-3 w-32">Deadline</th>
+                <th scope="col" className="px-4 py-3 w-24">Writer</th>
+                <th scope="col" className="px-4 py-3 w-28">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-secondary-200 dark:divide-secondary-700">
               {assignedOrders.length > 0 ? assignedOrders.map((order: Order) => (
                 <tr key={order.id} className="hover:bg-secondary-50 dark:hover:bg-secondary-900/50">
-                  {/* FIX #1: Display formatted orderNumber instead of ugly ID */}
-                  <td className="px-6 py-4 text-primary-500 font-medium"><Link to={`/dashboard/orders/${order.id}`}>EE{order.orderNumber}</Link></td>
-                  <td className="px-6 py-4">{order.topic}</td>
-                  <td className="px-6 py-4">{order.words}</td>
-                  <td className="px-6 py-4 font-medium">{formatDate(order.deadline)}</td>
-                  <td className="px-6 py-4">{order.writerId || 'Assigning...'}</td>
-                  <td className="px-6 py-4"><StatusBadge status={order.status} /></td>
+                  <td className="px-4 py-3 text-primary-500 font-medium">
+                    <Link to={`/dashboard/orders/${order.id}`} className="hover:underline">EE{order.orderNumber}</Link>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="truncate max-w-[280px]" title={order.topic}>
+                      {order.topic}
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                    {order.words}
+                  </td>
+                  <td className="px-4 py-3 font-medium text-gray-600 dark:text-gray-300">
+                    {formatDate(order.deadline)}
+                  </td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                    {order.writerId || 'Assigning...'}
+                  </td>
+                  <td className="px-4 py-3">
+                    <StatusBadge status={order.status} />
+                  </td>
                 </tr>
               )) : (
                 <tr>
-                  <td colSpan={6} className="text-center text-muted py-8">No orders in this category.</td>
+                  <td colSpan={6} className="text-center text-gray-500 dark:text-gray-400 py-8">No orders in this category.</td>
                 </tr>
               )}
             </tbody>
