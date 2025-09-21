@@ -38,6 +38,19 @@ try {
   // Continue without Firebase for now
 }
 
+// ==========================================================
+// =================== YOUR FIX IS HERE =====================
+// ==========================================================
+// Health check / Root route
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    message: 'Welcome to the Essay Embassy API!',
+    status: 'ok' 
+  });
+});
+// ==========================================================
+// ==========================================================
+
 // Nodemailer transporter setup for Gmail
 const transporter = nodemailer.createTransport({
   service: 'gmail',
