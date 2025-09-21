@@ -13,6 +13,7 @@ import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../../components/Common/LoadingSpinner';
 import toast from 'react-hot-toast';
 import { format, isValid } from 'date-fns';
+import Sidebar from '../../components/layout/Sidebar';
 
 // Firebase Imports
 import { 
@@ -254,7 +255,9 @@ export default function AdminMessages() {
   }
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white p-4 lg:p-8 flex h-[calc(100vh-8rem)]"> 
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white flex">
+      <Sidebar isOpen={true} onClose={() => {}} />
+      <main className="flex-1 p-4 lg:p-8 flex h-[calc(100vh-8rem)]"> 
       {/* Conversation List Sidebar */}
       <div className={`
         ${isConversationListOpen ? 'w-full lg:w-80' : 'w-0'} 
@@ -459,6 +462,7 @@ export default function AdminMessages() {
           </div>
         )}
       </div>
+      </main>
     </div>
   );
 }

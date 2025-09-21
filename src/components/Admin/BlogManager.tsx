@@ -18,6 +18,7 @@ import {
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
+import Sidebar from '../layout/Sidebar';
 import { db } from '../../firebase';
 
 // Define the structure for a blog category
@@ -428,7 +429,9 @@ export default function BlogManager() {
   }
 
   return (
-    <div className="p-4 lg:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white flex">
+      <Sidebar isOpen={true} onClose={() => {}} />
+      <main className="flex-1 p-4 lg:p-8">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Manage <span className="text-primary-500">Blog Posts</span></h1>
@@ -805,6 +808,7 @@ export default function BlogManager() {
           </div>
         </div>
       )}
+      </main>
     </div>
   );
 }

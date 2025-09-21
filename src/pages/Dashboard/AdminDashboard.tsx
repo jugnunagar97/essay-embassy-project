@@ -14,6 +14,7 @@ import { format, isValid } from 'date-fns';
 import { Order } from '../../types'; 
 import { Link } from 'react-router-dom'; // Re-added Link as it's used in "View All Orders"
 import { db } from '../../firebase';
+import Sidebar from '../../components/layout/Sidebar';
 
 // Helper function to safely format dates
 const formatDate = (timestamp: any, formatString: string = 'MMM dd,yyyy'): string => { 
@@ -70,8 +71,10 @@ export default function AdminDashboard() {
                          : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white flex">
+      <Sidebar isOpen={true} onClose={() => {}} />
+      <main className="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto space-y-8">
         {/* Welcome Section */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
           <h1 className="text-3xl font-bold mb-2">Welcome, <span className="text-primary-500">{user?.name || 'Admin'}</span>!</h1>
@@ -141,120 +144,45 @@ export default function AdminDashboard() {
                 <ClipboardList className="text-primary-600" size={20} />
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div>
-                <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{pendingOrders}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Pending</p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mb-1">{pendingOrders}</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Pending</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Awaiting assignment</p>
               </div>
-              <div>
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{inProgressOrders}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">In Progress</p>
+              <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">{inProgressOrders}</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">In Progress</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Currently being worked on</p>
               </div>
-              <div>
-                <p className="text-2xl font-bold text-red-600 dark:text-red-400">{overdueOrders}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Overdue</p>
+              <div className="text-center p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                <p className="text-3xl font-bold text-red-600 dark:text-red-400 mb-1">{overdueOrders}</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Overdue</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Past deadline</p>
+              </div>
+              <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                <p className="text-3xl font-bold text-green-600 dark:text-green-400 mb-1">{completedOrdersCount}</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Completed</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Successfully delivered</p>
               </div>
             </div>
-            <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
-              <p>{completedOrdersCount} completed, {cancelledOrders} cancelled.</p>
+            <div className="mt-6 text-center">
+              <div className="inline-flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                <span className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  {completedOrdersCount} completed
+                </span>
+                <span className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
+                  {cancelledOrders} cancelled
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Placeholder for Monthly Orders Trend Chart */}
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Monthly Orders Trend</h2>
-              <div className="bg-primary-100 dark:bg-primary-900/20 p-2 rounded-lg">
-                <BarChart className="text-primary-600" size={20} />
-              </div>
-            </div>
-            <div className="h-48 flex items-center justify-center text-gray-500 dark:text-gray-400">
-              {/* Chart Placeholder */}
-              <p>Chart will go here (e.g., Bar Chart for monthly orders)</p>
-            </div>
-          </div>
         </div>
 
-        {/* Overall Performance Chart Placeholder */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Overall Performance</h2>
-            <div className="bg-primary-100 dark:bg-primary-900/20 p-2 rounded-lg">
-              <LineChart className="text-primary-600" size={20} />
-            </div>
-          </div>
-          <div className="h-64 flex items-center justify-center text-gray-500 dark:text-gray-400">
-            {/* Chart Placeholder */}
-            <p>Chart will go here (e.g., Line Chart for revenue/orders over time)</p>
-          </div>
-        </div>
 
-        {/* Recent Orders Table */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Orders</h2>
-              <Link
-                to="/dashboard/orders"
-                className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
-              >
-                View All Orders
-              </Link>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 dark:bg-gray-700">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Order
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Client
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Amount
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Deadline
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                {recentOrders.map((order: Order) => ( 
-                  <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                    <td className="px-6 py-4">
-                      <div>
-                        <div className="text-sm font-medium text-gray-900 dark:text-white">
-                          {order.topic}
-                        </div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {order.subject} • {order.pages} pages
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">
-                      {order.clientName}
-                    </td>
-                    <td className="px-6 py-4">
-                      <StatusBadge status={order.status} /> 
-                    </td>
-                    <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                      ${order.amount}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                      {formatDate(order.deadline)} 
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
 
         {/* Quick Actions / Management Links - This section is now removed as per your request */}
         {/*
@@ -330,7 +258,8 @@ export default function AdminDashboard() {
           </Link>
         </div>
         */}
-      </div>
+        </div>
+      </main>
     </div>
   );
 }

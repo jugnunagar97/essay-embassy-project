@@ -12,6 +12,7 @@ import LoadingSpinner from '../../components/Common/LoadingSpinner';
 import { Order } from '../../types';
 import { format, isValid } from 'date-fns';
 import { db } from '../../firebase';
+import Sidebar from '../../components/layout/Sidebar';
 
 // Helper function to safely format dates (replicated for self-containment)
 const formatDate = (timestamp: any, formatString: string = 'MMM dd,yyyy HH:mm'): string => {
@@ -118,8 +119,10 @@ export default function Orders() {
   ];
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white p-4 lg:p-8">
-      <h1 className="text-3xl font-bold mb-6">Manage <span className="text-primary-500">Orders</span></h1>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white flex">
+      <Sidebar isOpen={true} onClose={() => {}} />
+      <main className="flex-1 p-4 lg:p-8">
+        <h1 className="text-3xl font-bold mb-6">Manage <span className="text-primary-500">Orders</span></h1>
 
       {/* Filters and Search */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-200 dark:border-gray-700">
@@ -344,6 +347,7 @@ export default function Orders() {
           </div>
         </div>
       )}
+      </main>
     </div>
   );
 }

@@ -13,6 +13,7 @@ import { ServiceCategory, SubService } from '../../types';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import LoadingSpinner from '../Common/LoadingSpinner';
+import Sidebar from '../layout/Sidebar';
 
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
@@ -321,7 +322,9 @@ export default function ServiceManager() {
   if (error) return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error.message}</div>;
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white p-4 lg:p-8 min-h-screen">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white flex">
+      <Sidebar isOpen={true} onClose={() => {}} />
+      <main className="flex-1 p-4 lg:p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Manage <span className="text-primary-500">Services</span></h1>
         <button
@@ -661,6 +664,7 @@ export default function ServiceManager() {
           </form>
         </div>
       )}
+      </main>
     </div>
   );
 }

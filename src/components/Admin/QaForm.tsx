@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RichTextEditor from "../common/RichTextEditor";
+import EnhancedRichTextEditor from "../common/EnhancedRichTextEditor";
 import LoadingSpinner from "../common/LoadingSpinner";
 import { QaEntry, getQaById, slugify, updateQa, upsertQa } from "../../lib/qaStore";
 
@@ -140,17 +140,17 @@ const QaForm: React.FC<Props> = ({ id }) => {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label className="block mb-2 font-semibold">Question Title</label>
-        <RichTextEditor value={form.title} onChange={(v) => handleRTChange("title", v)} placeholder="Enter question title" />
+        <EnhancedRichTextEditor value={form.title} onChange={(v) => handleRTChange("title", v)} placeholder="Enter question title" />
       </div>
 
       <div>
         <label className="block mb-2 font-semibold">Question Text</label>
-        <RichTextEditor value={form.question} onChange={(v) => handleRTChange("question", v)} placeholder="Enter full question text" height={220} />
+        <EnhancedRichTextEditor value={form.question} onChange={(v) => handleRTChange("question", v)} placeholder="Enter full question text" height={220} />
       </div>
 
       <div>
         <label className="block mb-2 font-semibold">Answer</label>
-        <RichTextEditor value={form.answer} onChange={(v) => handleRTChange("answer", v)} placeholder="Enter answer (rich text supported)" height={220} />
+        <EnhancedRichTextEditor value={form.answer} onChange={(v) => handleRTChange("answer", v)} placeholder="Enter answer (rich text supported)" height={220} />
       </div>
 
       <div className="flex gap-4">

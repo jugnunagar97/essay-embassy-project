@@ -31,7 +31,7 @@ export default function Layout() {
         </main>
       </div>
 
-      <Footer />
+      {!isAdminPage && <Footer />}
     </div>
   );
 }
