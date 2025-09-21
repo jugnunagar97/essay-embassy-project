@@ -63,7 +63,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           <ServicesDropdown /> {/* This is your dynamic services dropdown */}
           <Link to="/samples" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 text-sm font-medium transition-colors">Samples</Link>
           <Link to="/reviews" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 text-sm font-medium transition-colors">Reviews</Link>
-          <Link to="/qa-library" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 text-sm font-semibold transition-colors">Q&amp;A Library</Link>
+          <Link to="/qa" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 text-sm font-semibold transition-colors">Q&amp;A Library</Link>
           <Link to="/writers" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 text-sm font-medium transition-colors">Our Writers</Link>
         </nav>
 

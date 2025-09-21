@@ -21,13 +21,108 @@ button, input, select, textarea {
   font-family: inherit;
 }
 
-/* Accent color */
+/* Essay Embassy Design System Variables */
 :root {
-  --accent: #2563eb; /* blue-600 */
+  /* Radius: rounded-lg = 8px (default), xl ≈ 12px, 2xl ≈ 16px */
+  --radius: 8px;
+
+  /* Essay Embassy — Light Mode */
+  --background: #f7f7fa; /* light gray */
+  --foreground: #232323; /* dark gray */
+
+  --card: #ffffff;
+  --card-foreground: #232323;
+
+  --popover: #ffffff;
+  --popover-foreground: #232323;
+
+  --primary: #268579; /* teal-600 */
+  --primary-foreground: #ffffff;
+
+  --secondary: #64748b; /* slate-500 (used as tint) */
+  --secondary-foreground: #ffffff;
+
+  --muted: #f1f5f9; /* slate-100 */
+  --muted-foreground: #64748b; /* slate-500 */
+
+  --accent: #d946ef; /* fuchsia-500 */
+  --accent-foreground: #ffffff;
+
+  --destructive: #ef4444; /* red-500 */
+
+  --border: #e2e8f0; /* slate-200 */
+  --input: #e2e8f0;
+  --ring: #268579; /* focus ring matches primary */
+
+  /* Charts (keep pleasant defaults close to brand) */
+  --chart-1: #268579;
+  --chart-2: #d946ef;
+  --chart-3: #64748b;
+  --chart-4: #0f766e; /* primary-700 */
+  --chart-5: #22d3ee; /* teal/cyan accent */
+
+  /* Sidebar defaults (light) */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #232323;
+  --sidebar-primary: #268579;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #232323;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #268579;
+
+  /* Legacy variables for compatibility */
   --accent-hover: #1e40af; /* blue-800 */
   --danger: #ef4444; /* red-500 */
   --bg-light: #f7f7fa;
   --text-dark: #232323;
+}
+
+.dark {
+  /* Essay Embassy — Dark Mode */
+  --background: #0f172a; /* slate-900 */
+  --foreground: #f8fafc; /* slate-50 */
+
+  --card: #1e293b; /* slate-800 */
+  --card-foreground: #f8fafc;
+
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+
+  --primary: #268579;
+  --primary-foreground: #ffffff;
+
+  --secondary: #334155; /* slate-700 */
+  --secondary-foreground: #f8fafc;
+
+  --muted: #1e293b;
+  --muted-foreground: #cbd5e1; /* slate-300 */
+
+  --accent: #a21caf; /* fuchsia-700 for dark balance */
+  --accent-foreground: #ffffff;
+
+  --destructive: #ef4444;
+
+  --border: #334155; /* subtle dark borders */
+  --input: #334155;
+  --ring: #268579;
+
+  /* Charts (dark-tuned) */
+  --chart-1: #22d3ee;
+  --chart-2: #d946ef;
+  --chart-3: #93c5fd;
+  --chart-4: #34d399;
+  --chart-5: #f59e0b;
+
+  /* Sidebar (dark) */
+  --sidebar: #0b1220;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #268579;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #111827;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #1f2937;
+  --sidebar-ring: #268579;
 }
 
 /* Button styles */

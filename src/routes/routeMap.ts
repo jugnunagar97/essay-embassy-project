@@ -12,7 +12,7 @@ export const ROUTES = {
   writers: 'https://essayembassy.com/writers',
   samples: 'https://essayembassy.com/samples',
   reviews: 'https://essayembassy.com/reviews',
-  qaLibrary: 'https://essayembassy.com/qa-library',
+  qaLibrary: 'https://essayembassy.com/qa',
   register: 'https://essayembassy.com/register',
 
   // Services

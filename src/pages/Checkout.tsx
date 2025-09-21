@@ -12,12 +12,12 @@ const Checkout: React.FC = () => {
       toast.success('Payment successful! Redirecting...');
       // Redirect to the solution page (mock: go to library for now)
       setTimeout(() => {
-        navigate('/qa-library?success=1', { replace: true });
+        navigate('/qa?success=1', { replace: true });
       }, 2000);
     } else if (params.get('canceled')) {
       toast.error('Payment canceled.');
       setTimeout(() => {
-        navigate('/qa-library', { replace: true });
+        navigate('/qa', { replace: true });
       }, 2000);
     }
   }, [location, navigate]);

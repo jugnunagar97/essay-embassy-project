@@ -25,10 +25,17 @@ import Reviews from './pages/Reviews';
 import OrderNow from './pages/Order/OrderNow';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
-import QALibrary from './pages/QALibrary';
-import QASolutionPage from './pages/QASolutionPage';
+// Old Q&A system removed - using new localStorage-based system
 import Checkout from './pages/Checkout';
 import ThankYou from './pages/ThankYou';
+
+// --- New Q&A Pages ---
+import QACatalog from './pages/QACatalog';
+import QuestionDetail from './pages/QuestionDetail';
+import AdminQAList from './pages/Admin/AdminQAList';
+import AdminQANew from './pages/Admin/AdminQANew';
+import AdminQAEdit from './pages/Admin/AdminQAEdit';
+import ErrorPage from './pages/ErrorPage';
 
 
 // --- Static Service Page Imports ---
@@ -81,8 +88,7 @@ import Orders from './pages/Dashboard/Orders';
 import UserManagement from './pages/Dashboard/UserManagement';
 import UserDetail from './pages/Dashboard/UserDetail';
 import AdminLogin from './pages/Admin/AdminLogin';
-import AdminQAManager from './pages/Admin/AdminQAManager';
-import AdminQAManagerForm from './pages/Admin/AdminQAManagerForm';
+// Old Q&A admin system removed - using new localStorage-based system
 
 // --- Admin Management Component Imports (from components/Admin) ---
 import ServiceManager from './components/Admin/ServiceManager';
@@ -219,20 +225,22 @@ function App() {
             <Route path="faq" element={<FAQ />} />
             <Route path="writers" element={<Writers />} />
             <Route path="order-now" element={<OrderNow />} />
-            <Route path="qa-library" element={<QALibrary />} />
-            <Route path="qa-library/:subject/:id" element={<QASolutionPage />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="/thank-you/:orderId" element={<ThankYou />} />
-            <Route path="question/:questionNumber/:slug" element={<QASolutionPage />} />
+            
+            {/* Q&A Routes - New localStorage-based system */}
+            <Route path="qa" element={<QACatalog />} />
+            <Route path="question/:questionNumber/:slug" element={<QuestionDetail />} />
 
             {/* Protected routes - require authentication */}
             {/* Dashboard route - dynamically renders admin or client dashboard */}
             <Route path="dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/qa" element={<AdminQAManager />} />
-            <Route path="/admin/qa/new" element={<AdminQAManagerForm />} />
-            <Route path="/admin/qa/:id/edit" element={<AdminQAManagerForm />} />
+            {/* Admin Q&A Routes */}
+            <Route path="/admin/qa" element={<AdminQAList />} />
+            <Route path="/admin/qa/new" element={<AdminQANew />} />
+            <Route path="/admin/qa/:id/edit" element={<AdminQAEdit />} />
 
             {/* Admin-only protected routes */}
             <Route path="dashboard/reviews" element={<ProtectedRoute adminOnly><ReviewManager /></ProtectedRoute>} />
