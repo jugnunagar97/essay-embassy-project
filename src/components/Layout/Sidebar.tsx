@@ -23,7 +23,6 @@ const adminLinks = [
   { href: "/dashboard/reviews", label: "Reviews", icon: Star },
   { href: "/dashboard/services", label: "Services", icon: Settings },
   { href: "/admin/qa", label: "Q&A Manager", icon: HelpCircle },
-  { href: "/admin/qa/new", label: "Add Q&A", icon: PlusCircle },
 ];
 
 interface SidebarProps {
@@ -90,13 +89,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = true, onClose }) => {
         })}
       </nav>
 
-      {/* Footer */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-primary-500/30">
-        <div className="text-center">
-          <p className="text-primary-100 text-xs">Version 2.0</p>
-          <p className="text-primary-200 text-xs mt-1">© 2024 Essay Embassy</p>
-        </div>
-      </div>
     </aside>
   );
 };

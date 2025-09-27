@@ -88,6 +88,12 @@ import Orders from './pages/Dashboard/Orders';
 import UserManagement from './pages/Dashboard/UserManagement';
 import UserDetail from './pages/Dashboard/UserDetail';
 import AdminLogin from './pages/Admin/AdminLogin';
+
+// --- Client Dashboard Pages ---
+import MyOrders from './pages/Dashboard/MyOrders';
+import PendingPayments from './pages/Dashboard/PendingPayments';
+import ClientLiveChat from './pages/Dashboard/ClientLiveChat';
+import HelpSupport from './pages/Dashboard/HelpSupport';
 // Old Q&A admin system removed - using new localStorage-based system
 
 // --- Admin Management Component Imports (from components/Admin) ---
@@ -235,12 +241,6 @@ function App() {
             {/* Protected routes - require authentication */}
             {/* Dashboard route - dynamically renders admin or client dashboard */}
             <Route path="dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            {/* Admin Q&A Routes */}
-            <Route path="/admin/qa" element={<AdminQAList />} />
-            <Route path="/admin/qa/new" element={<AdminQANew />} />
-            <Route path="/admin/qa/:id/edit" element={<AdminQAEdit />} />
 
             {/* Admin-only protected routes */}
             <Route path="dashboard/reviews" element={<ProtectedRoute adminOnly><ReviewManager /></ProtectedRoute>} />
@@ -259,7 +259,20 @@ function App() {
             <Route path="dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
             <Route path="dashboard/my-settings" element={<ProtectedRoute><ClientProfileSettings /></ProtectedRoute>} /> {/* Client profile settings */}
 
+            {/* Client-specific routes */}
+            <Route path="dashboard/my-orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
+            <Route path="dashboard/pending-payments" element={<ProtectedRoute><PendingPayments /></ProtectedRoute>} />
+            <Route path="dashboard/client-chat" element={<ProtectedRoute><ClientLiveChat /></ProtectedRoute>} />
+            <Route path="dashboard/help" element={<ProtectedRoute><HelpSupport /></ProtectedRoute>} />
+
           </Route>
+
+          {/* Admin routes outside Layout wrapper */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/qa" element={<AdminQAList />} />
+          <Route path="/admin/qa/new" element={<AdminQANew />} />
+          <Route path="/admin/qa/:id/edit" element={<AdminQAEdit />} />
 
           {/* Fallback route for any unmatched paths, redirects to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
