@@ -28,22 +28,13 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const { selectedCurrency, convertPrice, getCurrencySymbol } = useCurrency();
   
-  // Razorpay primarily supports INR, so we'll always convert to INR for processing
-  // but show the user's selected currency in the UI
+  // Show user's selected currency in UI, but send original amount to server for conversion
   const displayCurrency = currency || selectedCurrency;
   const displayAmount = convertPrice(amount);
   const currencySymbol = getCurrencySymbol();
   
-  // For Razorpay processing, always use INR
-  const paymentCurrency = 'INR';
-  const conversionRates = {
-    'USD': 83.5,
-    'EUR': 91.2,
-    'GBP': 105.8,
-    'INR': 1
-  };
-  const conversionRate = conversionRates[displayCurrency] || 1;
-  const paymentAmount = amount * conversionRate;
+  // Send original amount to server - server will handle currency conversion
+  const paymentAmount = amount;
 
   const loadRazorpayScript = (): Promise<boolean> => {
     return new Promise((resolve) => {

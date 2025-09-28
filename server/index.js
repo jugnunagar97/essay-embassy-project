@@ -100,7 +100,7 @@ app.post('/api/create-order', async (req, res) => {
   const supportedCurrencies = ['INR', 'USD', 'EUR', 'GBP'];
   const targetCurrency = 'INR'; // Always use INR for Razorpay
   
-  // Simple currency conversion rates (you might want to use a proper API)
+  // Correct currency conversion rates (USD to INR ≈ 83.5)
   const conversionRates = {
     'USD': 83.5,
     'EUR': 91.2,
