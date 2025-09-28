@@ -8,6 +8,9 @@ import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../../components/Common/LoadingSpinner';
 import PriceDisplay from '../../components/Common/PriceDisplay';
 import CurrencyConverter from '../../components/Common/CurrencyConverter';
+import RazorpayButton from '../../components/Payment/RazorpayButton';
+import PaymentSuccess from '../../components/Payment/PaymentSuccess';
+import { useCurrency } from '../../context/CurrencyContext';
 import toast from 'react-hot-toast';
 
 // Firebase Imports
@@ -161,6 +164,7 @@ const getBasePrice = (academicLevel: string, deadline: string, discipline: strin
 
 export default function OrderNow() {
   const { user, register: registerUser, login: loginUser, isLoading: isAuthLoading } = useAuth() as AuthContextType;
+  const { selectedCurrency } = useCurrency();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -174,6 +178,9 @@ export default function OrderNow() {
   const [authName, setAuthName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [pendingOrderData, setPendingOrderData] = useState<OrderFormData | null>(null);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [paymentId, setPaymentId] = useState('');
+  const [orderNumber, setOrderNumber] = useState<number | null>(null);
 
   const {
     register,
@@ -290,13 +297,10 @@ export default function OrderNow() {
         writerId: null,
       };
 
-      await addDoc(collection(db, 'orders'), newOrderData);
+      const orderRef = await addDoc(collection(db, 'orders'), newOrderData);
       console.log("Order document created successfully for order #", orderNumber);
-      toast.success(`Order #${orderNumber} created! Redirecting...`);
-      if (user) {
-        navigate('/dashboard', { replace: true }); // Only for logged-in users
-      }
-      return { success: true, orderNumber }; // Return success indicator
+      setOrderNumber(orderNumber);
+      return { success: true, orderNumber, orderId: orderRef.id }; // Return success indicator
     } catch (error) {
       console.error("Error in createOrderInFirestore:", error);
       toast.error("Failed to create order. Please try again.");
@@ -304,15 +308,21 @@ export default function OrderNow() {
     }
   }, [navigate, price, files, user]);
 
-  const handleFormSubmit = (data: OrderFormData) => {
+  const handleFormSubmit = async (data: OrderFormData) => {
     if (user) {
       setIsSubmitting(true);
-      createOrderInFirestore(data, { id: user.id, name: user.name })
-        .catch(err => {
-          console.error("Error during direct order creation:", err);
-          toast.error("Failed to create order. Please try again.");
-        })
-        .finally(() => setIsSubmitting(false));
+      try {
+        const result = await createOrderInFirestore(data, { id: user.id, name: user.name });
+        if (result.success) {
+          // Order created successfully, now show payment option
+          toast.success(`Order #${result.orderNumber} created! Please complete payment.`);
+        }
+      } catch (err) {
+        console.error("Error during direct order creation:", err);
+        toast.error("Failed to create order. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     } else {
       setPendingOrderData(data);
       setShowAuthModal(true);
@@ -353,9 +363,11 @@ export default function OrderNow() {
       }
 
       console.log("Creating order with user:", loggedInUser.uid);
-      await createOrderInFirestore(pendingOrderData, { id: loggedInUser.uid, name: finalUserName });
-      console.log("Order creation completed, navigating to dashboard");
-      navigate('/dashboard', { replace: true }); // Explicit navigation for auth flow
+      const result = await createOrderInFirestore(pendingOrderData, { id: loggedInUser.uid, name: finalUserName });
+      if (result.success) {
+        console.log("Order creation completed");
+        toast.success(`Order #${result.orderNumber} created! Please complete payment.`);
+      }
     } catch (error: any) {
       console.error("Error in handleAuthSubmit:", error);
       toast.error(error.message || `Failed to ${authModalMode === 'signup' ? 'create account' : 'log in'}`);
@@ -391,6 +403,16 @@ export default function OrderNow() {
     setFiles(prev => prev.filter((_, i) => i !== index));
   };
 
+  const handlePaymentSuccess = (paymentId: string) => {
+    setPaymentId(paymentId);
+    setPaymentSuccess(true);
+    toast.success('Payment successful! Your order is now confirmed.');
+  };
+
+  const handlePaymentError = (error: string) => {
+    toast.error(`Payment failed: ${error}`);
+  };
+
   const labelStyle = "block text-sm font-semibold text-gray-700 mb-2";
   const inputStyle = "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white text-gray-900 transition-colors placeholder-gray-400";
   const errorStyle = "text-red-500 text-sm mt-1 flex items-center";
@@ -400,6 +422,37 @@ export default function OrderNow() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
+
+  // Show payment success screen
+  if (paymentSuccess && orderNumber) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-2xl mx-auto px-4">
+          <PaymentSuccess
+            paymentId={paymentId}
+            amount={price}
+            orderId={`#${orderNumber}`}
+            onDownload={() => {
+              // TODO: Implement download receipt
+              toast.success('Receipt download started');
+            }}
+            onEmailReceipt={() => {
+              // TODO: Implement email receipt
+              toast.success('Receipt sent to your email');
+            }}
+          />
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+            >
+              Go to Dashboard
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -594,23 +647,58 @@ export default function OrderNow() {
                   <CurrencyConverter variant="card" />
                 </div>
               </div>
-              <button
-                onClick={handleSubmit(handleFormSubmit)}
-                disabled={isSubmitting}
-                className="w-full btn-primary py-3 flex items-center justify-center text-lg"
-              >
-                {isSubmitting ? (
-                  <>
-                    <LoadingSpinner size="sm" className="mr-2" />
-                    Processing...
-                  </>
-                ) : (
-                  <>
+              {orderNumber ? (
+                <div className="space-y-4">
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0">
+                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                          <span className="text-green-600 font-semibold text-sm">✓</span>
+                        </div>
+                      </div>
+                      <div className="ml-3">
+                        <p className="text-sm font-medium text-green-800">
+                          Order #{orderNumber} Created Successfully
+                        </p>
+                        <p className="text-sm text-green-600">
+                          Complete payment to confirm your order
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <RazorpayButton
+                    amount={price}
+                    currency={selectedCurrency}
+                    orderId={`order_${orderNumber}`}
+                    userId={user?.id}
+                    serviceType="essay"
+                    onSuccess={handlePaymentSuccess}
+                    onError={handlePaymentError}
+                    className="w-full"
+                  >
                     <CreditCard size={20} className="mr-2" />
-                    Submit & Continue
-                  </>
-                )}
-              </button>
+                    Pay with Razorpay
+                  </RazorpayButton>
+                </div>
+              ) : (
+                <button
+                  onClick={handleSubmit(handleFormSubmit)}
+                  disabled={isSubmitting}
+                  className="w-full btn-primary py-3 flex items-center justify-center text-lg"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <LoadingSpinner size="sm" className="mr-2" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard size={20} className="mr-2" />
+                      Submit & Continue
+                    </>
+                  )}
+                </button>
+              )}
             </div>
           </div>
         </div>

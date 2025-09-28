@@ -94,8 +94,10 @@ app.post('/api/create-order', async (req, res) => {
   }
   
   try {
+    // Convert to smallest currency unit (cents for USD, paise for INR, etc.)
+    const multiplier = currency === 'INR' ? 100 : 100; // Both USD and INR use 100
     const options = {
-      amount: Math.round(amount * 100), // amount in paise
+      amount: Math.round(amount * multiplier),
       currency: currency,
       receipt: receipt || `order_${Date.now()}`,
       notes: notes,
