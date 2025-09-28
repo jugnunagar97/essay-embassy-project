@@ -6,6 +6,7 @@ import { Menu, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import ServicesDropdown from './ServicesDropdown';
 import MobileServicesMenu from './MobileServicesMenu'; // Correctly import the external MobileServicesMenu component
+import CurrencyConverter from '../Common/CurrencyConverter';
 
 interface HeaderProps {
   onToggleSidebar?: () => void;
@@ -70,6 +71,12 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
         {/* Right Section: Action Buttons and User Auth */}
         <div className="flex items-center gap-3">
           <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 hidden sm:block font-medium transition-colors">WhatsApp</a>
+          
+          {/* Currency Converter */}
+          <div className="hidden md:block">
+            <CurrencyConverter variant="header" />
+          </div>
+          
           <Link to="/order-now" className="btn-primary text-sm px-3 py-2">
             Order Now
           </Link>

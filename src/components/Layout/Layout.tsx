@@ -4,78 +4,51 @@ import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import Sidebar from './Sidebar';
+import AdminSidebar from './AdminSidebar';
 import ClientSidebar from './ClientSidebar';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Layout() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const location = useLocation();
+  const { user, isLoading } = useAuth(); // This gets the logged-in user
   
-  // Determine which sidebar to show based on the route
-  const isAdminPage = location.pathname.startsWith('/dashboard') && 
-    (location.pathname.includes('/admin') || 
-     location.pathname.includes('/dashboard/reviews') ||
-     location.pathname.includes('/dashboard/services') ||
-     location.pathname.includes('/dashboard/blog') ||
-     location.pathname.includes('/dashboard/settings') ||
-     location.pathname.includes('/dashboard/new-order') ||
-     location.pathname.includes('/dashboard/orders') ||
-     location.pathname.includes('/dashboard/users') ||
-     location.pathname.includes('/dashboard/messages'));
+  // Show loading while auth is initializing
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // Determine which sidebar to show based on the route and user role
+  const isDashboardPage = location.pathname.startsWith('/dashboard');
 
-  // Show client sidebar for all client dashboard routes (not admin routes)
-  const isClientDashboard = location.pathname.startsWith('/dashboard') && !isAdminPage;
-  
+  const isAdmin = user?.role === 'admin';  // Or whatever your role field is (e.g., user.isAdmin if it's a boolean)
+
+  const isAdminPage = isDashboardPage && isAdmin;
+  const isClientDashboard = isDashboardPage && !isAdmin;
+
   // Debug logging
-  console.log('Layout Debug:', {
-    pathname: location.pathname,
-    isAdminPage,
-    isClientDashboard,
-    isSidebarOpen
-  });
+  // console.log('Path:', location.pathname, 'isAdminPage:', isAdminPage, 'isClientDashboard:', isClientDashboard, 'User Role:', user?.role);
 
   const handleToggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
   return (
-    <div className="flex flex-col min-h-screen" style={{backgroundColor: 'yellow'}}>
-      {/* FORCE VISIBLE DEBUG - This should be VERY obvious */}
-      <div style={{
-        position: 'fixed', 
-        top: '50px', 
-        left: '0', 
-        background: 'red', 
-        color: 'white', 
-        padding: '10px', 
-        zIndex: 99999,
-        fontSize: '16px',
-        fontWeight: 'bold'
-      }}>
-        🔴 LAYOUT COMPONENT IS RENDERING! 🔴
-      </div>
+    <div className="flex flex-col min-h-screen">
       
       <Header onToggleSidebar={handleToggleSidebar} />
 
       <div className="flex flex-1">
-        {isAdminPage && <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />}
+        {isAdminPage && <AdminSidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />}
         {isClientDashboard && (
-          <>
-            <div style={{
-              position: 'fixed', 
-              top: '100px', 
-              left: '0', 
-              background: 'blue', 
-              color: 'white', 
-              padding: '10px', 
-              zIndex: 99999,
-              fontSize: '14px',
-              fontWeight: 'bold'
-            }}>
-              🔵 CLIENT SIDEBAR SHOULD BE HERE! 🔵
-            </div>
-            <ClientSidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-          </>
+          <ClientSidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
         )}
         
         {/* FIXED: Removed overflow classes that were preventing sticky positioning */}

@@ -9,7 +9,6 @@ import {
   Star,
   Settings,
   PlusCircle,
-  BarChart3,
   HelpCircle
 } from "lucide-react";
 
@@ -30,7 +29,7 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen = true, onClose }) => {
+const AdminSidebar: React.FC<SidebarProps> = ({ isOpen = true, onClose }) => {
   const location = useLocation();
   
   return (
@@ -93,4 +92,4 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = true, onClose }) => {
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;

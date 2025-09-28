@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Sidebar from '../../components/layout/Sidebar';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { QaEntry, listQa, removeLegacyQa, removeQa } from '../../lib/qaStore';
 
@@ -41,9 +40,8 @@ const AdminQAList: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      <Sidebar isOpen={true} onClose={() => {}} />
-      <main className="flex-1 p-8">
+    <div className="min-h-screen bg-gray-50">
+      <main className="p-8">
         <div className="max-w-6xl mx-auto bg-white shadow rounded p-8">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-2xl font-bold">Q&A Manager</h1>

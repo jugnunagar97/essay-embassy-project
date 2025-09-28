@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import WritersCarousel from './WritersCarousel';
 import { SpecialAssignmentHelpCarousel } from './AdmissionEssayWriting';
+import PriceDisplay from '../../components/Common/PriceDisplay';
+import CurrencyConverter from '../../components/Common/CurrencyConverter';
 
 
 const academicLevels = ["High School", "College", "University", "PhD"];
@@ -331,7 +333,9 @@ export default function EssayWriting() {
                 </svg>
               </span>
               <div className="font-normal text-base text-gray-700 mb-1 tracking-wide">Pocket-friendly rates</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">Prices for our assignment help services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal max-w-xs mx-auto">
+                Prices for our assignment help services start at <PriceDisplay usdPrice={10.80} variant="inline" />. You get all the essentials and even enjoy some freebies.
+              </div>
             </div>
           </div>
         </div>
@@ -367,13 +371,18 @@ export default function EssayWriting() {
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
           <div className="text-center text-lg text-gray-600 mb-4">
-            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
+            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative"><PriceDisplay usdPrice={13.99} variant="inline" />/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
           </div>
           <div className="flex justify-center mb-4">
             <a href="https://essayembassy.com/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01"/><path d="M12 7v4"/><circle cx="12" cy="12" r="10"/></svg>
               How we secure your payment
             </a>
+          </div>
+          
+          {/* Currency Converter Widget */}
+          <div className="flex justify-center mb-8">
+            <CurrencyConverter variant="widget" showLabel={true} />
           </div>
           <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch mt-12 mb-10">
             {/* Included services */}
@@ -395,11 +404,11 @@ export default function EssayWriting() {
               <div className="text-gray-400 text-base mb-4">You can add them for an extra payment</div>
               <div className="border-t border-gray-100 mb-4"></div>
               <ul className="flex-1 space-y-3">
-                <li className="flex justify-between items-center font-semibold text-gray-800">Grade A guarantee <span className="text-gray-500 font-normal">from $2.99</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Grade A guarantee <span className="text-gray-500 font-normal">from <PriceDisplay usdPrice={2.99} variant="inline" /></span></li>
                 <li className="flex justify-between items-center font-semibold text-gray-800">Early draft <span className="text-gray-500 font-normal">+15% to the price</span></li>
-                <li className="flex justify-between items-center font-semibold text-gray-800">1-Page abstract <span className="text-gray-500 font-normal">from $13.99</span></li>
-                <li className="flex justify-between items-center font-semibold text-gray-800">VIP support <span className="text-gray-500 font-normal">$12.99</span></li>
-                <li className="flex justify-between items-center font-semibold text-gray-800">Detailed outline <span className="text-gray-500 font-normal">$12.00</span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">1-Page abstract <span className="text-gray-500 font-normal">from <PriceDisplay usdPrice={13.99} variant="inline" /></span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">VIP support <span className="text-gray-500 font-normal"><PriceDisplay usdPrice={12.99} variant="inline" /></span></li>
+                <li className="flex justify-between items-center font-semibold text-gray-800">Detailed outline <span className="text-gray-500 font-normal"><PriceDisplay usdPrice={12.00} variant="inline" /></span></li>
               </ul>
             </div>
           </div>

@@ -7,7 +7,6 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../../components/Common/LoadingSpinner';
 import toast from 'react-hot-toast';
-import Sidebar from '../../components/layout/Sidebar';
 
 // Firebase Imports
 import { collection, addDoc, serverTimestamp, doc, runTransaction, getDocs, query, orderBy } from 'firebase/firestore';
@@ -328,9 +327,8 @@ export default function NewOrder() {
   }
 
   return (
-    <div className='min-h-screen bg-gray-50 dark:bg-gray-900 flex'>
-      <Sidebar isOpen={true} onClose={() => {}} />
-      <main className='flex-1 py-8 px-4 sm:px-6 lg:px-8'>
+    <div className='min-h-screen bg-gray-50 dark:bg-gray-900'>
+      <main className='py-8 px-4 sm:px-6 lg:px-8'>
         <div className='max-w-6xl mx-auto'>
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Create New <span className="text-primary-500">Order</span></h1>

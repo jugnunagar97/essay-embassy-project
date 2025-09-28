@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 import { format } from 'date-fns'; // FIXED: Removed unused 'isValid' import
 import { Review } from '../../types';
 import LoadingSpinner from '../Common/LoadingSpinner';
-import Sidebar from '../layout/Sidebar';
 
 // Helper Components
 const RatingStars = ({ rating }: { rating: number }) => (
@@ -145,9 +144,8 @@ export default function ReviewManager() {
   if (error) return <div className="p-10 text-red-500">Error: {error.message}</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white flex">
-      <Sidebar isOpen={true} onClose={() => {}} />
-      <main className="flex-1 container mx-auto px-6 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
+      <main className="container mx-auto px-6 py-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Manage <span className="text-primary-500">Reviews</span></h1>
         <button onClick={() => openModal()} className="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg flex items-center">

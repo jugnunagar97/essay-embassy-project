@@ -6,6 +6,8 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../../components/Common/LoadingSpinner';
+import PriceDisplay from '../../components/Common/PriceDisplay';
+import CurrencyConverter from '../../components/Common/CurrencyConverter';
 import toast from 'react-hot-toast';
 
 // Firebase Imports
@@ -584,9 +586,12 @@ export default function OrderNow() {
                 {errors.citationStyle && <p className={errorStyle}><AlertCircle size={14} className="mr-1" />{errors.citationStyle.message}</p>}
               </div>
               <div className="border-t border-gray-200 pt-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center mb-2">
                   <span className="text-lg font-semibold text-gray-900">Total Price:</span>
-                  <p className="text-3xl font-bold text-primary-500">${price}</p>
+                  <PriceDisplay usdPrice={price} variant="large" />
+                </div>
+                <div className="flex justify-end">
+                  <CurrencyConverter variant="card" />
                 </div>
               </div>
               <button

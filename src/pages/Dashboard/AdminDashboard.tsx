@@ -14,7 +14,6 @@ import { format, isValid } from 'date-fns';
 import { Order } from '../../types'; 
 import { Link } from 'react-router-dom'; // Re-added Link as it's used in "View All Orders"
 import { db } from '../../firebase';
-import Sidebar from '../../components/layout/Sidebar';
 
 // Helper function to safely format dates
 const formatDate = (timestamp: any, formatString: string = 'MMM dd,yyyy'): string => { 
@@ -71,9 +70,8 @@ export default function AdminDashboard() {
                          : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white flex">
-      <Sidebar isOpen={true} onClose={() => {}} />
-      <main className="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
+      <main className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-8">
         {/* Welcome Section */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
