@@ -28,13 +28,10 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const { selectedCurrency, convertPrice, getCurrencySymbol } = useCurrency();
   
-  // Show user's selected currency in UI, but send original amount to server for conversion
-  const displayCurrency = currency || selectedCurrency;
-  const displayAmount = convertPrice(amount);
+  // Use selected currency if not specified
+  const paymentCurrency = currency || selectedCurrency;
+  const convertedAmount = convertPrice(amount);
   const currencySymbol = getCurrencySymbol();
-  
-  // Send original amount to server - server will handle currency conversion
-  const paymentAmount = amount;
 
   const loadRazorpayScript = (): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -70,8 +67,8 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: paymentAmount, // Send the converted amount
-          currency: displayCurrency, // Send the display currency for server conversion
+          amount: convertedAmount,
+          currency: paymentCurrency,
           receipt: orderId || `order_${Date.now()}`,
           notes: {
             userId: userId,
@@ -160,7 +157,7 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
           <span>Processing...</span>
         </div>
       ) : (
-        children || `Pay ${currencySymbol}${displayAmount.toFixed(2)}`
+        children || `Pay ${currencySymbol}${convertedAmount.toFixed(2)}`
       )}
     </button>
   );

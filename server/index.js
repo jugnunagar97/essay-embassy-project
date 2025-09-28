@@ -89,68 +89,32 @@ app.post('/api/create-order', async (req, res) => {
   
   const { amount, currency = 'INR', receipt, notes = {} } = req.body;
   
-  console.log('Creating order with:', { amount, currency, receipt, notes });
-  
   if (!amount) {
     return res.status(400).json({ error: 'Amount is required.' });
   }
   
-  // Razorpay primarily supports INR, but also supports some other currencies
-  // For now, let's convert everything to INR for Razorpay processing
-  const supportedCurrencies = ['INR', 'USD', 'EUR', 'GBP'];
-  const targetCurrency = 'INR'; // Always use INR for Razorpay
-  
-  // Correct currency conversion rates (USD to INR ≈ 83.5)
-  const conversionRates = {
-    'USD': 83.5,
-    'EUR': 91.2,
-    'GBP': 105.8,
-    'INR': 1
-  };
-  
-  const conversionRate = conversionRates[currency] || 1;
-  const convertedAmount = amount * conversionRate;
-  
   try {
     const options = {
-      amount: Math.round(convertedAmount * 100), // Convert to paise
-      currency: targetCurrency,
+      amount: Math.round(amount * 100), // amount in paise/cents
+      currency: currency,
       receipt: receipt || `order_${Date.now()}`,
-      notes: {
-        ...notes,
-        originalCurrency: currency,
-        originalAmount: amount,
-        conversionRate: conversionRate
-      },
+      notes: notes,
     };
-    
-    console.log('Razorpay options:', options);
     
     const order = await razorpay.orders.create(options);
     console.log('Razorpay order created:', order.id);
-    
-    res.json({ 
+    res.json({
       success: true,
       order: {
         id: order.id,
         amount: order.amount,
         currency: order.currency,
-        receipt: order.receipt,
-        originalAmount: amount,
-        originalCurrency: currency
+        receipt: order.receipt
       }
     });
   } catch (err) {
     console.error('Razorpay error:', err);
-    console.error('Error details:', {
-      message: err.message,
-      statusCode: err.statusCode,
-      error: err.error
-    });
-    res.status(500).json({ 
-      error: 'Failed to create Razorpay order.',
-      details: err.message 
-    });
+    res.status(500).json({ error: 'Failed to create Razorpay order.' });
   }
 });
 
