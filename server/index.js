@@ -45,6 +45,49 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Geo-blocking middleware for India
+const blockIndiaIPs = (req, res, next) => {
+  const clientIP = req.ip || req.connection.remoteAddress || req.socket.remoteAddress;
+  
+  // List of known Indian IP ranges (simplified)
+  const indianIPRanges = [
+    '103.21.244.0/22',
+    '103.22.200.0/22',
+    '103.31.4.0/22',
+    '104.16.0.0/12',
+    '108.162.192.0/18',
+    '141.101.64.0/18',
+    '162.158.0.0/15',
+    '172.64.0.0/13',
+    '173.245.48.0/20',
+    '188.114.96.0/20',
+    '190.93.240.0/20',
+    '197.234.240.0/22',
+    '198.41.128.0/17'
+  ];
+  
+  // Simple check for Indian IPs (you can enhance this with a proper IP range library)
+  const isIndianIP = (ip) => {
+    // This is a simplified check - for production, use a proper IP geolocation service
+    return ip.startsWith('103.') || ip.startsWith('104.') || ip.startsWith('108.') || 
+           ip.startsWith('141.') || ip.startsWith('162.') || ip.startsWith('173.') || 
+           ip.startsWith('188.') || ip.startsWith('190.') || ip.startsWith('197.') || 
+           ip.startsWith('198.');
+  };
+  
+  if (isIndianIP(clientIP)) {
+    return res.status(403).json({ 
+      error: 'Access denied from your region',
+      message: 'Our services are not available in your region at this time.'
+    });
+  }
+  
+  next();
+};
+
+// Apply geo-blocking to all routes
+app.use(blockIndiaIPs);
+
 // Initialize Firebase Admin SDK (if not already initialized)
 let firestore;
 try {
