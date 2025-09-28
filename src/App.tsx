@@ -164,7 +164,7 @@ function App() {
   return (
     <AuthProvider> {/* Provides authentication context to all child components */}
       <CurrencyProvider> {/* Provides currency context to all child components */}
-        <Router> {/* Enables client-side routing */}
+      <Router> {/* Enables client-side routing */}
         <ScrollToTop />
         <Toaster position="top-right" /> {/* Global notification system */}
         <SocialProofNotificationSystem />
@@ -279,7 +279,7 @@ function App() {
           {/* Fallback route for any unmatched paths, redirects to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        </Router>
+      </Router>
       </CurrencyProvider>
     </AuthProvider>
   );

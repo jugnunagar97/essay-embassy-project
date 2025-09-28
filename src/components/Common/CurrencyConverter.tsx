@@ -75,7 +75,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
       case 'footer':
         return {
           container: 'relative',
-          button: 'flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-white border border-gray-600',
+          button: 'flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-white border border-gray-600 min-w-[120px]',
           dropdown: 'absolute bottom-full left-0 mb-2 w-64 bg-white rounded-xl shadow-lg border border-gray-200 z-50',
           item: 'flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors cursor-pointer',
           flag: 'text-lg',
@@ -118,7 +118,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
         )}
         
         <span className="font-medium">
-          {selectedCurrency}
+          {variant === 'footer' ? `${selectedRate?.flag} ${selectedCurrency}` : selectedCurrency}
         </span>
         
         <ChevronDown 

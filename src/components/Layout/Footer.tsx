@@ -8,7 +8,6 @@ import {
   Lock,
   CreditCard
 } from 'lucide-react';
-import CurrencyConverter from '../Common/CurrencyConverter';
 import visaLogo from '../../images/visa.svg';
 import mastercardLogo from '../../images/mastercard.svg';
 import amexLogo from '../../images/amex.svg';
@@ -41,28 +40,19 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Right Side - Social Media & Currency */}
-            <div className="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-6">
-              {/* Currency Converter */}
-              <div className="flex items-center space-x-2">
-                <span className="text-gray-300 font-medium text-sm">Currency:</span>
-                <CurrencyConverter variant="footer" />
-              </div>
-              
-              {/* Social Media */}
-              <div className="flex items-center space-x-4">
-                <span className="text-gray-300 font-medium">Let's get social:</span>
-                <div className="flex space-x-3">
-                  <a href="https://x.com/essayembassy/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
-                    <Twitter size={20} />
-                  </a>
-                  <a href="https://www.instagram.com/essayembassy/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
-                    <Instagram size={20} />
-                  </a>
-                  <a href="https://www.linkedin.com/company/essay-embassy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
-                    <Linkedin size={20} />
-                  </a>
-                </div>
+            {/* Right Side - Social Media */}
+            <div className="flex flex-col items-center space-y-3">
+              <span className="text-gray-300 font-medium text-sm">Follow Us</span>
+              <div className="flex space-x-3">
+                <a href="https://x.com/essayembassy/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                  <Twitter size={20} />
+                </a>
+                <a href="https://www.instagram.com/essayembassy/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                  <Instagram size={20} />
+                </a>
+                <a href="https://www.linkedin.com/company/essay-embassy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-all duration-300 hover:scale-110 p-2 rounded-full hover:bg-gray-800">
+                  <Linkedin size={20} />
+                </a>
               </div>
             </div>
           </div>

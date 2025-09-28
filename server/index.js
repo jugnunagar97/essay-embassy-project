@@ -1,22 +1,25 @@
 import express from 'express';
-// import Razorpay from 'razorpay';
+import Razorpay from 'razorpay';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import admin from 'firebase-admin';
-// import crypto from 'crypto';
+import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 dotenv.config();
 
 const app = express();
 
-// Temporarily disabled Razorpay
-// let razorpay;
-// if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
-//   razorpay = new Razorpay({
-//     key_id: process.env.RAZORPAY_KEY_ID,
-//     key_secret: process.env.RAZORPAY_KEY_SECRET,
-//   });
-// }
+// Initialize Razorpay
+let razorpay;
+if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
+  razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+  });
+  console.log('Razorpay initialized successfully');
+} else {
+  console.log('Razorpay credentials not found in environment variables');
+}
 
 app.use(cors({ 
   origin: process.env.FRONTEND_URL || 'http://localhost:5173', 
@@ -60,67 +63,125 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Temporarily disabled Razorpay endpoints
 // Create Razorpay Order
-// app.post('/create-order', async (req, res) => {
-//   if (!razorpay) {
-//     return res.status(503).json({ error: 'Payment service unavailable.' });
-//   }
-//   const { price, qaId, userId } = req.body;
-//   if (!price || !qaId || !userId) {
-//     return res.status(400).json({ error: 'Missing required fields.' });
-//   }
-//   try {
-//     const options = {
-//       amount: Math.round(price * 100), // amount in paise
-//       currency: 'INR',
-//       receipt: `qa_${qaId}_${Date.now()}`,
-//       notes: { qaId, userId },
-//     };
-//     const order = await razorpay.orders.create(options);
-//     res.json({ order });
-//   } catch (err) {
-//     console.error('Razorpay error:', err);
-//     res.status(500).json({ error: 'Failed to create Razorpay order.' });
-//   }
-// });
+app.post('/api/create-order', async (req, res) => {
+  if (!razorpay) {
+    return res.status(503).json({ error: 'Payment service unavailable.' });
+  }
+  
+  const { amount, currency = 'INR', receipt, notes = {} } = req.body;
+  
+  if (!amount) {
+    return res.status(400).json({ error: 'Amount is required.' });
+  }
+  
+  try {
+    const options = {
+      amount: Math.round(amount * 100), // amount in paise
+      currency: currency,
+      receipt: receipt || `order_${Date.now()}`,
+      notes: notes,
+    };
+    
+    const order = await razorpay.orders.create(options);
+    console.log('Razorpay order created:', order.id);
+    res.json({ 
+      success: true,
+      order: {
+        id: order.id,
+        amount: order.amount,
+        currency: order.currency,
+        receipt: order.receipt
+      }
+    });
+  } catch (err) {
+    console.error('Razorpay error:', err);
+    res.status(500).json({ error: 'Failed to create Razorpay order.' });
+  }
+});
 
-// Temporarily disabled Razorpay webhook
 // Razorpay Webhook Endpoint
-// app.post('/razorpay-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
-//   const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
-//   const signature = req.headers['x-razorpay-signature'];
-//   const body = req.body;
+app.post('/api/razorpay-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+  const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
+  const signature = req.headers['x-razorpay-signature'];
+  const body = req.body;
 
-//   // Verify signature
-//   const expectedSignature = crypto
-//     .createHmac('sha256', secret)
-//     .update(req.body)
-//     .digest('hex');
+  console.log('Webhook received:', { signature: signature ? 'present' : 'missing', bodyLength: body.length });
 
-//   if (signature !== expectedSignature) {
-//     return res.status(400).send('Invalid signature');
-//   }
+  // Verify signature
+  if (secret) {
+    const expectedSignature = crypto
+      .createHmac('sha256', secret)
+      .update(body)
+      .digest('hex');
 
-//   const event = JSON.parse(body);
+    if (signature !== expectedSignature) {
+      console.log('Invalid webhook signature');
+      return res.status(400).send('Invalid signature');
+    }
+  } else {
+    console.log('Webhook secret not configured, skipping signature verification');
+  }
 
-//   if (event.event === 'payment.captured') {
-//     const payment = event.payload.payment.entity;
-//     const qaId = payment.notes.qaId;
-//     const userId = payment.notes.userId;
-//     if (qaId && userId) {
-//       const purchaseDocId = `${userId}_${qaId}`;
-//       await firestore.collection('purchases').doc(purchaseDocId).set({
-//         userId,
-//         qaId,
-//         purchasedAt: new Date().toISOString(),
-//         paymentId: payment.id,
-//         amount: payment.amount,
-//       });
-//     }
-//   }
-//   res.status(200).send('Webhook received');
-// });
+  try {
+    const event = JSON.parse(body);
+    console.log('Webhook event:', event.event);
+
+    if (event.event === 'payment.captured') {
+      const payment = event.payload.payment.entity;
+      console.log('Payment captured:', payment.id, payment.amount);
+      
+      // Store payment in Firestore
+      if (firestore && payment.notes) {
+        const { userId, orderId, serviceType } = payment.notes;
+        
+        if (userId) {
+          const paymentDoc = {
+            paymentId: payment.id,
+            orderId: orderId || payment.notes.orderId,
+            userId: userId,
+            amount: payment.amount,
+            currency: payment.currency,
+            status: 'captured',
+            capturedAt: new Date().toISOString(),
+            serviceType: serviceType || 'essay',
+            method: payment.method,
+            bank: payment.bank,
+            wallet: payment.wallet,
+            vpa: payment.vpa,
+            email: payment.email,
+            contact: payment.contact,
+            notes: payment.notes
+          };
+
+          await firestore.collection('payments').doc(payment.id).set(paymentDoc);
+          console.log('Payment stored in Firestore:', payment.id);
+        }
+      }
+    } else if (event.event === 'payment.failed') {
+      const payment = event.payload.payment.entity;
+      console.log('Payment failed:', payment.id);
+      
+      // Store failed payment
+      if (firestore) {
+        await firestore.collection('payments').doc(payment.id).set({
+          paymentId: payment.id,
+          status: 'failed',
+          failedAt: new Date().toISOString(),
+          errorCode: payment.error_code,
+          errorDescription: payment.error_description,
+          amount: payment.amount,
+          currency: payment.currency
+        });
+      }
+    }
+
+    res.status(200).send('Webhook received');
+  } catch (error) {
+    console.error('Webhook processing error:', error);
+    res.status(500).send('Webhook processing failed');
+  }
+});
 
 // Contact form endpoint
 app.post('/api/contact', async (req, res) => {

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ChevronDown, XCircle } from 'lucide-react';
 import { useServiceCategories, useSubServices } from '../../hooks/useData'; // Import the hooks to fetch dynamic data
 import { ServiceCategory, SubService } from '../../types'; // Import types
+import CurrencyConverter from '../Common/CurrencyConverter';
 
 // Define props interface for MobileServicesMenu (FIXED: Prop name and void return type)
 interface MobileServicesMenuProps {
@@ -63,6 +64,14 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
         <button onClick={onClose} className="text-gray-600 dark:text-gray-300 hover:text-primary-600" aria-label="Close menu">
           <XCircle size={24} />
         </button>
+      </div>
+
+      {/* Currency Converter for Mobile */}
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Currency:</span>
+          <CurrencyConverter variant="widget" />
+        </div>
       </div>
 
       {/* Main Navigation Links */}

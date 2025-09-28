@@ -73,7 +73,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
           <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 hidden sm:block font-medium transition-colors">WhatsApp</a>
           
           {/* Currency Converter */}
-          <div className="hidden md:block">
+          <div className="block">
             <CurrencyConverter variant="header" />
           </div>
           
