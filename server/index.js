@@ -76,9 +76,9 @@ const blockIndiaIPs = (req, res, next) => {
   };
   
   if (isIndianIP(clientIP)) {
-    return res.status(403).json({ 
-      error: 'Access denied from your region',
-      message: 'Our services are not available in your region at this time.'
+    return res.status(500).json({ 
+      error: 'Internal Server Error',
+      message: 'The server encountered an internal error and was unable to complete your request.'
     });
   }
   
