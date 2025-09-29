@@ -7,7 +7,7 @@ import Layout from './components/Layout/Layout';
 import LoadingSpinner from './components/Common/LoadingSpinner';
 import SocialProofNotificationSystem from './components/Common/SocialProofNotificationSystem';
 import ScrollToTop from './components/Common/ScrollToTop';
-import GeoBlock from './components/GeoBlock/GeoBlock';
+// GeoBlock removed to lift country-based access restrictions
 
 // --- Core Page Imports ---
 import Home from './pages/Home';
@@ -165,7 +165,6 @@ function App() {
   return (
     <AuthProvider> {/* Provides authentication context to all child components */}
       <CurrencyProvider> {/* Provides currency context to all child components */}
-      <GeoBlock> {/* Blocks access from India */}
       <Router> {/* Enables client-side routing */}
         <ScrollToTop />
         <Toaster position="top-right" /> {/* Global notification system */}
@@ -282,7 +281,6 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
-      </GeoBlock>
       </CurrencyProvider>
     </AuthProvider>
   );
