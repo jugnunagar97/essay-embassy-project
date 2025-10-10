@@ -92,37 +92,14 @@ const convertDeadlineToDate = (relativeDeadline: string): Date => {
   return futureDate;
 };
 
-// --- Dynamic Pricing Model ---
-const disciplinePriceMap: Record<string, number> = {
-  'Architecture': 40.91,
-  'Engineering': 40.91,
-  'Biology': 48.34,
-  'Healthcare': 48.34,
-  'Mathematics': 48.34,
-  'Medicine': 48.34,
-  'Nursing': 48.34,
-  'Chemistry': 44.63,
-  'Physics': 44.63,
-  'Programming': 44.63,
-  'Statistics': 59.50,
-};
-const defaultPriceTable: Record<string, Record<string, number>> = {
-  'College': {
-    '24 hours': 37.19,
-    // ...add other deadlines as needed
-  },
-  'Undergraduate': {
-    '24 hours': 38.74,
-  },
-  'Masters': {
-    '24 hours': 46.48,
-  },
-  'PhD': {
-    '24 hours': 49.58,
-  },
-};
-const getBasePrice = (academicLevel: string, deadline: string, discipline: string, spacing: string) => {
-  let price = disciplinePriceMap[discipline] ?? defaultPriceTable[academicLevel]?.[deadline] ?? 0;
+// --- Unified Pricing using foundational rules ---
+const getBasePrice = (academicLevel: string, deadline: string, _discipline: string, spacing: string) => {
+  const levelConfig = (priceConfig as Record<string, Record<string, { base: number; urgent: number }>>)[academicLevel];
+  const deadlineConfig = levelConfig?.[deadline];
+  let price = 0;
+  if (deadlineConfig) {
+    price = deadlineConfig.base * deadlineConfig.urgent;
+  }
   if (spacing === 'single') price *= 2;
   return price;
 };

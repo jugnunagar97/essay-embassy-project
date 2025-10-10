@@ -104,60 +104,18 @@ const convertDeadlineToDate = (relativeDeadline: string): Date => {
   return futureDate;
 };
 
-// --- Dynamic Pricing Model ---
-const disciplinePriceMap: Record<string, number> = {
-  'Architecture': 40.91,
-  'Engineering': 40.91,
-  'Biology': 48.34,
-  'Healthcare': 48.34,
-  'Mathematics': 48.34,
-  'Medicine': 48.34,
-  'Nursing': 48.34,
-  'Chemistry': 44.63,
-  'Physics': 44.63,
-  'Programming': 44.63,
-  'Statistics': 59.50,
-};
-const defaultPriceTable: Record<string, Record<string, number>> = {
-  'College': {
-    '24 hours': 37.19,
-    '12 hours': 49.19,
-    '6 hours': 36.00,
-    '48 hours': 34.79,
-    '3 days': 33.59,
-    '5 days': 32.39,
-    '7 days': 25.19,
-  },
-  'Undergraduate': {
-    '24 hours': 38.74,
-    '12 hours': 51.24,
-    '6 hours': 37.50,
-    '48 hours': 36.24,
-    '3 days': 34.99,
-    '5 days': 33.74,
-    '7 days': 26.24,
-  },
-  'Masters': {
-    '24 hours': 46.48,
-    '12 hours': 61.48,
-    '6 hours': 45.00,
-    '48 hours': 43.48,
-    '3 days': 41.98,
-    '5 days': 40.48,
-    '7 days': 31.48,
-  },
-  'PhD': {
-    '24 hours': 49.58,
-    '12 hours': 65.58,
-    '6 hours': 48.00,
-    '48 hours': 46.38,
-    '3 days': 44.78,
-    '5 days': 43.18,
-    '7 days': 33.58,
-  },
-};
-const getBasePrice = (academicLevel: string, deadline: string, discipline: string, spacing: string) => {
-  let price = disciplinePriceMap[discipline] ?? defaultPriceTable[academicLevel]?.[deadline] ?? 0;
+// --- Unified Pricing (foundational rules) ---
+// Use the same priceConfig defined above. Compute price solely from level + deadline,
+// then apply spacing multiplier. This avoids mismatches like "High School"/"University"
+// mapping to legacy tables and returning 0.
+const getBasePrice = (academicLevel: string, deadline: string, _discipline: string, spacing: string) => {
+  const levelConfig = (priceConfig as Record<string, Record<string, { base: number; urgent: number }>>)[academicLevel];
+  const deadlineConfig = levelConfig?.[deadline];
+  let price = 0;
+  if (deadlineConfig) {
+    // Apply foundational rule: base multiplied by its urgent factor for short deadlines
+    price = deadlineConfig.base * deadlineConfig.urgent;
+  }
   if (spacing === 'single') price *= 2;
   return price;
 };
