@@ -7,8 +7,10 @@ import PriceDisplay from '../../components/Common/PriceDisplay';
 import CurrencyConverter from '../../components/Common/CurrencyConverter';
 
 
+
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
+
 
 const sampleCards = [
   {
@@ -40,6 +42,7 @@ const sampleCards = [
     citation: "Harvard"
   },
 ];
+
 
 export default function EssayWriting() {
   // FAQ state and data for FAQ block
@@ -76,9 +79,11 @@ export default function EssayWriting() {
   });
 
 
+
   const watchedValues = watch();
   const WORDS_PER_PAGE = 275;
   const totalWords = (watchedValues.pages || 1) * WORDS_PER_PAGE;
+
 
   // Price config copied from OrderNow
   const priceConfig = {
@@ -110,6 +115,7 @@ export default function EssayWriting() {
   // Update price calculation to multiply by number of pages
   const price = getBasePrice(watchedValues.academicLevel as keyof typeof priceConfig, watchedValues.deadline) * (watchedValues.pages || 1);
 
+
   const onSubmit = (data: { academicLevel: string; pages: number; deadline: string }) => {
     const params = new URLSearchParams({
       academicLevel: data.academicLevel,
@@ -118,6 +124,7 @@ export default function EssayWriting() {
     });
     navigate(`/order-now?${params.toString()}`);
   };
+
 
 
   return (
@@ -398,8 +405,12 @@ export default function EssayWriting() {
                 <li className="flex justify-between items-center font-semibold text-gray-800">Unlimited revisions <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
               </ul>
             </div>
-            {/* Additional services */}
-            <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
+
+            {/* ✅✅✅ SEO CONTENT SECTION STARTS HERE ✅✅✅ */}
+            {/* This is where Part 2 will connect */}
+
+                        {/* Additional services */}
+                        <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
               <h3 className="text-2xl font-bold text-gray-900 mb-1">Additional services</h3>
               <div className="text-gray-400 text-base mb-4">You can add them for an extra payment</div>
               <div className="border-t border-gray-100 mb-4"></div>
@@ -434,6 +445,89 @@ export default function EssayWriting() {
           </div>
         </div>
       </section>
+
+      {/* ✅✅✅ SEO CONTENT SECTION 1: What Makes Our Essay Writing Service Different ✅✅✅ */}
+      <section className="w-full bg-white py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Professional Essay Writing That Actually Helps Students Succeed</h2>
+          
+          <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
+            <p>
+              Writing essays can feel overwhelming when deadlines pile up and topics get complicated. Students juggle classes, jobs, and personal lives while trying to produce quality academic work. That's where professional essay writing services make a real difference.
+            </p>
+            
+            <p>
+              At Essay Embassy, we match students with qualified writers who understand their subjects inside and out. Our writers hold degrees in specific fields, so a biology student gets paired with someone who has studied science, not just someone who writes well. This matching system ensures essays contain accurate information and proper terminology instead of generic content.
+            </p>
+
+            <div className="bg-gray-50 border-l-4 border-primary-500 p-6 rounded-r-lg my-8">
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">How Our Process Works</h3>
+              <p className="text-base text-gray-700 mb-3">
+                Every essay starts with understanding the assignment requirements. Writers read prompts carefully, note citation styles, and plan paper structure before writing begins. Research comes from credible academic sources like peer-reviewed journals and university libraries, not random websites.
+              </p>
+              <p className="text-base text-gray-700">
+                Citations follow the required format exactly—MLA, APA, Chicago, or Harvard. The finished essay goes through quality checks before delivery to catch any errors or inconsistencies.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ✅✅✅ SEO CONTENT SECTION 2: Types of Essays We Write ✅✅✅ */}
+      <section className="w-full bg-gray-50 py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Every Type of Essay Written by Subject Experts</h2>
+          
+          <p className="text-lg text-gray-700 mb-8">
+            Different essays require different approaches and skills. Our writers handle all major essay types with expertise developed through years of academic writing experience.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Argumentative Essays</h3>
+              <p className="text-gray-600 text-base">
+                Build strong positions with solid evidence. Present counterarguments and refute them logically using persuasive language that convinces readers.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Narrative Essays</h3>
+              <p className="text-gray-600 text-base">
+                Tell compelling stories with clear beginnings, middles, and ends. Include vivid details that bring experiences to life while maintaining consistent voice.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Analytical Essays</h3>
+              <p className="text-gray-600 text-base">
+                Examine texts, films, or concepts in depth. Support interpretations with specific examples and go beyond surface-level observations.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Compare and Contrast Essays</h3>
+              <p className="text-gray-600 text-base">
+                Analyze similarities and differences between subjects. Organize points logically using block or point-by-point structure to draw meaningful conclusions.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Expository Essays</h3>
+              <p className="text-gray-600 text-base">
+                Explain complex topics in simple terms. Break down information into digestible parts and present facts clearly without personal opinions.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Admission Essays</h3>
+              <p className="text-gray-600 text-base">
+                Demonstrate why students fit particular programs. Balance humility with confidence while following word limits and formatting guidelines.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Samples Block - Clean, Professional, Reference Style */}
       <section className="w-full py-20 px-2 bg-white">
         <div className="max-w-6xl mx-auto">
@@ -463,6 +557,84 @@ export default function EssayWriting() {
           </div>
         </div>
       </section>
+
+      {/* ✅✅✅ SEO CONTENT SECTION 3: Benefits That Matter to Students ✅✅✅ */}
+      <section className="w-full bg-gray-50 py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Real Benefits That Actually Matter to Students</h2>
+          
+          <p className="text-lg text-gray-700 mb-8">
+            Choosing an essay writing service shouldn't feel risky or uncertain. We've built our reputation on delivering what students actually need—quality work, reliable service, and genuine support.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-xl border border-gray-200">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Original Content Guaranteed</h3>
+                  <p className="text-gray-600">
+                    Every essay goes through plagiarism detection software before delivery. We provide a free plagiarism report with each order. If any copied content shows up, we rewrite it immediately at no charge.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">On-Time Delivery</h3>
+                  <p className="text-gray-600">
+                    Deadlines matter in academics. We build in buffer time to handle unexpected issues. Rush orders get priority treatment. Late submissions don't happen unless a student requests an extension.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Unlimited Revisions</h3>
+                  <p className="text-gray-600">
+                    Sometimes papers need adjustments after the first draft. We offer free revisions for 14 days after delivery. Want a paragraph reworded or more evidence added? Just ask. No extra fees.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl border border-gray-200">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Complete Confidentiality</h3>
+                  <p className="text-gray-600">
+                    We don't share client information with anyone. Payment details stay encrypted. Even writers don't see student names, only usernames. Privacy stays protected throughout the entire process.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How It Works Journey Block */}
       <section className="w-full bg-white py-24">
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
@@ -509,6 +681,70 @@ export default function EssayWriting() {
           }
         `}</style>
       </section>
+
+      {/* ✅✅✅ SEO CONTENT SECTION 4: Quality and Pricing ✅✅✅ */}
+      <section className="w-full bg-white py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Fair Pricing and Quality Assurance</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Affordable Rates Based on Your Needs</h3>
+              <p className="text-gray-700 text-base mb-4">
+                Prices vary depending on three main factors: academic level, deadline, and page count. This flexible pricing ensures students only pay for what they need.
+              </p>
+              <p className="text-gray-700 text-base mb-4">
+                High school essays start at the lowest rates because they require less specialized knowledge. College and university essays cost slightly more since they demand deeper analysis and more sophisticated writing.
+              </p>
+              <p className="text-gray-700 text-base">
+                Graduate and PhD essays require the highest rates. These papers involve original research, extensive literature reviews, and scholarly writing conventions. Only our most experienced writers handle graduate-level work.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-4">Multiple Quality Checks</h3>
+              <p className="text-gray-700 text-base mb-4">
+                Every essay goes through quality control before reaching a student. This multi-step review process catches errors that individual writers might miss.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <span className="text-primary-600 font-bold text-lg">1.</span>
+                  <div>
+                    <p className="font-semibold text-gray-900">Subject Matter Review</p>
+                    <p className="text-gray-600 text-sm">An editor with expertise in the topic checks factual accuracy. Wrong information gets corrected and weak arguments get strengthened.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <span className="text-primary-600 font-bold text-lg">2.</span>
+                  <div>
+                    <p className="font-semibold text-gray-900">Writing Quality Check</p>
+                    <p className="text-gray-600 text-sm">A separate editor reviews grammar, spelling, punctuation, and sentence structure. Awkward phrasing gets smoothed out.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <span className="text-primary-600 font-bold text-lg">3.</span>
+                  <div>
+                    <p className="font-semibold text-gray-900">Formatting Verification</p>
+                    <p className="text-gray-600 text-sm">Someone specifically checks that citations, references, headers, and spacing match the required style guide perfectly.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <span className="text-primary-600 font-bold text-lg">4.</span>
+                  <div>
+                    <p className="font-semibold text-gray-900">Plagiarism Scan</p>
+                    <p className="text-gray-600 text-sm">The completed paper runs through multiple plagiarism detection tools. Any similarity to existing sources triggers a rewrite.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Assignment Help Stats Block (Compact, Themed) */}
       <section className="w-full bg-white py-12">
         <div className="max-w-6xl mx-auto px-4">
@@ -565,22 +801,22 @@ export default function EssayWriting() {
             <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Expert Essay Writing Service Tailored for Your Success</h2>
           </div>
           <p className="text-base text-gray-700 text-left mb-4">
-            When your assignments pile up, deadlines loom, or a tricky topic gets in the way, having a reliable essay writing service on your side can change everything. At EssayEmbassy.com, we’re here to help you navigate academic challenges with ease, providing clear, professional, and personalized essay writing support no matter your level, from high school to PhD.
+            When your assignments pile up, deadlines loom, or a tricky topic gets in the way, having a reliable essay writing service on your side can change everything. At EssayEmbassy.com, we're here to help you navigate academic challenges with ease, providing clear, professional, and personalized essay writing support no matter your level, from high school to PhD.
           </p>
           <p className="text-base text-gray-700 text-left mb-4">
-            This isn’t just about handing you a paper. It’s about giving you a tool to understand, improve, and succeed in your academic journey. Read on to discover how EssayEmbassy.com stands apart from typical writing help, how to make smart use of essay services, and why we are the trusted choice for thousands of students worldwide.
+            This isn't just about handing you a paper. It's about giving you a tool to understand, improve, and succeed in your academic journey. Read on to discover how EssayEmbassy.com stands apart from typical writing help, how to make smart use of essay services, and why we are the trusted choice for thousands of students worldwide.
           </p>
           <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
             <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">What Exactly Is an Essay Writing Service, And How Does It Help You?</h3>
             <p className="text-sm text-gray-700 mb-3">
-              You might already guess what an essay writing service is, but here’s why it matters more than just delivering essays on demand: it’s your academic partner when time, skills, or resources don’t meet the mark. Simply put, an essay writing service connects you with expert writers who craft well-researched, original essays according to your instructions. But EssayEmbassy.com goes deeper: we pair you with writers who have real knowledge in your subject area, so the papers you get aren’t generic—they’re meaningful, accurate, and academically sound. So it’s not about bypassing hard work; it’s about balancing your schedule, ensuring quality, and learning through studying solid examples.
+              You might already guess what an essay writing service is, but here's why it matters more than just delivering essays on demand: it's your academic partner when time, skills, or resources don't meet the mark. Simply put, an essay writing service connects you with expert writers who craft well-researched, original essays according to your instructions. But EssayEmbassy.com goes deeper: we pair you with writers who have real knowledge in your subject area, so the papers you get aren't generic—they're meaningful, accurate, and academically sound. So it's not about bypassing hard work; it's about balancing your schedule, ensuring quality, and learning through studying solid examples.
             </p>
 
             <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Why Students Choose EssayEmbassy.com for Their Essays</h3>
             <ul className="list-disc pl-5 mb-3">
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Expert Writers Across All Levels:</span> From generalists who help high school essays to PhD experts who understand complex research and citations.</li>
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Guaranteed:</span> Each paper is crafted from scratch and checked with advanced plagiarism tools so your work is unique and safe.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Custom-Tailored To Your Instructions:</span> Your essay will follow your teacher’s exact requirements, formatting style, and academic level.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Custom-Tailored To Your Instructions:</span> Your essay will follow your teacher's exact requirements, formatting style, and academic level.</li>
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Strict Deadlines Met:</span> We deliver your essay on time, every time.</li>
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Transparent Pricing:</span> Clear costs upfront; no hidden fees or surprise charges. Plus, discounts for returning students.</li>
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">24/7 Support:</span> Questions? Need a revision? Our team is available whenever you need.</li>
@@ -601,22 +837,22 @@ export default function EssayWriting() {
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Be Clear and Detailed in Your Instructions:</span> Include topic, length, sources, formatting style (APA, MLA, Chicago, Harvard), and any specific guidelines.</li>
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Set Realistic Deadlines:</span> More time allows deeper research and thoughtful revisions.</li>
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Use the Essay Responsibly:</span> Study the structure, arguments, and citations to learn and improve.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Ask Questions and Communicate:</span> Clarify anything that’s unclear to avoid misunderstandings.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Ask Questions and Communicate:</span> Clarify anything that's unclear to avoid misunderstandings.</li>
               <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Read and Request Revisions:</span> Review carefully and request free revisions if needed.</li>
             </ul>
 
             <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Common Myths and Concerns About Essay Writing Services</h3>
-            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #1: Using an Essay Service Is Cheating.</span> It’s not cheating if you use the essay to learn. Copying without understanding crosses the line; using examples and guidance is smart.</p>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #1: Using an Essay Service Is Cheating.</span> It's not cheating if you use the essay to learn. Copying without understanding crosses the line; using examples and guidance is smart.</p>
             <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #2: Essays are Low-Quality or Plagiarized.</span> Professional services like EssayEmbassy.com hire expert writers and check every paper for plagiarism.</p>
-            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #3: It’s Too Expensive.</span> We offer competitive pricing and student discounts.</p>
-            <p className="text-sm text-gray-700 mb-3"><span className="font-semibold">Myth #4: I Won’t Get a Paper on Time.</span> We maintain an excellent on-time record, with proactive support if delays arise.</p>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #3: It's Too Expensive.</span> We offer competitive pricing and student discounts.</p>
+            <p className="text-sm text-gray-700 mb-3"><span className="font-semibold">Myth #4: I Won't Get a Paper on Time.</span> We maintain an excellent on-time record, with proactive support if delays arise.</p>
 
             <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Why Students Worldwide Trust EssayEmbassy.com</h3>
             <p className="text-sm text-gray-700 mb-2">
               Students in the US, UK, Australia, Canada, and Europe rely on us because we understand diverse academic standards and subject requirements. Whether you need a high school essay or
               <a href="https://essayembassy.com/academic-writing/book-review" className="text-primary-600 hover:underline ml-1">book report</a>, a university-level
               <a href="https://essayembassy.com/research-paper-writing" className="text-primary-600 hover:underline ml-1">research paper</a> or
-              <a href="https://essayembassy.com/academic-writing/term-paper" className="text-primary-600 hover:underline ml-1">term paper</a>, a master’s
+              <a href="https://essayembassy.com/academic-writing/term-paper" className="text-primary-600 hover:underline ml-1">term paper</a>, a master's
               <a href="https://essayembassy.com/thesis-writing" className="text-primary-600 hover:underline ml-1">thesis proposal</a> or literature review, or a PhD
               <a href="https://essayembassy.com/dissertation-writing" className="text-primary-600 hover:underline ml-1">dissertation draft</a> or journal article—our writers have you covered.
             </p>
