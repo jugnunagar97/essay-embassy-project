@@ -66,13 +66,6 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
         </button>
       </div>
 
-      {/* Currency Converter for Mobile */}
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Currency:</span>
-          <CurrencyConverter variant="widget" />
-        </div>
-      </div>
 
       {/* Main Navigation Links */}
       <nav className="p-4 space-y-2">

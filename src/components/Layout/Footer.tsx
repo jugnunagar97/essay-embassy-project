@@ -150,18 +150,10 @@ export default function Footer() {
               <div className="flex items-center gap-4">
                 <span className="text-gray-300 text-sm font-medium">We Accept:</span>
                 <div className="flex items-center gap-3">
-                  <div className="bg-white px-3 py-2 rounded shadow-sm flex items-center justify-center">
-                    <img src={visaLogo} alt="Visa" className="h-6 w-auto" />
-                  </div>
-                  <div className="bg-white px-3 py-2 rounded shadow-sm flex items-center justify-center">
-                    <img src={mastercardLogo} alt="Mastercard" className="h-6 w-auto" />
-                  </div>
-                  <div className="bg-white px-3 py-2 rounded shadow-sm flex items-center justify-center">
-                    <img src={amexLogo} alt="American Express" className="h-6 w-auto" />
-                  </div>
-                  <div className="bg-white px-3 py-2 rounded shadow-sm flex items-center justify-center">
-                    <img src={discoverLogo} alt="Discover" className="h-6 w-auto" />
-                  </div>
+                  <img src={visaLogo} alt="Visa" className="h-6 w-auto" />
+                  <img src={mastercardLogo} alt="Mastercard" className="h-6 w-auto" />
+                  <img src={amexLogo} alt="American Express" className="h-6 w-auto" />
+                  <img src={discoverLogo} alt="Discover" className="h-6 w-auto" />
                 </div>
               </div>
             </div>

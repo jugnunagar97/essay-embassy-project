@@ -6,5 +6,11 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     exclude: ['lucide-react'],
+    include: ['react-icons/fa', 'react-icons'],
+  },
+  resolve: {
+    alias: {
+      'react-icons/fa': 'react-icons/fa',
+    },
   },
 });

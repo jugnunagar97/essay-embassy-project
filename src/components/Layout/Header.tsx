@@ -72,10 +72,6 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
         <div className="flex items-center gap-3">
           <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 hidden sm:block font-medium transition-colors">WhatsApp</a>
           
-          {/* Currency Converter */}
-          <div className="block">
-            <CurrencyConverter variant="header" />
-          </div>
           
           <Link to="/order-now" className="btn-primary text-sm px-3 py-2">
             Order Now
