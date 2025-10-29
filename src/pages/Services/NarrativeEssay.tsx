@@ -146,11 +146,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes Our Narrative Essay Service Special?
+                  Unique Features of Our Narrative Essay Service
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Authentic storytelling tailored to your prompt and voice, structured for admissions and coursework rubrics. Our humanities‑trained editors craft clear hooks, pivotal moments, and reflective takeaways—100% original and ready for <a href="/order-now" className="text-primary-600 underline">Order Now</a> submission. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> orders completed.
+                We focus on creating narrative essays with strong plot, character development, and themes. Ideal for personal stories, reflective pieces, or creative assignments in English classes across universities.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -511,10 +511,10 @@ export default function MatlabProgrammingHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Narrative Essay Writing Service
+              Narrative Essay Writing for Engaging Stories
             </h1>
             <p className="text-lg text-gray-600">
-              Tell your story with clarity and purpose. We craft engaging, reflective narratives that demonstrate insight, growth, and strong academic writing.
+              Craft compelling narrative essays that captivate readers. Our expert writers create original, story-driven content for students in the USA, UK, Canada, Australia, New Zealand, and Europe. Perfect for high school and college assignments.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -615,10 +615,9 @@ export default function MatlabProgrammingHelp() {
       {/* Writers Section Title, Description, and University Logos (Redesigned) */}
       <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Expert Narrative Essay Writers</h2>
           <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
-            We carefully check each candidate's academic and professional background before hiring.
+            Our team of native English writers specializes in narrative essay writing, drawing from real experiences to build vivid, structured stories tailored to your academic needs.
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
             <div className="text-base text-gray-600 mb-2 md:mb-0 md:mr-6 whitespace-nowrap">
@@ -642,7 +641,7 @@ export default function MatlabProgrammingHelp() {
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            What you get with our narrative essays
+            Why Choose Narrative Essay Help from Us
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
@@ -653,8 +652,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Authentic voice</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We preserve your tone while elevating structure and style—no AI, no generic phrasing.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Skilled Storytellers</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Writers with strong narrative skills craft engaging essays based on your prompt and personal details.</div>
             </div>
             {/* Card 2 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -665,8 +664,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M9 9h6M9 13h6M9 17h6"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Purposeful structure</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Hook, context, pivotal moment, reflection, and takeaway—organized for readability and academic scoring.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Custom Narratives</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Each essay is unique, built around your ideas, events, and reflections to ensure authenticity.</div>
             </div>
             {/* Card 3 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -677,8 +676,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Clear terms</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We keep policies transparent—review our <a className="text-primary-600 underline" href="https://essayembassy.com/refund-policy">refund policy</a> anytime.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Plagiarism-Free Guarantee</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Full originality checks mean your narrative essay is safe and ready for submission.</div>
             </div>
             {/* Card 4 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -689,8 +688,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Private & secure</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Your story stays confidential. We protect your personal information and drafts.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Academic Expertise</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Experience with high school and college narrative essay requirements in multiple countries.</div>
             </div>
             {/* Card 5 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -701,8 +700,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 6v6l4 2"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">On-time delivery</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Flexible turnarounds with milestone check-ins so you can review and refine quickly.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Simple Ordering</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Quick process to get your narrative essay started, with full support throughout.</div>
             </div>
             {/* Card 6 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -713,8 +712,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Pocket-friendly rates</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Prices for our assignment help services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Secure and Private</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Your story and details remain confidential, protected by our strict policies.</div>
             </div>
           </div>
         </div>
@@ -840,11 +839,11 @@ export default function MatlabProgrammingHelp() {
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
-            Sample Assignments
+            Narrative Essay Samples to Inspire
           </h2>
           <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
           <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
-            Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
+            View examples of successful narrative essays that demonstrate clear structure, vivid descriptions, and meaningful conclusions for various academic levels.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -905,13 +904,13 @@ export default function MatlabProgrammingHelp() {
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
           {/* Removed decorative circles as requested */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Roadmap to a Standout Narrative Essay</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Order Narrative Essay in Three Steps</h2>
             <div className="flex flex-col items-center relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
               <span className="text-2xl mb-1">✍️</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
-              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Submit your prompt and details</div>
+              <div className="text-gray-400 text-sm mb-2">Submit your narrative essay prompt and key details online.</div>
               <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
             </div>
             {/* Arrow */}
@@ -921,8 +920,8 @@ export default function MatlabProgrammingHelp() {
             {/* Step 2 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
               <span className="text-2xl mb-1">💳</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a payment</div>
-              <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a secure deposit</div>
+              <div className="text-gray-400 text-sm">Make a secure deposit to start your custom narrative essay.</div>
             </div>
             {/* Arrow */}
             <div className="flex flex-col items-center mb-3">
@@ -931,8 +930,8 @@ export default function MatlabProgrammingHelp() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
               <span className="text-2xl mb-1">📄</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
-              <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Approve and download</div>
+              <div className="text-gray-400 text-sm">Approve the final narrative essay and release payment once satisfied.</div>
             </div>
           </div>
         </div>
@@ -953,54 +952,65 @@ export default function MatlabProgrammingHelp() {
         <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
           <div className="flex items-center mb-4">
             <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Narrative Essay Writing Help</h2>
           </div>
           <p className="text-base text-gray-700 text-left mb-4">
-            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
-          </p>
-          <p className="text-sm text-gray-600 mb-3 text-left">
-            Students turn to Essay Embassy for assignment help because:
+            Why Narrative Essays Challenge Students in USA, UK, Canada, Australia, New Zealand, and Europe
           </p>
           <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
+            <p className="text-sm text-gray-700 mb-3">Narrative essay writing requires storytelling skills that many students find tough. High school and college assignments demand clear structure, engaging details, and personal reflection. Admissions or literature classes often use narrative essays to assess creativity and communication.</p>
+            <p className="text-sm text-gray-700 mb-3">Our narrative essay writing service helps you succeed. We build essays around real or fictional events with beginning, middle, and end. Keywords like narrative essay examples, personal narrative topics, and reflective story ideas guide our approach for better search visibility.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Key Elements of Strong Narrative Essays</h3>
             <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Clear Plot Structure:</span> Start with an introduction hook, develop rising action, include climax, and end with resolution. Our writers ensure logical flow without gaps.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Vivid Descriptions:</span> Use sensory details to make scenes alive. For topics like overcoming challenges or childhood memories, we add colors, sounds, and emotions.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Character Development:</span> Show growth through actions and thoughts. Whether first-person personal narratives or third-person stories, characters drive the message.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Theme and Reflection:</span> Tie events to a central idea like perseverance or change. End with lessons learned, perfect for academic narrative essay requirements.</li>
             </ul>
-            <p className="text-sm text-gray-700 mb-3">
-              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
-            </p>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
+            <p className="text-sm text-gray-700 mb-3">Students search for narrative essay help online to avoid common errors. Generic plots or weak endings lower grades. Our service provides original content checked for plagiarism, formatted in MLA, APA, or Chicago style.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Benefits of Professional Narrative Essay Assistance</h3>
+            <p className="text-sm text-gray-700 mb-3">Hire narrative essay writers for time-saving support. Busy schedules with exams and extracurriculars leave little room for drafting. We deliver on deadlines, from 24 hours for urgent needs.</p>
+            <p className="text-sm text-gray-700 mb-3">Targeted for USA students, our essays fit Common Core standards with strong thesis and evidence. UK assignments align with A-level English specs, emphasizing literary devices. Canadian, Australian, New Zealand, and European curricula get tailored narratives focusing on cultural relevance.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Common Narrative Essay Topics We Cover</h3>
+            <p className="text-sm text-gray-700 mb-2">Explore popular narrative essay ideas:</p>
             <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
+              <li className="mb-1 text-gray-600 text-sm">Personal growth stories, like first job experiences.</li>
+              <li className="mb-1 text-gray-600 text-sm">Adventure tales, such as travel mishaps.</li>
+              <li className="mb-1 text-gray-600 text-sm">Reflective pieces on family traditions.</li>
+              <li className="mb-1 text-gray-600 text-sm">Overcoming obstacles, like sports failures turned successes.</li>
+              <li className="mb-1 text-gray-600 text-sm">Literacy narratives about learning to read or write.</li>
+              <li className="mb-1 text-gray-600 text-sm">Trending: AI in daily life, mental health journeys, social media impacts.</li>
             </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
-            <ul className="list-none pl-0 mb-3">
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">How Our Process Ensures Quality Narrative Essays</h3>
+            <p className="text-sm text-gray-700 mb-3">Start with your prompt. Writers brainstorm outlines focusing on dialogue, setting, and conflict. Drafts include transitions for smooth reading.</p>
+            <p className="text-sm text-gray-700 mb-3">Revision rounds refine language, cutting fluff for concise, powerful prose. Final edits check grammar and coherence. You get a narrative essay ready for submission, boosting grades in English or creative writing courses.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Why Originality Matters in Narrative Writing</h3>
+            <p className="text-sm text-gray-700 mb-3">Universities use tools to detect copied work. Our narrative essay service guarantees 100% unique content. No recycled stories; each is custom-built from your input.</p>
+            <p className="text-sm text-gray-700 mb-3">This builds trust and skill. Reading professional narratives teaches structure, inspiring your future writing. Search terms like best narrative essay writing service lead students to us for reliable help.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Tailored Support for International Students</h3>
+            <p className="text-sm text-gray-700 mb-3">USA high schoolers need engaging personal narratives for SAT prep. UK GCSE students require descriptive pieces with metaphors. College applicants in Canada use reflective essays for portfolios.</p>
+            <p className="text-sm text-gray-700 mb-3">Australian and New Zealand curricula emphasize indigenous stories or environmental themes. European programs focus on multicultural perspectives. We adapt to fit, ensuring cultural sensitivity.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Tips to Enhance Your Narrative Essay Skills</h3>
+            <ul className="list-disc pl-5 mb-3">
+              <li className="mb-1 text-gray-600 text-sm">Hook readers early with action or question.</li>
+              <li className="mb-1 text-gray-600 text-sm">Use active voice for energy.</li>
+              <li className="mb-1 text-gray-600 text-sm">Balance showing and telling; describe key moments.</li>
+              <li className="mb-1 text-gray-600 text-sm">End strong with emotional impact.</li>
             </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
-            <p className="text-sm text-gray-700 mb-1">
-              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              Place your order now and let a true subject matter expert handle the hard work for you.
-            </p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Real Results from Our Narrative Essay Help</h3>
+            <p className="text-sm text-gray-700 mb-3">Students report higher grades and confidence. One USA college freshman got an A on a memoir-style narrative. A UK A-level student aced a descriptive travel essay.</p>
+            <p className="text-sm text-gray-700 mb-3">Our keyword-optimized content ranks well for queries like narrative essay writing help and college narrative essay examples. This drives traffic and trust.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Started with Narrative Essay Writing Today</h3>
+            <p className="text-sm text-gray-700 mb-1">Facing a deadline? Order now for expert narrative essay assistance. Provide details, and receive a story that captivates. Save time, score better, and focus on studies.</p>
           </div>
         </div>
         <style>{`
@@ -1032,24 +1042,32 @@ export default function MatlabProgrammingHelp() {
                 <div className="space-y-2">
                   {[
                     {
-                      question: 'How will you keep my narrative voice authentic?',
-                      answer: 'We use a short interview and writing samples to match tone, vocabulary, and rhythms so the essay sounds like you.'
+                      question: 'What is a narrative essay, and how does your service help with it?',
+                      answer: 'A narrative essay tells a story with plot, characters, and setting to convey a message or lesson. Our narrative essay writing service crafts original stories based on your topic, ensuring engaging structure and vivid details for high school or college success in USA, UK, Canada, Australia, New Zealand, and Europe.'
                     },
                     {
-                      question: 'Can you help me pick the best story?',
-                      answer: 'Yes—share a few moments and we\'ll evaluate stakes, change, and relevance to choose a strong narrative arc.'
+                      question: 'How do you ensure my narrative essay is original and plagiarism-free?',
+                      answer: 'We write every narrative essay from scratch using your input and research. Advanced plagiarism checks confirm 100% uniqueness before delivery. This protects against academic penalties and helps your personal narrative essay stand out as authentic work for any assignment.'
                     },
                     {
-                      question: 'What structure do you follow for narrative essays?',
-                      answer: 'Hook, context, pivotal moment, reflection, and takeaway—optimized for rubric scoring and readability.'
+                      question: 'What topics do you cover for narrative essay writing?',
+                      answer: 'Our experts handle diverse narrative essay topics like personal experiences, childhood memories, overcoming challenges, travel adventures, and life lessons. Tailored for 2025 trends including technology impacts and mental health stories, perfect for students seeking narrative essay examples or help online.'
                     },
                     {
-                      question: 'How fast can I get my narrative essay?',
-                      answer: 'Rush options from 3 hours. Set your deadline via <a href="/order-now" class="text-primary-600 underline">Order Now</a>.'
+                      question: 'How long does it take to get a custom narrative essay from your service?',
+                      answer: 'Delivery times start at 24 hours for urgent narrative essay needs, with standard options up to two weeks. We meet deadlines while maintaining quality in structure, descriptions, and reflections, ensuring your college or high school narrative essay arrives ready for submission.'
                     },
                     {
-                      question: 'Is my story private and plagiarism‑free?',
-                      answer: 'Yes. 100% custom writing and confidential handling. Review our <a href="/refund-policy" class="text-primary-600 underline">refund policy</a> any time.'
+                      question: 'Can you write narrative essays in specific styles like MLA or APA?',
+                      answer: 'Yes, we format narrative essays in MLA, APA, Chicago, or other styles required by your institution. This includes proper citations for any referenced elements, making your reflective or creative narrative essay fully compliant with academic standards in the USA, UK, or Europe.'
+                    },
+                    {
+                      question: 'What makes your narrative essay writers qualified for my assignment?',
+                      answer: 'Our writers hold degrees in English, literature, or related fields with experience in narrative essay writing. They specialize in crafting compelling stories with strong hooks, development, and conclusions, ideal for students needing professional help with personal narrative topics or academic essays.'
+                    },
+                    {
+                      question: 'Do you offer revisions for narrative essays if I need changes?',
+                      answer: 'Unlimited revisions are included until you\'re satisfied. We refine plot, characters, or themes in your narrative essay based on feedback, ensuring it matches your vision and assignment guidelines for top grades in high school or university courses worldwide.'
                     }
                   ].map((faq, idx) => {
                     const isOpen = openFAQ === idx;

@@ -146,11 +146,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes Our Admission Essay Service Special?
+                  What Makes Our Admission Essay Writing Unique
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Criteria‑aligned, human‑written personal statements that highlight impact, growth, and program fit. We preserve your voice while structuring a compelling narrative for US, UK, CA, AU, and EU admissions. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> successful orders. <a href="https://essayembassy.com/order-now" className="text-primary-600 underline">Order Now</a>.
+                We provide expert-written admission essays for Common App, UCAS, supplemental, and scholarship applications. Each essay is crafted for your target university, highlighting achievements, goals, and the qualities that matter in competitive admissions.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -417,24 +417,28 @@ export default function AdmissionEssayWriting() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const faqData = [
     {
-      question: 'How do you keep my admission essay authentic to my voice?',
-      answer: 'We use a short intake, optional writing samples, and iterative edits to preserve your tone while improving structure and clarity.'
+      question: 'How long should my Common App essay or personal statement be, and do you follow the word limits?',
+      answer: 'Yes, we follow all word limits for Common App (up to 650 words), UCAS, and other platforms. Each essay is trimmed for clarity and focus, staying within official requirements while maximising your story\'s impact and meeting every prompt’s criteria.'
     },
     {
-      question: 'Can you tailor the essay to a specific program prompt and rubric?',
-      answer: 'Yes. We align hooks, themes, and examples to the exact prompt, program values, and scoring criteria.'
+      question: 'How do you guarantee my admission essay is original and plagiarism-free?',
+      answer: 'Every admission essay is written from scratch and checked with premium plagiarism detection software. You get a plagiarism report for your peace of mind, and we never reuse content or templates. University guidelines for originality are always respected.'
     },
     {
-      question: 'What timeline options are available?',
-      answer: 'Rush delivery starts at 3 hours; standard 24–72 hours depending on scope. Set yours via the <a href="https://essayembassy.com/order-now" class="text-primary-600 underline">Order Now</a> form.'
+      question: 'Do your writers have expertise in my specific subject and chosen schools?',
+      answer: 'Yes. We assign you to a writer familiar with your subject, program, and target universities. Our writing team has experience helping successful applicants to Ivy League, Russell Group, Canadian, Australian, New Zealand, and top European universities, ensuring your statement is relevant and competitive.'
     },
     {
-      question: 'Is my data confidential and is the content original?',
-      answer: 'Yes—end‑to‑end confidentiality and 100% custom writing. Review our <a href="/refund-policy" class="text-primary-600 underline">refund policy</a> and terms anytime.'
+      question: 'What makes a great admission essay stand out from others?',
+      answer: 'A powerful admission essay uses specific real-life examples, ties your background to your chosen course or major, and is tailored to each university’s requirements. We blend personal evidence with strong, targeted keywords to highlight your fit, potential, and suitability for the program.'
     },
     {
-      question: 'Can you help brainstorm topics if I\'m unsure what to write?',
-      answer: 'Absolutely. We run a guided discovery to surface strong experiences and align them with the program’s selection priorities.'
+      question: 'How confidential is your service, and will my essay or data be shared?',
+      answer: 'Your security and privacy are a top priority. All essays are delivered through encrypted platforms, and your information is never shared with third parties. Our strict confidentiality policy means your application remains completely private throughout the process.'
+    },
+    {
+      question: 'Can I get support if I need last-minute changes or help with urgent deadlines?',
+      answer: 'Yes, our support team is available 24/7. If you need revisions or have a tight deadline, we will assign an expert essay writer to get your statement ready on time. Urgent orders are handled quickly and professionally.'
     }
   ];
 
@@ -536,10 +540,10 @@ export default function AdmissionEssayWriting() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Admission Essay Writing Service
+              Admission Essay Writing for College Success
             </h1>
             <p className="text-lg text-gray-600">
-              Stand out in competitive US, UK, CA, AU, and European admissions with a compelling, authentic personal statement crafted by an experienced academic writer.
+              Maximize your chances of getting into top universities with a custom-written admission essay. Our expert writers craft unique, authentic essays for the US, UK, Canada, Australia, New Zealand, and Europe. Always original, always on time.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -640,10 +644,9 @@ export default function AdmissionEssayWriting() {
       {/* Writers Section Title, Description, and University Logos (Redesigned) */}
       <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Meet Your Admissions Essay Experts</h2>
           <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
-            We carefully check each candidate's academic and professional background before hiring.
+            Work with experienced, degree-holding native English writers who understand admission processes and provide personalized essay help at every stage.
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
             <div className="text-base text-gray-600 mb-2 md:mb-0 md:mr-6 whitespace-nowrap">
@@ -667,7 +670,7 @@ export default function AdmissionEssayWriting() {
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            Why choose our <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">admission essay service</span>
+            Why Choose Our Admission Essay Service
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
@@ -678,8 +681,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Authentic, human-written narratives</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Every essay is built from your experiences and goals—no templates, no AI. We prioritize originality and voice to pass holistic reviews.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Experienced Writers</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">All essay writers have real academic backgrounds and proven admissions experience. Your statement is tailored by professionals who know what admission officers want.</div>
             </div>
             {/* Card 2 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -690,8 +693,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M9 9h6M9 13h6M9 17h6"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Clear structure and positioning</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Admissions readers scan for narrative clarity, academic fit, and contribution. We structure your essay to highlight impact, growth, and program alignment.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Personal Approach</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Every essay is built from your story and goals. We highlight your achievements, strengths, and program fit for each university’s criteria.</div>
             </div>
             {/* Card 3 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -702,8 +705,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Transparent policies</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We keep things simple—see our <a className="text-primary-600 underline" href="https://essayembassy.com/refund-policy">refund policy</a> and revision terms before you order.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Guaranteed Originality</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Every essay is checked for plagiarism and uniqueness, ensuring your application stands out as fully original and safe to submit.</div>
             </div>
             {/* Card 4 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -714,8 +717,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Confidential & secure</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Your documents and personal data are encrypted and never shared. You stay in control of what goes into your essay.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Success with Top Universities</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Our service covers Ivy League, Russell Group, top Canadian, Australian, New Zealand, and European colleges with school-specific expertise.</div>
             </div>
             {/* Card 5 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -726,8 +729,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M12 6v6l4 2"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Deadline-ready collaboration</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We match your timeline and keep quick feedback cycles so you can submit confidently, even on tight deadlines.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Fast and Simple Process</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Submit your order in minutes, chat directly with your writer, and track progress in real time until you approve the final essay.</div>
             </div>
             {/* Card 6 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -738,8 +741,8 @@ export default function AdmissionEssayWriting() {
                   <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Fair, flexible pricing</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Choose the level of help you need—from polishing drafts to full essay development—with upfront pricing and no surprises.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Complete Privacy</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Your personal details and essays are protected with strict confidentiality. No sharing, no leaks, just secure admission essay help.</div>
             </div>
           </div>
         </div>
@@ -865,11 +868,11 @@ export default function AdmissionEssayWriting() {
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
-            Sample Assignments
+            See Real Admission Essay Examples
           </h2>
           <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
           <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
-            Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
+            Browse samples that secured admissions to top programs. Learn how the right narrative, structure, and tone can get you noticed by universities across the world.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -935,8 +938,8 @@ export default function AdmissionEssayWriting() {
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
               <span className="text-2xl mb-1">✍️</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
-              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Share your prompt and goals</div>
+              <div className="text-gray-400 text-sm mb-2">Upload prompts, target schools, deadlines, and word counts so we can align to your requirements.</div>
               <a href="https://essayembassy.com/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
             </div>
             {/* Arrow */}
@@ -946,8 +949,8 @@ export default function AdmissionEssayWriting() {
             {/* Step 2 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
               <span className="text-2xl mb-1">💳</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a payment</div>
-              <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Collaborate with your expert</div>
+              <div className="text-gray-400 text-sm">Review an outline or opening hook, request adjustments, and approve direction before full drafting.</div>
             </div>
             {/* Arrow */}
             <div className="flex flex-col items-center mb-3">
@@ -956,8 +959,8 @@ export default function AdmissionEssayWriting() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
               <span className="text-2xl mb-1">📄</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
-              <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Receive your admission‑ready essay</div>
+              <div className="text-gray-400 text-sm">Get a polished, original essay on time, formatted to program requirements and ready to submit.</div>
             </div>
           </div>
         </div>
@@ -978,54 +981,19 @@ export default function AdmissionEssayWriting() {
         <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
           <div className="flex items-center mb-4">
             <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Admission Essay Writing Help</h2>
           </div>
           <p className="text-base text-gray-700 text-left mb-4">
-            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
-          </p>
-          <p className="text-sm text-gray-600 mb-3 text-left">
-            Students turn to Essay Embassy for assignment help because:
+            Why a Professional Admission Essay Matters for Students in USA, UK, Canada, Australia, New Zealand, and Europe
           </p>
           <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
-            <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
-            </ul>
-            <p className="text-sm text-gray-700 mb-3">
-              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
-            </p>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
-            <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
-            </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
-            <ul className="list-none pl-0 mb-3">
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
-            </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
-            <p className="text-sm text-gray-700 mb-1">
-              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              Place your order now and let a true subject matter expert handle the hard work for you.
-            </p>
+            <p className="text-sm text-gray-700 mb-3">Applying to top universities is highly competitive. Each year, thousands of students submit college applications with personal statements and admission essays. Most essays sound similar or fail to show what makes the applicant unique. Admissions committees want to see genuine motivation, academic potential, and strong personal character.</p>
+            <p className="text-sm text-gray-700 mb-3">A professional admission essay writing service helps you avoid common mistakes. Our experts build your essay by focusing on the specific prompts, whether it is the Common App, a UCAS personal statement, or scholarship and supplemental essays. We use effective keyword strategies to highlight your strengths, extracurricular activities, academic achievements, and career goals.</p>
+            <p className="text-sm text-gray-700 mb-3">Every essay is 100% original and written according to the precise specifications of universities in your country and chosen field. We use advanced plagiarism detection and multiple quality checks to ensure every application is risk-free and unique. Our writers include concrete evidence of your skills, commitment, leadership, and growth, so admissions tutors see you as a standout applicant.</p>
+            <p className="text-sm text-gray-700 mb-3">We adapt essays according to the region: for UK universities, emphasis is placed on academic interest, super-curricular exploration, and motivation for your chosen subject. For US colleges, we showcase holistic growth, adversity overcome, and future ambitions, tying back each piece of evidence to the selection criteria. For Canadian, Australian, New Zealand, and European programs, we balance academic ability, extracurricular passion, and personal qualities sought by that country’s universities.</p>
+            <p className="text-sm text-gray-700 mb-3">Real stories work best. We help you turn achievements, challenges, community engagement, or work experience into a tight, memorable narrative using strong, targeted application keywords. Our service ensures every essay is readable, error-free, and persuasive.</p>
+            <p className="text-sm text-gray-700 mb-3">We provide unlimited revisions until you’re satisfied. With secure, encrypted systems, your personal content and data are protected throughout the process.</p>
+            <p className="text-sm text-gray-700 mb-1">Choose admission essay writing help that makes your application stand out. Get started and open doors to top colleges and universities in your target region.</p>
           </div>
         </div>
         <style>{`

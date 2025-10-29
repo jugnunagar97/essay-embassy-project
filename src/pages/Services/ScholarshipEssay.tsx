@@ -146,11 +146,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes Our Scholarship Essay Service Special?
+                  Distinct Benefits of Our Scholarship Essay Writing
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Criteria‑first planning, data‑rich narratives, and distinctive positioning for competitive awards. We quantify achievements, connect to mission fit, and keep your voice. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> orders completed. Ready to apply? <a href="/order-now" className="text-primary-600 underline">Order Now</a>.
+                We craft essays that highlight your strengths, academic background, and future potential. Our writers focus on clear language, impactful stories, and direct answers to scholarship prompts. This strategy increases your chances for acceptance and funding across top universities.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -511,10 +511,10 @@ export default function MatlabProgrammingHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Scholarship Essay Writing Service
+              Scholarship Essay Writing Service for Winning Applications
             </h1>
             <p className="text-lg text-gray-600">
-              Win funding with a persuasive, criteria‑focused scholarship essay. We highlight impact, financial need, leadership, and community service with clear evidence and a strong personal voice.
+              Improve your chances of securing scholarship funds with a custom-written, original essay. Our expert writers highlight your achievements and goals for competitive university grants and awards. Get fast, high-quality help tailored for students worldwide.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -615,10 +615,9 @@ export default function MatlabProgrammingHelp() {
       {/* Writers Section Title, Description, and University Logos (Redesigned) */}
       <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Top Scholarship Essay Writers</h2>
           <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
-            We carefully check each candidate's academic and professional background before hiring.
+            Work with skilled academic writers who understand scholarship requirements, committee expectations, and the importance of authentic personal stories in your application.
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
             <div className="text-base text-gray-600 mb-2 md:mb-0 md:mr-6 whitespace-nowrap">
@@ -642,7 +641,7 @@ export default function MatlabProgrammingHelp() {
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            What makes a winning scholarship essay
+            Why Choose Our Scholarship Essay Help
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
@@ -653,8 +652,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Compelling personal narrative</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We translate your activities into measurable outcomes and impact—showing leadership, resilience, and fit with the donor’s mission.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Experienced Writers</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Our team has a history of helping applicants win major scholarships worldwide.</div>
             </div>
             {/* Card 2 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -665,8 +664,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M9 9h6M9 13h6M9 17h6"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Criteria‑aligned structure</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We align every paragraph to the judging rubric and address prompts thoroughly, with concise, memorable wording.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Custom Essays</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Every scholarship essay is personalized to your achievements, goals, and funding requirements.</div>
             </div>
             {/* Card 3 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -677,8 +676,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Transparent guarantees</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Review our <a className="text-primary-600 underline" href="https://essayembassy.com/refund-policy">refund policy</a> and revision terms before placing an order.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Originality Guarantee</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">All essays are written from scratch and checked with advanced plagiarism software.</div>
             </div>
             {/* Card 4 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -689,8 +688,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Confidential materials</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Your transcripts, recommendation notes, and drafts remain private and are never reused.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Fast Turnaround</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Receive your completed scholarship essay before deadlines, with support for urgent orders.</div>
             </div>
             {/* Card 5 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -701,8 +700,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 6v6l4 2"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Deadline‑ready drafts</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We can produce fast first drafts and polish them through quick revisions to hit application cutoffs.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Confidential Process</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Your application details and essay remain secure and private at every stage.</div>
             </div>
             {/* Card 6 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -713,8 +712,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Student‑friendly pricing</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Affordable packages for brainstorming, editing, or full‑service writing—pay only for what you need.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Unlimited Support</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We offer free edits until your essay is ready for submission.</div>
           
           {/* Contextual internal links */}
           <div className="text-center mt-8 text-gray-600">
@@ -845,11 +844,11 @@ export default function MatlabProgrammingHelp() {
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
-            Sample Assignments
+            Scholarship Essay Samples for Inspiration
           </h2>
           <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
           <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
-            Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
+            See real examples of successful scholarship essays. Learn how personalized storytelling, precise language, and targeted achievements turn applications into wins.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -910,13 +909,13 @@ export default function MatlabProgrammingHelp() {
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
           {/* Removed decorative circles as requested */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Steps to a Winning Scholarship Essay</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Order Scholarship Essay in Three Simple Steps</h2>
             <div className="flex flex-col items-center relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
               <span className="text-2xl mb-1">✍️</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
-              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Share your details</div>
+              <div className="text-gray-400 text-sm mb-2">Share your scholarship details, achievements, and goals online.</div>
               <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
             </div>
             {/* Arrow */}
@@ -926,8 +925,8 @@ export default function MatlabProgrammingHelp() {
             {/* Step 2 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
               <span className="text-2xl mb-1">💳</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a payment</div>
-              <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Pay securely</div>
+              <div className="text-gray-400 text-sm">Pay securely to start your custom essay.</div>
             </div>
             {/* Arrow */}
             <div className="flex flex-col items-center mb-3">
@@ -936,8 +935,8 @@ export default function MatlabProgrammingHelp() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
               <span className="text-2xl mb-1">📄</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
-              <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Download and submit</div>
+              <div className="text-gray-400 text-sm">Download your completed scholarship essay and submit to the committee.</div>
             </div>
           </div>
         </div>
@@ -958,54 +957,54 @@ export default function MatlabProgrammingHelp() {
         <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
           <div className="flex items-center mb-4">
             <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Scholarship Essay Writing Help</h2>
           </div>
           <p className="text-base text-gray-700 text-left mb-4">
-            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
-          </p>
-          <p className="text-sm text-gray-600 mb-3 text-left">
-            Students turn to Essay Embassy for assignment help because:
+            Why a Professional Scholarship Essay Matters for Applicants Worldwide
           </p>
           <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-1">High Competition for Scholarships</h3>
+            <p className="text-sm text-gray-700 mb-3">Each year, thousands of students apply for limited scholarship opportunities in the USA, UK, Canada, Australia, New Zealand, and Europe. Every application is reviewed with attention to academic achievements, personal goals, and stories that connect to the funding objectives. A scholarship essay must set your profile apart, showing commitment, leadership, and future promise.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Tailored Stories and Achievements</h3>
+            <p className="text-sm text-gray-700 mb-3">Winning essays are built around your real achievements, community involvement, and unique strengths. We research your scholarship's specific prompts and criteria, then build your essay using targeted keywords like scholarship application, grant essay, study abroad scholarship, financial aid essay, and more. Our content directly matches the committee's requirements, making your strengths clear in every sentence.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Original and Plagiarism-Free Content</h3>
+            <p className="text-sm text-gray-700 mb-3">Using templates or recycled stories can put your application at risk. Our scholarship essay writing process is always original. Each piece is checked with premium plagiarism software and reviewed for proper structure, format, and relevance.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Proof of Potential</h3>
+            <p className="text-sm text-gray-700 mb-3">Our writers show how your academic background and goals align with the scholarship’s purpose. This includes clear statements about leadership, community engagement, volunteer work, and future plans. Strong, result-oriented language builds trust with the reviewers and demonstrates readiness for success.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Fast Turnaround and Unlimited Edits</h3>
+            <p className="text-sm text-gray-700 mb-3">Deadlines for scholarships are tight. We deliver essays early, provide fast edits, and focus on immediate feedback to increase your application’s quality without delays. Order urgent scholarship essay help anytime, and get support until approval for submission.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Formatting for All Scholarship Types</h3>
+            <p className="text-sm text-gray-700 mb-3">We format essays for college scholarships, international student grants, fellowships, and study abroad programs. Styles can be adapted for MLA, APA, or university-specific requirements so your application is always compliant.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Privacy and Security</h3>
+            <p className="text-sm text-gray-700 mb-3">Every order is protected by encrypted systems and strict privacy standards. Your documents and personal information are kept secure, with no sharing or external access at any stage.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Real Results for Scholarship Applicants</h3>
+            <p className="text-sm text-gray-700 mb-3">Many of our clients have secured major funding for undergraduate, graduate, and study abroad programs. Positive feedback and recommendations show that our scholarship essay writing service delivers real value for students.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Essential Features of a Winning Scholarship Essay</h3>
             <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
+              <li className="mb-1 text-gray-600 text-sm">Focused introduction with a clear statement of purpose</li>
+              <li className="mb-1 text-gray-600 text-sm">Precise achievements and relevant experiences</li>
+              <li className="mb-1 text-gray-600 text-sm">Direct answers to scholarship prompts and questions</li>
+              <li className="mb-1 text-gray-600 text-sm">Measurable goals for future academic and career success</li>
+              <li className="mb-1 text-gray-600 text-sm">Active, clear language with targeted scholarship keywords</li>
+              <li className="mb-1 text-gray-600 text-sm">Error-free and well-organized structure</li>
             </ul>
-            <p className="text-sm text-gray-700 mb-3">
-              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
-            </p>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Outcomes of Professional Scholarship Essay Writing</h3>
             <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
+              <li className="mb-1 text-gray-600 text-sm">Improved chances for grant approval and financial support</li>
+              <li className="mb-1 text-gray-600 text-sm">Higher confidence during application and interview stages</li>
+              <li className="mb-1 text-gray-600 text-sm">Better alignment with scholarship committee standards</li>
             </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
-            <ul className="list-none pl-0 mb-3">
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
-            </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
-            <p className="text-sm text-gray-700 mb-1">
-              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              Place your order now and let a true subject matter expert handle the hard work for you.
-            </p>
+
+            <p className="text-sm text-gray-700 mb-1">Order now to boost your chance of winning scholarships with professional, original, and keyword-rich content.</p>
           </div>
         </div>
         <style>{`
@@ -1037,24 +1036,28 @@ export default function MatlabProgrammingHelp() {
                 <div className="space-y-2">
                   {[
                     {
-                      question: 'What scholarships do you support?',
-                      answer: 'Merit, need‑based, STEM, first‑gen, athletic, and foundation‑specific awards across the US, UK, CA, AU, and EU.'
+                      question: 'How does your service create winning scholarship essays for students?',
+                      answer: 'We build each essay around your personal achievements, community work, and goals. Our writers research scholarship criteria, structure your story for impact, and use scholarship-related keywords for clarity. Every word is focused on success.'
                     },
                     {
-                      question: 'How do you show mission fit without sounding generic?',
-                      answer: 'We map your experiences to the donor’s criteria and quantify outcomes to demonstrate impact and alignment.'
+                      question: 'Will my scholarship essay be unique and plagiarism-free?',
+                      answer: 'Yes. Every scholarship essay is custom-written and checked with advanced software. No templates, recycled stories, or unoriginal content. We guarantee complete authenticity for every application.'
                     },
                     {
-                      question: 'Can you help with short answers and prompts?',
-                      answer: 'Yes—succinct, criteria‑aligned responses with consistent voice across all application materials.'
+                      question: 'Can you help with international scholarships and study abroad applications?',
+                      answer: 'Our team is experienced with global scholarship programs in the USA, UK, Canada, Australia, New Zealand, and Europe. Essays reflect local and international requirements, helping you stand out for overseas study opportunities.'
                     },
                     {
-                      question: 'What turnaround times are available?',
-                      answer: 'From 6–24 hour rush drafts to multi‑day packages. Set your deadline on <a href="/order-now" class="text-primary-600 underline">Order Now</a>.'
+                      question: 'How quickly can I get my scholarship essay completed?',
+                      answer: 'We offer standard and rush delivery options. Essays can be ready within 24 hours for urgent deadlines, always with time for review and edits before submission.'
                     },
                     {
-                      question: 'Is my data private and the content original?',
-                      answer: 'Yes, fully confidential and 100% custom. See our <a href="/refund-policy" class="text-primary-600 underline">refund policy</a> and terms.'
+                      question: 'Can you edit or revise my essay after delivery?',
+                      answer: 'Unlimited revisions are included. We listen to feedback and make direct changes to structure, achievements, or responses until you are satisfied with the final scholarship essay.'
+                    },
+                    {
+                      question: 'Is my personal information and essay content secure when using your service?',
+                      answer: 'Our process is fully confidential. Essays and records are encrypted. No external sharing or leaks. Your privacy and application success are always protected.'
                     }
                   ].map((faq, idx) => {
                     const isOpen = openFAQ === idx;

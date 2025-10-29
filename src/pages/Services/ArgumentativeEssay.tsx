@@ -146,11 +146,11 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes Our Argumentative Essay Service Special?
+                  What Makes Our Argumentative Essay Writing Unique
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Thesis‑first planning, counterargument integration, and credible sources for high‑scoring essays. We tailor claims, reasoning, and citations to US, UK, CA, AU, and EU rubrics. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> orders. <a href="/order-now" className="text-primary-600 underline">Order Now</a>.
+                We build essays around strong thesis statements, clear structure, and research-backed evidence. Each argument, counterargument, and conclusion is carefully crafted for persuasive power and academic excellence.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -511,10 +511,10 @@ export default function MatlabProgrammingHelp() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Argumentative Essay Writing Service
+              Argumentative Essay Writing Service for Top Grades
             </h1>
             <p className="text-lg text-gray-600">
-              Get a persuasive, evidence-based argumentative essay with clear claims, credible sources, and logical structure—tailored for US, UK, CA, AU, and EU curricula.
+              Get persuasive, original argumentative essays that meet academic standards. Fast delivery, expert writers, and 100% plagiarism-free content for high school and college students.
             </p>
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
@@ -615,10 +615,9 @@ export default function MatlabProgrammingHelp() {
       {/* Writers Section Title, Description, and University Logos (Redesigned) */}
       <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Expert Argumentative Essay Writers</h2>
           <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
-            We carefully check each candidate's academic and professional background before hiring.
+            Work with skilled academic writers who know how to build strong arguments, use evidence, and create essays that satisfy your teacher’s requirements.
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
             <div className="text-base text-gray-600 mb-2 md:mb-0 md:mr-6 whitespace-nowrap">
@@ -642,7 +641,7 @@ export default function MatlabProgrammingHelp() {
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            Built for clarity, logic, and impact
+            Why Choose Our Argumentative Essay Writing Help
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 1 */}
@@ -653,8 +652,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Rigorous thesis-first approach</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We define a defensible claim, map counterarguments, and structure reasoning for maximum readability and score alignment.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Academic Expertise</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Professional writers with experience in argumentative essay assignments for major subjects and levels.</div>
             </div>
             {/* Card 2 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -665,8 +664,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M9 9h6M9 13h6M9 17h6"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Credible, recent sources</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We incorporate peer‑reviewed studies, reputable news, and course texts with proper APA/MLA/Chicago citations.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Original, Custom Essays</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Every argumentative essay is tailored to your prompt and checked for plagiarism.</div>
             </div>
             {/* Card 3 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -677,8 +676,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Clear service terms</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">See our <a className="text-primary-600 underline" href="https://essayembassy.com/refund-policy">refund policy</a> for transparent guarantees and conditions.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Evidence-Driven Arguments</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">We use facts, data, and credible sources for every claim.</div>
             </div>
             {/* Card 4 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -689,8 +688,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Private research workflow</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We never resell content. Your brief and sources remain confidential and used solely for your paper.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Balanced Counterpoints</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Opposing points are addressed and refuted to strengthen your position.</div>
             </div>
             {/* Card 5 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -701,8 +700,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M12 6v6l4 2"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Deadlines you set</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">From same‑day drafts to full essays, we meet your timeline without sacrificing evidence quality.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">On-Time Delivery</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Essays are delivered on your schedule, every time.</div>
             </div>
             {/* Card 6 */}
             <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -713,8 +712,8 @@ export default function MatlabProgrammingHelp() {
                   <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
                 </svg>
               </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Pocket-friendly rates</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Prices for our assignment help services start at $10.80/page. You get all the essentials and even enjoy some freebies.</div>
+              <div className="font-semibold text-lg text-gray-900 mb-2">Complete Confidentiality</div>
+              <div className="text-gray-500 text-base leading-relaxed font-normal">Secure ordering, privacy protections, and safe payments.</div>
             </div>
           </div>
         </div>
@@ -840,11 +839,11 @@ export default function MatlabProgrammingHelp() {
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
-            Sample Assignments
+            Sample Argumentative Essays for Inspiration
           </h2>
           <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
           <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
-            Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
+            Explore examples of successful argumentative essays highlighting logical structure, topic clarity, and evidence for different academic subjects and grades.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -905,13 +904,13 @@ export default function MatlabProgrammingHelp() {
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
           {/* Removed decorative circles as requested */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Journey to a Persuasive Argumentative Essay</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Order Argumentative Essay in Three Easy Steps</h2>
             <div className="flex flex-col items-center relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
               <span className="text-2xl mb-1">✍️</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
-              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Submit your details</div>
+              <div className="text-gray-400 text-sm mb-2">Submit your argumentative essay details and instructions online.</div>
               <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
             </div>
             {/* Arrow */}
@@ -921,8 +920,8 @@ export default function MatlabProgrammingHelp() {
             {/* Step 2 */}
             <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
               <span className="text-2xl mb-1">💳</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a payment</div>
-              <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Pay securely</div>
+              <div className="text-gray-400 text-sm">Pay securely and confirm your order.</div>
             </div>
             {/* Arrow */}
             <div className="flex flex-col items-center mb-3">
@@ -931,8 +930,9 @@ export default function MatlabProgrammingHelp() {
             {/* Step 3 */}
             <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
               <span className="text-2xl mb-1">📄</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
-              <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
+              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Review and download</div>
+              <div className="text-gray-400 text-sm">Get your completed essay and review before downloading.
+              </div>
             </div>
           </div>
         </div>
@@ -948,59 +948,54 @@ export default function MatlabProgrammingHelp() {
         `}</style>
       </section>
 
-          {/* Why You Need Our Assignment Help - Scrollable Block (Polished, Compact) */}
+      {/* Why You Need Our Assignment Help - Scrollable Block (Polished, Compact) */}
       <section className="py-12 bg-white">
         <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
           <div className="flex items-center mb-4">
             <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Argumentative Essay Writing Help</h2>
           </div>
           <p className="text-base text-gray-700 text-left mb-4">
-            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
-          </p>
-          <p className="text-sm text-gray-600 mb-3 text-left">
-            Students turn to Essay Embassy for assignment help because:
+            Why Argumentative Essay Writing Is Essential for Student Success
           </p>
           <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-1">Clear Position and Strong Thesis</h3>
+            <p className="text-sm text-gray-700 mb-3">A well-written argumentative essay presents a clear position on controversial topics. Our writers create thesis statements that guide every section and help your paper stand out. This is essential for top grades in USA, UK, Canada, Australia, New Zealand, and Europe.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Fact-Based Arguments</h3>
+            <p className="text-sm text-gray-700 mb-3">High-quality argumentative essays use facts, data, statistics, and reliable sources. We research every point and deliver solid evidence to support each claim. This approach builds trust with teachers and meets all university and school standards.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Structured Body Paragraphs</h3>
+            <p className="text-sm text-gray-700 mb-3">Each body paragraph focuses on a single argument, supported by data and examples. Our writers organize essays logically, from the simplest claims to complex ideas. Topic sentences are clear, and supporting evidence is always relevant to your position.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Addressing Counterarguments</h3>
+            <p className="text-sm text-gray-700 mb-3">Great argumentative writing considers the other side. Our essays include counterpoints and solid rebuttals, showing your ability to understand and respond to different views. This skill is critical for higher-level writing in every curriculum.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Strong Conclusions</h3>
+            <p className="text-sm text-gray-700 mb-3">Essays finish with conclusions that restate the thesis and highlight key arguments. We never introduce new information in the closing paragraph. Instead, we wrap up the topic and call the reader to think or act.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Plagiarism-Free Promise</h3>
+            <p className="text-sm text-gray-700 mb-3">Originality matters in academic writing. Our rigorous plagiarism checks mean your argumentative essay is always unique and safe for submission.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Formatting for All Academic Styles</h3>
+            <p className="text-sm text-gray-700 mb-3">We deliver essays formatted in MLA, APA, Harvard, or Chicago style, as required by your school or university.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Why Students Trust Our Service</h3>
             <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
+              <li className="mb-1 text-gray-600 text-sm">No missed deadlines—fast turnaround for urgent assignments.</li>
+              <li className="mb-1 text-gray-600 text-sm">Unlimited edits and support until you are satisfied.</li>
+              <li className="mb-1 text-gray-600 text-sm">Secure, encrypted platform for safe orders and private communication.</li>
+              <li className="mb-1 text-gray-600 text-sm">Comprehensive research ensures top keyword targeting for argumentative essay writing and persuasive essay help.</li>
             </ul>
-            <p className="text-sm text-gray-700 mb-3">
-              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
-            </p>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
-            <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
-            </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
-            <ul className="list-none pl-0 mb-3">
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
-            </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
-            <p className="text-sm text-gray-700 mb-1">
-              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              Place your order now and let a true subject matter expert handle the hard work for you.
-            </p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Wide Range of Topics Covered</h3>
+            <p className="text-sm text-gray-700 mb-3">We cover all popular argumentative essay topics, from social issues to science and technology. Whether you need to argue for or against a policy, address ethical debates, or take a stance on current events, our experts deliver content that scores high every time.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Flexible for Every Level</h3>
+            <p className="text-sm text-gray-700 mb-3">From high school to postgraduate studies, our argumentative essay writers provide clear, researched, and logically-built papers for every academic level. International students receive essays tailored to regional curriculum and language standards.</p>
+
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Get Professional Argumentative Essay Writing Help Today</h3>
+            <p className="text-sm text-gray-700 mb-1">Order online and experience the difference of working with professional writers who know what it takes to achieve top grades. From brainstorming to final edit, you get keyword-optimized, readable, and convincingly argued essays.</p>
           </div>
         </div>
         <style>{`
@@ -1032,24 +1027,28 @@ export default function MatlabProgrammingHelp() {
                 <div className="space-y-2">
                   {[
                     {
-                      question: 'How do you structure an argumentative essay for top marks?',
-                      answer: 'We use a thesis‑first outline with clear claims, evidence, counterarguments, and rebuttals, aligned to your rubric.'
+                      question: 'What is an argumentative essay, and how does your service work?',
+                      answer: 'An argumentative essay presents a clear stance on a topic with evidence to support it. Our service creates custom essays with a strong thesis, detailed arguments, and academic research. You receive original, well-structured content ready for submission.'
                     },
                     {
-                      question: 'What sources do you use?',
-                      answer: 'Peer‑reviewed journals, reputable news, and course texts with APA/MLA/Chicago citations as required.'
+                      question: 'How do you ensure every argumentative essay is original and plagiarism-free?',
+                      answer: 'Every essay is written from scratch, researched to match your instructions, and checked with premium plagiarism detection tools. You always get unique content with proof of authenticity.'
                     },
                     {
-                      question: 'Can you work with my draft?',
-                      answer: 'Yes. We can refactor your draft: strengthen claims, fix logic gaps, and add citations where needed.'
+                      question: 'What types of topics can you help with for argumentative essays?',
+                      answer: 'We cover all argumentative essay topics, including social issues, education, health, environment, technology, and ethics. Our writers choose the best arguments and evidence for each subject.'
                     },
                     {
-                      question: 'What are the turnaround options?',
-                      answer: 'Rush from 3 hours; typical 24–72 hours. Set your deadline via <a href="/order-now" class="text-primary-600 underline">Order Now</a>.'
+                      question: 'How fast can you deliver a completed argumentative essay?',
+                      answer: 'Same-day and next-day delivery are available. Choose your deadline when ordering, and our writers deliver quality essays quickly without missing submission dates.'
                     },
                     {
-                      question: 'Is my information private and the content original?',
-                      answer: 'Yes—confidential process and 100% custom writing. Review our <a href="/refund-policy" class="text-primary-600 underline">refund policy</a> for guarantees.'
+                      question: 'Can you match my argumentative essay to a specific formatting style?',
+                      answer: 'Absolutely. We prepare essays in MLA, APA, Chicago, or Harvard format for schools and universities in the USA, UK, Europe, Canada, Australia, and New Zealand.'
+                    },
+                    {
+                      question: 'Do you offer free revisions if I want changes to my argumentative essay?',
+                      answer: 'Yes, you can request unlimited changes until you’re satisfied. Our team makes sure every essay matches your exact requirements for topic, structure, and language.'
                     }
                   ].map((faq, idx) => {
                     const isOpen = openFAQ === idx;

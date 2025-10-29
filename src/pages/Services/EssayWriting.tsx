@@ -582,78 +582,43 @@ export default function EssayWriting() {
             This isn't just about handing you a paper. It's about giving you a tool to understand, improve, and succeed in your academic journey. Read on to discover how EssayEmbassy.com stands apart from typical writing help, how to make smart use of essay services, and why we are the trusted choice for thousands of students worldwide.
           </p>
           <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">What Exactly Is an Essay Writing Service, And How Does It Help You?</h3>
-            <p className="text-sm text-gray-700 mb-3">
-              You might already guess what an essay writing service is, but here's why it matters more than just delivering essays on demand: it's your academic partner when time, skills, or resources don't meet the mark. Simply put, an essay writing service connects you with expert writers who craft well-researched, original essays according to your instructions. But EssayEmbassy.com goes deeper: we pair you with writers who have real knowledge in your subject area, so the papers you get aren't generic—they're meaningful, accurate, and academically sound. So it's not about bypassing hard work; it's about balancing your schedule, ensuring quality, and learning through studying solid examples.
-            </p>
-
             <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Why Students Choose EssayEmbassy.com for Their Essays</h3>
-            <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Expert Writers Across All Levels:</span> From generalists who help high school essays to PhD experts who understand complex research and citations.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Guaranteed:</span> Each paper is crafted from scratch and checked with advanced plagiarism tools so your work is unique and safe.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Custom-Tailored To Your Instructions:</span> Your essay will follow your teacher's exact requirements, formatting style, and academic level.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Strict Deadlines Met:</span> We deliver your essay on time, every time.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Transparent Pricing:</span> Clear costs upfront; no hidden fees or surprise charges. Plus, discounts for returning students.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">24/7 Support:</span> Questions? Need a revision? Our team is available whenever you need.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complete Confidentiality:</span> Your privacy matters. We never share your personal information or your use of our services.</li>
-            </ul>
+            <p className="text-sm text-gray-700 mb-3">Students across the USA, UK, Canada, Australia, and Europe turn to our professional essay writing service for one simple reason: we deliver quality work that meets academic standards every time.</p>
+            <p className="text-sm text-gray-700 mb-3">Our team includes expert writers across all academic levels. From generalists who help high school essays to PhD experts who understand complex research and citations, we match you with writers who know your subject inside out. Each essay is crafted from scratch using your specific instructions, ensuring originality and academic integrity.</p>
+            <p className="text-sm text-gray-700 mb-3">We understand tight deadlines. College life moves fast, and sometimes you need essay help in hours, not days. Our writers handle rush orders without compromising quality, delivering well-researched, properly formatted essays that arrive on time, every time.</p>
 
             <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">What Makes a Good Essay Writing Service? How We Compare</h3>
-            <ol className="list-decimal pl-5 mb-3 text-sm text-gray-700">
-              <li className="mb-1"><span className="font-semibold">Professional Writers With Verified Expertise:</span> We carefully vet every writer. Whether your essay involves literary analysis, statistical reports, or scientific research, you get a writer who understands the topic.</li>
-              <li className="mb-1"><span className="font-semibold">Original & Plagiarism-Free Work:</span> Each essay is created from scratch and scanned with top plagiarism detection software.</li>
-              <li className="mb-1"><span className="font-semibold">Clear, Easy Communication:</span> Submit instructions and request drafts or revisions with direct messaging to your writer or support.</li>
-              <li className="mb-1"><span className="font-semibold">On-Time, Dependable Delivery:</span> Choose your deadline—we deliver. Urgent orders handled without sacrificing quality.</li>
-              <li className="mb-1"><span className="font-semibold">Revisions Until Satisfaction:</span> We offer free revisions so your paper meets your expectations fully.</li>
-            </ol>
-
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">How to Make the Most of Your Essay Writing Service Experience</h3>
             <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Be Clear and Detailed in Your Instructions:</span> Include topic, length, sources, formatting style (APA, MLA, Chicago, Harvard), and any specific guidelines.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Set Realistic Deadlines:</span> More time allows deeper research and thoughtful revisions.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Use the Essay Responsibly:</span> Study the structure, arguments, and citations to learn and improve.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Ask Questions and Communicate:</span> Clarify anything that's unclear to avoid misunderstandings.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Read and Request Revisions:</span> Review carefully and request free revisions if needed.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Professional Writers With Verified Expertise:</span> We carefully vet every writer. Whether your essay involves literary analysis, statistical reports, or scientific research, you get a writer who understands the topic. No generic content, no copy-paste work—just expert writing tailored to your requirements.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Original & Plagiarism-Free Work:</span> Each essay is created from scratch and scanned with top plagiarism detection software. You receive a free plagiarism report with every order, proving your work is 100% unique and safe to submit.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Clear, Easy Communication:</span> Submit instructions and request drafts or revisions with direct messaging. Your writer responds quickly, keeping you updated throughout the writing process.</li>
+              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Affordable Pricing for Students:</span> Quality essay help shouldn't drain your budget. Our pricing stays affordable while maintaining professional standards. Transparent costs mean no surprise fees at checkout.</li>
             </ul>
 
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Common Myths and Concerns About Essay Writing Services</h3>
-            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #1: Using an Essay Service Is Cheating.</span> It's not cheating if you use the essay to learn. Copying without understanding crosses the line; using examples and guidance is smart.</p>
-            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #2: Essays are Low-Quality or Plagiarized.</span> Professional services like EssayEmbassy.com hire expert writers and check every paper for plagiarism.</p>
-            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Myth #3: It's Too Expensive.</span> We offer competitive pricing and student discounts.</p>
-            <p className="text-sm text-gray-700 mb-3"><span className="font-semibold">Myth #4: I Won't Get a Paper on Time.</span> We maintain an excellent on-time record, with proactive support if delays arise.</p>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">How Our Essay Writing Process Works</h3>
+            <p className="text-sm text-gray-700 mb-3">Getting professional essay help is straightforward. First, share your assignment details—topic, academic level, page count, deadline, and formatting style (APA, MLA, Chicago, Harvard). The more specific your instructions, the better your final essay.</p>
+            <p className="text-sm text-gray-700 mb-3">Next, choose your writer. Browse profiles showing qualifications, completed orders, student ratings, and sample work. Pick the writer who best matches your needs and budget.</p>
+            <p className="text-sm text-gray-700 mb-3">Your writer begins research and drafting. You can track progress, request updates, and message your writer anytime with clarifications or additional materials.</p>
+            <p className="text-sm text-gray-700 mb-3">Finally, download your completed essay before your deadline. Review the work, request free revisions if needed, and submit with confidence knowing you have quality academic writing support.</p>
 
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Why Students Worldwide Trust EssayEmbassy.com</h3>
-            <p className="text-sm text-gray-700 mb-2">
-              Students in the US, UK, Australia, Canada, and Europe rely on us because we understand diverse academic standards and subject requirements. Whether you need a high school essay or
-              <a href="https://essayembassy.com/academic-writing/book-review" className="text-primary-600 hover:underline ml-1">book report</a>, a university-level
-              <a href="https://essayembassy.com/research-paper-writing" className="text-primary-600 hover:underline ml-1">research paper</a> or
-              <a href="https://essayembassy.com/academic-writing/term-paper" className="text-primary-600 hover:underline ml-1">term paper</a>, a master's
-              <a href="https://essayembassy.com/thesis-writing" className="text-primary-600 hover:underline ml-1">thesis proposal</a> or literature review, or a PhD
-              <a href="https://essayembassy.com/dissertation-writing" className="text-primary-600 hover:underline ml-1">dissertation draft</a> or journal article—our writers have you covered.
-            </p>
-            <p className="text-sm text-gray-700 mb-3">Our services help you build confidence, sharpen your writing, and handle your academic life with one less burden.</p>
-
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Frequently Asked Questions (FAQs)</h3>
-            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Q: Can I get a paper in any subject?</span> A: Yes. We have expert writers in Humanities, STEM, Business, Nursing, Law, and Social Sciences.</p>
-            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Q: How do you ensure originality?</span> A: Every essay is scanned with advanced plagiarism detection software before delivery.</p>
-            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Q: Can I communicate with the writer directly?</span> A: Absolutely. Our platform allows direct messaging for clear communication.</p>
-            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">Q: What if my essay needs changes?</span> A: We offer free revisions within the deadline scope.</p>
-            <p className="text-sm text-gray-700 mb-3"><span className="font-semibold">Q: Is my personal information safe?</span> A: Your security is a priority. We use secure payment options and never share your data.</p>
-
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Final Tips for Success With EssayEmbassy.com</h3>
+            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Common Essay Types We Handle</h3>
             <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm">Plan ahead; use our service as a supplement, not a shortcut.</li>
-              <li className="mb-1 text-gray-600 text-sm">Be clear and detailed when placing your order.</li>
-              <li className="mb-1 text-gray-600 text-sm">Review your essay carefully and request revisions if needed.</li>
-              <li className="mb-1 text-gray-600 text-sm">Use your essay as a tool to learn, not just to submit.</li>
-              <li className="mb-1 text-gray-600 text-sm">Reach out any time — our support is here for you 24/7 (<a href="https://essayembassy.com/contact" className="text-primary-600 hover:underline">contact us</a>).</li>
+              <li className="mb-1 text-gray-600 text-sm">Argumentative essays that present strong, evidence-based positions.</li>
+              <li className="mb-1 text-gray-600 text-sm">Persuasive essays designed to convince readers through logical reasoning.</li>
+              <li className="mb-1 text-gray-600 text-sm">Expository essays explaining complex topics clearly and objectively.</li>
+              <li className="mb-1 text-gray-600 text-sm">Narrative essays sharing personal experiences with engaging storytelling.</li>
+              <li className="mb-1 text-gray-600 text-sm">Descriptive essays painting vivid pictures through detailed writing.</li>
+              <li className="mb-1 text-gray-600 text-sm">Compare and contrast essays analyzing similarities and differences.</li>
+              <li className="mb-1 text-gray-600 text-sm">Cause and effect essays exploring relationships between events.</li>
+              <li className="mb-1 text-gray-600 text-sm">Critical analysis essays evaluating literature, film, or academic theories.</li>
             </ul>
 
-            <p className="text-sm text-gray-700 mb-2">If school feels overwhelming and your essays are piling up, remember: help is just a few clicks away. EssayEmbassy.com provides expert, trustworthy, and affordable essay writing service you can rely on.</p>
-            <p className="text-sm text-gray-700 mb-3">Start with us today and get the academic support designed to help you succeed on your terms.</p>
-            <a href="https://essayembassy.com/order-now" className="inline-block text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-full px-4 py-2 mb-3">Place your order</a>
+            <p className="text-sm text-gray-700 mb-3">No matter your essay type, subject area, or academic level, our professional writers deliver content that meets your instructor's expectations.</p>
 
-            <p className="text-sm text-gray-700 mb-1">EssayEmbassy.com, Because Your Success Deserves the Best Writing Support</p>
+            <p className="text-sm text-gray-700 mb-1"><span className="font-semibold">24/7 Support:</span> Questions? Need a revision? Our team is available whenever you need help, day or night.</p>
+            <p className="text-sm text-gray-700 mb-3"><span className="font-semibold">Complete Confidentiality:</span> Your privacy matters. We never share your personal information or your use of our services.</p>
+
+            <p className="text-sm text-gray-700 mb-2">Ready to experience stress-free academic writing? Place your order today and see why students trust EssayEmbassy.com for professional essay writing help that delivers results.</p>
           </div>
         </div>
         <style>{`
