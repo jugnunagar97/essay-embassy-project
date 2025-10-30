@@ -146,12 +146,13 @@ export function SpecialAssignmentHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                  What Makes Our Reflective Essay Service Special?
-                </h2>
-              </div>
-              <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                Framework‑driven reflection using Gibbs, Kolb, Rolfe and more—moving beyond description to analysis, synthesis, and action. Cohesive academic tone, correct referencing, and confidential handling. Experience: <strong>7+ years</strong>, <strong>500+ writers</strong>, <strong>10,262+</strong> orders completed. <a href="/order-now" className="text-primary-600 underline">Order Now</a>.
-              </p>
+  What Makes Our Reflective Essay Writing Stand Out
+</h2>
+</div>
+<p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
+  We go beyond simple descriptions to deliver deep analysis of experiences. Our writers help you explore feelings, evaluate outcomes, and plan future actions using established reflective frameworks.
+</p>
+
             </div>
             <div className="flex gap-4 mt-8">
               <button onClick={handlePrev} aria-label="Previous" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === 0}>
@@ -204,42 +205,42 @@ function ClientTestimonialsCarousel() {
     {
       id: 'EE-81247',
       rating: 5,
-      text: 'They mapped my clinical rotation to Gibbs’ cycle and tightened my analysis—my instructor finally said this is reflective, not descriptive.',
+      text: "They mapped my clinical rotation to Gibbs' cycle and tightened my analysis—my instructor finally said this is reflective, not descriptive.",
       date: '05/09/2025',
       level: 'University',
     },
     {
       id: 'EE-82011',
       rating: 5,
-      text: 'I had notes everywhere. They structured with Kolb and added course citations. Clear, concise, and aligned to the rubric.',
+      text: "I had notes everywhere. They structured with Kolb and added course citations. Clear, concise, and aligned to the rubric.",
       date: '06/01/2025',
       level: 'Masters',
     },
     {
       id: 'EE-81566',
       rating: 4,
-      text: 'The action plan section was exactly what my rubric wanted. Turned a pass into a distinction.',
+      text: "The action plan section was exactly what my rubric wanted. Turned a pass into a distinction.",
       date: '04/22/2025',
       level: 'College',
     },
     {
       id: 'EE-81803',
       rating: 5,
-      text: 'Great balance of description and analysis. They linked back to theory in each section without overloading citations.',
+      text: "Great balance of description and analysis. They linked back to theory in each section without overloading citations.",
       date: '03/28/2025',
       level: 'University',
     },
     {
       id: 'EE-82355',
       rating: 4,
-      text: 'They used Rolfe’s model just like my lecturer wanted and added a realistic improvement plan. Smooth read.',
+      text: "They used Rolfe's model just like my lecturer wanted and added a realistic improvement plan. Smooth read.",
       date: '02/15/2025',
       level: 'College',
     },
     {
       id: 'EE-82677',
       rating: 5,
-      text: 'Editors caught inconsistencies and fixed referencing. Final piece felt cohesive and professional.',
+      text: "Editors caught inconsistencies and fixed referencing. Final piece felt cohesive and professional.",
       date: '06/10/2025',
       level: 'Masters',
     },
@@ -511,11 +512,12 @@ export default function ReflectiveEssayPage() {
               PLAGIARISM & AI FREE
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-              Reflective Essay Writing Service
-            </h1>
-            <p className="text-lg text-gray-600">
-              Turn experiences into insight. We help you analyze events, link to frameworks, and articulate learning with clarity and academic rigor.
-            </p>
+  Reflective Essay Writing for Personal Growth and Learning
+</h1>
+<p className="text-lg text-gray-600">
+  Get expert help with reflective essays that showcase your experiences, critical thinking, and personal development. Our professional writers craft thoughtful, analytical essays for nursing, education, social work, and academic courses worldwide.
+</p>
+
             {/* Ratings */}
             <div className="flex flex-row justify-start items-end gap-6 pt-4">
               {/* Google Reviews */}
@@ -615,11 +617,11 @@ export default function ReflectiveEssayPage() {
       {/* Writers Section Title, Description, and University Logos (Redesigned) */}
       <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
-          <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
-            We carefully check each candidate's academic and professional background before hiring.
-          </div>
+        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Professional Reflective Essay Writers</h2>
+<div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
+  Work with experienced writers trained in reflective writing models like Gibbs Cycle and DIEP. They understand how to balance personal narrative with academic analysis for your course requirements.
+</div>
+
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
             <div className="text-base text-gray-600 mb-2 md:mb-0 md:mr-6 whitespace-nowrap">
               Cooperate with those who graduated<br className="hidden md:block" />
@@ -641,89 +643,83 @@ export default function ReflectiveEssayPage() {
       {/* We go beyond assignment help services Block (glassmorphism, floating, stylish) */}
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
-            Reflection done right
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Card 1 */}
-            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                {/* Star icon */}
-                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                </svg>
-              </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Critical reflection</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We move beyond description to analysis—what changed, why it matters, and how it informs future action.</div>
-            </div>
-            {/* Card 2 */}
-            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                {/* Report icon */}
-                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <rect x="4" y="4" width="16" height="16" rx="2"/>
-                  <path d="M9 9h6M9 13h6M9 17h6"/>
-                </svg>
-              </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Academic alignment</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We relate experiences to course concepts and frameworks (e.g., Gibbs, Kolb) with correct referencing.</div>
-            </div>
-            {/* Card 3 */}
-            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                {/* Refund icon */}
-                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <path d="M17 1l4 4-4 4"/>
-                  <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
-                </svg>
-              </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Straightforward policies</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Questions about revisions or guarantees? See our <a className="text-primary-600 underline" href="https://essayembassy.com/refund-policy">refund policy</a>.</div>
-            </div>
-            {/* Card 4 */}
-            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                {/* Lock icon */}
-                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <rect x="6" y="11" width="12" height="8" rx="2"/>
-                  <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
-                </svg>
-              </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Confidential support</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">We protect your personal reflections and sensitive details—nothing is shared or reused.</div>
-            </div>
-            {/* Card 5 */}
-            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                {/* Clock icon */}
-                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 6v6l4 2"/>
-                </svg>
-              </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Flexible timelines</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">From rapid drafts to full reflective journals, we align with your submission schedule.</div>
-            </div>
-            {/* Card 6 */}
-            <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-              <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                {/* Dollar icon */}
-                <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <path d="M12 1v22"/>
-                  <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
-                </svg>
-              </span>
-              <div className="font-semibold text-lg text-gray-900 mb-2">Flexible scopes</div>
-              <div className="text-gray-500 text-base leading-relaxed font-normal">Choose between editing, rewrite, or end‑to‑end writing—priced fairly for students.</div>
+        <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
+  Reflection done right
+</h2>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  {/* Card 1 */}
+  <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+    <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
+      {/* Star icon */}
+      <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
+        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+      </svg>
+    </span>
+    <div className="font-semibold text-lg text-gray-900 mb-2">Reflective Model Expertise</div>
+    <div className="text-gray-500 text-base leading-relaxed font-normal">Writers use Gibbs, Kolb, DIEP, or other frameworks required by your course.</div>
+  </div>
+  {/* Card 2 */}
+  <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+    <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
+      {/* Report icon */}
+      <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
+        <rect x="4" y="4" width="16" height="16" rx="2"/>
+        <path d="M9 9h6M9 13h6M9 17h6"/>
+      </svg>
+    </span>
+    <div className="font-semibold text-lg text-gray-900 mb-2">Personal Yet Academic</div>
+    <div className="text-gray-500 text-base leading-relaxed font-normal">Balance first-person narrative with critical analysis and theoretical connections.</div>
+  </div>
+  {/* Card 3 */}
+  <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+    <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
+      {/* Refund icon */}
+      <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
+        <path d="M17 1l4 4-4 4"/>
+        <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
+      </svg>
+    </span>
+    <div className="font-semibold text-lg text-gray-900 mb-2">Original Reflections</div>
+    <div className="text-gray-500 text-base leading-relaxed font-normal">Every essay is custom-written based on your specific experiences and learning outcomes.</div>
+  </div>
+  {/* Card 4 */}
+  <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+    <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
+      {/* Lock icon */}
+      <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
+        <rect x="6" y="11" width="12" height="8" rx="2"/>
+        <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
+      </svg>
+    </span>
+    <div className="font-semibold text-lg text-gray-900 mb-2">Theory Integration</div>
+    <div className="text-gray-500 text-base leading-relaxed font-normal">Link your reflections to course concepts, professional standards, or academic literature.</div>
+  </div>
+  {/* Card 5 */}
+  <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+    <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
+      {/* Clock icon */}
+      <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+      </svg>
+    </span>
+    <div className="font-semibold text-lg text-gray-900 mb-2">Confidential Service</div>
+    <div className="text-gray-500 text-base leading-relaxed font-normal">Your personal experiences and reflective content remain completely private.</div>
+  </div>
+  {/* Card 6 */}
+  <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+    <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
+      {/* Dollar icon */}
+      <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
+        <path d="M12 1v22"/>
+        <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
+      </svg>
+    </span>
+    <div className="font-semibold text-lg text-gray-900 mb-2">Unlimited Revisions</div>
+    <div className="text-gray-500 text-base leading-relaxed font-normal">Free edits until your reflective essay captures your authentic voice and meets requirements.</div>
+  </div>
+</div>
 
-          {/* Contextual internal links */}
-          <div className="text-center mt-8 text-gray-600">
-            Also need a <Link to="/services/narrative-essay" className="text-primary-600 underline">narrative essay</Link> or <Link to="/services/term-paper" className="text-primary-600 underline">term paper</Link>? Browse <Link to="/services" className="text-primary-600 underline">all services</Link>, check <Link to="/reviews" className="text-primary-600 underline">reviews</Link>, or <Link to="/order-now" className="text-primary-600 underline">order now</Link>.
-          </div>
-            </div>
-          </div>
-        </div>
-      </section>
       {/* What Makes Assignment Help From Our Experts So Special? Block (moved here) */}
       <section className="w-full bg-[#F7FAFC] py-10">
         <div className="max-w-6xl mx-auto px-4 bg-[#F7FAFC] shadow-none border-none">
@@ -844,13 +840,14 @@ export default function ReflectiveEssayPage() {
       {/* Sample Assignments Block (centered, subtle, blended) */}
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
-            Sample Assignments
-          </h2>
-          <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
-          <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
-            Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
-          </p>
+        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
+  Reflective Essay Examples for Learning
+</h2>
+<div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
+<p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
+  View professional reflective essay samples showing proper structure, critical analysis, and connections between experience and theory for various academic disciplines.
+</p>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
@@ -910,35 +907,36 @@ export default function ReflectiveEssayPage() {
         <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
           {/* Removed decorative circles as requested */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Route to an A‑Grade Reflective Essay</h2>
-            <div className="flex flex-col items-center relative">
-            {/* Step 1 */}
-            <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
-              <span className="text-2xl mb-1">✍️</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
-              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
-              <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
-            </div>
-            {/* Arrow */}
-            <div className="flex flex-col items-center mb-3">
-              <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            {/* Step 2 */}
-            <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-              <span className="text-2xl mb-1">💳</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a payment</div>
-              <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
-            </div>
-            {/* Arrow */}
-            <div className="flex flex-col items-center mb-3">
-              <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            {/* Step 3 */}
-            <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
-              <span className="text-2xl mb-1">📄</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
-              <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
-            </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Order Reflective Essay in Three Steps</h2>
+<div className="flex flex-col items-center relative">
+  {/* Step 1 */}
+  <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
+    <span className="text-2xl mb-1">✍️</span>
+    <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Share Your Details</div>
+    <div className="text-gray-400 text-sm mb-2">Share your reflective essay prompt, experience details, and reflective model requirements.</div>
+    <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
+  </div>
+  {/* Arrow */}
+  <div className="flex flex-col items-center mb-3">
+    <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+  </div>
+  {/* Step 2 */}
+  <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+    <span className="text-2xl mb-1">💳</span>
+    <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Pay Securely</div>
+    <div className="text-gray-400 text-sm">Pay securely to begin your custom reflective essay.</div>
+  </div>
+  {/* Arrow */}
+  <div className="flex flex-col items-center mb-3">
+    <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+  </div>
+  {/* Step 3 */}
+  <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
+    <span className="text-2xl mb-1">📄</span>
+    <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Download Your Essay</div>
+    <div className="text-gray-400 text-sm">Download your completed essay with analysis, evaluation, and action planning.</div>
+  </div>
+</div>
           </div>
         </div>
         </div>
@@ -958,55 +956,134 @@ export default function ReflectiveEssayPage() {
         <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
           <div className="flex items-center mb-4">
             <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Assignment Help</h2>
-          </div>
-          <p className="text-base text-gray-700 text-left mb-4">
-            Tackling assignments across multiple subjects can be overwhelming, especially with tight deadlines and high academic standards. Our expert assignment help service is designed to relieve your stress and ensure you never miss a deadline.
-          </p>
-          <p className="text-sm text-gray-600 mb-3 text-left">
-            Students turn to Essay Embassy for assignment help because:
-          </p>
-          <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
-            <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality assignments.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Some assignments require deep research and advanced subject knowledge.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting & Guidelines:</span> Strict adherence to academic formats (APA, MLA, Chicago, etc.) can be confusing and time-consuming.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
-            </ul>
-            <p className="text-sm text-gray-700 mb-3">
-              Our service ensures you submit well-researched, original, and properly formatted assignments on time, every time.
-            </p>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Assignment Types We Handle</h3>
-            <ul className="list-disc pl-5 mb-3">
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays & Reports:</span> Analytical, argumentative, narrative, and more.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Case Studies:</span> In-depth analysis and solutions for real-world scenarios.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Lab Reports:</span> Detailed scientific documentation and analysis.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Papers:</span> Comprehensive research and critical evaluation.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Presentations:</span> Visually engaging and content-rich slides.</li>
-              <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">STEM Assignments:</span> Programming, mathematics, engineering, and more.</li>
-            </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
-            <ul className="list-none pl-0 mb-3">
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
-            </ul>
-            <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
-            <p className="text-sm text-gray-700 mb-1">
-              Stop wondering, "Who can help with my assignment and guarantee quality?" The answer is right here.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              At Essay Embassy, we deliver high-quality, custom-written assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
-            </p>
-            <p className="text-sm text-gray-700 mb-1">
-              Place your order now and let a true subject matter expert handle the hard work for you.
-            </p>
-          </div>
+            <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Reflective Essay Writing Help</h2>
+</div>
+<p className="text-base text-gray-700 text-left mb-4">
+  Reflective essays differ from standard academic writing because they require personal voice, critical analysis of experiences, and demonstration of learning.
+</p>
+<p className="text-sm text-gray-600 mb-3 text-left">
+  Students in nursing, education, social work, teaching, psychology, and healthcare programs in the USA, UK, Canada, Australia, New Zealand, and Europe frequently encounter reflective assignments.
+</p>
+<div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Understanding Reflective Essay Requirements for Students</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    These essays assess your ability to think critically about practical experiences, connect theory to practice, and show professional development. Many students struggle with balancing personal narrative and academic rigor, which is where professional reflective essay writing help becomes valuable.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Essential Structure of Reflective Essays</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Reflective essays follow a clear three-part structure: introduction, body paragraphs, and conclusion. The introduction sets context by describing the experience briefly and presenting a thesis statement about what you learned.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Body paragraphs move through description, feelings, evaluation, analysis, and action planning. This is where you explain what happened, how you felt, what went well or poorly, why events unfolded as they did, and what you will do differently in future situations.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    The conclusion summarizes key insights and emphasizes how the experience shaped your thinking, skills, or professional approach. No new information should appear in conclusions, only synthesis of previous reflections.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Popular Reflective Models Used Globally</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    The Gibbs Reflective Cycle is the most common framework, with six stages: description, feelings, evaluation, analysis, conclusion, and action plan. This model guides students through systematic reflection on clinical placements, teaching practice, or fieldwork experiences.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    The DIEP model uses four steps: Describe, Interpret, Evaluate, and Plan. This simpler framework works well for shorter reflective assignments or quick reflections on readings and lectures.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Kolb's Experiential Learning Cycle focuses on learning through doing. It moves from concrete experience to reflective observation, abstract conceptualization, and active experimentation. This model suits students analyzing skill development over time.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Our reflective essay writing service adapts to any model your instructor requires, ensuring proper structure and depth of analysis.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Critical Analysis Beyond Description</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Strong reflective writing goes beyond describing what happened. Academic reflection requires asking why events occurred, how your feelings changed, what assumptions you held, and how theory explains your experience.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    For nursing students, this might mean reflecting on patient interactions and linking them to therapeutic communication theories. Education students analyze classroom management situations using pedagogical frameworks. Social work students evaluate interventions against ethical guidelines and professional standards.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    We help you move from surface-level description to meaningful analysis by asking probing questions about your experiences and connecting them to course concepts.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Common Reflective Essay Topics Across Disciplines</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Nursing and healthcare students reflect on clinical placements, patient care situations, ethical dilemmas, teamwork experiences, and skill development. Education students write about lesson delivery, classroom management, student interactions, and teaching philosophy growth.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Social work students reflect on fieldwork placements, client relationships, professional boundaries, and application of theory to practice. Psychology students analyze case studies, counseling sessions, or research experiences.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Business students reflect on internships, group projects, leadership experiences, or professional development activities. Our writers have expertise across these disciplines and understand specific reflective requirements for each field.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Why Students Need Professional Reflective Writing Help</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Time constraints affect reflective writing quality. Placements and practicums leave little time for deep reflection and essay writing. Students often complete reflective journals late at night after exhausting clinical or teaching shifts.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Difficulty articulating learning is common. Many students know they learned something valuable but struggle to express insights clearly or connect experiences to theory. Professional writers help translate your thoughts into coherent academic prose.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Uncertainty about tone challenges many students. Reflective essays require first-person voice and personal feelings while maintaining academic professionalism. Finding this balance takes practice and guidance.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Quality Standards for Academic Reflection</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Universities expect reflective essays to demonstrate critical thinking, not just storytelling. Markers look for evidence that you questioned assumptions, considered alternative perspectives, and planned future improvements.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Proper citation matters even in reflective writing. When discussing theories, models, or research that informed your reflection, you must cite sources in APA, Harvard, or required formats. We ensure accurate referencing throughout your essay.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Originality is crucial. While reflecting on real experiences, your analysis must be genuine and avoid cliches or generic statements. Our writers create authentic reflections that sound like your voice while meeting academic standards.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Benefits for International Students</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Regional variations exist in reflective writing expectations. UK universities emphasize critical evaluation and theory integration more heavily than some other countries. Australian institutions focus on professional standards and competency frameworks.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    USA programs often want specific evidence of learning outcomes achievement. Canadian universities emphasize cultural competence and ethical reflection. European standards vary by country but generally require deep theoretical engagement.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Learning from Professional Examples</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Reading well-written reflective essays improves your own reflective writing skills. Our service provides models showing how to structure thoughts, integrate theory, and express learning effectively.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Students report improved confidence in future reflective assignments after receiving professionally written examples. Understanding how experts approach reflection helps you develop this critical professional skill independently.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Confidentiality for Sensitive Content</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Reflective essays often include sensitive information about patients, clients, students, or personal struggles. Our strict confidentiality policies protect your privacy and ensure your reflections remain secure.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    We never share your experiences, essays, or personal information with anyone. All communication is encrypted and your order details are kept private throughout the process.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Fast Delivery for Placement Deadlines</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Placements and practicums have strict submission deadlines. We offer rush services with 24-hour turnaround for urgent reflective essay needs. Standard delivery ranges from 3 to 14 days depending on length and complexity.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    All essays undergo quality checks regardless of timeline, ensuring you receive thorough reflection and analysis that meets academic standards on time.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Revision Support Throughout</h3>
+  <p className="text-sm text-gray-700 mb-3">
+    Reflective writing often requires multiple drafts as you refine your thoughts. We include unlimited revisions so you can request changes until the essay accurately captures your experiences and learning.
+  </p>
+  <p className="text-sm text-gray-700 mb-3">
+    Direct communication with writers allows you to provide feedback and ensure your authentic voice shines through the final version.
+  </p>
+
+  <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Started with Reflective Essay Help Today</h3>
+  <p className="text-sm text-gray-700 mb-1">
+    Order professional reflective essay writing now. Share your experiences, learning outcomes, and course requirements. Receive thoughtful, analytical essays that demonstrate growth and meet all academic expectations for your program.
+  </p>
+  </div>
         </div>
         <style>{`
           .custom-scrollbar::-webkit-scrollbar {
@@ -1032,62 +1109,43 @@ export default function ReflectiveEssayPage() {
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-start">
             {/* FAQ Column */}
             <div className="flex-1 w-full">
-              <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left mb-6 text-gray-900">Frequently Asked Questions</h2>
-              <div className="bg-white/80 rounded-3xl shadow-lg p-4 md:p-8">
-                <div className="space-y-2">
-                  {[
-                    {
-                      question: 'Which reflective frameworks can you use?',
-                      answer: 'Gibbs, Kolb, Rolfe, Johns, Driscoll, and course-specific models—aligned with your rubric.'
-                    },
-                    {
-                      question: 'Can you integrate my course readings and references?',
-                      answer: 'Yes. Upload your readings or list them; we will integrate and cite in APA, MLA, Harvard, or Chicago.'
-                    },
-                    {
-                      question: 'How do you ensure the essay is analytical, not descriptive?',
-                      answer: 'We enforce a describe–analyze–synthesize–apply structure and explicitly link experiences to theory and outcomes.'
-                    },
-                    {
-                      question: 'What turnarounds are available for reflective essays?',
-                      answer: 'Rush options from 3 hours; standard 24–72 hours depending on scope. Set your deadline via <a href="/order-now" class="text-primary-600 underline">Order Now</a>.'
-                    },
-                    {
-                      question: 'Is my information confidential and the content original?',
-                      answer: 'Yes—confidential process and 100% custom writing. Review our <a href="/refund-policy" class="text-primary-600 underline">refund policy</a> and terms anytime.'
-                    }
-                  ].map((faq, idx) => {
-                    const isOpen = openFAQ === idx;
-                    return (
-                      <div
-                        key={idx}
-                        className={`transition-all duration-300 rounded-xl border border-gray-200 shadow-sm ${isOpen ? 'bg-gray-50' : 'bg-white'} overflow-hidden`}
-                      >
-                        <button
-                          type="button"
-                          className={`w-full flex justify-between items-center px-4 py-3 text-left focus:outline-none transition-colors duration-300 ${isOpen ? 'bg-gray-50' : 'hover:bg-gray-50'}`}
-                          style={{ background: isOpen ? '#f9fafb' : 'inherit' }}
-                          onClick={() => setOpenFAQ(isOpen ? null : idx)}
-                          aria-expanded={isOpen}
-                          aria-controls={`faq-content-${idx}`}
-                        >
-                          <span className={`text-sm md:text-base font-medium transition-colors duration-300 ${isOpen ? 'text-emerald-600' : 'text-gray-900'}`}>{faq.question}</span>
-                          <svg
-                            className={`w-4 h-4 ml-2 text-emerald-400 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
-                            fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </button>
-                        <div
-                          id={`faq-content-${idx}`}
-                          className={`px-4 pb-2 text-gray-600 text-sm transition-all duration-300 ease-in-out ${isOpen ? 'max-h-32 opacity-100 py-1' : 'max-h-0 opacity-0 py-0 overflow-hidden'}`}
-                        >
-                          {faq.answer}
-                        </div>
-                      </div>
-                    );
-                  })}
+            <h2 className="text-2xl md:text-3xl font-bold text-center md:text-left mb-6 text-gray-900">Frequently Asked Questions</h2>
+<div className="bg-white/80 rounded-3xl shadow-lg p-4 md:p-8">
+  <div className="space-y-2">
+    {[
+      {
+        question: 'What is a reflective essay, and how does your service help students write them?',
+        answer: 'A reflective essay analyzes personal experiences using critical thinking to demonstrate learning and growth. Our service creates custom essays following reflective models like Gibbs Cycle, DIEP, or Kolb\'s framework. Writers describe your experiences, evaluate outcomes, analyze causes, and plan future actions while connecting reflections to course theories. This approach meets academic standards for nursing, education, social work, and healthcare programs in USA, UK, Canada, Australia, New Zealand, and Europe.'
+      },
+      {
+        question: 'How do you balance personal voice with academic requirements in reflective essays?',
+        answer: 'We use first-person narrative to describe experiences and feelings while maintaining professional tone throughout. Writers integrate course concepts, cite theoretical frameworks, and provide critical analysis that goes beyond simple description. This creates authentic reflections that sound personal yet meet university standards for academic rigor, proper structure, and evidence of learning outcomes achievement.'
+      },
+      {
+        question: 'Can you write reflective essays for specific disciplines like nursing or teaching?',
+        answer: 'Yes. Our writers have expertise across healthcare, education, social work, psychology, and business disciplines. We understand field-specific requirements such as nursing competencies, teaching standards, social work ethics, and professional frameworks. Each reflective essay addresses discipline-appropriate concepts, uses relevant terminology, and connects experiences to the theories and practices valued in your program.'
+      },
+      {
+        question: 'What reflective models do you use for essays, and can you follow specific frameworks?',
+        answer: 'We work with all major reflective models including Gibbs Reflective Cycle, DIEP framework, Kolb\'s Experiential Learning Cycle, Schon\'s Reflective Practice, and Johns\' Model. If your course requires a specific framework, we structure your essay accordingly with proper stages, headings, and depth of analysis for each component. Custom models or university-specific templates are also accommodated.'
+      },
+      {
+        question: 'How do you ensure reflective essays remain confidential and protect sensitive information?',
+        answer: 'All reflective content is protected by strict confidentiality policies and encrypted systems. We never share your experiences, personal information, or essays with external parties. Writers are trained in handling sensitive material from clinical placements, teaching practice, or social work fieldwork. Your privacy and the privacy of patients, clients, or students mentioned in reflections are always protected.'
+      },
+      {
+        question: 'Can you help with reflective journals, portfolios, or single reflection pieces?',
+        answer: 'Yes. We assist with all reflective writing formats including one-time reflections, weekly journals, placement portfolios, and critical incident analyses. Whether you need a single 1,000-word reflection or ongoing journal support throughout a semester-long placement, we adapt our service to match your exact requirements and submission schedule.'
+      }
+    ].map((faq, index) => (
+      <div key={index} className="faq-item">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
+        <p className="text-gray-700 text-sm leading-relaxed">{faq.answer}</p>
+      </div>
+    ))}
+  </div>
+</div>
+                  ]}
                 </div>
               </div>
             </div>
