@@ -3,6 +3,7 @@ User-agent: *
 # Block admin and client dashboard panels
 Disallow: /admin/
 Disallow: /dashboard/
+Disallow: /checkout
 
 # Everything else is indexable
 Allow: /

@@ -25,7 +25,7 @@
   <url><loc>https://essayembassy.com/login</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
   <url><loc>https://essayembassy.com/register</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
   <url><loc>https://essayembassy.com/order-now</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://essayembassy.com/checkout</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  
 
   <!-- Essay-writing routes -->
   <url><loc>https://essayembassy.com/essay-writing</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
@@ -37,8 +37,7 @@
   <url><loc>https://essayembassy.com/essay-writing/scholarship</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 
   <!-- Back-compat shortcuts present in routes -->
-  <url><loc>https://essayembassy.com/argumentative-essay</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/narrative-essay</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  
 
   <!-- Assignment help categories -->
   <url><loc>https://essayembassy.com/assignment-help</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
