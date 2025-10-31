@@ -13,18 +13,6 @@ export default function Layout() {
   const location = useLocation();
   const { user, isLoading } = useAuth(); // This gets the logged-in user
   
-  // Show loading while auth is initializing
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-  
   // Determine which sidebar to show based on the route and user role
   const isDashboardPage = location.pathname.startsWith('/dashboard');
 
@@ -110,30 +98,39 @@ export default function Layout() {
 
     const meta = match ? match[1] : metaByPrefix[0][1];
 
-    if (meta) {
-      document.title = meta.title;
-      const setMeta = (name: string, content: string) => {
-        let tag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
-        if (!tag) {
-          tag = document.createElement('meta');
-          tag.setAttribute('name', name);
-          document.head.appendChild(tag);
-        }
-        tag.setAttribute('content', content);
-      };
-      setMeta('description', meta.description);
+    try {
+      if (meta && typeof document !== 'undefined' && document.head) {
+        document.title = meta.title;
+        const setMeta = (name: string, content: string) => {
+          let tag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
+          if (!tag) {
+            tag = document.createElement('meta');
+            tag.setAttribute('name', name);
+            document.head.appendChild(tag);
+          }
+          tag.setAttribute('content', content);
+        };
+        setMeta('description', meta.description);
+      }
+    } catch (e) {
+      // no-op: never block rendering due to meta errors
     }
 
     // --- Structured Data (JSON-LD) ---
     const setJsonLd = (id: string, data: object) => {
-      let el = document.getElementById(id) as HTMLScriptElement | null;
-      if (!el) {
-        el = document.createElement('script');
-        el.type = 'application/ld+json';
-        el.id = id;
-        document.head.appendChild(el);
+      if (typeof document === 'undefined' || !document.head) return;
+      try {
+        let el = document.getElementById(id) as HTMLScriptElement | null;
+        if (!el) {
+          el = document.createElement('script');
+          el.type = 'application/ld+json';
+          el.id = id;
+          document.head.appendChild(el);
+        }
+        el.textContent = JSON.stringify(data);
+      } catch (e) {
+        // ignore
       }
-      el.text = JSON.stringify(data);
     };
 
     // Organization
@@ -203,6 +200,17 @@ export default function Layout() {
     };
     setJsonLd('ld-breadcrumb', breadcrumb);
   }, [location.pathname, isAdminPage]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
