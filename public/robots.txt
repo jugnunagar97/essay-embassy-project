@@ -1,0 +1,13 @@
+User-agent: *
+
+# Block admin and client dashboard panels
+Disallow: /admin/
+Disallow: /dashboard/
+
+# Everything else is indexable
+Allow: /
+
+# Sitemaps
+Sitemap: https://essayembassy.com/sitemap.xml
+
+

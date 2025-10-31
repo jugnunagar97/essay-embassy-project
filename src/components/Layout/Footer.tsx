@@ -101,6 +101,7 @@ export default function Footer() {
                 <li><Link to="/privacy-policy" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Privacy Policy</Link></li>
                 <li><Link to="/terms-and-conditions" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Terms of Use</Link></li>
                 <li><Link to="/refund-policy" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Refunds & Cancellations</Link></li>
+                <li><a href="/sitemap.xml" className="text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Sitemap</a></li>
               </ul>
             </div>
 

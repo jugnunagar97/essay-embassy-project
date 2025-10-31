@@ -411,7 +411,7 @@ export default function ReflectiveEssayPage() {
     return () => unsubscribe();
   }, []);
 
-  // FAQ state and data moved here
+  // FAQ accordion open item index; null means all collapsed
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
   const watchedValues = watch();
@@ -719,6 +719,8 @@ export default function ReflectiveEssayPage() {
     <div className="text-gray-500 text-base leading-relaxed font-normal">Free edits until your reflective essay captures your authentic voice and meets requirements.</div>
   </div>
 </div>
+        </div>
+      </section>
 
       {/* What Makes Assignment Help From Our Experts So Special? Block (moved here) */}
       <section className="w-full bg-[#F7FAFC] py-10">
@@ -939,7 +941,6 @@ export default function ReflectiveEssayPage() {
 </div>
           </div>
         </div>
-        </div>
         <style>{`
           @keyframes fade-in-up {
             0% { opacity: 0; transform: translateY(40px); }
@@ -1137,17 +1138,40 @@ export default function ReflectiveEssayPage() {
         question: 'Can you help with reflective journals, portfolios, or single reflection pieces?',
         answer: 'Yes. We assist with all reflective writing formats including one-time reflections, weekly journals, placement portfolios, and critical incident analyses. Whether you need a single 1,000-word reflection or ongoing journal support throughout a semester-long placement, we adapt our service to match your exact requirements and submission schedule.'
       }
-    ].map((faq, index) => (
-      <div key={index} className="faq-item">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
-        <p className="text-gray-700 text-sm leading-relaxed">{faq.answer}</p>
-      </div>
-    ))}
+    ].map((faq, idx) => {
+      const isOpen = openFAQ === idx;
+      return (
+        <div
+          key={idx}
+          className={`transition-all duration-300 rounded-xl border border-gray-200 shadow-sm ${isOpen ? 'bg-gray-50' : 'bg-white'} overflow-hidden`}
+        >
+          <button
+            type="button"
+            className={`w-full flex justify-between items-center px-4 py-3 text-left focus:outline-none transition-colors duration-300 ${isOpen ? 'bg-gray-50' : 'hover:bg-gray-50'}`}
+            style={{ background: isOpen ? '#f9fafb' : 'inherit' }}
+            onClick={() => setOpenFAQ(isOpen ? null : idx)}
+            aria-expanded={isOpen}
+            aria-controls={`faq-content-${idx}`}
+          >
+            <span className={`text-sm md:text-base font-medium transition-colors duration-300 ${isOpen ? 'text-emerald-600' : 'text-gray-900'}`}>{faq.question}</span>
+            <svg
+              className={`w-4 h-4 ml-2 text-emerald-400 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+              fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div
+            id={`faq-content-${idx}`}
+            className={`px-4 pb-2 text-gray-600 text-sm transition-all duration-300 ease-in-out ${isOpen ? 'max-h-32 opacity-100 py-1' : 'max-h-0 opacity-0 py-0 overflow-hidden'}`}
+          >
+            {faq.answer}
+          </div>
+        </div>
+      );
+    })}
   </div>
 </div>
-                  ]}
-                </div>
-              </div>
             </div>
             {/* Support Widget Column */}
             <aside className="w-full md:w-80 flex-shrink-0 flex flex-col items-center md:items-start">
@@ -1174,8 +1198,7 @@ export default function ReflectiveEssayPage() {
           </div>
         </div>
       </section>
-
-      {/* Services Interlink Block - Tabbed Professional Version (Only Existing Services, Improved Link UI, No Duplicates) */}
+      
       <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{background: '#F7FAFC'}}>
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center md:items-start">
           {/* Left Side: Heading, Description, CTA */}
