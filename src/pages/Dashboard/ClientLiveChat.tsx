@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Send, Phone, Mail, Clock, User } from 'lucide-react';
+import { MessageCircle, Send, Mail, Clock, User } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 interface Message {
@@ -180,17 +180,10 @@ const ClientLiveChat: React.FC = () => {
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-green-600 dark:text-green-400" />
-                <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">Phone</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">+1 (555) 123-4567</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                 <div>
                   <p className="text-sm font-medium text-gray-900 dark:text-white">Email</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">support@essayembassy.com</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">essayembassy@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">

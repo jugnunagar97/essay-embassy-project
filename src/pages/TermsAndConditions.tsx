@@ -106,7 +106,7 @@ const TermsAndConditions = () => {
             If you have any questions about these Terms and Conditions, please contact us:
           </p>
           <p>
-            <strong>Email:</strong> support@essayembassy.com
+            <strong>Email:</strong> essayembassy@gmail.com
           </p>
           <p>
             <strong>Mailing Address:</strong> Essay Embassy, 1309 Beacon Street, Suite 300, Brookline, Massachusetts 02446

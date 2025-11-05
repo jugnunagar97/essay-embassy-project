@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Award, Users, BookOpen, Star, Briefcase, ShieldCheck, Globe, CheckCircle, MapPin, Phone, Mail } from 'lucide-react';
+import { Award, Users, BookOpen, Star, Briefcase, ShieldCheck, Globe, CheckCircle, MapPin, Mail } from 'lucide-react';
 
 const team = [
   {
@@ -269,8 +269,7 @@ const About = () => {
             <h2 className="heading-md mb-4">Contact Us</h2>
             <p className="text-muted mb-6">Have questions or want to discuss your project? Reach out to our team anytime.</p>
             <div className="space-y-4">
-              <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-primary-500" /><a href="mailto:support@essayembassy.com" className="hover:underline">support@essayembassy.com</a></div>
-              <div className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary-500" /><span>+1 (555) 123-4567</span></div>
+              <div className="flex items-center gap-3"><Mail className="h-5 w-5 text-primary-500" /><a href="mailto:essayembassy@gmail.com" className="hover:underline">essayembassy@gmail.com</a></div>
               <div className="flex items-center gap-3"><MapPin className="h-5 w-5 text-primary-500" /><span>1309 Beacon Street, Suite 300, Brookline, Massachusetts 02446</span></div>
             </div>
           </div>

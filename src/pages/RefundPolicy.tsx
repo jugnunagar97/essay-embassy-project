@@ -76,7 +76,7 @@ const RefundPolicy = () => {
 
           <h2>4. The Refund Process</h2>
           <ul>
-            <li><strong>Contact Support:</strong> To request a refund, please contact our Support Team via email at support@essayembassy.com. Clearly state your order number and the detailed reason for your request, providing any supporting evidence (e.g., plagiarism report, list of unmet requirements).</li>
+            <li><strong>Contact Support:</strong> To request a refund, please contact our Support Team via email at essayembassy@gmail.com. Clearly state your order number and the detailed reason for your request, providing any supporting evidence (e.g., plagiarism report, list of unmet requirements).</li>
             <li><strong>Investigation:</strong> Our Quality Assurance Team will investigate your claim within 3-5 business days.</li>
             <li><strong>Resolution:</strong> You will be notified of our decision via email.</li>
             <li><strong>Processing:</strong> If your refund is approved, the funds will be processed within 5-7 business days. The refund can only be sent to the original mode of payment (the card or account you used to pay).</li>

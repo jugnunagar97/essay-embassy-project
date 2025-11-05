@@ -25,15 +25,33 @@
     <script type="module" src="/src/main.tsx"></script>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
+      // Initialize Tawk_API object but delay loading
       var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-      (function(){
+      
+      // Function to load Tawk.to (only if not blocked)
+      function loadTawkTo() {
+        // Check if user is blocked (set by GeoBlock component)
+        if (window.__IS_BLOCKED__ === true || window.__BLOCKED_CHECK_IN_PROGRESS__ === true) {
+          return; // Don't load if blocked
+        }
+        
         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
         s1.async=true;
         s1.src='https://embed.tawk.to/6904a68aa00437194fc25cb3/1j8t2l3mh';
         s1.charset='UTF-8';
         s1.setAttribute('crossorigin','*');
         s0.parentNode.insertBefore(s1,s0);
-      })();
+      }
+      
+      // Delay Tawk.to loading to allow GeoBlock check to complete first
+      // Wait for DOM to be ready, then wait a bit more for GeoBlock to set flags
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          setTimeout(loadTawkTo, 2000); // Wait 2 seconds for GeoBlock check
+        });
+      } else {
+        setTimeout(loadTawkTo, 2000); // Wait 2 seconds for GeoBlock check
+      }
     </script>
     <!--End of Tawk.to Script-->
   </body>

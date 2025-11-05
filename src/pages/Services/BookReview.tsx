@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, ShieldCheck, Plus, Minus, Mail, Phone, Download, Eye } from 'lucide-react';
+import { CheckCircle, ShieldCheck, Plus, Minus, Mail, Download, Eye } from 'lucide-react';
 
 // ==================================================================================
 // === TYPE DEFINITIONS ===
@@ -150,8 +150,7 @@ const BookReview = () => {
             <h2 className="heading-md">Ask Our Literature Experts</h2>
             <p className="text-muted">Have a question about your book review? We're here to help.</p>
             <div className="space-y-4 pt-4">
-              <div className="flex items-center"><Phone className="h-5 w-5 text-primary-500 mr-3" /><span className="text-muted">+1 (555) 123-4567</span></div>
-              <div className="flex items-center"><Mail className="h-5 w-5 text-primary-500 mr-3" /><a href="mailto:support@essayembassy.com" className="text-muted hover:text-primary-500">support@essayembassy.com</a></div>
+              <div className="flex items-center"><Mail className="h-5 w-5 text-primary-500 mr-3" /><a href="mailto:essayembassy@gmail.com" className="text-muted hover:text-primary-500">essayembassy@gmail.com</a></div>
             </div>
           </div>
           <div className="lg:col-span-2">

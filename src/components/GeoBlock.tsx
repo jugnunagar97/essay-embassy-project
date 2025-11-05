@@ -12,6 +12,18 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
+    // Prevent Tawk.to from loading while checking
+    if (typeof window !== 'undefined') {
+      // Set a flag to prevent Tawk.to from initializing
+      (window as any).__BLOCKED_CHECK_IN_PROGRESS__ = true;
+      
+      // Override Tawk.to initialization if it tries to load
+      if (window.Tawk_API) {
+        window.Tawk_API.hideWidget = () => {};
+        window.Tawk_API.showWidget = () => {};
+      }
+    }
+
     const checkCountry = async () => {
       try {
         // Try multiple free IP geolocation services for reliability
@@ -74,18 +86,36 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
         if (countryCode) {
           const blocked = BLOCKED_COUNTRIES.includes(countryCode.toUpperCase());
           setIsBlocked(blocked);
+          
+          // Set flag if blocked
+          if (typeof window !== 'undefined') {
+            (window as any).__IS_BLOCKED__ = blocked;
+          }
         } else {
           // If we can't determine country, allow access (fail open)
           // Change to setIsBlocked(true) if you want to block on error
           setIsBlocked(false);
+          
+          if (typeof window !== 'undefined') {
+            (window as any).__IS_BLOCKED__ = false;
+          }
         }
       } catch (error) {
         console.error('Error checking geolocation:', error);
         // Fail open - allow access if check fails
         // Change to setIsBlocked(true) if you want to block on error
         setIsBlocked(false);
+        
+        if (typeof window !== 'undefined') {
+          (window as any).__IS_BLOCKED__ = false;
+        }
       } finally {
         setIsChecking(false);
+        
+        // Clear the check-in-progress flag
+        if (typeof window !== 'undefined') {
+          (window as any).__BLOCKED_CHECK_IN_PROGRESS__ = false;
+        }
       }
     };
 

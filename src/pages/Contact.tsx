@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 import { useEffect } from 'react';
 
 // Define the type for our form inputs
@@ -143,16 +143,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-slate-800 dark:text-white">Email Us</h3>
-                  <a href="mailto:support@essayembassy.com" className="text-muted hover:text-primary-500">support@essayembassy.com</a>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <div className="bg-primary-100 dark:bg-primary-900/20 p-3 rounded-lg mr-4">
-                  <Phone className="text-primary-500" size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-800 dark:text-white">Call Us</h3>
-                  <p className="text-muted">+1 (555) 123-4567</p>
+                  <a href="mailto:essayembassy@gmail.com" className="text-muted hover:text-primary-500">essayembassy@gmail.com</a>
                 </div>
               </div>
             </div>

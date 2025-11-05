@@ -32,8 +32,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
       {/* Top Bar for Contact Info and Support */}
       <div className="bg-primary-700 text-white text-xs px-4 py-1 flex justify-between items-center">
         <div className="flex items-center space-x-3">
-          <span>📞 +1 (555) 123-4567</span>
-          <span>✉️ support@essayembassy.com</span>
+          <span>✉️ essayembassy@gmail.com</span>
         </div>
         <span>24/7 Customer Support Available</span>
       </div>
@@ -70,7 +69,6 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
 
         {/* Right Section: Action Buttons and User Auth */}
         <div className="flex items-center gap-3">
-          <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-600 dark:text-gray-300 hover:text-primary-600 hidden sm:block font-medium transition-colors">WhatsApp</a>
           
           
           <Link to="/order-now" className="btn-primary text-sm px-3 py-2">

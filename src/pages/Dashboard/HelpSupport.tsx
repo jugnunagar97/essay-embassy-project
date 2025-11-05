@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HelpCircle, Search, BookOpen, MessageCircle, Phone, Mail, FileText, Download, ChevronDown, ChevronRight } from 'lucide-react';
+import { HelpCircle, Search, BookOpen, MessageCircle, Mail, FileText, Download, ChevronDown, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface FAQItem {
@@ -122,24 +122,12 @@ const HelpSupport: React.FC = () => {
 
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
-              <Phone className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white">Phone Support</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">+1 (555) 123-4567</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-          <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center">
               <Mail className="w-6 h-6 text-orange-600 dark:text-orange-400" />
             </div>
             <div>
               <h3 className="font-semibold text-gray-900 dark:text-white">Email Support</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">support@essayembassy.com</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">essayembassy@gmail.com</p>
             </div>
           </div>
         </div>
