@@ -17,6 +17,36 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
       // Set a flag to prevent Tawk.to from initializing
       (window as any).__BLOCKED_CHECK_IN_PROGRESS__ = true;
       
+      // Immediately remove favicons while checking (early prevention)
+      const removeFaviconsEarly = () => {
+        const faviconSelectors = [
+          'link[rel="icon"]',
+          'link[rel="shortcut icon"]',
+          'link[rel="apple-touch-icon"]',
+          'link[rel="apple-touch-icon-precomposed"]',
+          'link[rel*="icon"]'
+        ];
+        
+        faviconSelectors.forEach(selector => {
+          const links = document.querySelectorAll(selector);
+          links.forEach(link => {
+            link.remove();
+            if (link instanceof HTMLLinkElement) {
+              link.href = '';
+            }
+          });
+        });
+      };
+
+      // Remove favicons immediately
+      removeFaviconsEarly();
+      
+      // Keep removing while checking
+      const earlyFaviconInterval = setInterval(removeFaviconsEarly, 50);
+      
+      // Store interval to clear later
+      (window as any).__EARLY_FAVICON_INTERVAL__ = earlyFaviconInterval;
+      
       // Override Tawk.to initialization if it tries to load
       if (window.Tawk_API) {
         window.Tawk_API.hideWidget = () => {};
@@ -115,6 +145,11 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
         // Clear the check-in-progress flag
         if (typeof window !== 'undefined') {
           (window as any).__BLOCKED_CHECK_IN_PROGRESS__ = false;
+          
+          // Clear early favicon interval if blocked
+          if ((window as any).__EARLY_FAVICON_INTERVAL__) {
+            clearInterval((window as any).__EARLY_FAVICON_INTERVAL__);
+          }
         }
       }
     };

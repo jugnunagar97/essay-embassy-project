@@ -19,6 +19,55 @@
       gtag('js', new Date());
       gtag('config', 'G-RYB8SKPJD2');
     </script>
+    <!-- Early geo-blocking check to remove favicon immediately -->
+    <script>
+      (function() {
+        // Immediately check if user might be blocked and remove favicon
+        // This runs before React loads to prevent favicon from showing
+        function removeFavicons() {
+          // Remove all favicon-related links
+          const faviconSelectors = [
+            'link[rel="icon"]',
+            'link[rel="shortcut icon"]',
+            'link[rel="apple-touch-icon"]',
+            'link[rel="apple-touch-icon-precomposed"]'
+          ];
+          
+          faviconSelectors.forEach(selector => {
+            const links = document.querySelectorAll(selector);
+            links.forEach(link => {
+              link.remove();
+              // Also prevent reload by removing href
+              if (link.href) {
+                link.href = '';
+              }
+            });
+          });
+        }
+
+        // Remove favicons immediately
+        removeFavicons();
+
+        // Keep removing favicons as they might be re-added
+        const faviconObserver = new MutationObserver(function(mutations) {
+          removeFavicons();
+        });
+
+        // Observe head for new favicon links
+        if (document.head) {
+          faviconObserver.observe(document.head, {
+            childList: true,
+            subtree: true
+          });
+        }
+
+        // Also check periodically
+        setInterval(removeFavicons, 100);
+
+        // Store observer globally so it persists
+        window.__FAVICON_OBSERVER__ = faviconObserver;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

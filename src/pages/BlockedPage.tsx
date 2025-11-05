@@ -2,9 +2,71 @@ import React, { useEffect } from 'react';
 
 const BlockedPage: React.FC = () => {
   useEffect(() => {
-    // Remove favicon links
-    const faviconLinks = document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]');
-    faviconLinks.forEach(link => link.remove());
+    // Aggressively remove favicon links immediately
+    const removeFavicons = () => {
+      // Remove all possible favicon-related links
+      const faviconSelectors = [
+        'link[rel="icon"]',
+        'link[rel="shortcut icon"]',
+        'link[rel="apple-touch-icon"]',
+        'link[rel="apple-touch-icon-precomposed"]',
+        'link[rel*="icon"]'
+      ];
+      
+      faviconSelectors.forEach(selector => {
+        const links = document.querySelectorAll(selector);
+        links.forEach(link => {
+          // Remove the link element
+          link.remove();
+          // Clear href to prevent browser from loading it
+          if (link instanceof HTMLLinkElement) {
+            link.href = '';
+            link.disabled = true;
+          }
+        });
+      });
+
+      // Also try to remove favicon by accessing it directly
+      try {
+        const favicon = document.querySelector('link[rel*="icon"]');
+        if (favicon) {
+          favicon.remove();
+        }
+      } catch (e) {
+        // Ignore errors
+      }
+    };
+
+    // Remove immediately
+    removeFavicons();
+
+    // Keep removing favicons aggressively (they might be re-added)
+    const faviconInterval = setInterval(removeFavicons, 50);
+
+    // Use MutationObserver to catch any new favicon links added to head
+    const faviconObserver = new MutationObserver(() => {
+      removeFavicons();
+    });
+
+    // Observe head for new favicon links
+    if (document.head) {
+      faviconObserver.observe(document.head, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['href', 'rel']
+      });
+    }
+
+    // Also observe document for any link additions
+    const documentObserver = new MutationObserver(() => {
+      removeFavicons();
+    });
+
+    documentObserver.observe(document, {
+      childList: true,
+      subtree: true
+    });
 
     // Remove or blank out the title tag (shows in browser tab)
     document.title = '';
@@ -151,8 +213,11 @@ const BlockedPage: React.FC = () => {
     return () => {
       clearInterval(intervalId);
       clearInterval(titleCheckInterval);
+      clearInterval(faviconInterval);
       observer.disconnect();
       titleObserver.disconnect();
+      faviconObserver.disconnect();
+      documentObserver.disconnect();
     };
   }, []);
 
