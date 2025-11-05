@@ -45,7 +45,94 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Geo-blocking removed to allow all regions
+// Geo-blocking middleware to block India (IN) and Pakistan (PK)
+const BLOCKED_COUNTRIES = ['IN', 'PK'];
+
+async function getCountryFromIP(ip) {
+  try {
+    // Try multiple free IP geolocation services
+    const services = [
+      `https://ipapi.co/${ip}/json/`,
+      `https://ip-api.com/json/${ip}?fields=countryCode`,
+    ];
+
+    for (const service of services) {
+      try {
+        // Create timeout controller for fetch
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        
+        const response = await fetch(service, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json' },
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (response.ok) {
+          const data = await response.json();
+          const countryCode = data.country_code || data.countryCode;
+          if (countryCode) {
+            return countryCode.toUpperCase();
+          }
+        }
+      } catch (e) {
+        // Try next service
+        continue;
+      }
+    }
+    return null;
+  } catch (error) {
+    console.error('Error getting country from IP:', error);
+    return null;
+  }
+}
+
+function getClientIP(req) {
+  // Check various headers for the real client IP
+  return req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+         req.headers['x-real-ip'] ||
+         req.headers['cf-connecting-ip'] ||
+         req.connection?.remoteAddress ||
+         req.socket?.remoteAddress ||
+         req.ip ||
+         'unknown';
+}
+
+// Geo-blocking middleware
+app.use(async (req, res, next) => {
+  // Skip geo-blocking for health check endpoint
+  if (req.path === '/' && req.method === 'GET') {
+    return next();
+  }
+
+  const clientIP = getClientIP(req);
+  
+  // Skip localhost/private IPs in development
+  if (clientIP === '::1' || clientIP === '127.0.0.1' || clientIP.startsWith('192.168.') || clientIP.startsWith('10.') || clientIP.startsWith('172.')) {
+    return next();
+  }
+
+  try {
+    const countryCode = await getCountryFromIP(clientIP);
+    
+    if (countryCode && BLOCKED_COUNTRIES.includes(countryCode)) {
+      console.log(`Blocked request from ${countryCode} (IP: ${clientIP})`);
+      // Return a generic error that looks like a network failure
+      return res.status(503).json({ 
+        error: 'Service unavailable',
+        message: 'This service is temporarily unavailable in your region.'
+      });
+    }
+  } catch (error) {
+    // If geo-check fails, allow the request (fail open)
+    // Change to 'return res.status(503)...' if you want to block on error
+    console.error('Geo-blocking check failed:', error);
+  }
+
+  next();
+});
 
 // Initialize Firebase Admin SDK (if not already initialized)
 let firestore;

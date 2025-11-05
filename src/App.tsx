@@ -7,7 +7,7 @@ import Layout from './components/Layout/Layout';
 import LoadingSpinner from './components/Common/LoadingSpinner';
 import SocialProofNotificationSystem from './components/Common/SocialProofNotificationSystem';
 import ScrollToTop from './components/Common/ScrollToTop';
-// GeoBlock removed to lift country-based access restrictions
+import GeoBlock from './components/GeoBlock';
 
 // --- Core Page Imports ---
 import Home from './pages/Home';
@@ -163,13 +163,14 @@ function DashboardRouter() {
  */
 function App() {
   return (
-    <AuthProvider> {/* Provides authentication context to all child components */}
-      <CurrencyProvider> {/* Provides currency context to all child components */}
-      <Router> {/* Enables client-side routing */}
-        <ScrollToTop />
-        <Toaster position="top-right" /> {/* Global notification system */}
-        <SocialProofNotificationSystem />
-        <Routes> {/* Defines all possible routes in the application */}
+    <GeoBlock>
+      <AuthProvider> {/* Provides authentication context to all child components */}
+        <CurrencyProvider> {/* Provides currency context to all child components */}
+        <Router> {/* Enables client-side routing */}
+          <ScrollToTop />
+          <Toaster position="top-right" /> {/* Global notification system */}
+          <SocialProofNotificationSystem />
+          <Routes> {/* Defines all possible routes in the application */}
           {/* Main layout route - all nested routes will render within the Layout component */}
           <Route path="/" element={<Layout />}>
             {/* Public routes accessible to everyone */}
@@ -279,10 +280,11 @@ function App() {
 
           {/* Fallback route for any unmatched paths, redirects to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Router>
-      </CurrencyProvider>
-    </AuthProvider>
+          </Routes>
+        </Router>
+        </CurrencyProvider>
+      </AuthProvider>
+    </GeoBlock>
   );
 }
 
