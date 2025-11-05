@@ -116,7 +116,7 @@ export default function HeroSection() {
       {/* Subtle background pattern */}
       <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-16">
           {/* Left: Headline & Trust */}
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left space-y-6">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">

@@ -120,11 +120,13 @@ function ConcernsSolutionsBlock(): React.ReactElement {
 .tab-nav {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     z-index: 1;
 }
 .tab-button {
-    padding: 0.75rem 1.75rem;
-    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
@@ -220,6 +222,18 @@ function ConcernsSolutionsBlock(): React.ReactElement {
     }
     .dots {
         display: none;
+    }
+}
+@media (max-width: 480px) {
+    .stat-item h2 {
+        font-size: 2.25rem;
+    }
+    .content-panel {
+        padding: 1.25rem;
+    }
+    .tab-button {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.9rem;
     }
 }
       `}</style>
@@ -1367,7 +1381,9 @@ const WritersSection: React.FC = (): React.ReactElement => {
             className="flex gap-6 overflow-x-auto scroll-container pb-6 drag-scroll"
           >
             {writers.map((writer) => (
-              <WriterCard key={writer.id} writer={writer} />
+              <React.Fragment key={writer.id}>
+                <WriterCard writer={writer} />
+              </React.Fragment>
             ))}
           </div>
         </div>
@@ -1376,7 +1392,7 @@ const WritersSection: React.FC = (): React.ReactElement => {
         <div className="text-center mt-16">
           <Link 
             to="/writers"
-            className="bg-white text-gray-600 border border-gray-200 px-6 py-2.5 rounded-lg font-light hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 transition-all duration-300 shadow-sm hover:shadow-md text-sm"
+            className="bg-white tap-target text-gray-600 border border-gray-200 px-6 py-2.5 rounded-lg font-light hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 transition-all duration-300 shadow-sm hover:shadow-md text-sm"
           >
             View all writers
           </Link>
@@ -1415,7 +1431,7 @@ const ReviewsSection: React.FC = (): React.ReactElement => {
             Reviews 🔥
           </div>
           
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 leading-tight">
             Honest feedback about 
             <span className="block text-gray-700">
               EssayEmbassy
@@ -1428,7 +1444,7 @@ const ReviewsSection: React.FC = (): React.ReactElement => {
         </div>
 
         {/* Platform Tabs Row - exactly as in image */}
-        <div className="flex justify-center space-x-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12">
           {platforms.map((platform) => (
             <PlatformTab
               key={platform.id}
@@ -1591,7 +1607,7 @@ export default function Home(): React.ReactElement {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F7F9FF] via-[#E3E8F0] to-white dark:bg-gray-900">
+    <div className="min-h-screen safe-area bg-gradient-to-b from-[#F7F9FF] via-[#E3E8F0] to-white dark:bg-gray-900">
       {/* Hero Section */}
       <HeroSection />
       <ConcernsSolutionsBlock />
@@ -1699,7 +1715,7 @@ export default function Home(): React.ReactElement {
               <GraduationCap className="w-8 h-8 text-primary-600" />
             </div>
             
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               Our Academic Writing
               <span className="block text-primary-600">Services</span>
             </h2>
@@ -1711,7 +1727,7 @@ export default function Home(): React.ReactElement {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 title: "Essay Writing Services",
@@ -1766,22 +1782,22 @@ export default function Home(): React.ReactElement {
               return (
                 <div
                   key={service.title}
-                  className="group bg-white border border-gray-200 rounded-xl p-8 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+                  className="group bg-white border border-gray-200 rounded-xl p-6 sm:p-8 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
                 >
                   {/* Icon and Title */}
                   <div className="flex items-start space-x-4 mb-6">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary-50 rounded-lg flex items-center justify-center group-hover:bg-primary-100 transition-colors duration-300">
+                    <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 bg-primary-50 rounded-lg flex items-center justify-center group-hover:bg-primary-100 transition-colors duration-300">
                       <IconComponent className="w-6 h-6 text-primary-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors duration-300">
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors duration-300">
                           {service.title}
                         </h3>
                       </div>
                     </div>
 
                   {/* Description */}
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                  <p className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base">
                       {service.description}
                     </p>
 
@@ -1800,7 +1816,7 @@ export default function Home(): React.ReactElement {
                   {/* Action Button */}
                     <Link
                       to={service.href}
-                    className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center space-x-2 group-hover:shadow-md"
+                    className="w-full tap-target bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center space-x-2 group-hover:shadow-md"
                   >
                     <span>{service.buttonText}</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
@@ -1814,7 +1830,7 @@ export default function Home(): React.ReactElement {
           <div className="text-center mt-16">
             <Link 
               to="/services"
-              className="inline-flex items-center justify-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 space-x-3"
+              className="inline-flex items-center justify-center tap-target px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 space-x-3"
             >
                 <span>Explore All Services</span>
               <ArrowRight className="w-5 h-5" />
@@ -1905,7 +1921,7 @@ export default function Home(): React.ReactElement {
             {pricingPlans.map((plan, index) => (
               <div
                 key={index}
-                className={`group relative backdrop-blur-lg bg-white/70 dark:bg-gray-800/70 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700 hover:shadow-md hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300 flex flex-col items-center animate-fade-in h-full min-h-[220px] ${plan.popular ? 'scale-105 z-10 ring-2 ring-primary-200 dark:ring-primary-900/30 shadow-lg' : 'scale-100'}`}
+                className={`group relative backdrop-blur-lg bg-white/70 dark:bg-gray-800/70 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700 hover:shadow-md hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300 flex flex-col items-center animate-fade-in h_full min-h-[220px] ${plan.popular ? 'md:scale-105 z-10 ring-2 ring-primary-200 dark:ring-primary-900/30 md:shadow-lg' : 'scale-100'}`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {plan.popular && (
@@ -1932,7 +1948,7 @@ export default function Home(): React.ReactElement {
                 </ul>
                 <Link
                   to={`/order-now?academicLevel=${encodeURIComponent(plan.name)}`}
-                  className={`inline-flex items-center justify-center w-full px-4 py-2 rounded-md font-medium text-xs transition-all duration-200 shadow-sm group-hover:scale-105 ${
+                  className={`inline-flex items-center justify-center tap-target w-full px-4 py-2 rounded-md font-medium text-xs transition-all duration-200 shadow-sm group-hover:scale-105 ${
                     plan.popular
                       ? 'bg-gradient-to-r from-primary-500 to-primary-400 text-white hover:from-primary-600 hover:to-primary-500 shadow'
                       : 'border border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white bg-white dark:bg-gray-900'
@@ -1961,14 +1977,14 @@ export default function Home(): React.ReactElement {
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
               <Link
                 to="/order-now"
-                className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md font-medium text-base transition-colors inline-flex items-center justify-center shadow group-hover:scale-105"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md font-medium text-base transition-colors inline-flex items-center justify-center shadow group-hover:scale-105 tap-target"
               >
                 <GraduationCap className="mr-2" size={16} />
                 Place Your Order Now
               </Link>
               <Link
                 to="/contact"
-                className="border border-primary-600 text-primary-700 dark:text-white px-6 py-3 rounded-md font-medium text-base hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors group-hover:scale-105"
+                className="border border-primary-600 text-primary-700 dark:text-white px-6 py-3 rounded-md font-medium text-base hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors group-hover:scale-105 tap-target"
               >
                 Contact Us
               </Link>

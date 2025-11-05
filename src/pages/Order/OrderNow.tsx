@@ -416,17 +416,17 @@ export default function OrderNow() {
   }
 
   return (
-    <div className='min-h-screen bg-gray-50 py-8'>
+    <div className='min-h-screen safe-area bg-gray-50 py-8'>
       <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Place Your <span className="text-primary-500">Order</span></h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">Get professional academic writing help from our expert writers. Fill out the form below to get started.</p>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Place Your <span className="text-primary-500">Order</span></h1>
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">Get professional academic writing help from our expert writers. Fill out the form below to get started.</p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg p-8">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 items-start">
+          <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6 sm:p-8">
             <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label className={labelStyle}>Academic Level</label>
                   <select
@@ -532,7 +532,7 @@ export default function OrderNow() {
           </div>
 
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24 space-y-6">
+            <div className="bg-white rounded-2xl shadow-lg p-6 md:sticky md:top-24 space-y-6">
               <h3 className="text-xl font-bold text-gray-900 flex items-center">
                 <DollarSign className="mr-2 text-primary-500" size={24} />
                 Order Summary
@@ -546,6 +546,7 @@ export default function OrderNow() {
                       onClick={() => handlePagesChange(false)}
                       className={stepperButtonStyle}
                       disabled={watchedValues.pages <= 1}
+                      aria-label="Decrease pages"
                     >
                       <Minus size={16} />
                     </button>
@@ -558,6 +559,7 @@ export default function OrderNow() {
                       type="button"
                       onClick={() => handlePagesChange(true)}
                       className={stepperButtonStyle}
+                      aria-label="Increase pages"
                     >
                       <Plus size={16} />
                     </button>
@@ -642,7 +644,7 @@ export default function OrderNow() {
                 <button
                   onClick={handleSubmit(handleFormSubmit)}
                   disabled={isSubmitting}
-                  className="w-full btn-primary py-3 flex items-center justify-center text-lg"
+                  className="w-full btn-primary tap-target py-3 flex items-center justify-center text-lg"
                 >
                   {isSubmitting ? (
                     <>

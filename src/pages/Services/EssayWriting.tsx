@@ -126,10 +126,10 @@ export default function EssayWriting() {
 
 
   return (
-    <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+    <div className="background-icons min-h-screen safe-area" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-6 md:py-10 relative">
-        <main className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="container mx-auto px-4 sm:px-6 py-6 md:py-10 relative">
+        <main className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Left Column: Content */}
           <div className="space-y-8">
             <div className="flex items-center bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-full">
@@ -141,42 +141,42 @@ export default function EssayWriting() {
               </span>
               PLAGIARISM & AI FREE
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
             Expert Essay Writing Service That Gets Results Fast
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="text-base sm:text-lg text-gray-600">
             Professional writers help you finish college essays on time. Clear writing, perfect formatting, zero plagiarism.
             </p>
             {/* Ratings */}
-            <div className="flex flex-row justify-start items-end gap-6 pt-4">
+            <div className="flex flex-row justify-start items-end gap-4 sm:gap-6 pt-4">
               {/* Google Reviews */}
-              <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2">
+              <div className="flex flex-col items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white border border-gray-100 rounded-xl shadow p-2">
                 <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
                   <img src="/images/google logo.svg" alt="Google Logo" className="h-5 w-5" />
                 </span>
-                <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                <span className="flex items-center justify-center text-sm sm:text-base font-semibold text-gray-900">
                   4.1/5
                   <span className="ml-1 text-yellow-400 text-sm">★</span>
                 </span>
                 <span className="text-gray-600 text-xs mt-1 font-medium">Google</span>
               </div>
               {/* Trustpilot */}
-              <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
+              <div className="flex flex-col items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
                 <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
                   <img src="/images/trustpilot logo 2.png" alt="Trustpilot Logo" className="h-5 w-5" />
                 </span>
-                <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                <span className="flex items-center justify-center text-sm sm:text-base font-semibold text-gray-900">
                   4.4/5
                   <span className="ml-1 text-green-500 text-sm">★</span>
                 </span>
                 <span className="text-gray-600 text-xs mt-1 font-medium">Trustpilot</span>
               </div>
               {/* Sitejabber */}
-              <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
+              <div className="flex flex-col items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
                 <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
                   <img src="/images/sitejabber-logo-2.png" alt="Sitejabber Logo" className="h-5 w-5" />
                 </span>
-                <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                <span className="flex items-center justify-center text-sm sm:text-base font-semibold text-gray-900">
                   4.0/5
                   <span className="ml-1 text-orange-400 text-sm">★</span>
                 </span>
@@ -185,7 +185,7 @@ export default function EssayWriting() {
             </div>
           </div>
           {/* Right Column: Order Form */}
-          <div className="bg-white p-8 rounded-2xl max-w-md mx-auto shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.04)]">
+          <div className="bg-white p-6 sm:p-8 rounded-2xl max-w-md mx-auto shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.04)]">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Place an order</h2>
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
@@ -195,11 +195,11 @@ export default function EssayWriting() {
                 </select>
               </div>
               <div className="flex items-center justify-between border border-gray-300 rounded-lg p-1 mt-4">
-                <button type="button" onClick={() => setValue('pages', Math.max(1, (watchedValues.pages || 1) - 1))} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md">-</button>
+                <button type="button" aria-label="Decrease pages" onClick={() => setValue('pages', Math.max(1, (watchedValues.pages || 1) - 1))} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md tap-target">-</button>
                 <div className="text-center">
                   <input type="number" min={1} {...register('pages', { valueAsNumber: true })} className="text-lg font-semibold text-gray-800 w-16 text-center border-none outline-none" />
                 </div>
-                <button type="button" onClick={() => setValue('pages', (watchedValues.pages || 1) + 1)} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md">+</button>
+                <button type="button" aria-label="Increase pages" onClick={() => setValue('pages', (watchedValues.pages || 1) + 1)} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md tap-target">+</button>
                 <span className="bg-gray-100 text-gray-700 text-sm font-medium px-4 py-2 rounded-md">{totalWords} words</span>
               </div>
               <div>
@@ -211,9 +211,9 @@ export default function EssayWriting() {
               {/* Price display */}
               <div className="flex flex-col items-center justify-center mt-4">
                 <span className="text-xs text-gray-500">From</span>
-                <span className="font-bold text-2xl text-primary-600">${price.toFixed(2)}</span>
+                <span className="font-bold text-xl sm:text-2xl text-primary-600">${price.toFixed(2)}</span>
               </div>
-              <button type="submit" className="w-full mt-8 bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+              <button type="submit" className="w-full mt-8 bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105 tap-target">
                 Place your order
               </button>
             </form>
@@ -253,9 +253,9 @@ export default function EssayWriting() {
         <WritersCarousel />
       </div>
       {/* Next-Gen Features Grid Block */}
-      <section className="w-full bg-[#F7FAFC] py-24">
+      <section className="w-full bg-[#F7FAFC] py-16 sm:py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-5xl md:text-6xl font-light tracking-wider text-center mb-20 animate-fade-in-up">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-light tracking-wider text-center mb-12 sm:mb-20 animate-fade-in-up">
           We Go Beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent animate-gradient-x font-semibold">Basic Essay Writing Help</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -347,7 +347,7 @@ export default function EssayWriting() {
         <div className="flex justify-center mt-4 animate-fade-in-up">
           <a
             href="https://essayembassy.com/order-now"
-            className="inline-block px-10 py-4 rounded-full bg-primary-600 text-white text-lg font-semibold shadow-lg hover:bg-primary-700 hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
+            className="inline-block px-8 sm:px-10 py-4 rounded-full bg-primary-600 text-white text-lg font-semibold shadow-lg hover:bg-primary-700 hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 tap-target"
           >
             Start Your Essay Order
           </a>
@@ -374,7 +374,7 @@ export default function EssayWriting() {
       {/* Prices and Services Block */}
       <section className="w-full bg-white py-24">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
           <div className="text-center text-lg text-gray-600 mb-4">
             Prices start at <span className="font-bold text-gray-900">$13.99</span>/page and depend on the page count, deadline, and expert's level
           </div>
@@ -385,7 +385,7 @@ export default function EssayWriting() {
             </a>
           </div>
           
-          <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch mt-12 mb-10">
+          <div className="flex flex-col md:flex-row gap-6 sm:gap-8 justify-center items-stretch mt-10 sm:mt-12 mb-10">
             {/* Included services */}
             <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
               <h3 className="text-2xl font-bold text-gray-900 mb-1">Included services</h3>
@@ -432,7 +432,7 @@ export default function EssayWriting() {
           <div className="flex justify-center mt-2">
             <a
               href="https://essayembassy.com/order-now"
-              className="inline-block px-12 py-4 rounded-full bg-primary-600 text-white text-lg font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
+              className="inline-block px-10 sm:px-12 py-4 rounded-full bg-primary-600 text-white text-lg font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 tap-target"
             >
               Create an order
             </a>

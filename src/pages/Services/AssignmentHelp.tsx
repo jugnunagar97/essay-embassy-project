@@ -495,10 +495,10 @@ export default function HomeworkHelp() {
   };
 
   return (
-    <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+    <div className="background-icons min-h-screen safe-area" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
-      <section className="container mx-auto px-6 py-8 md:py-10 relative">
-        <main className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="container mx-auto px-4 sm:px-6 py-8 md:py-10 relative">
+        <main className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Left Column: Content */}
           <div className="space-y-8">
             <div className="flex items-center bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-full">
@@ -510,42 +510,42 @@ export default function HomeworkHelp() {
               </span>
               PLAGIARISM & AI FREE
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
               Homework Help
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="text-base sm:text-lg text-gray-600">
               Get personalized homework help from qualified tutors across all subjects. Our experienced tutors help you understand concepts and complete assignments with confidence.
             </p>
             {/* Ratings */}
-            <div className="flex flex-row justify-start items-end gap-6 pt-4">
+            <div className="flex flex-row justify-start items-end gap-4 sm:gap-6 pt-4">
               {/* Google Reviews */}
-              <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2">
+              <div className="flex flex-col items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white border border-gray-100 rounded-xl shadow p-2">
                 <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
                   <img src="/images/google logo.svg" alt="Google Logo" className="h-5 w-5" />
                 </span>
-                <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                <span className="flex items-center justify-center text-sm sm:text-base font-semibold text-gray-900">
                   4.1/5
                   <span className="ml-1 text-yellow-400 text-sm">★</span>
                 </span>
                 <span className="text-gray-600 text-xs mt-1 font-medium">Google</span>
               </div>
               {/* Trustpilot */}
-              <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
+              <div className="flex flex-col items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
                 <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
                   <img src="/images/trustpilot logo 2.png" alt="Trustpilot Logo" className="h-5 w-5" />
                 </span>
-                <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                <span className="flex items-center justify-center text-sm sm:text-base font-semibold text-gray-900">
                   4.4/5
                   <span className="ml-1 text-green-500 text-sm">★</span>
                 </span>
                 <span className="text-gray-600 text-xs mt-1 font-medium">Trustpilot</span>
               </div>
               {/* Sitejabber */}
-              <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
+              <div className="flex flex-col items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
                 <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
                   <img src="/images/sitejabber-logo-2.png" alt="Sitejabber Logo" className="h-5 w-5" />
                 </span>
-                <span className="flex items-center justify-center text-base font-semibold text-gray-900">
+                <span className="flex items-center justify-center text-sm sm:text-base font-semibold text-gray-900">
                   4.0/5
                   <span className="ml-1 text-orange-400 text-sm">★</span>
                 </span>
@@ -554,7 +554,7 @@ export default function HomeworkHelp() {
             </div> {/* End of ratings flex-row */}
           </div> {/* End of left column content */}
           {/* Right Column: Order Form */}
-          <div className="bg-white p-8 rounded-2xl max-w-md mx-auto shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.04)]">
+          <div className="bg-white p-6 sm:p-8 rounded-2xl max-w-md mx-auto shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.04)]">
             <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Place an order</h2>
             {/* Sign Up Buttons */}
             <div className="flex gap-4 mb-6 justify-center">
@@ -578,11 +578,11 @@ export default function HomeworkHelp() {
                 </select>
               </div>
               <div className="flex items-center justify-between border border-gray-300 rounded-lg p-1 mt-4">
-                <button type="button" onClick={() => setValue('pages', Math.max(1, (watchedValues.pages || 1) - 1))} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md">-</button>
+                <button type="button" aria-label="Decrease pages" onClick={() => setValue('pages', Math.max(1, (watchedValues.pages || 1) - 1))} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md tap-target">-</button>
                 <div className="text-center">
                   <input type="number" min={1} {...register('pages', { valueAsNumber: true })} className="text-lg font-semibold text-gray-800 w-16 text-center border-none outline-none" />
                 </div>
-                <button type="button" onClick={() => setValue('pages', (watchedValues.pages || 1) + 1)} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md">+</button>
+                <button type="button" aria-label="Increase pages" onClick={() => setValue('pages', (watchedValues.pages || 1) + 1)} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md tap-target">+</button>
                 <span className="bg-gray-100 text-gray-700 text-sm font-medium px-4 py-2 rounded-md">{totalWords} words</span>
               </div>
               <div>
@@ -594,9 +594,9 @@ export default function HomeworkHelp() {
               {/* Price display */}
               <div className="flex flex-col items-center justify-center mt-4">
                 <span className="text-xs text-gray-500">From</span>
-                <span className="font-bold text-2xl text-primary-600">${price.toFixed(2)}</span>
+                <span className="font-bold text-xl sm:text-2xl text-primary-600">${price.toFixed(2)}</span>
               </div>
-              <button type="submit" className="w-full mt-8 bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105">
+              <button type="submit" className="w-full mt-8 bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105 tap-target">
                 Place your order
               </button>
             </form>

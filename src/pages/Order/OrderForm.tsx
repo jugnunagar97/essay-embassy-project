@@ -213,10 +213,10 @@ export default function OrderForm() {
   const stepperButtonStyle = "w-10 h-10 border-2 border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
 
   return (
-    <div className="grid lg:grid-cols-3 gap-8 items-start">
-      <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+    <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 items-start safe-area">
+      <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 sm:p-8">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
             <div>
               <label className={labelStyle}>Academic Level</label>
               <select
@@ -294,7 +294,7 @@ export default function OrderForm() {
         </form>
       </div>
       <div className="lg:col-span-1">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 sticky top-24 space-y-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:sticky md:top-24 space-y-6">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
             <DollarSign className="mr-2 text-primary-500" size={24} />
             Order Summary
@@ -303,13 +303,13 @@ export default function OrderForm() {
             <div>
               <label className={labelStyle}>Pages</label>
               <div className="flex items-center">
-                <button type="button" onClick={() => handlePagesChange(false)} className={stepperButtonStyle} disabled={watchedValues.pages <= 1}><Minus size={16} /></button>
+                <button type="button" onClick={() => handlePagesChange(false)} className={stepperButtonStyle} disabled={watchedValues.pages <= 1} aria-label="Decrease pages"><Minus size={16} /></button>
                 <input
                   type="number"
                   {...register('pages', { required: true, min: 1, valueAsNumber: true })}
                   className="form-input text-center mx-2 dark:text-white dark:bg-gray-700 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
-                <button type="button" onClick={() => handlePagesChange(true)} className={stepperButtonStyle}><Plus size={16} /></button>
+                <button type="button" onClick={() => handlePagesChange(true)} className={stepperButtonStyle} aria-label="Increase pages"><Plus size={16} /></button>
               </div>
             </div>
             <div>
@@ -350,7 +350,7 @@ export default function OrderForm() {
           <button
             onClick={handleSubmit(onSubmit)}
             disabled={isSubmitting}
-            className="w-full btn-primary py-3 flex items-center justify-center text-lg"
+            className="w-full btn-primary tap-target py-3 flex items-center justify-center text-lg"
           >
             {isSubmitting ? <><LoadingSpinner size="sm" className="mr-2" />Processing...</> : <><CreditCard size={20} className="mr-2" />Submit & Continue</>}
           </button>
