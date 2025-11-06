@@ -1964,36 +1964,36 @@ export default function Home(): React.ReactElement {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-10 bg-gradient-to-br from-primary-600/90 to-primary-800 relative overflow-hidden">
+      <section className="py-8 sm:py-10 md:py-12 bg-gradient-to-br from-primary-600/90 to-primary-800 relative overflow-hidden px-4 sm:px-6">
         <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
         <div className="container text-center relative z-10">
-          <div className="max-w-3xl mx-auto bg-white/80 dark:bg-gray-900/80 rounded-xl shadow-lg p-6 md:p-10 border border-primary-200 dark:border-primary-900 animate-fade-in">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary-800 dark:text-white mb-3">
+          <div className="max-w-3xl mx-auto bg-white/80 dark:bg-gray-900/80 rounded-xl shadow-lg p-5 sm:p-6 md:p-8 lg:p-10 border border-primary-200 dark:border-primary-900 animate-fade-in">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-800 dark:text-white mb-2 sm:mb-3 leading-tight px-2">
               Ready to Get Started?
             </h2>
-            <p className="text-base text-primary-700 dark:text-primary-100 mb-5">
+            <p className="text-sm sm:text-base text-primary-700 dark:text-primary-100 mb-4 sm:mb-5 px-2 leading-relaxed">
               Join thousands of successful students who trust Essay Embassy for their academic needs.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 justify-center mb-3 sm:mb-4">
               <Link
                 to="/order-now"
-                className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md font-medium text-base transition-colors inline-flex items-center justify-center shadow group-hover:scale-105 tap-target"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-md font-medium text-sm sm:text-base transition-colors inline-flex items-center justify-center shadow group-hover:scale-105 tap-target w-full sm:w-auto"
               >
-                <GraduationCap className="mr-2" size={16} />
-                Place Your Order Now
+                <GraduationCap className="mr-2 flex-shrink-0" size={16} />
+                <span className="whitespace-nowrap">Place Your Order Now</span>
               </Link>
               <Link
                 to="/contact"
-                className="border border-primary-600 text-primary-700 dark:text-white px-6 py-3 rounded-md font-medium text-base hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors group-hover:scale-105 tap-target"
+                className="border border-primary-600 text-primary-700 dark:text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-md font-medium text-sm sm:text-base hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors group-hover:scale-105 tap-target w-full sm:w-auto"
               >
                 Contact Us
               </Link>
             </div>
-            <div className="mt-4 text-primary-700 dark:text-primary-100">
-              <p className="text-xs flex flex-wrap items-center justify-center gap-3">
-                <span className="inline-flex items-center"><span className="mr-1">🔒</span> Secure Payment</span>
-                <span className="inline-flex items-center"><span className="mr-1">📞</span> 24/7 Support</span>
-                <span className="inline-flex items-center"><span className="mr-1">✅</span> Money-Back Guarantee</span>
+            <div className="mt-3 sm:mt-4 text-primary-700 dark:text-primary-100">
+              <p className="text-[10px] sm:text-xs flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-2">
+                <span className="inline-flex items-center whitespace-nowrap"><span className="mr-1">🔒</span> Secure Payment</span>
+                <span className="inline-flex items-center whitespace-nowrap"><span className="mr-1">📞</span> 24/7 Support</span>
+                <span className="inline-flex items-center whitespace-nowrap"><span className="mr-1">✅</span> Money-Back Guarantee</span>
               </p>
             </div>
           </div>
