@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Award, Users, BookOpen, Star, Briefcase, ShieldCheck, Globe, CheckCircle, MapPin, Mail } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 const team = [
   {
@@ -105,11 +106,20 @@ const process = [
 
 const About = () => {
   return (
-    <div className="animate-fade-in">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary-50 to-blue-100 dark:from-slate-900 dark:to-slate-800 py-12 md:py-20 mb-6 md:mb-8 overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-secondary-900 dark:text-white mb-3 md:mb-4 drop-shadow-lg leading-tight">About Essay Embassy</h1>
+    <>
+      <Helmet>
+        <title>About Us | Essay Embassy</title>
+        <meta
+          name="description"
+          content="Learn about Essay Embassy—our mission, values, and how we help students with original, high-quality writing."
+        />
+        <link rel="canonical" href="https://essayembassy.com/about" />
+      </Helmet>
+      <div className="animate-fade-in">
+        {/* Hero Section */}
+        <section className="relative bg-gradient-to-br from-primary-50 to-blue-100 dark:from-slate-900 dark:to-slate-800 py-12 md:py-20 mb-6 md:mb-8 overflow-hidden">
+          <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-secondary-900 dark:text-white mb-3 md:mb-4 drop-shadow-lg leading-tight">About Essay Embassy</h1>
           <p className="text-base sm:text-lg md:text-xl text-muted max-w-2xl mx-auto mb-4 md:mb-6 px-2">Your trusted partner in academic excellence. We are a dedicated team of professionals committed to your success.</p>
           <Link to="/order-now" className="btn-primary text-sm sm:text-base md:text-lg px-6 md:px-8 py-2.5 md:py-3 shadow-lg hover:shadow-2xl transition-shadow inline-block">Get Started</Link>
         </div>
@@ -313,7 +323,8 @@ const About = () => {
             </Link>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

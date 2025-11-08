@@ -3,6 +3,7 @@ import { auth } from '../../firebase';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import WritersCarousel from './WritersCarousel';
 
 // --- SpecialHomeworkHelpCarousel: React-based interactive carousel ---
@@ -495,9 +496,18 @@ export default function HomeworkHelp() {
   };
 
   return (
-    <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
-      {/* Hero Section */}
-      <section className="container mx-auto px-6 py-8 md:py-10 relative">
+    <>
+      <Helmet>
+        <title>Research Paper Writing Service | Expert Help</title>
+        <meta
+          name="description"
+          content="Professional research paper writing service. Get custom research papers written by expert writers. Original content, proper citations, on-time delivery."
+        />
+        <link rel="canonical" href="https://essayembassy.com/services/research-paper-writing" />
+      </Helmet>
+      <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+        {/* Hero Section */}
+        <section className="container mx-auto px-6 py-8 md:py-10 relative">
         <main className="grid md:grid-cols-2 gap-16 items-center">
           {/* Left Column: Content */}
           <div className="space-y-8">
@@ -1261,6 +1271,7 @@ export default function HomeworkHelp() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import WritersCarousel from './WritersCarousel';
 import { useState } from 'react';
 import { SpecialAssignmentHelpCarousel } from './AdmissionEssayWriting';
+import { Helmet } from 'react-helmet-async';
 
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
@@ -113,9 +114,27 @@ export default function TermPaperWriting() {
   };
 
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+    return (
 
-  return (
-    <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+        <>
+
+          <Helmet>
+
+            <title>Term Paper Writing Service | Expert Help</title>
+
+            <meta
+
+              name="description"
+
+              content="Professional term paper writing service. Get comprehensive term papers with proper research, citations, and formatting."
+
+            />
+
+            <link rel="canonical" href="https://essayembassy.com/services/academic-writing/term-paper" />
+
+          </Helmet>
+
+          <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-6 md:py-10 relative">
         <main className="grid md:grid-cols-2 gap-16 items-center">
@@ -830,8 +849,12 @@ export default function TermPaperWriting() {
         </div>
       </section>
     </div>
-  );
-}
+
+        </>
+
+      );
+
+    }
 
 function ClientTestimonialsCarousel() {
   const testimonials = [

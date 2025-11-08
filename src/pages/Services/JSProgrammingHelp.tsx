@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 // You need to create ClientTestimonialsCarousel component in the Testimonials folder
 import WritersCarousel from './WritersCarousel';
 import { SpecialAssignmentHelpCarousel } from './AdmissionEssayWriting';
+import { Helmet } from 'react-helmet-async';
 
 // Client Testimonials Carousel Component
 function ClientTestimonialsCarousel() {
@@ -114,8 +115,27 @@ function ClientTestimonialsCarousel() {
           <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
             {testimonials.map((t, idx) => {
               const offset = idx - currentIndex;
-              return (
-                <div
+                return (
+
+                    <>
+
+                      <Helmet>
+
+                        <title>JavaScript Programming Help | Expert Tutors</title>
+
+                        <meta
+
+                          name="description"
+
+                          content="Professional JavaScript programming help. Expert tutors in JavaScript, web development, and frontend frameworks."
+
+                        />
+
+                        <link rel="canonical" href="https://essayembassy.com/services/assignment-help/javascript-programming" />
+
+                      </Helmet>
+
+                      <div
                   key={t.id}
                   className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0 ${idx === currentIndex ? 'is-active' : ''}`}
                   style={{
@@ -1088,5 +1108,9 @@ export default function JSProgrammingHelp() {
         </div>
       </section>
     </div>
-  );
-} 
+
+        </>
+
+      );
+
+    } 

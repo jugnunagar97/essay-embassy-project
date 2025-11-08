@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Book, Edit3, Clock, GraduationCap, FileText } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 const servicesList = [
   {
@@ -43,11 +44,20 @@ const servicesList = [
 
 const Services = () => {
   return (
-    <div className="animate-fade-in">
-      {/* Page Header */}
-      <div className="bg-slate-50 dark:bg-slate-800 py-16">
-        <div className="container mx-auto px-6 text-center">
-          <h1 className="heading-lg mb-4">Our Academic Services</h1>
+    <>
+      <Helmet>
+        <title>Academic Writing Services | Essay Embassy</title>
+        <meta
+          name="description"
+          content="Professional academic writing services including essays, research papers, dissertations, and assignment help. Expert writers available 24/7."
+        />
+        <link rel="canonical" href="https://essayembassy.com/services" />
+      </Helmet>
+      <div className="animate-fade-in">
+        {/* Page Header */}
+        <div className="bg-slate-50 dark:bg-slate-800 py-16">
+          <div className="container mx-auto px-6 text-center">
+            <h1 className="heading-lg mb-4">Our Academic Services</h1>
           <p className="text-xl text-muted max-w-3xl mx-auto">
             Professional and reliable academic writing solutions tailored to help you succeed.
           </p>
@@ -84,7 +94,8 @@ const Services = () => {
             </Link>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

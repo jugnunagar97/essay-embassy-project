@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import WritersCarousel from './WritersCarousel';
 import { SpecialAssignmentHelpCarousel } from './AdmissionEssayWriting';
 
@@ -126,9 +127,18 @@ export default function EssayWriting() {
 
 
   return (
-    <div className="background-icons min-h-screen safe-area" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 sm:px-6 py-6 md:py-10 relative">
+    <>
+      <Helmet>
+        <title>Essay Writing Service | Professional Essay Help</title>
+        <meta
+          name="description"
+          content="Expert essay writing service with professional writers. Get custom essays, research papers, and academic writing help. Original content, on-time delivery."
+        />
+        <link rel="canonical" href="https://essayembassy.com/services/essay-writing" />
+      </Helmet>
+      <div className="background-icons min-h-screen safe-area" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+        {/* Hero Section */}
+        <section className="container mx-auto px-4 sm:px-6 py-6 md:py-10 relative">
         <main className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Left Column: Content */}
           <div className="space-y-8">
@@ -855,5 +865,7 @@ export default function EssayWriting() {
               </div>
             </section>
           </div>
-        );
-      }
+        </div>
+      </>
+    );
+  }

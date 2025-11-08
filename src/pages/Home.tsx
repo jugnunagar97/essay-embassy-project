@@ -21,6 +21,7 @@ import {
 import HeroSection from '../components/Hero/HeroSection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { Helmet } from 'react-helmet-async';
 
 function ConcernsSolutionsBlock(): React.ReactElement {
   const [activeTab, setActiveTab] = useState<string>('concerns');
@@ -1607,9 +1608,18 @@ export default function Home(): React.ReactElement {
   ];
 
   return (
-    <div className="min-h-screen safe-area bg-gradient-to-b from-[#F7F9FF] via-[#E3E8F0] to-white dark:bg-gray-900">
-      {/* Hero Section */}
-      <HeroSection />
+    <>
+      <Helmet>
+        <title>Essay Writing Service | Essay Embassy</title>
+        <meta
+          name="description"
+          content="Professional essay writing service with expert writers. Get original, high-quality essays, research papers, and academic writing help."
+        />
+        <link rel="canonical" href="https://essayembassy.com/" />
+      </Helmet>
+      <div className="min-h-screen safe-area bg-gradient-to-b from-[#F7F9FF] via-[#E3E8F0] to-white dark:bg-gray-900">
+        {/* Hero Section */}
+        <HeroSection />
       <ConcernsSolutionsBlock />
 
       {/* Why Choose Essay Embassy */}
@@ -1999,6 +2009,7 @@ export default function Home(): React.ReactElement {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

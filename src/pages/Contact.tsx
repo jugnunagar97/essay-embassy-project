@@ -2,6 +2,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Mail, MapPin } from 'lucide-react';
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 // Define the type for our form inputs
 type FormInputs = {
@@ -144,11 +145,20 @@ const Contact = () => {
   }, []);
 
   return (
-    <div className="animate-fade-in">
-      {/* Page Header */}
-      <div className="bg-slate-50 dark:bg-slate-800 py-8 md:py-16">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-3xl sm:text-4xl md:heading-lg mb-3 md:mb-4 font-bold">Contact Us</h1>
+    <>
+      <Helmet>
+        <title>Contact Us | Essay Embassy</title>
+        <meta
+          name="description"
+          content="Get in touch with Essay Embassy. We're here to help with your academic writing needs. Contact us 24/7 for support and questions."
+        />
+        <link rel="canonical" href="https://essayembassy.com/contact" />
+      </Helmet>
+      <div className="animate-fade-in">
+        {/* Page Header */}
+        <div className="bg-slate-50 dark:bg-slate-800 py-8 md:py-16">
+          <div className="container mx-auto px-4 sm:px-6 text-center">
+            <h1 className="text-3xl sm:text-4xl md:heading-lg mb-3 md:mb-4 font-bold">Contact Us</h1>
           <p className="text-base sm:text-lg md:text-xl text-muted max-w-3xl mx-auto px-2">
             Have questions or ready to start an order? We're here to help, 24/7.
           </p>
@@ -481,7 +491,8 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

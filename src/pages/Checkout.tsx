@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import NoIndex from '../components/NoIndex';
 
 const Checkout: React.FC = () => {
   const location = useLocation();
@@ -23,10 +24,13 @@ const Checkout: React.FC = () => {
   }, [location, navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[300px]">
-      <div className="text-xl font-bold mb-4">Processing payment...</div>
-      <div className="text-gray-500">Please wait while we confirm your payment status.</div>
-    </div>
+    <>
+      <NoIndex title="Checkout" />
+      <div className="flex flex-col items-center justify-center min-h-[300px]">
+        <div className="text-xl font-bold mb-4">Processing payment...</div>
+        <div className="text-gray-500">Please wait while we confirm your payment status.</div>
+      </div>
+    </>
   );
 };
 

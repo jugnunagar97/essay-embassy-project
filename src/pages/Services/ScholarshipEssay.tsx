@@ -7,6 +7,7 @@ import WritersCarousel from './WritersCarousel';
 
 // --- SpecialAssignmentHelpCarousel: React-based interactive carousel ---
 import React, { useRef, useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const carouselItems = [
   {
@@ -303,8 +304,27 @@ function ClientTestimonialsCarousel() {
           <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
             {testimonials.map((t, idx) => {
               const offset = idx - currentIndex;
-              return (
-                <div
+                return (
+
+                    <>
+
+                      <Helmet>
+
+                        <title>Scholarship Essay Writing Service | Expert Help</title>
+
+                        <meta
+
+                          name="description"
+
+                          content="Professional scholarship essay writing service. Get compelling scholarship essays that help you win awards and grants."
+
+                        />
+
+                        <link rel="canonical" href="https://essayembassy.com/services/scholarship-essay" />
+
+                      </Helmet>
+
+                      <div
                   key={t.id}
                   className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
                   style={{
@@ -1268,5 +1288,9 @@ export default function MatlabProgrammingHelp() {
         </div>
       </section>
     </div>
-  );
-} 
+
+        </>
+
+      );
+
+    } 

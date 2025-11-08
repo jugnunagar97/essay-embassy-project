@@ -7,6 +7,7 @@ import WritersCarousel from './WritersCarousel';
 
 // --- SpecialHomeworkHelpCarousel: React-based interactive carousel ---
 import React, { useRef, useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const carouselItems = [
   {
@@ -303,8 +304,27 @@ function ClientTestimonialsCarousel() {
           <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
             {testimonials.map((t, idx) => {
               const offset = idx - currentIndex;
-              return (
-                <div
+                return (
+
+                    <>
+
+                      <Helmet>
+
+                        <title>Homework Help Service | Expert Tutors</title>
+
+                        <meta
+
+                          name="description"
+
+                          content="Professional homework help service. Get personalized homework help from qualified tutors across all subjects. 24/7 support available."
+
+                        />
+
+                        <link rel="canonical" href="https://essayembassy.com/services/homework-help" />
+
+                      </Helmet>
+
+                      <div
                   key={t.id}
                   className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
                   style={{
@@ -1262,5 +1282,9 @@ export default function HomeworkHelp() {
         </div>
       </section>
     </div>
-  );
-}
+
+        </>
+
+      );
+
+    }

@@ -1,14 +1,19 @@
 User-agent: *
 
-# Block admin and client dashboard panels
-Disallow: /admin/
-Disallow: /dashboard/
-Disallow: /checkout
+Disallow: /cart/
 
-# Everything else is indexable
+Disallow: /checkout/
+
+Disallow: /my-account/
+
+Disallow: /shop/
+
+Disallow: /search
+
+Disallow: /*?s=
+
 Allow: /
 
-# Sitemaps
+
+
 Sitemap: https://essayembassy.com/sitemap.xml
-
-

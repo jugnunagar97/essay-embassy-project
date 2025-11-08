@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import admin from 'firebase-admin';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
+import path from 'path';
 dotenv.config();
 
 const app = express();
@@ -44,6 +45,23 @@ app.use(cors({
   credentials: true 
 }));
 app.use(express.json());
+
+// --- Force HTTPS and canonical host (no www) ---
+app.use((req, res, next) => {
+  const host = req.headers.host || '';
+  const isHttps = req.headers['x-forwarded-proto'] === 'https' || req.secure;
+
+  // Force https
+  if (!isHttps) {
+    return res.redirect(301, `https://essayembassy.com${req.originalUrl}`);
+  }
+
+  // Force apex domain (no www)
+  if (host.startsWith('www.')) {
+    return res.redirect(301, `https://essayembassy.com${req.originalUrl}`);
+  }
+  next();
+});
 
 // Geo-blocking middleware to block India (IN) and Pakistan (PK)
 const BLOCKED_COUNTRIES = ['IN', 'PK'];
@@ -147,6 +165,47 @@ try {
   console.log('Firebase Admin SDK not configured:', error.message);
   // Continue without Firebase for now
 }
+
+// --- Central 301 redirect map (fixes 404s & duplicates) ---
+const redirects = {
+  '/home': '/',
+  '/contact-us/': '/contact',          // or '/#contact' if you have an anchor
+  '/my-account-2/': '/my-account',
+  '/shop-2/': '/shop',                 // or '/' if shop removed
+  '/checkout-2/': '/checkout',
+  '/cart-2/': '/cart',
+  '/cart-2-2/': '/cart',
+  '/author/20628/wpadmin/': '/',
+  '/2024/10/21/how-to-drive-conversions-with-data-driven-digital-campaigns/': '/blog/'
+};
+
+app.use((req, res, next) => {
+  const dst = redirects[req.path];
+  if (dst) return res.redirect(301, dst);
+  next();
+});
+
+// --- Feed URL redirects: /post-slug/feed/ → /post-slug/ ---
+app.use((req, res, next) => {
+  const path = req.path;
+  // Match URLs ending with /feed/ or /feed (e.g., /blog/post-slug/feed/ → /blog/post-slug/)
+  if (path.endsWith('/feed/') || path.endsWith('/feed')) {
+    // Remove /feed/ or /feed from the end to get canonical URL
+    const canonicalPath = path.replace(/\/feed\/?$/, '');
+    // Redirect to canonical URL (without trailing /feed/)
+    return res.redirect(301, canonicalPath || '/');
+  }
+  next();
+});
+
+// --- Optional: 410 Gone for URLs you removed completely ---
+const gone = new Set([
+  // '/shop', '/checkout', '/cart'  // uncomment if you retired ecommerce fully
+]);
+app.use((req, res, next) => {
+  if (gone.has(req.path)) return res.status(410).send('Gone');
+  next();
+});
 
 // ==========================================================
 // =================== YOUR FIX IS HERE =====================
@@ -360,6 +419,12 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// --- Serve Vite build ---
+const dist = path.join(process.cwd(), 'dist');
+app.use(express.static(dist));
+app.get('*', (_, res) => res.sendFile(path.join(dist, 'index.html')));
+
+// --- Start ---
 const PORT = process.env.PORT || 4242;
 app.listen(PORT, () => {
   console.log(`Razorpay backend listening on port ${PORT}`);
