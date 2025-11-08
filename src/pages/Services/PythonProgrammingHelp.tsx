@@ -305,26 +305,7 @@ function ClientTestimonialsCarousel() {
             {testimonials.map((t, idx) => {
               const offset = idx - currentIndex;
                 return (
-
-                    <>
-
-                      <Helmet>
-
-                        <title>Python Programming Help | Expert Tutors</title>
-
-                        <meta
-
-                          name="description"
-
-                          content="Professional Python programming help. Expert tutors in Python, data science, and machine learning. Get help now."
-
-                        />
-
-                        <link rel="canonical" href="https://essayembassy.com/services/assignment-help/python-programming" />
-
-                      </Helmet>
-
-                      <div
+                  <div
                   key={t.id}
                   className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
                   style={{
@@ -515,7 +496,16 @@ export default function PythonProgrammingHelp() {
   };
 
   return (
-    <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+    <>
+      <Helmet>
+        <title>Python Programming Help | Expert Tutors</title>
+        <meta
+          name="description"
+          content="Professional Python programming help. Expert tutors in Python, data science, and machine learning. Get help now."
+        />
+        <link rel="canonical" href="https://essayembassy.com/services/assignment-help/python-programming" />
+      </Helmet>
+      <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-8 md:py-10 relative">
         <main className="grid md:grid-cols-2 gap-16 items-center">
@@ -1279,10 +1269,7 @@ export default function PythonProgrammingHelp() {
           </div>
         </div>
       </section>
-    </div>
-
-        </>
-
-      );
-
-    } 
+      </div>
+    </>
+  );
+} 

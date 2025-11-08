@@ -305,26 +305,7 @@ function ClientTestimonialsCarousel() {
             {testimonials.map((t, idx) => {
               const offset = idx - currentIndex;
                 return (
-
-                    <>
-
-                      <Helmet>
-
-                        <title>Engineering Assignment Help | Expert Tutors</title>
-
-                        <meta
-
-                          name="description"
-
-                          content="Professional engineering assignment help. Expert tutors in all engineering disciplines. Get help with your assignments."
-
-                        />
-
-                        <link rel="canonical" href="https://essayembassy.com/services/assignment-help/engineering" />
-
-                      </Helmet>
-
-                      <div
+                  <div
                   key={t.id}
                   className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
                   style={{
@@ -515,7 +496,16 @@ export default function EngineeringAssignmentHelp() {
   };
 
   return (
-    <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+    <>
+      <Helmet>
+        <title>Engineering Assignment Help | Expert Tutors</title>
+        <meta
+          name="description"
+          content="Professional engineering assignment help. Expert tutors in all engineering disciplines. Get help with your assignments."
+        />
+        <link rel="canonical" href="https://essayembassy.com/services/assignment-help/engineering" />
+      </Helmet>
+      <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-8 md:py-10 relative">
         <main className="grid md:grid-cols-2 gap-16 items-center">
@@ -1280,10 +1270,7 @@ export default function EngineeringAssignmentHelp() {
           </div>
         </div>
       </section>
-    </div>
-
-        </>
-
-      );
-
-    }
+      </div>
+    </>
+  );
+}

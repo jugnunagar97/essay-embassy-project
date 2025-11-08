@@ -305,26 +305,7 @@ function ClientTestimonialsCarousel() {
             {testimonials.map((t, idx) => {
               const offset = idx - currentIndex;
                 return (
-
-                    <>
-
-                      <Helmet>
-
-                        <title>Assignment Help Service | Expert Tutors</title>
-
-                        <meta
-
-                          name="description"
-
-                          content="Get professional assignment help from expert tutors. All subjects covered, 24/7 support, original work guaranteed."
-
-                        />
-
-                        <link rel="canonical" href="https://essayembassy.com/services/assignment-help" />
-
-                      </Helmet>
-
-                      <div
+                  <div
                   key={t.id}
                   className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
                   style={{
@@ -515,7 +496,16 @@ export default function HomeworkHelp() {
   };
 
   return (
-    <div className="background-icons min-h-screen safe-area" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+    <>
+      <Helmet>
+        <title>Assignment Help Service | Expert Tutors</title>
+        <meta
+          name="description"
+          content="Get professional assignment help from expert tutors. All subjects covered, 24/7 support, original work guaranteed."
+        />
+        <link rel="canonical" href="https://essayembassy.com/services/assignment-help" />
+      </Helmet>
+      <div className="background-icons min-h-screen safe-area" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
       <section className="container mx-auto px-4 sm:px-6 py-8 md:py-10 relative">
         <main className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
@@ -1281,10 +1271,7 @@ export default function HomeworkHelp() {
           </div>
         </div>
       </section>
-    </div>
-
-        </>
-
-      );
-
-    }
+      </div>
+    </>
+  );
+}
