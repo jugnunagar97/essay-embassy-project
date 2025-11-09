@@ -366,7 +366,8 @@ function ClientTestimonialsCarousel() {
                     </div>
                   </div>
                 </div>
-              );
+                    </>
+                );
             })}
           </div>
           {/* Right Arrow */}
@@ -1298,9 +1299,6 @@ export default function MatlabProgrammingHelp() {
         </div>
       </section>
     </div>
+    );
 
-        </>
-
-      );
-
-    } 
+  } 

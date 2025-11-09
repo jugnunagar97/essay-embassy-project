@@ -366,7 +366,8 @@ function ClientTestimonialsCarousel() {
                     </div>
                   </div>
                 </div>
-              );
+                    </>
+                );
             })}
           </div>
           {/* Right Arrow */}
@@ -1280,9 +1281,6 @@ export default function CPPProgrammingHelp() {
         </div>
       </section>
     </div>
+    );
 
-        </>
-
-      );
-
-    }
+  }

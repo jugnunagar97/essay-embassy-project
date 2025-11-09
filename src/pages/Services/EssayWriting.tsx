@@ -865,7 +865,6 @@ export default function EssayWriting() {
               </div>
             </section>
           </div>
-        </div>
       </>
     );
   }

@@ -366,7 +366,8 @@ function ClientTestimonialsCarousel() {
                     </div>
                   </div>
                 </div>
-              );
+                    </>
+                );
             })}
           </div>
           {/* Right Arrow */}
@@ -1252,9 +1253,6 @@ export default function AdmissionEssayWriting() {
         </div>
       </section>
     </div>
+    );
 
-        </>
-
-      );
-
-    }
+  }
