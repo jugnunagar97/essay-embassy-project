@@ -22,6 +22,8 @@ import HeroSection from '../components/Hero/HeroSection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Helmet } from 'react-helmet-async';
+import MobileHome from './MobileHome';
+
 
 function ConcernsSolutionsBlock(): React.ReactElement {
   const [activeTab, setActiveTab] = useState<string>('concerns');
@@ -241,6 +243,8 @@ function ConcernsSolutionsBlock(): React.ReactElement {
     </section>
   );
 }
+
+/* ConcernsSolutionsBlock removed (unused) */
 
 // Add CSS styles for WritersSection
 const writersStyles = `
@@ -1505,6 +1509,17 @@ export default function Home(): React.ReactElement {
     return () => clearInterval(interval);
   }, []);
   */
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (isMobile) return <MobileHome />;
 
   const whyChooseUs = [
     {

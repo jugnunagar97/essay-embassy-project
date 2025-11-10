@@ -63,7 +63,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Geo-blocking middleware to block India (IN) and Pakistan (PK)
+// Geo-blocking middleware to block ONLY India (IN) and Pakistan (PK)
+// ALL OTHER COUNTRIES (including France) should be allowed
 const BLOCKED_COUNTRIES = ['IN', 'PK'];
 
 async function getCountryFromIP(ip) {
@@ -72,13 +73,14 @@ async function getCountryFromIP(ip) {
     const services = [
       `https://ipapi.co/${ip}/json/`,
       `https://ip-api.com/json/${ip}?fields=countryCode`,
+      `https://api.country.is/${ip}`,
     ];
 
     for (const service of services) {
       try {
         // Create timeout controller for fetch
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
         
         const response = await fetch(service, {
           method: 'GET',
@@ -90,63 +92,92 @@ async function getCountryFromIP(ip) {
         
         if (response.ok) {
           const data = await response.json();
-          const countryCode = data.country_code || data.countryCode;
-          if (countryCode) {
-            return countryCode.toUpperCase();
+          // Try different possible fields for country code
+          const countryCode = data.country_code || data.countryCode || data.country;
+          if (countryCode && typeof countryCode === 'string') {
+            const upperCode = countryCode.toUpperCase().trim();
+            console.log(`[Geo-Block] Detected country: ${upperCode} for IP: ${ip}`);
+            return upperCode;
           }
         }
       } catch (e) {
         // Try next service
+        console.log(`[Geo-Block] Service failed: ${service}, trying next...`);
         continue;
       }
     }
+    console.log(`[Geo-Block] Could not determine country for IP: ${ip}`);
     return null;
   } catch (error) {
-    console.error('Error getting country from IP:', error);
+    console.error('[Geo-Block] Error getting country from IP:', error);
     return null;
   }
 }
 
 function getClientIP(req) {
   // Check various headers for the real client IP
-  return req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
          req.headers['x-real-ip'] ||
          req.headers['cf-connecting-ip'] ||
          req.connection?.remoteAddress ||
          req.socket?.remoteAddress ||
          req.ip ||
          'unknown';
+  return ip;
 }
 
 // Geo-blocking middleware
 app.use(async (req, res, next) => {
-  // Skip geo-blocking for health check endpoint
+  // Skip geo-blocking for health check endpoint and static assets
   if (req.path === '/' && req.method === 'GET') {
+    return next();
+  }
+
+  // Skip geo-blocking for API routes that don't need it (like webhooks)
+  if (req.path.startsWith('/api/razorpay-webhook')) {
     return next();
   }
 
   const clientIP = getClientIP(req);
   
-  // Skip localhost/private IPs in development
-  if (clientIP === '::1' || clientIP === '127.0.0.1' || clientIP.startsWith('192.168.') || clientIP.startsWith('10.') || clientIP.startsWith('172.')) {
+  // Skip localhost/private IPs in development (allow all local development)
+  if (clientIP === '::1' || 
+      clientIP === '127.0.0.1' || 
+      clientIP === 'localhost' ||
+      clientIP === 'unknown' ||
+      clientIP.startsWith('192.168.') || 
+      clientIP.startsWith('10.') || 
+      clientIP.startsWith('172.') ||
+      clientIP.startsWith('::ffff:127.') ||
+      clientIP.startsWith('::ffff:192.168.') ||
+      clientIP.startsWith('::ffff:10.')) {
+    console.log(`[Geo-Block] Skipping geo-check for local/private IP: ${clientIP}`);
     return next();
   }
 
   try {
     const countryCode = await getCountryFromIP(clientIP);
     
+    // Only block if country is explicitly IN or PK
+    // ALL other countries (including null/unknown) are allowed
     if (countryCode && BLOCKED_COUNTRIES.includes(countryCode)) {
-      console.log(`Blocked request from ${countryCode} (IP: ${clientIP})`);
-      // Return a generic error that looks like a network failure
+      console.log(`[Geo-Block] BLOCKED request from ${countryCode} (IP: ${clientIP})`);
       return res.status(503).json({ 
         error: 'Service unavailable',
         message: 'This service is temporarily unavailable in your region.'
       });
+    } else {
+      // Allow all other countries (including France, US, UK, etc.)
+      if (countryCode) {
+        console.log(`[Geo-Block] ALLOWED request from ${countryCode} (IP: ${clientIP})`);
+      } else {
+        console.log(`[Geo-Block] ALLOWED request (country unknown) from IP: ${clientIP}`);
+      }
     }
   } catch (error) {
-    // If geo-check fails, allow the request (fail open)
-    // Change to 'return res.status(503)...' if you want to block on error
-    console.error('Geo-blocking check failed:', error);
+    // If geo-check fails, ALLOW the request (fail open for security)
+    // This ensures we don't accidentally block legitimate users
+    console.error('[Geo-Block] Geo-check failed, allowing request:', error.message);
   }
 
   next();

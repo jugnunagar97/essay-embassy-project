@@ -2,6 +2,22 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
+  safelist: [
+    'text-3xl',
+    'md:text-4xl',
+    'lg:text-5xl',
+    'flex-col',
+    'lg:flex-row',
+    'w-full',
+    'lg:w-auto',
+    'lg:max-w-md',
+    'text-center',
+    'lg:text-left',
+    'justify-center',
+    'lg:justify-start',
+    'hidden',
+    'md:block',
+  ],
   theme: {
     extend: {
       colors: {
@@ -80,10 +96,18 @@ export default {
         'medium': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         'strong': '0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 2px 10px -2px rgba(0, 0, 0, 0.05)',
       },
+      screens: {
+        'xs': '475px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      },
     },
   },
-  // FIXED: Added the typography plugin
   plugins: [
     require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
   ],
 };

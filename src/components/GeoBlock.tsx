@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import BlockedPage from '../pages/BlockedPage';
 
-const BLOCKED_COUNTRIES = ['IN', 'PK']; // India and Pakistan
+// Geo-blocking: ONLY block India (IN) and Pakistan (PK)
+// ALL OTHER COUNTRIES (including France, US, UK, etc.) should be ALLOWED
+const BLOCKED_COUNTRIES = ['IN', 'PK'];
 
 interface GeoBlockProps {
   children: React.ReactNode;
@@ -56,6 +58,27 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
 
     const checkCountry = async () => {
       try {
+        // Skip geo-blocking in development (localhost)
+        // When accessing via localhost, browser connects directly and bypasses VPN
+        // So we always allow access in development to avoid false blocks
+        if (typeof window !== 'undefined') {
+          const hostname = window.location.hostname;
+          if (hostname === 'localhost' || 
+              hostname === '127.0.0.1' || 
+              hostname.startsWith('192.168.') ||
+              hostname.startsWith('10.') ||
+              hostname.startsWith('172.')) {
+            console.log(`[GeoBlock] Development mode detected (${hostname}), allowing access`);
+            setIsBlocked(false);
+            setIsChecking(false);
+            if (typeof window !== 'undefined') {
+              (window as any).__IS_BLOCKED__ = false;
+              (window as any).__DETECTED_COUNTRY__ = 'DEV';
+            }
+            return;
+          }
+        }
+
         // Try multiple free IP geolocation services for reliability
         const services = [
           'https://ipapi.co/json/',
@@ -64,80 +87,128 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
         ];
 
         let countryCode: string | null = null;
+        let serviceUsed = '';
 
         // Try first service
         try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 5000);
+          
           const response = await fetch(services[0], { 
             method: 'GET',
-            headers: { 'Accept': 'application/json' }
+            headers: { 'Accept': 'application/json' },
+            signal: controller.signal
           });
+          
+          clearTimeout(timeoutId);
+          
           if (response.ok) {
             const data = await response.json();
-            countryCode = data.country_code || data.countryCode;
+            countryCode = data.country_code || data.countryCode || data.country;
+            if (countryCode) {
+              serviceUsed = 'ipapi.co';
+            }
           }
         } catch (e) {
-          console.log('First geolocation service failed, trying next...');
+          console.log('[GeoBlock] First geolocation service failed, trying next...');
         }
 
         // Try second service if first failed
         if (!countryCode) {
           try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+            
             const response = await fetch(services[1], { 
               method: 'GET',
-              headers: { 'Accept': 'application/json' }
+              headers: { 'Accept': 'application/json' },
+              signal: controller.signal
             });
+            
+            clearTimeout(timeoutId);
+            
             if (response.ok) {
               const data = await response.json();
-              countryCode = data.countryCode;
+              countryCode = data.countryCode || data.country_code || data.country;
+              if (countryCode) {
+                serviceUsed = 'ip-api.com';
+              }
             }
           } catch (e) {
-            console.log('Second geolocation service failed, trying next...');
+            console.log('[GeoBlock] Second geolocation service failed, trying next...');
           }
         }
 
         // Try third service if previous failed
         if (!countryCode) {
           try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000);
+            
             const response = await fetch(services[2], { 
               method: 'GET',
-              headers: { 'Accept': 'application/json' }
+              headers: { 'Accept': 'application/json' },
+              signal: controller.signal
             });
+            
+            clearTimeout(timeoutId);
+            
             if (response.ok) {
               const data = await response.json();
               // api.country.is returns { country: "US", ip: "..." }
               countryCode = data.country || data.country_code || data.countryCode;
+              if (countryCode) {
+                serviceUsed = 'api.country.is';
+              }
             }
           } catch (e) {
-            console.log('All geolocation services failed');
+            console.log('[GeoBlock] All geolocation services failed');
           }
         }
 
-        // If we got a country code, check if it's blocked
-        if (countryCode) {
-          const blocked = BLOCKED_COUNTRIES.includes(countryCode.toUpperCase());
+        // Process the country code
+        if (countryCode && typeof countryCode === 'string') {
+          const upperCode = countryCode.toUpperCase().trim();
+          console.log(`[GeoBlock] Detected country: ${upperCode} (via ${serviceUsed || 'unknown'})`);
+          
+          // ONLY block if country is explicitly IN or PK
+          // ALL other countries (including France, US, UK, etc.) are ALLOWED
+          const blocked = BLOCKED_COUNTRIES.includes(upperCode);
+          
+          if (blocked) {
+            console.log(`[GeoBlock] BLOCKED: Country ${upperCode} is in blocked list`);
+          } else {
+            console.log(`[GeoBlock] ALLOWED: Country ${upperCode} is not blocked`);
+          }
+          
           setIsBlocked(blocked);
           
-          // Set flag if blocked
+          // Set flag
           if (typeof window !== 'undefined') {
             (window as any).__IS_BLOCKED__ = blocked;
+            (window as any).__DETECTED_COUNTRY__ = upperCode;
           }
         } else {
-          // If we can't determine country, allow access (fail open)
-          // Change to setIsBlocked(true) if you want to block on error
+          // If we can't determine country, ALLOW access (fail open)
+          // This ensures we don't accidentally block legitimate users
+          console.log('[GeoBlock] Could not determine country, ALLOWING access (fail open)');
           setIsBlocked(false);
           
           if (typeof window !== 'undefined') {
             (window as any).__IS_BLOCKED__ = false;
+            (window as any).__DETECTED_COUNTRY__ = 'UNKNOWN';
           }
         }
       } catch (error) {
-        console.error('Error checking geolocation:', error);
-        // Fail open - allow access if check fails
-        // Change to setIsBlocked(true) if you want to block on error
+        console.error('[GeoBlock] Error checking geolocation:', error);
+        // Fail open - ALLOW access if check fails
+        // This ensures we don't accidentally block legitimate users
+        console.log('[GeoBlock] Geo-check failed, ALLOWING access (fail open)');
         setIsBlocked(false);
         
         if (typeof window !== 'undefined') {
           (window as any).__IS_BLOCKED__ = false;
+          (window as any).__DETECTED_COUNTRY__ = 'ERROR';
         }
       } finally {
         setIsChecking(false);
@@ -146,7 +217,7 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
         if (typeof window !== 'undefined') {
           (window as any).__BLOCKED_CHECK_IN_PROGRESS__ = false;
           
-          // Clear early favicon interval if blocked
+          // Clear early favicon interval
           if ((window as any).__EARLY_FAVICON_INTERVAL__) {
             clearInterval((window as any).__EARLY_FAVICON_INTERVAL__);
           }
@@ -162,14 +233,17 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
     return null; // Or return a minimal loading component
   }
 
-  // Show blocked page if country is blocked
-  if (isBlocked) {
+  // Show blocked page ONLY if country is IN or PK
+  if (isBlocked === true) {
+    console.log('[GeoBlock] Rendering blocked page');
     return <BlockedPage />;
   }
 
-  // Allow access if not blocked
+  // Allow access for ALL other countries (including France, US, UK, etc.)
+  console.log('[GeoBlock] Allowing access - country is not blocked');
   return <>{children}</>;
 };
 
 export default GeoBlock;
+
 
