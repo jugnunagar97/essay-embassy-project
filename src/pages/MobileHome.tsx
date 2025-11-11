@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import HeroSectionSimple from '../components/Hero/HeroSectionSimple'; // ✅ Changed this
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 export default function MobileHome() {
   const [activeTab, setActiveTab] = useState<'concerns' | 'solutions'>('concerns');
   const navigate = useNavigate();
+  const reviewsTrackRef = useRef<HTMLDivElement | null>(null);
+  const [activeReview, setActiveReview] = useState<number>(0);
 
   const concerns = [
     {
@@ -484,6 +486,1114 @@ export default function MobileHome() {
           </div>
         </div>
       </section>
+
+      {/* Our Academic Writing Services Section - COMPLETE CODE */}
+<section style={{
+  padding: '3rem 1rem',
+  backgroundColor: '#f8f9fa'
+}}>
+  <div style={{
+    maxWidth: '600px',
+    margin: '0 auto'
+  }}>
+    {/* Graduation Cap Icon */}
+    <div style={{
+      width: '70px',
+      height: '70px',
+      margin: '0 auto 1.5rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '50%',
+      backgroundColor: '#d1fae5'
+    }}>
+      <span style={{fontSize: '2rem', color: '#268579'}}>🎓</span>
+    </div>
+
+    <h2 style={{
+      fontSize: '1.75rem',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: '0.75rem',
+      color: '#1a1a1a',
+      lineHeight: 1.3
+    }}>
+      Our Academic Writing <span style={{color: '#268579'}}>Services</span>
+    </h2>
+    
+    <p style={{
+      fontSize: '0.95rem',
+      textAlign: 'center',
+      color: '#666',
+      marginBottom: '2.5rem',
+      lineHeight: 1.6,
+      padding: '0 1rem'
+    }}>
+      Comprehensive academic support across all disciplines with expert writers, guaranteed quality, and timely delivery for your educational success.
+    </p>
+
+    <div>
+      {/* Card 1: Essay Writing Services */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '2rem 1.5rem',
+        borderRadius: '1rem',
+        marginBottom: '1.25rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        border: '1px solid #e5e7eb'
+      }}>
+        <div style={{
+          width: '50px',
+          height: '50px',
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '0.5rem',
+          backgroundColor: '#e6f7f5'
+        }}>
+          <span style={{fontSize: '1.5rem', color: '#268579'}}>📝</span>
+        </div>
+        <h3 style={{
+          fontSize: '1.2rem',
+          fontWeight: 'bold',
+          color: '#1a1a1a',
+          marginBottom: '0.75rem'
+        }}>Essay Writing Services</h3>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#666',
+          lineHeight: 1.6,
+          marginBottom: '1rem'
+        }}>
+          Professional essay writing with original content, proper citations, and guaranteed quality for all academic levels.
+        </p>
+        
+        {/* Features List */}
+        <div style={{marginBottom: '1.25rem'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Original Content</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Proper Citations</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>All Academic Levels</span>
+          </div>
+        </div>
+
+        <button onClick={() => navigate('/services/essay-writing')} style={{
+          width: '100%',
+          padding: '0.875rem',
+          backgroundColor: '#268579',
+          color: 'white',
+          border: 'none',
+          borderRadius: '0.5rem',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem'
+        }}>
+          Order Essay <span>→</span>
+        </button>
+      </div>
+
+      {/* Card 2: Assignment Help */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '2rem 1.5rem',
+        borderRadius: '1rem',
+        marginBottom: '1.25rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        border: '1px solid #e5e7eb'
+      }}>
+        <div style={{
+          width: '50px',
+          height: '50px',
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '0.5rem',
+          backgroundColor: '#e6f7f5'
+        }}>
+          <span style={{fontSize: '1.5rem', color: '#268579'}}>📖</span>
+        </div>
+        <h3 style={{
+          fontSize: '1.2rem',
+          fontWeight: 'bold',
+          color: '#1a1a1a',
+          marginBottom: '0.75rem'
+        }}>Assignment Help</h3>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#666',
+          lineHeight: 1.6,
+          marginBottom: '1rem'
+        }}>
+          Expert assistance with assignments across all subjects, ensuring timely delivery and academic excellence.
+        </p>
+        
+        <div style={{marginBottom: '1.25rem'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>All Subjects</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Timely Delivery</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Expert Writers</span>
+          </div>
+        </div>
+
+        <button onClick={() => navigate('/services/assignment-help')} style={{
+          width: '100%',
+          padding: '0.875rem',
+          backgroundColor: '#268579',
+          color: 'white',
+          border: 'none',
+          borderRadius: '0.5rem',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem'
+        }}>
+          Get Help <span>→</span>
+        </button>
+      </div>
+
+      {/* Card 3: Homework Help */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '2rem 1.5rem',
+        borderRadius: '1rem',
+        marginBottom: '1.25rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        border: '1px solid #e5e7eb'
+      }}>
+        <div style={{
+          width: '50px',
+          height: '50px',
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '0.5rem',
+          backgroundColor: '#e6f7f5'
+        }}>
+          <span style={{fontSize: '1.5rem', color: '#268579'}}>🎓</span>
+        </div>
+        <h3 style={{
+          fontSize: '1.2rem',
+          fontWeight: 'bold',
+          color: '#1a1a1a',
+          marginBottom: '0.75rem'
+        }}>Homework Help</h3>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#666',
+          lineHeight: 1.6,
+          marginBottom: '1rem'
+        }}>
+          Comprehensive homework support with step-by-step solutions and detailed explanations for better understanding.
+        </p>
+        
+        <div style={{marginBottom: '1.25rem'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Step-by-Step Solutions</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Detailed Explanations</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Quick Turnaround</span>
+          </div>
+        </div>
+
+        <button onClick={() => navigate('/services/homework-help')} style={{
+          width: '100%',
+          padding: '0.875rem',
+          backgroundColor: '#268579',
+          color: 'white',
+          border: 'none',
+          borderRadius: '0.5rem',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem'
+        }}>
+          Start Now <span>→</span>
+        </button>
+      </div>
+
+      {/* Card 4: Research Paper Help */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '2rem 1.5rem',
+        borderRadius: '1rem',
+        marginBottom: '1.25rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        border: '1px solid #e5e7eb'
+      }}>
+        <div style={{
+          width: '50px',
+          height: '50px',
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '0.5rem',
+          backgroundColor: '#e6f7f5'
+        }}>
+          <span style={{fontSize: '1.5rem', color: '#268579'}}>🔍</span>
+        </div>
+        <h3 style={{
+          fontSize: '1.2rem',
+          fontWeight: 'bold',
+          color: '#1a1a1a',
+          marginBottom: '0.75rem'
+        }}>Research Paper Help</h3>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#666',
+          lineHeight: 1.6,
+          marginBottom: '1rem'
+        }}>
+          In-depth research papers with comprehensive analysis, credible sources, and academic formatting standards.
+        </p>
+        
+        <div style={{marginBottom: '1.25rem'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Comprehensive Analysis</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Credible Sources</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Academic Formatting</span>
+          </div>
+        </div>
+
+        <button onClick={() => navigate('/services/research-paper-writing')} style={{
+          width: '100%',
+          padding: '0.875rem',
+          backgroundColor: '#268579',
+          color: 'white',
+          border: 'none',
+          borderRadius: '0.5rem',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem'
+        }}>
+          Order Research <span>→</span>
+        </button>
+      </div>
+
+      {/* Card 5: Thesis Writing Help */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '2rem 1.5rem',
+        borderRadius: '1rem',
+        marginBottom: '1.25rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        border: '1px solid #e5e7eb'
+      }}>
+        <div style={{
+          width: '50px',
+          height: '50px',
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '0.5rem',
+          backgroundColor: '#e6f7f5'
+        }}>
+          <span style={{fontSize: '1.5rem', color: '#268579'}}>📄</span>
+        </div>
+        <h3 style={{
+          fontSize: '1.2rem',
+          fontWeight: 'bold',
+          color: '#1a1a1a',
+          marginBottom: '0.75rem'
+        }}>Thesis Writing Help</h3>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#666',
+          lineHeight: 1.6,
+          marginBottom: '1rem'
+        }}>
+          Professional thesis writing support with extensive research, proper methodology, and academic rigor.
+        </p>
+        
+        <div style={{marginBottom: '1.25rem'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Extensive Research</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Proper Methodology</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Academic Rigor</span>
+          </div>
+        </div>
+
+        <button onClick={() => navigate('/services/thesis-writing')} style={{
+          width: '100%',
+          padding: '0.875rem',
+          backgroundColor: '#268579',
+          color: 'white',
+          border: 'none',
+          borderRadius: '0.5rem',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem'
+        }}>
+          Get Started <span>→</span>
+        </button>
+      </div>
+
+      {/* Card 6: Dissertation Writing Help */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '2rem 1.5rem',
+        borderRadius: '1rem',
+        marginBottom: '1.25rem',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        border: '1px solid #e5e7eb'
+      }}>
+        <div style={{
+          width: '50px',
+          height: '50px',
+          marginBottom: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '0.5rem',
+          backgroundColor: '#e6f7f5'
+        }}>
+          <span style={{fontSize: '1.5rem', color: '#268579'}}>📋</span>
+        </div>
+        <h3 style={{
+          fontSize: '1.2rem',
+          fontWeight: 'bold',
+          color: '#1a1a1a',
+          marginBottom: '0.75rem'
+        }}>Dissertation Writing Help</h3>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#666',
+          lineHeight: 1.6,
+          marginBottom: '1rem'
+        }}>
+          Complete dissertation support from proposal to defense with expert guidance and comprehensive research.
+        </p>
+        
+        <div style={{marginBottom: '1.25rem'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Proposal to Defense</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Expert Guidance</span>
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+            <span style={{color: '#10b981', fontSize: '1rem'}}>✓</span>
+            <span style={{fontSize: '0.875rem', color: '#4b5563'}}>Comprehensive Research</span>
+          </div>
+        </div>
+
+        <button onClick={() => navigate('/services/dissertation-writing')} style={{
+          width: '100%',
+          padding: '0.875rem',
+          backgroundColor: '#268579',
+          color: 'white',
+          border: 'none',
+          borderRadius: '0.5rem',
+          fontSize: '0.95rem',
+          fontWeight: 600,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem'
+        }}>
+          Begin Dissertation <span>→</span>
+        </button>
+      </div>
+
+      {/* Explore All Services Button */}
+      <div style={{textAlign: 'center', marginTop: '2rem'}}>
+        <button onClick={() => navigate('/services')} style={{
+          padding: '1rem 2rem',
+          backgroundColor: '#268579',
+          color: 'white',
+          border: 'none',
+          borderRadius: '0.75rem',
+          fontSize: '1rem',
+          fontWeight: 600,
+          cursor: 'pointer',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          boxShadow: '0 4px 12px rgba(38,133,121,0.25)'
+        }}>
+          Explore All Services <span>→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Testimonials Section - FIXED & MOBILE-PERFECT - COMPLETE CODE */}
+<section style={{
+  padding: '3rem 1rem',
+  backgroundColor: '#f0f4f8',
+  overflow: 'hidden'
+}}>
+  <div style={{
+    maxWidth: '500px',
+    margin: '0 auto'
+  }}>
+    {/* Reviews Badge */}
+    <div style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      backgroundColor: '#d1fae5',
+      color: '#065f46',
+      padding: '0.5rem 1rem',
+      borderRadius: '2rem',
+      fontSize: '0.875rem',
+      fontWeight: 600,
+      margin: '0 auto 1.5rem',
+      border: '1px solid #a7f3d0',
+      position: 'relative',
+      left: '50%',
+      transform: 'translateX(-50%)'
+    }}>
+      Reviews 🎖️
+    </div>
+
+    <h2 style={{
+      fontSize: '1.75rem',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginBottom: '0.75rem',
+      color: '#1a1a1a',
+      lineHeight: 1.3
+    }}>
+      Honest feedback about <span style={{color: '#268579'}}>EssayEmbassy</span>
+    </h2>
+    
+    <p style={{
+      fontSize: '0.9rem',
+      textAlign: 'center',
+      color: '#666',
+      marginBottom: '2rem',
+      lineHeight: 1.6,
+      padding: '0 0.5rem'
+    }}>
+      See what real students say about our academic writing, research, and technical assignment help. Your next top grade starts here!
+    </p>
+
+    {/* Platform Tabs */}
+    <div style={{
+      display: 'flex',
+      gap: '0.5rem',
+      justifyContent: 'center',
+      marginBottom: '2rem',
+      flexWrap: 'wrap'
+    }}>
+      <button style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        padding: '0.625rem 1rem',
+        backgroundColor: '#268579',
+        color: 'white',
+        border: 'none',
+        borderRadius: '2rem',
+        fontSize: '0.85rem',
+        fontWeight: 600,
+        cursor: 'pointer',
+        boxShadow: '0 2px 6px rgba(38,133,121,0.25)'
+      }}>
+        <span style={{display:'inline-flex'}}>
+          <svg width="16" height="16" viewBox="-3 0 262 262" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+            <path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4"/>
+            <path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853"/>
+            <path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05"/>
+            <path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EB4335"/>
+          </svg>
+        </span>
+        Google
+      </button>
+
+      <button style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        padding: '0.625rem 1rem',
+        backgroundColor: 'white',
+        color: '#4b5563',
+        border: '1px solid #d1d5db',
+        borderRadius: '2rem',
+        fontSize: '0.85rem',
+        fontWeight: 600,
+        cursor: 'pointer'
+      }}>
+        <span style={{display:'inline-flex'}}>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="6" fill="currentColor"/>
+            <path d="M8 5l1 2h2l-1.5 1.5L10.5 11 8 9.5 5.5 11l1-2.5L5 7h2L8 5z" fill="white"/>
+          </svg>
+        </span>
+        Sitejabber
+      </button>
+
+      <button style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        padding: '0.625rem 1rem',
+        backgroundColor: 'white',
+        color: '#4b5563',
+        border: '1px solid #d1d5db',
+        borderRadius: '2rem',
+        fontSize: '0.85rem',
+        fontWeight: 600,
+        cursor: 'pointer'
+      }}>
+        <span style={{display:'inline-flex'}}>
+          <svg viewBox="0 0 799.89 761" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+            <path d="M799.89 290.83H494.44L400.09 0l-94.64 290.83L0 290.54l247.37 179.92L152.72 761l247.37-179.63L647.16 761l-94.35-290.54z" fill="#00b67a"/>
+            <path d="M574.04 536.24l-21.23-65.78-152.72 110.91z" fill="#005128"/>
+          </svg>
+        </span>
+        TrustPilot
+      </button>
+    </div>
+
+    {/* Swipe Hint */}
+    <div style={{
+      textAlign: 'center',
+      marginBottom: '1.25rem',
+      fontSize: '0.75rem',
+      color: '#9ca3af',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '0.5rem'
+    }}>
+      👈 Swipe to see more reviews 👉
+    </div>
+
+    {/* Testimonial Cards Container - FIXED APPROACH */}
+    <div style={{
+      position: 'relative',
+      width: '100%',
+      maxWidth: '100%'
+    }}>
+      {/* Cards Wrapper with proper overflow */}
+      <div ref={reviewsTrackRef} style={{
+        display: 'flex',
+        gap: '1rem',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        scrollSnapType: 'x mandatory',
+        WebkitOverflowScrolling: 'touch',
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
+        paddingBottom: '0.5rem',
+        marginBottom: '1rem',
+        scrollBehavior: 'smooth'
+      }}
+      onScroll={(e) => {
+        const el = e.currentTarget;
+        const cardWidth = el.clientWidth * 0.85 + 16; // 85% + 1rem gap
+        const idx = Math.round(el.scrollLeft / cardWidth);
+        setActiveReview(Math.max(0, Math.min(idx, 8)));
+      }}>
+        {/* Card 1 */}
+        <div style={{
+          minWidth: '85%',
+          maxWidth: '85%',
+          backgroundColor: 'white',
+          padding: '1.75rem 1.5rem',
+          borderRadius: '1rem',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+          scrollSnapAlign: 'center',
+          border: '1px solid #e5e7eb',
+          flexShrink: 0
+        }}>
+          <div style={{
+            fontSize: '0.8rem',
+            color: '#268579',
+            fontWeight: 600,
+            marginBottom: '0.75rem',
+            backgroundColor: '#e6f7f5',
+            padding: '0.375rem 0.75rem',
+            borderRadius: '0.5rem',
+            display: 'inline-block'
+          }}>
+            Dissertation Chapter
+          </div>
+          <p style={{
+            fontSize: '0.875rem',
+            color: '#374151',
+            lineHeight: 1.6,
+            marginBottom: '1rem',
+            minHeight: '60px'
+          }}>
+            Outstanding service! The writer went above and beyond with my dissertation chapter.
+          </p>
+          <div style={{
+            display: 'flex',
+            gap: '0.25rem',
+            marginBottom: '0.75rem'
+          }}>
+            {[1,2,3,4,5].map(i => (
+              <span key={i} style={{color: '#fbbf24', fontSize: '1rem'}}>⭐</span>
+            ))}
+          </div>
+          <div style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af',
+            marginBottom: '0.25rem'
+          }}>
+            Customer ID: 954836
+          </div>
+          <div style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af'
+          }}>
+            Nov 30, 2024
+          </div>
+        </div>
+
+        {/* Card 2 */}
+        <div style={{
+          minWidth: '85%',
+          maxWidth: '85%',
+          backgroundColor: 'white',
+          padding: '1.75rem 1.5rem',
+          borderRadius: '1rem',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+          scrollSnapAlign: 'center',
+          border: '1px solid #e5e7eb',
+          flexShrink: 0
+        }}>
+          <div style={{
+            fontSize: '0.8rem',
+            color: '#268579',
+            fontWeight: 600,
+            marginBottom: '0.75rem',
+            backgroundColor: '#e6f7f5',
+            padding: '0.375rem 0.75rem',
+            borderRadius: '0.5rem',
+            display: 'inline-block'
+          }}>
+            Term Paper
+          </div>
+          <p style={{
+            fontSize: '0.875rem',
+            color: '#374151',
+            lineHeight: 1.6,
+            marginBottom: '1rem',
+            minHeight: '60px'
+          }}>
+            Fast delivery and excellent quality. The writer clearly understood my requirements.
+          </p>
+          <div style={{
+            display: 'flex',
+            gap: '0.25rem',
+            marginBottom: '0.75rem'
+          }}>
+            {[1,2,3,4,5].map(i => (
+              <span key={i} style={{color: '#fbbf24', fontSize: '1rem'}}>⭐</span>
+            ))}
+          </div>
+          <div style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af',
+            marginBottom: '0.25rem'
+          }}>
+            Customer ID: 401493
+          </div>
+          <div style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af'
+          }}>
+            Nov 22, 2024
+          </div>
+        </div>
+
+        {/* Card 3 */}
+        <div style={{
+          minWidth: '85%',
+          maxWidth: '85%',
+          backgroundColor: 'white',
+          padding: '1.75rem 1.5rem',
+          borderRadius: '1rem',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+          scrollSnapAlign: 'center',
+          border: '1px solid #e5e7eb',
+          flexShrink: 0
+        }}>
+          <div style={{
+            fontSize: '0.8rem',
+            color: '#268579',
+            fontWeight: 600,
+            marginBottom: '0.75rem',
+            backgroundColor: '#e6f7f5',
+            padding: '0.375rem 0.75rem',
+            borderRadius: '0.5rem',
+            display: 'inline-block'
+          }}>
+            Argumentative Essay
+          </div>
+          <p style={{
+            fontSize: '0.875rem',
+            color: '#374151',
+            lineHeight: 1.6,
+            marginBottom: '1rem',
+            minHeight: '60px'
+          }}>
+            I was skeptical at first but this service exceeded my expectations!
+          </p>
+          <div style={{
+            display: 'flex',
+            gap: '0.25rem',
+            marginBottom: '0.75rem'
+          }}>
+            {[1,2,3,4,5].map(i => (
+              <span key={i} style={{color: '#fbbf24', fontSize: '1rem'}}>⭐</span>
+            ))}
+          </div>
+          <div style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af',
+            marginBottom: '0.25rem'
+          }}>
+            Customer ID: 523891
+          </div>
+          <div style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af'
+          }}>
+            Nov 10, 2024
+          </div>
+        </div>
+
+        {/* Card 4 */}
+        <div style={{
+          minWidth: '85%',
+          maxWidth: '85%',
+          backgroundColor: 'white',
+          padding: '1.75rem 1.5rem',
+          borderRadius: '1rem',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+          scrollSnapAlign: 'center',
+          border: '1px solid #e5e7eb',
+          flexShrink: 0
+        }}>
+          <div style={{
+            fontSize: '0.8rem',
+            color: '#268579',
+            fontWeight: 600,
+            marginBottom: '0.75rem',
+            backgroundColor: '#e6f7f5',
+            padding: '0.375rem 0.75rem',
+            borderRadius: '0.5rem',
+            display: 'inline-block'
+          }}>
+            Research Paper
+          </div>
+          <p style={{
+            fontSize: '0.875rem',
+            color: '#374151',
+            lineHeight: 1.6,
+            marginBottom: '1rem',
+            minHeight: '60px'
+          }}>
+            Excellent work! Professional quality with proper citations.
+          </p>
+          <div style={{
+            display: 'flex',
+            gap: '0.25rem',
+            marginBottom: '0.75rem'
+          }}>
+            {[1,2,3,4,5].map(i => (
+              <span key={i} style={{color: '#fbbf24', fontSize: '1rem'}}>⭐</span>
+            ))}
+          </div>
+          <div style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af',
+            marginBottom: '0.25rem'
+          }}>
+            Customer ID: 678412
+          </div>
+          <div style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af'
+          }}>
+            Oct 15, 2024
+          </div>
+        </div>
+      </div>
+
+      {/* Card 5 */}
+      <div style={{
+        minWidth: '85%',
+        maxWidth: '85%',
+        backgroundColor: 'white',
+        padding: '1.75rem 1.5rem',
+        borderRadius: '1rem',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+        scrollSnapAlign: 'center',
+        border: '1px solid #e5e7eb',
+        flexShrink: 0
+      }}>
+        <div style={{
+          fontSize: '0.8rem',
+          color: '#268579',
+          fontWeight: 600,
+          marginBottom: '0.75rem',
+          backgroundColor: '#e6f7f5',
+          padding: '0.375rem 0.75rem',
+          borderRadius: '0.5rem',
+          display: 'inline-block'
+        }}>
+          Case Study
+        </div>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#374151',
+          lineHeight: 1.6,
+          marginBottom: '1rem',
+          minHeight: '60px'
+        }}>
+          Clear structure and strong analysis. Exactly what my professor asked for.
+        </p>
+        <div style={{display:'flex',gap:'0.25rem',marginBottom:'0.75rem'}}>
+          {[1,2,3,4,5].map(i => (<span key={i} style={{color:'#fbbf24',fontSize:'1rem'}}>⭐</span>))}
+        </div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af',marginBottom:'0.25rem'}}>Customer ID: 345672</div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af'}}>Sep 28, 2024</div>
+      </div>
+
+      {/* Card 6 */}
+      <div style={{
+        minWidth: '85%',
+        maxWidth: '85%',
+        backgroundColor: 'white',
+        padding: '1.75rem 1.5rem',
+        borderRadius: '1rem',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+        scrollSnapAlign: 'center',
+        border: '1px solid #e5e7eb',
+        flexShrink: 0
+      }}>
+        <div style={{
+          fontSize: '0.8rem',
+          color: '#268579',
+          fontWeight: 600,
+          marginBottom: '0.75rem',
+          backgroundColor: '#e6f7f5',
+          padding: '0.375rem 0.75rem',
+          borderRadius: '0.5rem',
+          display: 'inline-block'
+        }}>
+          Book Review
+        </div>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#374151',
+          lineHeight: 1.6,
+          marginBottom: '1rem',
+          minHeight: '60px'
+        }}>
+          Insightful critique with proper citations. Helped me score an A.
+        </p>
+        <div style={{display:'flex',gap:'0.25rem',marginBottom:'0.75rem'}}>
+          {[1,2,3,4,5].map(i => (<span key={i} style={{color:'#fbbf24',fontSize:'1rem'}}>⭐</span>))}
+        </div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af',marginBottom:'0.25rem'}}>Customer ID: 456789</div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af'}}>Sep 12, 2024</div>
+      </div>
+
+      {/* Card 7 */}
+      <div style={{
+        minWidth: '85%',
+        maxWidth: '85%',
+        backgroundColor: 'white',
+        padding: '1.75rem 1.5rem',
+        borderRadius: '1rem',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+        scrollSnapAlign: 'center',
+        border: '1px solid #e5e7eb',
+        flexShrink: 0
+      }}>
+        <div style={{
+          fontSize: '0.8rem',
+          color: '#268579',
+          fontWeight: 600,
+          marginBottom: '0.75rem',
+          backgroundColor: '#e6f7f5',
+          padding: '0.375rem 0.75rem',
+          borderRadius: '0.5rem',
+          display: 'inline-block'
+        }}>
+          Coursework
+        </div>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#374151',
+          lineHeight: 1.6,
+          marginBottom: '1rem',
+          minHeight: '60px'
+        }}>
+          Friendly support and fast turnaround. The explanations were super clear.
+        </p>
+        <div style={{display:'flex',gap:'0.25rem',marginBottom:'0.75rem'}}>
+          {[1,2,3,4,5].map(i => (<span key={i} style={{color:'#fbbf24',fontSize:'1rem'}}>⭐</span>))}
+        </div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af',marginBottom:'0.25rem'}}>Customer ID: 234567</div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af'}}>Aug 20, 2024</div>
+      </div>
+
+      {/* Card 8 */}
+      <div style={{
+        minWidth: '85%',
+        maxWidth: '85%',
+        backgroundColor: 'white',
+        padding: '1.75rem 1.5rem',
+        borderRadius: '1rem',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+        scrollSnapAlign: 'center',
+        border: '1px solid #e5e7eb',
+        flexShrink: 0
+      }}>
+        <div style={{
+          fontSize: '0.8rem',
+          color: '#268579',
+          fontWeight: 600,
+          marginBottom: '0.75rem',
+          backgroundColor: '#e6f7f5',
+          padding: '0.375rem 0.75rem',
+          borderRadius: '0.5rem',
+          display: 'inline-block'
+        }}>
+          Reflection Paper
+        </div>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#374151',
+          lineHeight: 1.6,
+          marginBottom: '1rem',
+          minHeight: '60px'
+        }}>
+          Thoughtful and well written. Matched my tone perfectly.
+        </p>
+        <div style={{display:'flex',gap:'0.25rem',marginBottom:'0.75rem'}}>
+          {[1,2,3,4,5].map(i => (<span key={i} style={{color:'#fbbf24',fontSize:'1rem'}}>⭐</span>))}
+        </div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af',marginBottom:'0.25rem'}}>Customer ID: 789012</div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af'}}>Aug 05, 2024</div>
+      </div>
+
+      {/* Card 9 */}
+      <div style={{
+        minWidth: '85%',
+        maxWidth: '85%',
+        backgroundColor: 'white',
+        padding: '1.75rem 1.5rem',
+        borderRadius: '1rem',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+        scrollSnapAlign: 'center',
+        border: '1px solid #e5e7eb',
+        flexShrink: 0
+      }}>
+        <div style={{
+          fontSize: '0.8rem',
+          color: '#268579',
+          fontWeight: 600,
+          marginBottom: '0.75rem',
+          backgroundColor: '#e6f7f5',
+          padding: '0.375rem 0.75rem',
+          borderRadius: '0.5rem',
+          display: 'inline-block'
+        }}>
+          Admission Essay
+        </div>
+        <p style={{
+          fontSize: '0.875rem',
+          color: '#374151',
+          lineHeight: 1.6,
+          marginBottom: '1rem',
+          minHeight: '60px'
+        }}>
+          My essay felt personal and compelling. Got accepted to my first choice!
+        </p>
+        <div style={{display:'flex',gap:'0.25rem',marginBottom:'0.75rem'}}>
+          {[1,2,3,4,5].map(i => (<span key={i} style={{color:'#fbbf24',fontSize:'1rem'}}>⭐</span>))}
+        </div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af',marginBottom:'0.25rem'}}>Customer ID: 901234</div>
+        <div style={{fontSize:'0.75rem',color:'#9ca3af'}}>Jul 28, 2024</div>
+      </div>
+      {/* Scroll Indicators */}
+      <div style={{
+        display: 'flex',
+        gap: '0.5rem',
+        justifyContent: 'center'
+      }}>
+        {[0,1,2,3,4,5,6,7,8].map(i => (
+          <div key={i} style={{
+            width: activeReview === i ? '1.5rem' : '0.5rem',
+            height: '0.5rem',
+            backgroundColor: activeReview === i ? '#268579' : '#d1d5db',
+            borderRadius: '1rem',
+            transition: 'all 0.3s'
+          }}></div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* CTA Section (moved inside component for proper scope) */}
       <section style={{

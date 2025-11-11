@@ -22,9 +22,6 @@ import HeroSection from '../components/Hero/HeroSection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTriangleExclamation, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { Helmet } from 'react-helmet-async';
-import MobileHome from './MobileHome';
-import DesktopHomeContent from './DesktopHomeContent';
-
 
 function ConcernsSolutionsBlock(): React.ReactElement {
   const [activeTab, setActiveTab] = useState<string>('concerns');
@@ -302,7 +299,6 @@ const writersStyles = `
   }
 `;
 
-// Reviews Section Interfaces and Components
 interface ReviewData {
   id: string;
   customerName: string;
@@ -320,7 +316,6 @@ interface Platform {
   color: string;
 }
 
-// Platform configurations matching the exact design
 const platforms: Platform[] = [
   {
     id: "google",
@@ -359,7 +354,6 @@ const platforms: Platform[] = [
   }
 ];
 
-// Reviews data for each platform
 const reviewsData = {
   google: [
     {
@@ -682,7 +676,7 @@ const reviewsData = {
     {
       id: "36",
       customerName: "Avery K.",
-      customerId: "789012",
+      customerId: "345678",
       rating: 4,
       reviewText: "Good work overall. The writer followed my instructions and delivered quality work. Would use again for future assignments.",
       date: "Sep 20, 2024",
@@ -1044,7 +1038,6 @@ const reviewsData = {
   ]
 };
 
-// Star Rating Component
 const StarRating: React.FC<{ rating: number }> = ({ rating }: { rating: number }) => {
   return (
     <div className="flex items-center space-x-0.5 mb-2">
@@ -1058,25 +1051,16 @@ const StarRating: React.FC<{ rating: number }> = ({ rating }: { rating: number }
   );
 };
 
-// Review Card Component matching the exact design
 const ReviewCard: React.FC<{ review: ReviewData }> = ({ review }: { review: ReviewData }) => (
   <div className="bg-white rounded-xl border border-gray-200 p-6 w-[280px] h-[200px] shadow-sm flex-shrink-0 flex flex-col">
-    {/* Work Type Header */}
     <div className="text-gray-600 text-sm font-medium mb-3">
       {review.workType}
     </div>
-    
-    {/* Review Text - Fixed height with proper wrapping */}
     <p className="text-gray-800 text-sm leading-relaxed mb-4 flex-1 overflow-hidden break-words hyphens-auto">
       {review.reviewText}
     </p>
-    
-    {/* Bottom Section - Fixed at bottom */}
     <div className="mt-auto">
-      {/* Star Rating */}
       <StarRating rating={review.rating} />
-      
-      {/* Customer Info */}
       <div className="text-xs text-gray-500 space-y-1">
         <div>Customer ID: {review.customerId}</div>
         <div>{review.date}</div>
@@ -1085,7 +1069,6 @@ const ReviewCard: React.FC<{ review: ReviewData }> = ({ review }: { review: Revi
   </div>
 );
 
-// Platform Tab Component
 const PlatformTab: React.FC<{ 
   platform: Platform; 
   isActive: boolean; 
@@ -1110,7 +1093,6 @@ const PlatformTab: React.FC<{
   </button>
 );
 
-// Writers Section Interfaces and Components
 interface WriterStats {
   finishOnTime: number;
   lastReviews: number;
@@ -1194,9 +1176,7 @@ const WriterCard = ({ writer }: { writer: Writer }): React.ReactElement => {
         className="w-full h-80 object-cover"
       />
       
-      {/* Enhanced Content with Better Readability */}
       <div className="base-content absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-6 text-white">
-        {/* Writer Name and Rating */}
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-xl font-bold text-white drop-shadow-lg">{writer.name}</h3>
           <div className="flex items-center gap-1 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
@@ -1205,10 +1185,8 @@ const WriterCard = ({ writer }: { writer: Writer }): React.ReactElement => {
           </div>
         </div>
         
-        {/* Degree */}
         <p className="text-gray-200 text-sm mb-4 font-medium drop-shadow-md">{writer.degree}</p>
         
-        {/* Subjects with Better Contrast */}
         <div className="flex flex-wrap gap-2 mb-4">
           {writer.subjects.map((subject, index) => (
             <span 
@@ -1221,9 +1199,7 @@ const WriterCard = ({ writer }: { writer: Writer }): React.ReactElement => {
         </div>
       </div>
       
-      {/* Stats Overlay with Better Readability */}
       <div className="stats-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
-        {/* Writer info at bottom with enhanced background */}
         <div className="bg-black/80 backdrop-blur-sm rounded-lg p-4 mb-4">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-bold text-white">{writer.name}</h3>
@@ -1245,7 +1221,6 @@ const WriterCard = ({ writer }: { writer: Writer }): React.ReactElement => {
           </div>
         </div>
 
-        {/* Stats grid with better contrast */}
         <div className="bg-black/80 backdrop-blur-sm rounded-lg p-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center">
@@ -1284,7 +1259,6 @@ const WritersSection: React.FC = (): React.ReactElement => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Mouse wheel horizontal scrolling support
     const handleWheel = (e: WheelEvent) => {
       if (e.deltaY !== 0) {
         e.preventDefault();
@@ -1292,22 +1266,21 @@ const WritersSection: React.FC = (): React.ReactElement => {
       }
     };
 
-    // Mouse drag scrolling
     const handleMouseDown = (e: MouseEvent) => {
       setIsDragging(true);
       setStartX(e.pageX - container.offsetLeft);
       setScrollLeft(container.scrollLeft);
-      container.style.cursor = 'grabbing';
+      (container as any).style.cursor = 'grabbing';
     };
 
     const handleMouseLeave = () => {
       setIsDragging(false);
-      container.style.cursor = 'grab';
+      (container as any).style.cursor = 'grab';
     };
 
     const handleMouseUp = () => {
       setIsDragging(false);
-      container.style.cursor = 'grab';
+      (container as any).style.cursor = 'grab';
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -1318,7 +1291,6 @@ const WritersSection: React.FC = (): React.ReactElement => {
       container.scrollLeft = scrollLeft - walk;
     };
 
-    // Touch/swipe support for mobile devices
     let touchStartX = 0;
     let touchStartY = 0;
     let isScrolling = false;
@@ -1370,7 +1342,6 @@ const WritersSection: React.FC = (): React.ReactElement => {
     <section className="py-16 px-4 bg-gray-50">
       <style>{writersStyles}</style>
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-3">
             Our team of <span className="text-primary-500">academic writers</span>
@@ -1380,7 +1351,6 @@ const WritersSection: React.FC = (): React.ReactElement => {
           </p>
         </div>
 
-        {/* Writers Container */}
         <div className="relative">
           <div 
             ref={containerRef}
@@ -1394,7 +1364,6 @@ const WritersSection: React.FC = (): React.ReactElement => {
           </div>
         </div>
 
-        {/* View All Writers Button */}
         <div className="text-center mt-16">
           <Link 
             to="/writers"
@@ -1408,30 +1377,24 @@ const WritersSection: React.FC = (): React.ReactElement => {
   );
 };
 
-// Main Reviews Section Component
 const ReviewsSection: React.FC = (): React.ReactElement => {
   const [activePlatform, setActivePlatform] = useState<string>("google");
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
-  // Auto-scroll effect
   useEffect(() => {
     const interval = setInterval(() => {
       setScrollPosition((prev: number) => prev + 1);
-    }, 30); // Smooth scroll speed
-
+    }, 30);
     return () => clearInterval(interval);
   }, []);
 
   const currentReviews = reviewsData[activePlatform as keyof typeof reviewsData] || [];
-  
-  // Duplicate reviews for infinite scroll effect
   const infiniteReviews = [...currentReviews, ...currentReviews, ...currentReviews];
 
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50/30 via-purple-50/20 to-blue-50/30 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header Section - exactly as in image */}
         <div className="text-center mb-12">
           <div className="inline-block bg-primary-100 text-primary-500 px-3 py-1 rounded-full text-xs font-medium mb-6">
             Reviews 🔥
@@ -1449,7 +1412,6 @@ const ReviewsSection: React.FC = (): React.ReactElement => {
           </p>
         </div>
 
-        {/* Platform Tabs Row - exactly as in image */}
         <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12">
           {platforms.map((platform) => (
             <PlatformTab
@@ -1461,7 +1423,6 @@ const ReviewsSection: React.FC = (): React.ReactElement => {
           ))}
         </div>
 
-        {/* Infinite Scrolling Reviews Container */}
         <div className="relative overflow-hidden">
           <div 
             className="flex space-x-6 transition-transform duration-100 ease-linear"
@@ -1484,19 +1445,494 @@ const ReviewsSection: React.FC = (): React.ReactElement => {
   );
 };
 
-export default function Home(): React.ReactElement {
-  const [isMobile, setIsMobile] = useState(false);
+export default function DesktopHomeContent(): React.ReactElement {
+  const whyChooseUs = [
+    {
+      icon: Headphones,
+      title: "24/7 Support",
+      description: "Our customer service team is here for you 24/7. Get quick answers and guidance for any academic question, day or night. We're always available."
+    },
+    {
+      icon: GraduationCap,
+      title: "Expert Writers",
+      description: "Our expert writers hold advanced degrees and are specialists in various fields. Your project will be handled by a subject matter professional."
+    },
+    {
+      icon: Shield,
+      title: "Original Content",
+      description: "Every document is custom-written from a blank page. We guarantee 100% unique work and provide a detailed report to prove its originality."
+    },
+    {
+      icon: Clock,
+      title: "Always On Time",
+      description: "We understand academic deadlines are crucial. Our streamlined process ensures your work is delivered on or before the agreed-upon submission time."
+    },
+    {
+      icon: DollarSign,
+      title: "Affordable Prices",
+      description: "You can get the quality help you need without high costs. Our affordable rates are fair and friendly for any student's budget."
+    },
+    {
+      icon: RefreshCw,
+      title: "Free Unlimited Edits",
+      description: "Your satisfaction is our main goal. We offer free, unlimited revisions on every project until it meets your exact requirements."
+    }
+  ];
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  const benefits = [
+    {
+      icon: Shield,
+      title: "Confidentiality",
+      description: "Your personal information and orders are completely secure"
+    },
+    {
+      icon: RefreshCw,
+      title: "Free Revisions",
+      description: "Unlimited revisions within 14 days of delivery"
+    },
+    {
+      icon: Headphones,
+      title: "Dedicated Support",
+      description: "Personal support manager for every order"
+    },
+    {
+      icon: CheckCircle,
+      title: "Plagiarism-Free Guarantee",
+      description: "Original content with detailed plagiarism reports"
+    }
+  ];
+
+  const howItWorks = [
+    {
+      step: 1,
+      title: "Fill the Form",
+      description: "Provide your assignment details and requirements",
+      icon: FileText
+    },
+    {
+      step: 2,
+      title: "Writer Assigned",
+      description: "We match you with the best expert for your subject",
+      icon: Users
+    },
+    {
+      step: 3,
+      title: "Download Your Work",
+      description: "Receive your completed assignment on time",
+      icon: Download
+    }
+  ];
+
+  const pricingPlans = [
+    {
+      name: "High School",
+      price: "$12",
+      period: "per page",
+      features: ["Basic research", "Standard formatting", "Free revisions", "24/7 support"],
+      popular: false
+    },
+    {
+      name: "College",
+      price: "$15",
+      period: "per page",
+      features: ["Advanced research", "Any citation style", "Free revisions", "Priority support"],
+      popular: true
+    },
+    {
+      name: "University",
+      price: "$18",
+      period: "per page",
+      features: ["Expert writers", "Complex topics", "Free revisions", "Dedicated manager"],
+      popular: false
+    }
+  ];
 
   return (
     <>
-      {isMobile ? <MobileHome /> : <DesktopHomeContent />}
+      <Helmet>
+        <title>Essay Writing Service | Essay Embassy</title>
+        <meta
+          name="description"
+          content="Professional essay writing service with expert writers. Get original, high-quality essays, research papers, and academic writing help."
+        />
+        <link rel="canonical" href="https://essayembassy.com/" />
+      </Helmet>
+      <div className="min-h-screen safe-area bg-gradient-to-b from-[#F7F9FF] via-[#E3E8F0] to-white dark:bg-gray-900">
+        <HeroSection />
+        <ConcernsSolutionsBlock />
+
+        <section className="py-12 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-slate-200 dark:border-gray-700 relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+          <div className="container relative z-10">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                Why Choose <span className="text-primary-500">Essay Embassy</span>?
+              </h2>
+              <div className="w-16 h-1 bg-primary-500 mx-auto mb-2"></div>
+              <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-normal">
+                We deliver high-quality academic writing services with a focus on excellence,
+                dependability, and your ultimate student success.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {whyChooseUs.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={index}
+                    className="group bg-white/90 dark:bg-gray-800/90 rounded-xl p-5 text-center shadow border border-slate-100 dark:border-gray-700 hover:shadow-md transition-all duration-300 hover:scale-[1.02] flex flex-col items-center relative overflow-hidden animate-fade-in"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="absolute -top-6 -right-6 w-16 h-16 bg-primary-100 dark:bg-primary-900/10 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+                    <div className="bg-primary-50 dark:bg-primary-900/20 w-10 h-10 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-105 transition-transform duration-300 shadow">
+                      <Icon className="text-primary-500" size={24} />
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm font-normal">
+                      {item.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border-b border-slate-200 dark:border-gray-700 relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+          <div className="container relative z-10">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
+                Our <span className="text-primary-500">Core Benefits</span>
+              </h2>
+              <div className="w-16 h-1 bg-primary-500 mx-auto mb-2 rounded-full"></div>
+              <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-normal">
+                Experience the advantages that make us the preferred choice for academic assistance.
+              </p>
+              <div className="flex justify-center mt-2">
+                <span className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-3 py-0.5 rounded-full text-xs font-medium shadow-sm animate-pulse">
+                  <CheckCircle className="text-green-500" size={16} />
+                  Trusted by 10,000+ students
+                </span>
+              </div>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 items-stretch">
+              {benefits.map((benefit, index) => {
+                const Icon = benefit.icon;
+                return (
+                  <div
+                    key={index}
+                    className="group bg-white/90 dark:bg-gray-800/90 p-5 rounded-xl shadow border border-slate-100 dark:border-gray-700 hover:shadow-md hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300 hover:scale-[1.02] flex flex-col items-center relative overflow-hidden animate-fade-in h-full min-h-[220px]"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="absolute -top-5 -right-5 w-12 h-12 bg-primary-100 dark:bg-primary-900/10 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+                    <div className="bg-primary-50 dark:bg-primary-900/20 w-10 h-10 rounded-lg flex items-center justify-center mb-3 mx-auto group-hover:scale-105 transition-transform duration-300 shadow">
+                      <Icon className="text-primary-500 group-hover:text-primary-600 transition-colors duration-300" size={24} />
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2 tracking-tight group-hover:text-primary-500 transition-colors duration-300 text-center">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm font-normal text-center flex-1 flex items-center justify-center">
+                      {benefit.description}
+                    </p>
+                    {benefit.title === 'Plagiarism-Free Guarantee' && (
+                      <span className="absolute top-2 right-2 bg-primary-500 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full shadow animate-bounce z-10">
+                        Verified
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-white relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-50 rounded-xl mb-6">
+                <GraduationCap className="w-8 h-8 text-primary-600" />
+              </div>
+              
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                Our Academic Writing
+                <span className="block text-primary-600">Services</span>
+              </h2>
+              
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Comprehensive academic support across all disciplines with expert writers, 
+                guaranteed quality, and timely delivery for your educational success.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {[
+                {
+                  title: "Essay Writing Services",
+                  description: "Professional essay writing with original content, proper citations, and guaranteed quality for all academic levels.",
+                  icon: FileText,
+                  features: ["Original Content", "Proper Citations", "All Academic Levels"],
+                  buttonText: "Order Essay",
+                  href: "/services/essay-writing"
+                },
+                {
+                  title: "Assignment Help",
+                  description: "Expert assistance with assignments across all subjects, ensuring timely delivery and academic excellence.",
+                  icon: BookOpen,
+                  features: ["All Subjects", "Timely Delivery", "Expert Writers"],
+                  buttonText: "Get Help",
+                  href: "/services/assignment-help"
+                },
+                {
+                  title: "Homework Help",
+                  description: "Comprehensive homework support with step-by-step solutions and detailed explanations for better understanding.",
+                  icon: GraduationCap,
+                  features: ["Step-by-Step Solutions", "Detailed Explanations", "Quick Turnaround"],
+                  buttonText: "Start Now",
+                  href: "/services/homework-help"
+                },
+                {
+                  title: "Research Paper Help",
+                  description: "In-depth research papers with comprehensive analysis, credible sources, and academic formatting standards.",
+                  icon: Search,
+                  features: ["Comprehensive Analysis", "Credible Sources", "Academic Formatting"],
+                  buttonText: "Order Research",
+                  href: "/services/research-paper-writing"
+                },
+                {
+                  title: "Thesis Writing Help",
+                  description: "Professional thesis writing support with extensive research, proper methodology, and academic rigor.",
+                  icon: FileCheck,
+                  features: ["Extensive Research", "Proper Methodology", "Academic Rigor"],
+                  buttonText: "Get Started",
+                  href: "/services/thesis-writing"
+                },
+                {
+                  title: "Dissertation Writing Help",
+                  description: "Complete dissertation support from proposal to defense with expert guidance and comprehensive research.",
+                  icon: ScrollText,
+                  features: ["Proposal to Defense", "Expert Guidance", "Comprehensive Research"],
+                  buttonText: "Begin Dissertation",
+                  href: "/services/dissertation-writing"
+                }
+              ].map((service) => {
+                const IconComponent = service.icon;
+                return (
+                  <div
+                    key={service.title}
+                    className="group bg-white border border-gray-200 rounded-xl p-6 sm:p-8 hover:shadow-lg hover:border-primary-200 transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <div className="flex items-start space-x-4 mb-6">
+                      <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 bg-primary-50 rounded-lg flex items-center justify-center group-hover:bg-primary-100 transition-colors duration-300">
+                        <IconComponent className="w-6 h-6 text-primary-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors duration-300">
+                            {service.title}
+                          </h3>
+                        </div>
+                      </div>
+
+                    <p className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base">
+                        {service.description}
+                      </p>
+
+                    <div className="space-y-3 mb-8">
+                        {service.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center space-x-3">
+                          <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                            <CheckCircle className="w-3 h-3 text-green-600" />
+                            </div>
+                          <span className="text-sm text-gray-700 font-medium">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                    <Link
+                      to={service.href}
+                    className="w-full tap-target bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center space-x-2 group-hover:shadow-md"
+                  >
+                    <span>{service.buttonText}</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="text-center mt-16">
+              <Link 
+                to="/services"
+                className="inline-flex items-center justify-center tap-target px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 space-x-3"
+              >
+                  <span>Explore All Services</span>
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <ReviewsSection />
+
+        <section className="py-14 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+          <div className="container relative z-10">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-2 tracking-tight">
+                How It <span className="text-primary-500">Works</span>
+              </h2>
+              <div className="w-16 h-1 bg-primary-500 mx-auto mb-2 rounded-full"></div>
+              <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-normal">
+                Get your assignment completed in three simple steps.
+              </p>
+              <div className="flex justify-center mt-2">
+                <span className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-0.5 rounded-full text-xs font-medium shadow-sm animate-fade-in">
+                  🚀 Fast & Secure Process
+                </span>
+              </div>
+            </div>
+
+            <div className="relative grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
+              <div className="hidden md:block absolute top-1/2 left-0 right-0 h-1 z-0" style={{transform: 'translateY(-50%)'}}>
+                <div className="w-full h-full bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200 rounded-full opacity-40 blur-[1px]" />
+              </div>
+              {howItWorks.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <div
+                    key={index}
+                    className="relative z-10 backdrop-blur-lg bg-white/70 dark:bg-gray-800/70 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700 hover:shadow-md hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300 hover:scale-[1.03] flex flex-col items-center text-center animate-fade-in group h-full min-h-[220px]"
+                    style={{ animationDelay: `${index * 0.15}s` }}
+                  >
+                    <div className="relative mb-5">
+                      <div className="bg-gradient-to-br from-primary-500 to-primary-400 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-1 shadow group-hover:scale-105 group-hover:shadow-lg transition-transform duration-300 border-2 border-white dark:border-gray-900">
+                        <Icon className="text-white group-hover:scale-105 transition-transform duration-300" size={22} />
+                      </div>
+                      <div className="absolute -top-2 -right-2 bg-white dark:bg-gray-800 border border-primary-500 w-7 h-7 rounded-full flex items-center justify-center text-primary-500 font-bold text-base shadow-soft group-hover:bg-primary-500 group-hover:text-white transition-colors duration-300 animate-bounce">
+                        {step.step}
+                      </div>
+                    </div>
+                    <h3 className="text-base font-medium text-gray-900 dark:text-white mb-1 tracking-tight group-hover:text-primary-500 transition-colors duration-300">
+                      {step.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-xs flex-1 flex items-center justify-center">
+                      {step.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <WritersSection />
+
+        <section className="py-14 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-gray-700 relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+          <div className="container relative z-10">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-2 tracking-tight">
+                <span className="text-primary-500">Transparent</span> Pricing
+              </h2>
+              <div className="w-16 h-1 bg-primary-500 mx-auto mb-2 rounded-full"></div>
+              <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-normal">
+                Choose the plan that fits your academic level and budget.
+              </p>
+              <div className="flex justify-center mt-2">
+                <span className="inline-flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 px-3 py-0.5 rounded-full text-xs font-medium shadow-sm animate-fade-in">
+                  💎 100% Value Guarantee
+                </span>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
+              {pricingPlans.map((plan, index) => (
+                <div
+                  key={index}
+                  className={`group relative backdrop-blur-lg bg-white/70 dark:bg-gray-800/70 rounded-xl p-5 shadow border border-gray-100 dark:border-gray-700 hover:shadow-md hover:border-primary-500 dark:hover:border-primary-500 transition-all duration-300 flex flex-col items-center animate-fade-in h_full min-h-[220px] ${plan.popular ? 'md:scale-105 z-10 ring-2 ring-primary-200 dark:ring-primary-900/30 md:shadow-lg' : 'scale-100'}`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary-500 to-primary-400 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow z-20 animate-bounce flex items-center gap-2">
+                      <Star className="text-yellow-300" size={14} /> Most Popular
+                    </div>
+                  )}
+                  <div className="text-center mb-4">
+                    <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1 tracking-tight group-hover:text-primary-500 transition-colors duration-300">
+                      {plan.name}
+                    </h3>
+                    <div className="flex items-baseline justify-center mb-1">
+                      <span className="text-3xl font-bold text-primary-500 drop-shadow-sm mr-1">{plan.price}</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400">{plan.period}</span>
+                    </div>
+                  </div>
+                  <ul className="mb-4 space-y-2 w-full">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-xs text-gray-700 dark:text-gray-300 font-normal gap-2">
+                        <CheckCircle size={14} className="text-primary-500 mr-1 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    to={`/order-now?academicLevel=${encodeURIComponent(plan.name)}`}
+                    className={`inline-flex items-center justify-center tap-target w-full px-4 py-2 rounded-md font-medium text-xs transition-all duration-200 shadow-sm group-hover:scale-105 ${
+                      plan.popular
+                        ? 'bg-gradient-to-r from-primary-500 to-primary-400 text-white hover:from-primary-600 hover:to-primary-500 shadow'
+                        : 'border border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white bg-white dark:bg-gray-900'
+                    }`}
+                  >
+                    Get Started
+                    <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-8 sm:py-10 md:py-12 bg-gradient-to-br from-primary-600/90 to-primary-800 relative overflow-hidden px-4 sm:px-6">
+          <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/symphony.png')]" />
+          <div className="container text-center relative z-10">
+            <div className="max-w-3xl mx-auto bg-white/80 dark:bg-gray-900/80 rounded-xl shadow-lg p-5 sm:p-6 md:p-8 lg:p-10 border border-primary-200 dark:border-primary-900 animate-fade-in">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-800 dark:text-white mb-2 sm:mb-3 leading-tight px-2">
+                Ready to Get Started?
+              </h2>
+              <p className="text-sm sm:text-base text-primary-700 dark:text-primary-100 mb-4 sm:mb-5 px-2 leading-relaxed">
+                Join thousands of successful students who trust Essay Embassy for their academic needs.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 justify-center mb-3 sm:mb-4">
+                <Link
+                  to="/order-now"
+                  className="bg-primary-600 hover:bg-primary-700 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-md font-medium text-sm sm:text-base transition-colors inline-flex items-center justify-center shadow group-hover:scale-105 tap-target w-full sm:w-auto"
+                >
+                  <GraduationCap className="mr-2 flex-shrink-0" size={16} />
+                  <span className="whitespace-nowrap">Place Your Order Now</span>
+                </Link>
+                <Link
+                  to="/contact"
+                  className="border border-primary-600 text-primary-700 dark:text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-md font-medium text-sm sm:text-base hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors group-hover:scale-105 tap-target w-full sm:w-auto"
+                >
+                  Contact Us
+                </Link>
+              </div>
+              <div className="mt-3 sm:mt-4 text-primary-700 dark:text-primary-100">
+                <p className="text-[10px] sm:text-xs flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-2">
+                  <span className="inline-flex items-center whitespace-nowrap"><span className="mr-1">🔒</span> Secure Payment</span>
+                  <span className="inline-flex items-center whitespace-nowrap"><span className="mr-1">📞</span> 24/7 Support</span>
+                  <span className="inline-flex items-center whitespace-nowrap"><span className="mr-1">✅</span> Money-Back Guarantee</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }
+
+
