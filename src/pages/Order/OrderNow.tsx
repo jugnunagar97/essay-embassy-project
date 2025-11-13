@@ -149,7 +149,17 @@ export default function OrderNow() {
   } = useForm<OrderFormData>({
     defaultValues: {
       // Read academicLevel from URL, if present. Otherwise, default to "College".
-      academicLevel: searchParams.get('academicLevel') || "College",
+      academicLevel: (() => {
+        const levelParam = searchParams.get('level');
+        if (levelParam) {
+          const normalized = levelParam.toLowerCase();
+          if (normalized === 'highschool') return "High School";
+          if (normalized === 'college') return "College";
+          if (normalized === 'university') return "University";
+          if (normalized === 'phd') return "PhD";
+        }
+        return searchParams.get('academicLevel') || "College";
+      })(),
       paperType: searchParams.get('paperType') || "Essay (Any Type)",
       pages: parseInt(searchParams.get('pages') || '1'),
       deadline: searchParams.get('deadline') || "48 hours",
@@ -177,7 +187,16 @@ export default function OrderNow() {
 
   // === NEW EFFECT TO SET FORM VALUE FROM URL PARAMETER ===
   useEffect(() => {
-    const academicLevelFromUrl = searchParams.get('academicLevel');
+    const levelParam = searchParams.get('level');
+    let normalizedLevel: string | null = null;
+    if (levelParam) {
+      const lower = levelParam.toLowerCase();
+      if (lower === 'highschool') normalizedLevel = "High School";
+      else if (lower === 'college') normalizedLevel = "College";
+      else if (lower === 'university') normalizedLevel = "University";
+      else if (lower === 'phd') normalizedLevel = "PhD";
+    }
+    const academicLevelFromUrl = normalizedLevel || searchParams.get('academicLevel');
     if (academicLevelFromUrl && academicLevels.includes(academicLevelFromUrl)) {
       setValue('academicLevel', academicLevelFromUrl);
     }
@@ -196,6 +215,10 @@ export default function OrderNow() {
     const pagesFromUrl = searchParams.get('pages');
     if (pagesFromUrl && !isNaN(Number(pagesFromUrl))) {
       setValue('pages', Number(pagesFromUrl));
+    }
+    const priceFromUrl = searchParams.get('price');
+    if (priceFromUrl && !isNaN(Number(priceFromUrl))) {
+      setPrice(Number(priceFromUrl));
     }
   }, [searchParams, setValue]); // Re-run if searchParams or setValue changes
 
