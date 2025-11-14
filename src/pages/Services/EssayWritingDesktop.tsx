@@ -43,7 +43,7 @@ const sampleCards = [
 ];
 
 
-export default function EssayWritingDesktop() {
+export default function EssayWriting() {
   // FAQ state and data for FAQ block
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const faqData = [

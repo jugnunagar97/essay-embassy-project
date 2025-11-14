@@ -130,20 +130,21 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             </div>
           )}
 
-          {/* Mobile Menu Toggle Button (for non-admin pages) */}
-          <button
-            onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-            className="lg:hidden text-gray-600 dark:text-gray-300 ml-1 sm:ml-2"
-            aria-label="Toggle mobile menu"
-          >
-            <Menu size={18} className="sm:w-5 sm:h-5" />
-          </button>
+          {/* Mobile Menu Toggle Button (for non-admin pages only) */}
+          {!isAdminPage && (
+            <button
+              onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+              className="lg:hidden text-gray-600 dark:text-gray-300 ml-1 sm:ml-2"
+              aria-label="Toggle mobile menu"
+            >
+              <Menu size={18} className="sm:w-5 sm:h-5" />
+            </button>
+          )}
         </div>
       </div>
 
       {/* Mobile Navigation Menu */}
       {/* The MobileServicesMenu component is correctly imported and passed props now. */}
-      {/* TODO: Add Q&A Library link to MobileServicesMenu if not present */}
       {!isAdminPage && isMobileNavOpen && (
         <MobileServicesMenu onClose={() => setIsMobileNavOpen(false)} />
       )}
