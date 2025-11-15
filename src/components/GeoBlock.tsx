@@ -13,7 +13,33 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
   const [isBlocked, setIsBlocked] = useState<boolean | null>(null);
   const [isChecking, setIsChecking] = useState(true);
 
+  // Bypass geoblock for development/testing
+  const isDevelopment = import.meta.env.MODE === 'development';
+  const bypassGeoblock = import.meta.env.VITE_BYPASS_GEOBLOCK === 'true';
+
+  // If bypass is enabled, skip all geoblock checks
   useEffect(() => {
+    if (isDevelopment || bypassGeoblock) {
+      console.log('[GeoBlock] Bypass enabled - allowing access', {
+        isDevelopment,
+        bypassGeoblock
+      });
+      setIsBlocked(false);
+      setIsChecking(false);
+      if (typeof window !== 'undefined') {
+        (window as any).__IS_BLOCKED__ = false;
+        (window as any).__DETECTED_COUNTRY__ = 'BYPASS';
+        (window as any).__BLOCKED_CHECK_IN_PROGRESS__ = false;
+      }
+      return;
+    }
+  }, [isDevelopment, bypassGeoblock]);
+
+  useEffect(() => {
+    // Skip geoblock check if bypass is enabled
+    if (isDevelopment || bypassGeoblock) {
+      return;
+    }
     // Prevent Tawk.to from loading while checking
     if (typeof window !== 'undefined') {
       // Set a flag to prevent Tawk.to from initializing
@@ -226,7 +252,12 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
     };
 
     checkCountry();
-  }, []);
+  }, [isDevelopment, bypassGeoblock]);
+
+  // If bypass is enabled, always allow access
+  if (isDevelopment || bypassGeoblock) {
+    return <>{children}</>;
+  }
 
   // Show nothing while checking (or a loading state if preferred)
   if (isChecking) {
