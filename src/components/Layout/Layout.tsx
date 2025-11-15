@@ -224,7 +224,7 @@ export default function Layout() {
         )}
         
         {/* FIXED: Removed overflow classes that were preventing sticky positioning */}
-        <main className="flex-1">
+        <main className="flex-1 p-6">
           {/* This container is now inside the Outlet pages, which is a better pattern */}
           <Outlet />
         </main>

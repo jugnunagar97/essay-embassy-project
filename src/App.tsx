@@ -96,6 +96,7 @@ import MyOrders from './pages/Dashboard/MyOrders';
 import PendingPayments from './pages/Dashboard/PendingPayments';
 import ClientLiveChat from './pages/Dashboard/ClientLiveChat';
 import HelpSupport from './pages/Dashboard/HelpSupport';
+import PlaceOrder from './pages/Dashboard/PlaceOrder';
 // Old Q&A admin system removed - using new localStorage-based system
 
 // --- Admin Management Component Imports (from components/Admin) ---
@@ -268,6 +269,7 @@ function App() {
             <Route path="dashboard/pending-payments" element={<ProtectedRoute><PendingPayments /></ProtectedRoute>} />
             <Route path="dashboard/client-chat" element={<ProtectedRoute><ClientLiveChat /></ProtectedRoute>} />
             <Route path="dashboard/help" element={<ProtectedRoute><HelpSupport /></ProtectedRoute>} />
+            <Route path="dashboard/place-order" element={<ProtectedRoute><PlaceOrder /></ProtectedRoute>} />
 
           </Route>
 

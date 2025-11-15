@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CreditCard, AlertCircle, Clock, DollarSign, Calendar } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useCurrency } from '../../context/CurrencyContext';
 import { Order } from '../../types';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase';
+import RazorpayButton from '../../components/Payment/RazorpayButton';
+import toast from 'react-hot-toast';
 
 const PendingPayments: React.FC = () => {
   const { user } = useAuth();
+  const { selectedCurrency } = useCurrency();
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -44,10 +48,31 @@ const PendingPayments: React.FC = () => {
     return new Date(date).toLocaleDateString();
   };
 
-  const handlePayment = (orderId: string) => {
-    // TODO: Implement payment processing
-    console.log('Processing payment for order:', orderId);
-    // This would typically redirect to a payment gateway
+  // Update order status after successful payment
+  const updateOrderAfterPayment = async (orderId: string, paymentId: string) => {
+    try {
+      const orderRef = doc(db, 'orders', orderId);
+      await updateDoc(orderRef, {
+        status: 'in-progress',
+        paymentStatus: 'completed',
+        paymentId: paymentId,
+        updatedAt: serverTimestamp(),
+      });
+      toast.success('Payment successful! Order status updated.');
+    } catch (error) {
+      console.error('Error updating order after payment:', error);
+      toast.error('Payment successful but failed to update order status. Please contact support.');
+    }
+  };
+
+  // Handle payment success
+  const handlePaymentSuccess = async (paymentId: string, orderId: string) => {
+    await updateOrderAfterPayment(orderId, paymentId);
+  };
+
+  // Handle payment error
+  const handlePaymentError = (error: string) => {
+    toast.error(`Payment failed: ${error}`);
   };
 
   if (isLoading) {
@@ -170,13 +195,19 @@ const PendingPayments: React.FC = () => {
                   </div>
                   
                   <div className="flex flex-col gap-3 ml-6">
-                    <button
-                      onClick={() => handlePayment(order.id)}
-                      className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
+                    <RazorpayButton
+                      amount={order.amount}
+                      currency={selectedCurrency}
+                      orderId={`order_${order.orderNumber}`}
+                      userId={user?.id}
+                      serviceType={order.paperType?.toLowerCase() || 'essay'}
+                      onSuccess={(paymentId) => handlePaymentSuccess(paymentId, order.id)}
+                      onError={(error) => handlePaymentError(error)}
+                      className="w-full"
                     >
-                      <CreditCard className="w-4 h-4" />
+                      <CreditCard className="w-4 h-4 mr-2" />
                       Pay Now
-                    </button>
+                    </RazorpayButton>
                     <Link
                       to={`/dashboard/order/${order.id}`}
                       className="text-center text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400"

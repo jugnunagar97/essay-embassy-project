@@ -60,29 +60,95 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
         throw new Error('Failed to load Razorpay script');
       }
 
-      // Create order on your server
-      const response = await fetch('https://essay-embassy-project.onrender.com/api/create-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: convertedAmount,
-          currency: paymentCurrency,
-          receipt: orderId || `order_${Date.now()}`,
-          notes: {
-            userId: userId,
-            orderId: orderId,
-            serviceType: serviceType
-          }
-        }),
-      });
+      // Create order on your server with timeout
+      let response;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-      if (!response.ok) {
-        throw new Error('Failed to create order');
+      try {
+        response = await fetch('https://essay-embassy-project.onrender.com/api/create-order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount: convertedAmount,
+            currency: paymentCurrency,
+            receipt: orderId || `order_${Date.now()}`,
+            notes: {
+              userId: userId,
+              orderId: orderId,
+              serviceType: serviceType
+            }
+          }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+      } catch (networkError: any) {
+        clearTimeout(timeoutId);
+        // Network error (server unreachable, CORS, timeout, etc.)
+        if (networkError.name === 'AbortError') {
+          throw new Error('Payment request timed out. The server is taking too long to respond. Please try again.');
+        }
+        throw new Error('Unable to connect to payment server. Please check your internet connection and try again.');
       }
 
-      const { order } = await response.json();
+      // Parse response body first (whether success or error)
+      // Clone the response so we can read it multiple times if needed
+      let responseData: any = null;
+      let responseText = '';
+      
+      try {
+        // Always try to get text first, then parse as JSON
+        responseText = await response.text();
+        
+        // Try to parse as JSON
+        if (responseText) {
+          try {
+            responseData = JSON.parse(responseText);
+          } catch (jsonError) {
+            // Not JSON, that's okay - we'll use status-based messages
+            console.warn('Response is not JSON:', responseText.substring(0, 100));
+          }
+        }
+      } catch (readError) {
+        console.error('Error reading response:', readError);
+        // If we can't read the response, use status-based error
+      }
+
+      // Check if response indicates an error
+      if (!response.ok) {
+        // Priority: Use error message from JSON response, then status-based message
+        let errorMessage = '';
+        
+        if (responseData?.error) {
+          // Server provided an error message - use it directly
+          errorMessage = responseData.error;
+          // If it's a generic message, add more context for 503
+          if (response.status === 503 && errorMessage.toLowerCase().includes('unavailable')) {
+            errorMessage = 'Payment service is temporarily unavailable. The payment gateway may not be configured on the server. Please contact support for assistance.';
+          }
+        } else if (response.status === 503) {
+          errorMessage = 'Payment service is temporarily unavailable. The server may be restarting or the payment gateway is not configured. Please wait a moment and try again, or contact support if the issue persists.';
+        } else if (response.status === 500) {
+          errorMessage = 'Payment server error. Please try again later or contact support.';
+        } else if (response.status === 400) {
+          errorMessage = 'Invalid payment request. Please check your order details.';
+        } else if (response.status === 404) {
+          errorMessage = 'Payment endpoint not found. Please contact support.';
+        } else {
+          errorMessage = `Payment service error (${response.status}). Please try again or contact support.`;
+        }
+        
+        throw new Error(errorMessage);
+      }
+
+      // Check if response has the expected structure
+      if (!responseData || !responseData.order) {
+        throw new Error('Invalid response from payment server. Please try again.');
+      }
+
+      const { order } = responseData;
 
       // Configure Razorpay options
       const options = {
@@ -136,9 +202,10 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
 
     } catch (error) {
       console.error('Payment error:', error);
-      toast.error('Payment failed. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : 'Payment failed. Please try again.';
+      toast.error(errorMessage);
       if (onError) {
-        onError(error instanceof Error ? error.message : 'Payment failed');
+        onError(errorMessage);
       }
     } finally {
       setIsLoading(false);
@@ -164,3 +231,4 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
 };
 
 export default RazorpayButton;
+
