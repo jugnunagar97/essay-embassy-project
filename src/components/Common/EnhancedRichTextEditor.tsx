@@ -98,14 +98,20 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({
     setMathInput("");
   };
 
+  // ✅ FIXED: Improved paste handler
   const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     e.preventDefault();
     
     const html = e.clipboardData.getData('text/html');
     const text = e.clipboardData.getData('text/plain');
     
-    if (html) {
-      // Process HTML content to preserve formatting
+    // Check if pasted content contains math equations
+    if (html && (html.includes('katex') || html.includes('math-tex') || html.includes('mml:'))) {
+      // Extract and clean math content
+      const processedHTML = cleanMathHTML(html);
+      insertHTMLAtCursor(processedHTML);
+    } else if (html) {
+      // Process regular HTML content
       const processedHTML = processPastedHTML(html);
       insertHTMLAtCursor(processedHTML);
     } else if (text) {
@@ -119,50 +125,86 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({
     setIsEmpty(!ref.current?.textContent || ref.current?.textContent.trim() === "");
   };
 
-  const processPastedHTML = (html: string): string => {
-    // Create a temporary div to process the HTML
+  // ✅ NEW: Clean math HTML from other editors
+  const cleanMathHTML = (html: string): string => {
     const temp = document.createElement('div');
     temp.innerHTML = html;
     
-    // Preserve important formatting
-    const elements = temp.querySelectorAll('*');
-    elements.forEach(el => {
-      // Preserve bold, italic, underline
-      if (el.tagName === 'B' || el.tagName === 'STRONG') {
-        el.style.fontWeight = 'bold';
-      }
-      if (el.tagName === 'I' || el.tagName === 'EM') {
-        el.style.fontStyle = 'italic';
-      }
-      if (el.tagName === 'U') {
-        el.style.textDecoration = 'underline';
-      }
-      
-      // Preserve lists
-      if (el.tagName === 'UL' || el.tagName === 'OL') {
-        el.style.marginLeft = '20px';
-      }
-      
-      // Preserve code blocks
-      if (el.tagName === 'CODE') {
-        el.style.backgroundColor = '#f5f5f5';
-        el.style.padding = '2px 4px';
-        el.style.borderRadius = '3px';
-        el.style.fontFamily = 'monospace';
+    // Find all math-related elements
+    const mathElements = temp.querySelectorAll('.katex, .katex-display, .katex-html, [class*="math"], [class*="katex"]');
+    
+    if (mathElements.length === 0) {
+      // No math found, process as regular HTML
+      return processPastedHTML(html);
+    }
+    
+    // Extract text content and try to find LaTeX source
+    let result = '';
+    
+    mathElements.forEach(el => {
+      // Try to find annotation elements (MathML annotations often contain LaTeX)
+      const annotation = el.querySelector('annotation[encoding="application/x-tex"]');
+      if (annotation && annotation.textContent) {
+        const latex = annotation.textContent.trim();
+        const isBlock = el.classList.contains('katex-display') || el.closest('.katex-display');
+        const rendered = renderLatex(latex, !!isBlock);
+        const wrapped = isBlock
+          ? `<div class="math-block" style="margin: 16px 0; text-align: center; overflow-x: auto;">${rendered}</div>`
+          : `<span class="math-inline" style="display: inline-block;">${rendered}</span>`;
+        result += wrapped;
+        return;
       }
       
-      // Preserve blockquotes
-      if (el.tagName === 'BLOCKQUOTE') {
-        el.style.borderLeft = '4px solid #ccc';
-        el.style.paddingLeft = '16px';
-        el.style.marginLeft = '0';
-        el.style.fontStyle = 'italic';
+      // If no annotation found, extract just the text content (fallback)
+      const textContent = el.textContent || '';
+      if (textContent.trim()) {
+        result += `<p>${textContent}</p>`;
       }
     });
+    
+    return result || processPastedHTML(html);
+  };
+
+  // ✅ IMPROVED: Simplified HTML processor
+  const processPastedHTML = (html: string): string => {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    
+    // Remove scripts and styles
+    temp.querySelectorAll('script, style').forEach(el => el.remove());
+    
+    // Clean up elements but preserve basic formatting
+    const allowedTags = ['p', 'br', 'strong', 'b', 'em', 'i', 'u', 'ul', 'ol', 'li', 'blockquote', 'code', 'pre', 'a', 'table', 'tr', 'td', 'th'];
+    
+    const cleanElement = (el: Element) => {
+      // Remove all attributes except href for links
+      if (el.tagName.toLowerCase() === 'a') {
+        const href = el.getAttribute('href');
+        Array.from(el.attributes).forEach(attr => el.removeAttribute(attr.name));
+        if (href) el.setAttribute('href', href);
+      } else {
+        Array.from(el.attributes).forEach(attr => el.removeAttribute(attr.name));
+      }
+      
+      // Process children
+      Array.from(el.children).forEach(child => {
+        if (!allowedTags.includes(child.tagName.toLowerCase())) {
+          // Replace disallowed tag with its content
+          const span = document.createElement('span');
+          span.innerHTML = child.innerHTML;
+          child.replaceWith(span);
+        } else {
+          cleanElement(child);
+        }
+      });
+    };
+    
+    cleanElement(temp);
     
     return temp.innerHTML;
   };
 
+  // ✅ UNCHANGED: Text processor
   const processPastedText = (text: string): string => {
     // Check for LaTeX patterns
     const hasInline = /\$(.+?)\$/s.test(text);
@@ -179,13 +221,13 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({
     let processed = text;
     
     // Process block math first
-    processed = processed.replace(/\$\$([\s\S]+?)\$\$/g, (match, p1) => {
+    processed = processed.replace(/\$\$([\s\S]+?)\$\$/g, (_match, p1) => {
       const html = renderLatex(p1.trim(), true);
       return `<div class="math-block" style="margin: 16px 0; text-align: center; overflow-x: auto;">${html}</div>`;
     });
     
     // Process inline math
-    processed = processed.replace(/\$([^$\n]+?)\$/g, (match, p1) => {
+    processed = processed.replace(/\$([^$\n]+?)\$/g, (_match, p1) => {
       const html = renderLatex(p1.trim(), false);
       return `<span class="math-inline" style="display: inline-block;">${html}</span>`;
     });
@@ -205,7 +247,6 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({
   const insertLink = () => {
     const url = prompt("Enter link URL:");
     if (url) {
-      const text = window.getSelection()?.toString() || url;
       exec("createLink", url);
     }
   };
@@ -325,16 +366,16 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({
         <button 
           type="button" 
           onClick={() => insertFormula(false)} 
-          className="px-2 py-1 rounded hover:bg-accent bg-blue-50 text-blue-600"
-          title="Inline Math"
+          className="px-2 py-1 rounded hover:bg-accent bg-blue-50 text-blue-600 dark:bg-blue-900/20"
+          title="Inline Math (Type LaTeX manually or use this button)"
         >
           ∑
         </button>
         <button 
           type="button" 
           onClick={() => insertFormula(true)} 
-          className="px-2 py-1 rounded hover:bg-accent bg-blue-50 text-blue-600"
-          title="Block Math"
+          className="px-2 py-1 rounded hover:bg-accent bg-blue-50 text-blue-600 dark:bg-blue-900/20"
+          title="Block Math (Type LaTeX manually or use this button)"
         >
           ∫
         </button>
@@ -344,7 +385,7 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({
       <div className="relative">
         {!value && isEmpty && (
           <div className="pointer-events-none absolute inset-0 p-3 text-sm text-muted-foreground">
-            {placeholder}
+            {placeholder || "Type here... Use ∑ or ∫ buttons to add math equations"}
           </div>
         )}
         <div
@@ -352,7 +393,7 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({
           onPaste={handlePaste}
           onInput={onInput}
           contentEditable
-          className="p-3 min-h-32 outline-none focus:ring-2 focus:ring-primary/20 rounded-b-lg"
+          className="p-3 min-h-32 outline-none focus:ring-2 focus:ring-primary/20 rounded-b-lg overflow-auto"
           style={{ minHeight: height }}
           suppressContentEditableWarning
         />
@@ -373,16 +414,19 @@ const EnhancedRichTextEditor: React.FC<EnhancedRichTextEditorProps> = ({
                 <textarea
                   value={mathInput}
                   onChange={(e) => setMathInput(e.target.value)}
-                  className="w-full p-2 border rounded-md font-mono text-sm"
-                  placeholder="e.g., x^2 + y^2 = z^2"
+                  className="w-full p-2 border rounded-md font-mono text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  placeholder="e.g., \int_{0}^{2} (x^2 + 1) dx"
                   rows={3}
                   autoFocus
                 />
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Example: <code>\frac{"{a}{b}"}</code> or <code>x^2 + y^2 = z^2</code>
+                </p>
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={handleMathSubmit}
-                  className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90"
+                  className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 bg-blue-600 text-white"
                 >
                   Insert
                 </button>
