@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HelpCircle, Search, BookOpen, MessageCircle, Mail, FileText, Download, ChevronDown, ChevronRight } from 'lucide-react';
+import { HelpCircle, Search, BookOpen, MessageCircle, Mail, ChevronDown, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface FAQItem {
@@ -106,7 +106,7 @@ const HelpSupport: React.FC = () => {
       {/* Quick Contact Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Link
-          to="/dashboard/chat"
+          to="/dashboard/client-chat"
           className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl transition-shadow group"
         >
           <div className="flex items-center gap-4">
@@ -208,26 +208,6 @@ const HelpSupport: React.FC = () => {
         </div>
       </div>
 
-      {/* Resources Section */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Helpful Resources</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-            <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            <div>
-              <h3 className="font-medium text-gray-900 dark:text-white">Order Guidelines</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Learn how to place effective orders</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-            <Download className="w-5 h-5 text-green-600 dark:text-green-400" />
-            <div>
-              <h3 className="font-medium text-gray-900 dark:text-white">Sample Papers</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">View examples of our work</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

@@ -124,12 +124,12 @@ const ClientDashboard = () => {
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Welcome Header */}
       <div className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl p-4 md:p-6 text-white">
-        <h2 className="text-xl md:text-2xl font-bold mb-2">Welcome back, {user?.name}!</h2>
+        <h2 className="text-xl md:text-2xl font-bold mb-2">Welcome back, {((user as any)?.name) || user?.displayName || 'User'}!</h2>
         <p className="text-primary-100 text-sm md:text-base">
           Ready to get help with your next assignment? Let's achieve academic excellence together.
         </p>
         <Link
-          to="/order-now"
+          to="/dashboard/place-order"
           className="inline-flex items-center mt-4 bg-white text-primary-600 px-4 md:px-6 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors text-sm md:text-base"
         >
           <PlusCircle size={18} className="mr-2" />

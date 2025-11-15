@@ -229,7 +229,7 @@ const PendingPayments: React.FC = () => {
               All your orders are up to date! No payments are currently pending.
             </p>
             <Link
-              to="/order-now"
+              to="/dashboard/place-order"
               className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
               Place New Order

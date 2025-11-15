@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FileText, CheckCircle, Clock, AlertCircle, Eye, Download } from 'lucide-react';
+import { FileText, Eye, Download } from 'lucide-react';
 import StatusBadge from '../../components/Common/StatusBadge';
 import { useAuth } from '../../context/AuthContext';
 import { Order } from '../../types';
@@ -188,7 +188,7 @@ const MyOrders: React.FC = () => {
                         }
                       </p>
                       <Link
-                        to="/order-now"
+                        to="/dashboard/place-order"
                         className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
                       >
                         Place Your First Order
