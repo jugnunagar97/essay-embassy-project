@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, Send, Mail, Clock, User } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
 
 interface Message {
   id: string;
@@ -11,7 +10,6 @@ interface Message {
 }
 
 const ClientLiveChat: React.FC = () => {
-  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -24,9 +22,13 @@ const ClientLiveChat: React.FC = () => {
   const [newMessage, setNewMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null); // ✅ Added container ref
 
+  // ✅ FIXED: Scroll only the chat container, not the entire page
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
@@ -62,9 +64,11 @@ const ClientLiveChat: React.FC = () => {
     }
   };
 
+  // ✅ FIXED: Prevent default form submission behavior
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
+      e.preventDefault(); // ✅ Prevents page scroll
+      e.stopPropagation(); // ✅ Stops event bubbling
       handleSendMessage();
     }
   };
@@ -91,9 +95,9 @@ const ClientLiveChat: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Chat Interface */}
         <div className="lg:col-span-3">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col h-[600px]"> {/* ✅ Fixed height */}
             {/* Chat Header */}
-            <div className="bg-gradient-to-r from-green-600 to-green-700 p-4 text-white">
+            <div className="bg-gradient-to-r from-green-600 to-green-700 p-4 text-white flex-shrink-0">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
@@ -111,8 +115,11 @@ const ClientLiveChat: React.FC = () => {
               </div>
             </div>
 
-            {/* Messages */}
-            <div className="h-96 overflow-y-auto p-4 space-y-4">
+            {/* Messages - ✅ FIXED: Added ref to container */}
+            <div 
+              ref={messagesContainerRef}
+              className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth"
+            >
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -150,25 +157,34 @@ const ClientLiveChat: React.FC = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Message Input */}
-            <div className="border-t border-gray-200 dark:border-gray-700 p-4">
-              <div className="flex gap-2">
+            {/* Message Input - ✅ FIXED: Added form wrapper */}
+            <div className="border-t border-gray-200 dark:border-gray-700 p-4 flex-shrink-0">
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault(); // ✅ Prevents form submission scroll
+                  handleSendMessage();
+                }}
+                className="flex gap-2"
+              >
                 <textarea
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyPress} // ✅ Changed from onKeyPress to onKeyDown
                   placeholder="Type your message..."
                   className="flex-1 resize-none border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                   rows={2}
                 />
                 <button
-                  onClick={handleSendMessage}
+                  type="submit"
                   disabled={!newMessage.trim()}
                   className="bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
                 >
                   <Send className="w-4 h-4" />
                 </button>
-              </div>
+              </form>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+                Press Enter to send, Shift+Enter for new line
+              </p>
             </div>
           </div>
         </div>

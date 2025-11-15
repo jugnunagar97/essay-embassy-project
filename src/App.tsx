@@ -259,6 +259,11 @@ function App() {
             <Route path="dashboard/users/:userId" element={<ProtectedRoute adminOnly><UserDetail /></ProtectedRoute>} /> {/* View/edit specific user details */}
             <Route path="dashboard/messages" element={<ProtectedRoute adminOnly><Messages /></ProtectedRoute>} />
 
+            {/* Admin Q&A Routes */}
+            <Route path="admin/qa" element={<ProtectedRoute adminOnly><AdminQAList /></ProtectedRoute>} />
+            <Route path="admin/qa/new" element={<ProtectedRoute adminOnly><AdminQANew /></ProtectedRoute>} />
+            <Route path="admin/qa/:id/edit" element={<ProtectedRoute adminOnly><AdminQAEdit /></ProtectedRoute>} />
+
             {/* Routes accessible to both authenticated clients and admins */}
             <Route path="dashboard/order/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} /> {/* Dynamic order detail page */}
             <Route path="dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
@@ -276,9 +281,6 @@ function App() {
           {/* Admin routes outside Layout wrapper */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/qa" element={<AdminQAList />} />
-          <Route path="/admin/qa/new" element={<AdminQANew />} />
-          <Route path="/admin/qa/:id/edit" element={<AdminQAEdit />} />
 
           {/* Fallback route for any unmatched paths, redirects to home */}
           <Route path="*" element={<Navigate to="/" replace />} />

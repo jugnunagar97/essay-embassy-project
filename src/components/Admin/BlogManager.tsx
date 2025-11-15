@@ -18,7 +18,7 @@ import {
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 
 // Define the structure for a blog category
 interface BlogCategory {
@@ -507,33 +507,32 @@ export default function BlogManager() {
                 <tr>
                   <td colSpan={6} className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">No blog posts found.</td>
                 </tr>
-              ) : (
-                filteredAndSortedPosts.map(post => (
-                  <tr key={post.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
-                    <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{post.title}</td>
-                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{post.author}</td>
-                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{post.category || 'Uncategorized'}</td> {/* Display 'Uncategorized' if empty */}
-                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{formatDateSafe(post.publishedAt)}</td>
-                    <td className="px-6 py-4">
-                      {post.published ?
-                        <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Published</span> :
-                        <span className="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Draft</span>
-                      }
-                    </td>
-                    <td className="px-6 py-4 text-right space-x-3">
-                      <Link to={`/blog/${post.slug}`} target="_blank" className="text-gray-500 hover:text-primary-500 inline-block icon-hover" title="View Post">
-                        <Eye size={18} />
-                      </Link>
-                      <button onClick={() => openModal(post)} className="text-blue-500 hover:text-blue-700 icon-hover" title="Edit Post">
-                        <Edit size={18} />
-                      </button>
-                      <button onClick={() => handleDeletePost(post)} className="text-red-500 hover:text-red-700 icon-hover" title="Delete Post">
-                        <Trash2 size={18} />
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
+              ) : filteredAndSortedPosts.map(post => (
+                <tr key={post.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
+                  <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{post.title}</td>
+                  <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{post.author}</td>
+                  <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{post.category || 'Uncategorized'}</td>
+                  <td className="px-6 py-4 text-gray-700 dark:text-gray-300">{formatDateSafe(post.publishedAt)}</td>
+                  <td className="px-6 py-4">
+                    {post.published ? (
+                      <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Published</span>
+                    ) : (
+                      <span className="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Draft</span>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 text-right space-x-3">
+                    <Link to={`/blog/${post.slug}`} target="_blank" className="text-gray-500 hover:text-primary-500 inline-block icon-hover" title="View Post">
+                      <Eye size={18} />
+                    </Link>
+                    <button onClick={() => openModal(post)} className="text-blue-500 hover:text-blue-700 icon-hover" title="Edit Post">
+                      <Edit size={18} />
+                    </button>
+                    <button onClick={() => handleDeletePost(post)} className="text-red-500 hover:text-red-700 icon-hover" title="Delete Post">
+                      <Trash2 size={18} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

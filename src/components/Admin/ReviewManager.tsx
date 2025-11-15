@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { format } from 'date-fns'; // FIXED: Removed unused 'isValid' import
 import { Review } from '../../types';
 import LoadingSpinner from '../Common/LoadingSpinner';
+import { db } from '../../firebase';
 
 // Helper Components
 const RatingStars = ({ rating }: { rating: number }) => (
@@ -90,12 +91,19 @@ export default function ReviewManager() {
   };
 
   const handleDelete = async (reviewId: string) => {
+    if (!reviewId) {
+      toast.error('Review ID is missing. Cannot delete.');
+      return;
+    }
     if (!window.confirm("Are you sure? This cannot be undone.")) return;
     const toastId = toast.loading('Deleting review...');
     try {
       await deleteDoc(doc(db, 'reviews', reviewId));
       toast.success('Review deleted.', { id: toastId });
-    } catch (e) { toast.error('Failed to delete review.', { id: toastId }); }
+    } catch (e: any) {
+      console.error('Error deleting review:', e);
+      toast.error(`Failed to delete review: ${e.message || 'Unknown error'}`, { id: toastId });
+    }
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
