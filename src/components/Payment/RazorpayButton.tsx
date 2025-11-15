@@ -121,17 +121,35 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
         // Priority: Use error message from JSON response, then status-based message
         let errorMessage = '';
         
+        // Debug: Log response data for troubleshooting
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Payment API Error Response:', {
+            status: response.status,
+            statusText: response.statusText,
+            responseData,
+            responseText: responseText.substring(0, 200)
+          });
+        }
+        
         if (responseData?.error) {
           // Server provided an error message - use it directly
           errorMessage = responseData.error;
-          // If it's a generic message, add more context for 503
+          // Add more context based on status code
           if (response.status === 503 && errorMessage.toLowerCase().includes('unavailable')) {
             errorMessage = 'Payment service is temporarily unavailable. The payment gateway may not be configured on the server. Please contact support for assistance.';
+          } else if (response.status === 500) {
+            // For 500 errors, provide more helpful context
+            const lowerError = errorMessage.toLowerCase();
+            if (lowerError.includes('razorpay') || lowerError.includes('failed to create')) {
+              errorMessage = 'Unable to process payment. The payment gateway encountered an error. This may be due to invalid payment configuration, incorrect API keys, or a temporary issue with the payment provider. Please contact support for assistance.';
+            } else {
+              errorMessage = `Payment processing failed: ${errorMessage}. Please contact support if this issue persists.`;
+            }
           }
         } else if (response.status === 503) {
           errorMessage = 'Payment service is temporarily unavailable. The server may be restarting or the payment gateway is not configured. Please wait a moment and try again, or contact support if the issue persists.';
         } else if (response.status === 500) {
-          errorMessage = 'Payment server error. Please try again later or contact support.';
+          errorMessage = 'Payment server error occurred. This may be due to a configuration issue with the payment gateway. Please contact support for assistance.';
         } else if (response.status === 400) {
           errorMessage = 'Invalid payment request. Please check your order details.';
         } else if (response.status === 404) {
@@ -203,7 +221,14 @@ const RazorpayButton: React.FC<RazorpayButtonProps> = ({
     } catch (error) {
       console.error('Payment error:', error);
       const errorMessage = error instanceof Error ? error.message : 'Payment failed. Please try again.';
-      toast.error(errorMessage);
+      
+      // Only show toast if error message is meaningful
+      if (errorMessage && !errorMessage.includes('Payment failed. Please try again.')) {
+        toast.error(errorMessage);
+      } else {
+        toast.error('Unable to process payment. Please contact support for assistance.');
+      }
+      
       if (onError) {
         onError(errorMessage);
       }
