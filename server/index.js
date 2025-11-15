@@ -272,16 +272,56 @@ app.post('/api/create-order', async (req, res) => {
     return res.status(400).json({ error: 'Amount is required.' });
   }
   
+  // Validate amount
+  if (typeof amount !== 'number' || amount <= 0 || isNaN(amount)) {
+    return res.status(400).json({ error: 'Invalid amount. Amount must be a positive number.' });
+  }
+  
+  // Razorpay primarily supports INR, validate currency
+  const supportedCurrencies = ['INR', 'USD', 'EUR', 'GBP'];
+  if (!supportedCurrencies.includes(currency)) {
+    console.warn(`Unsupported currency requested: ${currency}, defaulting to INR`);
+    // Don't fail, just log and continue with INR
+  }
+  
   try {
+    // Convert amount to smallest currency unit (paise for INR, cents for USD, etc.)
+    // Razorpay expects amount in the smallest unit of the currency
+    const amountInSmallestUnit = Math.round(amount * 100);
+    
+    // Validate minimum amount based on currency
+    const minAmounts = {
+      'INR': 100,  // 1 INR = 100 paise
+      'USD': 100,  // 1 USD = 100 cents
+      'EUR': 100,  // 1 EUR = 100 cents
+      'GBP': 100   // 1 GBP = 100 pence
+    };
+    
+    const minAmount = minAmounts[currency] || 100;
+    if (amountInSmallestUnit < minAmount) {
+      return res.status(400).json({ 
+        error: `Amount must be at least ${(minAmount / 100).toFixed(2)} ${currency}.` 
+      });
+    }
+    
     const options = {
-      amount: Math.round(amount * 100), // amount in paise/cents
-      currency: currency,
+      amount: amountInSmallestUnit,
+      currency: currency.toUpperCase(),
       receipt: receipt || `order_${Date.now()}`,
       notes: notes,
     };
     
+    console.log('Creating Razorpay order with options:', {
+      originalAmount: amount,
+      amountInSmallestUnit: options.amount,
+      currency: options.currency,
+      receipt: options.receipt,
+      notes: options.notes
+    });
+    
     const order = await razorpay.orders.create(options);
-    console.log('Razorpay order created:', order.id);
+    console.log('Razorpay order created successfully:', order.id);
+    
     res.json({
       success: true,
       order: {
@@ -292,8 +332,47 @@ app.post('/api/create-order', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error('Razorpay error:', err);
-    res.status(500).json({ error: 'Failed to create Razorpay order.' });
+    console.error('Razorpay API error:', {
+      message: err.message,
+      error: err.error,
+      statusCode: err.statusCode,
+      description: err.description,
+      field: err.field,
+      source: err.source,
+      step: err.step,
+      reason: err.reason,
+      metadata: err.metadata
+    });
+    
+    // Extract detailed error message from Razorpay error
+    let errorMessage = 'Failed to create Razorpay order.';
+    if (err.error) {
+      // Razorpay error object structure
+      if (err.error.description) {
+        errorMessage = err.error.description;
+      } else if (err.error.message) {
+        errorMessage = err.error.message;
+      } else if (typeof err.error === 'string') {
+        errorMessage = err.error;
+      }
+    } else if (err.message) {
+      errorMessage = err.message;
+    }
+    
+    // Provide more context based on error type
+    if (err.statusCode === 401 || err.statusCode === 403) {
+      errorMessage = 'Invalid Razorpay API credentials. Please check your API keys.';
+    } else if (err.statusCode === 400) {
+      errorMessage = `Invalid payment request: ${errorMessage}`;
+    }
+    
+    res.status(500).json({ 
+      error: errorMessage,
+      details: process.env.NODE_ENV === 'development' ? {
+        razorpayError: err.error,
+        statusCode: err.statusCode
+      } : undefined
+    });
   }
 });
 
