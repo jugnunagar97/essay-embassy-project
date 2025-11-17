@@ -11,7 +11,6 @@ import {
   Query,
   QueryDocumentSnapshot,
   runTransaction,
-  Transaction,
   where,
 } from "firebase/firestore";
 import { db } from "../firebase";
@@ -27,17 +26,44 @@ export type QaEntry = {
   status: "draft" | "published";
   createdAt: number; // epoch ms
   updatedAt: number; // epoch ms
-  questionNumber: number;
+  questionNumber: string;
+  questionNumberInt: number;
   slug: string;
   assignedEditorId?: string | null;
   assignedEditorEmail?: string | null;
 };
 
 const qaCollection = collection(db, "qaEntries");
-const countersDoc = doc(db, "counters", "qaEntries");
+
+const formatQuestionNumber = (value: number) => `ee${String(value).padStart(5, "0")}`;
+
+function deriveQuestionNumberInt(
+  questionNumberRaw: unknown,
+  fallbackRaw: unknown
+): number {
+  if (typeof questionNumberRaw === "number" && !isNaN(questionNumberRaw)) {
+    return questionNumberRaw;
+  }
+  if (typeof questionNumberRaw === "string" && questionNumberRaw.trim()) {
+    const parsed = parseInt(questionNumberRaw.replace(/^ee/i, ""), 10);
+    if (!isNaN(parsed)) return parsed;
+  }
+  if (typeof fallbackRaw === "number" && !isNaN(fallbackRaw)) {
+    return fallbackRaw;
+  }
+  return 0;
+}
 
 function mapSnapshot(snapshot: QueryDocumentSnapshot | DocumentSnapshot): QaEntry {
   const data = snapshot.data() || {};
+  const questionNumberInt = deriveQuestionNumberInt(data.questionNumber, data.questionNumberInt);
+  const questionNumber =
+    typeof data.questionNumber === "string" && data.questionNumber.trim()
+      ? data.questionNumber
+      : questionNumberInt
+      ? formatQuestionNumber(questionNumberInt)
+      : "";
+
   return {
     id: snapshot.id,
     title: data.title || "",
@@ -49,24 +75,62 @@ function mapSnapshot(snapshot: QueryDocumentSnapshot | DocumentSnapshot): QaEntr
     status: data.status === "published" ? "published" : "draft",
     createdAt: typeof data.createdAt === "number" ? data.createdAt : Date.now(),
     updatedAt: typeof data.updatedAt === "number" ? data.updatedAt : Date.now(),
-    questionNumber: typeof data.questionNumber === "number" ? data.questionNumber : 0,
+    questionNumber,
+    questionNumberInt,
     slug: data.slug || slugify(data.title || ""),
     assignedEditorId: data.assignedEditorId || null,
     assignedEditorEmail: data.assignedEditorEmail || null,
   };
 }
 
-async function fetchNextQuestionNumber(transaction: Transaction) {
-  const counterSnap = await transaction.get(countersDoc);
-  const next = counterSnap.exists ? (counterSnap.data()?.nextQuestionNumber ?? 1) : 1;
-  transaction.set(
-    countersDoc,
-    {
-      nextQuestionNumber: next + 1,
-    },
-    { merge: true }
-  );
-  return next;
+async function generateQuestionNumber() {
+  const q = query(qaCollection, orderBy("questionNumberInt", "desc"), limit(1));
+  const snapshot = await getDocs(q);
+
+  if (snapshot.empty) {
+    const randomStart = Math.floor(Math.random() * 90000) + 10000;
+    return {
+      questionNumber: formatQuestionNumber(randomStart),
+      questionNumberInt: randomStart,
+    };
+  }
+
+  const docData = snapshot.docs[0].data();
+  const lastNumber =
+    typeof docData.questionNumberInt === "number"
+      ? docData.questionNumberInt
+      : deriveQuestionNumberInt(docData.questionNumber, undefined);
+  const nextNumber = (lastNumber || 10000) + 1;
+  return {
+    questionNumber: formatQuestionNumber(nextNumber),
+    questionNumberInt: nextNumber,
+  };
+}
+
+function normalizeQuestionNumberInput(
+  questionNumber?: string,
+  questionNumberInt?: number
+) {
+  if (questionNumber && typeof questionNumberInt === "number") {
+    return { questionNumber, questionNumberInt };
+  }
+
+  if (questionNumber) {
+    const parsed = parseInt(questionNumber.replace(/^ee/i, ""), 10);
+    return {
+      questionNumber,
+      questionNumberInt: isNaN(parsed) ? 0 : parsed,
+    };
+  }
+
+  if (typeof questionNumberInt === "number") {
+    return {
+      questionNumber: formatQuestionNumber(questionNumberInt),
+      questionNumberInt,
+    };
+  }
+
+  return null;
 }
 
 export async function listQa(options: { status?: QaEntry["status"] } = {}): Promise<QaEntry[]> {
@@ -84,7 +148,7 @@ export async function getQaById(id: string): Promise<QaEntry | undefined> {
   return mapSnapshot(snap);
 }
 
-export async function getQaBySlug(slug: string, questionNumber?: number): Promise<QaEntry | undefined> {
+export async function getQaBySlug(slug: string, questionNumber?: string): Promise<QaEntry | undefined> {
   const q = query(qaCollection, where("slug", "==", slug), limit(10));
   const snapshot = await getDocs(q);
   if (snapshot.empty) return undefined;
@@ -92,6 +156,13 @@ export async function getQaBySlug(slug: string, questionNumber?: number): Promis
     .map(mapSnapshot)
     .find((entry) => (questionNumber ? entry.questionNumber === questionNumber : true));
   return maybe;
+}
+
+export async function getQaByQuestionNumber(questionNumber: string): Promise<QaEntry | undefined> {
+  const q = query(qaCollection, where("questionNumber", "==", questionNumber), limit(1));
+  const snapshot = await getDocs(q);
+  if (snapshot.empty) return undefined;
+  return mapSnapshot(snapshot.docs[0]);
 }
 
 export async function removeQa(id: string): Promise<void> {
@@ -119,12 +190,18 @@ export async function upsertQa(entry: Partial<QaEntry> & { id?: string }): Promi
         throw new Error("Q&A entry not found.");
       }
       const existing = mapSnapshot(existingSnap);
+      const questionNumberOverrides = normalizeQuestionNumberInput(
+        entry.questionNumber,
+        entry.questionNumberInt
+      );
       const updated: QaEntry = {
         ...existing,
         ...entry,
         price: typeof entry.price === "number" ? entry.price : existing.price,
         slug: entry.slug || existing.slug || slugify(entry.title || existing.title),
         updatedAt: now,
+        questionNumber: questionNumberOverrides?.questionNumber ?? existing.questionNumber,
+        questionNumberInt: questionNumberOverrides?.questionNumberInt ?? existing.questionNumberInt,
       };
       transaction.set(docRef, updated, { merge: true });
       return updated;
@@ -133,9 +210,11 @@ export async function upsertQa(entry: Partial<QaEntry> & { id?: string }): Promi
 
   return runTransaction(db, async (transaction) => {
     const newDocRef = doc(qaCollection);
-    const questionNumber =
-      entry.questionNumber ??
-      (await fetchNextQuestionNumber(transaction as unknown as firebase.firestore.Transaction));
+    const normalized = normalizeQuestionNumberInput(
+      entry.questionNumber,
+      entry.questionNumberInt
+    );
+    const questionMeta = normalized ?? (await generateQuestionNumber());
     const record: QaEntry = {
       id: newDocRef.id,
       title: entry.title || "",
@@ -147,8 +226,9 @@ export async function upsertQa(entry: Partial<QaEntry> & { id?: string }): Promi
       status: (entry.status as QaEntry["status"]) || "draft",
       createdAt: now,
       updatedAt: now,
-      questionNumber,
-      slug: entry.slug || slugify(entry.title || `question-${questionNumber}`),
+      questionNumber: questionMeta.questionNumber,
+      questionNumberInt: questionMeta.questionNumberInt,
+      slug: entry.slug || slugify(entry.title || questionMeta.questionNumber),
       assignedEditorId: entry.assignedEditorId || null,
       assignedEditorEmail: entry.assignedEditorEmail || null,
     };

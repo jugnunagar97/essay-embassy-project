@@ -1,7 +1,35 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { getQaBySlug, listQa, type QaEntry } from "../../lib/qaStore";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
+
+import { getQaByQuestionNumber, listQa, type QaEntry } from "../../lib/qaStore";
 import LoadingSpinner from "../Common/LoadingSpinner";
+import { useAuth } from "../../context/AuthContext";
+import { auth, db } from "../../firebase";
+
+declare global {
+  interface Window {
+    Razorpay?: new (options: Record<string, unknown>) => {
+      open: () => void;
+    };
+  }
+}
+
+const formatINR = (value: number) => {
+  const hasDecimal = Math.round(value * 100) % 100 !== 0;
+  return `₹${value.toLocaleString("en-IN", {
+    minimumFractionDigits: hasDecimal ? 2 : 0,
+    maximumFractionDigits: hasDecimal ? 2 : 0,
+  })}`;
+};
 
 function useUnlocked() {
   const KEY = "qaUnlockedIds";
@@ -24,15 +52,37 @@ function useUnlocked() {
 }
 
 export type PublicQaDetailProps = {
-  questionNumber: number;
+  questionNumber: string;
   slug: string;
 };
 
-const PublicQaDetail: React.FC<PublicQaDetailProps> = ({ questionNumber, slug }) => {
+const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
+  questionNumber,
+  slug,
+}) => {
   const [entry, setEntry] = useState<QaEntry | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const { isUnlocked, unlock } = useUnlocked();
+  const [remoteUnlocked, setRemoteUnlocked] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [razorpayReady, setRazorpayReady] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.Razorpay) {
+      setRazorpayReady(true);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = () => setRazorpayReady(true);
+    script.onerror = () =>
+      console.error("Failed to load Razorpay checkout script");
+    document.body.appendChild(script);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -40,10 +90,10 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({ questionNumber, slug })
     setNotFound(false);
     (async () => {
       try {
-        const matchBySlug = await getQaBySlug(slug, questionNumber);
+        const matchByNumber = await getQaByQuestionNumber(questionNumber);
         if (!isMounted) return;
-        if (matchBySlug && matchBySlug.status === "published") {
-          setEntry(matchBySlug);
+        if (matchByNumber && matchByNumber.status === "published") {
+          setEntry(matchByNumber);
         } else {
           // fallback: load list and try to match (legacy data)
           const all = await listQa({ status: "published" });
@@ -68,7 +118,208 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({ questionNumber, slug })
     };
   }, [questionNumber, slug]);
 
-  const unlocked = useMemo(() => (entry ? isUnlocked(entry.id) : false), [entry, isUnlocked]);
+  const checkIfUnlocked = useCallback(async () => {
+    if (!user || !entry) return;
+    try {
+      const unlocksQuery = query(
+        collection(db, "qaUnlocks"),
+        where("userId", "==", user.uid || user.id),
+        where("questionNumber", "==", entry.questionNumber),
+        where("status", "==", "completed")
+      );
+      const snapshot = await getDocs(unlocksQuery);
+      const unlocked = !snapshot.empty;
+      setRemoteUnlocked(unlocked);
+      if (unlocked) {
+        unlock(entry.id);
+      }
+    } catch (error) {
+      console.error("Error checking unlock status:", error);
+    }
+  }, [entry, unlock, user]);
+
+  useEffect(() => {
+    if (!user || !entry) {
+      setRemoteUnlocked(false);
+      return;
+    }
+    checkIfUnlocked();
+  }, [user, entry, checkIfUnlocked]);
+
+  const apiBase =
+    (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(
+      /\/$/,
+      ""
+    ) || "";
+  const createOrderUrl = `${apiBase}/api/create-order`;
+  const verifyPaymentUrl = `${apiBase}/api/verify-payment`;
+
+  const verifyAndUnlock = useCallback(
+    async (paymentResponse: {
+      razorpay_order_id: string;
+      razorpay_payment_id: string;
+      razorpay_signature: string;
+    }) => {
+      if (!entry || !user) return;
+      try {
+        const token = await auth.currentUser?.getIdToken();
+        if (!token) {
+          throw new Error("Unable to verify payment. Please login again.");
+        }
+
+        const response = await fetch(verifyPaymentUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            razorpay_order_id: paymentResponse.razorpay_order_id,
+            razorpay_payment_id: paymentResponse.razorpay_payment_id,
+            razorpay_signature: paymentResponse.razorpay_signature,
+            type: "qa_unlock",
+          }),
+        });
+
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "Payment verification failed.");
+        }
+
+        await addDoc(collection(db, "qaUnlocks"), {
+          userId: user.uid || user.id,
+          questionNumber: entry.questionNumber,
+          questionId: entry.id,
+          questionTitle: entry.title,
+          questionSlug: entry.slug,
+          amount: entry.price,
+          currency: "INR",
+          status: "completed",
+          razorpayOrderId: paymentResponse.razorpay_order_id,
+          razorpayPaymentId: paymentResponse.razorpay_payment_id,
+          razorpaySignature: paymentResponse.razorpay_signature,
+          purchasedAt: serverTimestamp(),
+        });
+
+        unlock(entry.id);
+        setRemoteUnlocked(true);
+        toast.success("✅ Answer unlocked successfully!");
+      } catch (error) {
+        console.error("Verification error:", error);
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : "Payment verification failed. Please contact support."
+        );
+      } finally {
+        setIsProcessing(false);
+      }
+    },
+    [entry, unlock, user, verifyPaymentUrl]
+  );
+
+  const handleUnlock = useCallback(async () => {
+    if (!entry) {
+      toast.error("Question details missing. Please refresh and try again.");
+      return;
+    }
+    if (!user) {
+      toast.error("Please login to unlock this answer");
+      const redirectPath =
+        typeof window !== "undefined"
+          ? `${window.location.pathname}${window.location.search}`
+          : "/qa";
+      navigate(`/login?redirect=${encodeURIComponent(redirectPath)}`);
+      return;
+    }
+    if (!razorpayReady || !window.Razorpay) {
+      toast.error("Payment gateway not ready. Please try again.");
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      const token = await auth.currentUser?.getIdToken();
+      if (!token) {
+        throw new Error("Unable to authenticate payment request.");
+      }
+
+      const amountInPaise = Math.round(entry.price * 100);
+      const response = await fetch(createOrderUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          amount: amountInPaise,
+          currency: "INR",
+          type: "qa_unlock",
+          metadata: {
+            questionNumber: entry.questionNumber,
+            questionId: entry.id,
+            questionTitle: entry.title,
+            questionSlug: entry.slug,
+            userId: user.uid || user.id,
+          },
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create order. Please retry.");
+      }
+
+      const { orderId, amount } = data;
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount,
+        currency: "INR",
+        name: "Essay Embassy",
+        description: `Unlock Q&A: ${entry.title?.replace(/<[^>]+>/g, "") || ""}`,
+        order_id: orderId,
+        handler: verifyAndUnlock,
+        prefill: {
+          name: user.name || "",
+          email: user.email || "",
+        },
+        theme: {
+          color: "#0d9488",
+        },
+        modal: {
+          ondismiss: () => {
+            setIsProcessing(false);
+          },
+        },
+      };
+
+      const razorpay = new window.Razorpay!(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Payment error:", error);
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to initiate payment. Please try again."
+      );
+      setIsProcessing(false);
+    }
+  }, [
+    createOrderUrl,
+    entry,
+    navigate,
+    razorpayReady,
+    user,
+    verifyAndUnlock,
+  ]);
+
+  const unlocked = useMemo(() => {
+    if (!entry) return false;
+    return remoteUnlocked || isUnlocked(entry.id);
+  }, [entry, isUnlocked, remoteUnlocked]);
+
+  const priceLabel = entry ? formatINR(entry.price) : "₹0";
 
   if (loading) {
     return (
@@ -120,12 +371,12 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({ questionNumber, slug })
                     <span className="text-white font-bold text-lg">Q</span>
                   </div>
                   <div>
-                    <div className="text-sm text-primary-100">Question #{entry.questionNumber}</div>
+                    <div className="text-sm text-primary-100">Question {entry.questionNumber}</div>
                     <div className="text-xs text-primary-200">{entry.subject || "General"}</div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold">${entry.price.toFixed(2)}</div>
+                  <div className="text-2xl font-bold">{priceLabel}</div>
                   <div className="text-xs text-primary-200">one-time access</div>
                 </div>
               </div>
@@ -149,78 +400,134 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({ questionNumber, slug })
 
               {/* Answer Section */}
             {unlocked ? (
-                <section className="bg-green-50 dark:bg-green-900/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-8 h-8 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Expert Solution</h2>
-                    <span className="ml-auto inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full text-xs font-medium">
-                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      Unlocked
-                    </span>
-                  </div>
-                  <div className="prose prose-gray dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: entry.answer }} />
+              <section className="bg-gradient-to-r from-green-50 to-teal-50 rounded-lg border-2 border-green-200 dark:border-green-800 p-6">
+                <div className="flex items-center mb-4">
+                  <svg
+                    className="w-6 h-6 text-green-600 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <h3 className="text-lg font-semibold text-green-900">
+                    Expert Solution
+                  </h3>
+                  <span className="ml-auto text-sm text-green-600 font-medium">
+                    ✓ Unlocked
+                  </span>
+                </div>
+
+                <div
+                  className="prose prose-gray dark:prose-invert max-w-none"
+                  dangerouslySetInnerHTML={{ __html: entry.answer }}
+                />
               </section>
             ) : (
-              // Enhanced paywall card with better UI/UX
-              <section className="relative rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
-                <div className="absolute inset-0 z-[1] flex items-center justify-center p-6">
-                  <div className="w-full max-w-md rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 shadow-xl">
-                    <div className="flex flex-col items-center gap-4 text-center">
-                      {/* Lock Icon */}
-                      <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/20 rounded-full flex items-center justify-center">
-                        <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Premium Answer</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 max-w-sm">
-                          Unlock the complete solution with detailed explanations and step-by-step guidance.
-                        </p>
-                      </div>
-                      
-                      <div className="w-full space-y-3">
-                      <button
-                        onClick={() => unlock(entry.id)}
-                          className="w-full inline-flex items-center justify-center rounded-lg bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
-                      >
-                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                          </svg>
-                        Unlock for ${entry.price.toFixed(2)}
-                      </button>
-                        
-                        <div className="flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                          <span className="flex items-center gap-1">
-                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                            </svg>
-                            Instant access
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                            </svg>
-                            Secure payment
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <section className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-8 text-center shadow-lg">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-teal-100 dark:bg-teal-900/30 rounded-full mb-4">
+                  <svg
+                    className="w-8 h-8 text-teal-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
                 </div>
-                
-                {/* Blurred preview content */}
-                <div className="pointer-events-none select-none blur-sm opacity-50">
-                  <div className="p-6">
-                    <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Answer Preview</h2>
-                    <div className="prose prose-sm max-w-none text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{ __html: entry.answer }} />
+
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  Premium Answer
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                  Unlock the complete solution with detailed explanations and
+                  step-by-step guidance.
+                </p>
+
+                <button
+                  onClick={handleUnlock}
+                  disabled={isProcessing}
+                  className="inline-flex items-center justify-center px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white text-lg font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isProcessing ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-5 h-5 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                        />
+                      </svg>
+                      Unlock for {priceLabel}
+                    </>
+                  )}
+                </button>
+
+                <div className="mt-6 flex items-center justify-center space-x-6 text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center">
+                    <svg
+                      className="w-5 h-5 mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Instant access
+                  </div>
+                  <div className="flex items-center">
+                    <svg
+                      className="w-5 h-5 mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Secure payment
                   </div>
                 </div>
               </section>
@@ -244,7 +551,9 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({ questionNumber, slug })
                     </svg>
                     <span className="text-sm font-medium text-purple-700 dark:text-purple-300">Price</span>
               </div>
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white">${entry.price.toFixed(2)}</div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {priceLabel}
+                  </div>
               </div>
             </section>
 

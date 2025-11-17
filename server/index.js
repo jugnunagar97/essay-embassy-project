@@ -429,6 +429,67 @@ app.post('/api/create-order', async (req, res) => {
   }
 });
 
+// Verify Razorpay payment signature
+app.post('/api/verify-payment', async (req, res) => {
+  try {
+    if (!razorpay) {
+      return res.status(503).json({
+        success: false,
+        error: 'Payment service unavailable.'
+      });
+    }
+
+    const {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature
+    } = req.body || {};
+
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required payment parameters.'
+      });
+    }
+
+    const body = `${razorpay_order_id}|${razorpay_payment_id}`;
+    const expectedSignature = crypto
+      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET || '')
+      .update(body)
+      .digest('hex');
+
+    const isValid = expectedSignature === razorpay_signature;
+
+    if (isValid) {
+      console.log('✅ Payment verified successfully:', {
+        orderId: razorpay_order_id,
+        paymentId: razorpay_payment_id
+      });
+
+      return res.json({
+        success: true,
+        message: 'Payment verified successfully'
+      });
+    }
+
+    console.log('❌ Payment verification failed:', {
+      orderId: razorpay_order_id,
+      paymentId: razorpay_payment_id
+    });
+
+    return res.status(400).json({
+      success: false,
+      error: 'Invalid payment signature.'
+    });
+  } catch (error) {
+    console.error('Payment verification error:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Payment verification failed.'
+    });
+  }
+});
+
 // Razorpay Webhook Endpoint
 app.post('/api/razorpay-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   const secret = process.env.RAZORPAY_WEBHOOK_SECRET;

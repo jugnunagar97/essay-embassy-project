@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin(uid) {
+      return get(/databases/$(database)/documents/users/$(uid)).data.role == 'admin';
+    }
+
+    match /qaUnlocks/{unlockId} {
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'completed';
+
+      allow read: if request.auth != null && (
+        (resource != null && resource.data.userId == request.auth.uid)
+        || isAdmin(request.auth.uid)
+      );
+    }
+
+    // Existing collection rules should continue below.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
