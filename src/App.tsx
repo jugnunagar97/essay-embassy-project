@@ -38,6 +38,11 @@ import AdminQAList from './pages/Admin/AdminQAList';
 import AdminQANew from './pages/Admin/AdminQANew';
 import AdminQAEdit from './pages/Admin/AdminQAEdit';
 import ErrorPage from './pages/ErrorPage';
+import EditorLayout from './components/Layout/EditorLayout';
+import EditorReviewsModule from './pages/Editor/EditorReviewsModule';
+import EditorQnaModule from './pages/Editor/EditorQnaModule';
+import EditorBlogModule from './pages/Editor/EditorBlogModule';
+import type { User } from './types';
 
 
 // --- Static Service Page Imports ---
@@ -119,7 +124,15 @@ import BlogManager from './components/Admin/BlogManager';
  * @param {React.ReactNode} props.children - The child components to render if authenticated.
  * @param {boolean} [props.adminOnly=false] - If true, only allows access to admin users.
  */
-function ProtectedRoute({ children, adminOnly = false }: { children: React.ReactNode, adminOnly?: boolean }) {
+function ProtectedRoute({
+  children,
+  adminOnly = false,
+  allowedRoles
+}: {
+  children: React.ReactNode,
+  adminOnly?: boolean,
+  allowedRoles?: Array<User['role']>
+}) {
   const { user, isLoading } = useAuth();
 
   // Show a loading spinner while authentication state is being loaded
@@ -136,6 +149,10 @@ function ProtectedRoute({ children, adminOnly = false }: { children: React.React
     return <Navigate to="/login" replace />;
   }
 
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to={user.role === 'editor' ? '/editor' : '/dashboard'} replace />;
+  }
+
   // If route is admin-only and user is not an admin, redirect to client dashboard
   if (adminOnly && user.role !== 'admin') {
     return <Navigate to="/dashboard" replace />;
@@ -143,6 +160,14 @@ function ProtectedRoute({ children, adminOnly = false }: { children: React.React
 
   // If authenticated and authorized, render the children
   return <>{children}</>;
+}
+
+function EditorRoute({ children }: { children: React.ReactNode }) {
+  return (
+    <ProtectedRoute allowedRoles={['editor']}>
+      {children}
+    </ProtectedRoute>
+  );
 }
 
 /**
@@ -153,7 +178,9 @@ function ProtectedRoute({ children, adminOnly = false }: { children: React.React
 function DashboardRouter() {
   const { user } = useAuth();
   // Render AdminDashboard if user is admin, otherwise render ClientDashboard
-  return user?.role === 'admin' ? <AdminDashboard /> : <ClientDashboard />;
+  if (user?.role === 'admin') return <AdminDashboard />;
+  if (user?.role === 'editor') return <Navigate to="/editor" replace />;
+  return <ClientDashboard />;
 }
 
 /**
@@ -281,6 +308,14 @@ function App() {
           {/* Admin routes outside Layout wrapper */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+          {/* Editor routes */}
+          <Route path="/editor" element={<EditorRoute><EditorLayout /></EditorRoute>}>
+            <Route index element={<Navigate to="reviews" replace />} />
+            <Route path="reviews/*" element={<EditorReviewsModule />} />
+            <Route path="qna/*" element={<EditorQnaModule />} />
+            <Route path="blog/*" element={<EditorBlogModule />} />
+          </Route>
 
           {/* Fallback route for any unmatched paths, redirects to home */}
           <Route path="*" element={<Navigate to="/" replace />} />

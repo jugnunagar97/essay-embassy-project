@@ -201,6 +201,15 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
+.bg-editorSidebar {
+  background: linear-gradient(180deg, #0b2f4f, #0c1a2b 65%);
+  color: #f8fafc;
+}
+
+.text-editorSidebar {
+  color: #0b2f4f;
+}
+
 @layer components {
   /* Button Components */
   .btn-primary {
@@ -243,6 +252,10 @@ input:focus, select:focus, textarea:focus {
 
   .form-select {
     @apply form-input appearance-none bg-white cursor-pointer;
+  }
+
+  .form-textarea {
+    @apply form-input resize-y min-h-[120px];
   }
 
   /* Section Components */

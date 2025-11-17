@@ -1,16 +1,29 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { listQa, type QaEntry } from "../../lib/qaStore";
+import LoadingSpinner from "../Common/LoadingSpinner";
 
 const PublicQaList: React.FC = () => {
   const [items, setItems] = useState<QaEntry[]>([]);
   const [q, setQ] = useState("");
   const [subject, setSubject] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load only published entries
-    const data = listQa().filter((e) => e.status === "published");
-    setItems(data);
+    let isMounted = true;
+    (async () => {
+      try {
+        const data = await listQa({ status: "published" });
+        if (isMounted) setItems(data);
+      } catch (error) {
+        console.error("Failed to load Q&A entries", error);
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    })();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const subjects = useMemo(() => {
@@ -101,7 +114,11 @@ const PublicQaList: React.FC = () => {
         </div>
 
         {/* Results Section */}
-        {filtered.length === 0 ? (
+        {isLoading ? (
+          <div className="py-16 flex justify-center">
+            <LoadingSpinner size="lg" />
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="text-center py-16">
             <div className="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

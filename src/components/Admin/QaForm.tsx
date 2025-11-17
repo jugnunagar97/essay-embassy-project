@@ -18,9 +18,21 @@ const PAPER_TYPES = ["Essay", "Research Paper", "Case Study", "Lab Report", "Ass
 
 type Props = {
   id?: string;
+  redirectPath?: string | null;
+  onSuccess?: () => void;
+  onCancel?: () => void;
+  createDefaults?: Partial<QaEntry>;
+  updateOverrides?: Partial<QaEntry>;
 };
 
-const QaForm: React.FC<Props> = ({ id }) => {
+const QaForm: React.FC<Props> = ({
+  id,
+  redirectPath = '/admin/qa',
+  onSuccess,
+  onCancel,
+  createDefaults,
+  updateOverrides,
+}) => {
   const navigate = useNavigate();
   const isEdit = Boolean(id);
   const [loading, setLoading] = useState(false);
@@ -38,25 +50,40 @@ const QaForm: React.FC<Props> = ({ id }) => {
     status: "draft" as QaEntry["status"],
   });
 
-  useEffect(() => {
-    if (!id) return;
-    const entry = getQaById(id);
-    if (entry) {
-      setForm({
-        title: entry.title,
-        question: entry.question,
-        answer: entry.answer,
-        subject: entry.subject,
-        paperType: entry.paperType,
-        price: String(entry.price ?? ""),
-        status: entry.status,
-      });
-      setInitialLoading(false);
-    } else {
-      setError("Q&A entry not found.");
-      setInitialLoading(false);
+useEffect(() => {
+  let isMounted = true;
+  if (!id) {
+    setInitialLoading(false);
+    return;
+  }
+  (async () => {
+    try {
+      const entry = await getQaById(id);
+      if (!isMounted) return;
+      if (entry) {
+        setForm({
+          title: entry.title,
+          question: entry.question,
+          answer: entry.answer,
+          subject: entry.subject,
+          paperType: entry.paperType,
+          price: String(entry.price ?? ""),
+          status: entry.status,
+        });
+      } else {
+        setError("Q&A entry not found.");
+      }
+    } catch (err) {
+      console.error(err);
+      if (isMounted) setError("Failed to load Q&A entry.");
+    } finally {
+      if (isMounted) setInitialLoading(false);
     }
-  }, [id]);
+  })();
+  return () => {
+    isMounted = false;
+  };
+}, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -102,24 +129,33 @@ const QaForm: React.FC<Props> = ({ id }) => {
     if (!validate()) return;
     setLoading(true);
     try {
+      const basePayload = {
+        ...form,
+        price: Number(form.price),
+        slug: slugify(form.title),
+      };
       if (isEdit && id) {
-        const updated = updateQa(id, {
-          ...form,
-          price: Number(form.price),
-          slug: slugify(form.title),
+        const overrides = updateOverrides || {};
+        await updateQa(id, {
+          ...basePayload,
+          ...overrides,
         });
-        if (!updated) throw new Error("Update failed");
         setSuccess("Q&A entry updated successfully.");
       } else {
-        upsertQa({
-          ...form,
-          price: Number(form.price),
-          slug: slugify(form.title),
+        await upsertQa({
+          ...basePayload,
+          ...(createDefaults || {}),
         });
         setSuccess("Q&A entry created successfully.");
         setForm({ title: "", question: "", answer: "", subject: "", paperType: "", price: "", status: "draft" });
       }
-      setTimeout(() => navigate("/admin/qa"), 800);
+      setTimeout(() => {
+        if (onSuccess) {
+          onSuccess();
+        } else if (redirectPath) {
+          navigate(redirectPath);
+        }
+      }, 800);
     } catch (err) {
       setError("Failed to save Q&A entry.");
       console.error(err);
@@ -212,7 +248,20 @@ const QaForm: React.FC<Props> = ({ id }) => {
         <button type="submit" disabled={loading} className="bg-blue-600 text-white px-6 py-2 rounded font-semibold">
           {loading ? (isEdit ? "Saving..." : "Publishing...") : isEdit ? "Save Changes" : "Publish"}
         </button>
-        <button type="button" disabled={loading} className="bg-gray-400 text-white px-6 py-2 rounded font-semibold" onClick={() => navigate("/admin/qa")}>Cancel</button>
+        <button
+          type="button"
+          disabled={loading}
+          className="bg-gray-400 text-white px-6 py-2 rounded font-semibold"
+          onClick={() => {
+            if (onCancel) {
+              onCancel();
+            } else if (redirectPath) {
+              navigate(redirectPath);
+            }
+          }}
+        >
+          Cancel
+        </button>
       </div>
     </form>
   );

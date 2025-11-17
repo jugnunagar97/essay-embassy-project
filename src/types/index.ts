@@ -11,6 +11,8 @@ export interface BlogPost {
     excerpt: string;
     featuredImage: string; // URL of the featured image
     author: string;
+    authorId?: string;
+    authorEmail?: string;
     tags: string[]; // Stored as array in Firestore
     category: string;
     slug: string;
@@ -49,15 +51,19 @@ export interface SubService {
     updatedAt?: Timestamp;
 }
 
-// Interface for User (AppUser alias in useData.ts) - FIXED: Added uid, email, role as required
+export type UserRole = 'admin' | 'editor' | 'client' | 'writer';
+
+// Interface for User (AppUser alias in useData.ts) - aligned with AuthContext shape
 export interface User {
-    id: string; // Document ID, often same as uid
-    uid: string; // User's Firebase Authentication UID
+    id: string; // Firestore document ID (usually same as uid)
+    uid: string; // Firebase Authentication UID
     email: string;
-    role: 'admin' | 'client' | 'writer'; // Example roles, add 'writer' if applicable
+    role: UserRole;
+    name?: string;
     displayName?: string;
-    createdAt?: Timestamp;
-    updatedAt?: Timestamp;
+    avatar?: string;
+    createdAt?: Timestamp | string;
+    updatedAt?: Timestamp | string;
     // Add any other user properties stored in Firestore
 }
 
@@ -98,6 +104,7 @@ export interface Review {
     updatedAt?: Timestamp;
     helpfulCount?: number; // Number of helpful hits (admin editable)
     publishDate?: Timestamp | Date; // Date when review is published (admin editable)
+    assignedEditorId?: string;
 }
 
 // Interface for Review Stats - FIXED: Exported

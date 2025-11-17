@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore'; // ADDED: Firestore functions
 import { BlogPost } from '../types'; // ADDED: Using the correct BlogPost type
 import LoadingSpinner from '../components/Common/LoadingSpinner';
+import { db } from '../firebase';
 
 // Helper function to format Firestore Timestamps
 const formatDate = (timestamp: any) => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { listQa, type QaEntry } from "../../lib/qaStore";
+import { getQaBySlug, listQa, type QaEntry } from "../../lib/qaStore";
+import LoadingSpinner from "../Common/LoadingSpinner";
 
 function useUnlocked() {
   const KEY = "qaUnlockedIds";
@@ -30,20 +31,52 @@ export type PublicQaDetailProps = {
 const PublicQaDetail: React.FC<PublicQaDetailProps> = ({ questionNumber, slug }) => {
   const [entry, setEntry] = useState<QaEntry | null>(null);
   const [notFound, setNotFound] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { isUnlocked, unlock } = useUnlocked();
 
   useEffect(() => {
-    const found = listQa().find(
-      (e) => e.status === "published" && e.questionNumber === questionNumber && e.slug === slug
-    );
-    if (!found) {
-      setNotFound(true);
-    } else {
-      setEntry(found);
-    }
+    let isMounted = true;
+    setLoading(true);
+    setNotFound(false);
+    (async () => {
+      try {
+        const matchBySlug = await getQaBySlug(slug, questionNumber);
+        if (!isMounted) return;
+        if (matchBySlug && matchBySlug.status === "published") {
+          setEntry(matchBySlug);
+        } else {
+          // fallback: load list and try to match (legacy data)
+          const all = await listQa({ status: "published" });
+          const fallback = all.find(
+            (e) => e.questionNumber === questionNumber && e.slug === slug
+          );
+          if (fallback) {
+            setEntry(fallback);
+          } else {
+            setNotFound(true);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to load Q&A entry", error);
+        if (isMounted) setNotFound(true);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    })();
+    return () => {
+      isMounted = false;
+    };
   }, [questionNumber, slug]);
 
   const unlocked = useMemo(() => (entry ? isUnlocked(entry.id) : false), [entry, isUnlocked]);
+
+  if (loading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
 
   if (notFound) {
     return (

@@ -19,6 +19,7 @@ import {
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
 import { db, storage } from '../../firebase';
+import { useAuth } from '../../context/AuthContext';
 
 // Define the structure for a blog category
 interface BlogCategory {
@@ -35,6 +36,8 @@ interface BlogPostFormData {
   excerpt: string;
   featuredImage: string;
   author: string;
+  authorId?: string;
+  authorEmail?: string;
   tags: string; // Stored as comma-separated string in form, converted to array for Firestore
   category: string; // The selected category name
   slug: string;
@@ -46,7 +49,11 @@ interface BlogPostFormData {
 // Its content is directly integrated into 'memoizedQuillModules' below for correct ReactQuill configuration.
 // This resolves the "Cannot find name 'quillModules'" error that appeared previously.
 
-export default function BlogManager() {
+interface BlogManagerProps {
+  mode?: 'admin' | 'editor';
+}
+
+export default function BlogManager({ mode = 'admin' }: BlogManagerProps) {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [blogCategories, setBlogCategories] = useState<BlogCategory[]>([]); // State for categories
   const [isLoading, setIsLoading] = useState(true);
@@ -64,6 +71,9 @@ export default function BlogManager() {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
   const quillRef = useRef<ReactQuill>(null); // Ref for ReactQuill instance
+
+  const { user } = useAuth();
+  const isEditor = mode === 'editor';
 
   // Effect to fetch blog posts from Firestore
   useEffect(() => {
@@ -103,9 +113,14 @@ export default function BlogManager() {
     }
   }, [sortColumn]);
 
+  const scopedPosts = useMemo(() => {
+    if (!isEditor || !user?.id) return blogPosts;
+    return blogPosts.filter(post => !post.authorId || post.authorId === user.id);
+  }, [blogPosts, isEditor, user?.id]);
+
   // Memoized function to filter and sort blog posts for display
   const filteredAndSortedPosts = useMemo(() => {
-    return blogPosts
+    return scopedPosts
       .filter(post => {
         const matchesCategory = filterCategory === 'all' || post.category === filterCategory;
         const lowercasedTerm = searchTerm.toLowerCase();
@@ -131,14 +146,23 @@ export default function BlogManager() {
         // Fallback for other types or if values are null/undefined
         return 0;
       });
-  }, [blogPosts, searchTerm, filterCategory, sortColumn, sortDirection]);
+  }, [scopedPosts, searchTerm, filterCategory, sortColumn, sortDirection]);
 
   // Opens the blog post creation/edit modal
   const openModal = (post?: BlogPost) => {
-    setCurrentPost(post ? { ...post, tags: post.tags.join(', ') } : {
-      title: '', content: '', excerpt: '', author: '',
-      category: '', // FIXED: Set initial category to empty string for new posts to prevent issues.
-      slug: '', tags: '', published: false
+    if (post && isEditor && post.authorId && post.authorId !== user?.id) {
+      toast.error('You can only edit your own posts.');
+      return;
+    }
+    setCurrentPost(post ? { ...post, tags: post.tags.join(', '), published: post.published ?? false } : {
+      title: '',
+      content: '',
+      excerpt: '',
+      author: user?.name || user?.email || '',
+      category: '',
+      slug: '',
+      tags: '',
+      published: false
     });
     setFeaturedImageFile(null); // Clear any previously selected image file
     setIsModalOpen(true);
@@ -149,6 +173,10 @@ export default function BlogManager() {
     e.preventDefault();
     if (!currentPost || !currentPost.title || !currentPost.content || !currentPost.category) {
       toast.error("Title, Content, and Category are required.");
+      return;
+    }
+    if (isEditor && currentPost.id && currentPost.authorId && currentPost.authorId !== user?.id) {
+      toast.error('You can only update blog posts assigned to you.');
       return;
     }
 
@@ -174,12 +202,18 @@ export default function BlogManager() {
       }
 
       // Prepare data to save to Firestore
+      const authorName = currentPost.author?.trim() || user?.name || user?.email || 'Editor';
+      const authorId = currentPost.authorId || (isEditor ? user?.id : currentPost.authorId);
+      const authorEmail = currentPost.authorEmail || (isEditor ? user?.email : currentPost.authorEmail);
+
       const dataToSave = {
         title: currentPost.title,
         content: currentPost.content,
         excerpt: currentPost.excerpt,
         featuredImage: imageUrl,
-        author: currentPost.author,
+        author: authorName,
+        authorId,
+        authorEmail,
         tags: (currentPost.tags as string)?.split(',').map((t: string) => t.trim()).filter(Boolean) || [],
         category: currentPost.category,
         // Auto-generate slug if not provided or if it's a new post
@@ -218,6 +252,10 @@ export default function BlogManager() {
 
   // Handles the deletion of a blog post
   const handleDeletePost = async (post: BlogPost) => {
+    if (isEditor && post.authorId && post.authorId !== user?.id) {
+      toast.error('You can only delete your own posts.');
+      return;
+    }
     // Custom confirmation modal instead of window.confirm
     const confirmed = await new Promise((resolve) => {
       const confirmModal = document.createElement('div');
@@ -437,9 +475,11 @@ export default function BlogManager() {
           <button onClick={() => openModal()} className="btn-primary flex items-center">
             <PlusCircle size={20} className="mr-2" /> New Post
           </button>
+          {!isEditor && (
           <button onClick={() => setIsCategoryModalOpen(true)} className="btn-secondary flex items-center">
             <FolderPlus size={20} className="mr-2" /> Manage Categories
           </button>
+          )}
         </div>
       </div>
 
@@ -524,12 +564,31 @@ export default function BlogManager() {
                     <Link to={`/blog/${post.slug}`} target="_blank" className="text-gray-500 hover:text-primary-500 inline-block icon-hover" title="View Post">
                       <Eye size={18} />
                     </Link>
-                    <button onClick={() => openModal(post)} className="text-blue-500 hover:text-blue-700 icon-hover" title="Edit Post">
+                    {(() => {
+                      const canModify = !isEditor || !post.authorId || post.authorId === user?.id;
+                      return (
+                        <>
+                          <button
+                            onClick={() => canModify && openModal(post)}
+                            disabled={!canModify}
+                            className={`text-blue-500 hover:text-blue-700 icon-hover disabled:text-gray-400 ${!canModify ? 'cursor-not-allowed' : ''}`}
+                            title={canModify ? 'Edit Post' : 'Locked to another editor'}
+                          >
                       <Edit size={18} />
                     </button>
+                          {!isEditor && (
+                            <button onClick={() => handleDeletePost(post)} className="text-red-500 hover:text-red-700 icon-hover" title="Delete Post">
+                              <Trash2 size={18} />
+                            </button>
+                          )}
+                          {isEditor && canModify && (
                     <button onClick={() => handleDeletePost(post)} className="text-red-500 hover:text-red-700 icon-hover" title="Delete Post">
                       <Trash2 size={18} />
                     </button>
+                          )}
+                        </>
+                      );
+                    })()}
                   </td>
                 </tr>
               ))}

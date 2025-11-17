@@ -25,7 +25,8 @@ export default function Login() {
   // NEW: Redirect if user is already logged in
   useEffect(() => {
     if (!isLoading && user) { // If loading is complete and a user object exists
-      navigate('/dashboard', { replace: true }); // Redirect to dashboard, replace history entry
+      const destination = user.role === 'editor' ? '/editor' : '/dashboard';
+      navigate(destination, { replace: true }); // Redirect based on role
     }
   }, [user, isLoading, navigate]); // Depend on user and isLoading to re-run when they change
 

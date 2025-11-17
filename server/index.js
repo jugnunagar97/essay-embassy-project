@@ -197,6 +197,59 @@ try {
   // Continue without Firebase for now
 }
 
+const FieldValue = admin.firestore ? admin.firestore.FieldValue : null;
+
+async function fetchUserRole(uid) {
+  if (!firestore) return 'client';
+  try {
+    const snap = await firestore.collection('users').doc(uid).get();
+    if (!snap.exists) return 'client';
+    return snap.data().role || 'client';
+  } catch (error) {
+    console.error('Failed to fetch user role', error);
+    return 'client';
+  }
+}
+
+async function authenticate(req, res, next) {
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.replace('Bearer ', '') : null;
+  if (!token) {
+    return res.status(401).json({ error: 'Missing authorization token' });
+  }
+
+  try {
+    const decoded = await admin.auth().verifyIdToken(token);
+    const role = await fetchUserRole(decoded.uid);
+    req.user = {
+      uid: decoded.uid,
+      email: decoded.email,
+      role
+    };
+    next();
+  } catch (error) {
+    console.error('Auth verification failed', error);
+    res.status(401).json({ error: 'Invalid or expired token' });
+  }
+}
+
+function requireRole(roles = []) {
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+    next();
+  };
+}
+
+function ensureFirestore(res) {
+  if (!firestore) {
+    res.status(503).json({ error: 'Firestore is not configured' });
+    return false;
+  }
+  return true;
+}
+
 // --- Central 301 redirect map (fixes 404s & duplicates) ---
 const redirects = {
   '/home': '/',
@@ -528,6 +581,355 @@ app.post('/api/contact', async (req, res) => {
     res.status(500).json({ error: 'Failed to send message. Please try again later.' });
   }
 });
+
+function slugifyServer(text = '') {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/<[^>]+>/g, '')
+    .replace(/&[a-z]+;/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-+/g, '-');
+}
+
+function buildQaRecord(base, overrides = {}) {
+  return {
+    title: base.title || '',
+    question: base.question || '',
+    answer: base.answer || '',
+    subject: base.subject || '',
+    paperType: base.paperType || '',
+    price: typeof base.price === 'number' ? base.price : Number(base.price ?? 0),
+    status: base.status === 'published' ? 'published' : 'draft',
+    assignedEditorId: overrides.assignedEditorId ?? base.assignedEditorId ?? null,
+    assignedEditorEmail: overrides.assignedEditorEmail ?? base.assignedEditorEmail ?? null,
+  };
+}
+
+const qaCollectionRef = () => firestore.collection('qaEntries');
+const qaCounterRef = () => firestore.collection('counters').doc('qaEntries');
+
+async function withQaTransaction(callback) {
+  return firestore.runTransaction(async (transaction) => {
+    const result = await callback(transaction);
+    return result;
+  });
+}
+
+async function getNextQaNumber(transaction) {
+  const counterSnap = await transaction.get(qaCounterRef());
+  const next = counterSnap.exists ? (counterSnap.data().nextQuestionNumber || 1) : 1;
+  transaction.set(
+    qaCounterRef(),
+    {
+      nextQuestionNumber: next + 1,
+    },
+    { merge: true }
+  );
+  return next;
+}
+
+// Role-restricted Editor APIs
+const editorRouter = express.Router();
+
+editorRouter.use(authenticate);
+
+editorRouter.get('/reviews', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  try {
+    let query = firestore.collection('reviews');
+    if (req.user.role === 'editor') {
+      query = query.where('assignedEditorId', '==', req.user.uid);
+    }
+    const snapshot = await query.get();
+    res.json({ reviews: snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() })) });
+  } catch (error) {
+    console.error('Failed to list reviews', error);
+    res.status(500).json({ error: 'Failed to list reviews' });
+  }
+});
+
+editorRouter.post('/reviews', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  const payload = req.body || {};
+  try {
+    const docRef = await firestore.collection('reviews').add({
+      userName: payload.userName,
+      userId: payload.userId || null,
+      rating: payload.rating,
+      comment: payload.comment,
+      platform: payload.platform || 'website',
+      isApproved: req.user.role === 'admin' ? Boolean(payload.isApproved) : false,
+      isPending: req.user.role === 'admin' ? Boolean(payload.isPending) : true,
+      assignedEditorId: req.user.role === 'editor' ? req.user.uid : payload.assignedEditorId || null,
+      assignedEditorEmail: req.user.role === 'editor' ? req.user.email : payload.assignedEditorEmail || null,
+      createdAt: FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString(),
+      updatedAt: FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString()
+    });
+    res.status(201).json({ id: docRef.id });
+  } catch (error) {
+    console.error('Failed to create review', error);
+    res.status(500).json({ error: 'Failed to create review' });
+  }
+});
+
+editorRouter.put('/reviews/:id', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  const { id } = req.params;
+  try {
+    const docRef = firestore.collection('reviews').doc(id);
+    const snapshot = await docRef.get();
+    if (!snapshot.exists) {
+      return res.status(404).json({ error: 'Review not found' });
+    }
+    if (req.user.role === 'editor') {
+      const assigned = snapshot.data().assignedEditorId;
+      if (assigned && assigned !== req.user.uid) {
+        return res.status(403).json({ error: 'Not allowed to modify this review' });
+      }
+    }
+    await docRef.update({
+      ...req.body,
+      assignedEditorId: req.user.role === 'editor' ? req.user.uid : (req.body.assignedEditorId || snapshot.data().assignedEditorId),
+      updatedAt: FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString()
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Failed to update review', error);
+    res.status(500).json({ error: 'Failed to update review' });
+  }
+});
+
+editorRouter.delete('/reviews/:id', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  const { id } = req.params;
+  try {
+    const docRef = firestore.collection('reviews').doc(id);
+    const snapshot = await docRef.get();
+    if (!snapshot.exists) {
+      return res.status(404).json({ error: 'Review not found' });
+    }
+    if (req.user.role === 'editor') {
+      const assigned = snapshot.data().assignedEditorId;
+      if (assigned && assigned !== req.user.uid) {
+        return res.status(403).json({ error: 'Not allowed to delete this review' });
+      }
+    }
+    await docRef.delete();
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Failed to delete review', error);
+    res.status(500).json({ error: 'Failed to delete review' });
+  }
+});
+
+editorRouter.get('/blog', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  try {
+    let query = firestore.collection('blogPosts');
+    if (req.user.role === 'editor') {
+      query = query.where('authorId', '==', req.user.uid);
+    }
+    const snapshot = await query.get();
+    res.json({ posts: snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() })) });
+  } catch (error) {
+    console.error('Failed to list blog posts', error);
+    res.status(500).json({ error: 'Failed to list blog posts' });
+  }
+});
+
+editorRouter.post('/blog', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  try {
+    const payload = req.body || {};
+    const shouldPublish = Boolean(payload.published);
+    const createdAtValue = FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString();
+    const updatedAtValue = FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString();
+    const publishedAtValue = shouldPublish
+      ? (payload.publishedAt || (FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString()))
+      : null;
+
+    const docRef = await firestore.collection('blogPosts').add({
+      ...payload,
+      published: shouldPublish,
+      publishedAt: publishedAtValue,
+      authorId: req.user.role === 'editor' ? req.user.uid : payload.authorId || null,
+      authorEmail: req.user.role === 'editor' ? req.user.email : payload.authorEmail || null,
+      createdAt: createdAtValue,
+      updatedAt: updatedAtValue
+    });
+    res.status(201).json({ id: docRef.id });
+  } catch (error) {
+    console.error('Failed to create blog post', error);
+    res.status(500).json({ error: 'Failed to create blog post' });
+  }
+});
+
+editorRouter.put('/blog/:id', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  try {
+    const docRef = firestore.collection('blogPosts').doc(req.params.id);
+    const snapshot = await docRef.get();
+    if (!snapshot.exists) return res.status(404).json({ error: 'Post not found' });
+    const currentData = snapshot.data();
+    if (req.user.role === 'editor') {
+      const assigned = currentData.authorId;
+      if (assigned && assigned !== req.user.uid) {
+        return res.status(403).json({ error: 'Not allowed to update this post' });
+      }
+    }
+    const payload = req.body || {};
+    const shouldPublish = Boolean(payload.published);
+    let publishedAtValue = null;
+    if (shouldPublish) {
+      publishedAtValue =
+        payload.publishedAt ||
+        currentData.publishedAt ||
+        (FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString());
+    }
+    await docRef.update({
+      ...payload,
+      published: shouldPublish,
+      publishedAt: publishedAtValue,
+      authorId: req.user.role === 'editor' ? req.user.uid : (payload.authorId || currentData.authorId),
+      authorEmail: req.user.role === 'editor' ? req.user.email : (payload.authorEmail || currentData.authorEmail),
+      updatedAt: FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString()
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Failed to update blog post', error);
+    res.status(500).json({ error: 'Failed to update blog post' });
+  }
+});
+
+editorRouter.delete('/blog/:id', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  try {
+    const docRef = firestore.collection('blogPosts').doc(req.params.id);
+    const snapshot = await docRef.get();
+    if (!snapshot.exists) return res.status(404).json({ error: 'Post not found' });
+    if (req.user.role === 'editor') {
+      const assigned = snapshot.data().authorId;
+      if (assigned && assigned !== req.user.uid) {
+        return res.status(403).json({ error: 'Not allowed to delete this post' });
+      }
+    }
+    await docRef.delete();
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Failed to delete blog post', error);
+    res.status(500).json({ error: 'Failed to delete blog post' });
+  }
+});
+
+editorRouter.get('/qna', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  try {
+    let query = firestore.collection('qaEntries');
+    if (req.user.role === 'editor') {
+      query = query.where('assignedEditorId', '==', req.user.uid);
+    }
+    const snapshot = await query.get();
+    res.json({ entries: snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() })) });
+  } catch (error) {
+    console.error('Failed to list Q&A entries', error);
+    res.status(500).json({ error: 'Failed to list Q&A entries' });
+  }
+});
+
+editorRouter.post('/qna', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  try {
+    const payload = req.body || {};
+    const assignedEditorId = req.user.role === 'editor' ? req.user.uid : payload.assignedEditorId || null;
+    const assignedEditorEmail = req.user.role === 'editor' ? req.user.email : payload.assignedEditorEmail || null;
+    const now = Date.now();
+
+    const record = await withQaTransaction(async (transaction) => {
+      const docRef = qaCollectionRef().doc();
+      const questionNumber = payload.questionNumber ?? await getNextQaNumber(transaction);
+      const qaData = {
+        ...buildQaRecord(payload, { assignedEditorId, assignedEditorEmail }),
+        createdAt: now,
+        updatedAt: now,
+        questionNumber,
+        slug: payload.slug || slugifyServer(payload.title || `question-${questionNumber}`),
+      };
+      transaction.set(docRef, qaData);
+      return { id: docRef.id, ...qaData };
+    });
+
+    res.status(201).json({ id: record.id, entry: record });
+  } catch (error) {
+    console.error('Failed to create Q&A entry', error);
+    res.status(500).json({ error: 'Failed to create Q&A entry' });
+  }
+});
+
+editorRouter.put('/qna/:id', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  try {
+    const payload = req.body || {};
+    const now = Date.now();
+    const updated = await withQaTransaction(async (transaction) => {
+      const docRef = qaCollectionRef().doc(req.params.id);
+      const snapshot = await transaction.get(docRef);
+      if (!snapshot.exists) throw new Error('not-found');
+      const existing = snapshot.data();
+      if (req.user.role === 'editor') {
+        const assigned = existing.assignedEditorId;
+        if (assigned && assigned !== req.user.uid) {
+          throw new Error('forbidden');
+        }
+      }
+      const assignedEditorId = req.user.role === 'editor' ? req.user.uid : payload.assignedEditorId ?? existing.assignedEditorId ?? null;
+      const assignedEditorEmail = req.user.role === 'editor' ? req.user.email : payload.assignedEditorEmail ?? existing.assignedEditorEmail ?? null;
+      const record = {
+        ...existing,
+        ...buildQaRecord(payload, { assignedEditorId, assignedEditorEmail }),
+        createdAt: existing.createdAt || now,
+        updatedAt: now,
+        questionNumber: existing.questionNumber,
+        slug: payload.slug || existing.slug || slugifyServer(payload.title || existing.title || `question-${existing.questionNumber}`),
+      };
+      transaction.set(docRef, record);
+      return { id: docRef.id, ...record };
+    });
+    res.json({ success: true, entry: updated });
+  } catch (error) {
+    if (error.message === 'not-found') {
+      return res.status(404).json({ error: 'Entry not found' });
+    }
+    if (error.message === 'forbidden') {
+      return res.status(403).json({ error: 'Not allowed to update this entry' });
+    }
+    console.error('Failed to update Q&A entry', error);
+    res.status(500).json({ error: 'Failed to update Q&A entry' });
+  }
+});
+
+editorRouter.delete('/qna/:id', requireRole(['admin', 'editor']), async (req, res) => {
+  if (!ensureFirestore(res)) return;
+  try {
+    const docRef = firestore.collection('qaEntries').doc(req.params.id);
+    const snapshot = await docRef.get();
+    if (!snapshot.exists) return res.status(404).json({ error: 'Entry not found' });
+    if (req.user.role === 'editor') {
+      const assigned = snapshot.data().assignedEditorId;
+      if (assigned && assigned !== req.user.uid) {
+        return res.status(403).json({ error: 'Not allowed to delete this entry' });
+      }
+    }
+    await docRef.delete();
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Failed to delete Q&A entry', error);
+    res.status(500).json({ error: 'Failed to delete Q&A entry' });
+  }
+});
+
+app.use('/api/editor', editorRouter);
 
 // --- Serve Vite build ---
 const dist = path.join(process.cwd(), 'dist');

@@ -41,6 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             // Create user doc for Google sign-in users if missing
             const newUserProfile: User = {
               id: firebaseUser.uid,
+              uid: firebaseUser.uid,
               email: firebaseUser.email || '',
               name: firebaseUser.displayName || 'User',
               role: 'client',
@@ -55,6 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const userDataFromFirestore = userDocSnap.data();
             setUser({
               id: firebaseUser.uid,
+              uid: firebaseUser.uid,
               email: firebaseUser.email || '',
               name: userDataFromFirestore.name || firebaseUser.displayName || 'User',
               role: userDataFromFirestore.role || 'client',
@@ -103,6 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const newUserProfile: User = {
         id: firebaseUser.uid,
+        uid: firebaseUser.uid,
         email: firebaseUser.email || email,
         name,
         role: 'client',

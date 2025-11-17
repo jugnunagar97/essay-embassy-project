@@ -9,6 +9,7 @@ import { format } from 'date-fns'; // FIXED: Removed unused 'isValid' import
 import { Review } from '../../types';
 import LoadingSpinner from '../Common/LoadingSpinner';
 import { db } from '../../firebase';
+import { useAuth } from '../../context/AuthContext';
 
 // Helper Components
 const RatingStars = ({ rating }: { rating: number }) => (
@@ -23,10 +24,20 @@ const StatusBadge = ({ review }: { review: Review }) => {
   return <span className="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">Draft</span>;
 };
 
+interface ReviewManagerProps {
+  mode?: 'admin' | 'editor';
+}
+
 // Main Component
-export default function ReviewManager() {
+export default function ReviewManager({ mode = 'admin' }: ReviewManagerProps) {
   const { reviews, isLoading: isLoadingReviews, error } = useReviews();
-  const { stats } = useReviewStats(reviews);
+  const { user } = useAuth();
+  const isEditor = mode === 'editor';
+  const scopedReviews = useMemo(() => {
+    if (!isEditor || !user?.id) return reviews;
+    return reviews.filter(review => !review.assignedEditorId || review.assignedEditorId === user.id);
+  }, [isEditor, reviews, user?.id]);
+  const { stats } = useReviewStats(scopedReviews);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
@@ -48,6 +59,7 @@ export default function ReviewManager() {
       publishDate: review?.publishDate && typeof (review.publishDate as any).toDate === 'function'
         ? (review.publishDate as any).toDate()
         : review?.publishDate || undefined,
+      assignedEditorId: review?.assignedEditorId || (isEditor ? user?.id : undefined),
     } : {
       userName: '',
       rating: 5,
@@ -58,12 +70,13 @@ export default function ReviewManager() {
       isVerifiedPurchase: true,
       helpfulCount: 0,
       publishDate: undefined,
+      assignedEditorId: isEditor ? user?.id : undefined,
     });
     setIsModalOpen(true);
   }
 
   const filteredAndSortedReviews = useMemo(() => {
-    let filtered = reviews.filter(review => {
+    let filtered = scopedReviews.filter(review => {
       const matchesSearch = searchTerm === '' || review.userName.toLowerCase().includes(searchTerm.toLowerCase()) || review.comment.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = filterStatus === 'all' || (filterStatus === 'approved' && review.isApproved) || (filterStatus === 'pending' && review.isPending);
       return matchesSearch && matchesStatus;
@@ -80,9 +93,13 @@ export default function ReviewManager() {
       if (typeof aVal === 'boolean' && typeof bVal === 'boolean') return sortDirection === 'asc' ? Number(aVal) - Number(bVal) : Number(bVal) - Number(aVal);
       return 0;
     });
-  }, [reviews, searchTerm, filterStatus, sortColumn, sortDirection]);
+  }, [scopedReviews, searchTerm, filterStatus, sortColumn, sortDirection]);
 
   const handleToggleApproval = async (review: Review) => {
+    if (isEditor) {
+      toast.error('Editors cannot change approval status.');
+      return;
+    }
     const toastId = toast.loading('Updating status...');
     try {
       await updateDoc(doc(db, 'reviews', review.id), { isApproved: !review.isApproved, isPending: false, updatedAt: new Date().toISOString() });
@@ -91,6 +108,10 @@ export default function ReviewManager() {
   };
 
   const handleDelete = async (reviewId: string) => {
+    if (isEditor) {
+      toast.error('Editors cannot delete reviews.');
+      return;
+    }
     if (!reviewId) {
       toast.error('Review ID is missing. Cannot delete.');
       return;
@@ -127,10 +148,19 @@ export default function ReviewManager() {
 
     try {
       if (id) {
-        await updateDoc(doc(db, "reviews", id), { ...reviewData, updatedAt: serverTimestamp() });
+        await updateDoc(doc(db, "reviews", id), {
+          ...reviewData,
+          assignedEditorId: reviewData.assignedEditorId || (isEditor ? user?.id : reviewData.assignedEditorId),
+          updatedAt: serverTimestamp()
+        });
         toast.success("Review updated successfully!", { id: toastId });
       } else {
-        await addDoc(collection(db, "reviews"), { ...reviewData, createdAt: serverTimestamp(), updatedAt: serverTimestamp() });
+        await addDoc(collection(db, "reviews"), {
+          ...reviewData,
+          assignedEditorId: isEditor ? user?.id : reviewData.assignedEditorId,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
         toast.success("Review added successfully!", { id: toastId });
       }
       setIsModalOpen(false);
@@ -155,18 +185,22 @@ export default function ReviewManager() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
       <main className="container mx-auto px-6 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Manage <span className="text-primary-500">Reviews</span></h1>
+        <h1 className="text-3xl font-bold">
+          {isEditor ? 'My Assigned Reviews' : <>Manage <span className="text-primary-500">Reviews</span></>}
+        </h1>
         <button onClick={() => openModal()} className="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg flex items-center">
           <PlusCircle size={20} className="mr-2" /> Add Review
         </button>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"><h3 className="text-sm font-medium text-gray-500">Total Reviews</h3><p className="text-3xl font-bold mt-1">{stats.totalReviews}</p></div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"><h3 className="text-sm font-medium text-gray-500">Average Rating</h3><div className="flex items-baseline space-x-2 mt-1"><p className="text-3xl font-bold">{stats.averageRating.toFixed(2)}</p><RatingStars rating={stats.averageRating}/></div></div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"><h3 className="text-sm font-medium text-gray-500">Pending Approval</h3><p className="text-3xl font-bold mt-1 text-yellow-500">{reviews.filter(r => r.isPending).length}</p></div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"><h3 className="text-sm font-medium text-gray-500">Verified Purchases</h3><p className="text-3xl font-bold mt-1 text-blue-500">{stats.verifiedPurchases}</p></div>
-      </div>
+      {!isEditor && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"><h3 className="text-sm font-medium text-gray-500">Total Reviews</h3><p className="text-3xl font-bold mt-1">{stats.totalReviews}</p></div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"><h3 className="text-sm font-medium text-gray-500">Average Rating</h3><div className="flex items-baseline space-x-2 mt-1"><p className="text-3xl font-bold">{stats.averageRating.toFixed(2)}</p><RatingStars rating={stats.averageRating}/></div></div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"><h3 className="text-sm font-medium text-gray-500">Pending Approval</h3><p className="text-3xl font-bold mt-1 text-yellow-500">{scopedReviews.filter(r => r.isPending).length}</p></div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md"><h3 className="text-sm font-medium text-gray-500">Verified Purchases</h3><p className="text-3xl font-bold mt-1 text-blue-500">{stats.verifiedPurchases}</p></div>
+        </div>
+      )}
        
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-200 dark:border-gray-700">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -202,7 +236,9 @@ export default function ReviewManager() {
               </tr>
             </thead>
             <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-              {filteredAndSortedReviews.map(review => (
+              {filteredAndSortedReviews.map(review => {
+                const canModify = !isEditor || !review.assignedEditorId || review.assignedEditorId === user?.id;
+                return (
                 <tr key={review.id}>
                     <td className="px-6 py-4 whitespace-nowrap"><div className="font-medium">{review.userName}</div>{review.isVerifiedPurchase && <div className="text-xs text-blue-500 flex items-center"><ShieldCheck size={12} className="mr-1"/>Verified</div>}</td>
                     <td className="px-6 py-4 whitespace-nowrap"><RatingStars rating={review.rating} /></td>
@@ -210,12 +246,23 @@ export default function ReviewManager() {
                     <td className="px-6 py-4 whitespace-nowrap"><StatusBadge review={review} /></td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">{formatDateSafe(review.publishDate || review.createdAt)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
-                      <button onClick={() => handleToggleApproval(review)} className="text-green-500 hover:text-green-700" title={review.isApproved ? 'Unapprove' : 'Approve'}><ThumbsUp size={18} /></button>
-                      <button onClick={() => openModal(review)} className="text-blue-500 hover:text-blue-700" title="Edit"><Edit size={18} /></button>
-                      <button onClick={() => handleDelete(review.id)} className="text-red-500 hover:text-red-700" title="Delete"><Trash2 size={18} /></button>
+                      {!isEditor && (
+                        <button onClick={() => handleToggleApproval(review)} className="text-green-500 hover:text-green-700" title={review.isApproved ? 'Unapprove' : 'Approve'}><ThumbsUp size={18} /></button>
+                      )}
+                      <button
+                        onClick={() => canModify && openModal(review)}
+                        disabled={!canModify}
+                        className={`text-blue-500 hover:text-blue-700 disabled:text-gray-400 ${!canModify ? 'cursor-not-allowed' : ''}`}
+                        title={canModify ? 'Edit' : 'Locked to another editor'}
+                      >
+                        <Edit size={18} />
+                      </button>
+                      {!isEditor && (
+                        <button onClick={() => handleDelete(review.id)} className="text-red-500 hover:text-red-700" title="Delete"><Trash2 size={18} /></button>
+                      )}
                     </td>
                 </tr>
-              ))}
+              )})}
             </tbody>
           </table>
         </div>

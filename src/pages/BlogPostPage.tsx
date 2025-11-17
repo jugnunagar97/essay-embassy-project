@@ -7,6 +7,7 @@ import { BlogPost } from '../types';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
 import { Calendar, User, ArrowRight, FileText, Clock, FileCheck } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { db } from '../firebase';
 
 const formatDate = (timestamp: any) => {
     if (timestamp && typeof timestamp.toDate === 'function') {
