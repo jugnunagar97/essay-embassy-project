@@ -1,14 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import {
-  addDoc,
-  collection,
-  getDocs,
-  query,
-  serverTimestamp,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { Helmet } from "react-helmet-async";
 
 import { getQaByQuestionNumber, listQa, type QaEntry } from "../../lib/qaStore";
@@ -33,6 +26,7 @@ const formatINR = (value: number) => {
   })}`;
 };
 
+const ACCESS_TOKEN_PREFIX = "qa_access_";
 const SITE_URL =
   import.meta.env.VITE_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://essay-embassy-project.onrender.com";
@@ -75,7 +69,12 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [razorpayReady, setRazorpayReady] = useState(false);
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const [guestUnlocked, setGuestUnlocked] = useState(false);
+  const [showOptionalEmailPrompt, setShowOptionalEmailPrompt] = useState(false);
+  const [optionalEmail, setOptionalEmail] = useState("");
+  const [isSendingMagicLink, setIsSendingMagicLink] = useState(false);
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const [storedAccessToken, setStoredAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
     if (window.Razorpay) {
@@ -159,7 +158,119 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
       ""
     ) || "";
   const createOrderUrl = `${apiBase}/api/create-order`;
-  const verifyPaymentUrl = `${apiBase}/api/verify-payment`;
+  const registerAccessUrl = `${apiBase}/api/register-access`;
+  const sendMagicLinkUrl = `${apiBase}/api/send-magic-link`;
+  const verifyAccessUrl = `${apiBase}/api/verify-access`;
+
+  const accessStorageKey = entry
+    ? `${ACCESS_TOKEN_PREFIX}${entry.questionNumber}`
+    : null;
+
+  const verifyToken = useCallback(
+    async (token: string, questionNumber: string) => {
+      try {
+        const response = await fetch(verifyAccessUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ questionNumber, accessToken: token }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Unable to verify access");
+        }
+        return Boolean(data.valid);
+      } catch (error) {
+        console.error("Access token verification failed:", error);
+        return false;
+      }
+    },
+    [verifyAccessUrl]
+  );
+
+  const ensureTokenAccess = useCallback(
+    async (token: string) => {
+      if (!entry) return false;
+      const valid = await verifyToken(token, entry.questionNumber);
+      if (valid) {
+        if (accessStorageKey) {
+          localStorage.setItem(accessStorageKey, token);
+        }
+        setStoredAccessToken(token);
+        setGuestUnlocked(true);
+      }
+      return valid;
+    },
+    [accessStorageKey, entry, verifyToken]
+  );
+
+  const registerAccess = useCallback(
+    async (
+      paymentResponse: {
+        razorpay_order_id: string;
+        razorpay_payment_id: string;
+        razorpay_signature: string;
+      },
+      email: string | null
+    ) => {
+      if (!entry) {
+        throw new Error("Question not available");
+      }
+
+      const response = await fetch(registerAccessUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          questionNumber: entry.questionNumber,
+          questionId: entry.id,
+          questionTitle: stripHtml(entry.title || entry.question || ""),
+          questionSlug: entry.slug,
+          paymentId: paymentResponse.razorpay_payment_id,
+          orderId: paymentResponse.razorpay_order_id,
+          paymentSignature: paymentResponse.razorpay_signature,
+          userId: user?.uid || null,
+          email: email || null,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Failed to register access");
+      }
+      return data as { accessToken: string; hasEmail?: boolean };
+    },
+    [entry, registerAccessUrl, user]
+  );
+
+  const sendMagicLink = useCallback(
+    async (emailAddress: string, tokenOverride?: string | null) => {
+      if (!entry) throw new Error("Question not available");
+      const tokenToUse =
+        tokenOverride ??
+        (accessStorageKey ? localStorage.getItem(accessStorageKey) : null);
+      if (!tokenToUse) {
+        throw new Error("Access token not found");
+      }
+
+      const response = await fetch(sendMagicLinkUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: emailAddress,
+          questionNumber: entry.questionNumber,
+          slug: entry.slug,
+          accessToken: tokenToUse,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Failed to send magic link");
+      }
+      return data;
+    },
+    [accessStorageKey, entry, sendMagicLinkUrl]
+  );
 
   const verifyAndUnlock = useCallback(
     async (paymentResponse: {
@@ -167,49 +278,34 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
       razorpay_payment_id: string;
       razorpay_signature: string;
     }) => {
-      if (!entry || !user) return;
+      if (!entry) return;
       try {
-        const token = await auth.currentUser?.getIdToken();
-        if (!token) {
-          throw new Error("Unable to verify payment. Please login again.");
+        const emailForRecord = user?.email || null;
+        const registration = await registerAccess(
+          paymentResponse,
+          emailForRecord
+        );
+        const token = registration?.accessToken;
+        if (token) {
+          await ensureTokenAccess(token);
         }
-
-        const response = await fetch(verifyPaymentUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            razorpay_order_id: paymentResponse.razorpay_order_id,
-            razorpay_payment_id: paymentResponse.razorpay_payment_id,
-            razorpay_signature: paymentResponse.razorpay_signature,
-            type: "qa_unlock",
-          }),
-        });
-
-        const data = await response.json();
-        if (!response.ok || !data.success) {
-          throw new Error(data.error || "Payment verification failed.");
-        }
-
-        await addDoc(collection(db, "qaUnlocks"), {
-          userId: user.uid || user.id,
-          questionNumber: entry.questionNumber,
-          questionId: entry.id,
-          questionTitle: entry.title,
-          questionSlug: entry.slug,
-          amount: entry.price,
-          currency: "INR",
-          status: "completed",
-          razorpayOrderId: paymentResponse.razorpay_order_id,
-          razorpayPaymentId: paymentResponse.razorpay_payment_id,
-          razorpaySignature: paymentResponse.razorpay_signature,
-          purchasedAt: serverTimestamp(),
-        });
-
         unlock(entry.id);
-        setRemoteUnlocked(true);
+        if (user) {
+          setRemoteUnlocked(true);
+        }
+        if (emailForRecord && token) {
+          try {
+            await sendMagicLink(emailForRecord, token);
+            toast.success("Magic link sent to your email.");
+            setMagicLinkSent(true);
+          } catch (emailError) {
+            console.error("Magic link email failed:", emailError);
+          }
+          setShowOptionalEmailPrompt(false);
+        } else {
+          setShowOptionalEmailPrompt(true);
+          setMagicLinkSent(false);
+        }
         toast.success("✅ Answer unlocked successfully!");
       } catch (error) {
         console.error("Verification error:", error);
@@ -222,21 +318,19 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
         setIsProcessing(false);
       }
     },
-    [entry, unlock, user, verifyPaymentUrl]
+    [
+      ensureTokenAccess,
+      entry,
+      registerAccess,
+      sendMagicLink,
+      unlock,
+      user,
+    ]
   );
 
   const handleUnlock = useCallback(async () => {
     if (!entry) {
       toast.error("Question details missing. Please refresh and try again.");
-      return;
-    }
-    if (!user) {
-      toast.error("Please login to unlock this answer");
-      const redirectPath =
-        typeof window !== "undefined"
-          ? `${window.location.pathname}${window.location.search}`
-          : "/qa";
-      navigate(`/login?redirect=${encodeURIComponent(redirectPath)}`);
       return;
     }
     if (!razorpayReady || !window.Razorpay) {
@@ -247,29 +341,28 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
     setIsProcessing(true);
 
     try {
-      const token = await auth.currentUser?.getIdToken();
-      if (!token) {
-        throw new Error("Unable to authenticate payment request.");
+      const idToken = user ? await auth.currentUser?.getIdToken() : null;
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+      if (idToken) {
+        headers.Authorization = `Bearer ${idToken}`;
       }
 
-      const amountInPaise = Math.round(entry.price * 100);
+      const amountInPaise = Math.max(Math.round(entry.price * 100), 100);
       const response = await fetch(createOrderUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers,
         body: JSON.stringify({
           amount: amountInPaise,
           currency: "INR",
           type: "qa_unlock",
-          metadata: {
-            questionNumber: entry.questionNumber,
-            questionId: entry.id,
-            questionTitle: entry.title,
-            questionSlug: entry.slug,
-            userId: user.uid || user.id,
-          },
+          questionNumber: entry.questionNumber,
+          questionId: entry.id,
+          questionTitle: stripHtml(entry.title || entry.question || ""),
+          questionSlug: entry.slug,
+          userId: user?.uid || null,
+          email: user?.email || null,
         }),
       });
 
@@ -278,18 +371,18 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
         throw new Error(data.error || "Failed to create order. Please retry.");
       }
 
-      const { orderId, amount } = data;
+      const orderDetails = data.order || {};
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount,
-        currency: "INR",
+        amount: orderDetails.amount || amountInPaise,
+        currency: orderDetails.currency || "INR",
         name: "Essay Embassy",
-        description: `Unlock Q&A: ${entry.title?.replace(/<[^>]+>/g, "") || ""}`,
-        order_id: orderId,
+        description: stripHtml(entry.title || entry.question || ""),
+        order_id: orderDetails.id || data.orderId,
         handler: verifyAndUnlock,
         prefill: {
-          name: user.name || "",
-          email: user.email || "",
+          name: user?.name || "",
+          email: user?.email || "",
         },
         theme: {
           color: "#0d9488",
@@ -315,16 +408,42 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
   }, [
     createOrderUrl,
     entry,
-    navigate,
     razorpayReady,
     user,
     verifyAndUnlock,
   ]);
 
+  const handleSendMagicLink = useCallback(async () => {
+    const emailValue = optionalEmail.trim();
+    if (!emailValue) {
+      toast.error("Please enter your email address.");
+      return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailValue)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    try {
+      setIsSendingMagicLink(true);
+      await sendMagicLink(emailValue, storedAccessToken);
+      toast.success("Magic link sent! Check your email.");
+      setMagicLinkSent(true);
+      setShowOptionalEmailPrompt(false);
+    } catch (error) {
+      console.error("Magic link error:", error);
+      toast.error(
+        error instanceof Error ? error.message : "Failed to send magic link."
+      );
+    } finally {
+      setIsSendingMagicLink(false);
+    }
+  }, [optionalEmail, sendMagicLink, storedAccessToken]);
+
   const unlocked = useMemo(() => {
     if (!entry) return false;
-    return remoteUnlocked || isUnlocked(entry.id);
-  }, [entry, isUnlocked, remoteUnlocked]);
+    return remoteUnlocked || isUnlocked(entry.id) || guestUnlocked;
+  }, [entry, guestUnlocked, isUnlocked, remoteUnlocked]);
 
   const priceLabel = entry ? formatINR(entry.price) : "₹0";
   const canonicalUrl = useMemo(() => {
@@ -345,19 +464,22 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
   const qaJsonLd = useMemo(() => {
     if (!entry || !canonicalUrl) return null;
     const createdAtIso = new Date(entry.createdAt || Date.now()).toISOString();
+    const questionName = questionText || plainTitle;
+
     return {
       "@context": "https://schema.org",
       "@type": "QAPage",
       mainEntity: {
         "@type": "Question",
-        name: plainTitle,
-        text: questionText || plainTitle,
+        name: questionName,
+        text: questionName,
         answerCount: 1,
         upvoteCount: DEFAULT_UPVOTE_COUNT,
         dateCreated: createdAtIso,
         author: {
-          "@type": "Person",
-          name: "Essay Embassy Expert",
+          "@type": "Organization",
+          name: "Essay Embassy",
+          url: "https://essayembassy.com",
         },
         acceptedAnswer: {
           "@type": "Answer",
@@ -366,8 +488,9 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
           upvoteCount: DEFAULT_UPVOTE_COUNT,
           url: canonicalUrl,
           author: {
-            "@type": "Person",
-            name: "Essay Embassy Expert",
+            "@type": "Organization",
+            name: "Essay Embassy Expert Team",
+            url: "https://essayembassy.com",
           },
         },
       },
@@ -387,6 +510,36 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
       },
     };
   }, [canonicalUrl]);
+
+  useEffect(() => {
+    if (!entry || !accessStorageKey) return;
+    const storedToken = localStorage.getItem(accessStorageKey);
+    if (storedToken) {
+      ensureTokenAccess(storedToken);
+    } else {
+      setGuestUnlocked(false);
+      setStoredAccessToken(null);
+    }
+  }, [accessStorageKey, ensureTokenAccess, entry]);
+
+  useEffect(() => {
+    if (!entry) return;
+    const params = new URLSearchParams(window.location.search);
+    const urlToken = params.get("access");
+    if (urlToken) {
+      ensureTokenAccess(urlToken).then((valid) => {
+        if (valid) {
+          window.history.replaceState({}, "", window.location.pathname);
+        }
+      });
+    }
+  }, [entry, ensureTokenAccess]);
+
+  useEffect(() => {
+    setShowOptionalEmailPrompt(false);
+    setOptionalEmail("");
+    setMagicLinkSent(false);
+  }, [entry?.id]);
 
   if (loading) {
     return (
@@ -682,6 +835,50 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
                 </div>
               </section>
             )}
+
+            {unlocked && showOptionalEmailPrompt ? (
+              <div className="mt-6 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl p-5">
+                <div className="flex items-start gap-3">
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
+                      💡 Access from any device
+                    </h4>
+                    <p className="text-sm text-blue-700 dark:text-blue-200 mb-3">
+                      Enter your email to receive a magic link. No login required—access this answer anywhere, anytime.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <input
+                        type="email"
+                        placeholder="you@example.com"
+                        value={optionalEmail}
+                        onChange={(e) => setOptionalEmail(e.target.value)}
+                        className="flex-1 px-3 py-2 rounded-lg border border-blue-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      />
+                      <button
+                        onClick={handleSendMagicLink}
+                        disabled={isSendingMagicLink}
+                        className="px-5 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 disabled:opacity-60"
+                      >
+                        {isSendingMagicLink ? "Sending..." : "Send Link"}
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setShowOptionalEmailPrompt(false)}
+                    className="text-gray-400 hover:text-gray-600"
+                    aria-label="Dismiss email prompt"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+            ) : null}
+
+            {unlocked && magicLinkSent && !showOptionalEmailPrompt ? (
+              <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg text-sm text-green-800 dark:text-green-100">
+                Magic link sent! Check your inbox for instant access from any device.
+              </div>
+            ) : null}
 
               {/* Question Details */}
               <section className="grid grid-cols-1 md:grid-cols-2 gap-4">

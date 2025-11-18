@@ -231,6 +231,33 @@ try {
 }
 
 const FieldValue = admin.firestore ? admin.firestore.FieldValue : null;
+const ACCESS_COLLECTION = 'qaUnlocks';
+const GUEST_COLLECTION = 'guestPurchases';
+
+function generateAccessToken() {
+  return crypto.randomBytes(24).toString('hex');
+}
+
+async function findAccessRecord(questionNumber, accessToken) {
+  if (!firestore) return null;
+  const collections = [ACCESS_COLLECTION, GUEST_COLLECTION];
+  for (const collectionName of collections) {
+    const snapshot = await firestore
+      .collection(collectionName)
+      .where('questionNumber', '==', questionNumber)
+      .where('accessToken', '==', accessToken)
+      .limit(1)
+      .get();
+    if (!snapshot.empty) {
+      return {
+        ref: snapshot.docs[0].ref,
+        data: snapshot.docs[0].data(),
+        collection: collectionName,
+      };
+    }
+  }
+  return null;
+}
 
 async function buildQaSitemapEntries(limit = QA_SITEMAP_LIMIT) {
   if (!firestore) return [];
@@ -553,6 +580,180 @@ app.post('/api/verify-payment', async (req, res) => {
       success: false,
       error: 'Payment verification failed.'
     });
+  }
+});
+
+app.post('/api/register-access', async (req, res) => {
+  if (!firestore) {
+    return res.status(503).json({ error: 'Firestore is not configured' });
+  }
+
+  const {
+    questionNumber,
+    questionId,
+    questionTitle,
+    questionSlug,
+    paymentId,
+    orderId,
+    paymentSignature,
+    userId,
+    email,
+  } = req.body || {};
+
+  if (!questionNumber || !paymentId || !orderId || !paymentSignature) {
+    return res.status(400).json({ error: 'Missing payment details' });
+  }
+
+  if (!process.env.RAZORPAY_KEY_SECRET) {
+    return res.status(500).json({ error: 'Payment configuration missing' });
+  }
+
+  try {
+    const expectedSignature = crypto
+      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+      .update(`${orderId}|${paymentId}`)
+      .digest('hex');
+
+    if (expectedSignature !== paymentSignature) {
+      return res.status(400).json({ error: 'Invalid payment signature' });
+    }
+
+    const accessToken = generateAccessToken();
+    const timestamp = FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString();
+    const baseRecord = {
+      questionNumber,
+      questionId: questionId || null,
+      questionTitle: questionTitle || '',
+      questionSlug: questionSlug || '',
+      accessToken,
+      email: email || null,
+      hasEmail: Boolean(email),
+      razorpayPaymentId: paymentId,
+      razorpayOrderId: orderId,
+      status: 'completed',
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    };
+
+    if (userId) {
+      await firestore.collection(ACCESS_COLLECTION).add({
+        ...baseRecord,
+        userId,
+      });
+    } else {
+      await firestore.collection(GUEST_COLLECTION).add({
+        ...baseRecord,
+        purchaseDate: timestamp,
+      });
+    }
+
+    return res.json({ success: true, accessToken, hasEmail: Boolean(email) });
+  } catch (error) {
+    console.error('Register access error:', error);
+    return res.status(500).json({ error: 'Failed to register access' });
+  }
+});
+
+app.post('/api/verify-access', async (req, res) => {
+  if (!firestore) {
+    return res.status(503).json({ error: 'Firestore is not configured' });
+  }
+
+  const { questionNumber, accessToken } = req.body || {};
+  if (!questionNumber || !accessToken) {
+    return res.status(400).json({ error: 'Missing parameters' });
+  }
+
+  try {
+    const record = await findAccessRecord(questionNumber, accessToken);
+    if (!record) {
+      return res.json({ valid: false });
+    }
+    return res.json({ valid: true, hasEmail: Boolean(record.data?.email) });
+  } catch (error) {
+    console.error('Verify access error:', error);
+    return res.status(500).json({ error: 'Failed to verify access' });
+  }
+});
+
+app.post('/api/send-magic-link', async (req, res) => {
+  if (!firestore) {
+    return res.status(503).json({ error: 'Firestore is not configured' });
+  }
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    return res.status(503).json({ error: 'Email service not configured' });
+  }
+
+  const { email, questionNumber, slug, accessToken } = req.body || {};
+  if (!email || !questionNumber || !slug || !accessToken) {
+    return res.status(400).json({ error: 'Missing parameters' });
+  }
+
+  try {
+    const record = await findAccessRecord(questionNumber, accessToken);
+    if (!record) {
+      return res.status(404).json({ error: 'Access token not found' });
+    }
+
+    const magicLink = `${FRONTEND_SITE_URL}/question/${encodeURIComponent(questionNumber)}/${encodeURIComponent(slug)}?access=${encodeURIComponent(accessToken)}`;
+    const emailContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8" />
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f4f6fb; }
+          .container { max-width: 600px; margin: 0 auto; padding: 24px; background: #ffffff; }
+          .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-weight: bold;
+          }
+          .footer { margin-top: 30px; color: #666; font-size: 12px; }
+          code { background: #f1f5f9; padding: 6px; border-radius: 4px; display: inline-block; margin-top: 8px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h2>🎉 Your Answer is Ready!</h2>
+          <p>Click the button below to access your unlocked answer anytime, from any device:</p>
+          <a href="${magicLink}" class="button">View Answer →</a>
+          <p>Or copy this link:</p>
+          <code>${magicLink}</code>
+          <hr style="margin: 30px 0; border: none; border-top: 1px solid #e5e7eb;" />
+          <p><strong>💡 Pro Tip:</strong> Bookmark this link for instant access.</p>
+          <p>No login required. No expiration. Access anytime.</p>
+          <div class="footer">
+            <p>Essay Embassy - Expert Q&A Solutions</p>
+            <p>This link is personal and should not be shared.</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    await transporter.sendMail({
+      from: `Essay Embassy <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: '🎉 Your Answer is Ready - Essay Embassy',
+      html: emailContent,
+    });
+
+    await record.ref.update({
+      email,
+      hasEmail: true,
+      magicLinkSentAt: FieldValue ? FieldValue.serverTimestamp() : new Date().toISOString(),
+    });
+
+    return res.json({ success: true });
+  } catch (error) {
+    console.error('Send magic link error:', error);
+    return res.status(500).json({ error: 'Failed to send magic link' });
   }
 });
 
