@@ -38,7 +38,8 @@ if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
 
 // Configure CORS to allow multiple origins
 const allowedOrigins = [
-  'http://localhost:5173',
+  'http://localhost:5173',   // dev
+  'http://localhost:4173',   // Vite preview (prod build locally)
   'https://essay-embassy.web.app',
   'https://essayembassy.com',
   'https://www.essayembassy.com'
