@@ -2,8 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Favicon links - multiple formats to prevent 404 errors -->
     <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png" />
     <link rel="apple-touch-icon" href="/images/logo.png" />
+    <!-- Fallback favicon to prevent browser from requesting favicon.ico -->
+    <link rel="icon" href="/images/logo.png" sizes="any" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Essay Embassy - Professional Academic Writing Services</title>
     <meta name="description" content="Get professional academic writing help from Essay Embassy. Expert writers, on-time delivery, and guaranteed quality for all your essay and assignment needs." />
@@ -18,6 +22,21 @@
       function gtag(){dataLayer.push(arguments);} 
       gtag('js', new Date());
       gtag('config', 'G-RYB8SKPJD2');
+    </script>
+    <!-- Prevent favicon.ico 404 error by intercepting the request -->
+    <script>
+      (function() {
+        // Intercept favicon.ico requests and redirect to logo.png
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+          const url = args[0];
+          if (typeof url === 'string' && url.includes('favicon.ico')) {
+            // Redirect favicon.ico requests to logo.png
+            args[0] = url.replace('favicon.ico', 'images/logo.png');
+          }
+          return originalFetch.apply(this, args);
+        };
+      })();
     </script>
     <!-- Early geo-blocking check to remove favicon immediately -->
     <script>

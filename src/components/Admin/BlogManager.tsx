@@ -16,7 +16,7 @@ import {
   FolderPlus, FolderEdit, Save, Plus // FIXED: Ensured 'Plus' is explicitly imported.
 } from 'lucide-react';
 
-import ReactQuill from 'react-quill';
+import ReactQuillWrapper from '../Common/ReactQuillWrapper';
 import 'react-quill/dist/quill.snow.css'; // Import Quill's CSS
 import { db, storage } from '../../firebase';
 import { useAuth } from '../../context/AuthContext';
@@ -70,7 +70,7 @@ export default function BlogManager({ mode = 'admin' }: BlogManagerProps) {
   const [sortColumn, setSortColumn] = useState<keyof BlogPost>('createdAt');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
-  const quillRef = useRef<ReactQuill>(null); // Ref for ReactQuill instance
+  const quillRef = useRef<any>(null); // Ref for ReactQuill instance
 
   const { user } = useAuth();
   const isEditor = mode === 'editor';
@@ -633,7 +633,7 @@ export default function BlogManager({ mode = 'admin' }: BlogManagerProps) {
 
               <div>
                 <label htmlFor="post-content" className="form-label">Content <span className="text-red-500">*</span></label>
-                <ReactQuill
+                <ReactQuillWrapper
                   key={currentPost?.id || 'new'} // FIXED: Added key prop to force re-render on new post/edit.
                   ref={quillRef} // Attach ref for custom image handler
                   theme="snow"

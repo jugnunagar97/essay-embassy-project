@@ -10,7 +10,7 @@ import { PlusCircle, Edit, Trash2, ArrowUp, ArrowDown, Settings, CheckCircle, XC
 import toast from 'react-hot-toast';
 import { ServiceCategory, SubService } from '../../types';
 
-import ReactQuill from 'react-quill';
+import ReactQuillWrapper from '../Common/ReactQuillWrapper';
 import 'react-quill/dist/quill.snow.css';
 import LoadingSpinner from '../Common/LoadingSpinner';
 
@@ -60,7 +60,7 @@ export default function ServiceManager() {
   const [modalState, setModalState] = useState<ModalState>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const serviceQuillRef = useRef<ReactQuill>(null);
+  const serviceQuillRef = useRef<any>(null);
 
   const servicesForSelectedCategory = useMemo(() => {
     if (!selectedCategoryId) return [];
@@ -489,7 +489,7 @@ export default function ServiceManager() {
 
                     <div>
                       <label htmlFor="service-content" className="form-label">Service Content</label>
-                      <ReactQuill
+                      <ReactQuillWrapper
                         key={serviceData.id || 'new-service'}
                         ref={serviceQuillRef}
                         theme="snow"

@@ -35,11 +35,11 @@ export default function EditorQnaModule() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <header>
-        <p className="text-sm font-semibold text-primary-600 uppercase tracking-wide">Q&A Hub</p>
-        <h2 className="text-2xl font-bold text-gray-900">Manage Your Assigned Questions</h2>
-        <p className="text-gray-600 max-w-2xl">
+        <p className="text-xs md:text-sm font-semibold text-primary-600 uppercase tracking-wide">Q&A Hub</p>
+        <h2 className="text-xl md:text-2xl font-bold text-gray-900 mt-1">Manage Your Assigned Questions</h2>
+        <p className="text-sm md:text-base text-gray-600 max-w-2xl mt-1">
           Access the same powerful Q&A toolkit as admins—including the math-ready editor—while viewing only the entries
           assigned to you.
         </p>
