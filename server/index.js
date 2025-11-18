@@ -6,9 +6,23 @@ import admin from 'firebase-admin';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import path from 'path';
+import fs from 'fs';
 dotenv.config();
 
 const app = express();
+const FRONTEND_SITE_URL = (process.env.FRONTEND_URL || 'https://essay-embassy-project.onrender.com').replace(/\/$/, '');
+const staticSitemapPath = path.join(process.cwd(), 'public', 'sitemap.xml');
+let cachedStaticSitemap = '';
+const DEFAULT_SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+</urlset>`;
+const QA_SITEMAP_LIMIT = 500;
+
+try {
+  cachedStaticSitemap = fs.readFileSync(staticSitemapPath, 'utf8');
+} catch (error) {
+  console.warn('Could not preload static sitemap.xml:', error.message);
+}
 
 // Initialize Razorpay
 let razorpay;
@@ -45,6 +59,25 @@ app.use(cors({
   credentials: true 
 }));
 app.use(express.json());
+
+// Add X-Robots-Tag header for protected paths
+const protectedPaths = [
+  '/admin',
+  '/editor',
+  '/client',
+  '/dashboard',
+  '/profile',
+  '/settings',
+  '/orders'
+];
+
+app.use((req, res, next) => {
+  const isProtectedPath = protectedPaths.some((path) => req.path === path || req.path.startsWith(`${path}/`));
+  if (isProtectedPath) {
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+  }
+  next();
+});
 
 // --- Force HTTPS and canonical host (no www) ---
 app.use((req, res, next) => {
@@ -198,6 +231,39 @@ try {
 }
 
 const FieldValue = admin.firestore ? admin.firestore.FieldValue : null;
+
+async function buildQaSitemapEntries(limit = QA_SITEMAP_LIMIT) {
+  if (!firestore) return [];
+  try {
+    const snapshot = await firestore
+      .collection('qaEntries')
+      .where('status', '==', 'published')
+      .limit(limit)
+      .get();
+    return snapshot.docs
+      .map((docSnap) => {
+        const data = docSnap.data() || {};
+        const questionNumber = data.questionNumber;
+        const slug = data.slug;
+        if (!questionNumber || !slug) return null;
+        const timestamp =
+          typeof data.updatedAt === 'number'
+            ? data.updatedAt
+            : typeof data.createdAt === 'number'
+            ? data.createdAt
+            : Date.now();
+        return {
+          questionNumber,
+          slug,
+          lastmod: new Date(timestamp).toISOString(),
+        };
+      })
+      .filter(Boolean);
+  } catch (error) {
+    console.error('Failed to fetch QA entries for sitemap:', error.message);
+    return [];
+  }
+}
 
 async function fetchUserRole(uid) {
   if (!firestore) return 'client';
@@ -991,6 +1057,53 @@ editorRouter.delete('/qna/:id', requireRole(['admin', 'editor']), async (req, re
 });
 
 app.use('/api/editor', editorRouter);
+
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    if (!cachedStaticSitemap) {
+      try {
+        cachedStaticSitemap = fs.readFileSync(staticSitemapPath, 'utf8');
+      } catch (error) {
+        console.warn('Unable to read static sitemap on demand:', error.message);
+      }
+    }
+
+    const qaEntries = await buildQaSitemapEntries();
+    const qaXml = qaEntries
+      .map(
+        (entry) => `  <url>
+    <loc>${FRONTEND_SITE_URL}/question/${encodeURIComponent(entry.questionNumber)}/${encodeURIComponent(entry.slug)}</loc>
+    <lastmod>${entry.lastmod}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`
+      )
+      .join('\n');
+
+    let baseXml =
+      cachedStaticSitemap && cachedStaticSitemap.includes('</urlset>')
+        ? cachedStaticSitemap
+        : DEFAULT_SITEMAP_XML;
+
+    if (qaXml) {
+      const closingTag = '</urlset>';
+      if (baseXml.includes(closingTag)) {
+        const idx = baseXml.lastIndexOf(closingTag);
+        baseXml = `${baseXml.slice(0, idx)}${qaXml}\n${closingTag}`;
+      } else {
+        baseXml = DEFAULT_SITEMAP_XML.replace(
+          '</urlset>',
+          `${qaXml}\n</urlset>`
+        );
+      }
+    }
+
+    res.type('application/xml').send(baseXml);
+  } catch (error) {
+    console.error('Failed to serve sitemap.xml:', error);
+    res.status(500).type('text/plain').send('Unable to generate sitemap.');
+  }
+});
 
 // --- Serve Vite build ---
 const dist = path.join(process.cwd(), 'dist');

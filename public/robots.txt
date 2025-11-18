@@ -1,19 +1,21 @@
 User-agent: *
-
-Disallow: /cart/
-
-Disallow: /checkout/
-
-Disallow: /my-account/
-
-Disallow: /shop/
-
-Disallow: /search
-
-Disallow: /*?s=
-
 Allow: /
+Allow: /question/
 
+Disallow: /admin/
+Disallow: /editor/
+Disallow: /client/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /settings/
+Disallow: /orders/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /shop/
+Disallow: /search
+Disallow: /*?s=
+Disallow: /api/
 
-
-Sitemap: https://essayembassy.com/sitemap.xml
+# Sitemap
+Sitemap: https://essay-embassy-project.onrender.com/sitemap.xml

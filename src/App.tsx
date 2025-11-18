@@ -8,6 +8,7 @@ import LoadingSpinner from './components/Common/LoadingSpinner';
 import SocialProofNotificationSystem from './components/Common/SocialProofNotificationSystem';
 import ScrollToTop from './components/Common/ScrollToTop';
 import GeoBlock from './components/GeoBlock';
+import NoIndex from './components/NoIndex';
 
 // --- Core Page Imports ---
 import Home from './pages/Home';
@@ -159,7 +160,12 @@ function ProtectedRoute({
   }
 
   // If authenticated and authorized, render the children
-  return <>{children}</>;
+  return (
+    <>
+      <NoIndex />
+      {children}
+    </>
+  );
 }
 
 function EditorRoute({ children }: { children: React.ReactNode }) {

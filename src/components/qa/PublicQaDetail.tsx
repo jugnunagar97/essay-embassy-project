@@ -9,11 +9,13 @@ import {
   serverTimestamp,
   where,
 } from "firebase/firestore";
+import { Helmet } from "react-helmet-async";
 
 import { getQaByQuestionNumber, listQa, type QaEntry } from "../../lib/qaStore";
 import LoadingSpinner from "../Common/LoadingSpinner";
 import { useAuth } from "../../context/AuthContext";
 import { auth, db } from "../../firebase";
+import { buildQaCanonicalUrl, isGooglebot, stripHtml } from "../../utils/seo";
 
 declare global {
   interface Window {
@@ -30,6 +32,11 @@ const formatINR = (value: number) => {
     maximumFractionDigits: hasDecimal ? 2 : 0,
   })}`;
 };
+
+const SITE_URL =
+  import.meta.env.VITE_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  "https://essay-embassy-project.onrender.com";
+const DEFAULT_UPVOTE_COUNT = 10;
 
 function useUnlocked() {
   const KEY = "qaUnlockedIds";
@@ -320,6 +327,66 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
   }, [entry, isUnlocked, remoteUnlocked]);
 
   const priceLabel = entry ? formatINR(entry.price) : "₹0";
+  const canonicalUrl = useMemo(() => {
+    if (!entry) return "";
+    return buildQaCanonicalUrl(entry.questionNumber, entry.slug, SITE_URL);
+  }, [entry]);
+  const plainTitle = entry
+    ? stripHtml(entry.title || entry.question || `Question ${entry.questionNumber}`)
+    : "Essay Embassy Q&A";
+  const questionText = entry ? stripHtml(entry.question || entry.title) : "";
+  const answerText = entry ? stripHtml(entry.answer) : "";
+  const metaDescription = questionText.slice(0, 155) || plainTitle;
+  const shouldShowAnswer = useMemo(() => {
+    if (!entry) return false;
+    if (isGooglebot()) return true;
+    return unlocked;
+  }, [entry, unlocked]);
+  const qaJsonLd = useMemo(() => {
+    if (!entry || !canonicalUrl) return null;
+    const createdAtIso = new Date(entry.createdAt || Date.now()).toISOString();
+    return {
+      "@context": "https://schema.org",
+      "@type": "QAPage",
+      mainEntity: {
+        "@type": "Question",
+        name: plainTitle,
+        text: questionText || plainTitle,
+        answerCount: 1,
+        upvoteCount: DEFAULT_UPVOTE_COUNT,
+        dateCreated: createdAtIso,
+        author: {
+          "@type": "Person",
+          name: "Essay Embassy Expert",
+        },
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: answerText,
+          dateCreated: createdAtIso,
+          upvoteCount: DEFAULT_UPVOTE_COUNT,
+          url: canonicalUrl,
+          author: {
+            "@type": "Person",
+            name: "Essay Embassy Expert",
+          },
+        },
+      },
+    };
+  }, [answerText, canonicalUrl, entry, plainTitle, questionText]);
+  const paywallJsonLd = useMemo(() => {
+    if (!canonicalUrl) return null;
+    return {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      isAccessibleForFree: "False",
+      url: canonicalUrl,
+      hasPart: {
+        "@type": "WebPageElement",
+        isAccessibleForFree: "False",
+        cssSelector: ".paywall-content",
+      },
+    };
+  }, [canonicalUrl]);
 
   if (loading) {
     return (
@@ -345,24 +412,81 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <Helmet>
+        <title>{`${plainTitle} | Essay Embassy Q&A`}</title>
+        <meta name="description" content={metaDescription} />
+        <meta
+          name="keywords"
+          content={entry.subject || "essay help, expert answers, tutoring"}
+        />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={`${plainTitle} | Essay Embassy Q&A`} />
+        <meta property="og:description" content={metaDescription} />
+        {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${plainTitle} | Essay Embassy Q&A`} />
+        <meta name="twitter:description" content={metaDescription} />
+        {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+        {qaJsonLd ? (
+          <script type="application/ld+json">{JSON.stringify(qaJsonLd)}</script>
+        ) : null}
+        {paywallJsonLd ? (
+          <script type="application/ld+json">{JSON.stringify(paywallJsonLd)}</script>
+        ) : null}
+      </Helmet>
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Breadcrumb */}
         <div className="mb-8">
-          <Link 
-            to="/qa" 
-            className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+          <nav
+            aria-label="Breadcrumb"
+            itemScope
+            itemType="https://schema.org/BreadcrumbList"
+            className="text-sm text-gray-600 dark:text-gray-400"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back to Knowledge Base
-          </Link>
-      </div>
+            <span
+              itemProp="itemListElement"
+              itemScope
+              itemType="https://schema.org/ListItem"
+              className="inline-flex items-center gap-2"
+            >
+              <Link itemProp="item" to="/">
+                <span itemProp="name">Home</span>
+              </Link>
+              <meta itemProp="position" content="1" />
+              <span className="mx-2 text-gray-400">/</span>
+            </span>
+            <span
+              itemProp="itemListElement"
+              itemScope
+              itemType="https://schema.org/ListItem"
+              className="inline-flex items-center gap-2"
+            >
+              <Link itemProp="item" to="/qa">
+                <span itemProp="name">Knowledge Base</span>
+              </Link>
+              <meta itemProp="position" content="2" />
+              <span className="mx-2 text-gray-400">/</span>
+            </span>
+            <span
+              itemProp="itemListElement"
+              itemScope
+              itemType="https://schema.org/ListItem"
+              className="inline-flex items-center gap-1 text-primary-600 dark:text-primary-400"
+            >
+              <span itemProp="name">{plainTitle}</span>
+              <meta itemProp="position" content="3" />
+            </span>
+          </nav>
+        </div>
 
       {/* Main layout with sidebar */}
         <div className="grid lg:grid-cols-[minmax(0,1fr)_380px] gap-8 items-start">
         {/* Content card */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <article
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+            itemScope
+            itemType="https://schema.org/QAPage"
+          >
             {/* Header */}
             <div className="bg-gradient-to-r from-primary-600 to-primary-700 p-6 text-white">
               <div className="flex items-center justify-between mb-4">
@@ -386,21 +510,43 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
             {/* Content */}
             <div className="p-8 space-y-8">
               {/* Question Section */}
-              <section className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6">
+              <section
+                className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6"
+                itemScope
+                itemProp="mainEntity"
+                itemType="https://schema.org/Question"
+              >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
                     <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Question</h2>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white" itemProp="name">
+                    {plainTitle}
+                  </h2>
                 </div>
-                <div className="prose prose-gray dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: entry.question }} />
+                <meta itemProp="answerCount" content="1" />
+                <meta itemProp="upvoteCount" content={String(DEFAULT_UPVOTE_COUNT)} />
+                <meta
+                  itemProp="dateCreated"
+                  content={new Date(entry.createdAt || Date.now()).toISOString()}
+                />
+                <div
+                  className="prose prose-gray dark:prose-invert max-w-none"
+                  itemProp="text"
+                  dangerouslySetInnerHTML={{ __html: entry.question }}
+                />
             </section>
 
               {/* Answer Section */}
-            {unlocked ? (
-              <section className="bg-gradient-to-r from-green-50 to-teal-50 rounded-lg border-2 border-green-200 dark:border-green-800 p-6">
+            {shouldShowAnswer ? (
+              <section
+                className="bg-gradient-to-r from-green-50 to-teal-50 rounded-lg border-2 border-green-200 dark:border-green-800 p-6"
+                itemScope
+                itemProp="acceptedAnswer"
+                itemType="https://schema.org/Answer"
+              >
                 <div className="flex items-center mb-4">
                   <svg
                     className="w-6 h-6 text-green-600 mr-2"
@@ -417,17 +563,21 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
                     Expert Solution
                   </h3>
                   <span className="ml-auto text-sm text-green-600 font-medium">
-                    ✓ Unlocked
+                    {unlocked ? "✓ Unlocked" : "Previewing for Google"}
                   </span>
                 </div>
 
+                <meta itemProp="upvoteCount" content={String(DEFAULT_UPVOTE_COUNT)} />
                 <div
-                  className="prose prose-gray dark:prose-invert max-w-none"
+                  className={`prose prose-gray dark:prose-invert max-w-none paywall-content ${
+                    unlocked ? "" : "seo-only"
+                  }`}
+                  itemProp="text"
                   dangerouslySetInnerHTML={{ __html: entry.answer }}
                 />
               </section>
             ) : (
-              <section className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-8 text-center shadow-lg">
+              <section className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-8 text-center shadow-lg paywall-content">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-teal-100 dark:bg-teal-900/30 rounded-full mb-4">
                   <svg
                     className="w-8 h-8 text-teal-600"
@@ -616,7 +766,7 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
               </div>
             </section>
             </div>
-          </div>
+          </article>
         </div>
       </div>
     </div>

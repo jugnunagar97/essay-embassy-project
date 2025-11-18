@@ -4,6 +4,7 @@ import { PenSquare, MessageSquareText, FileText, LogOut, Menu, X } from 'lucide-
 import { useAuth } from '../../context/AuthContext';
 import Header from './Header';
 import Footer from './Footer';
+import NoIndex from '../NoIndex';
 
 const navItems = [
   { to: '/editor/reviews', label: 'Reviews', icon: PenSquare },
@@ -67,6 +68,7 @@ export default function EditorLayout() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
+      <NoIndex title="Editor Workspace" />
       <Header />
       <div className="flex flex-1 relative">
         {/* Backdrop Overlay - Mobile Only */}

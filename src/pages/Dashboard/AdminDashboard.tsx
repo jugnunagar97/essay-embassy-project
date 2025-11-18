@@ -1,4 +1,4 @@
-import { 
+import {
   Users, 
   FileText, 
   DollarSign, 
@@ -14,6 +14,7 @@ import { format, isValid } from 'date-fns';
 import { Order } from '../../types'; 
 import { Link } from 'react-router-dom'; // Re-added Link as it's used in "View All Orders"
 import { db } from '../../firebase';
+import NoIndex from '../../components/NoIndex';
 
 // Helper function to safely format dates
 const formatDate = (timestamp: any, formatString: string = 'MMM dd,yyyy'): string => { 
@@ -71,6 +72,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
+      <NoIndex title="Admin Dashboard" />
       <main className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-8">
         {/* Welcome Section */}

@@ -201,6 +201,23 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
+.paywall-content {
+  position: relative;
+}
+
+.seo-only {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
 .bg-editorSidebar {
   background: linear-gradient(180deg, #0b2f4f, #0c1a2b 65%);
   color: #f8fafc;
