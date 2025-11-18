@@ -8,6 +8,15 @@ export default defineConfig({
     exclude: ['lucide-react'],
     include: ['react-icons/fa', 'react-icons'],
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   resolve: {
     alias: {
       'react-icons/fa': 'react-icons/fa',

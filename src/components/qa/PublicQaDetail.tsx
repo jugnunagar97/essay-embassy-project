@@ -9,6 +9,7 @@ import LoadingSpinner from "../Common/LoadingSpinner";
 import { useAuth } from "../../context/AuthContext";
 import { auth, db } from "../../firebase";
 import { buildQaCanonicalUrl, isGooglebot, stripHtml } from "../../utils/seo";
+import { API_BASE_URL } from "../../config/api";
 
 declare global {
   interface Window {
@@ -152,15 +153,10 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
     checkIfUnlocked();
   }, [user, entry, checkIfUnlocked]);
 
-  const apiBase =
-    (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(
-      /\/$/,
-      ""
-    ) || "";
-  const createOrderUrl = `${apiBase}/api/create-order`;
-  const registerAccessUrl = `${apiBase}/api/register-access`;
-  const sendMagicLinkUrl = `${apiBase}/api/send-magic-link`;
-  const verifyAccessUrl = `${apiBase}/api/verify-access`;
+  const createOrderUrl = `${API_BASE_URL}/api/create-order`;
+  const registerAccessUrl = `${API_BASE_URL}/api/register-access`;
+  const sendMagicLinkUrl = `${API_BASE_URL}/api/send-magic-link`;
+  const verifyAccessUrl = `${API_BASE_URL}/api/verify-access`;
 
   const accessStorageKey = entry
     ? `${ACCESS_TOKEN_PREFIX}${entry.questionNumber}`
