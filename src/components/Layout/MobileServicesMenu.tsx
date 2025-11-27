@@ -2,9 +2,8 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, XCircle } from 'lucide-react';
-import { useServiceCategories, useSubServices } from '../../hooks/useData'; // Import the hooks to fetch dynamic data
-import { ServiceCategory, SubService } from '../../types'; // Import types
-import CurrencyConverter from '../Common/CurrencyConverter';
+import { useServiceCategories, useSubServices } from '../../hooks/useData';
+import type { ServiceCategory, SubService } from '../../types';
 
 // Define props interface for MobileServicesMenu (FIXED: Prop name and void return type)
 interface MobileServicesMenuProps {
@@ -24,26 +23,27 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
   };
 
   // Memoize the structured menu data for efficient rendering
-  const structuredServicesMenu = useMemo(() => {
+  const structuredCategories = useMemo(() => {
     if (isLoadingCategories || isLoadingServices) {
-      return []; // Return empty array while loading
+      return [];
     }
 
-    // Filter and sort active categories
-    const activeCategories = categories
-      .filter((cat: ServiceCategory) => cat.isActive)
-      .sort((a: ServiceCategory, b: ServiceCategory) => (a.order || 0) - (b.order || 0));
+    const activeCategories = (categories as ServiceCategory[])
+      .filter((cat) => cat.isActive)
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
 
-    // Structure the data: each category with its active, sorted sub-services
-    return activeCategories.map((category: ServiceCategory) => {
-      const subServices = services
-        .filter((service: SubService) => service.categoryId === category.id && service.isActive)
-        .sort((a: SubService, b: SubService) => (a.order || 0) - (b.order || 0));
-      return {
-        ...category, // Include all category properties
-        subServices: subServices,
-      };
-    }).filter(category => category.subServices.length > 0); // Only show categories that have active services
+    return activeCategories
+      .map((category) => {
+        const subServices = (services as SubService[])
+          .filter((service) => service.categoryId === category.id && service.isActive)
+          .sort((a, b) => (a.order || 0) - (b.order || 0));
+
+        return {
+          ...category,
+          subServices,
+        };
+      })
+      .filter((category) => category.subServices.length > 0);
   }, [categories, services, isLoadingCategories, isLoadingServices]);
 
   // Show a loading state if data is still being fetched
@@ -70,7 +70,7 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
       {/* Main Navigation Links */}
       <nav className="p-4 space-y-2">
         {/* Direct link to the main Services overview page */}
-        {structuredServicesMenu.length > 0 && ( // Only show if there are actual categories/services
+        {structuredCategories.length > 0 && ( // Only show if there are actual categories/services
           <Link
             to="/services"
             onClick={onClose}
@@ -82,10 +82,10 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
 
 
         {/* Dynamically generated service categories and sub-services */}
-        {structuredServicesMenu.length === 0 ? (
+        {structuredCategories.length === 0 ? (
           <p className="px-3 py-2 text-gray-500 text-sm">No active services or categories found.</p>
         ) : (
-          structuredServicesMenu.map((category) => {
+          structuredCategories.map((category) => {
             const isExpanded = expandedCategory === category.id;
             return (
               <div key={category.id} className="border-t border-gray-100 dark:border-gray-700 pt-2 first:border-t-0 first:pt-0">

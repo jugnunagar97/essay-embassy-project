@@ -82,6 +82,7 @@ import EngineeringAssignmentHelp from './pages/Services/EngineeringAssignmentHel
 import BiotechnologyAssignmentHelp from './pages/Services/BiotechnologyAssignmentHelp';
 import LawAssignmentHelp from './pages/Services/LawAssignmentHelp';
 import ScienceAssignmentHelp from './pages/Services/ScienceAssignmentHelp';
+import DynamicServicePage from './pages/DynamicServicePage';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -255,6 +256,7 @@ function App() {
             <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
             <Route path="term-paper" element={<TermPaper />} />
             <Route path="thesis-writing" element={<ThesisWriting />} />
+            <Route path="services/:slug" element={<DynamicServicePage />} />
 
 
 

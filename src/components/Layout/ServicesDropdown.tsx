@@ -1,86 +1,9 @@
 // src/components/Layout/ServicesDropdown.tsx
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ChevronRight } from 'lucide-react';
-
-const PRIMARY_SERVICES = [
-  {
-    name: 'Essay Writing Services',
-    slug: 'essay-writing',
-    subServices: [
-      { name: 'Admission Essay Writing', slug: 'admission' },
-      { name: 'Narrative Essay Writing', slug: 'narrative' },
-      { name: 'Argumentative Essay Writing', slug: 'argumentative' },
-      { name: 'Scholarship Essay Writing', slug: 'scholarship' },
-      { name: 'Reflective Essay Writing', slug: 'reflective' },
-      { name: 'Compare and Contrast Essay Writing', slug: 'compare-contrast' },
-    ],
-  },
-  {
-    name: 'Academic Writing Services',
-    slug: 'academic-writing',
-    subServices: [
-      { name: 'Book Review', slug: 'book-review' },
-      { name: 'Case Study Help', slug: 'case-study-help' },
-      { name: 'Lab Report', slug: 'lab-report' },
-      { name: 'Term Paper', slug: 'term-paper' },
-    ],
-  },
-  {
-    name: 'Assignment Help',
-    slug: 'assignment-help',
-    subServices: [
-      { name: 'Management Assignment Help', slug: 'management' },
-      { name: 'Computer Assignment Help', slug: 'computer' },
-      { name: 'Engineering Assignment Help', slug: 'engineering' },
-      { name: 'Science Assignment Help', slug: 'science' },
-      { name: 'Mathematics Assignment Help', slug: 'math' },
-      { name: 'Law Assignment Help', slug: 'law' },
-      { name: 'English Assignment Help', slug: 'english-assignment-help' },
-      { name: 'Physics Assignment Help', slug: 'physics-assignment-help' },
-      { name: 'Accounting Assignment Help', slug: 'accounting' },
-      { name: 'Chemistry Assignment Help', slug: 'chemistry' },
-    ],
-  },
-  {
-    name: 'Homework Help',
-    slug: 'homework-help',
-    subServices: [
-      { name: 'Lab Report', slug: 'lab-report' },
-    ],
-  },
-  {
-    name: 'Programming Help',
-    slug: 'programming-help',
-    subServices: [
-      { name: 'Python Programming Help', slug: 'python' },
-      { name: 'Java Programming Help', slug: 'java' },
-      { name: 'JS Programming Help', slug: 'js' },
-      { name: 'C Programming Help', slug: 'c' },
-      { name: 'C# Programming Help', slug: 'csharp' },
-      { name: 'C++ Programming Help', slug: 'cpp' },
-      { name: 'MATLAB Programming Help', slug: 'matlab' },
-      { name: 'Ruby Programming Help', slug: 'ruby' },
-    ],
-  },
-  {
-    name: 'Thesis Writing Help',
-    slug: 'thesis-writing',
-    subServices: [],
-  },
-  {
-    name: 'Dissertation Writing Help',
-    slug: 'dissertation-writing',
-    subServices: [],
-  },
-  {
-    name: 'Research Paper Writing Help',
-    slug: 'research-paper-writing',
-    subServices: [
-      { name: 'Research Proposal', slug: 'research-proposal'},
-    ],
-  },
-];
+import { ChevronDown } from 'lucide-react';
+import { useServiceCategories, useSubServices } from '../../hooks/useData';
+import type { ServiceCategory, SubService } from '../../types';
 
 function isMobile() {
   if (typeof window === 'undefined') return false;
@@ -89,10 +12,33 @@ function isMobile() {
 
 export default function ServicesDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activePrimary, setActivePrimary] = useState<string | null>(null);
-  const [mobileSubOpen, setMobileSubOpen] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { categories, isLoading: isLoadingCategories } = useServiceCategories();
+  const { services, isLoading: isLoadingServices } = useSubServices();
+
+  const isLoadingData = isLoadingCategories || isLoadingServices;
+
+  const structuredCategories = useMemo(() => {
+    if (isLoadingData) return [];
+    const activeCategories = (categories as ServiceCategory[])
+      .filter((category) => category.isActive)
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
+
+    return activeCategories
+      .map((category) => {
+        const relatedServices = (services as SubService[])
+          .filter((service) => service.categoryId === category.id && service.isActive)
+          .sort((a, b) => (a.order || 0) - (b.order || 0));
+
+        return {
+          id: category.id,
+          name: category.name,
+          services: relatedServices,
+        };
+      })
+      .filter((group) => group.services.length > 0);
+  }, [categories, services, isLoadingData]);
 
   // Improved hover handling with delay
   const handleMouseEnter = () => {
@@ -109,7 +55,6 @@ export default function ServicesDropdown() {
     if (!isMobile()) {
       closeTimeoutRef.current = setTimeout(() => {
         setIsOpen(false);
-        setActivePrimary(null);
       }, 150); // 150ms delay before closing
     }
   };
@@ -119,8 +64,6 @@ export default function ServicesDropdown() {
     const handleClick = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setIsOpen(false);
-        setActivePrimary(null);
-        setMobileSubOpen(null);
       }
     };
     if (isOpen) document.addEventListener('mousedown', handleClick);
@@ -132,8 +75,6 @@ export default function ServicesDropdown() {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsOpen(false);
-        setActivePrimary(null);
-        setMobileSubOpen(null);
       }
     };
     if (isOpen) document.addEventListener('keydown', handleKey);
@@ -148,33 +89,6 @@ export default function ServicesDropdown() {
       }
     };
   }, []);
-
-  // Desktop hover logic
-  const handlePrimaryEnter = (slug: string) => {
-    if (!isMobile()) {
-      if (closeTimeoutRef.current) {
-        clearTimeout(closeTimeoutRef.current);
-        closeTimeoutRef.current = null;
-      }
-      setActivePrimary(slug);
-    }
-  };
-
-  const handlePrimaryLeave = () => {
-    if (!isMobile()) {
-      closeTimeoutRef.current = setTimeout(() => {
-        setActivePrimary(null);
-      }, 100); // 100ms delay for sub-menu
-    }
-  };
-
-  // Mobile tap logic
-  const handlePrimaryClick = (slug: string, e: React.MouseEvent) => {
-    if (isMobile()) {
-      e.preventDefault();
-      setMobileSubOpen(mobileSubOpen === slug ? null : slug);
-    }
-  };
 
   return (
     <div
@@ -196,55 +110,35 @@ export default function ServicesDropdown() {
       </button>
       {/* Dropdown Panel */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 min-w-[260px] w-72 lg:w-80">
-          <ul className="py-2">
-            {PRIMARY_SERVICES.map((service) => {
-              const hasSub = service.subServices.length > 0;
-              const isActive = activePrimary === service.slug;
-              return (
-                <li
-                  key={service.slug}
-                  className="relative group"
-                  onMouseEnter={() => handlePrimaryEnter(service.slug)}
-                  onMouseLeave={handlePrimaryLeave}
-                >
-                  <Link
-                    to={`/${service.slug}`}
-                    className={`flex items-center justify-between px-5 py-2 text-sm font-semibold rounded-md transition-colors
-                      ${isActive || (isMobile() && mobileSubOpen === service.slug) ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/20 dark:text-primary-300' : 'text-gray-700 dark:text-gray-200 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-900/20 dark:hover:text-primary-300'}`}
-                    onClick={hasSub && isMobile() ? (e) => handlePrimaryClick(service.slug, e) : undefined}
-                    aria-haspopup={hasSub ? 'true' : undefined}
-                    aria-expanded={hasSub && ((isMobile() && mobileSubOpen === service.slug) || (!isMobile() && isActive))}
-                  >
-                    <span>{service.name}</span>
-                    {hasSub && <ChevronRight size={16} className="ml-2" />}
-                  </Link>
-                  {/* Sub-menu (Desktop: hover, Mobile: tap) */}
-                  {hasSub && (
-                    <div
-                      className={`absolute top-0 left-full ml-1 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-200 z-50
-                        ${isMobile() ? (mobileSubOpen === service.slug ? 'block' : 'hidden') : (isActive ? 'block' : 'hidden')}`}
-                      style={{ minHeight: 0 }}
-                    >
-                      <ul className="py-2">
-                        {service.subServices.map((sub) => (
-                          <li key={sub.slug}>
-                            <Link
-                              to={sub.slug === 'research-proposal' ? `/${sub.slug}` : `/${service.slug}/${sub.slug}`}
-                              className="block px-5 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-900/20 dark:hover:text-primary-300 rounded-md transition-colors"
-                              onClick={() => { setIsOpen(false); setActivePrimary(null); setMobileSubOpen(null); }}
-                            >
-                              {sub.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+        <div className="absolute top-full left-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 min-w-[260px] w-[640px]">
+          {isLoadingData ? (
+            <div className="p-6 text-center text-sm text-gray-500 dark:text-gray-300">Loading services…</div>
+          ) : structuredCategories.length === 0 ? (
+            <div className="p-6 text-center text-sm text-gray-500 dark:text-gray-300">No services available yet.</div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+              {structuredCategories.map((category) => (
+                <div key={category.id} className="space-y-2">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white tracking-wide uppercase">
+                    {category.name}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {category.services.map((service) => (
+                      <li key={service.id}>
+                        <Link
+                          to={`/services/${service.link}`}
+                          className="flex items-center justify-between px-3 py-2 text-sm rounded-md text-gray-700 dark:text-gray-200 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-900/20 dark:hover:text-primary-300 transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <span>{service.name}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

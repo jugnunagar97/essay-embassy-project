@@ -22,6 +22,28 @@ export interface BlogPost {
     updatedAt?: Timestamp;
 }
 
+export type ContentBlockType =
+  | 'HERO'
+  | 'WRITERS'
+  | 'WRITERS_CAROUSEL'
+  | 'WHY_CHOOSE_US'
+  | 'FEATURES_GRID'
+  | 'PRICING'
+  | 'PRICING_TABLE'
+  | 'FAQ'
+  | 'STATS'
+  | 'STATS_ROW'
+  | 'TESTIMONIALS'
+  | 'STEPS'
+  | 'SAMPLES'
+  | 'TEXT';
+
+export interface ContentBlock<T = any> {
+  id: string;
+  type: ContentBlockType;
+  data: T;
+}
+
 // Interface for Service Category
 export interface ServiceCategory {
     id: string;
@@ -42,7 +64,8 @@ export interface SubService {
     isActive: boolean; // To control service visibility/status
     order: number; // For custom ordering of services within a category
     categoryId: string; // Foreign key: Links service to its parent category
-    content?: string; // Rich text content for the full service page (from ReactQuill)
+    content?: string; // Legacy rich text content (kept for backwards compatibility)
+    contentBlocks?: ContentBlock[]; // Block-based content definition
     seoTitle?: string; // SEO title for the service page
     seoDescription?: string; // SEO meta description for the service page
     faqs?: { question: string; answer: string; }[]; // Array of FAQ objects for the service page

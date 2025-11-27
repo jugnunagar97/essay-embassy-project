@@ -1,56 +1,186 @@
 // src/components/Admin/ServiceManager.tsx
 
-import { useState, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useServiceCategories, useSubServices } from '../../hooks/useData';
 import {
   collection, doc, addDoc, updateDoc, deleteDoc, writeBatch, query, where, getDocs, serverTimestamp,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-import { PlusCircle, Edit, Trash2, ArrowUp, ArrowDown, Settings, CheckCircle, XCircle, Plus, Save } from 'lucide-react';
+import {
+  PlusCircle,
+  Edit,
+  Trash2,
+  ArrowUp,
+  ArrowDown,
+  Settings,
+  CheckCircle,
+  XCircle,
+  Plus,
+  Save,
+  GripVertical,
+  LayoutTemplate,
+  Users,
+  Sparkles,
+  DollarSign,
+  HelpCircle,
+  BarChart2,
+  MessageSquare,
+  ListOrdered,
+  Type,
+  Copy,
+} from 'lucide-react';
 import toast from 'react-hot-toast';
-import { ServiceCategory, SubService } from '../../types';
-
-import ReactQuillWrapper from '../Common/ReactQuillWrapper';
-import 'react-quill/dist/quill.snow.css';
+import { ServiceCategory, SubService, ContentBlockType, ContentBlock } from '../../types';
 import LoadingSpinner from '../Common/LoadingSpinner';
+import ReactQuillWrapper from '../Common/ReactQuillWrapper';
 
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 const db = getFirestore();
 const storage = getStorage();
 
+const BLOCK_CONFIG: Record<ContentBlockType, { label: string; description: string; icon: React.ComponentType<any> }> = {
+  HERO: { label: 'Hero', description: 'Intro headline with CTA + order form', icon: LayoutTemplate },
+  WRITERS_CAROUSEL: { label: 'Writers Carousel', description: 'Renders the expert carousel section', icon: Users },
+  WRITERS: { label: 'Writers (legacy)', description: 'Legacy writers block', icon: Users },
+  WHY_CHOOSE_US: { label: 'Why Choose Us', description: 'Feature grid explaining benefits', icon: Sparkles },
+  FEATURES_GRID: { label: 'Features Grid', description: 'Glassmorphism benefit cards', icon: Sparkles },
+  PRICING_TABLE: { label: 'Pricing Table', description: 'Pricing highlights and inclusions', icon: DollarSign },
+  PRICING: { label: 'Pricing Table (legacy)', description: 'Legacy pricing block', icon: DollarSign },
+  FAQ: { label: 'FAQ', description: 'Frequently asked questions accordion', icon: HelpCircle },
+  STATS_ROW: { label: 'Stats Row', description: 'Milestones and trust signals', icon: BarChart2 },
+  STATS: { label: 'Stats Row (legacy)', description: 'Legacy stats block', icon: BarChart2 },
+  TESTIMONIALS: { label: 'Testimonials', description: 'Client stories and ratings', icon: MessageSquare },
+  STEPS: { label: 'Steps', description: 'Explain the delivery process', icon: ListOrdered },
+  SAMPLES: { label: 'Samples Grid', description: 'Displays sample work cards', icon: LayoutTemplate },
+  TEXT: { label: 'Text', description: 'Simple rich text/body content', icon: Type },
+};
+
+const BLOCK_ORDER: ContentBlockType[] = [
+  'HERO',
+  'WRITERS_CAROUSEL',
+  'FEATURES_GRID',
+  'PRICING_TABLE',
+  'FAQ',
+  'STATS_ROW',
+  'TESTIMONIALS',
+  'STEPS',
+  'SAMPLES',
+  'TEXT',
+];
+
+const ICON_BUTTON_CLASS =
+  'h-8 w-8 flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white transition disabled:opacity-30';
+
+const makeWritersBlock = () => ({
+  title: 'Meet Your Admissions Essay Experts',
+  description: 'Work with experienced, degree-holding writers who understand top university requirements.',
+  subtitle: 'Cooperate with graduates from leading universities',
+  logosImage: '/images/univ-logos.svg',
+});
+
+const makeFeaturesBlock = () => ({
+  title: 'Why Choose Our Service',
+  items: [
+    { title: 'Experienced Writers', description: 'Real admissions expertise for each essay.' },
+    { title: 'Personal Approach', description: 'Tailored statements for every school.' },
+    { title: 'Guaranteed Originality', description: 'Plagiarism-free and AI-safe content.' },
+  ],
+});
+
+const makePricingBlock = () => ({
+  title: 'Prices and services',
+  subtitle: 'Prices start at $13.99/page and depend on the page count, deadline, and expert level.',
+  priceLabel: '$13.99/page',
+  included: ['Topic suggestion', 'Formatting', 'Unlimited revisions'],
+  addOns: ['Grade A guarantee', 'VIP support'],
+});
+
+const makeStatsBlock = () => ({
+  items: [
+    { value: '7+', label: 'Years in business' },
+    { value: '500+', label: 'Professional writers' },
+    { value: '10,262+', label: 'Successful orders completed' },
+    { value: '4.8', label: 'Average rating' },
+  ],
+});
+
+const defaultBlockData: Record<ContentBlockType, () => any> = {
+  HERO: () => ({
+    badgeText: 'PLAGIARISM & AI FREE',
+    title: '',
+    subtitle: '',
+    backgroundImage: '',
+    showOrderForm: true,
+  }),
+  WRITERS_CAROUSEL: makeWritersBlock,
+  WRITERS: makeWritersBlock,
+  WHY_CHOOSE_US: makeFeaturesBlock,
+  FEATURES_GRID: makeFeaturesBlock,
+  PRICING_TABLE: makePricingBlock,
+  PRICING: makePricingBlock,
+  FAQ: () => ({
+    title: 'Frequently Asked Questions',
+    items: [{ question: '', answer: '' }],
+  }),
+  STATS_ROW: makeStatsBlock,
+  STATS: makeStatsBlock,
+  TESTIMONIALS: () => ({
+    title: 'Hear What Our Clients Say',
+    items: [
+      { quote: 'They kept my voice but made the story flow.', name: 'EE-77120', meta: 'College', rating: 5 },
+    ],
+  }),
+  STEPS: () => ({
+    title: 'Your Path To A Compelling Essay',
+    steps: [
+      { title: 'Share your prompt and goals', description: 'Upload requirements, schools, and word counts.' },
+      { title: 'Collaborate with your expert', description: 'Review drafts, request adjustments, and approve direction.' },
+      { title: 'Receive your admission-ready essay', description: 'Polished, original, and on time.' },
+    ],
+  }),
+  SAMPLES: () => ({
+    title: 'See Real Admission Essay Examples',
+    description: 'Browse samples that secured admissions to top programs.',
+    samples: [
+      { title: 'School Effectiveness', pages: 6, level: 'College', type: 'Essay', citation: 'APA' },
+      { title: 'LinkedIn Analysis', pages: 6, level: 'Bachelor', type: 'Review', citation: 'MLA' },
+      { title: 'Climate Change Policy', pages: 8, level: 'PhD', type: 'Research Paper', citation: 'Harvard' },
+      { title: 'Modern Art Movements', pages: 5, level: 'High School', type: 'Report', citation: 'Chicago' },
+    ],
+  }),
+  TEXT: () => ({
+    title: '',
+    body: '',
+  }),
+};
+
+const generateBlockId = () => Math.random().toString(36).slice(2, 11);
+
+const slugify = (text: string) =>
+  text
+    .toString()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-+/g, '-');
+
+const cloneBlockData = (data: any) =>
+  data === null || data === undefined ? data : JSON.parse(JSON.stringify(data));
 
 type ModalState =
   | { type: 'category'; data: Partial<ServiceCategory> }
   | {
       type: 'service';
       data: Partial<SubService> & {
-        content?: string;
         seoTitle?: string;
         seoDescription?: string;
-        faqs?: { question: string; answer: string; }[];
         featuredImage?: string;
         featuredImageFile?: File | null;
+        contentBlocks?: ContentBlock[];
       };
     }
   | null;
-
-const serviceQuillModulesConfig = {
-  toolbar: [
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    ['bold', 'italic', 'underline', 'strike'],
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    [{ 'indent': '-1' }, { 'indent': '+1' }],
-    [{ 'direction': 'rtl' }],
-    [{ 'size': ['small', false, 'large', 'huge'] }],
-    [{ 'color': [] }, { 'background': [] }],
-    [{ 'font': [] }],
-    [{ 'align': [] }],
-    ['link', 'image', 'video'],
-    ['blockquote', 'code-block'],
-    ['clean']
-  ],
-};
 
 export default function ServiceManager() {
   const { categories, isLoading: isLoadingCategories, error: categoriesError } = useServiceCategories();
@@ -59,8 +189,765 @@ export default function ServiceManager() {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
   const [modalState, setModalState] = useState<ModalState>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedBlockType, setSelectedBlockType] = useState<ContentBlockType>('HERO');
 
-  const serviceQuillRef = useRef<any>(null);
+  const currentBlocks = modalState?.type === 'service' ? modalState.data?.contentBlocks || [] : [];
+
+  const updateContentBlocks = (updater: (prev: ContentBlock[]) => ContentBlock[]) => {
+    setModalState((state) => {
+      if (!state || state.type !== 'service') return state;
+      const prevBlocks = state.data?.contentBlocks || [];
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          contentBlocks: updater(prevBlocks),
+        },
+      };
+    });
+  };
+
+  const handleAddBlock = (type: ContentBlockType) => {
+    const generator = defaultBlockData[type];
+    const newBlock: ContentBlock = {
+      id: generateBlockId(),
+      type,
+      data: generator ? generator() : {},
+    };
+    updateContentBlocks((prev) => [...prev, newBlock]);
+  };
+
+  const handleBlockFieldChange = (blockId: string, updater: (prev: any) => any) => {
+    updateContentBlocks((blocks) =>
+      blocks.map((block) =>
+        block.id === blockId
+          ? {
+              ...block,
+              data: updater(block.data || {}),
+            }
+          : block,
+      ),
+    );
+  };
+
+  const handleBlockReorder = (index: number, direction: 'up' | 'down') => {
+    updateContentBlocks((blocks) => {
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= blocks.length) return blocks;
+      const updated = [...blocks];
+      const temp = updated[index];
+      updated[index] = updated[targetIndex];
+      updated[targetIndex] = temp;
+      return updated;
+    });
+  };
+
+  const handleRemoveBlock = (blockId: string) => {
+    updateContentBlocks((blocks) => blocks.filter((block) => block.id !== blockId));
+  };
+
+  const handleStringListChange = (blockId: string, key: string, index: number, value: string) => {
+    handleBlockFieldChange(blockId, (prev) => {
+      const list = Array.isArray(prev[key]) ? [...prev[key]] : [];
+      list[index] = value;
+      return { ...prev, [key]: list };
+    });
+  };
+
+  const handleStringListAdd = (blockId: string, key: string) => {
+    handleBlockFieldChange(blockId, (prev) => {
+      const list = Array.isArray(prev[key]) ? [...prev[key]] : [];
+      list.push('');
+      return { ...prev, [key]: list };
+    });
+  };
+
+  const handleStringListRemove = (blockId: string, key: string, index: number) => {
+    handleBlockFieldChange(blockId, (prev) => {
+      const list = Array.isArray(prev[key]) ? [...prev[key]] : [];
+      list.splice(index, 1);
+      return { ...prev, [key]: list };
+    });
+  };
+
+  const handleObjectListChange = (blockId: string, key: string, index: number, field: string, value: any) => {
+    handleBlockFieldChange(blockId, (prev) => {
+      const list = Array.isArray(prev[key]) ? [...prev[key]] : [];
+      const current = list[index] || {};
+      list[index] = { ...current, [field]: value };
+      return { ...prev, [key]: list };
+    });
+  };
+
+  const handleObjectListAdd = (blockId: string, key: string, template: Record<string, any>) => {
+    handleBlockFieldChange(blockId, (prev) => {
+      const list = Array.isArray(prev[key]) ? [...prev[key]] : [];
+      list.push(template);
+      return { ...prev, [key]: list };
+    });
+  };
+
+  const handleObjectListRemove = (blockId: string, key: string, index: number) => {
+    handleBlockFieldChange(blockId, (prev) => {
+      const list = Array.isArray(prev[key]) ? [...prev[key]] : [];
+      list.splice(index, 1);
+      return { ...prev, [key]: list };
+    });
+  };
+
+  const renderStaticBlockInfo = (message: string) => (
+    <div className="rounded-lg border border-dashed border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 p-4 text-sm text-gray-600 dark:text-gray-300">
+      {message}
+    </div>
+  );
+
+  const renderBlockFields = (block: ContentBlock) => {
+    const data = block.data || {};
+    const normalizedType: ContentBlockType =
+      block.type === 'WRITERS' ? 'WRITERS_CAROUSEL'
+        : block.type === 'WHY_CHOOSE_US' ? 'FEATURES_GRID'
+        : block.type === 'PRICING' ? 'PRICING_TABLE'
+        : block.type === 'STATS' ? 'STATS_ROW'
+        : block.type;
+    switch (normalizedType) {
+      case 'HERO':
+        return (
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="md:col-span-2">
+              <label className="form-label">Badge Text</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.badgeText || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, badgeText: e.target.value }))
+                }
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="form-label">Headline</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.title || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, title: e.target.value }))
+                }
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="form-label">Subheadline</label>
+              <textarea
+                className="form-input"
+                rows={3}
+                value={data.subtitle || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, subtitle: e.target.value }))
+                }
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="form-label">Background Image URL</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.backgroundImage || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, backgroundImage: e.target.value }))
+                }
+              />
+            </div>
+            <label className="flex items-center space-x-3 md:col-span-2">
+              <input
+                type="checkbox"
+                className="h-4 w-4 text-primary-600 rounded border-gray-300 focus:ring-primary-500"
+                checked={data.showOrderForm ?? true}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, showOrderForm: e.target.checked }))
+                }
+              />
+              <span className="text-sm text-gray-700 dark:text-gray-200">Show order form in hero</span>
+            </label>
+          </div>
+        );
+      case 'WRITERS_CAROUSEL':
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="form-label">Section Title</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.title || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, title: e.target.value }))
+                }
+              />
+            </div>
+            <div>
+              <label className="form-label">Description</label>
+              <textarea
+                className="form-input"
+                rows={3}
+                value={data.description || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, description: e.target.value }))
+                }
+              />
+            </div>
+            <div>
+              <label className="form-label">Subtitle / Supporting Text</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.subtitle || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, subtitle: e.target.value }))
+                }
+              />
+            </div>
+            <div>
+              <label className="form-label">Logos Image URL</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.logosImage || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, logosImage: e.target.value }))
+                }
+              />
+            </div>
+          </div>
+        );
+      case 'FEATURES_GRID': {
+        const items = Array.isArray(data.items) ? data.items : [];
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="form-label">Section Title</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.title || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, title: e.target.value }))
+                }
+              />
+            </div>
+            <div className="space-y-3">
+              {items.map((item: any, itemIndex: number) => (
+                <div key={itemIndex} className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium text-sm text-gray-700 dark:text-gray-200">Benefit #{itemIndex + 1}</p>
+                    <button
+                      type="button"
+                      className="text-red-500 hover:text-red-600 text-sm"
+                      onClick={() => handleObjectListRemove(block.id, 'items', itemIndex)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <input
+                    className="form-input"
+                    placeholder="Title"
+                    value={item?.title || ''}
+                    onChange={(e) => handleObjectListChange(block.id, 'items', itemIndex, 'title', e.target.value)}
+                  />
+                  <textarea
+                    className="form-input"
+                    rows={2}
+                    placeholder="Description"
+                    value={item?.description || ''}
+                    onChange={(e) =>
+                      handleObjectListChange(block.id, 'items', itemIndex, 'description', e.target.value)
+                    }
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                className="btn-secondary w-full justify-center"
+                onClick={() => handleObjectListAdd(block.id, 'items', { title: '', description: '' })}
+              >
+                <Plus size={16} className="mr-2" /> Add Benefit
+              </button>
+            </div>
+          </div>
+        );
+      }
+      case 'PRICING_TABLE': {
+        const included = Array.isArray(data.included) ? data.included : [];
+        const addOns = Array.isArray(data.addOns) ? data.addOns : [];
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="form-label">Section Title</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.title || ''}
+                onChange={(e) => handleBlockFieldChange(block.id, (prev) => ({ ...prev, title: e.target.value }))}
+              />
+            </div>
+            <div>
+              <label className="form-label">Subtitle</label>
+              <textarea
+                className="form-input"
+                rows={2}
+                value={data.subtitle || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, subtitle: e.target.value }))
+                }
+              />
+            </div>
+            <div>
+              <label className="form-label">Highlight Price Label</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.priceLabel || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, priceLabel: e.target.value }))
+                }
+              />
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <p className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Included Services</p>
+                <div className="space-y-2">
+                  {included.map((item: string, itemIdx: number) => (
+                    <div key={itemIdx} className="flex gap-2">
+                      <input
+                        className="form-input flex-1"
+                        value={item || ''}
+                        onChange={(e) => handleStringListChange(block.id, 'included', itemIdx, e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        className="text-sm text-red-500 hover:text-red-600"
+                        onClick={() => handleStringListRemove(block.id, 'included', itemIdx)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className="btn-secondary w-full justify-center"
+                    onClick={() => handleStringListAdd(block.id, 'included')}
+                  >
+                    <Plus size={16} className="mr-2" /> Add Included Item
+                  </button>
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Add-ons</p>
+                <div className="space-y-2">
+                  {addOns.map((item: string, itemIdx: number) => (
+                    <div key={itemIdx} className="flex gap-2">
+                      <input
+                        className="form-input flex-1"
+                        value={item || ''}
+                        onChange={(e) => handleStringListChange(block.id, 'addOns', itemIdx, e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        className="text-sm text-red-500 hover:text-red-600"
+                        onClick={() => handleStringListRemove(block.id, 'addOns', itemIdx)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className="btn-secondary w-full justify-center"
+                    onClick={() => handleStringListAdd(block.id, 'addOns')}
+                  >
+                    <Plus size={16} className="mr-2" /> Add Add-on
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+      case 'FAQ': {
+        const faqItems = Array.isArray(data.items) ? data.items : [];
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="form-label">Section Title</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.title || ''}
+                onChange={(e) => handleBlockFieldChange(block.id, (prev) => ({ ...prev, title: e.target.value }))}
+              />
+            </div>
+            <div className="space-y-3">
+              {faqItems.map((item: any, itemIndex: number) => (
+                <div key={itemIndex} className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium text-sm text-gray-700 dark:text-gray-200">FAQ #{itemIndex + 1}</p>
+                    <button
+                      type="button"
+                      className="text-red-500 hover:text-red-600 text-sm"
+                      onClick={() => handleObjectListRemove(block.id, 'items', itemIndex)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <input
+                    className="form-input"
+                    placeholder="Question"
+                    value={item?.question || ''}
+                    onChange={(e) =>
+                      handleObjectListChange(block.id, 'items', itemIndex, 'question', e.target.value)
+                    }
+                  />
+                  <textarea
+                    className="form-input"
+                    rows={2}
+                    placeholder="Answer"
+                    value={item?.answer || ''}
+                    onChange={(e) =>
+                      handleObjectListChange(block.id, 'items', itemIndex, 'answer', e.target.value)
+                    }
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                className="btn-secondary w-full justify-center"
+                onClick={() => handleObjectListAdd(block.id, 'items', { question: '', answer: '' })}
+              >
+                <Plus size={16} className="mr-2" /> Add FAQ
+              </button>
+            </div>
+          </div>
+        );
+      }
+      case 'STATS_ROW': {
+        const statItems = Array.isArray(data.items) ? data.items : [];
+        return (
+          <div className="space-y-3">
+            {statItems.map((item: any, itemIndex: number) => (
+              <div key={itemIndex} className="grid gap-2 md:grid-cols-2 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+                <div>
+                  <label className="form-label text-sm">Value</label>
+                  <input
+                    className="form-input"
+                    value={item?.value || ''}
+                    onChange={(e) =>
+                      handleObjectListChange(block.id, 'items', itemIndex, 'value', e.target.value)
+                    }
+                  />
+                </div>
+                <div>
+                  <label className="form-label text-sm">Label</label>
+                  <input
+                    className="form-input"
+                    value={item?.label || ''}
+                    onChange={(e) =>
+                      handleObjectListChange(block.id, 'items', itemIndex, 'label', e.target.value)
+                    }
+                  />
+                </div>
+                <div className="md:col-span-2 flex justify-end">
+                  <button
+                    type="button"
+                    className="text-red-500 hover:text-red-600 text-sm"
+                    onClick={() => handleObjectListRemove(block.id, 'items', itemIndex)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+            <button
+              type="button"
+              className="btn-secondary w-full justify-center"
+              onClick={() => handleObjectListAdd(block.id, 'items', { value: '', label: '' })}
+            >
+              <Plus size={16} className="mr-2" /> Add Stat
+            </button>
+          </div>
+        );
+      }
+      case 'TESTIMONIALS': {
+        const testimonialItems = Array.isArray(data.items) ? data.items : [];
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="form-label">Section Title</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.title || ''}
+                onChange={(e) => handleBlockFieldChange(block.id, (prev) => ({ ...prev, title: e.target.value }))}
+              />
+            </div>
+            <div className="space-y-3">
+              {testimonialItems.map((item: any, itemIndex: number) => (
+                <div key={itemIndex} className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium text-sm text-gray-700 dark:text-gray-200">Testimonial #{itemIndex + 1}</p>
+                    <button
+                      type="button"
+                      className="text-red-500 hover:text-red-600 text-sm"
+                      onClick={() => handleObjectListRemove(block.id, 'items', itemIndex)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <textarea
+                    className="form-input"
+                    rows={3}
+                    placeholder="Quote"
+                    value={item?.quote || ''}
+                    onChange={(e) =>
+                      handleObjectListChange(block.id, 'items', itemIndex, 'quote', e.target.value)
+                    }
+                  />
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <input
+                      className="form-input"
+                      placeholder="Name"
+                      value={item?.name || ''}
+                      onChange={(e) =>
+                        handleObjectListChange(block.id, 'items', itemIndex, 'name', e.target.value)
+                      }
+                    />
+                    <input
+                      className="form-input"
+                      placeholder="Meta (e.g., College, Level)"
+                      value={item?.meta || ''}
+                      onChange={(e) =>
+                        handleObjectListChange(block.id, 'items', itemIndex, 'meta', e.target.value)
+                      }
+                    />
+                  </div>
+                  <div>
+                    <label className="form-label">Rating (1-5)</label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={5}
+                      className="form-input"
+                      value={item?.rating ?? 5}
+                      onChange={(e) =>
+                        handleObjectListChange(block.id, 'items', itemIndex, 'rating', Number(e.target.value))
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+              <button
+                type="button"
+                className="btn-secondary w-full justify-center"
+                onClick={() =>
+                  handleObjectListAdd(block.id, 'items', { quote: '', name: '', meta: '', rating: 5 })
+                }
+              >
+                <Plus size={16} className="mr-2" /> Add Testimonial
+              </button>
+            </div>
+          </div>
+        );
+      }
+      case 'STEPS': {
+        const steps = Array.isArray(data.steps) ? data.steps : [];
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="form-label">Section Title</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.title || ''}
+                onChange={(e) => handleBlockFieldChange(block.id, (prev) => ({ ...prev, title: e.target.value }))}
+              />
+            </div>
+            <div className="space-y-3">
+              {steps.map((item: any, itemIndex: number) => (
+                <div key={itemIndex} className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium text-sm text-gray-700 dark:text-gray-200">Step #{itemIndex + 1}</p>
+                    <button
+                      type="button"
+                      className="text-red-500 hover:text-red-600 text-sm"
+                      onClick={() => handleObjectListRemove(block.id, 'steps', itemIndex)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <input
+                    className="form-input"
+                    placeholder="Step title"
+                    value={item?.title || ''}
+                    onChange={(e) =>
+                      handleObjectListChange(block.id, 'steps', itemIndex, 'title', e.target.value)
+                    }
+                  />
+                  <textarea
+                    className="form-input"
+                    rows={2}
+                    placeholder="Description"
+                    value={item?.description || ''}
+                    onChange={(e) =>
+                      handleObjectListChange(block.id, 'steps', itemIndex, 'description', e.target.value)
+                    }
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                className="btn-secondary w-full justify-center"
+                onClick={() => handleObjectListAdd(block.id, 'steps', { title: '', description: '' })}
+              >
+                <Plus size={16} className="mr-2" /> Add Step
+              </button>
+            </div>
+          </div>
+        );
+      }
+      case 'SAMPLES': {
+        const samples = Array.isArray(data.samples) ? data.samples : [];
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="form-label">Section Title</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.title || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, title: e.target.value }))
+                }
+              />
+            </div>
+            <div>
+              <label className="form-label">Description</label>
+              <textarea
+                className="form-input"
+                rows={2}
+                value={data.description || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, description: e.target.value }))
+                }
+              />
+            </div>
+            <div className="space-y-3">
+              {samples.map((sample: any, idx: number) => (
+                <div key={idx} className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium text-sm text-gray-700 dark:text-gray-200">Sample #{idx + 1}</p>
+                    <button
+                      type="button"
+                      className="text-red-500 hover:text-red-600 text-sm"
+                      onClick={() => handleObjectListRemove(block.id, 'samples', idx)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <input
+                    className="form-input"
+                    placeholder="Title"
+                    value={sample?.title || ''}
+                    onChange={(e) =>
+                      handleObjectListChange(block.id, 'samples', idx, 'title', e.target.value)
+                    }
+                  />
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <input
+                      className="form-input"
+                      placeholder="Pages"
+                      type="number"
+                      min={1}
+                      value={sample?.pages || ''}
+                      onChange={(e) =>
+                        handleObjectListChange(block.id, 'samples', idx, 'pages', Number(e.target.value))
+                      }
+                    />
+                    <input
+                      className="form-input"
+                      placeholder="Academic Level"
+                      value={sample?.level || ''}
+                      onChange={(e) =>
+                        handleObjectListChange(block.id, 'samples', idx, 'level', e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <input
+                      className="form-input"
+                      placeholder="Document Type"
+                      value={sample?.type || ''}
+                      onChange={(e) =>
+                        handleObjectListChange(block.id, 'samples', idx, 'type', e.target.value)
+                      }
+                    />
+                    <input
+                      className="form-input"
+                      placeholder="Citation Style"
+                      value={sample?.citation || ''}
+                      onChange={(e) =>
+                        handleObjectListChange(block.id, 'samples', idx, 'citation', e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+              <button
+                type="button"
+                className="btn-secondary w-full justify-center"
+                onClick={() =>
+                  handleObjectListAdd(block.id, 'samples', {
+                    title: '',
+                    pages: 1,
+                    level: '',
+                    type: '',
+                    citation: '',
+                  })
+                }
+              >
+                <Plus size={16} className="mr-2" /> Add Sample
+              </button>
+            </div>
+          </div>
+        );
+      }
+      case 'TEXT':
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="form-label">Section Title</label>
+              <input
+                type="text"
+                className="form-input"
+                value={data.title || ''}
+                onChange={(e) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, title: e.target.value }))
+                }
+              />
+            </div>
+            <div>
+              <label className="form-label">Rich Text</label>
+              <ReactQuillWrapper
+                value={data.body || ''}
+                onChange={(value) =>
+                  handleBlockFieldChange(block.id, (prev) => ({ ...prev, body: value }))
+                }
+                className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg"
+              />
+            </div>
+          </div>
+        );
+      default:
+        return renderStaticBlockInfo('This block renders a predefined component.');
+    }
+  };
 
   const servicesForSelectedCategory = useMemo(() => {
     if (!selectedCategoryId) return [];
@@ -74,51 +961,6 @@ export default function ServiceManager() {
   const handleModalClose = () => {
     setModalState(null);
   };
-
-  const serviceImageHandler = useCallback(() => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
-
-    input.onchange = async () => {
-  const file = input.files ? input.files[0] : null;
-  if (file) {
-    toast.loading('Uploading image...', { id: 'service-image-upload' });
-    try {
-      const storageRef = ref(storage, `service_content_images/${Date.now()}_${file.name}`);
-      const uploadResult = await uploadBytes(storageRef, file);
-      const imageUrl = await getDownloadURL(uploadResult.ref);
-
-      const quill = serviceQuillRef.current?.getEditor();
-      if (quill) {
-        const range = quill.getSelection();
-        if (range) {
-          quill.insertEmbed(range.index, 'image', imageUrl);
-          quill.setSelection({ index: range.index + 1, length: 0 }); // Updated here
-        } else {
-          const length = quill.getLength();
-          quill.insertEmbed(length, 'image', imageUrl);
-          quill.setSelection({ index: length, length: 0 }); // Updated here
-        }
-      }
-      toast.success('Image uploaded!', { id: 'service-image-upload' });
-    } catch (error: any) {
-      console.error("Error uploading service content image:", error);
-      toast.error(`Image upload failed: ${error.message}`, { id: 'service-image-upload' });
-    }
-  }
-};
-  }, []);
-
-  const memoizedServiceQuillModules = useMemo(() => ({
-    toolbar: {
-      container: serviceQuillModulesConfig.toolbar,
-      handlers: {
-        image: serviceImageHandler,
-      },
-    },
-  }), [serviceImageHandler]);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -176,15 +1018,18 @@ export default function ServiceManager() {
         const dataToSave: Partial<SubService> = {
           name: serviceData.name,
           description: serviceData.description || '',
-          content: serviceData.content || '',
           link: finalSlug,
           isActive: serviceData.isActive || false,
           categoryId: selectedCategoryId,
           seoTitle: serviceData.seoTitle || '',
           seoDescription: serviceData.seoDescription || '',
-          faqs: serviceData.faqs || [],
           featuredImage: imageUrl,
+          contentBlocks: (serviceData.contentBlocks || []).map((block) => ({ ...block })),
         };
+
+        if (typeof serviceData.content === 'string') {
+          dataToSave.content = serviceData.content;
+        }
 
         if (serviceData.id) {
           await updateDoc(doc(collection(db, 'subServices'), serviceData.id), { ...dataToSave, updatedAt: serverTimestamp() });
@@ -295,6 +1140,53 @@ export default function ServiceManager() {
     }
   };
 
+  const handleDuplicateService = async (service: SubService) => {
+    const toastId = toast.loading('Duplicating service...');
+    try {
+      const baseName = service.name || 'Service';
+      const baseSlug = service.link || slugify(baseName);
+      const existingSlugs = new Set(services.map((s) => s.link));
+      let candidate = `${baseSlug}-copy`;
+      let counter = 1;
+      while (existingSlugs.has(candidate)) {
+        candidate = `${baseSlug}-copy-${counter++}`;
+      }
+
+      const categoryServices = services.filter((s) => s.categoryId === service.categoryId);
+      const newOrder =
+        categoryServices.length > 0 ? Math.max(...categoryServices.map((s) => s.order || 0)) + 1 : 1;
+
+      const duplicatedBlocks = (service.contentBlocks || []).map((block) => ({
+        ...block,
+        id: generateBlockId(),
+        data: cloneBlockData(block.data),
+      }));
+
+      const {
+        id,
+        featuredImageFile,
+        createdAt,
+        updatedAt,
+        ...rest
+      } = service as SubService & { featuredImageFile?: File | null };
+
+      await addDoc(collection(db, 'subServices'), {
+        ...rest,
+        name: `${baseName} (Copy)`,
+        link: candidate,
+        order: newOrder,
+        contentBlocks: duplicatedBlocks,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+
+      toast.success('Service duplicated!', { id: toastId });
+    } catch (error: any) {
+      console.error('Duplicate service error:', error);
+      toast.error(`Failed to duplicate: ${error.message}`, { id: toastId });
+    }
+  };
+
   const handleReorder = async (items: (ServiceCategory[] | SubService[]), index: number, direction: 'up' | 'down') => {
     const item = items[index] as ServiceCategory | SubService;
     const otherItemIndex = direction === 'up' ? index - 1 : index + 1;
@@ -373,8 +1265,18 @@ export default function ServiceManager() {
                   onClick={() => setModalState({
                     type: 'service',
                     data: {
-                      name: '', description: '', link: '', isActive: true, order: 0, categoryId: selectedCategoryId || '',
-                      content: '', seoTitle: '', seoDescription: '', faqs: [], featuredImage: '', featuredImageFile: null
+                      name: '',
+                      description: '',
+                      link: '',
+                      isActive: true,
+                      order: 0,
+                      categoryId: selectedCategoryId || '',
+                      content: '',
+                      seoTitle: '',
+                      seoDescription: '',
+                      contentBlocks: [],
+                      featuredImage: '',
+                      featuredImageFile: null
                     }
                   })}
                   className="btn-primary flex items-center"
@@ -400,6 +1302,7 @@ export default function ServiceManager() {
                           <button onClick={(e) => { e.stopPropagation(); handleReorder(servicesForSelectedCategory, index, 'up'); }} disabled={index === 0} className="disabled:opacity-25 hover:text-gray-900 dark:hover:text-white icon-hover" title="Move Up"><ArrowUp size={18} /></button>
                           <button onClick={(e) => { e.stopPropagation(); handleReorder(servicesForSelectedCategory, index, 'down'); }} disabled={index === servicesForSelectedCategory.length - 1} className="disabled:opacity-25 hover:text-gray-900 dark:hover:text-white icon-hover" title="Move Down"><ArrowDown size={18} /></button>
                           <button onClick={(e) => { e.stopPropagation(); setModalState({ type: 'service', data: service }); }} className="hover:text-blue-500 icon-hover" title="Edit Service"><Edit size={18} /></button>
+                          <button onClick={(e) => { e.stopPropagation(); handleDuplicateService(service); }} className="hover:text-emerald-500 icon-hover" title="Duplicate Service"><Copy size={18} /></button>
                           <button onClick={(e) => { e.stopPropagation(); handleDeleteService(service.id, service.name); }} className="hover:text-red-500 icon-hover" title="Delete Service"><Trash2 size={18} /></button>
                         </div>
                       </div>
@@ -488,19 +1391,6 @@ export default function ServiceManager() {
                     </div>
 
                     <div>
-                      <label htmlFor="service-content" className="form-label">Service Content</label>
-                      <ReactQuillWrapper
-                        key={serviceData.id || 'new-service'}
-                        ref={serviceQuillRef}
-                        theme="snow"
-                        value={serviceData.content || ''}
-                        onChange={(content) => setModalState(s => s ? { ...s, data: { ...s.data, content: content } } : null)}
-                        modules={memoizedServiceQuillModules}
-                        className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg"
-                      />
-                    </div>
-
-                    <div>
                       <label htmlFor="service-description" className="form-label">Short Description</label>
                       <textarea
                         id="service-description"
@@ -577,62 +1467,91 @@ export default function ServiceManager() {
                       )}
                     </div>
 
-                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mt-4 border-t pt-4 border-gray-200 dark:border-gray-700">FAQs</h4>
-                    <div className="space-y-4">
-                      {(serviceData.faqs || []).map((faq: { question: string; answer: string; }, faqIndex: number) => (
-                        <div key={faqIndex} className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-100 dark:border-gray-600">
-                          <div className="flex justify-between items-center mb-2">
-                            <h5 className="font-medium text-gray-800 dark:text-gray-200">FAQ #{faqIndex + 1}</h5>
-                            <button
-                              type="button"
-                              onClick={() => setModalState(s => s ? { ...s, data: { ...s.data, faqs: (serviceData.faqs || []).filter((_item, i) => i !== faqIndex) } } : null)}
-                              className="text-red-500 hover:text-red-700 icon-hover"
-                              title="Remove FAQ"
-                            >
-                              <Trash2 size={16} />
-                            </button>
+                    <div className="mt-8">
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-t pt-4 border-gray-200 dark:border-gray-700">Page Sections</h4>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        Build the service page using reusable blocks that mirror the live design.
+                      </p>
+                      <div className="mt-4 space-y-4">
+                        {currentBlocks.length === 0 ? (
+                          <div className="rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-6 text-center text-gray-500 dark:text-gray-400">
+                            No blocks added yet. Use the selector below to add your first section.
                           </div>
-                          <div>
-                            <label htmlFor={`faq-q-${faqIndex}`} className="form-label">Question</label>
-                            <input
-                              id={`faq-q-${faqIndex}`}
-                              type="text"
-                              value={faq.question}
-                              onChange={(e) => setModalState(s => s ? {
-                                ...s,
-                                data: {
-                                  ...s.data,
-                                  faqs: (serviceData.faqs || []).map((item, i) => i === faqIndex ? { ...item, question: e.target.value } : item)
-                                }
-                              } : null)}
-                              className="form-input mb-2"
-                            />
-                          </div>
-                          <div>
-                            <label htmlFor={`faq-a-${faqIndex}`} className="form-label">Answer</label>
-                            <textarea
-                              id={`faq-a-${faqIndex}`}
-                              value={faq.answer}
-                              onChange={(e) => setModalState(s => s ? {
-                                ...s,
-                                data: {
-                                  ...s.data,
-                                  faqs: (serviceData.faqs || []).map((item, i) => i === faqIndex ? { ...item, answer: e.target.value } : item)
-                                }
-                              } : null)}
-                              className="form-input"
-                              rows={2}
-                            />
-                          </div>
-                        </div>
-                      ))}
-                      <button
-                        type="button"
-                        onClick={() => setModalState(s => s ? { ...s, data: { ...s.data, faqs: [...(serviceData.faqs || []), { question: '', answer: '' }] } } : null)}
-                        className="btn-secondary flex items-center justify-center w-full mt-4"
-                      >
-                        <Plus size={18} className="mr-2" /> Add FAQ
-                      </button>
+                        ) : (
+                          currentBlocks.map((block, blockIndex) => {
+                            const BlockIcon = BLOCK_CONFIG[block.type]?.icon || LayoutTemplate;
+                            return (
+                              <div key={block.id} className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-sm">
+                                <div className="flex flex-wrap items-center justify-between gap-3">
+                                  <div className="flex items-center gap-3">
+                                    <GripVertical className="text-gray-400" size={16} />
+                                    <BlockIcon size={20} className="text-primary-500" />
+                                    <div>
+                                      <p className="font-semibold text-gray-900 dark:text-white">
+                                        {BLOCK_CONFIG[block.type]?.label || block.type}
+                                      </p>
+                                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                                        {BLOCK_CONFIG[block.type]?.description || ''}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <button
+                                      type="button"
+                                      className={ICON_BUTTON_CLASS}
+                                      disabled={blockIndex === 0}
+                                      onClick={() => handleBlockReorder(blockIndex, 'up')}
+                                      title="Move up"
+                                    >
+                                      <ArrowUp size={16} />
+                                    </button>
+                                    <button
+                                      type="button"
+                                      className={ICON_BUTTON_CLASS}
+                                      disabled={blockIndex === currentBlocks.length - 1}
+                                      onClick={() => handleBlockReorder(blockIndex, 'down')}
+                                      title="Move down"
+                                    >
+                                      <ArrowDown size={16} />
+                                    </button>
+                                    <button
+                                      type="button"
+                                      className={`${ICON_BUTTON_CLASS} border-red-200 text-red-500 hover:text-red-600 dark:border-red-400/40`}
+                                      onClick={() => handleRemoveBlock(block.id)}
+                                      title="Remove block"
+                                    >
+                                      <Trash2 size={16} />
+                                    </button>
+                                  </div>
+                                </div>
+                                <div className="mt-4 space-y-4">
+                                  {renderBlockFields(block)}
+                                </div>
+                              </div>
+                            );
+                          })
+                        )}
+                      </div>
+                      <div className="mt-4 flex flex-wrap items-center gap-3">
+                        <select
+                          value={selectedBlockType}
+                          onChange={(e) => setSelectedBlockType(e.target.value as ContentBlockType)}
+                          className="form-input w-full md:w-64"
+                        >
+                          {BLOCK_ORDER.map((type) => (
+                            <option key={type} value={type}>
+                              {BLOCK_CONFIG[type].label}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          type="button"
+                          className="btn-secondary flex items-center"
+                          onClick={() => handleAddBlock(selectedBlockType)}
+                        >
+                          <Plus size={16} className="mr-2" /> Add Section
+                        </button>
+                      </div>
                     </div>
 
                     <div className="flex items-center mt-6">
