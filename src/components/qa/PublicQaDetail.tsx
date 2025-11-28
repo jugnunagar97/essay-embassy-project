@@ -452,6 +452,8 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
   const questionText = entry ? stripHtml(entry.question || entry.title) : "";
   const answerText = entry ? stripHtml(entry.answer) : "";
   const hasAnswer = entry ? answerText.trim().length > 0 : false;
+  const questionAttachments = entry?.questionAttachments ?? [];
+  const answerAttachments = entry?.answerAttachments ?? [];
   const metaDescription = questionText.slice(0, 155) || plainTitle;
   const shouldShowAnswer = useMemo(() => {
     if (!entry) return false;
@@ -546,6 +548,55 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
     setOptionalEmail("");
     setMagicLinkSent(false);
   }, [entry?.id]);
+
+  const renderAttachments = (
+    attachments: NonNullable<QaEntry["questionAttachments"]>,
+    prefix: "question" | "answer"
+  ) => {
+    if (!attachments.length) return null;
+    return (
+      <div className="mt-4 space-y-3">
+        {attachments.map((attachment, index) =>
+          attachment.type === "image" ? (
+            <div
+              key={`${prefix}-img-${index}`}
+              className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden"
+            >
+              <img
+                src={attachment.url}
+                alt={attachment.name}
+                loading="lazy"
+                className="w-full h-auto object-contain bg-white"
+              />
+            </div>
+          ) : (
+            <a
+              key={`${prefix}-pdf-${index}`}
+              href={attachment.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 rounded-lg text-sm font-semibold hover:bg-primary-100 transition-colors"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 11V7m0 4l-2-2m2 2l2-2m-2 6a4 4 0 010 8m0-8a4 4 0 010-8m0 8v8"
+                />
+              </svg>
+              View PDF ({attachment.name})
+            </a>
+          )
+        )}
+      </div>
+    );
+  };
 
   if (loading) {
     return (
@@ -696,6 +747,7 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
                   itemProp="text"
                   dangerouslySetInnerHTML={{ __html: entry.question }}
                 />
+                {renderAttachments(questionAttachments, "question")}
             </section>
 
               {/* Answer Section */}
@@ -735,6 +787,7 @@ const PublicQaDetail: React.FC<PublicQaDetailProps> = ({
                     itemProp="text"
                     dangerouslySetInnerHTML={{ __html: entry.answer }}
                   />
+                  {renderAttachments(answerAttachments, "answer")}
                 </section>
               ) : (
                 <section className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-8 text-center shadow-lg paywall-content">

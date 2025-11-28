@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EnhancedRichTextEditor from "../common/EnhancedRichTextEditor";
 import LoadingSpinner from "../common/LoadingSpinner";
-import { QaEntry, getQaById, slugify, updateQa, upsertQa } from "../../lib/qaStore";
+import { QaEntry, QaAttachment, getQaById, slugify, updateQa, upsertQa } from "../../lib/qaStore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase";
 
 const SUBJECTS = [
   "History",
@@ -41,10 +43,15 @@ const QaForm: React.FC<Props> = ({
 }) => {
   const navigate = useNavigate();
   const isEdit = Boolean(id);
+  const draftIdRef = useRef(id || `draft-${Date.now()}`);
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(!!id);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [uploading, setUploading] = useState<{ question: boolean; answer: boolean }>({
+    question: false,
+    answer: false,
+  });
 
   const [form, setForm] = useState({
     title: "",
@@ -55,6 +62,8 @@ const QaForm: React.FC<Props> = ({
     price: "",
     status: "draft" as QaEntry["status"],
   });
+  const [questionAttachments, setQuestionAttachments] = useState<QaAttachment[]>([]);
+  const [answerAttachments, setAnswerAttachments] = useState<QaAttachment[]>([]);
 
 useEffect(() => {
   let isMounted = true;
@@ -76,6 +85,8 @@ useEffect(() => {
           price: String(entry.price ?? ""),
           status: entry.status,
         });
+        setQuestionAttachments(entry.questionAttachments || []);
+        setAnswerAttachments(entry.answerAttachments || []);
       } else {
         setError("Q&A entry not found.");
       }
@@ -91,11 +102,111 @@ useEffect(() => {
   };
 }, [id]);
 
+  useEffect(() => {
+    if (id) {
+      draftIdRef.current = id;
+    }
+  }, [id]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
     setError(null);
     setSuccess(null);
+  };
+
+  const handleAttachmentUpload = async (
+    section: "question" | "answer",
+    fileList: FileList | File[]
+  ) => {
+    const files = Array.from(fileList).filter(
+      (file) => file.type.startsWith("image/") || file.type === "application/pdf"
+    );
+    if (!files.length) {
+      setError("Only image or PDF files are supported.");
+      return;
+    }
+    setUploading((prev) => ({ ...prev, [section]: true }));
+    setError(null);
+    try {
+      const targetId = id || draftIdRef.current || `draft-${Date.now()}`;
+      draftIdRef.current = targetId;
+      const uploaded = await Promise.all(
+        files.map(async (file) => {
+          const storagePath = `qa_attachments/${targetId}/${Date.now()}-${file.name}`;
+          const storageRef = ref(storage, storagePath);
+          await uploadBytes(storageRef, file);
+          const url = await getDownloadURL(storageRef);
+          const type: QaAttachment["type"] = file.type.startsWith("image/") ? "image" : "pdf";
+          return { name: file.name, url, type };
+        })
+      );
+      if (section === "question") {
+        setQuestionAttachments((prev) => [...prev, ...uploaded]);
+      } else {
+        setAnswerAttachments((prev) => [...prev, ...uploaded]);
+      }
+    } catch (uploadErr) {
+      console.error(uploadErr);
+      setError("Failed to upload attachment(s). Please try again.");
+    } finally {
+      setUploading((prev) => ({ ...prev, [section]: false }));
+    }
+  };
+
+  const handleAttachmentRemove = (section: "question" | "answer", index: number) => {
+    if (section === "question") {
+      setQuestionAttachments((prev) => prev.filter((_, idx) => idx !== index));
+    } else {
+      setAnswerAttachments((prev) => prev.filter((_, idx) => idx !== index));
+    }
+  };
+
+  const renderAttachmentSection = (section: "question" | "answer") => {
+    const attachments = section === "question" ? questionAttachments : answerAttachments;
+    const isUploading = uploading[section];
+
+    return (
+      <div className="space-y-3">
+        <label className="block mb-1 font-semibold">
+          {section === "question" ? "Question Attachments" : "Answer Attachments"}
+        </label>
+        <input
+          type="file"
+          accept="image/*,application/pdf"
+          multiple
+          onChange={(e) => {
+            if (e.target.files) {
+              handleAttachmentUpload(section, e.target.files);
+              e.target.value = "";
+            }
+          }}
+          className="w-full border rounded px-3 py-2"
+        />
+        {isUploading && <p className="text-sm text-gray-500">Uploading files...</p>}
+        {attachments.length > 0 && (
+          <ul className="space-y-2">
+            {attachments.map((attachment, idx) => (
+              <li
+                key={`${attachment.url}-${idx}`}
+                className="flex items-center justify-between bg-gray-50 rounded px-3 py-2 text-sm"
+              >
+                <span className="truncate pr-3">
+                  {attachment.name} ({attachment.type.toUpperCase()})
+                </span>
+                <button
+                  type="button"
+                  className="text-red-600 text-xs font-semibold"
+                  onClick={() => handleAttachmentRemove(section, idx)}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
   };
   const handleRTChange = (name: string, html: string) => {
     setForm((f) => ({ ...f, [name]: html }));
@@ -136,10 +247,13 @@ useEffect(() => {
         ...form,
         price: Number(form.price),
         slug: slugify(form.title),
+        questionAttachments,
+        answerAttachments,
       };
+      let savedEntry: QaEntry;
       if (isEdit && id) {
         const overrides = updateOverrides || {};
-        await updateQa(id, {
+        savedEntry = await updateQa(id, {
           ...basePayload,
           ...overrides,
         });
@@ -149,7 +263,7 @@ useEffect(() => {
             : "Q&A entry updated successfully."
         );
       } else {
-        await upsertQa({
+        savedEntry = await upsertQa({
           ...basePayload,
           ...(createDefaults || {}),
         });
@@ -159,7 +273,10 @@ useEffect(() => {
             : "Q&A entry created successfully."
         );
         setForm({ title: "", question: "", answer: "", subject: "", paperType: "", price: "", status: "draft" });
+        setQuestionAttachments([]);
+        setAnswerAttachments([]);
       }
+      draftIdRef.current = savedEntry.id;
       setTimeout(() => {
         if (onSuccess) {
           onSuccess();
@@ -194,11 +311,13 @@ useEffect(() => {
         <label className="block mb-2 font-semibold">Question Text</label>
         <EnhancedRichTextEditor value={form.question} onChange={(v) => handleRTChange("question", v)} placeholder="Enter full question text" height={220} />
       </div>
+      {renderAttachmentSection("question")}
 
       <div>
         <label className="block mb-2 font-semibold">Answer</label>
         <EnhancedRichTextEditor value={form.answer} onChange={(v) => handleRTChange("answer", v)} placeholder="Enter answer (rich text supported)" height={220} />
       </div>
+      {renderAttachmentSection("answer")}
 
       <div className="flex gap-4">
         <div className="flex-1">

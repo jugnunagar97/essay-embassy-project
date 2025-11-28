@@ -214,6 +214,12 @@ export interface QASolution {
   updatedAt: number; // Timestamp
 }
 
+export interface QaAttachment {
+  name: string;
+  url: string;
+  type: 'image' | 'pdf';
+}
+
 export interface QASolutionFile {
   name: string; // Filename
   url: string; // Firebase Storage URL

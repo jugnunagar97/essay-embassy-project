@@ -15,6 +15,12 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 
+export type QaAttachment = {
+  name: string;
+  url: string;
+  type: "image" | "pdf";
+};
+
 export type QaEntry = {
   id: string;
   title: string;
@@ -31,6 +37,8 @@ export type QaEntry = {
   slug: string;
   assignedEditorId?: string | null;
   assignedEditorEmail?: string | null;
+  questionAttachments?: QaAttachment[];
+  answerAttachments?: QaAttachment[];
 };
 
 const qaCollection = collection(db, "qaEntries");
@@ -52,6 +60,24 @@ function deriveQuestionNumberInt(
     return fallbackRaw;
   }
   return 0;
+}
+
+function parseAttachments(value: unknown): QaAttachment[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (
+        item &&
+        typeof item === "object" &&
+        typeof (item as QaAttachment).name === "string" &&
+        typeof (item as QaAttachment).url === "string" &&
+        ((item as QaAttachment).type === "image" || (item as QaAttachment).type === "pdf")
+      ) {
+        return item as QaAttachment;
+      }
+      return null;
+    })
+    .filter((item): item is QaAttachment => Boolean(item));
 }
 
 function mapSnapshot(snapshot: QueryDocumentSnapshot | DocumentSnapshot): QaEntry {
@@ -80,6 +106,8 @@ function mapSnapshot(snapshot: QueryDocumentSnapshot | DocumentSnapshot): QaEntr
     slug: data.slug || slugify(data.title || ""),
     assignedEditorId: data.assignedEditorId || null,
     assignedEditorEmail: data.assignedEditorEmail || null,
+    questionAttachments: parseAttachments(data.questionAttachments),
+    answerAttachments: parseAttachments(data.answerAttachments),
   };
 }
 
@@ -202,6 +230,8 @@ export async function upsertQa(entry: Partial<QaEntry> & { id?: string }): Promi
         updatedAt: now,
         questionNumber: questionNumberOverrides?.questionNumber ?? existing.questionNumber,
         questionNumberInt: questionNumberOverrides?.questionNumberInt ?? existing.questionNumberInt,
+        questionAttachments: entry.questionAttachments ?? existing.questionAttachments,
+        answerAttachments: entry.answerAttachments ?? existing.answerAttachments,
       };
       transaction.set(docRef, updated, { merge: true });
       return updated;
@@ -231,6 +261,8 @@ export async function upsertQa(entry: Partial<QaEntry> & { id?: string }): Promi
       slug: entry.slug || slugify(entry.title || questionMeta.questionNumber),
       assignedEditorId: entry.assignedEditorId || null,
       assignedEditorEmail: entry.assignedEditorEmail || null,
+      questionAttachments: entry.questionAttachments ?? [],
+      answerAttachments: entry.answerAttachments ?? [],
     };
     transaction.set(newDocRef, record);
     return record;
