@@ -16,6 +16,12 @@ const SUBJECTS = [
 ];
 const PAPER_TYPES = ["Essay", "Research Paper", "Case Study", "Lab Report", "Assignment", "Other"];
 
+const isRichTextEmpty = (html: string) =>
+  html
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;|&#160;/g, " ")
+    .trim().length === 0;
+
 type Props = {
   id?: string;
   redirectPath?: string | null;
@@ -98,16 +104,9 @@ useEffect(() => {
   };
 
   const validate = () => {
-    const isRichTextEmpty = (html: string) =>
-      html
-        .replace(/<[^>]*>/g, "") // strip tags
-        .replace(/&nbsp;|&#160;/g, " ") // normalize spaces
-        .trim().length === 0;
-
     if (
       isRichTextEmpty(form.title) ||
       isRichTextEmpty(form.question) ||
-      isRichTextEmpty(form.answer) ||
       !form.subject ||
       !form.paperType ||
       String(form.price).trim() === ""
@@ -128,6 +127,10 @@ useEffect(() => {
     setSuccess(null);
     if (!validate()) return;
     setLoading(true);
+    const publishingOnDemand = isRichTextEmpty(form.answer);
+    if (publishingOnDemand) {
+      console.info("Publishing as On-Demand Question (No Answer)");
+    }
     try {
       const basePayload = {
         ...form,
@@ -140,13 +143,21 @@ useEffect(() => {
           ...basePayload,
           ...overrides,
         });
-        setSuccess("Q&A entry updated successfully.");
+        setSuccess(
+          publishingOnDemand
+            ? "On-demand question saved (answer pending)."
+            : "Q&A entry updated successfully."
+        );
       } else {
         await upsertQa({
           ...basePayload,
           ...(createDefaults || {}),
         });
-        setSuccess("Q&A entry created successfully.");
+        setSuccess(
+          publishingOnDemand
+            ? "On-demand question created successfully."
+            : "Q&A entry created successfully."
+        );
         setForm({ title: "", question: "", answer: "", subject: "", paperType: "", price: "", status: "draft" });
       }
       setTimeout(() => {

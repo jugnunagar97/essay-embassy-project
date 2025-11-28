@@ -216,6 +216,14 @@ export default function OrderNow() {
     if (pagesFromUrl && !isNaN(Number(pagesFromUrl))) {
       setValue('pages', Number(pagesFromUrl));
     }
+    const topicFromUrl = searchParams.get('topic') || searchParams.get('questionTitle');
+    if (topicFromUrl) {
+      setValue('topic', topicFromUrl);
+    }
+    const instructionsFromUrl = searchParams.get('instructions');
+    if (instructionsFromUrl) {
+      setValue('instructions', instructionsFromUrl);
+    }
     const priceFromUrl = searchParams.get('price');
     if (priceFromUrl && !isNaN(Number(priceFromUrl))) {
       setPrice(Number(priceFromUrl));
