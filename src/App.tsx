@@ -106,6 +106,9 @@ import HelpSupport from './pages/Dashboard/HelpSupport';
 import PlaceOrder from './pages/Dashboard/PlaceOrder';
 // Old Q&A admin system removed - using new localStorage-based system
 
+// --- Tools ---
+import EssayAnalyzer from './pages/tools/EssayAnalyzer';
+
 // --- Admin Management Component Imports (from components/Admin) ---
 import ServiceManager from './components/Admin/ServiceManager';
 import ReviewManager from './components/Admin/ReviewManager';
@@ -273,6 +276,9 @@ function App() {
             <Route path="order-now" element={<OrderNow />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="/thank-you/:orderId" element={<ThankYou />} />
+
+            {/* Tools */}
+            <Route path="tools/scholarship-analyzer" element={<EssayAnalyzer />} />
             
             {/* Q&A Routes - New localStorage-based system */}
             <Route path="qa" element={<QACatalog />} />
