@@ -1,6 +1,5 @@
 import express from 'express';
 import Razorpay from 'razorpay';
-import cors from 'cors';
 import dotenv from 'dotenv';
 import admin from 'firebase-admin';
 import crypto from 'crypto';
@@ -11,6 +10,42 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 dotenv.config();
 
 const app = express();
+
+// ==========================================================
+// ☢️ NUCLEAR CORS FIX (Manual Headers)
+// ==========================================================
+app.use((req, res, next) => {
+  // Allow these specific origins
+  const allowedOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://essayembassy.com',
+    'https://www.essayembassy.com'
+  ];
+
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  // Allow these headers and methods
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  // Handle Preflight (OPTIONS) instantly
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
+// ==========================================================
+// 2. BODY PARSERS
+// ==========================================================
+app.use(express.json());
+
 const FRONTEND_SITE_URL = (process.env.FRONTEND_URL || 'https://essay-embassy-project.onrender.com').replace(/\/$/, '');
 const staticSitemapPath = path.join(process.cwd(), 'public', 'sitemap.xml');
 let cachedStaticSitemap = '';
@@ -19,35 +54,78 @@ const DEFAULT_SITEMAP_XML = `<?xml version="1.0" encoding="UTF-8"?>
 </urlset>`;
 const QA_SITEMAP_LIMIT = 500;
 
-// ==========================================================
-// SCHOLARSHIP ESSAY ANALYZER (VERSION 2.0 - HIGH CONVERSION)
-// ==========================================================
+// --- 1. AI INITIALIZATION ---
+const genAI = process.env.GEMINI_API_KEY
+  ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
+  : null;
+
+let cachedWorkingModel = null;
+
+// --- 2. DYNAMIC MODEL SELECTOR (Self-Healing) ---
+async function getWorkingGeminiModel() {
+  if (cachedWorkingModel) return cachedWorkingModel;
+  if (!process.env.GEMINI_API_KEY) return null;
+
+  try {
+    console.log('[Gemini] Fetching available models...');
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${process.env.GEMINI_API_KEY}`);
+    const data = await response.json();
+    
+    if (!data.models) {
+        console.error('[Gemini] No models returned from API.');
+        return null;
+    }
+
+    // Filter for models that generate content
+    const validModels = data.models
+      .filter(m => m.name.startsWith('models/gemini') && m.supportedGenerationMethods.includes('generateContent'))
+      .map(m => m.name.replace('models/', ''));
+
+    // Sort: Prefer Flash -> Pro -> Others
+    validModels.sort((a, b) => {
+        if (a.includes('flash') && !b.includes('flash')) return -1;
+        if (b.includes('flash') && !a.includes('flash')) return 1;
+        return 0;
+    });
+
+    const bestModel = validModels[0];
+    console.log(`[Gemini] Auto-Selected Model: ${bestModel}`);
+    cachedWorkingModel = bestModel;
+    return bestModel;
+
+  } catch (error) {
+    console.error('[Gemini] Discovery failed:', error.message);
+    return 'gemini-1.5-flash'; // Fallback
+  }
+}
+
+// Run discovery immediately on server start
+getWorkingGeminiModel();
+
+    // --- 3. ESSAY ANALYZER ENDPOINT (PREMIUM V2) ---
 app.post('/api/tools/analyze-essay', async (req, res) => {
   try {
-    // 1. Basic Validation
+    // A. Check Configuration
     if (!genAI) {
-      return res.status(503).json({ error: 'AI service is not configured.' });
+      return res.status(503).json({ error: 'AI service is not configured (Missing API Key).' });
     }
 
     const { essayText } = req.body || {};
-
     if (!essayText || typeof essayText !== 'string' || !essayText.trim()) {
-      return res.status(400).json({ error: 'essayText is required.' });
+      return res.status(400).json({ error: 'Essay text is required.' });
     }
 
-    // 2. Select Model (Uses your dynamic selector)
+    // B. Get Working Model
     const modelName = await getWorkingGeminiModel();
     if (!modelName) {
-       return res.status(503).json({ error: 'AI service unavailable (no working models found).' });
+       return res.status(503).json({ error: 'AI service unavailable (No working models found).' });
     }
 
-    console.log(`[Analyzer] Processing essay with model: ${modelName}`);
+    // C. The "Ivy League" System Prompt
     const model = genAI.getGenerativeModel({ model: modelName });
-
-    // 3. The "Ivy League" System Prompt
     const prompt = [
       'You are a strict Ivy League Admissions Officer. Analyze this scholarship essay.',
-      'Return ONLY a raw JSON object (no markdown formatting, no code blocks) with this exact structure:',
+      'Return ONLY a raw JSON object (no markdown formatting) with this EXACT structure:',
       '{',
       '  "overallScore": number (0-100),',
       '  "metrics": {',
@@ -62,37 +140,86 @@ app.post('/api/tools/analyze-essay', async (req, res) => {
       '    { "title": "String", "description": "String", "lineReference": "e.g., Lines 12-15" }',
       '  ],',
       '  "criticalWeakness": "String (The major reason for rejection)",',
-      '  "improvementPlan": [ "Actionable step 1", "Actionable step 2", "Actionable step 3" ]',
+      '  "improvementPlan": [ "Actionable step 1", "Actionable step 2", "Actionable step 3" ],',
+      '  "tone": "String (e.g. Academic, Casual, Emotional)"',
       '}',
       '',
       `Essay Text: ${essayText}`,
     ].join('\n');
 
-    // 4. Generate
+    // D. Generate & Clean
     const result = await model.generateContent(prompt);
     let text = result?.response?.text?.() ?? '';
+    
+    // Remove Markdown Fences (```json ... ```)
+    text = text.replace(/^```[\s\S]*?\n/, '').replace(/```$/, '').replace(/^```json/, '').trim();
 
-    // 5. Clean Markdown (Gemini loves adding ```json)
-    if (text) {
-      text = text.trim();
-      text = text.replace(/^```[\s\S]*?\n/, '').replace(/```$/, '').trim();
-      text = text.replace(/^```(?:json)?/i, '').replace(/```$/i, '').trim();
-    }
-
-    // 6. Parse
-    let parsed;
-    try {
-      parsed = JSON.parse(text);
-    } catch (parseError) {
-      console.error('Failed to parse Gemini JSON:', text);
-      return res.status(502).json({ error: 'Analysis failed. Please try again.' });
-    }
-
+    // E. Parse & Return
+    const parsed = JSON.parse(text);
     return res.json(parsed);
 
   } catch (error) {
     console.error('Error in /api/tools/analyze-essay:', error);
-    return res.status(500).json({ error: 'Internal server error during analysis.' });
+    // Reset cache in case of model error
+    cachedWorkingModel = null; 
+    return res.status(500).json({ error: 'Failed to analyze essay. Please try again.' });
+  }
+});
+
+// ==========================================================
+// SEND ESSAY REPORT EMAIL
+// ==========================================================
+app.post('/api/tools/send-report', async (req, res) => {
+  try {
+    const { email, analysis } = req.body;
+
+    if (!email || !analysis) {
+      return res.status(400).json({ error: 'Missing email or data' });
+    }
+
+    // Configure your email transporter (Ensure SMTP credentials are in .env)
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST || 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: `"Essay Embassy Tools" <${process.env.SUPPORT_EMAIL}>`,
+      to: email,
+      subject: `Your Essay Analysis Report - Score: ${analysis.overallScore}/100`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px;">
+          <h2 style="color: #0f172a;">Essay Analysis Result</h2>
+          <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
+            <span style="font-size: 12px; font-weight: bold; color: #64748b; letter-spacing: 1px;">OVERALL SCORE</span>
+            <div style="font-size: 48px; font-weight: bold; color: #0d9488;">${analysis.overallScore}</div>
+          </div>
+          
+          <h3 style="color: #334155; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">Top Strengths</h3>
+          <ul>
+            ${analysis.strengths.map(s => `<li style="margin-bottom: 8px;"><strong>${s.title}:</strong> ${s.description}</li>`).join('')}
+          </ul>
+
+          <div style="margin-top: 30px; padding: 20px; background: #0f172a; color: white; text-align: center; border-radius: 8px;">
+            <h3 style="margin-top: 0;">Unlock Your Full Critique</h3>
+            <p>Reveal your critical weakness and get a line-by-line rewrite.</p>
+            <a href="${process.env.FRONTEND_URL}/order-now?service=editing" style="display: inline-block; background: #0d9488; color: white; text-decoration: none; padding: 12px 24px; border-radius: 5px; font-weight: bold;">Get Expert Edits</a>
+          </div>
+        </div>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true });
+
+  } catch (error) {
+    console.error('Email send error:', error);
+    res.status(500).json({ error: 'Failed to send email' });
   }
 });
 
@@ -109,22 +236,6 @@ if (process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET) {
 }
 
 // Configure CORS to allow multiple origins (local dev + production)
-const allowedOrigins = [
-  process.env.FRONTEND_URL && process.env.FRONTEND_URL.replace(/\/$/, ''),
-  'http://localhost:5173',   // Vite dev
-  'http://localhost:4173',   // Vite preview (prod build locally)
-  'https://essay-embassy.web.app',
-  'https://essayembassy.com',
-  'https://www.essayembassy.com',
-].filter(Boolean);
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
-app.use(express.json());
 
 // Add X-Robots-Tag header for protected paths
 const protectedPaths = [

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet-async';
+import { apiEndpoint } from '../config/api';
 
 type FormInputs = {
   name: string;
@@ -75,7 +76,7 @@ export default function MobileContact() {
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     try {
-      const response = await fetch('https://essay-embassy-project.onrender.com/api/contact', {
+      const response = await fetch(apiEndpoint('/api/contact'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

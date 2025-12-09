@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { Mail, MapPin } from 'lucide-react';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { apiEndpoint } from '../config/api';
 
 type FormInputs = {
   name: string;
@@ -16,7 +17,7 @@ const Contact = () => {
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     try {
-      const response = await fetch('https://essay-embassy-project.onrender.com/api/contact', {
+      const response = await fetch(apiEndpoint('/api/contact'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
