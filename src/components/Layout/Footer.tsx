@@ -60,9 +60,38 @@ export default function Footer() {
 
         {/* Main Content - Multi-Column Link Structure */}
         <div className="container mx-auto px-4 sm:px-5 py-8 sm:py-12 md:py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 sm:gap-8">
             
-            {/* Column 1: Essay Services */}
+            {/* Column 1: Free Tools - Highlighted */}
+            <div className="relative">
+              <div className="absolute -inset-3 bg-gradient-to-br from-primary-500/20 to-purple-500/20 rounded-2xl blur-sm"></div>
+              <div className="relative bg-gray-800/50 rounded-xl p-4 border border-primary-500/30">
+                <h3 className="text-base sm:text-lg font-bold text-primary-400 mb-4 sm:mb-6 uppercase tracking-wide flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+                  </span>
+                  Free Tools
+                </h3>
+                <ul className="space-y-2 sm:space-y-3">
+                  <li>
+                    <Link 
+                      to="/tools/scholarship-analyzer" 
+                      className="group flex items-center gap-2 text-sm sm:text-base text-white font-medium hover:text-primary-400 transition-all duration-300"
+                    >
+                      <span className="px-2 py-0.5 text-xs bg-gradient-to-r from-primary-500 to-purple-500 rounded-full text-white uppercase tracking-wider">New</span>
+                      Essay Analyzer
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </Link>
+                    <p className="text-xs text-gray-400 mt-1">AI-powered essay scoring & feedback</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Column 2: Essay Services */}
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Essay Services</h3>
               <ul className="space-y-2 sm:space-y-3">
@@ -75,7 +104,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 2: Writing Help */}
+            {/* Column 3: Writing Help */}
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Writing Help</h3>
               <ul className="space-y-2 sm:space-y-3">
@@ -94,7 +123,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 3: Legal & Policies */}
+            {/* Column 4: Legal & Policies */}
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Legal & Policies</h3>
               <ul className="space-y-2 sm:space-y-3">
@@ -105,7 +134,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 4: Company */}
+            {/* Column 5: Company */}
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Company</h3>
               <ul className="space-y-2 sm:space-y-3">
@@ -116,7 +145,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 5: Resources */}
+            {/* Column 6: Resources */}
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Resources</h3>
               <ul className="space-y-2 sm:space-y-3">
