@@ -12,6 +12,7 @@ import NoIndex from './components/NoIndex';
 
 // --- Core Page Imports ---
 import Home from './pages/Home';
+import HomeV2 from './pages/HomeV2';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Services from './pages/Services'; // The main services overview page (likely lists categories/popular services)
@@ -204,137 +205,138 @@ function App() {
     <GeoBlock>
       <AuthProvider> {/* Provides authentication context to all child components */}
         <CurrencyProvider> {/* Provides currency context to all child components */}
-        <Router> {/* Enables client-side routing */}
-          <ScrollToTop />
-          <Toaster position="top-right" /> {/* Global notification system */}
-          <SocialProofNotificationSystem />
-          <Routes> {/* Defines all possible routes in the application */}
-          {/* Main layout route - all nested routes will render within the Layout component */}
-          <Route path="/" element={<Layout />}>
-            {/* Public routes accessible to everyone */}
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route index element={<Home />} /> {/* Home page */}
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="services" element={<Services />} /> {/* Main services overview page */}
+          <Router> {/* Enables client-side routing */}
+            <ScrollToTop />
+            <Toaster position="top-right" /> {/* Global notification system */}
+            <SocialProofNotificationSystem />
+            <Routes> {/* Defines all possible routes in the application */}
+              {/* Main layout route - all nested routes will render within the Layout component */}
+              <Route path="/" element={<Layout />}>
+                {/* Public routes accessible to everyone */}
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route index element={<Home />} /> {/* Home page */}
+                <Route path="v2" element={<HomeV2 />} /> {/* Home page V2 with new hero */}
+                <Route path="about" element={<About />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="services" element={<Services />} /> {/* Main services overview page */}
 
-            {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
-            <Route path="essay-writing/admission" element={<AdmissionEssayWriting />} />
-            <Route path="essay-writing/reflective" element={<ReflectiveEssay />} />
-            <Route path="essay-writing/compare-contrast" element={<CompareContrastEssay />} />
-            <Route path="essay-writing/narrative" element={<NarrativeEssay />} />
-            <Route path="essay-writing/argumentative" element={<ArgumentativeEssay />} />
-            <Route path="essay-writing/scholarship" element={<ScholarshipEssay />} />
-            {/* Backward compatibility routes */}
-            <Route path="argumentative-essay" element={<ArgumentativeEssay />} />
-            <Route path="narrative-essay" element={<NarrativeEssay />} />
-            <Route path="assignment-help" element={<AssignmentHelp />} />
-            <Route path="assignment-help/management" element={<ManagementAssignmentHelp />} />
-            <Route path="assignment-help/computer" element={<ComputerAssignmentHelp />} />
-            <Route path="assignment-help/humanities" element={<HumanitiesAssignmentHelp />} />
-            <Route path="assignment-help/math" element={<MathAssignmentHelp />} />
-            <Route path="assignment-help/law" element={<LawAssignmentHelp />} />
-            <Route path="assignment-help/science" element={<ScienceAssignmentHelp />} />
-            <Route path="assignment-help/engineering" element={<EngineeringAssignmentHelp />} />
-            <Route path="assignment-help/biotechnology" element={<BiotechnologyAssignmentHelp />} />
-            <Route path="book-review" element={<BookReview />} />
-            <Route path="case-study-help" element={<CaseStudyHelp />} />
-            <Route path="dissertation-writing" element={<DissertationWriting />} />
-            <Route path="english-assignment-help" element={<EnglishAssignmentHelp />} />
-            <Route path="essay-writing" element={<EssayWriting />} />
-            <Route path="homework-help" element={<HomeworkHelp />} />
-            <Route path="lab-report" element={<LabReport />} />
-            <Route path="narrative-essay" element={<NarrativeEssay />} />
-            <Route path="physics-assignment-help" element={<PhysicsAssignmentHelp />} />
-            <Route path="programming-help" element={<ProgrammingHelp />} />
-            <Route path="programming-help/python" element={<PythonProgrammingHelp />} />
-            <Route path="programming-help/java" element={<JavaProgrammingHelp />} />
-            <Route path="programming-help/js" element={<JSProgrammingHelp />} />
-            <Route path="programming-help/c" element={<CProgrammingHelp />} />
-            <Route path="programming-help/csharp" element={<CSharpProgrammingHelp />} />
-            <Route path="programming-help/ruby" element={<RubyProgrammingHelp />} />
-            <Route path="programming-help/cpp" element={<CPPProgrammingHelp />} />
-            <Route path="programming-help/matlab" element={<MatlabProgrammingHelp />} />
-            <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
-            <Route path="term-paper" element={<TermPaper />} />
-            <Route path="thesis-writing" element={<ThesisWriting />} />
-            <Route path="services/:slug" element={<DynamicServicePage />} />
+                {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
+                <Route path="essay-writing/admission" element={<AdmissionEssayWriting />} />
+                <Route path="essay-writing/reflective" element={<ReflectiveEssay />} />
+                <Route path="essay-writing/compare-contrast" element={<CompareContrastEssay />} />
+                <Route path="essay-writing/narrative" element={<NarrativeEssay />} />
+                <Route path="essay-writing/argumentative" element={<ArgumentativeEssay />} />
+                <Route path="essay-writing/scholarship" element={<ScholarshipEssay />} />
+                {/* Backward compatibility routes */}
+                <Route path="argumentative-essay" element={<ArgumentativeEssay />} />
+                <Route path="narrative-essay" element={<NarrativeEssay />} />
+                <Route path="assignment-help" element={<AssignmentHelp />} />
+                <Route path="assignment-help/management" element={<ManagementAssignmentHelp />} />
+                <Route path="assignment-help/computer" element={<ComputerAssignmentHelp />} />
+                <Route path="assignment-help/humanities" element={<HumanitiesAssignmentHelp />} />
+                <Route path="assignment-help/math" element={<MathAssignmentHelp />} />
+                <Route path="assignment-help/law" element={<LawAssignmentHelp />} />
+                <Route path="assignment-help/science" element={<ScienceAssignmentHelp />} />
+                <Route path="assignment-help/engineering" element={<EngineeringAssignmentHelp />} />
+                <Route path="assignment-help/biotechnology" element={<BiotechnologyAssignmentHelp />} />
+                <Route path="book-review" element={<BookReview />} />
+                <Route path="case-study-help" element={<CaseStudyHelp />} />
+                <Route path="dissertation-writing" element={<DissertationWriting />} />
+                <Route path="english-assignment-help" element={<EnglishAssignmentHelp />} />
+                <Route path="essay-writing" element={<EssayWriting />} />
+                <Route path="homework-help" element={<HomeworkHelp />} />
+                <Route path="lab-report" element={<LabReport />} />
+                <Route path="narrative-essay" element={<NarrativeEssay />} />
+                <Route path="physics-assignment-help" element={<PhysicsAssignmentHelp />} />
+                <Route path="programming-help" element={<ProgrammingHelp />} />
+                <Route path="programming-help/python" element={<PythonProgrammingHelp />} />
+                <Route path="programming-help/java" element={<JavaProgrammingHelp />} />
+                <Route path="programming-help/js" element={<JSProgrammingHelp />} />
+                <Route path="programming-help/c" element={<CProgrammingHelp />} />
+                <Route path="programming-help/csharp" element={<CSharpProgrammingHelp />} />
+                <Route path="programming-help/ruby" element={<RubyProgrammingHelp />} />
+                <Route path="programming-help/cpp" element={<CPPProgrammingHelp />} />
+                <Route path="programming-help/matlab" element={<MatlabProgrammingHelp />} />
+                <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
+                <Route path="term-paper" element={<TermPaper />} />
+                <Route path="thesis-writing" element={<ThesisWriting />} />
+                <Route path="services/:slug" element={<DynamicServicePage />} />
 
 
 
-            <Route path="samples" element={<Samples />} />
-            <Route path="reviews" element={<Reviews />} />
-            <Route path="blog" element={<BlogPage />} />
-            <Route path="blog/:slug" element={<BlogPostPage />} /> {/* Dynamic blog post page */}
-            <Route path="privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="terms-and-conditions" element={<TermsAndConditions />} />
-            <Route path="refund-policy" element={<RefundPolicy />} />
-            <Route path="honor-code" element={<HonorCode />} />
-            <Route path="faq" element={<FAQ />} />
-            <Route path="writers" element={<Writers />} />
-            <Route path="order-now" element={<OrderNow />} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="/thank-you/:orderId" element={<ThankYou />} />
+                <Route path="samples" element={<Samples />} />
+                <Route path="reviews" element={<Reviews />} />
+                <Route path="blog" element={<BlogPage />} />
+                <Route path="blog/:slug" element={<BlogPostPage />} /> {/* Dynamic blog post page */}
+                <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+                <Route path="refund-policy" element={<RefundPolicy />} />
+                <Route path="honor-code" element={<HonorCode />} />
+                <Route path="faq" element={<FAQ />} />
+                <Route path="writers" element={<Writers />} />
+                <Route path="order-now" element={<OrderNow />} />
+                <Route path="checkout" element={<Checkout />} />
+                <Route path="/thank-you/:orderId" element={<ThankYou />} />
 
-            {/* Tools */}
-            <Route path="tools/scholarship-analyzer" element={<EssayAnalyzer />} />
-            
-            {/* Q&A Routes - New localStorage-based system */}
-            <Route path="qa" element={<QACatalog />} />
-            <Route path="question/:questionNumber/:slug" element={<QuestionDetail />} />
+                {/* Tools */}
+                <Route path="tools/scholarship-analyzer" element={<EssayAnalyzer />} />
 
-            {/* Protected routes - require authentication */}
-            {/* Dashboard route - dynamically renders admin or client dashboard */}
-            <Route path="dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
+                {/* Q&A Routes - New localStorage-based system */}
+                <Route path="qa" element={<QACatalog />} />
+                <Route path="question/:questionNumber/:slug" element={<QuestionDetail />} />
 
-            {/* Admin-only protected routes */}
-            <Route path="dashboard/reviews" element={<ProtectedRoute adminOnly><ReviewManager /></ProtectedRoute>} />
-            <Route path="dashboard/services" element={<ProtectedRoute adminOnly><ServiceManager /></ProtectedRoute>} />
+                {/* Protected routes - require authentication */}
+                {/* Dashboard route - dynamically renders admin or client dashboard */}
+                <Route path="dashboard" element={<ProtectedRoute><DashboardRouter /></ProtectedRoute>} />
 
-            <Route path="dashboard/blog" element={<ProtectedRoute adminOnly><BlogManager /></ProtectedRoute>} />
-            <Route path="dashboard/settings" element={<ProtectedRoute adminOnly><ProfileSettings /></ProtectedRoute>} /> {/* Admin profile settings */}
-            <Route path="dashboard/new-order" element={<ProtectedRoute adminOnly><NewOrder /></ProtectedRoute>} />
-            <Route path="dashboard/orders" element={<ProtectedRoute adminOnly><Orders /></ProtectedRoute>} />
-            <Route path="dashboard/users" element={<ProtectedRoute adminOnly><UserManagement /></ProtectedRoute>} />
-            <Route path="dashboard/users/:userId" element={<ProtectedRoute adminOnly><UserDetail /></ProtectedRoute>} /> {/* View/edit specific user details */}
-            <Route path="dashboard/messages" element={<ProtectedRoute adminOnly><Messages /></ProtectedRoute>} />
+                {/* Admin-only protected routes */}
+                <Route path="dashboard/reviews" element={<ProtectedRoute adminOnly><ReviewManager /></ProtectedRoute>} />
+                <Route path="dashboard/services" element={<ProtectedRoute adminOnly><ServiceManager /></ProtectedRoute>} />
 
-            {/* Admin Q&A Routes */}
-            <Route path="admin/qa" element={<ProtectedRoute adminOnly><AdminQAList /></ProtectedRoute>} />
-            <Route path="admin/qa/new" element={<ProtectedRoute adminOnly><AdminQANew /></ProtectedRoute>} />
-            <Route path="admin/qa/:id/edit" element={<ProtectedRoute adminOnly><AdminQAEdit /></ProtectedRoute>} />
+                <Route path="dashboard/blog" element={<ProtectedRoute adminOnly><BlogManager /></ProtectedRoute>} />
+                <Route path="dashboard/settings" element={<ProtectedRoute adminOnly><ProfileSettings /></ProtectedRoute>} /> {/* Admin profile settings */}
+                <Route path="dashboard/new-order" element={<ProtectedRoute adminOnly><NewOrder /></ProtectedRoute>} />
+                <Route path="dashboard/orders" element={<ProtectedRoute adminOnly><Orders /></ProtectedRoute>} />
+                <Route path="dashboard/users" element={<ProtectedRoute adminOnly><UserManagement /></ProtectedRoute>} />
+                <Route path="dashboard/users/:userId" element={<ProtectedRoute adminOnly><UserDetail /></ProtectedRoute>} /> {/* View/edit specific user details */}
+                <Route path="dashboard/messages" element={<ProtectedRoute adminOnly><Messages /></ProtectedRoute>} />
 
-            {/* Routes accessible to both authenticated clients and admins */}
-            <Route path="dashboard/order/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} /> {/* Dynamic order detail page */}
-            <Route path="dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
-            <Route path="dashboard/my-settings" element={<ProtectedRoute><ClientProfileSettings /></ProtectedRoute>} /> {/* Client profile settings */}
+                {/* Admin Q&A Routes */}
+                <Route path="admin/qa" element={<ProtectedRoute adminOnly><AdminQAList /></ProtectedRoute>} />
+                <Route path="admin/qa/new" element={<ProtectedRoute adminOnly><AdminQANew /></ProtectedRoute>} />
+                <Route path="admin/qa/:id/edit" element={<ProtectedRoute adminOnly><AdminQAEdit /></ProtectedRoute>} />
 
-            {/* Client-specific routes */}
-            <Route path="dashboard/my-orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
-            <Route path="dashboard/pending-payments" element={<ProtectedRoute><PendingPayments /></ProtectedRoute>} />
-            <Route path="dashboard/client-chat" element={<ProtectedRoute><ClientLiveChat /></ProtectedRoute>} />
-            <Route path="dashboard/help" element={<ProtectedRoute><HelpSupport /></ProtectedRoute>} />
-            <Route path="dashboard/place-order" element={<ProtectedRoute><PlaceOrder /></ProtectedRoute>} />
+                {/* Routes accessible to both authenticated clients and admins */}
+                <Route path="dashboard/order/:orderId" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} /> {/* Dynamic order detail page */}
+                <Route path="dashboard/chat" element={<ProtectedRoute><LiveChat /></ProtectedRoute>} />
+                <Route path="dashboard/my-settings" element={<ProtectedRoute><ClientProfileSettings /></ProtectedRoute>} /> {/* Client profile settings */}
 
-          </Route>
+                {/* Client-specific routes */}
+                <Route path="dashboard/my-orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
+                <Route path="dashboard/pending-payments" element={<ProtectedRoute><PendingPayments /></ProtectedRoute>} />
+                <Route path="dashboard/client-chat" element={<ProtectedRoute><ClientLiveChat /></ProtectedRoute>} />
+                <Route path="dashboard/help" element={<ProtectedRoute><HelpSupport /></ProtectedRoute>} />
+                <Route path="dashboard/place-order" element={<ProtectedRoute><PlaceOrder /></ProtectedRoute>} />
 
-          {/* Admin routes outside Layout wrapper */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              </Route>
 
-          {/* Editor routes */}
-          <Route path="/editor" element={<EditorRoute><EditorLayout /></EditorRoute>}>
-            <Route index element={<Navigate to="reviews" replace />} />
-            <Route path="reviews/*" element={<EditorReviewsModule />} />
-            <Route path="qna/*" element={<EditorQnaModule />} />
-            <Route path="blog/*" element={<EditorBlogModule />} />
-          </Route>
+              {/* Admin routes outside Layout wrapper */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
-          {/* Fallback route for any unmatched paths, redirects to home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Router>
+              {/* Editor routes */}
+              <Route path="/editor" element={<EditorRoute><EditorLayout /></EditorRoute>}>
+                <Route index element={<Navigate to="reviews" replace />} />
+                <Route path="reviews/*" element={<EditorReviewsModule />} />
+                <Route path="qna/*" element={<EditorQnaModule />} />
+                <Route path="blog/*" element={<EditorBlogModule />} />
+              </Route>
+
+              {/* Fallback route for any unmatched paths, redirects to home */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Router>
         </CurrencyProvider>
       </AuthProvider>
     </GeoBlock>
