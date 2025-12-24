@@ -21,45 +21,58 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Brand Colors
+        'deep-navy': 'hsl(var(--deep-navy) / <alpha-value>)',
+        'royal-blue': 'hsl(var(--royal-blue) / <alpha-value>)',
+        'light-blue': 'hsl(var(--light-blue) / <alpha-value>)',
+        'gold': 'hsl(var(--gold) / <alpha-value>)',
+        'gold-dark': 'hsl(var(--gold-dark) / <alpha-value>)',
+        'amber': 'hsl(var(--amber) / <alpha-value>)',
+        'success': 'hsl(var(--success) / <alpha-value>)',
+
+        // Surface & Text Colors
+        'surface-white': 'hsl(var(--surface-white) / <alpha-value>)',
+        'surface-light': 'hsl(var(--surface-light) / <alpha-value>)',
+        'text-primary': 'hsl(var(--text-primary) / <alpha-value>)',
+        'text-secondary': 'hsl(var(--text-secondary) / <alpha-value>)',
+        'text-muted': 'hsl(var(--text-muted) / <alpha-value>)',
+
+        border: 'hsl(var(--border) / <alpha-value>)',
+        input: 'hsl(var(--input) / <alpha-value>)',
+        ring: 'hsl(var(--ring) / <alpha-value>)',
+        background: 'hsl(var(--background) / <alpha-value>)',
+        foreground: 'hsl(var(--foreground) / <alpha-value>)',
         primary: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#268579',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
+          DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+          foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
         },
         secondary: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
+          DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
+          foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive) / <alpha-value>)',
+          foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
+          foreground: 'hsl(var(--muted-foreground) / <alpha-value>)',
         },
         accent: {
-          50: '#fef7ff',
-          100: '#fce7ff',
-          200: '#f8d4fe',
-          300: '#f2b2fc',
-          400: '#e879f9',
-          500: '#d946ef',
-          600: '#c026d3',
-          700: '#a21caf',
-          800: '#86198f',
-          900: '#701a75',
-        }
+          DEFAULT: 'hsl(var(--accent) / <alpha-value>)',
+          foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover) / <alpha-value>)',
+          foreground: 'hsl(var(--popover-foreground) / <alpha-value>)',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card) / <alpha-value>)',
+          foreground: 'hsl(var(--card-foreground) / <alpha-value>)',
+        },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',

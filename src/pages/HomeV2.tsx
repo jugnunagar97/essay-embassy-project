@@ -1,7 +1,8 @@
+import { Helmet } from 'react-helmet-async';
 import HeroSectionV2 from '../components/Hero/HeroSectionV2';
 import HowItWorksSection from '../components/HowItWorks/HowItWorksSection';
 import SocialProofSection from '../components/SocialProof/SocialProofSection';
-import { Helmet } from 'react-helmet-async';
+import ServicesOverviewSection from '../components/Services/ServicesOverviewSection';
 
 // Main HomeV2 Component
 export default function HomeV2() {
@@ -17,6 +18,7 @@ export default function HomeV2() {
                 <HeroSectionV2 />
                 <HowItWorksSection />
                 <SocialProofSection />
+                <ServicesOverviewSection />
             </div>
         </>
     );
