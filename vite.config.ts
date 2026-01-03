@@ -9,6 +9,7 @@ export default defineConfig({
     include: ['react-icons/fa', 'react-icons'],
   },
   server: {
+    open: false,
     proxy: {
       '/api': {
         target: 'http://localhost:4242',

@@ -3,6 +3,9 @@ import HeroSectionV2 from '../components/Hero/HeroSectionV2';
 import HowItWorksSection from '../components/HowItWorks/HowItWorksSection';
 import SocialProofSection from '../components/SocialProof/SocialProofSection';
 import ServicesOverviewSection from '../components/Services/ServicesOverviewSection';
+import WhyChooseUsSection from '../components/WhyChooseUs/WhyChooseUsSection';
+import WritersSection from '../components/Writers/WritersSection';
+import PricingSection from '../components/Pricing/PricingSection';
 
 // Main HomeV2 Component
 export default function HomeV2() {
@@ -19,6 +22,9 @@ export default function HomeV2() {
                 <HowItWorksSection />
                 <SocialProofSection />
                 <ServicesOverviewSection />
+                <WhyChooseUsSection />
+                <WritersSection />
+                <PricingSection />
             </div>
         </>
     );
