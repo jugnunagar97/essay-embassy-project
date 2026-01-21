@@ -215,8 +215,7 @@ function App() {
                 {/* Public routes accessible to everyone */}
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
-                <Route index element={<Home />} /> {/* Home page */}
-                <Route path="v2" element={<HomeV2 />} /> {/* Home page V2 with new hero */}
+                <Route index element={<HomeV2 />} /> {/* New Standard Homepage */}
                 <Route path="about" element={<About />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="services" element={<Services />} /> {/* Main services overview page */}

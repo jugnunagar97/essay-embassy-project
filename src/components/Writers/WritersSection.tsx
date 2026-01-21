@@ -662,8 +662,11 @@ export default function WritersSection() {
 
         /* ========== TIER DESCRIPTION ========== */
         .tier-description {
+          width: 100%;
           max-width: 700px;
           margin: 0 auto 48px;
+          margin-left: auto !important;
+          margin-right: auto !important;
           padding: 32px;
           background: var(--white);
           border: 1px solid var(--border-light);
@@ -1109,7 +1112,7 @@ export default function WritersSection() {
         .cta-heading {
           font-size: 24px;
           font-weight: 700;
-          color: var(--white);
+          color: #FFFFFF !important;
           margin-bottom: 10px;
           position: relative;
           z-index: 1;
@@ -1117,7 +1120,7 @@ export default function WritersSection() {
 
         .cta-subtext {
           font-size: 15px;
-          color: rgba(255, 255, 255, 0.75);
+          color: rgba(255, 255, 255, 0.9) !important;
           margin-bottom: 24px;
           position: relative;
           z-index: 1;

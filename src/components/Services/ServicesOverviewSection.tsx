@@ -7,8 +7,7 @@ import {
   FileCheck,
   Layout,
   ArrowRight,
-  Sparkles,
-  ChevronRight
+  Sparkles
 } from 'lucide-react';
 
 interface ServiceItem {
@@ -112,7 +111,7 @@ export default function ServicesOverviewSection() {
                 onClick={() => handleServiceClick(service.title)}
               >
                 {service.popular && (
-                  <div className="popular-badge">
+                  <div className="service-popular-badge">
                     <Sparkles size={12} fill="currentColor" />
                     <span>Most Popular</span>
                   </div>
@@ -289,11 +288,11 @@ export default function ServicesOverviewSection() {
           background: linear-gradient(180deg, #FFFCF5 0%, #FFFFFF 100%);
         }
 
-        .popular-badge {
+        .service-popular-badge {
           position: absolute;
-          top: 20px;
-          right: 20px;
-          background: linear-gradient(135deg, var(--gold) 0%, #B8903B 100%);
+          top: 12px;
+          right: 12px;
+          background: linear-gradient(135deg, #D4A853 0%, #B8903B 100%) !important;
           color: white;
           font-size: 11px;
           font-weight: 700;
@@ -305,6 +304,7 @@ export default function ServicesOverviewSection() {
           text-transform: uppercase;
           letter-spacing: 0.5px;
           box-shadow: 0 4px 12px rgba(212, 168, 83, 0.3);
+          z-index: 20;
         }
 
         .service-icon-wrapper {
@@ -355,7 +355,7 @@ export default function ServicesOverviewSection() {
         .price-amount {
           font-size: 20px;
           font-weight: 800;
-          color: var(--royal-blue);
+          color: #1652A0 !important;
         }
 
         .price-unit {

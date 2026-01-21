@@ -311,7 +311,7 @@ export default function HeroSectionV2() {
               </div>
               <div className="price-total" data-testid="total-price">
                 <span className="price-currency">$</span>
-                <span className="price-amount">{price.toFixed(2)}</span>
+                <span className="hero-price-amount">{price.toFixed(2)}</span>
               </div>
             </div>
 
@@ -1070,10 +1070,10 @@ export default function HeroSectionV2() {
           margin-right: 2px;
         }
 
-        .price-amount {
+        .hero-price-amount {
           font-size: 42px;
           font-weight: 800;
-          color: var(--surface-white);
+          color: #FFFFFF !important;
           line-height: 1;
           letter-spacing: -0.02em;
         }

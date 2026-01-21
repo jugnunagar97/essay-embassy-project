@@ -6,6 +6,7 @@ import ServicesOverviewSection from '../components/Services/ServicesOverviewSect
 import WhyChooseUsSection from '../components/WhyChooseUs/WhyChooseUsSection';
 import WritersSection from '../components/Writers/WritersSection';
 import PricingSection from '../components/Pricing/PricingSection';
+import FAQSection from '../components/FAQ/FAQSection';
 
 // Main HomeV2 Component
 export default function HomeV2() {
@@ -25,6 +26,8 @@ export default function HomeV2() {
                 <WhyChooseUsSection />
                 <WritersSection />
                 <PricingSection />
+                <FAQSection />
+
             </div>
         </>
     );

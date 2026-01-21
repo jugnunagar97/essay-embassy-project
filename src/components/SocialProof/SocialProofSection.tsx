@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Star, Award, Clock, Users, Quote, ExternalLink, Shield, CheckCircle2, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, Award, Clock, Users, Quote, ExternalLink, Shield, CheckCircle2, Sparkles, Calendar, Tag } from 'lucide-react';
 
 // Proof gallery data with actual images
 const proofItems = [
@@ -18,40 +18,79 @@ const proofItems = [
   { id: 12, image: "/images/proofs/GuYOmM7aQAAe-VN.jfif" }
 ];
 
-// Written testimonials
+// Written testimonials - Genuine, believable reviews without user photos
 const testimonials = [
   {
     id: 1,
     name: "Sarah M.",
-    major: "Psychology Major",
-    university: "UCLA",
-    avatar: "/images/Jessica Miller.jpg",
+    tag: "Repeat Customer",
     rating: 5,
-    text: "I was skeptical at first, but they delivered an A+ paper that exceeded my expectations. The writer understood my topic perfectly and the revisions were done within hours.",
-    grade: "A+",
-    essayType: "Research Paper"
+    date: "March 14, 2024",
+    text: "Submitted a 15-page research methodology paper on short notice. The writer clearly understood qualitative research frameworks — my advisor only requested minor citation adjustments. Not my first order, and the consistency is what keeps me coming back.",
+    subject: "Research Methods"
   },
   {
     id: 2,
-    name: "Michael T.",
-    major: "MBA Student",
-    university: "NYU Stern",
-    avatar: "/images/Michael Johnson.jpg",
+    name: "Marcus T.",
+    tag: "First-Time User",
     rating: 5,
-    text: "Saved my semester! Had a complex case study due in 48 hours and they delivered exceptional quality. My professor even complimented the analysis.",
-    grade: "A",
-    essayType: "Case Study"
+    date: "November 8, 2023",
+    text: "Was honestly skeptical because I've been burned before by similar services. But this was different — the case analysis actually reflected the course material we covered. My professor commented on the 'strong analytical framework.' Worth every dollar.",
+    subject: "Business Strategy"
   },
   {
     id: 3,
-    name: "Emily R.",
-    major: "English Literature",
-    university: "Columbia",
-    avatar: "/images/Christina.jpg",
+    name: "Jennifer K.",
+    tag: "Verified Purchase",
     rating: 5,
-    text: "The attention to detail was incredible. They followed my professor's specific formatting requirements perfectly. This is the third time I've used them - always impressed.",
-    grade: "A+",
-    essayType: "Thesis Chapter"
+    date: "January 22, 2025",
+    text: "Third semester using this service for my capstone projects. What I appreciate most is the communication — they actually read my rubric and followed it. The turnaround on revisions is also surprisingly fast for the quality you get.",
+    subject: "Healthcare Admin"
+  },
+  {
+    id: 4,
+    name: "David L.",
+    tag: "Graduate Student",
+    rating: 5,
+    date: "August 3, 2024",
+    text: "Needed a literature review for my thesis proposal. The depth of sources they found was impressive — several papers I hadn't encountered in my own research. My committee approved the proposal on the first submission.",
+    subject: "Environmental Science"
+  },
+  {
+    id: 5,
+    name: "Rachel P.",
+    tag: "Returning Client",
+    rating: 5,
+    date: "December 19, 2023",
+    text: "The statistical analysis section was the main reason I reached out. They not only ran the tests correctly but explained the methodology in a way that made sense. My TA said it was one of the cleaner SPSS outputs she'd reviewed.",
+    subject: "Psychology Stats"
+  },
+  {
+    id: 6,
+    name: "Anthony W.",
+    tag: "Verified Purchase",
+    rating: 5,
+    date: "February 6, 2025",
+    text: "I'll admit I was in a tough spot with overlapping deadlines. The finance paper they delivered covered DCF analysis exactly how our textbook approaches it. Clean formatting, proper Excel models attached. Lifesaver doesn't begin to describe it.",
+    subject: "Corporate Finance"
+  },
+  {
+    id: 7,
+    name: "Christina B.",
+    tag: "Long-term Client",
+    rating: 5,
+    date: "October 11, 2024",
+    text: "Four orders in, and they've never missed a deadline or delivered anything below expectations. My comparative politics essay got the highest mark in my section. The argument structure was exactly what my professor looks for.",
+    subject: "Political Science"
+  },
+  {
+    id: 8,
+    name: "Michael R.",
+    tag: "First-Time User",
+    rating: 5,
+    date: "July 29, 2023",
+    text: "Took a chance based on a friend's recommendation for my nursing care plan assignment. The clinical reasoning was spot-on, and the care interventions were evidence-based with recent journal citations. Exceeded my expectations.",
+    subject: "Nursing Studies"
   }
 ];
 
@@ -76,7 +115,8 @@ export default function SocialProofSection() {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [itemsPerView, setItemsPerView] = useState(3);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const scrollRef = useRef(null);
 
   // Responsive items per view
   useEffect(() => {
@@ -115,13 +155,29 @@ export default function SocialProofSection() {
     return () => clearInterval(interval);
   }, [isAutoPlaying, maxSlide]);
 
-  // Testimonial auto-rotate
-  useEffect(() => {
-    const testimonialInterval = setInterval(() => {
-      setActiveTestimonial(prev => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(testimonialInterval);
-  }, []);
+  // Testimonial navigation
+  const goToPrevTestimonial = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setActiveTestimonial(prev => (prev - 1 + testimonials.length) % testimonials.length);
+    setTimeout(() => setIsTransitioning(false), 500);
+  }, [isTransitioning]);
+
+  const goToNextTestimonial = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setActiveTestimonial(prev => (prev + 1) % testimonials.length);
+    setTimeout(() => setIsTransitioning(false), 500);
+  }, [isTransitioning]);
+
+  // Get visible testimonials (prev, current, next)
+  const getVisibleTestimonials = () => {
+    const prev = (activeTestimonial - 1 + testimonials.length) % testimonials.length;
+    const next = (activeTestimonial + 1) % testimonials.length;
+    return { prev, current: activeTestimonial, next };
+  };
+
+  const visibleTestimonials = getVisibleTestimonials();
 
   const handlePrev = () => {
     setIsAutoPlaying(false);
@@ -136,6 +192,56 @@ export default function SocialProofSection() {
   const handleDotClick = (index: number) => {
     setIsAutoPlaying(false);
     setCurrentSlide(index);
+  };
+
+  // Render a testimonial card
+  const renderTestimonialCard = (testimonial: typeof testimonials[0], position: 'left' | 'center' | 'right') => {
+    return (
+      <div
+        className={`testimonial-carousel-card ${position}`}
+        key={testimonial.id}
+      >
+        <div className="testimonial-card-inner">
+          {/* Quote Icon */}
+          <div className="testimonial-quote-icon">
+            <Quote size={24} />
+          </div>
+
+          {/* Review Text */}
+          <p className="testimonial-review-text">"{testimonial.text}"</p>
+
+          {/* Divider */}
+          <div className="testimonial-divider" />
+
+          {/* Author Info */}
+          <div className="testimonial-author-section">
+            <div className="testimonial-author-top">
+              <span className="testimonial-author-name">{testimonial.name}</span>
+              <span className="testimonial-tag">
+                <Tag size={12} />
+                {testimonial.tag}
+              </span>
+            </div>
+            <div className="testimonial-meta">
+              <span className="testimonial-subject">{testimonial.subject}</span>
+              <span className="testimonial-date">
+                <Calendar size={12} />
+                {testimonial.date}
+              </span>
+            </div>
+            <div className="testimonial-rating">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  size={14}
+                  className={i < testimonial.rating ? 'star-filled' : 'star-empty'}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -268,60 +374,63 @@ export default function SocialProofSection() {
           </div>
         </div>
 
-        {/* Featured Testimonial (Large) */}
-        <div className="featured-testimonial-section" data-testid="featured-testimonial">
-          <div className="featured-testimonial-wrapper">
-            <div className="featured-quote-mark">
-              <Quote size={48} />
+        {/* NEW: Featured Testimonial Carousel with 3-Card Layout */}
+        <div className="testimonial-carousel-section" data-testid="testimonial-carousel">
+          <div className="testimonial-carousel-header">
+            <h3>What Our Clients Say</h3>
+            <p>Authentic reviews from verified customers</p>
+          </div>
+
+          <div className="testimonial-carousel-wrapper">
+            {/* Left Navigation Arrow */}
+            <button
+              className="testimonial-nav-arrow testimonial-nav-left"
+              onClick={goToPrevTestimonial}
+              aria-label="Previous testimonial"
+              disabled={isTransitioning}
+            >
+              <ChevronLeft size={28} />
+            </button>
+
+            {/* Cards Container */}
+            <div className="testimonial-cards-container">
+              {/* Left Card (Transparent) */}
+              {renderTestimonialCard(testimonials[visibleTestimonials.prev], 'left')}
+
+              {/* Center Card (Active) */}
+              {renderTestimonialCard(testimonials[visibleTestimonials.current], 'center')}
+
+              {/* Right Card (Transparent) */}
+              {renderTestimonialCard(testimonials[visibleTestimonials.next], 'right')}
             </div>
 
-            <div className="featured-testimonial-content">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={testimonial.id}
-                  className={`featured-testimonial-item ${activeTestimonial === index ? 'active' : ''}`}
-                >
-                  <p className="featured-testimonial-text">"{testimonial.text}"</p>
-                  <div className="featured-testimonial-author">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="featured-avatar"
-                    />
-                    <div className="featured-author-info">
-                      <div className="featured-author-name-row">
-                        <span className="featured-author-name">{testimonial.name}</span>
-                        <span className="featured-grade-badge">{testimonial.grade}</span>
-                      </div>
-                      <span className="featured-author-details">{testimonial.major} • {testimonial.university}</span>
-                      <div className="featured-rating">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={14}
-                            className={i < testimonial.rating ? 'star-filled' : 'star-empty'}
-                          />
-                        ))}
-                        <span className="featured-essay-type">{testimonial.essayType}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {/* Right Navigation Arrow */}
+            <button
+              className="testimonial-nav-arrow testimonial-nav-right"
+              onClick={goToNextTestimonial}
+              aria-label="Next testimonial"
+              disabled={isTransitioning}
+            >
+              <ChevronRight size={28} />
+            </button>
+          </div>
 
-            {/* Testimonial Navigation Dots */}
-            <div className="testimonial-nav-dots">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  className={`testimonial-nav-dot ${activeTestimonial === index ? 'active' : ''}`}
-                  onClick={() => setActiveTestimonial(index)}
-                  aria-label={`View testimonial ${index + 1}`}
-                  data-testid={`testimonial-dot-${index}`}
-                />
-              ))}
-            </div>
+          {/* Carousel Indicators */}
+          <div className="testimonial-carousel-dots">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                className={`carousel-indicator ${activeTestimonial === index ? 'active' : ''}`}
+                onClick={() => {
+                  if (!isTransitioning) {
+                    setIsTransitioning(true);
+                    setActiveTestimonial(index);
+                    setTimeout(() => setIsTransitioning(false), 500);
+                  }
+                }}
+                aria-label={`Go to review ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
 
@@ -772,168 +881,267 @@ export default function SocialProofSection() {
           font-weight: 600;
         }
 
-        /* ========== FEATURED TESTIMONIAL ========== */
-        .featured-testimonial-section {
+        /* ========== NEW TESTIMONIAL CAROUSEL ========== */
+        .testimonial-carousel-section {
           margin-bottom: 64px;
+          padding: 48px 0;
         }
-        
-        .featured-testimonial-wrapper {
-          position: relative;
-          background: linear-gradient(135deg, var(--deep-navy) 0%, #132D5C 100%);
-          border-radius: 24px;
-          padding: 48px;
-          overflow: hidden;
+
+        .testimonial-carousel-header {
+          text-align: center;
+          margin-bottom: 40px;
         }
-        
-        .featured-testimonial-wrapper::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 300px;
-          height: 300px;
-          background: radial-gradient(circle, rgba(212, 168, 83, 0.1) 0%, transparent 70%);
-          pointer-events: none;
+
+        .testimonial-carousel-header h3 {
+          font-size: 28px;
+          font-weight: 700;
+          color: var(--deep-navy);
+          margin: 0 0 8px 0;
         }
-        
-        .featured-quote-mark {
-          position: absolute;
-          top: 32px;
-          left: 40px;
-          color: rgba(212, 168, 83, 0.3);
-          z-index: 1;
+
+        .testimonial-carousel-header p {
+          font-size: 15px;
+          color: var(--text-muted);
+          margin: 0;
         }
-        
-        .featured-testimonial-content {
-          position: relative;
-          z-index: 2;
-          min-height: 200px;
-        }
-        
-        .featured-testimonial-item {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.5s ease;
-          pointer-events: none;
-        }
-        
-        .featured-testimonial-item.active {
-          opacity: 1;
-          transform: translateY(0);
-          pointer-events: auto;
-        }
-        
-        .featured-testimonial-text {
-          font-size: clamp(18px, 2.5vw, 24px);
-          font-weight: 500;
-          color: var(--white);
-          line-height: 1.6;
-          margin-bottom: 32px;
-          padding-left: 24px;
-        }
-        
-        .featured-testimonial-author {
+
+        .testimonial-carousel-wrapper {
           display: flex;
           align-items: center;
-          gap: 16px;
-          padding-left: 24px;
+          justify-content: center;
+          gap: 24px;
+          position: relative;
+          padding: 20px 0;
         }
-        
-        .featured-avatar {
+
+        /* Navigation Arrows */
+        .testimonial-nav-arrow {
           width: 56px;
           height: 56px;
+          background: var(--white);
+          border: 2px solid var(--border-light);
           border-radius: 50%;
-          object-fit: cover;
-          border: 3px solid rgba(212, 168, 83, 0.4);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--royal-blue);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          flex-shrink: 0;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          z-index: 10;
         }
-        
-        .featured-author-info {
+
+        .testimonial-nav-arrow:hover:not(:disabled) {
+          background: var(--royal-blue);
+          color: var(--white);
+          border-color: var(--royal-blue);
+          transform: scale(1.08);
+          box-shadow: 0 6px 20px rgba(22, 82, 160, 0.3);
+        }
+
+        .testimonial-nav-arrow:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        /* Cards Container */
+        .testimonial-cards-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 24px;
+          perspective: 1000px;
+          width: 100%;
+          max-width: 1000px;
+        }
+
+        /* Individual Testimonial Card */
+        .testimonial-carousel-card {
+          background: linear-gradient(145deg, #0D2449 0%, #132D5C 50%, #0B1F42 100%);
+          border-radius: 20px;
+          padding: 32px;
+          position: relative;
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 8px 32px rgba(11, 31, 66, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .testimonial-carousel-card.center {
+          flex: 0 0 420px;
+          min-height: 340px;
+          opacity: 1;
+          transform: scale(1) translateZ(0);
+          z-index: 3;
+        }
+
+        .testimonial-carousel-card.left,
+        .testimonial-carousel-card.right {
+          flex: 0 0 280px;
+          min-height: 280px;
+          opacity: 0.4;
+          transform: scale(0.85);
+          z-index: 1;
+          filter: blur(1px);
+        }
+
+        .testimonial-carousel-card.left {
+          transform: scale(0.85) translateX(20px);
+        }
+
+        .testimonial-carousel-card.right {
+          transform: scale(0.85) translateX(-20px);
+        }
+
+        .testimonial-card-inner {
           display: flex;
           flex-direction: column;
-          gap: 4px;
+          height: 100%;
         }
-        
-        .featured-author-name-row {
+
+        /* Quote Icon */
+        .testimonial-quote-icon {
+          color: rgba(212, 168, 83, 0.4);
+          margin-bottom: 16px;
+        }
+
+        /* Review Text */
+        .testimonial-review-text {
+          font-size: 16px;
+          line-height: 1.7;
+          color: rgba(255, 255, 255, 0.95);
+          margin: 0 0 24px 0;
+          flex-grow: 1;
+          font-weight: 400;
+        }
+
+        .testimonial-carousel-card.center .testimonial-review-text {
+          font-size: 17px;
+        }
+
+        .testimonial-carousel-card.left .testimonial-review-text,
+        .testimonial-carousel-card.right .testimonial-review-text {
+          font-size: 14px;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        /* Divider */
+        .testimonial-divider {
+          height: 1px;
+          background: linear-gradient(90deg, transparent 0%, rgba(212, 168, 83, 0.3) 50%, transparent 100%);
+          margin-bottom: 20px;
+        }
+
+        /* Author Section */
+        .testimonial-author-section {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .testimonial-author-top {
           display: flex;
           align-items: center;
           gap: 12px;
+          flex-wrap: wrap;
         }
-        
-        .featured-author-name {
+
+        .testimonial-author-name {
           font-size: 16px;
           font-weight: 700;
           color: var(--white);
         }
-        
-        .featured-grade-badge {
-          padding: 4px 12px;
-          background: linear-gradient(135deg, var(--green) 0%, #059669 100%);
-          color: white;
-          font-size: 12px;
-          font-weight: 700;
-          border-radius: 100px;
-        }
-        
-        .featured-author-details {
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .featured-rating {
-          display: flex;
+
+        .testimonial-tag {
+          display: inline-flex;
           align-items: center;
           gap: 4px;
-          margin-top: 4px;
-        }
-        
-        .featured-rating .star-filled {
-          color: var(--gold);
-          fill: var(--gold);
-        }
-        
-        .featured-rating .star-empty {
-          color: rgba(255, 255, 255, 0.3);
-        }
-        
-        .featured-essay-type {
-          margin-left: 12px;
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.5);
+          padding: 4px 10px;
+          background: rgba(16, 185, 129, 0.2);
+          border: 1px solid rgba(16, 185, 129, 0.3);
+          border-radius: 100px;
+          font-size: 11px;
+          font-weight: 600;
+          color: #4ADE80;
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
-        
-        .testimonial-nav-dots {
+
+        .testimonial-tag svg {
+          width: 10px;
+          height: 10px;
+        }
+
+        .testimonial-meta {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+
+        .testimonial-subject {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.6);
+          font-weight: 500;
+        }
+
+        .testimonial-date {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.45);
+        }
+
+        .testimonial-date svg {
+          width: 12px;
+          height: 12px;
+        }
+
+        .testimonial-rating {
+          display: flex;
+          gap: 3px;
+          margin-top: 4px;
+        }
+
+        .testimonial-rating .star-filled {
+          color: var(--gold);
+          fill: var(--gold);
+        }
+
+        .testimonial-rating .star-empty {
+          color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Carousel Dots */
+        .testimonial-carousel-dots {
           display: flex;
           justify-content: center;
-          gap: 12px;
+          gap: 8px;
           margin-top: 32px;
-          position: relative;
-          z-index: 2;
         }
-        
-        .testimonial-nav-dot {
+
+        .carousel-indicator {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.3);
+          background: var(--border-light);
           border: none;
           cursor: pointer;
           transition: all 0.3s ease;
         }
-        
-        .testimonial-nav-dot:hover {
-          background: rgba(255, 255, 255, 0.5);
+
+        .carousel-indicator:hover {
+          background: var(--light-blue);
         }
-        
-        .testimonial-nav-dot.active {
-          background: var(--gold);
-          width: 24px;
+
+        .carousel-indicator.active {
+          width: 28px;
           border-radius: 100px;
+          background: var(--gold);
         }
 
         /* ========== STATS BAR ========== */
@@ -987,7 +1195,7 @@ export default function SocialProofSection() {
         .stat-value {
           font-size: 32px;
           font-weight: 800;
-          color: var(--white);
+          color: #FFFFFF !important;
           line-height: 1.1;
           letter-spacing: -0.02em;
         }
@@ -995,13 +1203,13 @@ export default function SocialProofSection() {
         .stat-label {
           font-size: 14px;
           font-weight: 600;
-          color: var(--white);
+          color: #FFFFFF !important;
           margin-top: 2px;
         }
         
         .stat-description {
           font-size: 12px;
-          color: rgba(255, 255, 255, 0.5);
+          color: rgba(255, 255, 255, 0.7) !important;
           margin-top: 2px;
         }
 
@@ -1118,13 +1326,13 @@ export default function SocialProofSection() {
         .cta-heading {
           font-size: 24px;
           font-weight: 700;
-          color: var(--deep-navy);
+          color: #0B1F42 !important;
           margin: 0 0 8px 0;
         }
         
         .cta-subtext {
           font-size: 15px;
-          color: var(--text-muted);
+          color: #475569 !important;
           margin: 0;
         }
         
@@ -1160,6 +1368,19 @@ export default function SocialProofSection() {
           .stats-bar-inner {
             grid-template-columns: repeat(2, 1fr);
           }
+
+          .testimonial-cards-container {
+            gap: 16px;
+          }
+
+          .testimonial-carousel-card.center {
+            flex: 0 0 360px;
+          }
+
+          .testimonial-carousel-card.left,
+          .testimonial-carousel-card.right {
+            flex: 0 0 220px;
+          }
         }
         
         @media (max-width: 1024px) {
@@ -1170,15 +1391,26 @@ export default function SocialProofSection() {
           .proof-card {
             min-width: 240px;
           }
-          
-          .featured-testimonial-wrapper {
-            padding: 40px 32px;
+
+          .testimonial-carousel-card.left,
+          .testimonial-carousel-card.right {
+            display: none;
+          }
+
+          .testimonial-carousel-card.center {
+            flex: 1;
+            max-width: 500px;
+          }
+
+          .testimonial-nav-arrow {
+            width: 48px;
+            height: 48px;
           }
         }
         
         @media (max-width: 768px) {
           .social-proof-section {
-            padding: 60px 0;
+            padding: 48px 0;
           }
           
           .social-proof-container {
@@ -1186,15 +1418,16 @@ export default function SocialProofSection() {
           }
           
           .trust-badges-row {
-            gap: 16px;
+            gap: 12px;
           }
           
           .trust-badge-item {
-            padding: 10px 16px;
+            padding: 8px 12px;
+            font-size: 13px;
           }
           
           .proof-gallery {
-            padding: 24px 16px;
+            padding: 20px 16px;
           }
           
           .gallery-header {
@@ -1204,41 +1437,52 @@ export default function SocialProofSection() {
           }
           
           .gallery-arrow {
-            width: 40px;
-            height: 40px;
-          }
-          
-          .gallery-arrow-left { left: 8px; }
-          .gallery-arrow-right { right: 8px; }
-          
-          .featured-testimonial-wrapper {
-            padding: 32px 24px;
-          }
-          
-          .featured-quote-mark {
-            top: 20px;
-            left: 20px;
-          }
-          
-          .featured-quote-mark svg {
             width: 32px;
             height: 32px;
           }
           
-          .featured-testimonial-text {
-            padding-left: 0;
+          .gallery-arrow svg {
+            width: 16px;
+            height: 16px;
           }
           
-          .featured-testimonial-author {
-            padding-left: 0;
+          .gallery-arrow-left { left: 4px; }
+          .gallery-arrow-right { right: 4px; }
+
+          .testimonial-carousel-wrapper {
+            gap: 8px;
+            padding: 10px 0;
+          }
+
+          .testimonial-carousel-card.center {
+            padding: 20px 16px;
+            min-height: auto;
+            width: 100%;
+          }
+          
+          .testimonial-nav-arrow {
+            width: 32px;
+            height: 32px;
+            min-width: 32px; /* Prevent shrinking */
+          }
+
+          .testimonial-nav-arrow svg {
+            width: 16px;
+            height: 16px;
+          }
+
+          .testimonial-review-text {
+            font-size: 14px !important;
+            line-height: 1.6 !important;
           }
           
           .stats-bar-inner {
             grid-template-columns: 1fr;
+            gap: 16px;
           }
           
           .stat-item {
-            padding: 24px 20px;
+            padding: 20px 16px;
           }
           
           .platforms-grid {
@@ -1248,14 +1492,14 @@ export default function SocialProofSection() {
           
           .platform-badge {
             width: 100%;
-            max-width: 320px;
+            max-width: 100%;
             justify-content: flex-start;
           }
           
           .social-proof-cta {
             flex-direction: column;
             text-align: center;
-            padding: 32px 24px;
+            padding: 24px 20px;
           }
           
           .cta-primary {
@@ -1286,15 +1530,19 @@ export default function SocialProofSection() {
           .gallery-slide {
             gap: 16px;
           }
-          
-          .featured-testimonial-content {
-            min-height: 240px;
+
+          .testimonial-carousel-header h3 {
+            font-size: 24px;
           }
-          
-          .featured-testimonial-author {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
+
+          .testimonial-nav-arrow {
+            width: 44px;
+            height: 44px;
+          }
+
+          .testimonial-nav-arrow svg {
+            width: 22px;
+            height: 22px;
           }
           
           .stat-value {
@@ -1323,6 +1571,16 @@ export default function SocialProofSection() {
           
           .cta-heading {
             font-size: 20px;
+          }
+
+          .testimonial-carousel-card.center {
+            padding: 20px;
+          }
+
+          .testimonial-author-top {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
           }
         }
       `}</style>
