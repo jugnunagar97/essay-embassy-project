@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
-import { 
-  Twitter, 
-  Instagram, 
+import {
+  Twitter,
+  Instagram,
   Linkedin,
   Shield,
   CheckCircle,
-  Lock,
-  CreditCard
+  Lock
 } from 'lucide-react';
 import visaLogo from '../../images/visa.svg';
 import mastercardLogo from '../../images/mastercard.svg';
@@ -29,9 +28,9 @@ export default function Footer() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8">
             {/* Left Side - Logo */}
             <div className="flex items-center space-x-2 sm:space-x-3">
-              <img 
-                src="/images/logo.png" 
-                alt="Essay Embassy" 
+              <img
+                src="/images/logo.png"
+                alt="Essay Embassy"
                 className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 object-contain"
               />
               <div>
@@ -61,7 +60,7 @@ export default function Footer() {
         {/* Main Content - Multi-Column Link Structure */}
         <div className="container mx-auto px-4 sm:px-5 py-8 sm:py-12 md:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 sm:gap-8">
-            
+
             {/* Column 1: Free Tools - Highlighted */}
             <div className="relative">
               <div className="absolute -inset-3 bg-gradient-to-br from-primary-500/20 to-purple-500/20 rounded-2xl blur-sm"></div>
@@ -75,8 +74,8 @@ export default function Footer() {
                 </h3>
                 <ul className="space-y-2 sm:space-y-3">
                   <li>
-                    <Link 
-                      to="/tools/scholarship-analyzer" 
+                    <Link
+                      to="/tools/scholarship-analyzer"
                       className="group flex items-center gap-2 text-sm sm:text-base text-white font-medium hover:text-primary-400 transition-all duration-300"
                     >
                       <span className="px-2 py-0.5 text-xs bg-gradient-to-r from-primary-500 to-purple-500 rounded-full text-white uppercase tracking-wider">New</span>
@@ -98,7 +97,8 @@ export default function Footer() {
                 <li><Link to="/services/argumentative-essay" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Argumentative Essay Service</Link></li>
                 <li><Link to="/services/narrative-essay" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Narrative Essay Service</Link></li>
                 <li><Link to="/services/admission-essay" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Admission Essay Service</Link></li>
-                <li><Link to="/services/essay-writing" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Essay Writing Service</Link></li>
+                <li><Link to="/essay-writing" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Essay Writing Service</Link></li>
+                <li><Link to="/paper-writing-services" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Paper Writing Service</Link></li>
                 <li><Link to="/services/scholarship-essay" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Scholarship Essay Service</Link></li>
                 <li><Link to="/services/book-review" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Book Review Service</Link></li>
               </ul>
@@ -195,7 +195,7 @@ export default function Footer() {
           <div className="container mx-auto px-4 sm:px-5 py-4 sm:py-5 md:py-6">
             <div className="text-center">
               <p className="text-gray-400 text-xs sm:text-sm leading-relaxed max-w-4xl mx-auto px-2">
-                <strong>Disclaimer:</strong> All client orders are completed by our team of highly qualified human writers. 
+                <strong>Disclaimer:</strong> All client orders are completed by our team of highly qualified human writers.
                 The essays and papers provided by us are not to be used for submission but rather as learning models only.
               </p>
             </div>

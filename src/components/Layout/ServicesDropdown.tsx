@@ -25,19 +25,41 @@ export default function ServicesDropdown() {
       .filter((category) => category.isActive)
       .sort((a, b) => (a.order || 0) - (b.order || 0));
 
-    return activeCategories
+    const dbCategories = activeCategories
       .map((category) => {
         const relatedServices = (services as SubService[])
-          .filter((service) => service.categoryId === category.id && service.isActive)
+          .filter((service) =>
+            service.categoryId === category.id &&
+            service.isActive &&
+            service.name.trim() !== 'My Assignment Help'
+          )
           .sort((a, b) => (a.order || 0) - (b.order || 0));
 
         return {
           id: category.id,
           name: category.name,
-          services: relatedServices,
+          services: relatedServices.map(s => ({
+            id: s.id,
+            name: s.name,
+            link: `/services/${s.link}`
+          })),
         };
       })
       .filter((group) => group.services.length > 0);
+
+    // Pillar pages we want in the dropdown
+    const pillarServicesGroup = {
+      id: 'pillar-services',
+      name: '',
+      services: [
+        { id: 'p1', name: 'Essay Writing Services', link: '/essay-writing' },
+        { id: 'p2', name: 'Assignment Help', link: '/assignment-help' },
+        { id: 'p3', name: 'Homework Help', link: '/homework-help' },
+        { id: 'p4', name: 'Paper Writing Services', link: '/paper-writing-services' },
+      ]
+    };
+
+    return [pillarServicesGroup, ...dbCategories];
   }, [categories, services, isLoadingData]);
 
   // Improved hover handling with delay
@@ -119,25 +141,20 @@ export default function ServicesDropdown() {
             ) : structuredCategories.length === 0 ? (
               <div className="dropdown-empty">No services available yet.</div>
             ) : (
-              <div className="dropdown-grid">
-                {structuredCategories.map((category) => (
-                  <div key={category.id} className="dropdown-category">
-                    <p className="category-title">{category.name}</p>
-                    <ul className="category-links">
-                      {category.services.map((service) => (
-                        <li key={service.id}>
-                          <Link
-                            to={`/services/${service.link}`}
-                            className="service-link"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {service.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+              <div className="dropdown-single-list">
+                <ul className="category-links flat">
+                  {structuredCategories.flatMap(cat => cat.services).map((service) => (
+                    <li key={service.id}>
+                      <Link
+                        to={service.link}
+                        className="service-link"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {service.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
@@ -193,8 +210,8 @@ export default function ServicesDropdown() {
           position: absolute;
           top: calc(100% + 8px);
           left: 0;
-          min-width: 280px;
-          width: 680px;
+          min-width: 260px;
+          width: 320px;
           max-width: calc(100vw - 32px);
           background: #FFFFFF;
           border: 1px solid #E2E8F0;
@@ -212,28 +229,14 @@ export default function ServicesDropdown() {
           color: #64748B;
         }
 
-        .dropdown-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
-          padding: 24px;
+        .dropdown-single-list {
+          padding: 12px;
         }
 
-        .dropdown-category {
+        .category-links.flat {
           display: flex;
           flex-direction: column;
-          gap: 8px;
-        }
-
-        .category-title {
-          font-size: 11px;
-          font-weight: 700;
-          color: #1652A0;
-          text-transform: uppercase;
-          letter-spacing: 0.8px;
-          padding-bottom: 8px;
-          border-bottom: 1px solid #E2E8F0;
-          margin: 0;
+          gap: 2px;
         }
 
         .category-links {

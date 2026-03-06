@@ -32,18 +32,42 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
       .filter((cat) => cat.isActive)
       .sort((a, b) => (a.order || 0) - (b.order || 0));
 
-    return activeCategories
+    const dbCategories = activeCategories
       .map((category) => {
         const subServices = (services as SubService[])
-          .filter((service) => service.categoryId === category.id && service.isActive)
+          .filter((service) =>
+            service.categoryId === category.id &&
+            service.isActive &&
+            service.name.trim() !== 'My Assignment Help'
+          )
           .sort((a, b) => (a.order || 0) - (b.order || 0));
 
         return {
-          ...category,
-          subServices,
+          id: category.id,
+          name: category.name,
+          isActive: category.isActive,
+          subServices: subServices.map(s => ({
+            id: s.id,
+            name: s.name,
+            link: `/services/${s.link}`
+          })),
         };
       })
       .filter((category) => category.subServices.length > 0);
+
+    const pillarServicesGroup = {
+      id: 'pillar-services',
+      name: '',
+      isActive: true,
+      subServices: [
+        { id: 'p1', name: 'Essay Writing Services', link: '/essay-writing' },
+        { id: 'p2', name: 'Assignment Help', link: '/assignment-help' },
+        { id: 'p3', name: 'Homework Help', link: '/homework-help' },
+        { id: 'p4', name: 'Paper Writing Services', link: '/paper-writing-services' },
+      ]
+    };
+
+    return [pillarServicesGroup, ...dbCategories];
   }, [categories, services, isLoadingCategories, isLoadingServices]);
 
   // Show a loading state if data is still being fetched
@@ -80,6 +104,7 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
           </Link>
         )}
 
+        {/* Pillar Service Links Removed - they are now in the structured categories */}
 
         {/* Dynamically generated service categories and sub-services */}
         {structuredCategories.length === 0 ? (
@@ -89,21 +114,23 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
             const isExpanded = expandedCategory === category.id;
             return (
               <div key={category.id} className="border-t border-gray-100 dark:border-gray-700 pt-2 first:border-t-0 first:pt-0">
-                <button
-                  onClick={() => toggleCategory(category.id)}
-                  className="w-full flex justify-between items-center px-3 py-2 text-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                >
-                  <span>{category.name}</span>
-                  <ChevronDown size={20} className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
-                </button>
-                {isExpanded && (
-                  <div className="ml-4 pl-2 border-l-2 border-primary-500 space-y-1 mt-1">
+                {category.name && (
+                  <button
+                    onClick={() => toggleCategory(category.id)}
+                    className="w-full flex justify-between items-center px-3 py-2 text-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors border-b border-gray-100"
+                  >
+                    <span>{category.name}</span>
+                    <ChevronDown size={20} className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
+                  </button>
+                )}
+                {(!category.name || isExpanded) && (
+                  <div className={`${category.name ? 'ml-4 pl-2 border-l-2 border-primary-500' : ''} space-y-1 mt-1`}>
                     {category.subServices.map((service) => (
                       <Link
                         key={service.id}
-                        to={`/services/${service.link}`}
+                        to={service.link}
                         className="block px-3 py-2 text-base text-gray-600 dark:text-gray-400 hover:text-primary-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                        onClick={onClose} // Close mobile menu on link click
+                        onClick={onClose}
                       >
                         {service.name}
                       </Link>

@@ -52,36 +52,32 @@ interface PriceConfig {
 
 // === UPDATED priceConfig and academicLevels to match HomePage ===
 const priceConfig: PriceConfig = {
-  // Assuming 'High School' base price is $12
   "High School": {
-    "3 hours": { base: 18, urgent: 1.8 }, "6 hours": { base: 16, urgent: 1.6 }, "12 hours": { base: 14, urgent: 1.4 },
+    "3 hours": { base: 15, urgent: 1.8 }, "6 hours": { base: 13, urgent: 1.6 }, "12 hours": { base: 12, urgent: 1.4 },
+    "24 hours": { base: 10, urgent: 1.2 }, "48 hours": { base: 10, urgent: 1.0 }, "3 days": { base: 10, urgent: 1.0 },
+    "5 days": { base: 10, urgent: 1.0 }, "7 days": { base: 10, urgent: 1.0 }, "10 days": { base: 10, urgent: 1.0 }, "14 days": { base: 10, urgent: 1.0 }
+  },
+  "Undergraduate": {
+    "3 hours": { base: 20, urgent: 1.8 }, "6 hours": { base: 18, urgent: 1.6 }, "12 hours": { base: 15, urgent: 1.4 },
     "24 hours": { base: 12, urgent: 1.2 }, "48 hours": { base: 12, urgent: 1.0 }, "3 days": { base: 12, urgent: 1.0 },
     "5 days": { base: 12, urgent: 1.0 }, "7 days": { base: 12, urgent: 1.0 }, "10 days": { base: 12, urgent: 1.0 }, "14 days": { base: 12, urgent: 1.0 }
   },
-  // 'College' base price is $15
-  "College": {
-    "3 hours": { base: 25, urgent: 1.8 }, "6 hours": { base: 22, urgent: 1.6 }, "12 hours": { base: 18, urgent: 1.4 },
-    "24 hours": { base: 15, urgent: 1.2 }, "48 hours": { base: 15, urgent: 1.0 }, "3 days": { base: 15, urgent: 1.0 },
-    "5 days": { base: 15, urgent: 1.0 }, "7 days": { base: 15, urgent: 1.0 }, "10 days": { base: 15, urgent: 1.0 }, "14 days": { base: 15, urgent: 1.0 }
+  "Masters": {
+    "3 hours": { base: 25, urgent: 1.8 }, "6 hours": { base: 22, urgent: 1.6 }, "12 hours": { base: 20, urgent: 1.4 },
+    "24 hours": { base: 16, urgent: 1.2 }, "48 hours": { base: 16, urgent: 1.0 }, "3 days": { base: 16, urgent: 1.0 },
+    "5 days": { base: 16, urgent: 1.0 }, "7 days": { base: 16, urgent: 1.0 }, "10 days": { base: 16, urgent: 1.0 }, "14 days": { base: 16, urgent: 1.0 }
   },
-  // 'University' base price is $18
-  "University": { // Renamed from "Undergraduate" or "Masters" to match Home.tsx
-    "3 hours": { base: 28, urgent: 1.8 }, "6 hours": { base: 25, urgent: 1.6 }, "12 hours": { base: 21, urgent: 1.4 },
-    "24 hours": { base: 18, urgent: 1.2 }, "48 hours": { base: 18, urgent: 1.0 }, "3 days": { base: 18, urgent: 1.0 },
-    "5 days": { base: 18, urgent: 1.0 }, "7 days": { base: 18, urgent: 1.0 }, "10 days": { base: 18, urgent: 1.0 }, "14 days": { base: 18, urgent: 1.0 }
-  },
-  // Keeping PhD as it is, as it's a higher level not explicitly on home page pricing
   "PhD": {
-    "3 hours": { base: 38, urgent: 1.8 }, "6 hours": { base: 35, urgent: 1.6 }, "12 hours": { base: 31, urgent: 1.4 },
-    "24 hours": { base: 28, urgent: 1.2 }, "48 hours": { base: 25, urgent: 1.0 }, "3 days": { base: 25, urgent: 1.0 },
-    "5 days": { base: 25, urgent: 1.0 }, "7 days": { base: 25, urgent: 1.0 }, "10 days": { base: 25, urgent: 1.0 }, "14 days": { base: 25, urgent: 1.0 }
+    "3 hours": { base: 32, urgent: 1.8 }, "6 hours": { base: 28, urgent: 1.6 }, "12 hours": { base: 25, urgent: 1.4 },
+    "24 hours": { base: 20, urgent: 1.2 }, "48 hours": { base: 20, urgent: 1.0 }, "3 days": { base: 20, urgent: 1.0 },
+    "5 days": { base: 20, urgent: 1.0 }, "7 days": { base: 20, urgent: 1.0 }, "10 days": { base: 20, urgent: 1.0 }, "14 days": { base: 20, urgent: 1.0 }
   }
 };
 
 const paperTypes = ["Essay (Any Type)", "Admission Essay", "Analysis", "Annotated Bibliography", "Article Review", "Assignment", "Book/Movie Review", "Business Plan", "Capstone Project", "Case Study", "Coursework", "Creative Writing", "Critical Thinking", "Dissertation", "Lab Report", "Research Paper", "Research Proposal", "Speech", "Term Paper", "Thesis"];
 const subjects = ["Business Studies", "Computer Science", "Economics", "Education", "Engineering", "English", "Health Sciences", "History", "Law", "Literature", "Management", "Marketing", "Nursing", "Political Science", "Psychology", "Sociology", "Other"];
 // === UPDATED academicLevels to match Home.tsx ===
-const academicLevels = ["High School", "College", "University", "PhD"];
+const academicLevels = ["High School", "Undergraduate", "Masters", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 const citationStyles = ["APA", "MLA", "Chicago", "Harvard", "Other"];
 
@@ -244,11 +240,11 @@ export default function OrderNow() {
     });
     return newOrderNumber;
   };
-  
+
   const createOrderInFirestore = useCallback(async (orderData: OrderFormData, author: { id: string, name: string }) => {
     try {
       let uploadedFileUrls: string[] = [];
-      
+
       if (files.length > 0) {
         const fileUploadPromises = files.map(file => {
           const fileRef = ref(storage, `order_files/${author.id}/${Date.now()}/${file.name}`);
@@ -324,7 +320,7 @@ export default function OrderNow() {
       toast.error("Something went wrong, pending order data is missing.");
       return;
     }
-    
+
     setIsSubmitting(true);
 
     try {
@@ -345,7 +341,7 @@ export default function OrderNow() {
         console.log("Login successful, user:", authResult.user.uid);
         toast.success('Logged in! Finalizing your order...');
       }
-      
+
       const loggedInUser = authResult?.user;
       if (!loggedInUser || !loggedInUser.uid) {
         throw new Error("Authentication succeeded but user details are missing.");
@@ -367,7 +363,7 @@ export default function OrderNow() {
       setShowAuthModal(false);
     }
   };
-  
+
   const handlePagesChange = (increment: boolean) => {
     const currentPages = watchedValues.pages || 1;
     const newPages = increment ? currentPages + 1 : Math.max(1, currentPages - 1);

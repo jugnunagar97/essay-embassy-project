@@ -11,7 +11,7 @@ import GeoBlock from './components/GeoBlock';
 import NoIndex from './components/NoIndex';
 
 // --- Core Page Imports ---
-import Home from './pages/Home';
+// import Home from './pages/Home';
 import HomeV2 from './pages/HomeV2';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -39,7 +39,7 @@ import QuestionDetail from './pages/QuestionDetail';
 import AdminQAList from './pages/Admin/AdminQAList';
 import AdminQANew from './pages/Admin/AdminQANew';
 import AdminQAEdit from './pages/Admin/AdminQAEdit';
-import ErrorPage from './pages/ErrorPage';
+// import ErrorPage from './pages/ErrorPage';
 import EditorLayout from './components/Layout/EditorLayout';
 import EditorReviewsModule from './pages/Editor/EditorReviewsModule';
 import EditorQnaModule from './pages/Editor/EditorQnaModule';
@@ -72,6 +72,7 @@ import AdmissionEssayWriting from './pages/Services/AdmissionEssayWriting';
 import ReflectiveEssay from './pages/Services/ReflectiveEssay';
 import CompareContrastEssay from './pages/Services/CompareContrastEssay';
 import ScholarshipEssay from './pages/Services/ScholarshipEssay';
+import PaperWriting from './pages/Services/PaperWriting';
 import MatlabProgrammingHelp from './pages/Services/MatlabProgrammingHelp';
 import RubyProgrammingHelp from './pages/Services/RubyProgrammingHelp';
 import CPPProgrammingHelp from './pages/Services/CPPProgrammingHelp';
@@ -258,6 +259,7 @@ function App() {
                 <Route path="programming-help/cpp" element={<CPPProgrammingHelp />} />
                 <Route path="programming-help/matlab" element={<MatlabProgrammingHelp />} />
                 <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
+                <Route path="paper-writing-services" element={<PaperWriting />} />
                 <Route path="term-paper" element={<TermPaper />} />
                 <Route path="thesis-writing" element={<ThesisWriting />} />
                 <Route path="services/:slug" element={<DynamicServicePage />} />

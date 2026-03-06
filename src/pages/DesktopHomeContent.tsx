@@ -322,32 +322,32 @@ const platforms: Platform[] = [
     name: "Google",
     icon: (
       <svg width="16" height="16" viewBox="-3 0 262 262" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
-        <path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4"/>
-        <path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853"/>
-        <path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05"/>
-        <path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EB4335"/>
+        <path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4" />
+        <path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853" />
+        <path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05" />
+        <path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EB4335" />
       </svg>
     ),
     color: "text-blue-600"
   },
   {
-    id: "sitejabber", 
+    id: "sitejabber",
     name: "Sitejabber",
     icon: (
       <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="6" fill="currentColor"/>
-        <path d="M8 5l1 2h2l-1.5 1.5L10.5 11 8 9.5 5.5 11l1-2.5L5 7h2L8 5z" fill="white"/>
+        <circle cx="8" cy="8" r="6" fill="currentColor" />
+        <path d="M8 5l1 2h2l-1.5 1.5L10.5 11 8 9.5 5.5 11l1-2.5L5 7h2L8 5z" fill="white" />
       </svg>
     ),
     color: "text-orange-500"
   },
   {
     id: "trustpilot",
-    name: "TrustPilot", 
+    name: "TrustPilot",
     icon: (
       <svg viewBox="0 0 799.89 761" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
-        <path d="M799.89 290.83H494.44L400.09 0l-94.64 290.83L0 290.54l247.37 179.92L152.72 761l247.37-179.63L647.16 761l-94.35-290.54z" fill="#00b67a"/>
-        <path d="M574.04 536.24l-21.23-65.78-152.72 110.91z" fill="#005128"/>
+        <path d="M799.89 290.83H494.44L400.09 0l-94.64 290.83L0 290.54l247.37 179.92L152.72 761l247.37-179.63L647.16 761l-94.35-290.54z" fill="#00b67a" />
+        <path d="M574.04 536.24l-21.23-65.78-152.72 110.91z" fill="#005128" />
       </svg>
     ),
     color: "text-green-600"
@@ -366,7 +366,7 @@ const reviewsData = {
       workType: "Research Paper"
     },
     {
-      id: "2", 
+      id: "2",
       customerName: "Michael T.",
       customerId: "1808319",
       rating: 5,
@@ -376,7 +376,7 @@ const reviewsData = {
     },
     {
       id: "3",
-      customerName: "Jennifer L.", 
+      customerName: "Jennifer L.",
       customerId: "1146736",
       rating: 4,
       reviewText: "Good quality work, delivered on time. Had to request one small revision but the writer was very responsive and fixed it quickly.",
@@ -389,7 +389,7 @@ const reviewsData = {
       customerId: "954836",
       rating: 5,
       reviewText: "Outstanding service! The writer went above and beyond with my dissertation chapter. The analysis was thorough and the writing was professional.",
-      date: "Nov 30, 2024", 
+      date: "Nov 30, 2024",
       workType: "Dissertation Chapter"
     },
     {
@@ -594,7 +594,7 @@ const reviewsData = {
     },
     {
       id: "27",
-      customerName: "Samantha K.", 
+      customerName: "Samantha K.",
       customerId: "892304",
       rating: 4,
       reviewText: "Good work overall. Minor revisions needed but writer was responsive and fixed everything quickly. Satisfied with the final result.",
@@ -822,7 +822,7 @@ const reviewsData = {
     {
       id: "52",
       customerName: "Emma L.",
-      customerId: "234567", 
+      customerId: "234567",
       rating: 5,
       reviewText: "Amazing quality and delivered on time. The writer really understood my topic and provided excellent analysis. Will use again!",
       date: "Jan 12, 2025",
@@ -1069,17 +1069,17 @@ const ReviewCard: React.FC<{ review: ReviewData }> = ({ review }: { review: Revi
   </div>
 );
 
-const PlatformTab: React.FC<{ 
-  platform: Platform; 
-  isActive: boolean; 
-  onClick: () => void; 
+const PlatformTab: React.FC<{
+  platform: Platform;
+  isActive: boolean;
+  onClick: () => void;
 }> = ({ platform, isActive, onClick }: { platform: Platform; isActive: boolean; onClick: () => void }) => (
   <button
     onClick={onClick}
     className={`
       flex items-center space-x-2 px-4 py-2 rounded-full border transition-all duration-200
-      ${isActive 
-        ? 'bg-primary-500 text-white border-primary-500 shadow-sm' 
+      ${isActive
+        ? 'bg-primary-500 text-white border-primary-500 shadow-sm'
         : 'bg-transparent border-gray-200 text-gray-600 hover:bg-gray-50'
       }
     `}
@@ -1170,12 +1170,12 @@ const writers: Writer[] = [
 const WriterCard = ({ writer }: { writer: Writer }): React.ReactElement => {
   return (
     <div className="writer-card flex-none w-80 bg-white rounded-xl shadow-md hover:shadow-2xl relative overflow-hidden">
-      <img 
+      <img
         src={writer.imageUrl}
         alt={`${writer.name} - ${writer.degree} writer`}
         className="w-full h-80 object-cover"
       />
-      
+
       <div className="base-content absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-6 text-white">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-xl font-bold text-white drop-shadow-lg">{writer.name}</h3>
@@ -1184,12 +1184,12 @@ const WriterCard = ({ writer }: { writer: Writer }): React.ReactElement => {
             <span className="text-sm font-bold text-white">{writer.rating}</span>
           </div>
         </div>
-        
+
         <p className="text-gray-200 text-sm mb-4 font-medium drop-shadow-md">{writer.degree}</p>
-        
+
         <div className="flex flex-wrap gap-2 mb-4">
           {writer.subjects.map((subject, index) => (
-            <span 
+            <span
               key={index}
               className="bg-white/90 backdrop-blur-sm text-gray-800 px-3 py-1 rounded-full text-xs font-semibold shadow-lg"
             >
@@ -1198,7 +1198,7 @@ const WriterCard = ({ writer }: { writer: Writer }): React.ReactElement => {
           ))}
         </div>
       </div>
-      
+
       <div className="stats-overlay absolute inset-0 flex flex-col justify-end p-6 text-white">
         <div className="bg-black/80 backdrop-blur-sm rounded-lg p-4 mb-4">
           <div className="flex items-center justify-between mb-2">
@@ -1211,7 +1211,7 @@ const WriterCard = ({ writer }: { writer: Writer }): React.ReactElement => {
           <p className="text-gray-200 text-sm mb-3 font-medium">{writer.degree}</p>
           <div className="flex flex-wrap gap-2 mb-3">
             {writer.subjects.map((subject, index) => (
-              <span 
+              <span
                 key={index}
                 className="bg-white/90 text-gray-800 px-2 py-1 rounded-md text-xs font-semibold"
               >
@@ -1305,13 +1305,13 @@ const WritersSection: React.FC = (): React.ReactElement => {
       if (!isScrolling) {
         const deltaX = e.touches[0].clientX - touchStartX;
         const deltaY = e.touches[0].clientY - touchStartY;
-        
+
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
           isScrolling = true;
           e.preventDefault();
         }
       }
-      
+
       if (isScrolling) {
         const deltaX = touchStartX - e.touches[0].clientX;
         container.scrollLeft += deltaX * 0.3;
@@ -1352,7 +1352,7 @@ const WritersSection: React.FC = (): React.ReactElement => {
         </div>
 
         <div className="relative">
-          <div 
+          <div
             ref={containerRef}
             className="flex gap-6 overflow-x-auto scroll-container pb-6 drag-scroll"
           >
@@ -1365,7 +1365,7 @@ const WritersSection: React.FC = (): React.ReactElement => {
         </div>
 
         <div className="text-center mt-16">
-          <Link 
+          <Link
             to="/writers"
             className="bg-white tap-target text-gray-600 border border-gray-200 px-6 py-2.5 rounded-lg font-light hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 transition-all duration-300 shadow-sm hover:shadow-md text-sm"
           >
@@ -1394,19 +1394,19 @@ const ReviewsSection: React.FC = (): React.ReactElement => {
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50/30 via-purple-50/20 to-blue-50/30 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         <div className="text-center mb-12">
           <div className="inline-block bg-primary-100 text-primary-500 px-3 py-1 rounded-full text-xs font-medium mb-6">
             Reviews 🔥
           </div>
-          
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 leading-tight">
-            Honest feedback about 
+            Honest feedback about
             <span className="block text-gray-700">
               EssayEmbassy
             </span>
           </h2>
-          
+
           <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
             See what real students say about our academic writing, research, and technical assignment help. Your next top grade starts here!
           </p>
@@ -1424,17 +1424,17 @@ const ReviewsSection: React.FC = (): React.ReactElement => {
         </div>
 
         <div className="relative overflow-hidden">
-          <div 
+          <div
             className="flex space-x-6 transition-transform duration-100 ease-linear"
-            style={{ 
+            style={{
               transform: `translateX(-${scrollPosition % (304 * currentReviews.length)}px)`,
               width: `${infiniteReviews.length * 304}px`
             }}
           >
             {infiniteReviews.map((review, index) => (
-              <ReviewCard 
-                key={`${review.id}-${index}`} 
-                review={review} 
+              <ReviewCard
+                key={`${review.id}-${index}`}
+                review={review}
               />
             ))}
           </div>
@@ -1526,21 +1526,21 @@ export default function DesktopHomeContent(): React.ReactElement {
   const pricingPlans = [
     {
       name: "High School",
-      price: "$12",
+      price: "$10",
       period: "per page",
       features: ["Basic research", "Standard formatting", "Free revisions", "24/7 support"],
       popular: false
     },
     {
-      name: "College",
-      price: "$15",
+      name: "Undergraduate",
+      price: "$12",
       period: "per page",
       features: ["Advanced research", "Any citation style", "Free revisions", "Priority support"],
       popular: true
     },
     {
       name: "University",
-      price: "$18",
+      price: "$16",
       period: "per page",
       features: ["Expert writers", "Complex topics", "Free revisions", "Dedicated manager"],
       popular: false
@@ -1657,14 +1657,14 @@ export default function DesktopHomeContent(): React.ReactElement {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-50 rounded-xl mb-6">
                 <GraduationCap className="w-8 h-8 text-primary-600" />
               </div>
-              
+
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                 Our Academic Writing
                 <span className="block text-primary-600">Services</span>
               </h2>
-              
+
               <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Comprehensive academic support across all disciplines with expert writers, 
+                Comprehensive academic support across all disciplines with expert writers,
                 guaranteed quality, and timely delivery for your educational success.
               </p>
             </div>
@@ -1729,35 +1729,35 @@ export default function DesktopHomeContent(): React.ReactElement {
                     <div className="flex items-start space-x-4 mb-6">
                       <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 bg-primary-50 rounded-lg flex items-center justify-center group-hover:bg-primary-100 transition-colors duration-300">
                         <IconComponent className="w-6 h-6 text-primary-600" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors duration-300">
-                            {service.title}
-                          </h3>
-                        </div>
                       </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors duration-300">
+                          {service.title}
+                        </h3>
+                      </div>
+                    </div>
 
                     <p className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base">
-                        {service.description}
-                      </p>
+                      {service.description}
+                    </p>
 
                     <div className="space-y-3 mb-8">
-                        {service.features.map((feature, idx) => (
+                      {service.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center space-x-3">
                           <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
                             <CheckCircle className="w-3 h-3 text-green-600" />
-                            </div>
-                          <span className="text-sm text-gray-700 font-medium">{feature}</span>
                           </div>
-                        ))}
-                      </div>
+                          <span className="text-sm text-gray-700 font-medium">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
 
                     <Link
                       to={service.href}
-                    className="w-full tap-target bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center space-x-2 group-hover:shadow-md"
-                  >
-                    <span>{service.buttonText}</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      className="w-full tap-target bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center space-x-2 group-hover:shadow-md"
+                    >
+                      <span>{service.buttonText}</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </Link>
                   </div>
                 );
@@ -1765,11 +1765,11 @@ export default function DesktopHomeContent(): React.ReactElement {
             </div>
 
             <div className="text-center mt-16">
-              <Link 
+              <Link
                 to="/services"
                 className="inline-flex items-center justify-center tap-target px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 space-x-3"
               >
-                  <span>Explore All Services</span>
+                <span>Explore All Services</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </div>
@@ -1797,7 +1797,7 @@ export default function DesktopHomeContent(): React.ReactElement {
             </div>
 
             <div className="relative grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
-              <div className="hidden md:block absolute top-1/2 left-0 right-0 h-1 z-0" style={{transform: 'translateY(-50%)'}}>
+              <div className="hidden md:block absolute top-1/2 left-0 right-0 h-1 z-0" style={{ transform: 'translateY(-50%)' }}>
                 <div className="w-full h-full bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200 rounded-full opacity-40 blur-[1px]" />
               </div>
               {howItWorks.map((step, index) => {
@@ -1880,11 +1880,10 @@ export default function DesktopHomeContent(): React.ReactElement {
                   </ul>
                   <Link
                     to={`/order-now?academicLevel=${encodeURIComponent(plan.name)}`}
-                    className={`inline-flex items-center justify-center tap-target w-full px-4 py-2 rounded-md font-medium text-xs transition-all duration-200 shadow-sm group-hover:scale-105 ${
-                      plan.popular
+                    className={`inline-flex items-center justify-center tap-target w-full px-4 py-2 rounded-md font-medium text-xs transition-all duration-200 shadow-sm group-hover:scale-105 ${plan.popular
                         ? 'bg-gradient-to-r from-primary-500 to-primary-400 text-white hover:from-primary-600 hover:to-primary-500 shadow'
                         : 'border border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white bg-white dark:bg-gray-900'
-                    }`}
+                      }`}
                   >
                     Get Started
                     <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
