@@ -60,10 +60,9 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
 const PriceCalculator = () => {
     const [academicLevel, setAcademicLevel] = useState('undergraduate');
     const [pages, setPages] = useState(1);
-    const [deadline, setDeadline] = useState('7days');
+    const [deadline, setDeadline] = useState('14days');
 
     const baseRates: Record<string, number> = {
-        highschool: 10,
         undergraduate: 12,
         masters: 16,
         phd: 20,
@@ -74,8 +73,10 @@ const PriceCalculator = () => {
         '12hours': 1.7,
         '24hours': 1.4,
         '3days': 1.2,
-        '7days': 1.0,
-        '14days': 0.9,
+        '7days': 1.05,
+        '14days': 1.0,
+        '30days': 0.9,
+        '60days': 0.8,
     };
 
     const calculatePrice = () => {
@@ -87,8 +88,8 @@ const PriceCalculator = () => {
     return (
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
             <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Calculate Your Live Price</h3>
-                <p className="text-gray-600 text-sm">Premium paper writing starting at just $10/page â€” zero hidden fees.</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Select Your Project Specs for a Live Price</h3>
+                <p className="text-gray-600 text-sm">Transparent thesis pricing with no hidden fees.</p>
             </div>
             <div className="space-y-6">
 
@@ -103,7 +104,6 @@ const PriceCalculator = () => {
                         onChange={(e) => setAcademicLevel(e.target.value)}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#1652A0] focus:ring-2 focus:ring-[#1652A0]/10 transition-all outline-none text-gray-700 bg-gray-50 font-medium"
                     >
-                        <option value="highschool">High School</option>
                         <option value="undergraduate">Undergraduate</option>
                         <option value="masters">Master's Degree</option>
                         <option value="phd">PhD / Doctoral</option>
@@ -115,7 +115,7 @@ const PriceCalculator = () => {
                     <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center justify-between">
                         <span className="flex items-center gap-2">
                             <FileText className="w-4 h-4 text-[#1652A0]" />
-                            Number of Pages
+                            Number of Pages / Word Count
                         </span>
                         <span className="text-[#1652A0] font-bold">{pages} {pages === 1 ? 'page' : 'pages'}</span>
                     </label>
@@ -147,8 +147,10 @@ const PriceCalculator = () => {
                         <option value="12hours">12 Hours</option>
                         <option value="24hours">24 Hours</option>
                         <option value="3days">3 Days</option>
-                        <option value="7days">7 Days (Standard)</option>
-                        <option value="14days">14 Days (Relaxed)</option>
+                        <option value="7days">7 Days</option>
+                        <option value="14days">14 Days (Standard)</option>
+                        <option value="30days">1 Month</option>
+                        <option value="60days">2+ Months</option>
                     </select>
                 </div>
 
@@ -168,11 +170,11 @@ const PriceCalculator = () => {
                         to="/order-now"
                         className="w-full px-6 py-4 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                     >
-                        Proceed to Order <ArrowRight className="w-5 h-5" />
+                        Start Your Thesis <ArrowRight className="w-5 h-5" />
                     </Link>
                     <div className="flex flex-wrap justify-center gap-3 mt-4 text-xs font-medium text-gray-600">
-                        <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> Free Plagiarism Report</span>
-                        <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> Free Formatting Included</span>
+                        <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> No Hidden Fees</span>
+                        <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> Revisions Included</span>
                     </div>
                 </div>
             </div>
@@ -181,60 +183,78 @@ const PriceCalculator = () => {
 };
 
 // â”€â”€â”€ Paper Sections Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const PaperSectionsGrid = () => {
+const ThesisSectionsGrid = () => {
     const sections = [
         {
-            emoji: 'ðŸš€',
-            icon: Target,
-            title: 'Introductions & Thesis Statements',
-            description: 'Start strong with a compelling introduction and a debatable thesis statement tailored to your prompt.',
-            features: ['Clear background context', 'Strong research hooks', 'Debatable thesis drafts', 'Defined academic scope'],
-            cta: 'Draft Introduction',
-            popular: true,
-        },
-        {
-            emoji: 'ðŸ“š',
             icon: BookMarked,
-            title: 'Literature Reviews',
-            description: 'A professional synthesis of existing scholarly sources, peer-reviewed articles, and academic journals.',
-            features: ['Thematic structuring', 'Database research', 'Identification of gaps', 'Scholarly synthesis'],
-            cta: 'Write Review',
+            title: 'Thesis Research Assistance',
+            description: 'Gather credible, peer-reviewed sources and build a strong academic foundation for your topic.',
+            features: ['Peer-reviewed sources', 'Topic-focused evidence', 'Research mapping', 'Strong academic base'],
+            cta: 'Get Research Help',
             popular: true,
         },
         {
-            emoji: 'ðŸ”¬',
+            icon: Target,
+            title: 'Thesis Proposal Writing',
+            description: 'Craft a persuasive and structured proposal to win approval from your academic committee.',
+            features: ['Clear objectives', 'Method overview', 'Strong rationale', 'Approval-focused structure'],
+            cta: 'Build Proposal',
+            popular: true,
+        },
+        {
             icon: Microscope,
-            title: 'Methodology Sections',
-            description: 'Detailed breakdowns of research methods, including qualitative and quantitative framework justifications.',
-            features: ['Data collection procedures', 'Analytical frameworks', 'Field-specific alignment', 'Methodological rigor'],
-            cta: 'Outline Methodology',
+            title: 'Literature Review Writing',
+            description: 'Critically analyze prior research and identify key gaps that justify your unique study.',
+            features: ['Thematic synthesis', 'Gap identification', 'Critical analysis', 'Scholarly positioning'],
+            cta: 'Write Literature Review',
             popular: false,
         },
         {
-            emoji: 'ðŸ“Š',
             icon: BarChart2,
-            title: 'Results & Discussion',
-            description: 'Accurate data presentation combined with deep interpretation and scholarly contextualization.',
-            features: ['Objective reporting', 'Deep data interpretation', 'Thematic analysis', 'Connecting to literature'],
-            cta: 'Analyze Findings',
+            title: 'Data Analysis and Interpretation',
+            description: 'From qualitative themes to advanced quantitative testing in SPSS or R, we handle complex methods precisely.',
+            features: ['SPSS/R support', 'Method fit', 'Accurate interpretation', 'Clear findings'],
+            cta: 'Analyze Data',
             popular: true,
         },
         {
-            emoji: 'ðŸŽ¯',
-            icon: Flag,
-            title: 'Conclusions & Recommendations',
-            description: 'A powerful final synthesis that highlights research impact and provides actionable future recommendations.',
-            features: ['Core argument summary', 'Impact synthesis', 'Future directions', 'Academic closure'],
-            cta: 'Finish Conclusion',
+            icon: FileText,
+            title: 'Thesis Writing and Structuring',
+            description: 'Get chapter-by-chapter custom thesis writing support across introduction, methodology, findings, and discussion.',
+            features: ['Chapter flow', 'Logical structure', 'Argument coherence', 'Academic depth'],
+            cta: 'Write My Thesis',
             popular: false,
         },
         {
-            emoji: 'ðŸ“',
+            icon: Edit3,
+            title: 'Thesis Editing and Proofreading',
+            description: 'Polish existing drafts by fixing grammar, improving flow, and elevating academic tone.',
+            features: ['Grammar correction', 'Flow refinement', 'Tone enhancement', 'Final polish'],
+            cta: 'Polish My Draft',
+            popular: false,
+        },
+        {
+            icon: Flag,
+            title: 'Thesis Conclusion',
+            description: 'Synthesize findings and reconnect them to your core objectives for strong final impact.',
+            features: ['Findings summary', 'Objective alignment', 'Strong closure', 'Future recommendations'],
+            cta: 'Complete Conclusion',
+            popular: false,
+        },
+        {
             icon: ListOrdered,
-            title: 'Research Outlines & Formatting',
-            description: 'Logical roadmap development combined with flawless citation across all major university styles.',
-            features: ['APA/MLA/Chicago mastery', 'Chapter-by-chapter flow', 'Logical evidence mapping', '100% style compliance'],
-            cta: 'Setup My Framework',
+            title: 'Thesis Formatting',
+            description: 'Meet strict university guidelines and citation rules including APA, MLA, Harvard, and Chicago.',
+            features: ['Style compliance', 'Reference consistency', 'Layout checks', 'Submission-ready formatting'],
+            cta: 'Format My Thesis',
+            popular: false,
+        },
+        {
+            icon: FileCheck,
+            title: 'Final Review and Submission Check',
+            description: 'Receive a meticulous final check so your thesis meets the highest academic standards before submission.',
+            features: ['Final quality review', 'Citation validation', 'Checklist audit', 'Submission confidence'],
+            cta: 'Run Final Review',
             popular: false,
         },
     ];
@@ -251,8 +271,8 @@ const PaperSectionsGrid = () => {
                             <Sparkles className="w-3 h-3" /> POPULAR
                         </div>
                     )}
-                    <div className="w-16 h-16 rounded-xl bg-gray-50 flex items-center justify-center mb-5 group-hover:scale-110 transition-all text-3xl">
-                        {section.emoji}
+                    <div className="w-16 h-16 rounded-xl bg-gray-50 flex items-center justify-center mb-5 group-hover:scale-110 transition-all">
+                        <section.icon className="w-8 h-8 text-[#1652A0]" />
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1652A0] transition-colors leading-snug">{section.title}</h3>
                     <p className="text-gray-600 mb-6 leading-[1.7] text-[15px]">{section.description}</p>
@@ -277,13 +297,13 @@ const PaperSectionsGrid = () => {
 };
 
 // â”€â”€â”€ Main Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-export default function PaperWritingServices() {
+export default function ThesisWritingServices() {
     return (
         <>
             <Helmet>
-                <title>Top-Rated Paper Writing Services & Professional Research Help | EssayEmbassy.com</title>
-                <meta name="description" content="Looking for professional paper writing services? Get expert research paper help with guaranteed originality, on-time delivery, and 24/7 support. Starting at $10/page." />
-                <meta name="keywords" content="paper writing services, research paper writing, term paper help, academic paper writing, undergraduate research help, professional paper writers" />
+                <title>Premium Thesis Writing Services | Expert PhD Writers & 100% Original Work</title>
+                <meta name="description" content="Get top-tier thesis help from professional thesis writers. Our custom thesis writing services offer plagiarism-free, on-time delivery for every academic level." />
+                <meta name="keywords" content="thesis writing services, thesis help, professional thesis writers, dissertation support, academic thesis assistance" />
             </Helmet>
 
             <div className="min-h-screen bg-white font-sans">
@@ -297,11 +317,11 @@ export default function PaperWritingServices() {
                             <div className="flex flex-wrap justify-center gap-4 mb-8">
                                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm">
                                     <ShieldCheck className="w-4 h-4 text-[#1652A0]" />
-                                    <span className="text-sm font-bold text-gray-700">Original Work</span>
+                                    <span className="text-sm font-bold text-gray-700">Plagiarism-Free Guarantee</span>
                                 </div>
                                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm">
                                     <GraduationCap className="w-4 h-4 text-yellow-500" />
-                                    <span className="text-sm font-bold text-gray-700">Expert Writers</span>
+                                    <span className="text-sm font-bold text-gray-700">Expert Thesis Writers</span>
                                 </div>
                                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 border border-green-200 shadow-sm">
                                     <Clock className="w-4 h-4 text-green-600" />
@@ -310,20 +330,23 @@ export default function PaperWritingServices() {
                             </div>
 
                             <h1 className="text-3xl md:text-5xl lg:text-5xl font-extrabold text-[#0B1F42] mb-10 leading-[1.2] tracking-tight">
-                                High-Quality Paper Writing Services: <br />
-                                <span className="text-[#1652A0] block mt-4">Partner in Academic Excellence</span>
+                                Professional Thesis Writing Services for Every Academic Level
                             </h1>
 
                             <p className="text-[20px] text-gray-600 mb-14 max-w-3xl mx-auto leading-[1.9] font-medium opacity-90">
-                                Struggling with complex research? Our elite paper writing services pair you with subject experts for 100% original, human-written content tailored to your academic rubric.
+                                Are you feeling overwhelmed by the demands of your degree and searching for reliable thesis writing services? You have come to the right place. Our premium online thesis writing services are designed to help you navigate the complexities of academic research, ensuring you submit a flawless, stress-free paper.
+                            </p>
+
+                            <p className="text-lg text-[#1652A0] font-bold mb-10">
+                                Expert Writers, On-Time Delivery, 100% Original Work
                             </p>
 
                             {/* Value Props */}
                             <div className="flex flex-wrap justify-center gap-6 mb-10 text-sm">
                                 {[
-                                    { icon: Shield, text: 'Free Turnitin Report' },
-                                    { icon: Award, text: 'PhD-Verified Writers' },
-                                    { icon: RefreshCw, text: 'Unlimited Free Revisions' },
+                                    { icon: Shield, text: 'Plagiarism-Free Guarantee' },
+                                    { icon: Award, text: 'Expert Thesis Writers' },
+                                    { icon: RefreshCw, text: 'On-Time Delivery' },
                                 ].map((item, i) => (
                                     <div key={i} className="flex items-center gap-2 text-gray-700 bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm">
                                         <item.icon className="w-4 h-4 text-[#1652A0]" />
@@ -338,7 +361,7 @@ export default function PaperWritingServices() {
                                     to="/order-now"
                                     className="w-full sm:w-auto px-8 py-4 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-3"
                                 >
-                                    Start Your Project <ArrowRight className="w-5 h-5" />
+                                    Start Your Thesis <ArrowRight className="w-5 h-5" />
                                 </Link>
                                 <Link
                                     to="/samples"
@@ -358,10 +381,10 @@ export default function PaperWritingServices() {
                         <div className="max-w-6xl mx-auto">
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
                                 {[
-                                    { value: '50k+', label: 'Happy Students', color: 'text-[#1652A0]' },
-                                    { value: '98%', label: 'On-Time Delivery', color: 'text-[#1652A0]' },
-                                    { value: '10+', label: 'Years Experience', color: 'text-[#1652A0]' },
-                                    { value: '4.8/5', label: 'Average Rating', color: 'text-[#D4A853]' },
+                                    { value: '650,000+', label: 'Happy Students', color: 'text-[#1652A0]' },
+                                    { value: '98%', label: 'On-Time Delivery Rate', color: 'text-[#1652A0]' },
+                                    { value: '10+', label: 'Years of Academic Excellence', color: 'text-[#1652A0]' },
+                                    { value: '4.9/5', label: 'Average Rating', color: 'text-[#D4A853]' },
                                 ].map((stat, i) => (
                                     <div key={i} className="px-4">
                                         <div className={`text-4xl font-extrabold ${stat.color} mb-2`}>{stat.value}</div>
@@ -386,10 +409,10 @@ export default function PaperWritingServices() {
                                     WHY CHOOSE US
                                 </div>
                                 <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">
-                                    What Sets Our Service Apart
+                                    Why Students Choose Our Thesis Writing Service
                                 </h2>
                                 <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                                    We focus on <span className="text-[#1652A0] font-medium">quality, reliability, and total academic integrity</span> â€” the fundamentals every student deserves.
+                                    We combine expert academic talent, strict originality standards, and dependable delivery to keep your thesis journey stress-free.
                                 </p>
                             </div>
 
@@ -402,16 +425,16 @@ export default function PaperWritingServices() {
                                         <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                             <ShieldCheck className="w-10 h-10 text-white" />
                                         </div>
-                                        <h3 className="text-3xl font-black mb-4">Originality & Plagiarism-Free Guarantee</h3>
+                                        <h3 className="text-3xl font-black mb-4">Plagiarism-Free Guarantee + Turnitin Report</h3>
                                         <p className="text-gray-300 text-lg mb-6 leading-loose">
-                                            We have a zero-tolerance policy for plagiarism or AI generation. Every paper is written from scratch, and we provide a complimentary <span className="text-white font-bold">Turnitin/AI originality report</span> to ensure your paper is 100% authentic.
+                                            Every document is 100% human-written and created from scratch. We scan each thesis with trusted plagiarism and AI detection tools and provide an originality report upon request.
                                         </p>
                                         <div className="grid grid-cols-2 gap-4 mb-6">
                                             {[
-                                                { icon: CheckCircle2, color: 'text-green-300', title: 'Free Turnitin Report', sub: 'Proves 0% plagiarism' },
-                                                { icon: Brain, color: 'text-purple-300', title: 'Zero AI Generation', sub: '100% human written' },
-                                                { icon: FileCheck, color: 'text-yellow-300', title: 'Written From Scratch', sub: 'No templates used' },
-                                                { icon: Lock, color: 'text-pink-300', title: 'Full Ownership Rights', sub: 'Yours permanently' },
+                                                { icon: CheckCircle2, color: 'text-green-300', title: 'Human-Written Only', sub: 'No AI-generated text' },
+                                                { icon: Brain, color: 'text-purple-300', title: 'Original Drafting', sub: 'Built from scratch' },
+                                                { icon: FileCheck, color: 'text-yellow-300', title: 'Detection Scans', sub: 'Plagiarism and AI checks' },
+                                                { icon: Lock, color: 'text-pink-300', title: 'Integrity Focused', sub: 'Academic-safe delivery' },
                                             ].map((item, i) => (
                                                 <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                                                     <item.icon className={`w-6 h-6 ${item.color} mb-2`} />
@@ -421,7 +444,7 @@ export default function PaperWritingServices() {
                                             ))}
                                         </div>
                                         <div className="bg-green-500 text-white px-6 py-3 rounded-xl inline-flex items-center gap-2 font-bold text-lg shadow-xl">
-                                            <Trophy className="w-6 h-6" /> Your Work, Your Success
+                                            <Trophy className="w-6 h-6" /> 100% Original Thesis Delivery
                                         </div>
                                     </div>
                                 </div>
@@ -431,12 +454,12 @@ export default function PaperWritingServices() {
                                     <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <GraduationCap className="w-8 h-8 text-white" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Top-Tier Academic Writers</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Qualified Academic Writers</h3>
                                     <p className="text-gray-600 leading-loose mb-6">
-                                        Work with vetted Ph.D. and Master's degree holders who are field-matched to your specific subject for maximum depth.
+                                        Your project is handled by verified experts with advanced degrees and proven experience in specialized academic fields.
                                     </p>
                                     <ul className="space-y-3">
-                                        {['Verified PhD & Master\'s experts', 'Subject-specific field matching', 'Academic publication records', '8+ years average experience'].map((item, i) => (
+                                        {['Verified Master\'s and PhD writers', 'Field-specific expertise', 'Strict writer selection process', 'Proven thesis experience'].map((item, i) => (
                                             <li key={i} className="flex items-center text-gray-700 font-medium">
                                                 <CheckCircle2 className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" /> {item}
                                             </li>
@@ -449,12 +472,12 @@ export default function PaperWritingServices() {
                                     <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-400 to-pink-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <Zap className="w-8 h-8 text-white" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">On-Time Delivery Only</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">On-Time Delivery Commitment</h3>
                                     <p className="text-gray-600 leading-loose mb-6">
-                                        Value your time with lightning-fast turnarounds. We deliver high-quality research papers in <span className="text-[#1652A0] font-medium">as little as 3 hours</span> without quality drops.
+                                        Whether your deadline is months away or just a few days out, we ensure punctual submissions so you never miss a due date.
                                     </p>
                                     <ul className="space-y-3">
-                                        {['3-hour urgent turnarounds', 'Real-time order tracking', 'Proactive status updates', 'Guaranteed deadlines'].map((item, i) => (
+                                        {['Flexible timelines', 'Urgent thesis support', 'Strict deadline tracking', 'Always on-time handoff'].map((item, i) => (
                                             <li key={i} className="flex items-center text-gray-700 font-medium">
                                                 <Rocket className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0" /> {item}
                                             </li>
@@ -467,12 +490,12 @@ export default function PaperWritingServices() {
                                     <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <MessageCircle className="w-8 h-8 text-white" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Direct Expert Collaboration</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Responsive Support and Direct Communication</h3>
                                     <p className="text-gray-600 leading-loose mb-6">
-                                        Stay in control. Communicate directly with your writer via <span className="text-[#1652A0] font-bold underline">secure encrypted chat</span> for precise adjustments.
+                                        Enjoy direct, anonymous communication with your writer through our secure platform while our 24/7 team keeps you updated.
                                     </p>
                                     <ul className="space-y-3">
-                                        {['24/7 Priority support', 'Direct encrypted writer chat', 'Immediate status updates', 'Personal service manager'].map((item, i) => (
+                                        {['24/7 customer support', 'Secure writer messaging', 'Real-time updates', 'Fast response times'].map((item, i) => (
                                             <li key={i} className="flex items-center text-gray-700 font-medium">
                                                 <Headphones className="w-5 h-5 text-orange-500 mr-3 flex-shrink-0" /> {item}
                                             </li>
@@ -485,12 +508,12 @@ export default function PaperWritingServices() {
                                     <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-red-400 to-rose-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         <RefreshCw className="w-8 h-8 text-white" />
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Free Revisions Guarantee</h3>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Free Revisions Policy</h3>
                                     <p className="text-gray-600 leading-loose mb-6">
-                                        Enjoy <span className="text-[#1652A0] font-medium">unlimited free revisions</span> for up to 30 days after submission, ensuring total alignment with your prompt.
+                                        We offer unlimited free revisions for 14 to 30 days after delivery so your thesis fully matches your expectations.
                                     </p>
                                     <ul className="space-y-3">
-                                        {['Unlimited edits (14â€“30 days)', 'Consistent writer matching', 'Zero hidden costs', 'Rapid revision cycles'].map((item, i) => (
+                                        {['Unlimited free edits', '14 to 30 day revision window', 'Satisfaction-first policy', 'No extra revision charges'].map((item, i) => (
                                             <li key={i} className="flex items-center text-gray-700 font-medium">
                                                 <Edit3 className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" /> {item}
                                             </li>
@@ -505,10 +528,10 @@ export default function PaperWritingServices() {
                                     </div>
                                     <h3 className="text-2xl font-bold text-gray-900 mb-4">Privacy & Confidentiality</h3>
                                     <p className="text-gray-600 leading-loose mb-6">
-                                        Your secret is safe with us. We use robust <span className="text-[#1652A0] font-medium">256-bit SSL encryption</span> to ensure your personal identity, payment details, and project information are completely secured.
+                                        We use robust 256-bit SSL encryption and strict privacy policies so your personal data, payment details, and identity stay protected.
                                     </p>
                                     <ul className="space-y-3">
-                                        {['256-bit SSL encryption', 'Anonymous payment options', 'Zero data sharing â€” ever', 'GDPR compliant & secure'].map((item, i) => (
+                                        {['256-bit SSL encryption', 'Confidential project handling', 'Protected personal data', 'No third-party sharing'].map((item, i) => (
                                             <li key={i} className="flex items-center text-gray-700 font-medium">
                                                 <Shield className="w-5 h-5 text-indigo-500 mr-3 flex-shrink-0" /> {item}
                                             </li>
@@ -523,7 +546,7 @@ export default function PaperWritingServices() {
                                     to="/order-now"
                                     className="inline-flex items-center gap-3 px-10 py-5 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg"
                                 >
-                                    Start Your Project Today <ArrowRight className="w-5 h-5" />
+                                    Start Your Thesis <ArrowRight className="w-5 h-5" />
                                 </Link>
                             </div>
                         </div>
@@ -536,28 +559,28 @@ export default function PaperWritingServices() {
                         <div className="max-w-7xl mx-auto">
                             <div className="text-center mb-16">
                                 <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-5 py-2 rounded-full text-sm font-semibold mb-4">
-                                    PAPER SECTIONS WE COVER
+                                    THESIS WRITING SERVICES TYPES WE COVER
                                 </div>
                                 <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">
-                                    Every Section of Your Research Paper, Mastered
+                                    Custom Support for Every Stage of Your Thesis Journey
                                 </h2>
                                 <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-[1.8]">
-                                    From abstract to reference list, our experts handle every component of your research paper with <span className="text-[#1652A0] font-medium">academic precision and scholarly depth</span>.
+                                    Choose exactly the support you need, from proposal drafting to final submission checks, with full academic customization.
                                 </p>
                             </div>
 
-                            <PaperSectionsGrid />
+                            <ThesisSectionsGrid />
 
                             <div className="mt-12 bg-gray-50 rounded-2xl p-10 text-center border border-gray-200">
-                                <h3 className="text-2xl font-bold text-[#0B1F42] mb-3">Need the Full Paper Written?</h3>
+                                <h3 className="text-2xl font-bold text-[#0B1F42] mb-3">Need the Full Thesis Written?</h3>
                                 <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                                    Our experts cover all 140+ academic disciplines and can handle your complete paper from start to finish â€” or just the section you're stuck on.
+                                    Every service is customizable so you can order complete thesis writing or only the sections where you need expert support.
                                 </p>
                                 <Link
                                     to="/order-now"
                                     className="inline-flex items-center gap-2 px-8 py-4 bg-[#1652A0] text-white font-bold rounded-xl hover:bg-[#0B1F42] transition-all shadow-md"
                                 >
-                                    Order Full Paper Writing Help <ArrowRight className="w-5 h-5" />
+                                    Order Full Thesis Writing Help <ArrowRight className="w-5 h-5" />
                                 </Link>
                             </div>
                         </div>
@@ -573,10 +596,10 @@ export default function PaperWritingServices() {
                                     HOW IT WORKS
                                 </div>
                                 <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">
-                                    Simple Process, Quality Results
+                                    Simple Process From Brief to Submission
                                 </h2>
                                 <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-[1.8]">
-                                    A streamlined four-step process designed for busy students. <span className="text-[#1652A0] font-medium">Get started in minutes.</span>
+                                    Submit your requirements, get matched with a specialist, track progress, and download with full confidence.
                                 </p>
                             </div>
 
@@ -586,37 +609,37 @@ export default function PaperWritingServices() {
                                         step: '1', icon: FileText,
                                         stepBg: 'bg-[#1652A0]', iconBg: 'bg-[#1652A0]/10', iconText: 'text-[#1652A0]',
                                         badgeBg: 'bg-[#1652A0]/10', badgeText: 'text-[#1652A0]', checkColor: 'text-[#1652A0]',
-                                        title: 'Share Requirements',
-                                        desc: 'Briefly define your paper instructions, page count, and formatting style in our simple order form.',
-                                        highlight: 'Takes 2 minutes',
-                                        features: ['Secure form', 'Upload files', 'Set deadline', 'Pick level'],
+                                        title: 'Submit Your Requirements',
+                                        desc: 'Fill out our secure order form with thesis guidelines, topic, word count, deadline, and any grading rubric files.',
+                                        highlight: 'Secure order form',
+                                        features: ['Guidelines included', 'Topic clarity', 'Deadline setup', 'File attachments'],
                                     },
                                     {
                                         step: '2', icon: Users,
                                         stepBg: 'bg-[#0B1F42]', iconBg: 'bg-[#0B1F42]/10', iconText: 'text-[#0B1F42]',
                                         badgeBg: 'bg-[#0B1F42]/10', badgeText: 'text-[#0B1F42]', checkColor: 'text-[#0B1F42]',
-                                        title: 'Match With Expert',
-                                        desc: 'Pick your writer from a pool of Ph.D. field experts based on their verified ratings and past results.',
-                                        highlight: 'You choose writer',
-                                        features: ['Expert profiles', 'Real reviews', 'Past samples', 'Subject match'],
+                                        title: 'Get Matched With an Expert',
+                                        desc: 'We instantly match you with an experienced thesis writer in your exact academic field with relevant credentials.',
+                                        highlight: 'Field-specific matching',
+                                        features: ['Credentialed experts', 'Subject alignment', 'Advanced degrees', 'Thesis experience'],
                                     },
                                     {
                                         step: '3', icon: Rocket,
                                         stepBg: 'bg-[#10B981]', iconBg: 'bg-[#10B981]/10', iconText: 'text-[#10B981]',
                                         badgeBg: 'bg-[#10B981]/10', badgeText: 'text-[#10B981]', checkColor: 'text-[#10B981]',
-                                        title: 'Collaborate Live',
-                                        desc: 'Stay informed with direct writer chat. Track progress and request draft previews in real-time.',
-                                        highlight: 'Secure direct chat',
-                                        features: ['24/7 Access', 'Live tracking', 'File exchange', 'Instant chat'],
+                                        title: 'Track Progress and Communicate',
+                                        desc: 'Use your client area to track progress, request drafts, and communicate directly with your writer throughout the process.',
+                                        highlight: 'Dedicated client area',
+                                        features: ['Progress tracking', 'Draft requests', 'Secure messaging', 'Live updates'],
                                     },
                                     {
                                         step: '4', icon: Trophy,
                                         stepBg: 'bg-[#D4A853]', iconBg: 'bg-[#D4A853]/10', iconText: 'text-[#D4A853]',
                                         badgeBg: 'bg-[#D4A853]/10', badgeText: 'text-[#D4A853]', checkColor: 'text-[#D4A853]',
-                                        title: 'Submit & Succeed',
-                                        desc: 'Review your paper, download the free originality report, and request any revisions if needed.',
-                                        highlight: 'Zero-risk payment',
-                                        features: ['Instant link', 'Free reports', 'Free edits', 'Safeguarded funds'],
+                                        title: 'Download and Submit',
+                                        desc: 'Review the completed thesis, request free revisions if needed, and download the final version for confident submission.',
+                                        highlight: 'Submission-ready delivery',
+                                        features: ['Final review', 'Free revisions', 'Secure download', 'Confident submission'],
                                     },
                                 ].map((item, i) => (
                                     <div key={i} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-gray-200 hover:border-[#1652A0] group">
@@ -633,7 +656,7 @@ export default function PaperWritingServices() {
                                                 </div>
                                                 <p className="text-gray-600 leading-loose mb-4">{item.desc}</p>
                                                 <div className={`inline-block ${item.badgeBg} ${item.badgeText} px-4 py-2 rounded-lg text-sm font-semibold mb-4`}>
-                                                    âœ“ {item.highlight}
+                                                    {item.highlight}
                                                 </div>
                                                 <div className="grid grid-cols-2 gap-2">
                                                     {item.features.map((f, idx) => (
@@ -650,12 +673,12 @@ export default function PaperWritingServices() {
 
                             <div className="text-center bg-[#0B1F42] rounded-2xl p-10">
                                 <h3 className="text-2xl font-bold text-white mb-3">Ready to Get Started?</h3>
-                                <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Take the first step toward academic excellence today.</p>
+                                <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Submit your requirements in minutes and get matched with the right thesis specialist.</p>
                                 <Link
                                     to="/order-now"
                                     className="px-10 py-4 bg-[#D4A853] text-[#0B1F42] font-bold text-lg rounded-xl hover:bg-[#C49843] transition-all shadow-md inline-flex items-center gap-3"
                                 >
-                                    Place Your Order <ArrowRight className="w-5 h-5" />
+                                    Start Your Thesis <ArrowRight className="w-5 h-5" />
                                 </Link>
                             </div>
                         </div>
@@ -674,17 +697,17 @@ export default function PaperWritingServices() {
                                         TRANSPARENT PRICING
                                     </div>
                                     <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
-                                        Exceptional Writing That Won't Break the Bank
+                                        Our Value Promise
                                     </h2>
                                     <p className="text-lg text-gray-600 mb-8 leading-loose">
-                                        We believe that exceptional paper writing services shouldn't be overpriced. Our pricing is completely transparent, with <span className="text-[#1652A0] font-medium uppercase font-bold">no hidden fees</span>. Rates start as low as $10.00 per page.
+                                        Transparent pricing means you always know the cost upfront, with free formatting elements and revision support included.
                                     </p>
                                     <div className="space-y-4">
                                         {[
-                                            { icon: DollarSign, title: 'Starting at $10.00/page', desc: 'Premium research help at student-friendly prices.' },
-                                            { icon: FileCheck, title: 'Everything included free', desc: 'Free plagiarism report, unlimited formatting & citations.' },
-                                            { icon: RefreshCw, title: 'Satisfaction promise', desc: 'Unlimited revisions included with every single order.' },
-                                            { icon: Shield, title: 'Money-back guarantee', desc: 'Your funds are protected until you\'re 100% satisfied.' },
+                                            { icon: DollarSign, title: 'Transparent Pricing', desc: 'Know exactly what you are paying upfront.' },
+                                            { icon: FileCheck, title: 'No Hidden Fees', desc: 'Title pages, bibliographies, and formatting are included for free.' },
+                                            { icon: RefreshCw, title: 'Revisions Included', desc: 'Enjoy unlimited free edits to perfect your paper.' },
+                                            { icon: Shield, title: 'Satisfaction Promise', desc: 'Backed by our reliable money-back guarantee.' },
                                         ].map((item, i) => (
                                             <div key={i} className="flex items-start gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
                                                 <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center text-[#1652A0] flex-shrink-0 border border-gray-200">
@@ -722,7 +745,7 @@ export default function PaperWritingServices() {
                                 </div>
                                 <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Our Guarantees to You</h2>
                                 <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-[1.8]">
-                                    Commitments we take seriously with every paper we deliver â€” no exceptions.
+                                    Core protections and quality standards applied to every thesis project.
                                 </p>
                             </div>
 
@@ -730,23 +753,23 @@ export default function PaperWritingServices() {
                                 {[
                                     {
                                         icon: Trophy,
-                                        title: 'Quality Execution',
-                                        description: 'Top-tier, human-written papers tailored to your specific university standards and academic prompts.',
+                                        title: 'Quality Commitment',
+                                        description: 'Every thesis is checked for academic excellence, proper structure, and evidence-based argumentation.',
                                     },
                                     {
                                         icon: Clock,
                                         title: 'On-Time Delivery',
-                                        description: 'Whether your deadline is 2 weeks or 3 hours, we guarantee delivery before your time expires.',
+                                        description: 'We maintain a strong track record of meeting tight deadlines without sacrificing quality.',
                                     },
                                     {
                                         icon: RefreshCw,
-                                        title: 'Unlimited Revisions',
-                                        description: 'Enjoy free, unlimited edits for up to 30 days to refine your paper to your exact requirements.',
+                                        title: 'Free Revisions',
+                                        description: 'Request amendments as needed, and we keep refining your thesis until it meets expectations.',
                                     },
                                     {
                                         icon: Lock,
-                                        title: 'Full Confidentiality',
-                                        description: 'Complete privacy guaranteed. Your identity and academic details are never disclosed to third parties.',
+                                        title: 'Privacy First',
+                                        description: 'Your personal information and project details stay encrypted and fully secure.',
                                     },
                                 ].map((item, i) => (
                                     <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl hover:bg-white/20 transition-all group">
@@ -760,7 +783,7 @@ export default function PaperWritingServices() {
                             </div>
 
                             <div className="text-center bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
-                                <h3 className="text-2xl font-bold mb-3">We Stand Behind Every Paper We Deliver</h3>
+                                <h3 className="text-2xl font-bold mb-3">We Stand Behind Every Thesis We Deliver</h3>
                                 <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Confidence in quality and integrity is at the core of everything we do.</p>
                                 <Link
                                     to="/guarantees"
@@ -792,12 +815,12 @@ export default function PaperWritingServices() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
-                                    { name: 'Arthur S.', tag: 'Return Client', date: 'Feb 2026', subject: 'Management', rating: 5, text: 'Exceptional depth. The writer captured corporate nuances perfectlyâ€”a truly premium academic experience.' },
-                                    { name: 'Eleanor R.', tag: 'First-Time', date: 'Jan 2026', subject: 'Engineering', rating: 5, text: 'Data-heavy structural mechanics paper was perfectly formatted. Impressed by the technical expertise.' },
-                                    { name: 'Sebastian V.', tag: 'Verified', date: 'Feb 2026', subject: 'Computer Science', rating: 5, text: 'Finding an expert who understands high-level encryption was a relief. Thorough research and flawless citations.' },
-                                    { name: 'Clara P.', tag: 'Return Client', date: 'Jan 2026', subject: 'Economics', rating: 5, text: 'Third time using this service. The consistency in quality and handling complex data sets is unmatched.' },
-                                    { name: 'Lucas M.', tag: 'First-Time', date: 'Dec 2025', subject: 'Law', rating: 4.9, text: 'Legal research required specific Bluebook formatting. The writer nailed itâ€”logical and persuasive arguments.' },
-                                    { name: 'Sophie G.', tag: 'Verified', date: 'Jan 2026', subject: 'Science', rating: 5, text: 'The scientific lab report was precise. Methodology handled with the detail of a Ph.D. researcher.' },
+                                    { name: 'J. Smith', tag: 'Returning Client', date: 'Feb 12, 2026', subject: 'Management', rating: 5, text: 'For my MBA program, I needed a detailed and professional thesis chapter. The writer assigned had a deep understanding of business strategies and delivered an insightful, well-researched analysis. Best thesis writing service I\'ve used!' },
+                                    { name: 'A. Reynolds', tag: 'Verified', date: 'Feb 21, 2026', subject: 'Engineering', rating: 5, text: 'No AI garbage detected in my engineering work! The methodology was fully linked to the data and delivered well before my expected due date. Truly professional thesis writers.' },
+                                    { name: 'T. Vance', tag: 'First-Time User', date: 'Jan 14, 2026', subject: 'Computer Science', rating: 5, text: 'I was skeptical about online thesis writing services, but my group project contribution looked fully original and meticulously coded. I didn\'t need to stress at all. Fantastic results.' },
+                                    { name: 'M. O\'Connor', tag: 'Verified', date: 'Dec 11, 2025', subject: 'Economics', rating: 4.5, text: 'The assigned writer created a strong paper with a logical flow. I appreciated the quick direct communication and transparent pricing. Handled the statistical data perfectly.' },
+                                    { name: 'L. Davis', tag: 'Returning Client', date: 'Jan 17, 2026', subject: 'Law', rating: 5, text: 'It is very organized, and I felt confident leaving my legal thesis to someone who knows exactly what they are doing. The citations were flawless and passed all plagiarism checks easily.' },
+                                    { name: 'S. Chen', tag: 'Verified', date: 'Mar 4, 2026', subject: 'Science', rating: 5, text: 'I needed an expert in biology to analyze my lab data for my Master\'s thesis. Excellent work, incredibly fast delivery, and the free revisions polished it to absolute perfection. Will use this thesis help again.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">
                                         <div className="flex items-center justify-between mb-3">
@@ -849,27 +872,35 @@ export default function PaperWritingServices() {
                         <div className="space-y-4">
                             <FAQItem
                                 question="What subjects do you cover?"
-                                answer="Our experts cover 140+ disciplines, including Nursing, Law, Computer Science, Engineering, Business, and Economics. We match you with a writer specifically qualified in your field."
+                                answer="We have verified experts across 80+ academic disciplines, including Management, Nursing, Law, Computer Science, Literature, and Engineering, so you get field-matched thesis support."
                             />
                             <FAQItem
                                 question="How fast can you deliver?"
-                                answer="We specialize in urgent deadlines. Depending on complexity, we deliver high-quality papers in as little as 3 hours while maintaining scholarly standards."
+                                answer="Deadlines are flexible. Full theses require proper research time, but urgent support can be provided in as little as 3 to 4 hours for specific chapters or proposals."
                             />
                             <FAQItem
-                                question="Is the work original and human-written?"
-                                answer="Yes. Every paper is written from scratch without AI tools. We provide a free Turnitin originality report with every order to guarantee authenticity."
+                                question="Is the work original?"
+                                answer="Absolutely. Every thesis is 100% human-written from scratch. We enforce strict anti-plagiarism and anti-AI policies and verify each submission with trusted detection software."
                             />
                             <FAQItem
                                 question="Can I communicate with the writer?"
-                                answer="Yes. You gain access to a secure, encrypted private chat to track progress, share materials, and request draft previews directly with your expert."
+                                answer="Yes. You can communicate through our secure chat platform to monitor progress, clarify instructions, and share feedback directly with your assigned writer."
                             />
                             <FAQItem
                                 question="What if I'm not satisfied?"
-                                answer="We offer unlimited free revisions for up to 30 days. If the work doesn't meet your initial instructions, our money-back guarantee has you covered."
+                                answer="You can request unlimited free revisions within 14 to 30 days if your thesis does not match initial instructions. If concerns remain unresolved, our money-back guarantee applies."
+                            />
+                            <FAQItem
+                                question="How does pricing work?"
+                                answer="Pricing is calculated based on your academic level, page or word count, and deadline. Longer deadlines usually mean a lower per-page rate, and there are no hidden fees."
                             />
                             <FAQItem
                                 question="Is my privacy protected?"
-                                answer="Your identity is heavily guarded. We use bank-level 256-bit SSL encryption and strict confidentiality policies. Your data is never shared with third parties or institutions."
+                                answer="Yes. We use bank-level 256-bit SSL encryption to protect browsing and payment activity. Your personal identity and payment details are never shared with unauthorized third parties."
+                            />
+                            <FAQItem
+                                question="Do you handle urgent thesis assignments?"
+                                answer="Yes. Our 24/7 support team and global writer network can quickly match you with an expert who can work fast and help you meet tight deadlines."
                             />
                         </div>
 
@@ -891,17 +922,17 @@ export default function PaperWritingServices() {
                     <div className="container mx-auto px-4">
                         <div className="max-w-4xl mx-auto text-center">
                             <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6 leading-tight">
-                                Reach Your Academic Goals Today
+                                Ready to Complete Your Degree with Confidence?
                             </h2>
                             <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-loose">
-                                Join 50k+ successful students who have reclaimed their time and grades. Elite paper writing help is just a click away.
+                                Don't let a heavy workload stand between you and graduation. Join thousands of successful students who rely on our premium academic assistance.
                             </p>
                             <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
                                 <Link
                                     to="/order-now"
                                     className="px-10 py-5 bg-[#D4A853] hover:bg-[#C49843] text-[#0B1F42] font-bold text-lg rounded-xl transition-all shadow-lg inline-flex items-center justify-center gap-3"
                                 >
-                                    Start Your Project <ArrowRight className="w-5 h-5" />
+                                    Start Your Thesis <ArrowRight className="w-5 h-5" />
                                 </Link>
                                 <Link
                                     to="/samples"
@@ -912,9 +943,9 @@ export default function PaperWritingServices() {
                             </div>
                             <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                                 {[
-                                    { icon: CheckCircle, text: 'Original Work' },
-                                    { icon: CheckCircle, text: 'Revisions Included' },
-                                    { icon: CheckCircle, text: '100% Confidential' },
+                                    { icon: Lock, text: 'Confidential & Secure' },
+                                    { icon: RefreshCw, text: 'Free Revisions Included' },
+                                    { icon: Sparkles, text: '100% Plagiarism-Free Guarantee' },
                                 ].map((item, i) => (
                                     <div key={i} className="flex items-center gap-2">
                                         <item.icon className="w-4 h-4 text-[#D4A853]" />
@@ -930,3 +961,7 @@ export default function PaperWritingServices() {
         </>
     );
 }
+
+
+
+

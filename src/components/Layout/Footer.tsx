@@ -59,7 +59,7 @@ export default function Footer() {
 
         {/* Main Content - Multi-Column Link Structure */}
         <div className="container mx-auto px-4 sm:px-5 py-8 sm:py-12 md:py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
 
             {/* Column 1: Free Tools - Highlighted */}
             <div className="relative">
@@ -90,40 +90,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Column 2: Essay Services */}
-            <div>
-              <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Essay Services</h3>
-              <ul className="space-y-2 sm:space-y-3">
-                <li><Link to="/services/argumentative-essay" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Argumentative Essay Service</Link></li>
-                <li><Link to="/services/narrative-essay" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Narrative Essay Service</Link></li>
-                <li><Link to="/services/admission-essay" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Admission Essay Service</Link></li>
-                <li><Link to="/essay-writing" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Essay Writing Service</Link></li>
-                <li><Link to="/paper-writing-services" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Paper Writing Service</Link></li>
-                <li><Link to="/services/scholarship-essay" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Scholarship Essay Service</Link></li>
-                <li><Link to="/services/book-review" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Book Review Service</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 3: Writing Help */}
-            <div>
-              <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Writing Help</h3>
-              <ul className="space-y-2 sm:space-y-3">
-                <li><Link to="/services/term-paper" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Term Paper Writing Help</Link></li>
-                <li><Link to="/services/research-paper-writing" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Research Paper Writing Help</Link></li>
-                <li><Link to="/services/thesis-writing" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Thesis Writing Help</Link></li>
-                <li><Link to="/services/dissertation-writing" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Dissertation Writing Help</Link></li>
-                <li><Link to="/services/lab-report" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Lab Report Writing Help</Link></li>
-                <li><Link to="/services/programming-help" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Programming Help</Link></li>
-                <li><Link to="/services/assignment-help" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Assignment Help</Link></li>
-                <li><Link to="/assignment-help/engineering" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Engineering Assignment Help</Link></li>
-                <li><Link to="/services/english-assignment-help" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">English Assignment Help</Link></li>
-                <li><Link to="/services/physics-assignment-help" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Physics Assignment Help</Link></li>
-                <li><Link to="/services/homework-help" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Homework Help</Link></li>
-                <li><Link to="/case-study-help" className="text-sm sm:text-base text-gray-300 hover:text-primary-400 transition-colors duration-300 hover:underline">Case Study Help</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 4: Legal & Policies */}
+            {/* Column 2: Legal & Policies */}
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Legal & Policies</h3>
               <ul className="space-y-2 sm:space-y-3">
@@ -134,7 +101,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 5: Company */}
+            {/* Column 3: Company */}
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Company</h3>
               <ul className="space-y-2 sm:space-y-3">
@@ -145,7 +112,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 6: Resources */}
+            {/* Column 4: Resources */}
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white mb-4 sm:mb-6 uppercase tracking-wide">Resources</h3>
               <ul className="space-y-2 sm:space-y-3">

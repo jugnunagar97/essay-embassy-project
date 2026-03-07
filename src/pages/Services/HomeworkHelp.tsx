@@ -1,6 +1,7 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import UnifiedPriceCalculator from '../../components/Services/UnifiedPriceCalculator';
 import {
   CheckCircle2,
   Star,
@@ -30,7 +31,7 @@ import {
   Plus
 } from 'lucide-react';
 
-// ─── FAQ Item ─────────────────────────────────────────────────────────────────
+// â”€â”€â”€ FAQ Item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -51,7 +52,7 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
   );
 };
 
-// ─── Price Calculator (USD) ───────────────────────────────────────────────────
+// â”€â”€â”€ Price Calculator (USD) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const PriceCalculator = () => {
   const [academicLevel, setAcademicLevel] = useState<'highschool' | 'undergraduate' | 'masters' | 'phd'>('undergraduate');
   const [pages, setPages] = useState(1);
@@ -84,7 +85,7 @@ const PriceCalculator = () => {
     <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
       <div className="text-center mb-8">
         <h3 className="text-2xl font-bold text-gray-900 mb-2">Get a Free Instant Quote</h3>
-        <p className="text-gray-600 text-sm">Expert help starting at just $10/page — no hidden fees.</p>
+        <p className="text-gray-600 text-sm">Expert help starting at just $10/page â€” no hidden fees.</p>
       </div>
       <div className="space-y-6">
 
@@ -106,7 +107,7 @@ const PriceCalculator = () => {
           </select>
         </div>
 
-        {/* Pages — stepper */}
+        {/* Pages â€” stepper */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center justify-between">
             <span className="flex items-center gap-2">
@@ -189,11 +190,11 @@ const PriceCalculator = () => {
   );
 };
 
-// ─── Homework Types Grid ──────────────────────────────────────────────────────
+// â”€â”€â”€ Homework Types Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const HomeworkTypesGrid = () => {
   const types = [
     {
-      emoji: '�',
+      emoji: 'ï¿½',
       title: 'Homework Help Management',
       description: 'MBA-level analysis and corporate financial reporting with real-world strategic application.',
       features: ['GAAP-compliant accounting solutions', 'Macroeconomics and trade policy', 'Strategic business analysis', 'Data-driven results'],
@@ -203,7 +204,7 @@ const HomeworkTypesGrid = () => {
       link: '/assignment-help/management',
     },
     {
-      emoji: '⚙️',
+      emoji: 'âš™ï¸',
       title: 'Homework Help Engineering',
       description: 'Specialized support for Civil, Mechanical, and Electrical engineering technical problem sets.',
       features: ['Technical diagrams & CAD', 'Complex equation solving', 'Lab documentation support', 'System design analysis'],
@@ -213,7 +214,7 @@ const HomeworkTypesGrid = () => {
       link: '/assignment-help/engineering',
     },
     {
-      emoji: '🔬',
+      emoji: 'ðŸ”¬',
       title: 'Homework Help Science',
       description: 'Step-by-step solutions for Biology, Chemistry, and Physics with verified methodology.',
       features: ['Accurate data interpretation', 'Biochemical pathway analysis', 'Nuclear physics problem sets', 'Certified lab procedures'],
@@ -223,7 +224,7 @@ const HomeworkTypesGrid = () => {
       link: '/assignment-help/science',
     },
     {
-      emoji: '💻',
+      emoji: 'ðŸ’»',
       title: 'Homework Help Programming',
       description: 'Bug-free code in Python, Java, C++, and Web Dev with full logical documentation.',
       features: ['Clean, runnable code', 'Full logical flowcharts', 'Database normalization', 'Debugging & optimization'],
@@ -233,7 +234,7 @@ const HomeworkTypesGrid = () => {
       link: '/assignment-help/computer',
     },
     {
-      emoji: '�',
+      emoji: 'ï¿½',
       title: 'Homework Help Math',
       description: 'Calculus, Statistics, and Linear Algebra solutions with crystal-clear working steps.',
       features: ['Step-by-step derivations', 'Statistical data distribution', 'Multivariable calculus', 'Expert-verified proofs'],
@@ -281,7 +282,7 @@ const HomeworkTypesGrid = () => {
   );
 };
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function HomeworkHelp() {
   return (
     <>
@@ -293,7 +294,7 @@ export default function HomeworkHelp() {
 
       <div className="min-h-screen bg-white font-sans">
 
-        {/* ── HERO ─────────────────────────────────────────────────────────── */}
+        {/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-28 bg-gray-50 overflow-hidden">
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-5xl mx-auto">
@@ -359,7 +360,7 @@ export default function HomeworkHelp() {
           </div>
         </section>
 
-        {/* ── STATISTICS ───────────────────────────────────────────────────── */}
+        {/* â”€â”€ STATISTICS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="py-16 bg-white border-t border-gray-100">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -380,7 +381,7 @@ export default function HomeworkHelp() {
           </div>
         </section>
 
-        {/* ── WHY CHOOSE US ─────────────────────────────────────────────────── */}
+        {/* â”€â”€ WHY CHOOSE US â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="py-24 bg-[#F8FAFC] relative overflow-hidden">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#1652A0] via-transparent to-transparent"></div>
@@ -396,13 +397,13 @@ export default function HomeworkHelp() {
                   What Sets Our Service Apart
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-loose text-center">
-                  We focus on <span className="text-[#1652A0] font-medium">quality, speed, and total academic integrity</span> — the fundamentals every student deserves.
+                  We focus on <span className="text-[#1652A0] font-medium">quality, speed, and total academic integrity</span> â€” the fundamentals every student deserves.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                {/* ── Hero Feature Card ── */}
+                {/* â”€â”€ Hero Feature Card â”€â”€ */}
                 <div className="lg:col-span-2 bg-gradient-to-br from-[#0B1F42] to-[#1652A0] p-10 rounded-3xl shadow-2xl text-white relative overflow-hidden group">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
                   <div className="relative z-10">
@@ -433,7 +434,7 @@ export default function HomeworkHelp() {
                   </div>
                 </div>
 
-                {/* Card 2 — Qualified Writers */}
+                {/* Card 2 â€” Qualified Writers */}
                 <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-[#1652A0]">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <GraduationCap className="w-8 h-8 text-white" />
@@ -451,7 +452,7 @@ export default function HomeworkHelp() {
                   </ul>
                 </div>
 
-                {/* Card 3 — On-Time Delivery */}
+                {/* Card 3 â€” On-Time Delivery */}
                 <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-purple-500">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-400 to-pink-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <Zap className="w-8 h-8 text-white" />
@@ -469,7 +470,7 @@ export default function HomeworkHelp() {
                   </ul>
                 </div>
 
-                {/* Card 4 — Responsive Support */}
+                {/* Card 4 â€” Responsive Support */}
                 <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-orange-500">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <MessageCircle className="w-8 h-8 text-white" />
@@ -487,7 +488,7 @@ export default function HomeworkHelp() {
                   </ul>
                 </div>
 
-                {/* Card 5 — Free Revisions */}
+                {/* Card 5 â€” Free Revisions */}
                 <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-red-500">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-red-400 to-rose-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <RefreshCw className="w-8 h-8 text-white" />
@@ -505,7 +506,7 @@ export default function HomeworkHelp() {
                   </ul>
                 </div>
 
-                {/* Card 6 — Privacy */}
+                {/* Card 6 â€” Privacy */}
                 <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-indigo-500">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-400 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <Lock className="w-8 h-8 text-white" />
@@ -537,7 +538,7 @@ export default function HomeworkHelp() {
           </div>
         </section>
 
-        {/* ── HOMEWORK TYPES ────────────────────────────────────────────────── */}
+        {/* â”€â”€ HOMEWORK TYPES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
@@ -571,7 +572,7 @@ export default function HomeworkHelp() {
           </div>
         </section>
 
-        {/* ── HOW IT WORKS ─────────────────────────────────────────────────── */}
+        {/* â”€â”€ HOW IT WORKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="py-24 bg-[#F8FAFC]">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -603,7 +604,7 @@ export default function HomeworkHelp() {
                     stepBg: 'bg-[#0B1F42]', iconBg: 'bg-[#0B1F42]/10', iconText: 'text-[#0B1F42]',
                     badgeBg: 'bg-[#0B1F42]/10', badgeText: 'text-[#0B1F42]', checkColor: 'text-[#0B1F42]',
                     title: 'Get Matched With an Expert',
-                    desc: 'Our system evaluates your requirements and matches you with a verified subject-matter expert in seconds — always a specialist, never a generalist.',
+                    desc: 'Our system evaluates your requirements and matches you with a verified subject-matter expert in seconds â€” always a specialist, never a generalist.',
                     highlight: 'Subject-matched in seconds',
                     features: ['See expert profiles', 'Check ratings', 'View sample work', 'Confirm your match'],
                   },
@@ -640,7 +641,7 @@ export default function HomeworkHelp() {
                         </div>
                         <p className="text-gray-600 leading-loose mb-4">{item.desc}</p>
                         <div className={`inline-block ${item.badgeBg} ${item.badgeText} px-4 py-2 rounded-lg text-sm font-semibold mb-4`}>
-                          ✓ {item.highlight}
+                          âœ“ {item.highlight}
                         </div>
                         <div className="grid grid-cols-2 gap-2">
                           {item.features.map((f, idx) => (
@@ -669,7 +670,7 @@ export default function HomeworkHelp() {
           </div>
         </section>
 
-        {/* ── PRICING ──────────────────────────────────────────────────────── */}
+        {/* â”€â”€ PRICING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
@@ -706,9 +707,9 @@ export default function HomeworkHelp() {
                   </div>
                 </div>
 
-                {/* Right — Calculator */}
+                {/* Right â€” Calculator */}
                 <div>
-                  <PriceCalculator />
+                  <UnifiedPriceCalculator />
                 </div>
 
               </div>
@@ -716,7 +717,7 @@ export default function HomeworkHelp() {
           </div>
         </section>
 
-        {/* ── GUARANTEES ───────────────────────────────────────────────────── */}
+        {/* â”€â”€ GUARANTEES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="py-24 bg-[#0B1F42] text-white relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
@@ -780,7 +781,7 @@ export default function HomeworkHelp() {
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
+        {/* â”€â”€ TESTIMONIALS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="py-24 bg-[#F8FAFC]">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -839,7 +840,7 @@ export default function HomeworkHelp() {
           </div>
         </section>
 
-        {/* ── FAQ ──────────────────────────────────────────────────────────── */}
+        {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="py-24 bg-gray-50">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="text-center mb-16">
@@ -900,7 +901,7 @@ export default function HomeworkHelp() {
           </div>
         </section>
 
-        {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
+        {/* â”€â”€ FINAL CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <section className="py-24 bg-[#0B1F42]">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">

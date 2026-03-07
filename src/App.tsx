@@ -48,7 +48,11 @@ import type { User } from './types';
 
 
 // --- Static Service Page Imports ---
-import ArgumentativeEssay from './pages/Services/ArgumentativeEssay';
+import ArgumentativeEssayWriting from './pages/Services/ArgumentativeEssayWriting';
+import PersuasiveEssayWriting from './pages/Services/PersuasiveEssayWriting';
+import DescriptiveEssayWriting from './pages/Services/DescriptiveEssayWriting';
+import ExpositoryEssayWritingService from './pages/Services/ExpositoryEssayWriting';
+import AnalyticalEssayWritingService from './pages/Services/AnalyticalEssayWriting';
 import AssignmentHelp from './pages/Services/AssignmentHelp';
 import BookReview from './pages/Services/BookReview';
 import CaseStudyHelp from './pages/Services/CaseStudyHelp';
@@ -57,7 +61,7 @@ import EnglishAssignmentHelp from './pages/Services/EnglishAssignmentHelp';
 import EssayWriting from './pages/Services/EssayWriting';
 import HomeworkHelp from './pages/Services/HomeworkHelp';
 import LabReport from './pages/Services/LabReport';
-import NarrativeEssay from './pages/Services/NarrativeEssay';
+import NarrativeEssayWriting from './pages/Services/NarrativeEssayWriting';
 import PhysicsAssignmentHelp from './pages/Services/PhysicsAssignmentHelp';
 import ProgrammingHelp from './pages/Services/ProgrammingHelp';
 import PythonProgrammingHelp from './pages/Services/PythonProgrammingHelp';
@@ -73,6 +77,8 @@ import ReflectiveEssay from './pages/Services/ReflectiveEssay';
 import CompareContrastEssay from './pages/Services/CompareContrastEssay';
 import ScholarshipEssay from './pages/Services/ScholarshipEssay';
 import PaperWriting from './pages/Services/PaperWriting';
+import ThesisWritingServices from './pages/Services/ThesisWritingServices';
+import DissertationWritingServices from './pages/Services/DissertationWritingServices';
 import MatlabProgrammingHelp from './pages/Services/MatlabProgrammingHelp';
 import RubyProgrammingHelp from './pages/Services/RubyProgrammingHelp';
 import CPPProgrammingHelp from './pages/Services/CPPProgrammingHelp';
@@ -225,12 +231,16 @@ function App() {
                 <Route path="essay-writing/admission" element={<AdmissionEssayWriting />} />
                 <Route path="essay-writing/reflective" element={<ReflectiveEssay />} />
                 <Route path="essay-writing/compare-contrast" element={<CompareContrastEssay />} />
-                <Route path="essay-writing/narrative" element={<NarrativeEssay />} />
-                <Route path="essay-writing/argumentative" element={<ArgumentativeEssay />} />
+                <Route path="essay-writing/narrative" element={<NarrativeEssayWriting />} />
+                <Route path="essay-writing/argumentative" element={<ArgumentativeEssayWriting />} />
+                <Route path="essay-writing/persuasive" element={<PersuasiveEssayWriting />} />
+                <Route path="essay-writing/descriptive" element={<DescriptiveEssayWriting />} />
+                <Route path="essay-writing/expository" element={<ExpositoryEssayWritingService />} />
+                <Route path="essay-writing/analytical" element={<AnalyticalEssayWritingService />} />
                 <Route path="essay-writing/scholarship" element={<ScholarshipEssay />} />
                 {/* Backward compatibility routes */}
-                <Route path="argumentative-essay" element={<ArgumentativeEssay />} />
-                <Route path="narrative-essay" element={<NarrativeEssay />} />
+                <Route path="argumentative-essay" element={<ArgumentativeEssayWriting />} />
+                <Route path="narrative-essay" element={<NarrativeEssayWriting />} />
                 <Route path="assignment-help" element={<AssignmentHelp />} />
                 <Route path="assignment-help/management" element={<ManagementAssignmentHelp />} />
                 <Route path="assignment-help/computer" element={<ComputerAssignmentHelp />} />
@@ -247,7 +257,7 @@ function App() {
                 <Route path="essay-writing" element={<EssayWriting />} />
                 <Route path="homework-help" element={<HomeworkHelp />} />
                 <Route path="lab-report" element={<LabReport />} />
-                <Route path="narrative-essay" element={<NarrativeEssay />} />
+                <Route path="narrative-essay" element={<NarrativeEssayWriting />} />
                 <Route path="physics-assignment-help" element={<PhysicsAssignmentHelp />} />
                 <Route path="programming-help" element={<ProgrammingHelp />} />
                 <Route path="programming-help/python" element={<PythonProgrammingHelp />} />
@@ -260,6 +270,8 @@ function App() {
                 <Route path="programming-help/matlab" element={<MatlabProgrammingHelp />} />
                 <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
                 <Route path="paper-writing-services" element={<PaperWriting />} />
+                <Route path="thesis-writing-services" element={<ThesisWritingServices />} />
+                <Route path="dissertation-writing-services" element={<DissertationWritingServices />} />
                 <Route path="term-paper" element={<TermPaper />} />
                 <Route path="thesis-writing" element={<ThesisWriting />} />
                 <Route path="services/:slug" element={<DynamicServicePage />} />

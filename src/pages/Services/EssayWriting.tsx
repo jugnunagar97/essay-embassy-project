@@ -1,6 +1,7 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import UnifiedPriceCalculator from '../../components/Services/UnifiedPriceCalculator';
 import {
   CheckCircle2,
   Star,
@@ -89,7 +90,7 @@ const PriceCalculator = () => {
     <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
       <div className="text-center mb-8">
         <h3 className="text-2xl font-bold text-gray-900 mb-2">Estimate Your Project</h3>
-        <p className="text-gray-600 text-sm">Expert help starting at just $10/page — no hidden fees.</p>
+        <p className="text-gray-600 text-sm">Expert help starting at just $10/page â€” no hidden fees.</p>
       </div>
 
       <div className="space-y-6">
@@ -431,7 +432,7 @@ export default function EssayWriting() {
                   What Sets Our Service Apart
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-loose text-center">
-                  We focus on <span className="text-[#1652A0] font-medium">quality, reliability, and transparency</span> — the fundamentals that matter to every student.
+                  We focus on <span className="text-[#1652A0] font-medium">quality, reliability, and transparency</span> â€” the fundamentals that matter to every student.
                 </p>
               </div>
 
@@ -754,7 +755,7 @@ export default function EssayWriting() {
 
                         {/* Highlight Badge */}
                         <div className={`inline-block ${item.badgeBg} ${item.badgeText} px-4 py-2 rounded-lg text-sm font-semibold mb-4`}>
-                          ✓ {item.highlight}
+                          âœ“ {item.highlight}
                         </div>
 
                         {/* Features */}
@@ -830,7 +831,7 @@ export default function EssayWriting() {
 
                 {/* Right - Calculator */}
                 <div>
-                  <PriceCalculator />
+                  <UnifiedPriceCalculator />
                 </div>
               </div>
             </div>
@@ -946,7 +947,7 @@ export default function EssayWriting() {
                     date: "February 12, 2025",
                     subject: "Sociology",
                     rating: 5,
-                    text: "Submitted a 12-page sociology paper on social stratification and the writer clearly understood the theoretical frameworks. My professor commented on the 'depth of analysis' — only asked for minor APA adjustments. Not my first order here, and this consistency is why I keep coming back."
+                    text: "Submitted a 12-page sociology paper on social stratification and the writer clearly understood the theoretical frameworks. My professor commented on the 'depth of analysis' â€” only asked for minor APA adjustments. Not my first order here, and this consistency is why I keep coming back."
                   },
                   {
                     name: "Julian W.",
@@ -954,7 +955,7 @@ export default function EssayWriting() {
                     date: "January 5, 2025",
                     subject: "Business Strategy",
                     rating: 5,
-                    text: "Was honestly skeptical because I've tried similar services before and gotten generic work. But this was different — the case analysis actually reflected the course material we covered in class. My professor said the strategic framework was 'well-constructed.' Definitely worth it."
+                    text: "Was honestly skeptical because I've tried similar services before and gotten generic work. But this was different â€” the case analysis actually reflected the course material we covered in class. My professor said the strategic framework was 'well-constructed.' Definitely worth it."
                   },
                   {
                     name: "Sophie L.",
@@ -962,7 +963,7 @@ export default function EssayWriting() {
                     date: "December 18, 2024",
                     subject: "Public Health",
                     rating: 5,
-                    text: "Third time ordering for my MPH coursework. What I appreciate most is that they actually read my rubric and followed the marking criteria. The turnaround on revisions was also fast — got minor edits done within a few hours. Reliable service."
+                    text: "Third time ordering for my MPH coursework. What I appreciate most is that they actually read my rubric and followed the marking criteria. The turnaround on revisions was also fast â€” got minor edits done within a few hours. Reliable service."
                   },
                   {
                     name: "Oliver K.",
@@ -970,7 +971,7 @@ export default function EssayWriting() {
                     date: "November 29, 2024",
                     subject: "Environmental Science",
                     rating: 5,
-                    text: "Needed a literature review for my thesis proposal on water conservation policies. The depth of sources they found was impressive — several specific research papers I hadn't encountered in my own search. My advisor approved the proposal on the first submission."
+                    text: "Needed a literature review for my thesis proposal on water conservation policies. The depth of sources they found was impressive â€” several specific research papers I hadn't encountered in my own search. My advisor approved the proposal on the first submission."
                   },
                   {
                     name: "Chloe M.",

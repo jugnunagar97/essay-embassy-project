@@ -1,6 +1,7 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import UnifiedPriceCalculator from '../../components/Services/UnifiedPriceCalculator';
 import {
   CheckCircle2,
   Star,
@@ -33,7 +34,7 @@ import {
   Microscope
 } from 'lucide-react';
 
-// ─── FAQ Item ─────────────────────────────────────────────────────────────────
+// â”€â”€â”€ FAQ Item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -54,7 +55,7 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
   );
 };
 
-// ─── Price Calculator (INR) ───────────────────────────────────────────────────
+// â”€â”€â”€ Price Calculator (INR) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const PriceCalculator = () => {
   const [academicLevel, setAcademicLevel] = useState<'highschool' | 'undergraduate' | 'masters' | 'phd'>('undergraduate');
   const [pages, setPages] = useState(1);
@@ -84,7 +85,7 @@ const PriceCalculator = () => {
     <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
       <div className="text-center mb-8">
         <h3 className="text-2xl font-bold text-gray-900 mb-2">Calculate Your Price</h3>
-        <p className="text-gray-600 text-sm">Expert help starting at just $10/page — no hidden fees.</p>
+        <p className="text-gray-600 text-sm">Expert help starting at just $10/page â€” no hidden fees.</p>
       </div>
       <div className="space-y-6">
         {/* Academic Level */}
@@ -171,14 +172,14 @@ const PriceCalculator = () => {
   );
 };
 
-// ─── Assignment Types Grid ────────────────────────────────────────────────────
+// â”€â”€â”€ Assignment Types Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const AssignmentTypesGrid = () => {
   const types = [
     {
       title: 'Assignment Help Management',
-      emoji: '📊',
+      emoji: 'ðŸ“Š',
       icon: BarChart2,
-      description: 'Expert assistance for MBA and business management assignments — from strategic analysis to organizational behaviour.',
+      description: 'Expert assistance for MBA and business management assignments â€” from strategic analysis to organizational behaviour.',
       features: ['Case study analysis', 'Strategic management frameworks', 'Financial modelling & reports', 'Harvard/APA referencing'],
       cta: 'Get Management Help',
       popular: true,
@@ -187,7 +188,7 @@ const AssignmentTypesGrid = () => {
     },
     {
       title: 'Assignment Help Engineering',
-      emoji: '⚙️',
+      emoji: 'âš™ï¸',
       icon: Monitor,
       description: 'Specialized support for Civil, Mechanical, Electrical, and Software Engineering coursework and technical reports.',
       features: ['Technical diagrams & CAD', 'Complex problem solving', 'Lab report documentation', 'Industry-standard formatting'],
@@ -198,7 +199,7 @@ const AssignmentTypesGrid = () => {
     },
     {
       title: 'Assignment Help Science',
-      emoji: '🔬',
+      emoji: 'ðŸ”¬',
       icon: Microscope,
       description: 'Professional help with Biology, Chemistry, Physics, and Environmental Science assignments and lab reports.',
       features: ['Accurate data interpretation', 'Lab report writing', 'Scientific methodology', 'Peer-reviewed source citations'],
@@ -209,9 +210,9 @@ const AssignmentTypesGrid = () => {
     },
     {
       title: 'Assignment Help Programming',
-      emoji: '💻',
+      emoji: 'ðŸ’»',
       icon: BookOpen,
-      description: 'Code-level support for Python, Java, C++, JavaScript, and more — with clean, well-commented, error-free solutions.',
+      description: 'Code-level support for Python, Java, C++, JavaScript, and more â€” with clean, well-commented, error-free solutions.',
       features: ['Clean, runnable code', 'Step-by-step explanations', 'Multiple language support', 'Debugging & optimization'],
       cta: 'Get Programming Help',
       popular: true,
@@ -220,9 +221,9 @@ const AssignmentTypesGrid = () => {
     },
     {
       title: 'Assignment Help Math',
-      emoji: '🧮',
+      emoji: 'ðŸ§®',
       icon: Calculator,
-      description: 'Step-by-step solutions for Calculus, Linear Algebra, Statistics, Discrete Math, and more — verified by experts.',
+      description: 'Step-by-step solutions for Calculus, Linear Algebra, Statistics, Discrete Math, and more â€” verified by experts.',
       features: ['Crystal-clear workings', 'Algebra, calculus & stats', 'Accurate formulas & proofs', 'Verified by subject experts'],
       cta: 'Get Math Help',
       popular: false,
@@ -269,7 +270,7 @@ const AssignmentTypesGrid = () => {
   );
 };
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Main Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function AssignmentHelp() {
   return (
     <>
@@ -281,7 +282,7 @@ export default function AssignmentHelp() {
 
       <div className="min-h-screen bg-white font-sans">
 
-        {/* ── HERO ── */}
+        {/* â”€â”€ HERO â”€â”€ */}
         <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-28 bg-gray-50 overflow-hidden">
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-5xl mx-auto">
@@ -345,7 +346,7 @@ export default function AssignmentHelp() {
           </div>
         </section>
 
-        {/* ── STATISTICS ── */}
+        {/* â”€â”€ STATISTICS â”€â”€ */}
         <section className="py-16 bg-white border-t border-gray-100">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -371,7 +372,7 @@ export default function AssignmentHelp() {
           </div>
         </section>
 
-        {/* ── WHY CHOOSE US ── */}
+        {/* â”€â”€ WHY CHOOSE US â”€â”€ */}
         <section className="py-24 bg-[#F8FAFC] relative overflow-hidden">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#1652A0] via-transparent to-transparent"></div>
@@ -386,7 +387,7 @@ export default function AssignmentHelp() {
                   What Sets Our Service Apart
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-loose text-center">
-                  We focus on <span className="text-[#1652A0] font-medium">quality, speed, and total academic integrity</span> — the fundamentals every student deserves.
+                  We focus on <span className="text-[#1652A0] font-medium">quality, speed, and total academic integrity</span> â€” the fundamentals every student deserves.
                 </p>
               </div>
 
@@ -505,7 +506,7 @@ export default function AssignmentHelp() {
                     Your academic integrity and privacy are fully protected. We use <span className="text-[#1652A0] font-medium">secure 256-bit SSL encryption</span> for payments, and your personal data is never shared with third parties or universities.
                   </p>
                   <ul className="space-y-3">
-                    {['256-bit SSL encryption', 'Anonymous payments accepted', 'No data sharing — ever', 'GDPR & Data Protection compliant'].map((item, i) => (
+                    {['256-bit SSL encryption', 'Anonymous payments accepted', 'No data sharing â€” ever', 'GDPR & Data Protection compliant'].map((item, i) => (
                       <li key={i} className="flex items-center text-gray-700 font-medium">
                         <Shield className="w-5 h-5 text-indigo-500 mr-3 flex-shrink-0" /> {item}
                       </li>
@@ -526,7 +527,7 @@ export default function AssignmentHelp() {
           </div>
         </section>
 
-        {/* ── ASSIGNMENT TYPES ── */}
+        {/* â”€â”€ ASSIGNMENT TYPES â”€â”€ */}
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
@@ -560,7 +561,7 @@ export default function AssignmentHelp() {
           </div>
         </section>
 
-        {/* ── HOW IT WORKS ── */}
+        {/* â”€â”€ HOW IT WORKS â”€â”€ */}
         <section className="py-24 bg-[#F8FAFC]">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -633,7 +634,7 @@ export default function AssignmentHelp() {
                         </div>
                         <p className="text-gray-600 leading-loose mb-4">{item.desc}</p>
                         <div className={`inline-block ${item.badgeBg} ${item.badgeText} px-4 py-2 rounded-lg text-sm font-semibold mb-4`}>
-                          ✓ {item.highlight}
+                          âœ“ {item.highlight}
                         </div>
                         <div className="grid grid-cols-2 gap-2">
                           {item.features.map((f, idx) => (
@@ -662,7 +663,7 @@ export default function AssignmentHelp() {
           </div>
         </section>
 
-        {/* ── PRICING ── */}
+        {/* â”€â”€ PRICING â”€â”€ */}
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
@@ -679,7 +680,7 @@ export default function AssignmentHelp() {
                   </p>
                   <div className="space-y-4">
                     {[
-                      { icon: DollarSign, title: 'Transparent Pricing', desc: 'What you see is exactly what you pay — no hidden fees.' },
+                      { icon: DollarSign, title: 'Transparent Pricing', desc: 'What you see is exactly what you pay â€” no hidden fees.' },
                       { icon: RefreshCw, title: 'Revisions Included', desc: 'Unlimited free modifications to ensure your complete satisfaction.' },
                       { icon: Shield, title: 'Satisfaction Promise', desc: 'Funds held securely and only released when you\'re completely happy.' },
                     ].map((item, i) => (
@@ -696,14 +697,14 @@ export default function AssignmentHelp() {
                   </div>
                 </div>
                 <div>
-                  <PriceCalculator />
+                  <UnifiedPriceCalculator />
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── GUARANTEES ── */}
+        {/* â”€â”€ GUARANTEES â”€â”€ */}
         <section className="py-24 bg-[#0B1F42] text-white relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
@@ -767,7 +768,7 @@ export default function AssignmentHelp() {
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ── */}
+        {/* â”€â”€ TESTIMONIALS â”€â”€ */}
         <section className="py-24 bg-[#F8FAFC]">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -823,7 +824,7 @@ export default function AssignmentHelp() {
           </div>
         </section>
 
-        {/* ── FAQ ── */}
+        {/* â”€â”€ FAQ â”€â”€ */}
         <section className="py-24 bg-gray-50">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="text-center mb-16">
@@ -845,7 +846,7 @@ export default function AssignmentHelp() {
               />
               <FAQItem
                 question="Is the work original?"
-                answer="Absolutely. Every assignment is written 100% from scratch by our experts — no templates, no AI, no recycled content. We also provide a free plagiarism report generated by advanced detection software (Turnitin) to guarantee originality with every completed order."
+                answer="Absolutely. Every assignment is written 100% from scratch by our experts â€” no templates, no AI, no recycled content. We also provide a free plagiarism report generated by advanced detection software (Turnitin) to guarantee originality with every completed order."
               />
               <FAQItem
                 question="Can I communicate with the writer?"
@@ -865,7 +866,7 @@ export default function AssignmentHelp() {
               />
               <FAQItem
                 question="Do you handle urgent assignments?"
-                answer="Yes, we specialize in urgent academic support. If you have a last-minute assignment that popped out of nowhere, our team is equipped to deliver quality work on tight turnarounds — even as short as 3 to 6 hours depending on complexity."
+                answer="Yes, we specialize in urgent academic support. If you have a last-minute assignment that popped out of nowhere, our team is equipped to deliver quality work on tight turnarounds â€” even as short as 3 to 6 hours depending on complexity."
               />
             </div>
 
@@ -884,7 +885,7 @@ export default function AssignmentHelp() {
           </div>
         </section>
 
-        {/* ── FINAL CTA ── */}
+        {/* â”€â”€ FINAL CTA â”€â”€ */}
         <section className="py-24 bg-[#0B1F42]">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
