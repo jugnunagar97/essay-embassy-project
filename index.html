@@ -1,126 +1,131 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- Favicon links - multiple formats to prevent 404 errors -->
-    <link rel="icon" type="image/png" href="/images/logo.png" />
-    <link rel="shortcut icon" type="image/png" href="/images/logo.png" />
-    <link rel="apple-touch-icon" href="/images/logo.png" />
-    <!-- Fallback favicon to prevent browser from requesting favicon.ico -->
-    <link rel="icon" href="/images/logo.png" sizes="any" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Essay Embassy - Professional Academic Writing Services</title>
-    <meta name="description" content="Get professional academic writing help from Essay Embassy. Expert writers, on-time delivery, and guaranteed quality for all your essay and assignment needs." />
-    <meta name="keywords" content="essay writing, academic writing, assignment help, research papers, custom essays" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB8SKPJD2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);} 
-      gtag('js', new Date());
-      gtag('config', 'G-RYB8SKPJD2');
-    </script>
-    <!-- Prevent favicon.ico 404 error by intercepting the request -->
-    <script>
-      (function() {
-        // Intercept favicon.ico requests and redirect to logo.png
-        const originalFetch = window.fetch;
-        window.fetch = function(...args) {
-          const url = args[0];
-          if (typeof url === 'string' && url.includes('favicon.ico')) {
-            // Redirect favicon.ico requests to logo.png
-            args[0] = url.replace('favicon.ico', 'images/logo.png');
-          }
-          return originalFetch.apply(this, args);
-        };
-      })();
-    </script>
-    <!-- Early geo-blocking check to remove favicon immediately -->
-    <script>
-      (function() {
-        // Immediately check if user might be blocked and remove favicon
-        // This runs before React loads to prevent favicon from showing
-        function removeFavicons() {
-          // Remove all favicon-related links
-          const faviconSelectors = [
-            'link[rel="icon"]',
-            'link[rel="shortcut icon"]',
-            'link[rel="apple-touch-icon"]',
-            'link[rel="apple-touch-icon-precomposed"]'
-          ];
-          
-          faviconSelectors.forEach(selector => {
-            const links = document.querySelectorAll(selector);
-            links.forEach(link => {
-              link.remove();
-              // Also prevent reload by removing href
-              if (link.href) {
-                link.href = '';
-              }
-            });
-          });
-        }
 
-        // Remove favicons immediately
+<head>
+  <meta charset="UTF-8" />
+  <!-- Favicon links - multiple formats to prevent 404 errors -->
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+  <link rel="shortcut icon" type="image/png" href="/images/logo.png" />
+  <link rel="apple-touch-icon" href="/images/logo.png" />
+  <!-- Fallback favicon to prevent browser from requesting favicon.ico -->
+  <link rel="icon" href="/images/logo.png" sizes="any" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Essay Embassy - Professional Academic Writing Services</title>
+  <meta name="description"
+    content="Get professional academic writing help from Essay Embassy. Expert writers, on-time delivery, and guaranteed quality for all your essay and assignment needs." />
+  <meta name="keywords" content="essay writing, academic writing, assignment help, research papers, custom essays" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB8SKPJD2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-RYB8SKPJD2');
+  </script>
+  <!-- Prevent favicon.ico 404 error by intercepting the request -->
+  <script>
+    (function () {
+      // Intercept favicon.ico requests and redirect to logo.png
+      const originalFetch = window.fetch;
+      window.fetch = function (...args) {
+        const url = args[0];
+        if (typeof url === 'string' && url.includes('favicon.ico')) {
+          // Redirect favicon.ico requests to logo.png
+          args[0] = url.replace('favicon.ico', 'images/logo.png');
+        }
+        return originalFetch.apply(this, args);
+      };
+    })();
+  </script>
+  <!-- Early geo-blocking check to remove favicon immediately -->
+  <script>
+    (function () {
+      // Immediately check if user might be blocked and remove favicon
+      // This runs before React loads to prevent favicon from showing
+      function removeFavicons() {
+        // Remove all favicon-related links
+        const faviconSelectors = [
+          'link[rel="icon"]',
+          'link[rel="shortcut icon"]',
+          'link[rel="apple-touch-icon"]',
+          'link[rel="apple-touch-icon-precomposed"]'
+        ];
+
+        faviconSelectors.forEach(selector => {
+          const links = document.querySelectorAll(selector);
+          links.forEach(link => {
+            link.remove();
+            // Also prevent reload by removing href
+            if (link.href) {
+              link.href = '';
+            }
+          });
+        });
+      }
+
+      // Remove favicons immediately
+      removeFavicons();
+
+      // Keep removing favicons as they might be re-added
+      const faviconObserver = new MutationObserver(function (mutations) {
         removeFavicons();
+      });
 
-        // Keep removing favicons as they might be re-added
-        const faviconObserver = new MutationObserver(function(mutations) {
-          removeFavicons();
+      // Observe head for new favicon links
+      if (document.head) {
+        faviconObserver.observe(document.head, {
+          childList: true,
+          subtree: true
         });
-
-        // Observe head for new favicon links
-        if (document.head) {
-          faviconObserver.observe(document.head, {
-            childList: true,
-            subtree: true
-          });
-        }
-
-        // Also check periodically
-        setInterval(removeFavicons, 100);
-
-        // Store observer globally so it persists
-        window.__FAVICON_OBSERVER__ = faviconObserver;
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-      // Initialize Tawk_API object but delay loading
-      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-      
-      // Function to load Tawk.to (only if not blocked)
-      function loadTawkTo() {
-        // Check if user is blocked (set by GeoBlock component)
-        if (window.__IS_BLOCKED__ === true || window.__BLOCKED_CHECK_IN_PROGRESS__ === true) {
-          return; // Don't load if blocked
-        }
-        
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/6904a68aa00437194fc25cb3/1j8t2l3mh';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
       }
-      
-      // Delay Tawk.to loading to allow GeoBlock check to complete first
-      // Wait for DOM to be ready, then wait a bit more for GeoBlock to set flags
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-          setTimeout(loadTawkTo, 2000); // Wait 2 seconds for GeoBlock check
-        });
-      } else {
-        setTimeout(loadTawkTo, 2000); // Wait 2 seconds for GeoBlock check
+
+      // Also check periodically
+      setInterval(removeFavicons, 100);
+
+      // Store observer globally so it persists
+      window.__FAVICON_OBSERVER__ = faviconObserver;
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    // Initialize Tawk_API object but delay loading
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+
+    // Function to load Tawk.to (only if not blocked)
+    function loadTawkTo() {
+      // Check if user is blocked (set by GeoBlock component)
+      if (window.__IS_BLOCKED__ === true || window.__BLOCKED_CHECK_IN_PROGRESS__ === true) {
+        return; // Don't load if blocked
       }
-    </script>
-    <!--End of Tawk.to Script-->
-  </body>
+
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/69ae50a28d86af1c32daa900/1jj8elvmg';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    }
+
+    // Delay Tawk.to loading to allow GeoBlock check to complete first
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(loadTawkTo, 2000);
+      });
+    } else {
+      setTimeout(loadTawkTo, 2000);
+    }
+  </script>
+  <!--End of Tawk.to Script-->
+</body>
+
 </html>

@@ -75,6 +75,7 @@ import ThesisWriting from './pages/Services/ThesisWriting';
 import AdmissionEssayWriting from './pages/Services/AdmissionEssayWriting';
 import ReflectiveEssay from './pages/Services/ReflectiveEssay';
 import CompareContrastEssay from './pages/Services/CompareContrastEssay';
+import CauseEffectEssay from './pages/Services/CauseEffectEssay';
 import ScholarshipEssay from './pages/Services/ScholarshipEssay';
 import PaperWriting from './pages/Services/PaperWriting';
 import ThesisWritingServices from './pages/Services/ThesisWritingServices';
@@ -231,6 +232,7 @@ function App() {
                 <Route path="essay-writing/admission" element={<AdmissionEssayWriting />} />
                 <Route path="essay-writing/reflective" element={<ReflectiveEssay />} />
                 <Route path="essay-writing/compare-contrast" element={<CompareContrastEssay />} />
+                <Route path="essay-writing/cause-effect" element={<CauseEffectEssay />} />
                 <Route path="essay-writing/narrative" element={<NarrativeEssayWriting />} />
                 <Route path="essay-writing/argumentative" element={<ArgumentativeEssayWriting />} />
                 <Route path="essay-writing/persuasive" element={<PersuasiveEssayWriting />} />
