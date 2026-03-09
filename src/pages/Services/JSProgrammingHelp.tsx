@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 // You need to create ClientTestimonialsCarousel component in the Testimonials folder
 import WritersCarousel from './WritersCarousel';
-import { SpecialAssignmentHelpCarousel } from './AdmissionEssayWriting';
+import { SpecialAssignmentHelpCarousel } from '../../components/Services/SpecialAssignmentHelpCarousel';
 import { Helmet } from 'react-helmet-async';
 
 // Client Testimonials Carousel Component
@@ -102,83 +102,83 @@ function ClientTestimonialsCarousel() {
         {/* Section Header */}
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Hear What Our Clients Have To Say</h2>
         {/* Carousel Viewport */}
-        <div className="relative flex items-center justify-center" style={{minHeight: 340}}>
+        <div className="relative flex items-center justify-center" style={{ minHeight: 340 }}>
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
             aria-label="Previous testimonial"
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-[#F7FAFC] transition focus:outline-none"
           >
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
           {/* Carousel Track */}
-          <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
+          <div className="flex items-center justify-center w-full overflow-hidden" style={{ minHeight: 320, minWidth: 0 }}>
             {testimonials.map((t, idx) => {
               const offset = idx - currentIndex;
-                return (
+              return (
 
-                    <>
+                <>
 
-                      <Helmet>
+                  <Helmet>
 
-                        <title>JavaScript Programming Help | Expert Tutors</title>
+                    <title>JavaScript Programming Help | Expert Tutors</title>
 
-                        <meta
+                    <meta
 
-                          name="description"
+                      name="description"
 
-                          content="Professional JavaScript programming help. Expert tutors in JavaScript, web development, and frontend frameworks."
+                      content="Professional JavaScript programming help. Expert tutors in JavaScript, web development, and frontend frameworks."
 
-                        />
+                    />
 
-                        <link rel="canonical" href="https://essayembassy.com/services/assignment-help/javascript-programming" />
+                    <link rel="canonical" href="https://essayembassy.com/services/assignment-help/javascript-programming" />
 
-                      </Helmet>
+                  </Helmet>
 
-                      <div
-                  key={t.id}
-                  className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0 ${idx === currentIndex ? 'is-active' : ''}`}
-                  style={{
-                    ...getCardStyle(idx),
-                    width: '90%',
-                    maxWidth: 480,
-                    position: 'absolute',
-                    left: '50%',
-                    top: 0,
-                    transform: `${getCardStyle(idx).transform} translateX(-50%)`,
-                    transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
-                    background: '#fff',
-                    boxShadow: getCardStyle(idx).boxShadow,
-                    border: undefined,
-                    opacity: offset === 0 ? 1 : 0.25,
-                  }}
-                  aria-hidden={idx !== currentIndex}
-                >
-                  {/* Card Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
-                    <div className="flex items-center gap-1">
-                      {[1,2,3,4,5].map((star) => (
-                        <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                      ))}
+                  <div
+                    key={t.id}
+                    className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0 ${idx === currentIndex ? 'is-active' : ''}`}
+                    style={{
+                      ...getCardStyle(idx),
+                      width: '90%',
+                      maxWidth: 480,
+                      position: 'absolute',
+                      left: '50%',
+                      top: 0,
+                      transform: `${getCardStyle(idx).transform} translateX(-50%)`,
+                      transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
+                      background: '#fff',
+                      boxShadow: getCardStyle(idx).boxShadow,
+                      border: undefined,
+                      opacity: offset === 0 ? 1 : 0.25,
+                    }}
+                    aria-hidden={idx !== currentIndex}
+                  >
+                    {/* Card Header */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                        ))}
+                      </div>
+                    </div>
+                    {/* Testimonial Text */}
+                    <p className="text-gray-700 text-base mb-8">{t.text}</p>
+                    {/* Metadata */}
+                    <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
+                      <div>
+                        <div className="font-bold text-gray-700 text-sm">Date:</div>
+                        <div className="text-gray-600 text-sm">{t.date}</div>
+                      </div>
+                      <div>
+                        <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
+                        <div className="text-gray-600 text-sm">{t.level}</div>
+                      </div>
                     </div>
                   </div>
-                  {/* Testimonial Text */}
-                  <p className="text-gray-700 text-base mb-8">{t.text}</p>
-                  {/* Metadata */}
-                  <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
-                    <div>
-                      <div className="font-bold text-gray-700 text-sm">Date:</div>
-                      <div className="text-gray-600 text-sm">{t.date}</div>
-                    </div>
-                    <div>
-                      <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
-                      <div className="text-gray-600 text-sm">{t.level}</div>
-                    </div>
-                  </div>
-                </div>
-                    </>
-                );
+                </>
+              );
             })}
           </div>
           {/* Right Arrow */}
@@ -187,7 +187,7 @@ function ClientTestimonialsCarousel() {
             aria-label="Next testimonial"
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[#F7FAFC] transition focus:outline-none"
           >
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
         </div>
         {/* Navigation Dots */}
@@ -202,11 +202,11 @@ function ClientTestimonialsCarousel() {
           ))}
         </div>
         {/* Verified reviews UI block (simple, subtle, competitor style) */}
-        <div className="flex items-center justify-center gap-2" style={{marginTop: '2.5rem', marginBottom: '0'}}>
+        <div className="flex items-center justify-center gap-2" style={{ marginTop: '2.5rem', marginBottom: '0' }}>
           <span className="inline-flex items-center justify-center w-5 h-5 rounded-full">
             <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="10" fill="#34D399"/>
-              <path d="M6.5 10.2l2.1 2.1L13.5 8.2" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="10" cy="10" r="10" fill="#34D399" />
+              <path d="M6.5 10.2l2.1 2.1L13.5 8.2" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
           <span className="text-gray-500 text-base font-normal">All reviews are from verified users</span>
@@ -244,7 +244,7 @@ function ServicesTabComponent() {
     { name: 'Assignment Help', link: '/services/assignment-help' },
     { name: 'Narrative Essay', link: '/services/narrative-essay' },
   ];
-  
+
   // Remove duplicates for each tab
   const paperwork = [
     'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study', 'Case Study Help', 'Lab Report', 'Homework Help', 'English Assignment Help', 'Programming Help', 'Python Programming Help', 'Java Programming Help', 'JS Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Narrative Essay',
@@ -255,7 +255,7 @@ function ServicesTabComponent() {
   const other = [
     'Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study Help',
   ];
-  
+
   const tabData = [
     {
       key: 'paperwork',
@@ -273,15 +273,15 @@ function ServicesTabComponent() {
       services: other.map(name => allServices.find(s => s.name === name)).filter(Boolean),
     },
   ];
-  
+
   const [activeTab, setActiveTab] = React.useState('paperwork');
   const active = tabData.find(t => t.key === activeTab) || tabData[0];
-  
+
   // Split services into 3 columns
   const filteredServices: { name: string; link: string }[] = (active.services.filter(Boolean) as { name: string; link: string }[]);
   const columns: { name: string; link: string }[][] = [[], [], []];
   filteredServices.forEach((s, i) => columns[i % 3].push(s));
-  
+
   return (
     <div className="w-full">
       {/* Tabs */}
@@ -292,12 +292,12 @@ function ServicesTabComponent() {
             <button
               key={tab.key}
               className={`relative pb-2 text-lg font-semibold transition-colors duration-200 tracking-tight focus:outline-none ${isActive ? 'text-primary-600' : 'text-gray-700 hover:text-primary-700'}`}
-              style={{background: 'none', outline: 'none'}}
+              style={{ background: 'none', outline: 'none' }}
               onClick={() => setActiveTab(tab.key)}
             >
               <span className={isActive ? 'text-primary-600' : ''}>{tab.label}</span>
               {isActive && (
-                <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{content: '""'}}></span>
+                <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{ content: '""' }}></span>
               )}
             </button>
           );
@@ -313,7 +313,7 @@ function ServicesTabComponent() {
                 <Link
                   to={service.link}
                   className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
-                  style={{textDecoration: 'none'}}
+                  style={{ textDecoration: 'none' }}
                 >
                   {service.name}
                 </Link>
@@ -510,7 +510,7 @@ export default function JSProgrammingHelp() {
                   type="button"
                   onClick={handleGoogleSignIn}
                   className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2.5 px-6 text-base font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:border-primary-200 hover:shadow-md hover:scale-[1.03] active:bg-gray-100 active:shadow-lg transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-200 hover:text-gray-900"
-                  style={{minWidth: '0'}}
+                  style={{ minWidth: '0' }}
                 >
                   <img src="/images/google logo.svg" alt="Google" className="h-5 w-5" />
                   Google
@@ -563,7 +563,7 @@ export default function JSProgrammingHelp() {
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
           <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
+            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br />
             We carefully check each candidate's academic and professional background before hiring.
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
@@ -573,7 +573,7 @@ export default function JSProgrammingHelp() {
             </div>
             <div className="hidden md:block h-8 border-l border-emerald-400 mx-4"></div>
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 w-full md:w-auto">
-          <img src="/images/univ-logos.svg" alt="Top Universities" className="h-10 md:h-12 my-2" style={{maxWidth: '100%', height: 'auto'}} />
+              <img src="/images/univ-logos.svg" alt="Top Universities" className="h-10 md:h-12 my-2" style={{ maxWidth: '100%', height: 'auto' }} />
             </div>
           </div>
         </div>
@@ -583,14 +583,14 @@ export default function JSProgrammingHelp() {
       <div className="container mx-auto px-6 pb-6">
         <WritersCarousel />
       </div>
-      
+
       {/* Client Testimonials Section */}
       <ClientTestimonialsCarousel />
 
       {/* We go beyond assignment help services Block (glassmorphism, floating, stylish) */}
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
+          <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{ letterSpacing: '0.03em' }}>
             We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">assignment help services</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -599,7 +599,7 @@ export default function JSProgrammingHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Star icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Human-written content only</div>
@@ -610,8 +610,8 @@ export default function JSProgrammingHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Report icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <rect x="4" y="4" width="16" height="16" rx="2"/>
-                  <path d="M9 9h6M9 13h6M9 17h6"/>
+                  <rect x="4" y="4" width="16" height="16" rx="2" />
+                  <path d="M9 9h6M9 13h6M9 17h6" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Originality report included</div>
@@ -622,8 +622,8 @@ export default function JSProgrammingHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Refund icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <path d="M17 1l4 4-4 4"/>
-                  <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
+                  <path d="M17 1l4 4-4 4" />
+                  <path d="M21 5H7a4 4 0 0 0 0 8h1" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Comprehensive refund policy</div>
@@ -634,8 +634,8 @@ export default function JSProgrammingHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Lock icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <rect x="6" y="11" width="12" height="8" rx="2"/>
-                  <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
+                  <rect x="6" y="11" width="12" height="8" rx="2" />
+                  <path d="M12 11V7a4 4 0 1 1 8 0v4" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Robust data protections</div>
@@ -646,8 +646,8 @@ export default function JSProgrammingHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Clock icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 6v6l4 2"/>
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Prompt delivery without quality risks</div>
@@ -658,8 +658,8 @@ export default function JSProgrammingHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Dollar icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <path d="M12 1v22"/>
-                  <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
+                  <path d="M12 1v22" />
+                  <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Pocket-friendly rates</div>
@@ -680,11 +680,11 @@ export default function JSProgrammingHelp() {
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
           <div className="text-center text-lg text-gray-600 mb-4">
-            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
+            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{ height: '0.5em', bottom: '0.1em' }}></span></span> and depend on the page count, deadline, and expert's level
           </div>
           <div className="flex justify-center mb-4">
             <Link to="/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
-              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01"/><path d="M12 7v4"/><circle cx="12" cy="12" r="10"/></svg>
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01" /><path d="M12 7v4" /><circle cx="12" cy="12" r="10" /></svg>
               How we secure your payment
             </Link>
           </div>
@@ -747,21 +747,21 @@ export default function JSProgrammingHelp() {
             {/* Stat 1 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block' />in their studies</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 2 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block' />and trusted experts</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 3 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed orders</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block' />completed orders</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
@@ -771,11 +771,11 @@ export default function JSProgrammingHelp() {
                 <span className="text-3xl md:text-4xl font-bold text-emerald-500">4.8</span>
                 <span className="flex items-center">
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} width="20" height="20" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg key={i} width="20" height="20" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
                   ))}
                 </span>
               </div>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Average<br className='hidden md:block'/>user rating</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Average<br className='hidden md:block' />user rating</span>
             </div>
           </div>
         </div>
@@ -783,11 +783,11 @@ export default function JSProgrammingHelp() {
       {/* Sample Assignments Block */}
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
             Sample Assignments
           </h2>
           <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
-          <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
+          <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.6' }}>
             Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -825,7 +825,7 @@ export default function JSProgrammingHelp() {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="inline-flex items-center justify-center w-7 h-7 bg-red-100 rounded-md">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#EF4444"/><text x="6" y="15" fontSize="9" fill="white" fontWeight="bold">PDF</text></svg>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#EF4444" /><text x="6" y="15" fontSize="9" fill="white" fontWeight="bold">PDF</text></svg>
                     </span>
                     <span className="font-bold text-gray-900 text-base">{sample.title}</span>
                   </div>
@@ -851,35 +851,35 @@ export default function JSProgrammingHelp() {
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Assignment Help journey</h2>
             <div className="flex flex-col items-center relative">
-            {/* Step 1 */}
-            <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
-              <span className="text-2xl mb-1">✍️</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
-              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
-              <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
-            </div>
-            {/* Arrow */}
-            <div className="flex flex-col items-center mb-3">
-              <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            {/* Step 2 */}
-            <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-              <span className="text-2xl mb-1">💳</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a payment</div>
-              <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
-            </div>
-            {/* Arrow */}
-            <div className="flex flex-col items-center mb-3">
-              <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            {/* Step 3 */}
-            <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
-              <span className="text-2xl mb-1">📄</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
-              <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
+              {/* Step 1 */}
+              <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
+                <span className="text-2xl mb-1">✍️</span>
+                <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
+                <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
+                <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
+              </div>
+              {/* Arrow */}
+              <div className="flex flex-col items-center mb-3">
+                <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </div>
+              {/* Step 2 */}
+              <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                <span className="text-2xl mb-1">💳</span>
+                <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a payment</div>
+                <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
+              </div>
+              {/* Arrow */}
+              <div className="flex flex-col items-center mb-3">
+                <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </div>
+              {/* Step 3 */}
+              <div className="flex flex-col items-center text-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                <span className="text-2xl mb-1">📄</span>
+                <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
+                <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
+              </div>
             </div>
           </div>
-        </div>
         </div>
         <style>{`
           @keyframes fade-in-up {
@@ -1061,23 +1061,23 @@ export default function JSProgrammingHelp() {
       </section>
 
       {/* Services Interlink Block - Tabbed Professional Version */}
-      <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{background: '#F7FAFC'}}>
+      <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{ background: '#F7FAFC' }}>
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center md:items-start">
           {/* Left Side: Heading, Description, CTA */}
           <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start mb-10 md:mb-0">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Your #1 paper writing service</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>Your #1 paper writing service</h2>
             <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert essay writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
             <Link
               to="/writers"
               className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
-              style={{textAlign: 'center'}}
+              style={{ textAlign: 'center' }}
             >
               Find your writer <span className="ml-2">→</span>
             </Link>
           </div>
           {/* Right Side: Tabs and Service List */}
           <div className="flex-1 w-full">
-<ServicesTabComponent />
+            <ServicesTabComponent />
           </div>
         </div>
       </section>
@@ -1095,9 +1095,9 @@ export default function JSProgrammingHelp() {
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4">Join our 5,000+ happy clients</h2>
             <ul className="text-gray-700 text-base md:text-lg mb-6 list-disc list-inside">
-              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
-              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
-              <li className="flex items-center gap-3"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
+              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>20,000+ papers delivered with a 98% success rate</li>
+              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>Get original papers written according to your instructions</li>
+              <li className="flex items-center gap-3"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>Save time for what matters most</li>
             </ul>
             <Link
               to="/order-now"
@@ -1109,6 +1109,6 @@ export default function JSProgrammingHelp() {
         </div>
       </section>
     </div>
-    );
+  );
 
-  } 
+} 

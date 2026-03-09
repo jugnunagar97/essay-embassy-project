@@ -29,12 +29,23 @@
 
   <!-- Essay-writing routes -->
   <url><loc>https://essayembassy.com/essay-writing</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/admission</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/reflective</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/compare-contrast</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/narrative</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/personal-statement</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://essayembassy.com/essay-writing/argumentative</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/persuasive</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/narrative</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/descriptive</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/expository</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/analytical</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/compare-contrast</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/cause-effect</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/pro</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/critical-analysis</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/admission</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://essayembassy.com/essay-writing/scholarship</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/editing</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/proofreading</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/rewriting</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://essayembassy.com/essay-writing/reflective</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 
   <!-- Back-compat shortcuts present in routes -->
   

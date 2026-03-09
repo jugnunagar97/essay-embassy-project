@@ -2,35 +2,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import UnifiedPriceCalculator from '../../components/Services/UnifiedPriceCalculator';
-import {
-  CheckCircle2,
-  Star,
-  ShieldCheck,
-  ArrowRight,
-  Shield,
-  Headphones,
-  GraduationCap,
-  FileText,
-  ChevronDown,
-  Clock,
-  Award,
-  Users,
-  Zap,
-  BookOpen,
-  Target,
-  Sparkles,
-  MessageCircle,
-  Globe,
-  DollarSign,
-  CheckCircle,
-  RefreshCw,
-  Brain,
-  Rocket,
-  Trophy,
-  Lock,
-  Edit3,
-  FileCheck
-} from 'lucide-react';
+import { CheckCircle2, Star, ShieldCheck, ArrowRight, Shield, Headphones, GraduationCap, FileText, ChevronDown, Clock, Award, Users, Zap, BookOpen, Target, Sparkles, MessageCircle, Globe, DollarSign, CheckCircle, RefreshCw, Brain, Rocket, Trophy, Lock, Edit3, FileCheck, Pen, AlignLeft, Search, Scale, TrendingUp, Lightbulb, Microscope } from 'lucide-react';
 
 // FAQ Item Component
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
@@ -186,129 +158,216 @@ const PriceCalculator = () => {
 };
 
 // Essay Types Grid Component
-const EssayTypesGrid = () => {
-  const essayTypes = [
-    {
-      title: 'Argumentative Essays',
-      icon: Target,
-      description: 'Win debates with bulletproof arguments. We craft persuasive essays with rock-solid evidence, strategic counterarguments, and compelling logic that professors can\'t ignore.',
-      features: ['Thesis statements that command attention', 'Evidence from peer-reviewed sources', 'Strategic counterargument demolition', 'Flawless logical progression'],
-      popular: true,
-      color: 'blue'
-    },
-    {
-      title: 'Analytical Essays',
-      icon: Brain,
-      description: 'Dissect complex topics like a pro. Our experts break down literature, concepts, and events with scholarly precision, delivering insights that earn top marks.',
-      features: ['Deep critical analysis', 'Multiple scholarly perspectives', 'Advanced interpretation techniques', 'Academic rigor that impresses'],
-      popular: true,
-      color: 'purple'
-    },
-    {
-      title: 'Narrative Essays',
-      icon: BookOpen,
-      description: 'Transform your experiences into captivating stories. We create compelling personal narratives that connect emotionally while maintaining academic excellence.',
-      features: ['Engaging storytelling techniques', 'Vivid, sensory descriptions', 'Clear character development', 'Meaningful thematic connections'],
-      popular: false,
-      color: 'green'
-    },
-    {
-      title: 'Descriptive Essays',
-      icon: Sparkles,
-      description: 'Paint pictures with words. Our writers master sensory language and literary devices to create immersive descriptions that captivate readers.',
-      features: ['Rich sensory details', 'Masterful imagery', 'Advanced literary techniques', 'Memorable prose'],
-      popular: false,
-      color: 'orange'
-    },
-    {
-      title: 'Expository Essays',
-      icon: FileText,
-      description: 'Explain anything with crystal clarity. We present complex information in organized, accessible formats backed by credible research.',
-      features: ['Objective, unbiased presentation', 'Clear logical structure', 'Credible source integration', 'Easy-to-follow explanations'],
-      popular: true,
-      color: 'indigo'
-    },
-    {
-      title: 'Admission Essays',
-      icon: Award,
-      description: 'Get accepted to your dream school. We craft personal statements that showcase your unique story and make you unforgettable to admissions committees.',
-      features: ['Personal brand development', 'Authentic voice creation', 'Strategic positioning', 'Memorable storytelling'],
-      popular: true,
-      color: 'red'
-    },
-    {
-      title: 'Compare & Contrast',
-      icon: Globe,
-      description: 'Master the art of comparison. We deliver balanced analyses that highlight meaningful similarities and differences with sophisticated insights.',
-      features: ['Balanced comparative analysis', 'Clear organizational structure', 'Insightful synthesis', 'Advanced critical thinking'],
-      popular: false,
-      color: 'teal'
-    },
-    {
-      title: 'Persuasive Essays',
-      icon: MessageCircle,
-      description: 'Change minds and influence opinions. We employ powerful rhetorical strategies while maintaining academic credibility and ethical argumentation.',
-      features: ['Advanced persuasive techniques', 'Emotional + logical appeals', 'Rhetorical mastery', 'Compelling calls to action'],
-      popular: false,
-      color: 'pink'
-    },
-    {
-      title: 'Reflective Essays',
-      icon: Users,
-      description: 'Connect experiences to learning. We help you articulate personal growth with academic depth, linking self-reflection to broader concepts.',
-      features: ['Meaningful self-reflection', 'Personal-academic integration', 'Growth demonstration', 'Scholarly connections'],
-      popular: false,
-      color: 'yellow'
-    }
-  ];
+// ─── Essay Services Grid ──────────────────────────────────────────────────────
+const EssayServicesGrid = () => {
+    const services = [
+        {
+            emoji: '📝',
+            icon: Pen,
+            title: 'Personal Statement Writing',
+            description: 'A polished personal statement built entirely from scratch that tells your story compellingly. Perfect for graduate programs, medical schools, law schools, and undergraduate applications worldwide.',
+            features: ['Compelling story arc', 'Program-specific tailoring', 'Authentic voice preserved', 'Free Turnitin & AI detection reports'],
+            cta: 'Write My Personal Statement',
+            slug: '/essay-writing/personal-statement',
+            popular: true,
+        },
+        {
+            emoji: '🎯',
+            icon: Target,
+            title: 'Argumentative Essay Writing',
+            description: 'Build powerful arguments with evidence-based reasoning. Perfect for debate-focused assignments requiring strong logical structure.',
+            features: ['Strong thesis development', 'Evidence-based claims', 'Counterargument handling', 'Logical progression'],
+            cta: 'Order Argumentative Essay',
+            slug: '/essay-writing/argumentative',
+            popular: false,
+        },
+        {
+            emoji: '💬',
+            icon: MessageCircle,
+            title: 'Persuasive Essay Writing',
+            description: 'Craft persuasive essays that move readers to action. Ideal for any assignment requiring compelling rhetoric and powerful appeals.',
+            features: ['Ethos, pathos, logos balance', 'Audience-targeted tone', 'Strong call to action', 'Polished argumentation'],
+            cta: 'Write My Persuasive Essay',
+            slug: '/essay-writing/persuasive',
+            popular: false,
+        },
+        {
+            emoji: '📖',
+            icon: BookOpen,
+            title: 'Narrative Essay Writing',
+            description: 'Engaging personal stories with vivid descriptions. Ideal for creative assignments that connect real experiences with deeper themes.',
+            features: ['Compelling storytelling', 'Vivid imagery', 'Clear story arc', 'Thematic depth'],
+            cta: 'Write My Narrative Essay',
+            slug: '/essay-writing/narrative',
+            popular: false,
+        },
+        {
+            emoji: '✨',
+            icon: Sparkles,
+            title: 'Descriptive Essay Writing',
+            description: 'Rich sensory details that immerse readers. Perfect for assignments requiring detailed observations and vivid imagery.',
+            features: ['Sensory language mastery', 'Vivid descriptions', 'Literary devices', 'Engaging prose'],
+            cta: 'Get Descriptive Help',
+            slug: '/essay-writing/descriptive',
+            popular: false,
+        },
+        {
+            emoji: '📋',
+            icon: AlignLeft,
+            title: 'Expository Essay Writing',
+            description: 'Clear, informative essays that explain topics with precision. Perfect for assignments requiring balanced facts and structured explanation.',
+            features: ['Fact-based explanations', 'Logical organization', 'Clear topic sentences', 'Neutral, academic tone'],
+            cta: 'Order Expository Essay',
+            slug: '/essay-writing/expository',
+            popular: false,
+        },
+        {
+            emoji: '🔍',
+            icon: Search,
+            title: 'Analytical Essay Writing',
+            description: 'Deep critical analysis that breaks down complex ideas, texts, or events into clear, structured arguments with academic rigor.',
+            features: ['Critical idea breakdown', 'Strong analytical thesis', 'Evidence-based paragraphs', 'Correct academic format'],
+            cta: 'Get Analytical Help',
+            slug: '/essay-writing/analytical',
+            popular: false,
+        },
+        {
+            emoji: '⚖️',
+            icon: Scale,
+            title: 'Compare & Contrast Essay',
+            description: 'Balanced comparison highlighting similarities and differences. Ideal for comparative analysis assignments across any subject.',
+            features: ['Point-by-point & block method', 'Balanced analysis', 'Clear comparisons', 'Insightful synthesis'],
+            cta: 'Order Comparison Essay',
+            slug: '/essay-writing/compare-contrast',
+            popular: false,
+        },
+        {
+            emoji: '🔗',
+            icon: TrendingUp,
+            title: 'Cause & Effect Essay',
+            description: 'Explore relationships between events and their outcomes. Perfect for analyzing consequences and meaningful academic connections.',
+            features: ['Chain & block structure', 'Logical causal reasoning', 'Supporting evidence', 'Strong conclusions'],
+            cta: 'Write Cause & Effect',
+            slug: '/essay-writing/cause-effect',
+            popular: false,
+        },
+        {
+            emoji: '💡',
+            icon: Lightbulb,
+            title: 'Problem Solution Essay',
+            description: 'Identify problems and propose practical, well-reasoned solutions. Great for assignments that require structured critical thinking.',
+            features: ['Actionable thesis statements', 'Viable real-world solutions', 'Right transition words', 'Peer-reviewed sources'],
+            cta: 'Get Solution Help',
+            slug: '/essay-writing/pro',
+            popular: false,
+        },
+        {
+            emoji: '🔬',
+            icon: Microscope,
+            title: 'Critical Analysis Essay',
+            description: 'In-depth evaluation of texts, theories, or works. Perfect for literature, film, philosophy, and any course requiring analytical depth.',
+            features: ['Evaluative framework', 'Textual evidence', 'Author intent analysis', 'Scholarly citations'],
+            cta: 'Order Critical Analysis',
+            slug: '/essay-writing/critical-analysis',
+            popular: false,
+        },
+        {
+            emoji: '🎓',
+            icon: Award,
+            title: 'Admission Essay Writing',
+            description: 'Expert admission essays built to match your authentic voice. Our writers understand admissions committee expectations and craft narratives that get you accepted.',
+            features: ['Authentic personal narrative', 'Admissions committee insight', 'Leadership & extracurriculars highlighted', 'Free Turnitin & AI detection reports'],
+            cta: 'Write My Admission Essay',
+            slug: '/essay-writing/admission',
+            popular: false,
+        },
+        {
+            emoji: '🏆',
+            icon: Trophy,
+            title: 'Scholarship Essay Writing',
+            description: 'Compelling scholarship essays that help you win funding. We highlight your achievements and demonstrate why you deserve support — all in your authentic voice.',
+            features: ['Achievement-focused narrative', 'Winning scholarship format', 'Selection committee insight', 'Free Turnitin & AI detection reports'],
+            cta: 'Win My Scholarship',
+            slug: '/essay-writing/scholarship',
+            popular: false,
+        },
+        {
+            emoji: '✏️',
+            icon: Edit3,
+            title: 'Essay Editing',
+            description: 'Polish your existing work to perfection. Professional editing for grammar, structure, flow, and citation accuracy.',
+            features: ['Grammar correction', 'Style improvement', 'Structure refinement', 'Citation checking'],
+            cta: 'Edit My Essay',
+            slug: '/essay-writing/editing',
+            popular: false,
+        },
+        {
+            emoji: '🔎',
+            icon: FileCheck,
+            title: 'Essay Proofreading',
+            description: 'Final review to catch every error before submission. Spelling, punctuation, formatting, and citation accuracy covered.',
+            features: ['Spelling & punctuation', 'Citation checking', 'Formatting compliance', 'Final accuracy check'],
+            cta: 'Proofread My Essay',
+            slug: '/essay-writing/proofreading',
+            popular: false,
+        },
+        {
+            emoji: '🔄',
+            icon: RefreshCw,
+            title: 'Essay Rewriting',
+            description: 'Transform existing essays into stronger, clearer versions. Improve clarity, flow, originality, and overall academic quality.',
+            features: ['Content improvement', 'Better flow', 'Enhanced clarity', 'Originality boost'],
+            cta: 'Rewrite My Essay',
+            slug: '/essay-writing/rewriting',
+            popular: false,
+        },
+        {
+            emoji: '🤔',
+            icon: Users,
+            title: 'Reflective Essay Writing',
+            description: 'Connect experiences to learning. We help you articulate personal growth with academic depth, linking self-reflection to broader concepts.',
+            features: ['Meaningful self-reflection', 'Personal-academic integration', 'Growth demonstration', 'Scholarly connections'],
+            cta: 'Write Reflective Essay',
+            slug: '/essay-writing/reflective',
+            popular: false,
+        }
+    ];
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {essayTypes.map((type, index) => (
-        <div
-          key={index}
-          className={`bg-white rounded-2xl p-6 border-2 ${type.popular ? 'border-[#1652A0] shadow-xl' : 'border-gray-200 shadow-lg'} hover:shadow-2xl transition-all duration-300 group relative overflow-hidden`}
-        >
-          {/* Popular Badge */}
-          {type.popular && (
-            <div className="absolute top-0 right-0 bg-[#0B1F42] text-[#D4A853] px-4 py-1 rounded-bl-xl text-xs font-bold flex items-center gap-1">
-              <Sparkles className="w-3 h-3" />
-              POPULAR
-            </div>
-          )}
-
-          {/* Icon */}
-          <div className={`w-16 h-16 rounded-xl bg-${type.color}-50 flex items-center justify-center text-${type.color}-600 mb-5 group-hover:scale-110 group-hover:bg-${type.color}-100 transition-all`}>
-            <type.icon className="w-8 h-8" />
-          </div>
-
-          {/* Title */}
-          <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#1652A0] transition-colors">{type.title}</h3>
-
-          {/* Description */}
-          <p className="text-gray-600 mb-5 leading-relaxed text-sm">{type.description}</p>
-
-          {/* Features */}
-          <ul className="space-y-2.5 mb-6">
-            {type.features.map((feature, idx) => (
-              <li key={idx} className="flex items-start text-sm text-gray-700">
-                <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                <span className="font-medium">{feature}</span>
-              </li>
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => (
+                <div
+                    key={index}
+                    className={`bg-white rounded-2xl p-6 border-2 ${service.popular ? 'border-[#1652A0] shadow-xl' : 'border-gray-200 shadow-lg'} hover:shadow-2xl transition-all duration-300 group relative overflow-hidden`}
+                >
+                    {service.popular && (
+                        <div className="absolute top-0 right-0 bg-[#0B1F42] text-[#D4A853] px-4 py-1 rounded-bl-xl text-xs font-bold flex items-center gap-1">
+                            <Sparkles className="w-3 h-3" /> POPULAR
+                        </div>
+                    )}
+                    <div className="w-16 h-16 rounded-xl bg-gray-50 flex items-center justify-center mb-5 group-hover:scale-110 transition-all text-3xl">
+                        {service.emoji}
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1652A0] transition-colors leading-snug">{service.title}</h3>
+                    <p className="text-gray-600 mb-6 leading-[1.7] text-[15px]">{service.description}</p>
+                    <ul className="space-y-2.5 mb-6">
+                        {service.features.map((f, idx) => (
+                            <li key={idx} className="flex items-start text-sm text-gray-700">
+                                <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                                <span className="font-medium">{f}</span>
+                            </li>
+                        ))}
+                    </ul>
+                    <Link
+                        to={service.slug}
+                        className={`w-full px-4 py-3 ${service.popular ? 'bg-[#1652A0] text-white hover:bg-[#0B1F42]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg`}
+                    >
+                        {service.cta} <ArrowRight className="w-4 h-4" />
+                    </Link>
+                </div>
             ))}
-          </ul>
-
-          {/* CTA */}
-          <Link
-            to="/order-now"
-            className={`w-full px-4 py-3 ${type.popular ? 'bg-[#1652A0] text-white hover:bg-[#0B1F42]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg`}
-          >
-            Order This Type <ArrowRight className="w-4 h-4" />
-          </Link>
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 
@@ -635,7 +694,18 @@ export default function EssayWriting() {
                 </p>
               </div>
 
-              <EssayTypesGrid />
+                          <div className="container mx-auto px-4 mt-20 mb-8">
+                <div className="max-w-6xl mx-auto text-center">
+                    <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                        ESSAY WRITING SERVICES WE OFFER
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">
+                        Find the Perfect Essay Service
+                    </h2>
+                </div>
+            </div>
+            <EssayServicesGrid />
+        
 
               {/* Bottom Section */}
               <div className="mt-12 bg-gray-50 rounded-2xl p-10 text-center border border-gray-200">

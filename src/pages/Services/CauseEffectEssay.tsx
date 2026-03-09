@@ -1,39 +1,7 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import {
-    CheckCircle2,
-    Star,
-    ShieldCheck,
-    ArrowRight,
-    Shield,
-    Headphones,
-    GraduationCap,
-    FileText,
-    ChevronDown,
-    Clock,
-    Award,
-    Users,
-    Zap,
-    Sparkles,
-    MessageCircle,
-    DollarSign,
-    CheckCircle,
-    RefreshCw,
-    Brain,
-    Rocket,
-    Trophy,
-    Lock,
-    Edit3,
-    FileCheck,
-    Target,
-    Lightbulb,
-    TrendingUp,
-    Scale,
-    BookOpen,
-    Search,
-    AlignLeft
-} from 'lucide-react';
+import { CheckCircle2, Star, ShieldCheck, ArrowRight, Shield, Headphones, GraduationCap, FileText, ChevronDown, Clock, Award, Users, Zap, Sparkles, MessageCircle, DollarSign, CheckCircle, RefreshCw, Brain, Rocket, Trophy, Lock, Edit3, FileCheck, Target, Lightbulb, TrendingUp, Scale, BookOpen, Search, AlignLeft, Microscope, Pen } from 'lucide-react';
 
 // ─── FAQ Item ─────────────────────────────────────────────────────────────────
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
@@ -175,15 +143,17 @@ const PriceCalculator = () => {
 };
 
 // ─── Essay Services Grid ──────────────────────────────────────────────────────
+// ─── Essay Services Grid ──────────────────────────────────────────────────────
 const EssayServicesGrid = () => {
     const services = [
         {
-            emoji: '🔗',
-            icon: TrendingUp,
-            title: 'Cause and Effect Essay',
-            description: 'Expert essays that trace causal logic clearly from action to outcome. Our writers use chain structure, block structure, or multiple-cause formats to match your assignment perfectly.',
-            features: ['Chain & block essay structure', 'Logical causal reasoning', 'Peer-reviewed academic sources', 'Free Turnitin & GPTZero reports'],
-            cta: 'Write My Cause and Effect Essay',
+            emoji: '📝',
+            icon: Pen,
+            title: 'Personal Statement Writing',
+            description: 'A polished personal statement built entirely from scratch that tells your story compellingly. Perfect for graduate programs, medical schools, law schools, and undergraduate applications worldwide.',
+            features: ['Compelling story arc', 'Program-specific tailoring', 'Authentic voice preserved', 'Free Turnitin & AI detection reports'],
+            cta: 'Write My Personal Statement',
+            slug: '/essay-writing/personal-statement',
             popular: true,
         },
         {
@@ -193,6 +163,17 @@ const EssayServicesGrid = () => {
             description: 'Build powerful arguments with evidence-based reasoning. Perfect for debate-focused assignments requiring strong logical structure.',
             features: ['Strong thesis development', 'Evidence-based claims', 'Counterargument handling', 'Logical progression'],
             cta: 'Order Argumentative Essay',
+            slug: '/essay-writing/argumentative',
+            popular: false,
+        },
+        {
+            emoji: '💬',
+            icon: MessageCircle,
+            title: 'Persuasive Essay Writing',
+            description: 'Craft persuasive essays that move readers to action. Ideal for any assignment requiring compelling rhetoric and powerful appeals.',
+            features: ['Ethos, pathos, logos balance', 'Audience-targeted tone', 'Strong call to action', 'Polished argumentation'],
+            cta: 'Write My Persuasive Essay',
+            slug: '/essay-writing/persuasive',
             popular: false,
         },
         {
@@ -202,6 +183,7 @@ const EssayServicesGrid = () => {
             description: 'Engaging personal stories with vivid descriptions. Ideal for creative assignments that connect real experiences with deeper themes.',
             features: ['Compelling storytelling', 'Vivid imagery', 'Clear story arc', 'Thematic depth'],
             cta: 'Write My Narrative Essay',
+            slug: '/essay-writing/narrative',
             popular: false,
         },
         {
@@ -211,15 +193,17 @@ const EssayServicesGrid = () => {
             description: 'Rich sensory details that immerse readers. Perfect for assignments requiring detailed observations and vivid imagery.',
             features: ['Sensory language mastery', 'Vivid descriptions', 'Literary devices', 'Engaging prose'],
             cta: 'Get Descriptive Help',
+            slug: '/essay-writing/descriptive',
             popular: false,
         },
         {
-            emoji: '📚',
+            emoji: '📋',
             icon: AlignLeft,
             title: 'Expository Essay Writing',
-            description: 'Clear, fact-based explanations of complex topics without personal opinion. Great for informative assignments requiring unbiased analysis.',
-            features: ['Factual accuracy', 'Clear structure', 'Credible sources', 'Logical flow'],
+            description: 'Clear, informative essays that explain topics with precision. Perfect for assignments requiring balanced facts and structured explanation.',
+            features: ['Fact-based explanations', 'Logical organization', 'Clear topic sentences', 'Neutral, academic tone'],
             cta: 'Order Expository Essay',
+            slug: '/essay-writing/expository',
             popular: false,
         },
         {
@@ -229,6 +213,7 @@ const EssayServicesGrid = () => {
             description: 'Deep critical analysis that breaks down complex ideas, texts, or events into clear, structured arguments with academic rigor.',
             features: ['Critical idea breakdown', 'Strong analytical thesis', 'Evidence-based paragraphs', 'Correct academic format'],
             cta: 'Get Analytical Help',
+            slug: '/essay-writing/analytical',
             popular: false,
         },
         {
@@ -238,53 +223,99 @@ const EssayServicesGrid = () => {
             description: 'Balanced comparison highlighting similarities and differences. Ideal for comparative analysis assignments across any subject.',
             features: ['Point-by-point & block method', 'Balanced analysis', 'Clear comparisons', 'Insightful synthesis'],
             cta: 'Order Comparison Essay',
-            popular: true,
+            slug: '/essay-writing/compare-contrast',
+            popular: false,
+        },
+        {
+            emoji: '🔗',
+            icon: TrendingUp,
+            title: 'Cause & Effect Essay',
+            description: 'Explore relationships between events and their outcomes. Perfect for analyzing consequences and meaningful academic connections.',
+            features: ['Chain & block structure', 'Logical causal reasoning', 'Supporting evidence', 'Strong conclusions'],
+            cta: 'Write Cause & Effect',
+            slug: '/essay-writing/cause-effect',
+            popular: false,
         },
         {
             emoji: '💡',
             icon: Lightbulb,
             title: 'Problem Solution Essay',
             description: 'Identify problems and propose practical, well-reasoned solutions. Great for assignments that require structured critical thinking.',
-            features: ['Problem identification', 'Solution proposals', 'Feasibility analysis', 'Action plans'],
+            features: ['Actionable thesis statements', 'Viable real-world solutions', 'Right transition words', 'Peer-reviewed sources'],
             cta: 'Get Solution Help',
+            slug: '/essay-writing/pro',
+            popular: false,
+        },
+        {
+            emoji: '🔬',
+            icon: Microscope,
+            title: 'Critical Analysis Essay',
+            description: 'In-depth evaluation of texts, theories, or works. Perfect for literature, film, philosophy, and any course requiring analytical depth.',
+            features: ['Evaluative framework', 'Textual evidence', 'Author intent analysis', 'Scholarly citations'],
+            cta: 'Order Critical Analysis',
+            slug: '/essay-writing/critical-analysis',
             popular: false,
         },
         {
             emoji: '🎓',
             icon: Award,
             title: 'Admission Essay Writing',
-            description: 'Stand-out personal statements for college applications. Showcase your unique story compellingly to admissions committees.',
-            features: ['Personal branding', 'Authentic voice', 'Strategic positioning', 'Memorable narratives'],
-            cta: 'Write Admission Essay',
-            popular: true,
+            description: 'Expert admission essays built to match your authentic voice. Our writers understand admissions committee expectations and craft narratives that get you accepted.',
+            features: ['Authentic personal narrative', 'Admissions committee insight', 'Leadership & extracurriculars highlighted', 'Free Turnitin & AI detection reports'],
+            cta: 'Write My Admission Essay',
+            slug: '/essay-writing/admission',
+            popular: false,
         },
         {
             emoji: '🏆',
             icon: Trophy,
             title: 'Scholarship Essay Writing',
-            description: 'Compelling essays that win funding. Highlight your achievements and demonstrate powerfully why you deserve support.',
-            features: ['Achievement focus', 'Goal articulation', 'Impact demonstration', 'Persuasive appeals'],
+            description: 'Compelling scholarship essays that help you win funding. We highlight your achievements and demonstrate why you deserve support — all in your authentic voice.',
+            features: ['Achievement-focused narrative', 'Winning scholarship format', 'Selection committee insight', 'Free Turnitin & AI detection reports'],
             cta: 'Win My Scholarship',
+            slug: '/essay-writing/scholarship',
             popular: false,
         },
         {
             emoji: '✏️',
             icon: Edit3,
-            title: 'Essay Editing & Proofreading',
+            title: 'Essay Editing',
             description: 'Polish your existing work to perfection. Professional editing for grammar, structure, flow, and citation accuracy.',
             features: ['Grammar correction', 'Style improvement', 'Structure refinement', 'Citation checking'],
             cta: 'Edit My Essay',
+            slug: '/essay-writing/editing',
+            popular: false,
+        },
+        {
+            emoji: '🔎',
+            icon: FileCheck,
+            title: 'Essay Proofreading',
+            description: 'Final review to catch every error before submission. Spelling, punctuation, formatting, and citation accuracy covered.',
+            features: ['Spelling & punctuation', 'Citation checking', 'Formatting compliance', 'Final accuracy check'],
+            cta: 'Proofread My Essay',
+            slug: '/essay-writing/proofreading',
             popular: false,
         },
         {
             emoji: '🔄',
             icon: RefreshCw,
-            title: 'Essay Rewriting Services',
+            title: 'Essay Rewriting',
             description: 'Transform existing essays into stronger, clearer versions. Improve clarity, flow, originality, and overall academic quality.',
             features: ['Content improvement', 'Better flow', 'Enhanced clarity', 'Originality boost'],
             cta: 'Rewrite My Essay',
+            slug: '/essay-writing/rewriting',
             popular: false,
         },
+        {
+            emoji: '🤔',
+            icon: Users,
+            title: 'Reflective Essay Writing',
+            description: 'Connect experiences to learning. We help you articulate personal growth with academic depth, linking self-reflection to broader concepts.',
+            features: ['Meaningful self-reflection', 'Personal-academic integration', 'Growth demonstration', 'Scholarly connections'],
+            cta: 'Write Reflective Essay',
+            slug: '/essay-writing/reflective',
+            popular: false,
+        }
     ];
 
     return (
@@ -313,7 +344,7 @@ const EssayServicesGrid = () => {
                         ))}
                     </ul>
                     <Link
-                        to="/order-now"
+                        to={service.slug}
                         className={`w-full px-4 py-3 ${service.popular ? 'bg-[#1652A0] text-white hover:bg-[#0B1F42]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg`}
                     >
                         {service.cta} <ArrowRight className="w-4 h-4" />

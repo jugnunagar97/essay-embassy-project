@@ -72,7 +72,7 @@ import CSharpProgrammingHelp from './pages/Services/CSharpProgrammingHelp';
 import ResearchPaperWriting from './pages/Services/ResearchPaperWriting';
 import TermPaper from './pages/Services/TermPaper';
 import ThesisWriting from './pages/Services/ThesisWriting';
-import AdmissionEssayWriting from './pages/Services/AdmissionEssayWriting';
+
 import ReflectiveEssay from './pages/Services/ReflectiveEssay';
 import CompareContrastEssay from './pages/Services/CompareContrastEssay';
 import CauseEffectEssay from './pages/Services/CauseEffectEssay';
@@ -80,6 +80,10 @@ import ProblemSolutionEssay from './pages/Services/ProblemSolutionEssay';
 import CriticalAnalysisEssay from './pages/Services/CriticalAnalysisEssay';
 import AdmissionEssay from './pages/Services/AdmissionEssay';
 import ScholarshipEssay from './pages/Services/ScholarshipEssay';
+import PersonalStatement from './pages/Services/PersonalStatement';
+import EssayEditing from './pages/Services/EssayEditing';
+import EssayProofreading from './pages/Services/EssayProofreading';
+import EssayRewriting from './pages/Services/EssayRewriting';
 import PaperWriting from './pages/Services/PaperWriting';
 import ThesisWritingServices from './pages/Services/ThesisWritingServices';
 import DissertationWritingServices from './pages/Services/DissertationWritingServices';
@@ -232,11 +236,11 @@ function App() {
                 <Route path="services" element={<Services />} /> {/* Main services overview page */}
 
                 {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
-                <Route path="essay-writing/admission" element={<AdmissionEssayWriting />} />
+
                 <Route path="essay-writing/reflective" element={<ReflectiveEssay />} />
                 <Route path="essay-writing/compare-contrast" element={<CompareContrastEssay />} />
                 <Route path="essay-writing/cause-effect" element={<CauseEffectEssay />} />
-                <Route path="essay-writing/problem-solution" element={<ProblemSolutionEssay />} />
+                <Route path="essay-writing/pro" element={<ProblemSolutionEssay />} />
                 <Route path="essay-writing/critical-analysis" element={<CriticalAnalysisEssay />} />
                 <Route path="essay-writing/admission" element={<AdmissionEssay />} />
                 <Route path="essay-writing/narrative" element={<NarrativeEssayWriting />} />
@@ -246,6 +250,10 @@ function App() {
                 <Route path="essay-writing/expository" element={<ExpositoryEssayWritingService />} />
                 <Route path="essay-writing/analytical" element={<AnalyticalEssayWritingService />} />
                 <Route path="essay-writing/scholarship" element={<ScholarshipEssay />} />
+                <Route path="essay-writing/personal-statement" element={<PersonalStatement />} />
+                <Route path="essay-writing/editing" element={<EssayEditing />} />
+                <Route path="essay-writing/proofreading" element={<EssayProofreading />} />
+                <Route path="essay-writing/rewriting" element={<EssayRewriting />} />
                 {/* Backward compatibility routes */}
                 <Route path="argumentative-essay" element={<ArgumentativeEssayWriting />} />
                 <Route path="narrative-essay" element={<NarrativeEssayWriting />} />
