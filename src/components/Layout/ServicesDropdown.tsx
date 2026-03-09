@@ -76,6 +76,9 @@ export default function ServicesDropdown() {
             { id: 'p1-c6', name: 'Analytical Essay Writing', link: '/essay-writing/analytical' },
             { id: 'p1-c7', name: 'Compare & Contrast Essay Writing', link: '/essay-writing/compare-contrast' },
             { id: 'p1-c8', name: 'Cause and Effect Essay Writing', link: '/essay-writing/cause-effect' },
+            { id: 'p1-c9', name: 'Problem Solution Essay Writing', link: '/essay-writing/problem-solution' },
+            { id: 'p1-c10', name: 'Critical Analysis Essay Writing', link: '/essay-writing/critical-analysis' },
+            { id: 'p1-c11', name: 'Admission Essay Writing', link: '/essay-writing/admission' },
           ]
         },
         { id: 'p2', name: 'Assignment Help', link: '/assignment-help' },

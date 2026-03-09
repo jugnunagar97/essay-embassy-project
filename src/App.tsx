@@ -76,6 +76,9 @@ import AdmissionEssayWriting from './pages/Services/AdmissionEssayWriting';
 import ReflectiveEssay from './pages/Services/ReflectiveEssay';
 import CompareContrastEssay from './pages/Services/CompareContrastEssay';
 import CauseEffectEssay from './pages/Services/CauseEffectEssay';
+import ProblemSolutionEssay from './pages/Services/ProblemSolutionEssay';
+import CriticalAnalysisEssay from './pages/Services/CriticalAnalysisEssay';
+import AdmissionEssay from './pages/Services/AdmissionEssay';
 import ScholarshipEssay from './pages/Services/ScholarshipEssay';
 import PaperWriting from './pages/Services/PaperWriting';
 import ThesisWritingServices from './pages/Services/ThesisWritingServices';
@@ -233,6 +236,9 @@ function App() {
                 <Route path="essay-writing/reflective" element={<ReflectiveEssay />} />
                 <Route path="essay-writing/compare-contrast" element={<CompareContrastEssay />} />
                 <Route path="essay-writing/cause-effect" element={<CauseEffectEssay />} />
+                <Route path="essay-writing/problem-solution" element={<ProblemSolutionEssay />} />
+                <Route path="essay-writing/critical-analysis" element={<CriticalAnalysisEssay />} />
+                <Route path="essay-writing/admission" element={<AdmissionEssay />} />
                 <Route path="essay-writing/narrative" element={<NarrativeEssayWriting />} />
                 <Route path="essay-writing/argumentative" element={<ArgumentativeEssayWriting />} />
                 <Route path="essay-writing/persuasive" element={<PersuasiveEssayWriting />} />
