@@ -16,7 +16,6 @@ import {
   Award,
   Users,
   Zap,
-  BookOpen,
   Sparkles,
   MessageCircle,
   DollarSign,
@@ -31,7 +30,16 @@ import {
   Calculator,
   Monitor,
   BarChart2,
-  Microscope
+  Briefcase,
+  Code,
+  FlaskConical,
+  Cpu,
+  Heart,
+  TrendingUp,
+  PieChart,
+  Scale,
+  Layers,
+  BookMarked
 } from 'lucide-react';
 
 // â”€â”€â”€ FAQ Item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -55,180 +63,138 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
   );
 };
 
-// â”€â”€â”€ Price Calculator (INR) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const PriceCalculator = () => {
-  const [academicLevel, setAcademicLevel] = useState<'highschool' | 'undergraduate' | 'masters' | 'phd'>('undergraduate');
-  const [pages, setPages] = useState(1);
-  const [deadline, setDeadline] = useState<'6hours' | '24hours' | '3days' | '7days' | '14days'>('7days');
-
-  const baseRates = {
-    highschool: 10,
-    undergraduate: 12,
-    masters: 16,
-    phd: 20,
-  };
-  const deadlineMultipliers = {
-    '6hours': 2.0,
-    '24hours': 1.8,
-    '3days': 1.3,
-    '7days': 1.0,
-    '14days': 0.9,
-  };
-
-  const calculatePrice = () => {
-    const base = baseRates[academicLevel] || 12;
-    const mult = deadlineMultipliers[deadline] || 1.0;
-    return Math.round(base * pages * mult);
-  };
-
-  return (
-    <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
-      <div className="text-center mb-8">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Calculate Your Price</h3>
-        <p className="text-gray-600 text-sm">Expert help starting at just $10/page â€” no hidden fees.</p>
-      </div>
-      <div className="space-y-6">
-        {/* Academic Level */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-            <GraduationCap className="w-4 h-4 text-[#1652A0]" />
-            Academic Level
-          </label>
-          <select
-            value={academicLevel}
-            onChange={(e) => setAcademicLevel(e.target.value as typeof academicLevel)}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#1652A0] focus:ring-2 focus:ring-[#1652A0]/10 transition-all outline-none text-gray-700 bg-gray-50"
-          >
-            <option value="highschool">High School</option>
-            <option value="undergraduate">Undergraduate (Bachelor's)</option>
-            <option value="masters">Master's Degree</option>
-            <option value="phd">PhD / Doctoral</option>
-          </select>
-        </div>
-        {/* Pages */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center justify-between">
-            <span className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#1652A0]" />
-              Number of Pages
-            </span>
-            <span className="text-[#1652A0] font-bold">{pages} {pages === 1 ? 'page' : 'pages'}</span>
-          </label>
-          <input
-            type="range" min="1" max="50" value={pages}
-            onChange={(e) => setPages(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#1652A0]"
-          />
-          <div className="flex justify-between text-xs text-gray-500 mt-2 font-medium">
-            <span>1 page</span>
-            <span className="text-gray-700">{pages * 275} words</span>
-            <span>50 pages</span>
-          </div>
-        </div>
-        {/* Deadline */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-            <Clock className="w-4 h-4 text-[#1652A0]" />
-            Deadline
-          </label>
-          <select
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value as typeof deadline)}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#1652A0] focus:ring-2 focus:ring-[#1652A0]/10 transition-all outline-none text-gray-700 bg-gray-50"
-          >
-            <option value="6hours">6 Hours (Super Urgent)</option>
-            <option value="24hours">24 Hours (Urgent)</option>
-            <option value="3days">3 Days</option>
-            <option value="7days">7 Days (Standard)</option>
-            <option value="14days">14 Days (Relaxed)</option>
-          </select>
-        </div>
-        {/* Price Display */}
-        <div className="bg-[#0B1F42]/5 rounded-2xl p-6 border border-[#0B1F42]/10">
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <p className="text-[#0B1F42] text-sm font-semibold mb-1">Estimated Total:</p>
-              <p className="text-4xl font-black text-[#0B1F42]">${calculatePrice()}</p>
-            </div>
-            <div className="text-right bg-white rounded-lg px-3 py-2 border border-[#0B1F42]/10">
-              <p className="text-xs text-gray-500 font-medium">Per Page</p>
-              <p className="text-xl font-bold text-gray-900">${Math.round(calculatePrice() / pages)}</p>
-            </div>
-          </div>
-          <Link
-            to="/order-now"
-            className="w-full px-6 py-4 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
-          >
-            Proceed to Checkout <ArrowRight className="w-5 h-5" />
-          </Link>
-          <div className="flex justify-center gap-4 mt-4 text-xs font-medium text-gray-600">
-            <span className="flex items-center gap-1.5">
-              <CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> Includes: Free Plagiarism Report
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 // â”€â”€â”€ Assignment Types Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const AssignmentTypesGrid = () => {
   const types = [
     {
-      title: 'Assignment Help Management',
-      emoji: 'ðŸ“Š',
-      icon: BarChart2,
-      description: 'Expert assistance for MBA and business management assignments â€” from strategic analysis to organizational behaviour.',
-      features: ['Case study analysis', 'Strategic management frameworks', 'Financial modelling & reports', 'Harvard/APA referencing'],
+      title: 'Management Assignment Help',
+      emoji: '📊',
+      icon: Briefcase,
+      description: 'Expert management homework help built from scratch. From strategic management case studies to HR planning.',
+      features: ['Strategic management', 'SWOT & PESTLE analysis', 'Organizational behavior', 'Business planning'],
       cta: 'Get Management Help',
       popular: true,
-      color: 'blue',
       link: '/assignment-help/management',
     },
     {
-      title: 'Assignment Help Engineering',
-      emoji: 'âš™ï¸',
-      icon: Monitor,
-      description: 'Specialized support for Civil, Mechanical, Electrical, and Software Engineering coursework and technical reports.',
-      features: ['Technical diagrams & CAD', 'Complex problem solving', 'Lab report documentation', 'Industry-standard formatting'],
-      cta: 'Get Engineering Help',
-      popular: true,
-      color: 'purple',
-      link: '/assignment-help/engineering',
+      title: 'Math Assignment Help',
+      emoji: '➕',
+      icon: Calculator,
+      description: 'Step-by-step solutions for all math topics — from algebra and calculus to discrete mathematics. Accurate workings with full explanations.',
+      features: ['Algebra & calculus', 'Statistics & probability', 'Discrete mathematics', 'Step-by-step workings'],
+      cta: 'Get Math Help',
+      popular: false,
+      link: '/assignment-help/math',
     },
     {
-      title: 'Assignment Help Science',
-      emoji: 'ðŸ”¬',
-      icon: Microscope,
-      description: 'Professional help with Biology, Chemistry, Physics, and Environmental Science assignments and lab reports.',
-      features: ['Accurate data interpretation', 'Lab report writing', 'Scientific methodology', 'Peer-reviewed source citations'],
+      title: 'Programming Assignment Help',
+      emoji: '💻',
+      icon: Code,
+      description: 'Working, well-commented code solutions across all major languages and frameworks. From beginner scripts to advanced data structures.',
+      features: ['Python, Java, C++', 'Data structures & algorithms', 'Database & web projects', 'Clean, commented code'],
+      cta: 'Get Programming Help',
+      popular: true,
+      link: '/assignment-help/programming',
+    },
+    {
+      title: 'Science Assignment Help',
+      emoji: '🔬',
+      icon: FlaskConical,
+      description: 'Accurate science assignments across biology, chemistry, physics, and earth sciences. Expert-written lab reports and research tasks.',
+      features: ['Biology, chemistry, physics', 'Lab report writing', 'Research & analysis', 'Peer-reviewed sources'],
       cta: 'Get Science Help',
       popular: false,
-      color: 'green',
       link: '/assignment-help/science',
     },
     {
-      title: 'Assignment Help Programming',
-      emoji: 'ðŸ’»',
-      icon: BookOpen,
-      description: 'Code-level support for Python, Java, C++, JavaScript, and more â€” with clean, well-commented, error-free solutions.',
-      features: ['Clean, runnable code', 'Step-by-step explanations', 'Multiple language support', 'Debugging & optimization'],
-      cta: 'Get Programming Help',
+      title: 'Engineering Assignment Help',
+      emoji: '⚙️',
+      icon: Cpu,
+      description: 'Technical engineering solutions across civil, mechanical, electrical, and software disciplines. Precise calculations and diagrams.',
+      features: ['Civil, mechanical, electrical', 'Technical calculations', 'CAD & design tasks', 'Detailed explanations'],
+      cta: 'Get Engineering Help',
       popular: true,
-      color: 'red',
-      link: '/assignment-help/computer',
+      link: '/assignment-help/engineering',
     },
     {
-      title: 'Assignment Help Math',
-      emoji: 'ðŸ§®',
-      icon: Calculator,
-      description: 'Step-by-step solutions for Calculus, Linear Algebra, Statistics, Discrete Math, and more â€” verified by experts.',
-      features: ['Crystal-clear workings', 'Algebra, calculus & stats', 'Accurate formulas & proofs', 'Verified by subject experts'],
-      cta: 'Get Math Help',
+      title: 'MS Office Assignment Help',
+      emoji: '🖥️',
+      icon: Monitor,
+      description: 'Professional help with Word, Excel, PowerPoint, and Access assignments. Spreadsheets, presentations, and formatted documents done right.',
+      features: ['Excel formulas & macros', 'PowerPoint presentations', 'Word formatting & reports', 'Access database tasks'],
+      cta: 'Get MS Office Help',
       popular: false,
-      color: 'orange',
-      link: '/assignment-help/math',
+      link: '/assignment-help/ms-office',
+    },
+    {
+      title: 'Nursing Assignment Help',
+      emoji: '🏥',
+      icon: Heart,
+      description: 'Evidence-based nursing assignments written by healthcare experts. Care plans, case studies, and clinical analysis all covered.',
+      features: ['Evidence-based practice', 'Care plan writing', 'Clinical case studies', 'Reflective journals'],
+      cta: 'Get Nursing Help',
+      popular: false,
+      link: '/assignment-help/nursing',
+    },
+    {
+      title: 'Economics Assignment Help',
+      emoji: '📈',
+      icon: TrendingUp,
+      description: 'Clear, well-researched economics assignments covering microeconomics, macroeconomics, econometrics, and behavioral economics.',
+      features: ['Micro & macroeconomics', 'Econometrics & modelling', 'Policy analysis', 'Data interpretation'],
+      cta: 'Get Economics Help',
+      popular: false,
+      link: '/assignment-help/economics',
+    },
+    {
+      title: 'Finance Assignment Help',
+      emoji: '💰',
+      icon: PieChart,
+      description: 'Accurate finance assignments covering corporate finance, investment analysis, financial modelling, and portfolio management.',
+      features: ['Corporate finance', 'Investment analysis', 'Financial modelling', 'Portfolio management'],
+      cta: 'Get Finance Help',
+      popular: false,
+      link: '/assignment-help/finance',
+    },
+    {
+      title: 'Accounting Assignment Help',
+      emoji: '🧾',
+      icon: BarChart2,
+      description: 'Precise accounting assignments covering financial statements, management accounting, auditing, and tax calculations.',
+      features: ['Financial statements', 'Management accounting', 'Auditing & compliance', 'Tax calculations'],
+      cta: 'Get Accounting Help',
+      popular: false,
+      link: '/assignment-help/accounting',
+    },
+    {
+      title: 'Law Assignment Help',
+      emoji: '⚖️',
+      icon: Scale,
+      description: 'Well-argued law assignments covering contract law, criminal law, tort law, constitutional law, and international law.',
+      features: ['Contract & tort law', 'Criminal & constitutional law', 'Case law analysis', 'OSCOLA/Bluebook citations'],
+      cta: 'Get Law Help',
+      popular: false,
+      link: '/assignment-help/law',
+    },
+    {
+      title: 'Statistics Assignment Help',
+      emoji: '📉',
+      icon: Layers,
+      description: 'Clear statistical solutions covering descriptive stats, hypothesis testing, regression analysis, and data visualization.',
+      features: ['Descriptive & inferential stats', 'Hypothesis testing', 'Regression analysis', 'SPSS & R support'],
+      cta: 'Get Statistics Help',
+      popular: false,
+      link: '/assignment-help/statistics',
+    },
+    {
+      title: 'Humanities Assignment Help',
+      emoji: '🌍',
+      icon: BookMarked,
+      description: 'Well-researched humanities assignments covering history, philosophy, sociology, cultural studies, and political science.',
+      features: ['History & philosophy', 'Sociology & cultural studies', 'Political science', 'Critical analysis'],
+      cta: 'Get Humanities Help',
+      popular: false,
+      link: '/assignment-help/humanities',
     },
   ];
 
@@ -801,10 +767,13 @@ export default function AssignmentHelp() {
                     </div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-xs font-medium text-[#1652A0] bg-[#1652A0]/5 px-3 py-1 rounded-full">{review.subject}</span>
-                      <div className="flex gap-0.5">
-                        {[...Array(review.rating)].map((_, idx) => (
+                      <div className="flex items-center gap-1">
+                        {[...Array(Math.floor(review.rating))].map((_, idx) => (
                           <Star key={idx} className="w-3.5 h-3.5 text-[#D4A853] fill-[#D4A853]" />
                         ))}
+                        {review.rating % 1 !== 0 && (
+                          <span className="text-xs text-[#D4A853] font-bold ml-0.5">{review.rating}</span>
+                        )}
                       </div>
                     </div>
                     <p className="text-gray-600 leading-loose text-[14px]">"{review.text}"</p>

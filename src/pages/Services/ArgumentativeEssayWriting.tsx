@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import UnifiedPriceCalculator from '../../components/Services/UnifiedPriceCalculator';
-import { CheckCircle2, Star, ShieldCheck, ArrowRight, Shield, Headphones, GraduationCap, FileText, ChevronDown, Clock, Award, Users, Zap, Sparkles, MessageCircle, DollarSign, CheckCircle, RefreshCw, Brain, Rocket, Trophy, Lock, Edit3, FileCheck, Target, BookOpen, Globe, PenTool, Lightbulb, BarChart2, Scale, Search, Layers, Pen, AlignLeft, TrendingUp, Microscope } from 'lucide-react';
+import { CheckCircle2, Star, ShieldCheck, ArrowRight, Shield, Headphones, GraduationCap, FileText, ChevronDown, Clock, Award, Users, Zap, Sparkles, MessageCircle, DollarSign, CheckCircle, RefreshCw, Brain, Rocket, Trophy, Lock, Edit3, FileCheck, Target, BookOpen, Lightbulb, Scale, Search, Pen, AlignLeft, TrendingUp, Microscope } from 'lucide-react';
 
 // FAQ Item Component
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
@@ -526,7 +526,7 @@ export default function ArgumentativeEssayWriting() {
                                 </p>
                             </div>
 
-                                            <div className="container mx-auto px-4 mt-20 mb-8">\n                    <div className="max-w-6xl mx-auto text-center">\n                        <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-4 py-2 rounded-full text-sm font-semibold mb-6">\n                            ESSAY WRITING SERVICES WE OFFER\n                        </div>\n                        <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">\n                            Find the Perfect Essay Service\n                        </h2>\n                    </div>\n                </div>\n                <EssayServicesGrid />\n            
+                            <div className="container mx-auto px-4 mt-20 mb-8">\n                    <div className="max-w-6xl mx-auto text-center">\n                        <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-4 py-2 rounded-full text-sm font-semibold mb-6">\n                            ESSAY WRITING SERVICES WE OFFER\n                        </div>\n                        <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">\n                            Find the Perfect Essay Service\n                        </h2>\n                    </div>\n                </div>\n                <EssayServicesGrid />\n
 
                             {/* Bottom Section */}
                             <div className="mt-12 bg-gray-50 rounded-2xl p-10 text-center border border-gray-200">
@@ -760,10 +760,13 @@ export default function ArgumentativeEssayWriting() {
                                         </div>
                                         <div className="flex items-center justify-between mb-4">
                                             <span className="text-xs font-medium text-[#1652A0] bg-[#1652A0]/5 px-3 py-1 rounded-full">{review.subject}</span>
-                                            <div className="flex gap-0.5">
-                                                {[...Array(review.rating)].map((_, idx) => (
+                                            <div className="flex items-center gap-1">
+                                                {[...Array(Math.floor(review.rating))].map((_, idx) => (
                                                     <Star key={idx} className="w-3.5 h-3.5 text-[#D4A853] fill-[#D4A853]" />
                                                 ))}
+                                                {review.rating % 1 !== 0 && (
+                                                    <span className="text-xs text-[#D4A853] font-bold ml-0.5">{review.rating}</span>
+                                                )}
                                             </div>
                                         </div>
                                         <p className="text-gray-600 leading-[1.8] text-[14px]">"{review.text}"</p>

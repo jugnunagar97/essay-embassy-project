@@ -146,20 +146,20 @@ export function SpecialAssignmentHelpCarousel() {
               {/* Lighter, more elegant heading and description */}
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
-                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
-                What Makes Our Engineering Assignment Help Special?
+                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em' }}>
+                  What Makes Our Engineering Assignment Help Special?
                 </h2>
               </div>
-              <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em'}}>
+              <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em' }}>
                 Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top engineering experts</span> in different fields. Get your engineering assignments guided by a professional and be sure everything will be done on time.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
               <button onClick={handlePrev} aria-label="Previous" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === 0}>
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
               <button onClick={handleNext} aria-label="Next" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === carouselItems.length - 1}>
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
             </div>
           </div>
@@ -269,14 +269,14 @@ function ClientTestimonialsCarousel() {
       };
     } else if (Math.abs(offset) === 1) {
       return {
-        transform: `scale(0.85) translateX(${offset * 60}px) translateY(20px)` ,
+        transform: `scale(0.85) translateX(${offset * 60}px) translateY(20px)`,
         opacity: 0.5,
         zIndex: 1,
         boxShadow: '0 4px 16px 0 rgba(16,30,54,0.10)',
       };
     } else {
       return {
-        transform: `scale(0.7) translateX(${offset * 120}px) translateY(40px)` ,
+        transform: `scale(0.7) translateX(${offset * 120}px) translateY(40px)`,
         opacity: 0.2,
         zIndex: 0,
         boxShadow: 'none',
@@ -291,83 +291,83 @@ function ClientTestimonialsCarousel() {
         {/* Section Header */}
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Hear What Our Clients Have To Say</h2>
         {/* Carousel Viewport */}
-        <div className="relative flex items-center justify-center" style={{minHeight: 340}}>
+        <div className="relative flex items-center justify-center" style={{ minHeight: 340 }}>
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
             aria-label="Previous testimonial"
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-[#F7FAFC] transition focus:outline-none"
           >
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
           {/* Carousel Track */}
-          <div className="flex items-center justify-center w-full overflow-hidden" style={{minHeight: 320, minWidth: 0}}>
+          <div className="flex items-center justify-center w-full overflow-hidden" style={{ minHeight: 320, minWidth: 0 }}>
             {testimonials.map((t, idx) => {
               const offset = idx - currentIndex;
-                return (
+              return (
 
-                    <>
+                <>
 
-                      <Helmet>
+                  <Helmet>
 
-                        <title>English Assignment Help | Expert Tutors</title>
+                    <title>English Assignment Help | Expert Tutors</title>
 
-                        <meta
+                    <meta
 
-                          name="description"
+                      name="description"
 
-                          content="Professional English assignment help. Expert tutors in English literature, writing, and language. Get help now."
+                      content="Professional English assignment help. Expert tutors in English literature, writing, and language. Get help now."
 
-                        />
+                    />
 
-                        <link rel="canonical" href="https://essayembassy.com/services/assignment-help/english" />
+                    <link rel="canonical" href="https://essayembassy.com/services/assignment-help/english" />
 
-                      </Helmet>
+                  </Helmet>
 
-                      <div
-                  key={t.id}
-                  className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
-                  style={{
-                    ...getCardStyle(idx),
-                    width: '90%',
-                    maxWidth: 480,
-                    position: 'absolute',
-                    left: '50%',
-                    top: 0,
-                    transform: `${getCardStyle(idx).transform} translateX(-50%)`,
-                    transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
-                    background: '#fff',
-                    boxShadow: getCardStyle(idx).boxShadow,
-                    border: undefined,
-                    opacity: offset === 0 ? 1 : 0.25,
-                  }}
-                  aria-hidden={idx !== currentIndex}
-                >
-                  {/* Card Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
-                    <div className="flex items-center gap-1">
-                      {[1,2,3,4,5].map((star) => (
-                        <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                      ))}
+                  <div
+                    key={t.id}
+                    className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
+                    style={{
+                      ...getCardStyle(idx),
+                      width: '90%',
+                      maxWidth: 480,
+                      position: 'absolute',
+                      left: '50%',
+                      top: 0,
+                      transform: `${getCardStyle(idx).transform} translateX(-50%)`,
+                      transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
+                      background: '#fff',
+                      boxShadow: getCardStyle(idx).boxShadow,
+                      border: undefined,
+                      opacity: offset === 0 ? 1 : 0.25,
+                    }}
+                    aria-hidden={idx !== currentIndex}
+                  >
+                    {/* Card Header */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <svg key={star} width="22" height="22" fill={star <= t.rating ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                        ))}
+                      </div>
+                    </div>
+                    {/* Testimonial Text */}
+                    <p className="text-gray-700 text-base mb-8">{t.text}</p>
+                    {/* Metadata */}
+                    <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
+                      <div>
+                        <div className="font-bold text-gray-700 text-sm">Date:</div>
+                        <div className="text-gray-600 text-sm">{t.date}</div>
+                      </div>
+                      <div>
+                        <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
+                        <div className="text-gray-600 text-sm">{t.level}</div>
+                      </div>
                     </div>
                   </div>
-                  {/* Testimonial Text */}
-                  <p className="text-gray-700 text-base mb-8">{t.text}</p>
-                  {/* Metadata */}
-                  <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
-                    <div>
-                      <div className="font-bold text-gray-700 text-sm">Date:</div>
-                      <div className="text-gray-600 text-sm">{t.date}</div>
-                    </div>
-                    <div>
-                      <div className="font-bold text-gray-700 text-sm">Academic Level:</div>
-                      <div className="text-gray-600 text-sm">{t.level}</div>
-                    </div>
-                  </div>
-                </div>
-                    </>
-                );
+                </>
+              );
             })}
           </div>
           {/* Right Arrow */}
@@ -376,7 +376,7 @@ function ClientTestimonialsCarousel() {
             aria-label="Next testimonial"
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[#F7FAFC] transition focus:outline-none"
           >
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
         </div>
         {/* Navigation Dots */}
@@ -391,11 +391,11 @@ function ClientTestimonialsCarousel() {
           ))}
         </div>
         {/* Verified reviews UI block (simple, subtle, competitor style) */}
-        <div className="flex items-center justify-center gap-2" style={{marginTop: '2.5rem', marginBottom: '0'}}>
+        <div className="flex items-center justify-center gap-2" style={{ marginTop: '2.5rem', marginBottom: '0' }}>
           <span className="inline-flex items-center justify-center w-5 h-5 rounded-full">
             <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="10" fill="#34D399"/>
-              <path d="M6.5 10.2l2.1 2.1L13.5 8.2" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="10" cy="10" r="10" fill="#34D399" />
+              <path d="M6.5 10.2l2.1 2.1L13.5 8.2" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
           <span className="text-gray-500 text-base font-normal">All reviews are from verified users</span>
@@ -408,7 +408,7 @@ function ClientTestimonialsCarousel() {
 const academicLevels = ["High School", "College", "University", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
-export default function EngineeringAssignmentHelp() {
+export default function EnglishAssignmentHelp() {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;
@@ -584,7 +584,7 @@ export default function EngineeringAssignmentHelp() {
                   type="button"
                   onClick={handleGoogleSignIn}
                   className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2.5 px-6 text-base font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:border-primary-200 hover:shadow-md hover:scale-[1.03] active:bg-gray-100 active:shadow-lg transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-200 hover:text-gray-900"
-                  style={{minWidth: '0'}}
+                  style={{ minWidth: '0' }}
                 >
                   <img src="/images/google logo.svg" alt="Google" className="h-5 w-5" />
                   Google
@@ -638,7 +638,7 @@ export default function EngineeringAssignmentHelp() {
         <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
           <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br/>
+            We engage alumni of the world's top universities and colleges to become Essay Embassy experts.<br />
             We carefully check each candidate's academic and professional background before hiring.
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
@@ -648,7 +648,7 @@ export default function EngineeringAssignmentHelp() {
             </div>
             <div className="hidden md:block h-8 border-l border-emerald-400 mx-4"></div>
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 w-full md:w-auto">
-          <img src="/images/univ-logos.svg" alt="Top Universities" className="h-10 md:h-12 my-2" style={{maxWidth: '100%', height: 'auto'}} />
+              <img src="/images/univ-logos.svg" alt="Top Universities" className="h-10 md:h-12 my-2" style={{ maxWidth: '100%', height: 'auto' }} />
             </div>
           </div>
         </div>
@@ -662,7 +662,7 @@ export default function EngineeringAssignmentHelp() {
       {/* We go beyond assignment help services Block (glassmorphism, floating, stylish) */}
       <section className="w-full bg-[#F7FAFC] py-16">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{letterSpacing: '0.03em'}}>
+          <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{ letterSpacing: '0.03em' }}>
             We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">assignment help services</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -671,7 +671,7 @@ export default function EngineeringAssignmentHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Star icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Human-written content only</div>
@@ -682,8 +682,8 @@ export default function EngineeringAssignmentHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Report icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <rect x="4" y="4" width="16" height="16" rx="2"/>
-                  <path d="M9 9h6M9 13h6M9 17h6"/>
+                  <rect x="4" y="4" width="16" height="16" rx="2" />
+                  <path d="M9 9h6M9 13h6M9 17h6" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Originality report included</div>
@@ -694,8 +694,8 @@ export default function EngineeringAssignmentHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Refund icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <path d="M17 1l4 4-4 4"/>
-                  <path d="M21 5H7a4 4 0 0 0 0 8h1"/>
+                  <path d="M17 1l4 4-4 4" />
+                  <path d="M21 5H7a4 4 0 0 0 0 8h1" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Comprehensive refund policy</div>
@@ -706,8 +706,8 @@ export default function EngineeringAssignmentHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Lock icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <rect x="6" y="11" width="12" height="8" rx="2"/>
-                  <path d="M12 11V7a4 4 0 1 1 8 0v4"/>
+                  <rect x="6" y="11" width="12" height="8" rx="2" />
+                  <path d="M12 11V7a4 4 0 1 1 8 0v4" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Robust data protections</div>
@@ -718,8 +718,8 @@ export default function EngineeringAssignmentHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Clock icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 6v6l4 2"/>
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Prompt delivery without quality risks</div>
@@ -730,8 +730,8 @@ export default function EngineeringAssignmentHelp() {
               <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                 {/* Dollar icon */}
                 <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                  <path d="M12 1v22"/>
-                  <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7"/>
+                  <path d="M12 1v22" />
+                  <path d="M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7" />
                 </svg>
               </span>
               <div className="font-semibold text-lg text-gray-900 mb-2">Pocket-friendly rates</div>
@@ -751,11 +751,11 @@ export default function EngineeringAssignmentHelp() {
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
           <div className="text-center text-lg text-gray-600 mb-4">
-            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{height:'0.5em', bottom:'0.1em'}}></span></span> and depend on the page count, deadline, and expert's level
+            Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$13.99/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{ height: '0.5em', bottom: '0.1em' }}></span></span> and depend on the page count, deadline, and expert's level
           </div>
           <div className="flex justify-center mb-4">
             <Link to="/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
-              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01"/><path d="M12 7v4"/><circle cx="12" cy="12" r="10"/></svg>
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01" /><path d="M12 7v4" /><circle cx="12" cy="12" r="10" /></svg>
               How we secure your payment
             </Link>
           </div>
@@ -818,21 +818,21 @@ export default function EngineeringAssignmentHelp() {
             {/* Stat 1 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <span className="text-3xl md:text-4xl font-bold text-emerald-500">12+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block'/>in their studies</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Years helping students<br className='hidden md:block' />in their studies</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 2 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <span className="text-3xl md:text-4xl font-bold text-emerald-500">5K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block'/>and trusted experts</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block' />and trusted experts</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
             {/* Stat 3 */}
             <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
               <span className="text-3xl md:text-4xl font-bold text-emerald-500">400K+</span>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block'/>completed orders</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Successfully<br className='hidden md:block' />completed orders</span>
             </div>
             {/* Divider */}
             <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
@@ -842,11 +842,11 @@ export default function EngineeringAssignmentHelp() {
                 <span className="text-3xl md:text-4xl font-bold text-emerald-500">4.8</span>
                 <span className="flex items-center">
                   {[...Array(5)].map((_, i) => (
-                    <svg key={i} width="20" height="20" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg key={i} width="20" height="20" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
                   ))}
                 </span>
               </div>
-              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Average<br className='hidden md:block'/>user rating</span>
+              <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Average<br className='hidden md:block' />user rating</span>
             </div>
           </div>
         </div>
@@ -860,16 +860,16 @@ export default function EngineeringAssignmentHelp() {
       {/* Sample Assignments Block (centered, subtle, blended) */}
       <section className="w-full py-10 px-2 bg-[#F7FAFC]">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{fontFamily: 'Inter, sans-serif'}}>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
             Sample Assignments
           </h2>
           <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
-          <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{fontFamily: 'Inter, sans-serif', lineHeight: '1.6'}}>
+          <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.6' }}>
             Preview real assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity—so you can trust us with your most important work.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-            {
+              {
                 title: "CAD Design Project",
                 pages: 12,
                 level: "College",
@@ -902,7 +902,7 @@ export default function EngineeringAssignmentHelp() {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="inline-flex items-center justify-center w-7 h-7 bg-red-100 rounded-md">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#EF4444"/><text x="6" y="15" fontSize="9" fill="white" fontWeight="bold">PDF</text></svg>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#EF4444" /><text x="6" y="15" fontSize="9" fill="white" fontWeight="bold">PDF</text></svg>
                     </span>
                     <span className="font-bold text-gray-900 text-base">{sample.title}</span>
                   </div>
@@ -928,35 +928,35 @@ export default function EngineeringAssignmentHelp() {
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Your Assignment Help journey</h2>
             <div className="flex flex-col items-center relative">
-            {/* Step 1 */}
-            <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
-              <span className="text-2xl mb-1">✍️</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
-              <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
-              <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
-            </div>
-            {/* Arrow */}
-            <div className="flex flex-col items-center mb-3">
-              <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            {/* Step 2 */}
-            <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-              <span className="text-2xl mb-1">💳</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a payment</div>
-              <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
-            </div>
-            {/* Arrow */}
-            <div className="flex flex-col items-center mb-3">
-              <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </div>
-            {/* Step 3 */}
-            <div className="flex flex-col items-center text-center animate-fade-in-up" style={{animationDelay: '0.3s'}}>
-              <span className="text-2xl mb-1">📄</span>
-              <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
-              <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
+              {/* Step 1 */}
+              <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up">
+                <span className="text-2xl mb-1">✍️</span>
+                <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Create your order <span className="text-primary-600">(it's free)</span></div>
+                <div className="text-gray-400 text-sm mb-2">Fill out our order form to be matched with the best experts</div>
+                <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
+              </div>
+              {/* Arrow */}
+              <div className="flex flex-col items-center mb-3">
+                <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </div>
+              {/* Step 2 */}
+              <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                <span className="text-2xl mb-1">💳</span>
+                <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Make a payment</div>
+                <div className="text-gray-400 text-sm">The deposit will stay on your balance until the order is ready</div>
+              </div>
+              {/* Arrow */}
+              <div className="flex flex-col items-center mb-3">
+                <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </div>
+              {/* Step 3 */}
+              <div className="flex flex-col items-center text-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                <span className="text-2xl mb-1">📄</span>
+                <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Get your assignment</div>
+                <div className="text-gray-400 text-sm">Your money stays in your account until you approve the result</div>
+              </div>
             </div>
           </div>
-        </div>
         </div>
         <style>{`
           @keyframes fade-in-up {
@@ -969,7 +969,7 @@ export default function EngineeringAssignmentHelp() {
         `}</style>
       </section>
 
-          {/* Why You Need Our Assignment Help - Scrollable Block (Polished, Compact) */}
+      {/* Why You Need Our Assignment Help - Scrollable Block (Polished, Compact) */}
       <section className="py-12 bg-white">
         <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
           <div className="flex items-center mb-4">
@@ -1004,13 +1004,13 @@ export default function EngineeringAssignmentHelp() {
             </ul>
             <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
             <ul className="list-none pl-0 mb-3">
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
-              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg></span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a relevant field. We rigorously verify every writer's credentials and expertise.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg></span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg></span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline, so you know the exact cost upfront.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg></span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work to see the high standard of quality we deliver.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg></span> <span><span className="font-semibold">Free Revisions & Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions to ensure the final paper meets your requirements. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg></span> <span><span className="font-semibold">Ironclad Security & Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute, and your data will never be shared.</span></li>
+              <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="text-emerald-500"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg></span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
             </ul>
             <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Assignment Today</h3>
             <p className="text-sm text-gray-700 mb-1">
@@ -1052,26 +1052,26 @@ export default function EngineeringAssignmentHelp() {
               <div className="bg-white/80 rounded-3xl shadow-lg p-4 md:p-8">
                 <div className="space-y-2">
                   {[
-                  {
-                    question: 'Is your engineering assignment help service confidential and safe?',
-                    answer: 'Absolutely. We use end-to-end encryption and never share your personal information or order details with third parties. Your privacy and security are our top priorities.'
-                  },
-                  {
-                    question: 'Will my engineering assignment be handled by a qualified expert?',
-                    answer: 'Yes! Every engineering assignment is handled by a qualified expert with relevant engineering background who has passed our rigorous selection and verification process to ensure top quality.'
-                  },
-                  {
-                    question: 'How quickly can I receive help with my engineering assignment?',
-                    answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll ensure timely delivery by a qualified engineering expert.'
-                  },
-                  {
-                    question: 'What if I am not satisfied with the engineering assignment help?',
-                    answer: 'We offer unlimited free revisions and a comprehensive refund policy. Your satisfaction is guaranteed, or you get your money back.'
-                  },
-                  {
-                    question: 'How do I place an order for engineering assignment help?',
-                    answer: 'Simply fill out the order form at the top of this page, select your requirements, and follow the prompts. Our team will take care of the rest!'
-                  }
+                    {
+                      question: 'Is your engineering assignment help service confidential and safe?',
+                      answer: 'Absolutely. We use end-to-end encryption and never share your personal information or order details with third parties. Your privacy and security are our top priorities.'
+                    },
+                    {
+                      question: 'Will my engineering assignment be handled by a qualified expert?',
+                      answer: 'Yes! Every engineering assignment is handled by a qualified expert with relevant engineering background who has passed our rigorous selection and verification process to ensure top quality.'
+                    },
+                    {
+                      question: 'How quickly can I receive help with my engineering assignment?',
+                      answer: 'We offer deadlines starting from 3 hours. Choose your preferred deadline in the order form, and we\'ll ensure timely delivery by a qualified engineering expert.'
+                    },
+                    {
+                      question: 'What if I am not satisfied with the engineering assignment help?',
+                      answer: 'We offer unlimited free revisions and a comprehensive refund policy. Your satisfaction is guaranteed, or you get your money back.'
+                    },
+                    {
+                      question: 'How do I place an order for engineering assignment help?',
+                      answer: 'Simply fill out the order form at the top of this page, select your requirements, and follow the prompts. Our team will take care of the rest!'
+                    }
                   ].map((faq, idx) => {
                     const isOpen = openFAQ === idx;
                     return (
@@ -1134,16 +1134,16 @@ export default function EngineeringAssignmentHelp() {
       </section>
 
       {/* Services Interlink Block - Tabbed Professional Version (Only Existing Services, Improved Link UI, No Duplicates) */}
-      <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{background: '#F7FAFC'}}>
+      <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{ background: '#F7FAFC' }}>
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center md:items-start">
           {/* Left Side: Heading, Description, CTA */}
           <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start mb-10 md:mb-0">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{fontFamily: 'Inter, sans-serif'}}>Your #1 paper writing service</h2>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>Your #1 paper writing service</h2>
             <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert essay writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
             <Link
               to="/writers"
               className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
-              style={{textAlign: 'center'}}
+              style={{ textAlign: 'center' }}
             >
               Find your writer <span className="ml-2">→</span>
             </Link>
@@ -1219,12 +1219,12 @@ export default function EngineeringAssignmentHelp() {
                         <button
                           key={tab.key}
                           className={`relative pb-2 text-lg font-semibold transition-colors duration-200 tracking-tight focus:outline-none ${isActive ? 'text-primary-600' : 'text-gray-700 hover:text-primary-700'}`}
-                          style={{background: 'none', outline: 'none'}}
+                          style={{ background: 'none', outline: 'none' }}
                           onClick={() => setActiveTab(tab.key)}
                         >
                           <span className={isActive ? 'text-primary-600' : ''}>{tab.label}</span>
                           {isActive && (
-                            <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{content: '""'}}></span>
+                            <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{ content: '""' }}></span>
                           )}
                         </button>
                       );
@@ -1240,7 +1240,7 @@ export default function EngineeringAssignmentHelp() {
                             <Link
                               to={service.link}
                               className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
-                              style={{textDecoration: 'none'}}
+                              style={{ textDecoration: 'none' }}
                             >
                               {service.name}
                             </Link>
@@ -1268,9 +1268,9 @@ export default function EngineeringAssignmentHelp() {
           <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
             <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4">Join our 5,000+ happy clients</h2>
             <ul className="text-gray-700 text-base md:text-lg mb-6 list-disc list-inside">
-              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>20,000+ papers delivered with a 98% success rate</li>
-              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Get original papers written according to your instructions</li>
-              <li className="flex items-center gap-3"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></span>Save time for what matters most</li>
+              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>20,000+ papers delivered with a 98% success rate</li>
+              <li className="flex items-center gap-3 mb-2"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>Get original papers written according to your instructions</li>
+              <li className="flex items-center gap-3"><span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>Save time for what matters most</li>
             </ul>
             <Link
               to="/order-now"
@@ -1282,6 +1282,6 @@ export default function EngineeringAssignmentHelp() {
         </div>
       </section>
     </div>
-    );
+  );
 
-  }
+}

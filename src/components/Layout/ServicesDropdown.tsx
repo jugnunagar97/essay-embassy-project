@@ -86,7 +86,18 @@ export default function ServicesDropdown() {
             { id: 'p1-c16', name: 'Essay Rewriting', link: '/essay-writing/rewriting' },
           ]
         },
-        { id: 'p2', name: 'Assignment Help', link: '/assignment-help' },
+        {
+          id: 'p2', name: 'Assignment Help', link: '/assignment-help', children: [
+            { id: 'p2-c1', name: 'Management Assignment Help', link: '/assignment-help/management' },
+            { id: 'p2-c2', name: 'Programming Assignment Help', link: '/assignment-help/programming' },
+            { id: 'p2-c3', name: 'Humanities Assignment Help', link: '/assignment-help/humanities' },
+            { id: 'p2-c4', name: 'Math Assignment Help', link: '/assignment-help/math' },
+            { id: 'p2-c5', name: 'Law Assignment Help', link: '/assignment-help/law' },
+            { id: 'p2-c6', name: 'Science Assignment Help', link: '/assignment-help/science' },
+            { id: 'p2-c7', name: 'Engineering Assignment Help', link: '/assignment-help/engineering' },
+            { id: 'p2-c8', name: 'Biotech Assignment Help', link: '/assignment-help/biotechnology' },
+          ]
+        },
         { id: 'p3', name: 'Homework Help', link: '/homework-help' },
         { id: 'p4', name: 'Paper Writing Services', link: '/paper-writing-services' },
         { id: 'p5', name: 'Thesis Writing Services', link: '/thesis-writing-services' },

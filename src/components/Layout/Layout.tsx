@@ -12,7 +12,7 @@ export default function Layout() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const location = useLocation();
   const { user, isLoading } = useAuth(); // This gets the logged-in user
-  
+
   // Determine which sidebar to show based on the route and user role
   const isDashboardPage = location.pathname.startsWith('/dashboard');
 
@@ -62,7 +62,7 @@ export default function Layout() {
       // Assignment help
       ['/assignment-help', { title: 'Assignment Help — Essay Embassy', description: 'Reliable assignment help across subjects including management, computer science, law, science, engineering, and more.' }],
       ['/assignment-help/management', { title: 'Management Assignment Help — Essay Embassy', description: 'Well‑researched management assignments covering strategy, marketing, HR, operations, and analytics.' }],
-      ['/assignment-help/computer', { title: 'Computer Assignment Help — Essay Embassy', description: 'Assistance with computer science assignments, algorithms, data structures, and systems.' }],
+      ['/assignment-help/programming', { title: 'Programming Assignment Help — Essay Embassy', description: 'Assistance with programming assignments, algorithms, data structures, and more.' }],
       ['/assignment-help/humanities', { title: 'Humanities Assignment Help — Essay Embassy', description: 'Clear, critical writing for history, literature, philosophy, sociology, and more.' }],
       ['/assignment-help/math', { title: 'Math Assignment Help — Essay Embassy', description: 'Accurate, step‑by‑step math solutions for algebra, calculus, statistics, and beyond.' }],
       ['/assignment-help/law', { title: 'Law Assignment Help — Essay Embassy', description: 'Case analyses and legal writing aligned with jurisdictional requirements and citation style.' }],
@@ -214,7 +214,7 @@ export default function Layout() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      
+
       <Header onToggleSidebar={handleToggleSidebar} />
 
       <div className="flex flex-1">
@@ -222,7 +222,7 @@ export default function Layout() {
         {isClientDashboard && (
           <ClientSidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
         )}
-        
+
         {/* FIXED: Removed overflow classes that were preventing sticky positioning */}
         <main className="flex-1">
           {/* This container is now inside the Outlet pages, which is a better pattern */}
