@@ -26,19 +26,6 @@ import {
   Lock,
   Edit3,
   FileCheck,
-  TrendingUp,
-  Scale,
-  Briefcase,
-  Calculator,
-  Code,
-  FlaskConical,
-  Cpu,
-  Monitor,
-  Heart,
-  PieChart,
-  BarChart2,
-  BookMarked,
-  Layers,
 } from 'lucide-react';
 
 // ─── FAQ Item ─────────────────────────────────────────────────────────────────
@@ -181,137 +168,157 @@ const PriceCalculator = () => {
   );
 };
 
-// ─── Assignment Services Grid ─────────────────────────────────────────────────
-const AssignmentServicesGrid = () => {
+// ─── Math Sub-Services Grid ─────────────────────────────────────────────
+const MathServicesGrid = () => {
   const services = [
     {
-      emoji: '➕',
-      icon: Calculator,
-      title: 'Math Assignment Help',
-      description: 'Step-by-step math solutions across all topics — algebra, calculus, statistics, geometry, discrete math, and more. Our PhD-qualified tutors show every working so you understand the solution and score top marks.',
-      features: ['Algebra equations & calculus', 'Statistics data analysis', 'Geometry proofs', 'Step-by-step explanations'],
-      cta: 'Do My Math Assignment',
-      slug: '/assignment-help/math',
+      emoji: '➗',
+      title: 'Algebra Assignment Help',
+      description:
+        'Step-by-step algebra assignment help covering linear equations, quadratic expressions, polynomials, inequalities, and functions. Get clear solutions for complex algebra problems and support from an experienced algebra problem solver online for accurate academic submissions.',
+      features: [
+        'Solve algebra equations online',
+        'Linear & quadratic equations',
+        'Polynomial simplification',
+        'Algebraic word problems',
+      ],
+      cta: 'Get Algebra Help',
+      slug: '/assignment-help/math/algebra',
       popular: true,
     },
     {
-      emoji: '📊',
-      icon: Briefcase,
-      title: 'Management Assignment Help',
-      description: 'Expert business and management papers covering strategy, HR, operations, supply chain, and organizational behavior — all built from scratch by MBA-qualified writers.',
-      features: ['Strategic management case studies', 'SWOT & PESTLE analysis', 'Organizational behavior', 'APA & Harvard formatting'],
-      cta: 'Do My Management Assignment',
-      slug: '/assignment-help/management',
-      popular: false,
-    },
-    {
-      emoji: '💻',
-      icon: Code,
-      title: 'Programming Assignment Help',
-      description: 'Working, well-commented code solutions across all major languages and frameworks. From beginner scripts to advanced data structures and algorithms.',
-      features: ['Python, Java, C++, JavaScript', 'Data structures & algorithms', 'Database & web projects', 'Clean, commented code'],
-      cta: 'Do My Programming Assignment',
-      slug: '/assignment-help/programming',
-      popular: false,
-    },
-    {
-      emoji: '🔬',
-      icon: FlaskConical,
-      title: 'Science Assignment Help',
-      description: 'Accurate science assignments across biology, chemistry, physics, and earth sciences. Expert-written lab reports, essays, and research tasks.',
-      features: ['Biology, chemistry, physics', 'Lab report writing', 'Research & analysis', 'Peer-reviewed sources'],
-      cta: 'Do My Science Assignment',
-      slug: '/assignment-help/science',
-      popular: false,
-    },
-    {
-      emoji: '⚙️',
-      icon: Cpu,
-      title: 'Engineering Assignment Help',
-      description: 'Technical engineering solutions across civil, mechanical, electrical, and software disciplines. Precise calculations and detailed explanations.',
-      features: ['Civil, mechanical, electrical', 'Technical calculations', 'CAD & design tasks', 'Detailed explanations'],
-      cta: 'Do My Engineering Assignment',
-      slug: '/assignment-help/engineering',
-      popular: false,
-    },
-    {
-      emoji: '🖥️',
-      icon: Monitor,
-      title: 'MS Office Assignment Help',
-      description: 'Professional help with Word, Excel, PowerPoint, and Access assignments. Spreadsheets, presentations, databases, and formatted documents done right.',
-      features: ['Excel formulas & macros', 'PowerPoint presentations', 'Word formatting & reports', 'Access database tasks'],
-      cta: 'Do My MS Office Assignment',
-      slug: '/assignment-help/ms-office',
-      popular: false,
-    },
-    {
-      emoji: '🏥',
-      icon: Heart,
-      title: 'Nursing Assignment Help',
-      description: 'Evidence-based nursing assignments written by healthcare experts. Care plans, case studies, reflective journals, and clinical analysis all covered.',
-      features: ['Evidence-based practice', 'Care plan writing', 'Clinical case studies', 'Reflective journals'],
-      cta: 'Do My Nursing Assignment',
-      slug: '/assignment-help/nursing',
-      popular: false,
-    },
-    {
       emoji: '📈',
-      icon: TrendingUp,
-      title: 'Economics Assignment Help',
-      description: 'Clear, well-researched economics assignments covering microeconomics, macroeconomics, econometrics, and behavioral economics.',
-      features: ['Micro & macroeconomics', 'Econometrics & modelling', 'Policy analysis', 'Data interpretation'],
-      cta: 'Do My Economics Assignment',
-      slug: '/assignment-help/economics',
+      title: 'Calculus Assignment Help',
+      description:
+        'Detailed calculus assignment help for limits, derivatives, integrals, and real-world applications. Our experts assist students in solving complex problems using reliable methods, including support similar to an integral calculus solver and stepwise explanations for difficult questions.',
+      features: [
+        'Limits & continuity problems',
+        'Derivatives and applications',
+        'Integral calculus solver guidance',
+        'Solve calculus problems online',
+      ],
+      cta: 'Get Calculus Help',
+      slug: '/assignment-help/math/calculus',
       popular: false,
     },
     {
-      emoji: '💰',
-      icon: PieChart,
-      title: 'Finance Assignment Help',
-      description: 'Accurate finance assignments covering corporate finance, investment analysis, financial modelling, and portfolio management.',
-      features: ['Corporate finance', 'Investment analysis', 'Financial modelling', 'Portfolio management'],
-      cta: 'Do My Finance Assignment',
-      slug: '/assignment-help/finance',
+      emoji: '📐',
+      title: 'Trigonometry Assignment Help',
+      description:
+        'Accurate trigonometry assignment help for identities, trigonometric equations, inverse functions, and triangle calculations. Get assistance solving challenging questions with structured explanations similar to a trigonometry problem solver used in academic coursework.',
+      features: [
+        'Solve trigonometric equations online',
+        'Trigonometric identities',
+        'Angle & triangle calculations',
+        'Trigonometry problem solver guidance',
+      ],
+      cta: 'Get Trigonometry Help',
+      slug: '/assignment-help/math/trigonometry',
       popular: false,
     },
     {
-      emoji: '🧾',
-      icon: BarChart2,
-      title: 'Accounting Assignment Help',
-      description: 'Precise accounting assignments covering financial statements, management accounting, auditing, and tax calculations.',
-      features: ['Financial statements', 'Management accounting', 'Auditing & compliance', 'Tax calculations'],
-      cta: 'Do My Accounting Assignment',
-      slug: '/assignment-help/accounting',
+      emoji: '📏',
+      title: 'Geometry Assignment Help',
+      description:
+        'Comprehensive geometry assignment help covering shapes, theorems, coordinate geometry, and proofs. Get support solving analytical geometry problems and structured explanations that make complex geometry questions easier to understand.',
+      features: [
+        'Analytical geometry problems solved',
+        'Coordinate geometry',
+        'Geometric proofs & theorems',
+        'Geometry problem solver support',
+      ],
+      cta: 'Get Geometry Help',
+      slug: '/assignment-help/math/geometry',
       popular: false,
     },
     {
-      emoji: '⚖️',
-      icon: Scale,
-      title: 'Law Assignment Help',
-      description: 'Well-argued law assignments covering contract law, criminal law, tort law, constitutional law, and international law.',
-      features: ['Contract & tort law', 'Criminal & constitutional law', 'Case law analysis', 'OSCOLA/Bluebook citations'],
-      cta: 'Do My Law Assignment',
-      slug: '/assignment-help/law',
+      emoji: '🧮',
+      title: 'Linear Algebra Assignment Help',
+      description:
+        'Specialized linear algebra assignment help covering matrices, vectors, determinants, eigenvalues, and vector spaces. Get assistance solving advanced problems using techniques similar to a matrix algebra solver with clear step-by-step solutions.',
+      features: [
+        'Matrix algebra solver guidance',
+        'Vector space concepts',
+        'Eigenvalues & eigenvectors',
+        'Solve linear algebra problems',
+      ],
+      cta: 'Get Linear Algebra Help',
+      slug: '/assignment-help/math/linear-algebra',
+      popular: false,
+    },
+    {
+      emoji: '📊',
+      title: 'Differential Equations Assignment Help',
+      description:
+        'Accurate differential equations assignment help for ordinary and partial equations used in engineering, physics, and mathematics. Get stepwise solutions comparable to a differential equation solver online for complex coursework problems.',
+      features: [
+        'Ordinary differential equations solver',
+        'First & second order equations',
+        'Initial value problems',
+        'Differential equation solver methods',
+      ],
+      cta: 'Get Differential Equations Help',
+      slug: '/assignment-help/math/differential-equations',
+      popular: false,
+    },
+    {
+      emoji: '🧩',
+      title: 'Discrete Mathematics Assignment Help',
+      description:
+        'Reliable discrete mathematics assignment help covering logic, combinatorics, graph theory, and algorithms. Get support solving challenging coursework with structured explanations similar to a discrete math problem solver.',
+      features: [
+        'Graph theory problem solver support',
+        'Logic & proof techniques',
+        'Combinatorics problems',
+        'Discrete math problem solving',
+      ],
+      cta: 'Get Discrete Math Help',
+      slug: '/assignment-help/math/discrete-mathematics',
+      popular: false,
+    },
+    {
+      emoji: '🔢',
+      title: 'Number Theory Assignment Help',
+      description:
+        'In-depth number theory assignment help covering prime numbers, divisibility rules, modular arithmetic, and mathematical proofs. Get assistance solving complex problems with structured solutions for academic coursework.',
+      features: [
+        'Prime number problems solved',
+        'Modular arithmetic problems',
+        'Divisibility & number properties',
+        'Proof-based number theory questions',
+      ],
+      cta: 'Get Number Theory Help',
+      slug: '/assignment-help/math/number-theory',
+      popular: false,
+    },
+    {
+      emoji: '🎲',
+      title: 'Probability Assignment Help',
+      description:
+        'Clear probability assignment help covering probability theory, distributions, conditional probability, and statistical reasoning. Get structured solutions for challenging questions and step-by-step explanations for coursework problems.',
+      features: [
+        'Conditional probability problems solved',
+        'Probability distributions',
+        'Bayesian probability concepts',
+        'Probability theory solver guidance',
+      ],
+      cta: 'Get Probability Help',
+      slug: '/assignment-help/math/probability',
       popular: false,
     },
     {
       emoji: '📉',
-      icon: Layers,
-      title: 'Statistics Assignment Help',
-      description: 'Clear statistical solutions covering descriptive stats, hypothesis testing, regression analysis, and data visualization.',
-      features: ['Descriptive & inferential stats', 'Hypothesis testing', 'Regression analysis', 'SPSS & R support'],
-      cta: 'Do My Statistics Assignment',
-      slug: '/assignment-help/statistics',
-      popular: false,
-    },
-    {
-      emoji: '🌍',
-      icon: BookMarked,
-      title: 'Humanities Assignment Help',
-      description: 'Well-researched humanities assignments covering history, philosophy, sociology, cultural studies, and political science.',
-      features: ['History & philosophy', 'Sociology & cultural studies', 'Political science', 'Critical analysis'],
-      cta: 'Do My Humanities Assignment',
-      slug: '/assignment-help/humanities',
+      title: 'Applied Mathematics Assignment Help',
+      description:
+        'Professional applied mathematics assignment help covering mathematical modelling, numerical methods, and real-world problem solving. Get clear explanations for complex applications used in engineering, economics, and science.',
+      features: [
+        'Mathematical modelling problems',
+        'Numerical analysis problem solver',
+        'Optimization methods',
+        'Applied math case studies',
+      ],
+      cta: 'Get Applied Math Help',
+      slug: '/assignment-help/math/applied-mathematics',
       popular: false,
     },
   ];
@@ -321,18 +328,29 @@ const AssignmentServicesGrid = () => {
       {services.map((service, index) => (
         <div
           key={index}
-          className={`bg-white rounded-2xl p-6 border-2 ${service.popular ? 'border-[#1652A0] shadow-xl' : 'border-gray-200 shadow-lg'} hover:shadow-2xl transition-all duration-300 group relative overflow-hidden`}
+          className={`bg-white rounded-2xl p-6 border-2 ${service.popular
+              ? 'border-[#1652A0] shadow-xl'
+              : 'border-gray-200 shadow-lg'
+            } hover:shadow-2xl transition-all duration-300 group relative overflow-hidden`}
         >
           {service.popular && (
             <div className="absolute top-0 right-0 bg-[#0B1F42] text-[#D4A853] px-4 py-1 rounded-bl-xl text-xs font-bold flex items-center gap-1">
               <Sparkles className="w-3 h-3" /> POPULAR
             </div>
           )}
+
           <div className="w-16 h-16 rounded-xl bg-gray-50 flex items-center justify-center mb-5 group-hover:scale-110 transition-all text-3xl">
             {service.emoji}
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1652A0] transition-colors leading-snug">{service.title}</h3>
-          <p className="text-gray-600 mb-6 leading-[1.7] text-[15px]">{service.description}</p>
+
+          <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1652A0] transition-colors leading-snug">
+            {service.title}
+          </h3>
+
+          <p className="text-gray-600 mb-6 leading-[1.7] text-[15px]">
+            {service.description}
+          </p>
+
           <ul className="space-y-2.5 mb-6">
             {service.features.map((f, idx) => (
               <li key={idx} className="flex items-start text-sm text-gray-700">
@@ -341,10 +359,10 @@ const AssignmentServicesGrid = () => {
               </li>
             ))}
           </ul>
-          {/* ✅ Each card links to its own slug, NOT /order-now */}
+
           <Link
             to={service.slug}
-            className={`w-full px-4 py-3 ${service.popular ? 'bg-[#1652A0] text-white hover:bg-[#0B1F42]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg`}
+            className="w-full px-4 py-3 bg-[#1652A0]/10 text-[#1652A0] hover:bg-[#1652A0] hover:text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg"
           >
             {service.cta} <ArrowRight className="w-4 h-4" />
           </Link>
@@ -599,7 +617,7 @@ export default function MathAssignmentHelp() {
                   Whether you need math assignment help in the UK, Australia, Canada, or the US, our experts can assist you. We provide step-by-step math solutions so you learn how the problem was solved while getting great grades.
                 </p>
               </div>
-              <AssignmentServicesGrid />
+              <MathServicesGrid />
               <div className="mt-12 bg-gray-50 rounded-2xl p-10 text-center border border-gray-200">
                 <h3 className="text-2xl font-bold text-[#0B1F42] mb-3">Ready to Get Top Grades on Your Math Assignment?</h3>
                 <p className="text-gray-600 mb-6 max-w-2xl mx-auto">

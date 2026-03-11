@@ -1,1395 +1,907 @@
-import { GoogleAuthProvider, signInWithPopup, linkWithCredential, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import WritersCarousel from './WritersCarousel';
-
-import React, { useRef, useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import {
+  CheckCircle2,
+  Star,
+  ShieldCheck,
+  ArrowRight,
+  Shield,
+  Headphones,
+  GraduationCap,
+  FileText,
+  ChevronDown,
+  Clock,
+  Award,
+  Users,
+  Zap,
+  Sparkles,
+  MessageCircle,
+  DollarSign,
+  CheckCircle,
+  RefreshCw,
+  Brain,
+  Rocket,
+  Trophy,
+  Lock,
+  Edit3,
+  FileCheck,
+  TrendingUp,
+  BarChart,
+  PieChart,
+  Activity,
+  Database,
+  FlaskConical,
+  Sigma,
+  GitMerge,
+  LineChart,
+} from 'lucide-react';
 
-// --- SpecialStatisticsHelpCarousel ---
-const carouselItems = [
-  {
-    imgSrc: '/images/verification.jpg',
-    title: 'Verification',
-    description: 'We care about your projects and pick the best specialists. To ensure your safety, we verify the identity of each candidate via social media.'
-  },
-  {
-    imgSrc: '/images/skill test.jpg',
-    title: 'Skill Test',
-    description: 'We test each candidate by examining their skills and knowledge with various examinations before they join our team.'
-  },
-  {
-    imgSrc: '/images/quality analysis.jpg',
-    title: 'Quality Analysis',
-    description: "We developed an AI-based system that analyses the quality of each expert's performance to ensure you get the best results."
-  },
-  {
-    imgSrc: '/images/education level.jpg',
-    title: 'Education Level',
-    description: 'Our experts have diverse educational backgrounds, ensuring you get help from someone who truly understands your field.'
-  },
-  {
-    imgSrc: '/images/broad expertise.jpg',
-    title: 'Broad Expertise',
-    description: 'No matter how complicated your assignment is, we can find a specialist that is competent enough to provide you with a clear and effective solution to any academic problem.'
-  },
-  {
-    imgSrc: '/images/communication skills.jpg',
-    title: 'Communication Skills',
-    description: 'You can chat with all the experts who can help you with your assignments, even before you hire them. Make your decision based not only on reviews and ratings but also on your own impression of the direct interaction.'
-  }
-];
+// ─── FAQ Item ─────────────────────────────────────────────────────────────────
+const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="border border-gray-200 rounded-xl bg-white mb-4 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
+      <button
+        className="w-full px-6 py-5 text-left font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="text-lg pr-4">{question}</span>
+        <div className={`flex-shrink-0 w-8 h-8 rounded-full bg-[#0B1F42]/5 flex items-center justify-center text-[#1652A0] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+          <ChevronDown className="w-5 h-5" />
+        </div>
+      </button>
+      <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="px-6 pb-6 text-gray-600 leading-[1.8] text-[15px]">{answer}</div>
+      </div>
+    </div>
+  );
+};
 
-export function SpecialStatisticsHelpCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [dragStartX, setDragStartX] = useState<number | null>(null);
-  const [dragDelta, setDragDelta] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const cardWidthRef = useRef<number>(0);
+// ─── Price Calculator ─────────────────────────────────────────────────────────
+const PriceCalculator = () => {
+  const [academicLevel, setAcademicLevel] = useState('undergraduate');
+  const [pages, setPages] = useState(1);
+  const [deadline, setDeadline] = useState('7days');
 
-  React.useEffect(() => {
-    if (trackRef.current && trackRef.current.children.length > 0) {
-      const card = trackRef.current.children[0] as HTMLElement;
-      cardWidthRef.current = card.offsetWidth;
-    }
-    const handleResize = () => {
-      if (trackRef.current && trackRef.current.children.length > 0) {
-        const card = trackRef.current.children[0] as HTMLElement;
-        cardWidthRef.current = card.offsetWidth;
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const goTo = (idx: number) => {
-    if (idx < 0) idx = 0;
-    if (idx > carouselItems.length - 1) idx = carouselItems.length - 1;
-    setCurrentIndex(idx);
+  const baseRates: Record<string, number> = {
+    highschool: 16.00,
+    undergraduate: 20.00,
+    masters: 26.00,
+    phd: 32.00,
   };
-  const handlePrev = () => goTo(currentIndex - 1);
-  const handleNext = () => goTo(currentIndex + 1);
 
-  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
-    setIsDragging(true);
-    if ('touches' in e) {
-      setDragStartX(e.touches[0].pageX);
-    } else {
-      setDragStartX(e.pageX);
-    }
-    setDragDelta(0);
+  const deadlineMultipliers: Record<string, number> = {
+    '3hours': 2.3,
+    '6hours': 2.0,
+    '12hours': 1.7,
+    '24hours': 1.4,
+    '3days': 1.2,
+    '7days': 1.0,
+    '14days': 0.9,
   };
-  const handleDragMove = (e: MouseEvent | TouchEvent) => {
-    if (!isDragging || dragStartX === null) return;
-    let clientX = 0;
-    if ('touches' in e && e.touches.length > 0) {
-      clientX = e.touches[0].pageX;
-    } else if ('pageX' in e) {
-      clientX = (e as MouseEvent).pageX;
-    }
-    setDragDelta(clientX - dragStartX);
-  };
-  const handleDragEnd = (e: MouseEvent | TouchEvent) => {
-    if (!isDragging || dragStartX === null) return;
-    let clientX = 0;
-    if ('changedTouches' in e && e.changedTouches.length > 0) {
-      clientX = e.changedTouches[0].pageX;
-    } else if ('pageX' in e) {
-      clientX = (e as MouseEvent).pageX;
-    }
-    const dx = clientX - dragStartX;
-    setIsDragging(false);
-    setDragStartX(null);
-    setDragDelta(0);
-    if (dx > 50 && currentIndex > 0) {
-      goTo(currentIndex - 1);
-    } else if (dx < -50 && currentIndex < carouselItems.length - 1) {
-      goTo(currentIndex + 1);
-    }
-  };
-  React.useEffect(() => {
-    if (!isDragging) return;
-    const move = (e: MouseEvent | TouchEvent) => handleDragMove(e);
-    const up = (e: MouseEvent | TouchEvent) => handleDragEnd(e);
-    window.addEventListener('mousemove', move as any);
-    window.addEventListener('mouseup', up as any);
-    window.addEventListener('touchmove', move as any);
-    window.addEventListener('touchend', up as any);
-    return () => {
-      window.removeEventListener('mousemove', move as any);
-      window.removeEventListener('mouseup', up as any);
-      window.removeEventListener('touchmove', move as any);
-      window.removeEventListener('touchend', up as any);
-    };
-    // eslint-disable-next-line
-  }, [isDragging, dragStartX, currentIndex]);
 
-  const gap = 32;
-  const cardWidth = cardWidthRef.current || 380;
-  const offset = -currentIndex * (cardWidth + gap) + (isDragging ? dragDelta : 0);
+  const calculatePrice = () => {
+    const base = baseRates[academicLevel] || 20.00;
+    const mult = deadlineMultipliers[deadline] || 1.0;
+    return (base * pages * mult).toFixed(2);
+  };
 
   return (
-    <section className="w-full bg-[#F7FAFC] py-10">
-      <div className="max-w-6xl mx-auto px-4 bg-[#F7FAFC] shadow-none border-none">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-          {/* Left Column */}
-          <div className="md:col-span-1 flex flex-col justify-between">
+    <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+      <div className="text-center mb-8">
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">Calculate Your Live Price</h3>
+        <p className="text-gray-600 text-sm">Expert statistics assignment help starting at just $16.00/page. Pricing updates in real time — zero hidden fees.</p>
+      </div>
+      <div className="space-y-6">
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+            <GraduationCap className="w-4 h-4 text-[#1652A0]" />
+            Academic Level
+          </label>
+          <select
+            value={academicLevel}
+            onChange={(e) => setAcademicLevel(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#1652A0] focus:ring-2 focus:ring-[#1652A0]/10 transition-all outline-none text-gray-700 bg-gray-50 font-medium"
+          >
+            <option value="highschool">High School</option>
+            <option value="undergraduate">Undergraduate</option>
+            <option value="masters">Master's Degree</option>
+            <option value="phd">PhD / Doctoral</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-[#1652A0]" />
+              Number of Pages
+            </span>
+            <span className="text-[#1652A0] font-bold">{pages} {pages === 1 ? 'page' : 'pages'}</span>
+          </label>
+          <input
+            type="range" min="1" max="50" value={pages}
+            onChange={(e) => setPages(Number(e.target.value))}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#1652A0]"
+          />
+          <div className="flex justify-between text-xs text-gray-500 mt-2 font-medium">
+            <span>1 page</span>
+            <span className="text-gray-700">{pages * 275} words</span>
+            <span>50 pages</span>
+          </div>
+        </div>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+            <Clock className="w-4 h-4 text-[#1652A0]" />
+            Deadline
+          </label>
+          <select
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
+            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#1652A0] focus:ring-2 focus:ring-[#1652A0]/10 transition-all outline-none text-gray-700 bg-gray-50"
+          >
+            <option value="3hours">3 Hours (Super Urgent)</option>
+            <option value="6hours">6 Hours (Urgent)</option>
+            <option value="12hours">12 Hours</option>
+            <option value="24hours">24 Hours</option>
+            <option value="3days">3 Days</option>
+            <option value="7days">7 Days (Standard)</option>
+            <option value="14days">14 Days (Relaxed)</option>
+          </select>
+        </div>
+        <div className="bg-[#0B1F42]/5 rounded-2xl p-6 border border-[#0B1F42]/10">
+          <div className="flex justify-between items-center mb-6">
             <div>
-              <div className="mb-4 flex items-center">
-                <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
-                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em' }}>
-                  What Makes Statistics Assignment Help From Our Experts So Special?
-                </h2>
-              </div>
-              <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em' }}>
-                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top statistics experts</span> in data science and mathematics. Get your statistics assignments guided by a professional and be sure everything will be done on time.
-              </p>
+              <p className="text-[#0B1F42] text-sm font-semibold mb-1">Estimated Total:</p>
+              <p className="text-4xl font-black text-[#0B1F42]">${calculatePrice()}</p>
             </div>
-            <div className="flex gap-4 mt-8">
-              <button onClick={handlePrev} aria-label="Previous" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === 0}>
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-              <button onClick={handleNext} aria-label="Next" className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 hover:bg-primary-100 transition-colors shadow focus:outline-none" disabled={currentIndex === carouselItems.length - 1}>
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
+            <div className="text-right bg-white rounded-lg px-3 py-2 border border-[#0B1F42]/10">
+              <p className="text-xs text-gray-500 font-medium">Per Page</p>
+              <p className="text-xl font-bold text-gray-900">${(Number(calculatePrice()) / pages).toFixed(2)}</p>
             </div>
           </div>
-          {/* Right Column: Dynamic Carousel */}
-          <div className="md:col-span-2 relative overflow-x-hidden select-none">
-            <div
-              className="w-full overflow-x-hidden"
-              onMouseDown={handleDragStart}
-              onTouchStart={handleDragStart}
-              style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-            >
-              <div
-                ref={trackRef}
-                className="flex gap-8 transition-transform duration-500 ease-in-out"
-                style={{
-                  transform: `translateX(${offset}px)`,
-                  transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(.4,0,.2,1)',
-                }}
-              >
-                {carouselItems.map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex-shrink-0 w-full md:w-[380px] bg-[#F7FAFC] rounded-2xl shadow-xl p-6"
-                    style={{ userSelect: 'none' }}
-                  >
-                    <img src={item.imgSrc} alt={item.title} className="w-full aspect-video object-cover rounded-xl mb-4" />
-                    <h4 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h4>
-                    <p className="text-gray-600 text-base">{item.description}</p>
+          <Link
+            to="/order-now"
+            className="w-full px-6 py-4 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+          >
+            Do My Statistics Assignment <ArrowRight className="w-5 h-5" />
+          </Link>
+          <div className="flex flex-wrap justify-center gap-3 mt-4 text-xs font-medium text-gray-600">
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> Free Title Page & Formatting</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> Free Direct Chat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─── Statistics Sub-Services Grid ─────────────────────────────────────────────
+// ✅ Each card links to its own slug under /assignment-help/statistics/
+const StatisticsServicesGrid = () => {
+  const services = [
+    {
+      emoji: '🖥️',
+      icon: Database,
+      title: 'SPSS Assignment Help',
+      description: 'Expert SPSS data analysis completed accurately using IBM SPSS software. We input your quantitative data, run your required tests, and deliver clear written reports explaining every result.',
+      features: ['SPSS data input & setup', 'ANOVA, t-tests & chi-square', 'Clear output interpretation', 'Written report included'],
+      cta: 'Get SPSS Help',
+      slug: '/assignment-help/statistics/spss',
+      popular: false,
+    },
+    {
+      emoji: '📊',
+      icon: BarChart,
+      title: 'R Studio Assignment Help',
+      description: 'Professional R programming for stats tasks — data cleaning, visualization, modelling, and statistical testing all handled by R-certified experts who deliver clean, annotated scripts.',
+      features: ['R programming & scripting', 'Data cleaning & visualization', 'Statistical modelling', 'Annotated code included'],
+      cta: 'Get R Studio Help',
+      slug: '/assignment-help/statistics/r-studio',
+      popular: false,
+    },
+    {
+      emoji: '🔬',
+      icon: Activity,
+      title: 'Hypothesis Testing Help',
+      description: 'Accurate hypothesis testing for any assignment — null and alternative hypothesis setup, significance level selection, test execution, and full result interpretation included.',
+      features: ['Null & alternative hypothesis setup', 'p-value & significance testing', 'One-tailed & two-tailed tests', 'Full written interpretation'],
+      cta: 'Get Hypothesis Testing Help',
+      slug: '/assignment-help/statistics/hypothesis-testing',
+      popular: false,
+    },
+    {
+      emoji: '📈',
+      icon: TrendingUp,
+      title: 'Regression Analysis Help',
+      description: 'Expert simple, multiple, and logistic regression analysis tasks. We build your models, check assumptions, interpret coefficients, and present results in clear, marker-ready reports.',
+      features: ['Simple & multiple regression', 'Logistic regression', 'Assumption checking', 'Coefficient interpretation'],
+      cta: 'Get Regression Analysis Help',
+      slug: '/assignment-help/statistics/regression-analysis',
+      popular: false,
+    },
+    {
+      emoji: '🗃️',
+      icon: PieChart,
+      title: 'Data Analysis Assignment Help',
+      description: 'End-to-end quantitative research data analysis — data cleaning, exploratory analysis, statistical testing, and results reporting using SPSS, R, Excel, or any required tool.',
+      features: ['Exploratory data analysis', 'Data cleaning & preparation', 'Quantitative research analysis', 'Results in any required format'],
+      cta: 'Get Data Analysis Help',
+      slug: '/assignment-help/statistics/data-analysis',
+      popular: false,
+    },
+    {
+      emoji: '🧬',
+      icon: FlaskConical,
+      title: 'Biostatistics Assignment Help',
+      description: 'Specialist biostatistics assignments for health, medicine, and biology students. Survival analysis, clinical trial data, epidemiological studies, and more — all handled with precision.',
+      features: ['Survival & clinical trial analysis', 'Epidemiological study design', 'Medical data interpretation', 'APA & Vancouver formatting'],
+      cta: 'Get Biostatistics Help',
+      slug: '/assignment-help/statistics/biostatistics',
+      popular: false,
+    },
+    {
+      emoji: '📋',
+      icon: Sigma,
+      title: 'Descriptive Statistics Help',
+      description: 'Clear, accurate descriptive statistics assignments covering mean, median, mode, variance, standard deviation, frequency distributions, and data visualization.',
+      features: ['Mean, median, mode & range', 'Variance & standard deviation', 'Frequency distributions', 'Charts & graphs included'],
+      cta: 'Get Descriptive Stats Help',
+      slug: '/assignment-help/statistics/descriptive',
+      popular: false,
+    },
+    {
+      emoji: '🔗',
+      icon: GitMerge,
+      title: 'Inferential Statistics Help',
+      description: 'Expert inferential statistics support — confidence intervals, significance testing, ANOVA, chi-square tests, and more — helping you draw valid conclusions from your sample data.',
+      features: ['Confidence intervals', 'ANOVA & chi-square tests', 'Significance testing', 'Valid conclusion drawing'],
+      cta: 'Get Inferential Stats Help',
+      slug: '/assignment-help/statistics/inferential',
+      popular: false,
+    },
+  ];
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {services.map((service, index) => (
+        <div
+          key={index}
+          className={`bg-white rounded-2xl p-6 border-2 ${service.popular ? 'border-[#1652A0] shadow-xl' : 'border-gray-200 shadow-lg'} hover:shadow-2xl transition-all duration-300 group relative overflow-hidden`}
+        >
+          {service.popular && (
+            <div className="absolute top-0 right-0 bg-[#0B1F42] text-[#D4A853] px-4 py-1 rounded-bl-xl text-xs font-bold flex items-center gap-1">
+              <Sparkles className="w-3 h-3" /> POPULAR
+            </div>
+          )}
+          <div className="w-16 h-16 rounded-xl bg-gray-50 flex items-center justify-center mb-5 group-hover:scale-110 transition-all text-3xl">
+            {service.emoji}
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1652A0] transition-colors leading-snug">{service.title}</h3>
+          <p className="text-gray-600 mb-6 leading-[1.7] text-[15px]">{service.description}</p>
+          <ul className="space-y-2.5 mb-6">
+            {service.features.map((f, idx) => (
+              <li key={idx} className="flex items-start text-sm text-gray-700">
+                <CheckCircle2 className="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                <span className="font-medium">{f}</span>
+              </li>
+            ))}
+          </ul>
+          {/* ✅ Each card links to its own slug */}
+          <Link
+            to={service.slug}
+            className="w-full px-4 py-3 bg-[#1652A0]/10 text-[#1652A0] hover:bg-[#1652A0] hover:text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg"
+          >
+            {service.cta} <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// ─── Main Page ────────────────────────────────────────────────────────────────
+export default function StatisticsAssignmentHelp() {
+  return (
+    <>
+      <Helmet>
+        <title>Best Statistics Assignment Help for University Students</title>
+        <meta name="description" content="Need a reliable statistics assignment solver? Pay someone to do statistics assignment tasks today. Hire our expert service online for top grades." />
+        <meta name="keywords" content="statistics assignment help, statistics assignment solver, do my statistics assignment, SPSS data analysis help, regression analysis assignment, hypothesis testing help, R programming statistics" />
+      </Helmet>
+      <div className="min-h-screen bg-white font-sans">
+
+        {/* ── HERO ─────────────────────────────────────────────────────────── */}
+        <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-28 bg-gray-50 overflow-hidden">
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-5xl mx-auto text-center mb-10">
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm">
+                  <ShieldCheck className="w-4 h-4 text-[#1652A0]" />
+                  <span className="text-sm font-bold text-gray-700">Plagiarism-Free Stats Answers</span>
+                </div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm">
+                  <BarChart className="w-4 h-4 text-yellow-500" />
+                  <span className="text-sm font-bold text-gray-700">Expert Solvers</span>
+                </div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 border border-green-200 shadow-sm">
+                  <Clock className="w-4 h-4 text-green-600" />
+                  <span className="text-sm font-bold text-green-700">On-Time Delivery</span>
+                </div>
+              </div>
+              <h1 className="text-3xl md:text-5xl lg:text-5xl font-extrabold text-[#0B1F42] mb-10 leading-[1.2] tracking-tight">
+                Professional Statistics Assignment Help Online
+              </h1>
+              <p className="text-[20px] text-gray-600 mb-14 max-w-3xl mx-auto leading-[1.9] font-medium opacity-90">
+                Expert Solvers, Accurate Statistical Calculations, and On-Time Delivery. Get Perfect Grades Every Time.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  to="/order-now"
+                  className="w-full sm:w-auto px-8 py-4 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-3"
+                >
+                  Do My Statistics Assignment <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
+                  to="/samples"
+                  className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-gray-50 text-gray-700 font-bold text-lg rounded-xl transition-all border border-gray-200 shadow-sm flex items-center justify-center gap-3"
+                >
+                  <FileCheck className="w-5 h-5" /> Review Our Samples
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── STATISTICS BAR ───────────────────────────────────────────────── */}
+        <section className="py-16 bg-white border-t border-gray-100">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
+                {[
+                  { value: '250K+', label: 'Happy Students', color: 'text-[#1652A0]' },
+                  { value: '99%', label: 'On-Time Delivery', color: 'text-[#1652A0]' },
+                  { value: '900+', label: 'Verified Experts', color: 'text-[#1652A0]' },
+                  { value: '4.8/5', label: 'Average Rating', color: 'text-[#D4A853]' },
+                ].map((stat, i) => (
+                  <div key={i} className="px-4">
+                    <div className={`text-4xl font-extrabold ${stat.color} mb-2`}>{stat.value}</div>
+                    <div className="text-gray-600 font-medium">{stat.label}</div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+        </section>
 
-// --- ClientTestimonialsCarousel ---
-function ClientTestimonialsCarousel() {
-  const testimonials = [
-    {
-      id: 'STAT-10021',
-      rating: 5,
-      text: 'I told them to do my statistics assignment for my class. The research was perfect. This is the best statistics assignment help for university.',
-      date: '10/12/2025',
-      level: 'Undergraduate',
-      subject: 'Data Science',
-      tag: 'Verified',
-    },
-    {
-      id: 'STAT-10022',
-      rating: 5,
-      text: 'I needed university statistics assignment help for a tough paper. The probability distributions were completely accurate and delivered early.',
-      date: '11/02/2025',
-      level: 'Undergraduate',
-      subject: 'Probability',
-      tag: 'Returning Client',
-    },
-    {
-      id: 'STAT-10023',
-      rating: 4.9,
-      text: 'My expert provided amazing help with SPSS data analysis. The formatting was excellent and totally original.',
-      date: '11/18/2025',
-      level: 'Graduate',
-      subject: 'Research Methods',
-      tag: 'First-Time User',
-    },
-    {
-      id: 'STAT-10024',
-      rating: 5,
-      text: 'Long time fan here. I use this statistics assignment helper online often. The writing is always flawless and avoids plagiarism completely.',
-      date: '12/05/2025',
-      level: 'Graduate',
-      subject: 'Analytics',
-      tag: 'Returning Client',
-    },
-    {
-      id: 'STAT-10025',
-      rating: 5,
-      text: 'I had to pay someone to do statistics assignment tasks for my class. The ANOVA testing was deeply engaging and very professional.',
-      date: '01/14/2026',
-      level: 'Undergraduate',
-      subject: 'Applied Math',
-      tag: 'Verified',
-    },
-    {
-      id: 'STAT-10026',
-      rating: 4.8,
-      text: 'If you need cheap stats assignment solvers online, use this site. They used excellent R programming for stats and helped me meet a very tight deadline.',
-      date: '02/22/2026',
-      level: 'Graduate',
-      subject: 'R Programming',
-      tag: 'First-Time User',
-    },
-  ];
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const cardCount = testimonials.length;
+        {/* ── WHY CHOOSE US ─────────────────────────────────────────────────── */}
+        <section className="py-24 bg-[#F8FAFC] relative overflow-hidden">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#1652A0] via-transparent to-transparent"></div>
+          </div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                  WHY CHOOSE US
+                </div>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">
+                  Why Choose Our Statistics Assignment Help Service?
+                </h2>
+                <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                  We offer the best statistics assignment help for university students working through complex data and quantitative research tasks. Here is why students worldwide trust us to help them get better grades.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-  const goTo = (idx: number) => {
-    if (idx < 0) idx = cardCount - 1;
-    if (idx > cardCount - 1) idx = 0;
-    setCurrentIndex(idx);
-  };
-  const handlePrev = () => goTo(currentIndex - 1);
-  const handleNext = () => goTo(currentIndex + 1);
-
-  const getCardStyle = (idx: number): React.CSSProperties => {
-    const offset = idx - currentIndex;
-    if (offset === 0) {
-      return {
-        transform: 'scale(1) translateY(0)',
-        opacity: 1,
-        zIndex: 2,
-        boxShadow: '0 8px 32px 0 rgba(16,30,54,0.18), 0 1.5px 6px 0 rgba(16,30,54,0.08)',
-      };
-    } else if (Math.abs(offset) === 1) {
-      return {
-        transform: `scale(0.85) translateX(${offset * 60}px) translateY(20px)`,
-        opacity: 0.5,
-        zIndex: 1,
-        boxShadow: '0 4px 16px 0 rgba(16,30,54,0.10)',
-      };
-    } else {
-      return {
-        transform: `scale(0.7) translateX(${offset * 120}px) translateY(40px)`,
-        opacity: 0.2,
-        zIndex: 0,
-        boxShadow: 'none',
-        pointerEvents: 'none' as const,
-      };
-    }
-  };
-
-  return (
-    <section className="w-full py-24 bg-[#F7FAFC]">
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Hear What Our Clients Have To Say</h2>
-        <div className="relative flex items-center justify-center" style={{ minHeight: 340 }}>
-          <button
-            onClick={handlePrev}
-            aria-label="Previous testimonial"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-[#F7FAFC] transition focus:outline-none"
-          >
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </button>
-          <div className="flex items-center justify-center w-full overflow-hidden" style={{ minHeight: 320, minWidth: 0 }}>
-            {testimonials.map((t, idx) => {
-              const offset = idx - currentIndex;
-              return (
-                <div
-                  key={t.id}
-                  className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col ${idx === currentIndex ? 'is-active' : ''}`}
-                  style={{
-                    ...getCardStyle(idx),
-                    width: '90%',
-                    maxWidth: 480,
-                    position: 'absolute',
-                    left: '50%',
-                    top: 0,
-                    transform: `${getCardStyle(idx).transform} translateX(-50%)`,
-                    transition: 'all 0.5s cubic-bezier(.4,0,.2,1)',
-                    background: '#fff',
-                    boxShadow: getCardStyle(idx).boxShadow,
-                    opacity: offset === 0 ? 1 : 0.25,
-                  }}
-                  aria-hidden={idx !== currentIndex}
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="font-bold text-primary-700 text-lg">Customer ID: {t.id}</div>
-                    <div className="flex items-center gap-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <svg key={star} width="22" height="22" fill={star <= Math.round(t.rating) ? '#FACC15' : '#E5E7EB'} viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                      ))}
+                {/* ── Hero Feature ── */}
+                <div className="lg:col-span-2 bg-gradient-to-br from-[#0B1F42] to-[#1652A0] p-10 rounded-3xl shadow-2xl text-white relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+                  <div className="relative z-10">
+                    <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                      <ShieldCheck className="w-10 h-10 text-white" />
                     </div>
-                  </div>
-                  <p className="text-gray-700 text-base mb-8">{t.text}</p>
-                  <div className="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-gray-100">
-                    <div>
-                      <div className="font-bold text-gray-700 text-sm">Date:</div>
-                      <div className="text-gray-600 text-sm">{t.date}</div>
-                    </div>
-                    <div>
-                      <div className="font-bold text-gray-700 text-sm">Subject:</div>
-                      <div className="text-gray-600 text-sm">{t.subject}</div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <button
-            onClick={handleNext}
-            aria-label="Next testimonial"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[#F7FAFC] transition focus:outline-none"
-          >
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="#1e293b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </button>
-        </div>
-        <div className="flex justify-center items-center gap-3 mt-8">
-          {testimonials.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => goTo(idx)}
-              className={`w-3 h-3 rounded-full border-2 ${idx === currentIndex ? 'bg-primary-600 border-primary-600 scale-125' : 'bg-white border-gray-300'} transition-all`}
-              aria-label={`Go to testimonial ${idx + 1}`}
-            />
-          ))}
-        </div>
-        <div className="flex items-center justify-center gap-2" style={{ marginTop: '2.5rem', marginBottom: '0' }}>
-          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full">
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="10" fill="#34D399" />
-              <path d="M6.5 10.2l2.1 2.1L13.5 8.2" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-          <span className="text-gray-500 text-base font-normal">All reviews are from verified users</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const academicLevels = ["High School", "College", "University", "Master's", "PhD"];
-const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
-
-export default function StatisticsAssignmentHelp() {
-  const navigate = useNavigate();
-  const { register, handleSubmit, watch, setValue } = useForm<{
-    academicLevel: string;
-    pages: number;
-    deadline: string;
-  }>({
-    defaultValues: {
-      academicLevel: "College",
-      pages: 1,
-      deadline: "48 hours",
-    },
-  });
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsLoggedIn(!!user);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-
-  const watchedValues = watch();
-  const WORDS_PER_PAGE = 275;
-  const totalWords = (watchedValues.pages || 1) * WORDS_PER_PAGE;
-
-  const priceConfig = {
-    "High School": {
-      "3 hours": { base: 22, urgent: 1.8 }, "6 hours": { base: 19, urgent: 1.6 }, "12 hours": { base: 17, urgent: 1.4 },
-      "24 hours": { base: 16, urgent: 1.2 }, "48 hours": { base: 16, urgent: 1.0 }, "3 days": { base: 16, urgent: 1.0 },
-      "5 days": { base: 16, urgent: 1.0 }, "7 days": { base: 16, urgent: 1.0 }, "10 days": { base: 16, urgent: 1.0 }, "14 days": { base: 16, urgent: 1.0 }
-    },
-    "College": {
-      "3 hours": { base: 26, urgent: 1.8 }, "6 hours": { base: 23, urgent: 1.6 }, "12 hours": { base: 20, urgent: 1.4 },
-      "24 hours": { base: 18, urgent: 1.2 }, "48 hours": { base: 18, urgent: 1.0 }, "3 days": { base: 18, urgent: 1.0 },
-      "5 days": { base: 18, urgent: 1.0 }, "7 days": { base: 18, urgent: 1.0 }, "10 days": { base: 18, urgent: 1.0 }, "14 days": { base: 18, urgent: 1.0 }
-    },
-    "University": {
-      "3 hours": { base: 30, urgent: 1.8 }, "6 hours": { base: 27, urgent: 1.6 }, "12 hours": { base: 24, urgent: 1.4 },
-      "24 hours": { base: 21, urgent: 1.2 }, "48 hours": { base: 21, urgent: 1.0 }, "3 days": { base: 21, urgent: 1.0 },
-      "5 days": { base: 21, urgent: 1.0 }, "7 days": { base: 21, urgent: 1.0 }, "10 days": { base: 21, urgent: 1.0 }, "14 days": { base: 21, urgent: 1.0 }
-    },
-    "Master's": {
-      "3 hours": { base: 36, urgent: 1.8 }, "6 hours": { base: 33, urgent: 1.6 }, "12 hours": { base: 29, urgent: 1.4 },
-      "24 hours": { base: 26, urgent: 1.2 }, "48 hours": { base: 26, urgent: 1.0 }, "3 days": { base: 26, urgent: 1.0 },
-      "5 days": { base: 26, urgent: 1.0 }, "7 days": { base: 26, urgent: 1.0 }, "10 days": { base: 26, urgent: 1.0 }, "14 days": { base: 26, urgent: 1.0 }
-    },
-    "PhD": {
-      "3 hours": { base: 42, urgent: 1.8 }, "6 hours": { base: 39, urgent: 1.6 }, "12 hours": { base: 35, urgent: 1.4 },
-      "24 hours": { base: 32, urgent: 1.2 }, "48 hours": { base: 29, urgent: 1.0 }, "3 days": { base: 29, urgent: 1.0 },
-      "5 days": { base: 29, urgent: 1.0 }, "7 days": { base: 29, urgent: 1.0 }, "10 days": { base: 29, urgent: 1.0 }, "14 days": { base: 29, urgent: 1.0 }
-    }
-  };
-
-  function getBasePrice(academicLevel: keyof typeof priceConfig, deadline: string): number {
-    const config = (priceConfig[academicLevel] as Record<string, { base: number; urgent: number }>)[deadline];
-    return config ? config.base : 0;
-  }
-
-  const price = getBasePrice(watchedValues.academicLevel as keyof typeof priceConfig, watchedValues.deadline) * (watchedValues.pages || 1);
-
-  const onSubmit = (data: { academicLevel: string; pages: number; deadline: string }) => {
-    const params = new URLSearchParams({
-      academicLevel: data.academicLevel,
-      pages: data.pages.toString(),
-      deadline: data.deadline,
-    });
-    navigate(`/order-now?${params.toString()}`);
-  };
-
-  const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-      alert('Signed in with Google!');
-    } catch (error: any) {
-      if (error.code === 'auth/account-exists-with-different-credential') {
-        const pendingCred = GoogleAuthProvider.credentialFromError(error);
-        const email = error.customData?.email;
-        if (email && pendingCred) {
-          const password = window.prompt(
-            `An account already exists with this email (${email}). Please enter your password to link your Google account:`
-          );
-          if (!password) {
-            alert('Password is required to link accounts.');
-            return;
-          }
-          try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            await linkWithCredential(userCredential.user, pendingCred);
-            alert('Your Google account has been linked! You can now sign in with either method.');
-          } catch (linkError: any) {
-            alert('Failed to link Google account: ' + (linkError && linkError.message ? linkError.message : linkError));
-          }
-        } else {
-          alert('Google sign-in failed: Unable to retrieve credential or email for linking.');
-        }
-      } else {
-        alert('Google sign-in failed: ' + (error && error.message ? error.message : error));
-      }
-    }
-  };
-
-  return (
-    <>
-      <Helmet>
-        <title>Best Statistics Assignment Help for University Students</title>
-        <meta
-          name="description"
-          content="Need a reliable statistics assignment solver? Pay someone to do statistics assignment tasks today. Hire our expert service online for top grades."
-        />
-        <link rel="canonical" href="https://essayembassy.com/assignment-help/statistics" />
-      </Helmet>
-      <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
-
-        {/* ── HERO SECTION ── */}
-        <section className="container mx-auto px-6 py-8 md:py-10 relative">
-          <main className="grid md:grid-cols-2 gap-16 items-center">
-            {/* Left Column */}
-            <div className="space-y-8">
-              <div className="inline-flex items-center bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-full">
-                <span className="bg-white text-gray-800 rounded-full h-6 w-6 flex items-center justify-center mr-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    <text x="12" y="14" fontFamily="sans-serif" fontSize="6" textAnchor="middle" fill="currentColor" fontWeight="bold">AI</text>
-                  </svg>
-                </span>
-                PLAGIARISM & AI FREE
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-                Professional Statistics Assignment Help Online
-              </h1>
-              <p className="text-lg text-gray-600">
-                Expert Solvers, Accurate Statistical Calculations, and On Time Delivery. Get Perfect Grades Every Time.
-              </p>
-              {/* Trust Badges */}
-              <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-sm font-medium px-4 py-2 rounded-full border border-emerald-200">
-                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  Plagiarism Free Stats Answers
-                </span>
-                <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-sm font-medium px-4 py-2 rounded-full border border-emerald-200">
-                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  Expert Solvers
-                </span>
-                <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-sm font-medium px-4 py-2 rounded-full border border-emerald-200">
-                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  On Time Delivery
-                </span>
-              </div>
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4 pt-2">
-                <a
-                  href="/order-now"
-                  className="inline-block px-8 py-4 rounded-xl bg-primary-600 text-white text-base font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 transform hover:scale-105"
-                >
-                  Do My Statistics Assignment
-                </a>
-                <a
-                  href="#samples"
-                  className="inline-block px-8 py-4 rounded-xl bg-white text-gray-800 text-base font-bold shadow border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-200 focus:ring-offset-2"
-                >
-                  Review Our Samples
-                </a>
-              </div>
-              {/* Ratings */}
-              <div className="flex flex-row justify-start items-end gap-6 pt-4">
-                <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2">
-                  <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
-                    <img src="/images/google logo.svg" alt="Google Logo" className="h-5 w-5" />
-                  </span>
-                  <span className="flex items-center justify-center text-base font-semibold text-gray-900">
-                    4.1/5
-                    <span className="ml-1 text-yellow-400 text-sm">★</span>
-                  </span>
-                  <span className="text-gray-600 text-xs mt-1 font-medium">Google</span>
-                </div>
-                <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
-                  <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
-                    <img src="/images/trustpilot logo 2.png" alt="Trustpilot Logo" className="h-5 w-5" />
-                  </span>
-                  <span className="flex items-center justify-center text-base font-semibold text-gray-900">
-                    4.4/5
-                    <span className="ml-1 text-green-500 text-sm">★</span>
-                  </span>
-                  <span className="text-gray-600 text-xs mt-1 font-medium">Trustpilot</span>
-                </div>
-                <div className="flex flex-col items-center justify-center w-24 h-24 bg-white border border-gray-100 rounded-xl shadow p-2 transition duration-200 hover:-translate-y-1 hover:scale-105">
-                  <span className="flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 mb-1">
-                    <img src="/images/sitejabber-logo-2.png" alt="Sitejabber Logo" className="h-5 w-5" />
-                  </span>
-                  <span className="flex items-center justify-center text-base font-semibold text-gray-900">
-                    4.0/5
-                    <span className="ml-1 text-orange-400 text-sm">★</span>
-                  </span>
-                  <span className="text-gray-600 text-xs mt-1 font-medium">Sitejabber</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Order Form */}
-            <div className="bg-white p-8 rounded-2xl max-w-md mx-auto shadow-[0_10px_15px_-3px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.04)]">
-              <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Place an order</h2>
-              <div className="flex gap-4 mb-6 justify-center">
-                {!isLoggedIn && (
-                  <button
-                    type="button"
-                    onClick={handleGoogleSignIn}
-                    className="flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2.5 px-6 text-base font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:border-primary-200 hover:shadow-md hover:scale-[1.03] active:bg-gray-100 active:shadow-lg transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-200 hover:text-gray-900"
-                    style={{ minWidth: '0' }}
-                  >
-                    <img src="/images/google logo.svg" alt="Google" className="h-5 w-5" />
-                    Google
-                  </button>
-                )}
-              </div>
-              <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Academic Level</label>
-                  <select {...register('academicLevel')} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition mt-1">
-                    {academicLevels.map(level => <option key={level} value={level}>{level}</option>)}
-                  </select>
-                </div>
-                <div className="flex items-center justify-between border border-gray-300 rounded-lg p-1 mt-4">
-                  <button type="button" onClick={() => setValue('pages', Math.max(1, (watchedValues.pages || 1) - 1))} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md">-</button>
-                  <div className="text-center">
-                    <input type="number" min={1} {...register('pages', { valueAsNumber: true })} className="text-lg font-semibold text-gray-800 w-16 text-center border-none outline-none" />
-                  </div>
-                  <button type="button" onClick={() => setValue('pages', (watchedValues.pages || 1) + 1)} className="px-4 py-2 text-2xl font-light text-gray-600 hover:bg-gray-100 rounded-md">+</button>
-                  <span className="bg-gray-100 text-gray-700 text-sm font-medium px-4 py-2 rounded-md">{totalWords} words</span>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Deadline</label>
-                  <select {...register('deadline')} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition mt-1">
-                    {deadlines.map(d => <option key={d} value={d}>{d}</option>)}
-                  </select>
-                </div>
-                <div className="flex flex-col items-center justify-center mt-4">
-                  <span className="text-xs text-gray-500">From</span>
-                  <span className="font-bold text-2xl text-primary-600">${price.toFixed(2)}</span>
-                </div>
-                <button type="submit" className="w-full mt-8 bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                  Do My Statistics Assignment
-                </button>
-              </form>
-              <p className="text-center text-sm text-gray-500 mt-4">
-                Already have an account? <Link to="/login" className="font-medium text-teal-600 hover:underline">Log in</Link>
-              </p>
-              <p className="text-center text-xs text-gray-400 mt-6">
-                This site is protected by reCAPTCHA and the Google
-                <Link to="/privacy-policy" className="text-blue-500 hover:underline ml-1">Privacy Policy</Link> and
-                <Link to="/terms-and-conditions" className="text-blue-500 hover:underline ml-1">Terms of Service</Link> apply.
-              </p>
-            </div>
-          </main>
-        </section>
-
-        {/* ── STATISTICS BAR ── */}
-        <section className="w-full bg-white border-y border-gray-100 py-6">
-          <div className="max-w-5xl mx-auto px-4">
-            <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-200">
-              <div className="flex-1 flex flex-col items-center text-center px-6 py-2">
-                <span className="text-3xl font-bold text-emerald-500">250K+</span>
-                <span className="text-sm text-gray-500 mt-1 font-medium">Happy Students</span>
-              </div>
-              <div className="flex-1 flex flex-col items-center text-center px-6 py-2">
-                <span className="text-3xl font-bold text-emerald-500">99%</span>
-                <span className="text-sm text-gray-500 mt-1 font-medium">On Time Delivery</span>
-              </div>
-              <div className="flex-1 flex flex-col items-center text-center px-6 py-2">
-                <span className="text-3xl font-bold text-emerald-500">900+</span>
-                <span className="text-sm text-gray-500 mt-1 font-medium">Verified Experts</span>
-              </div>
-              <div className="flex-1 flex flex-col items-center text-center px-6 py-2">
-                <div className="flex items-center gap-1">
-                  <span className="text-3xl font-bold text-emerald-500">4.8</span>
-                  <span className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} width="18" height="18" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                    ))}
-                  </span>
-                </div>
-                <span className="text-sm text-gray-500 mt-1 font-medium">Average Rating</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHO ARE THE EXPERTS ── */}
-        <section className="w-full bg-[#F7FAFC] pt-8 pb-2">
-          <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
-            <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-              We engage alumni of the world's top universities to become Essay Embassy statistics experts.<br />
-              We carefully check each candidate's academic credentials and professional background before hiring.
-            </div>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
-              <div className="text-base text-gray-600 mb-2 md:mb-0 md:mr-6 whitespace-nowrap">
-                Cooperate with those who graduated<br className="hidden md:block" />
-                from the best universities worldwide
-              </div>
-              <div className="hidden md:block h-8 border-l border-emerald-400 mx-4"></div>
-              <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 w-full md:w-auto">
-                <img src="/images/univ-logos.svg" alt="Top Universities" className="h-10 md:h-12 my-2" style={{ maxWidth: '100%', height: 'auto' }} />
-              </div>
-            </div>
-          </div>
-        </section>
-        <div className="mt-8"></div>
-        <div className="container mx-auto px-6 pb-6">
-          <WritersCarousel />
-        </div>
-
-        {/* ── WHY CHOOSE US (6 glassmorphism cards) ── */}
-        <section className="w-full bg-[#F7FAFC] py-16">
-          <div className="max-w-5xl mx-auto px-4">
-            <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{ letterSpacing: '0.03em' }}>
-              We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">statistics assignment help services</span>
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Card 1 - Hero Feature */}
-              <div className="sm:col-span-2 lg:col-span-1 flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                  <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </span>
-                <div className="font-semibold text-lg text-gray-900 mb-2">Plagiarism Free Stats Answers and Turnitin Report</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">We offer strict guarantees for completely original work. You get custom files built from scratch. Every order includes a free report to prove your work is unique and safe. We guarantee zero artificial intelligence involvement in your project.</div>
-              </div>
-              {/* Card 2 */}
-              <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                  <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                    <path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                  </svg>
-                </span>
-                <div className="font-semibold text-lg text-gray-900 mb-2">Qualified University Experts</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">We hire experienced writers with advanced degrees in data science and mathematics. They know exactly how to handle complex probability distributions and regression analysis problems. They help you get top grades easily.</div>
-              </div>
-              {/* Card 3 */}
-              <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                  <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
-                  </svg>
-                </span>
-                <div className="font-semibold text-lg text-gray-900 mb-2">On Time Delivery Commitment</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">You will never miss a deadline again. We offer fast delivery options to help you avoid late penalties. We can finish your project in just a few hours if you are in a rush.</div>
-              </div>
-              {/* Card 4 */}
-              <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                  <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                    <path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                  </svg>
-                </span>
-                <div className="font-semibold text-lg text-gray-900 mb-2">Responsive Support and Direct Communication</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">Do you need statistics assignment help near me right now? Our customer support team works around the clock. You can chat with your statistics assignment helper online directly to share ideas and ask questions.</div>
-              </div>
-              {/* Card 5 */}
-              <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                  <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                    <path d="M17 1l4 4-4 4" /><path d="M21 5H7a4 4 0 0 0 0 8h1" />
-                  </svg>
-                </span>
-                <div className="font-semibold text-lg text-gray-900 mb-2">Free Revisions Policy</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">Your happiness is our main goal. We offer a free revision period so your coursework turns out exactly as you want.</div>
-              </div>
-              {/* Card 6 */}
-              <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
-                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
-                  <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                    <rect x="6" y="11" width="12" height="8" rx="2" /><path d="M12 11V7a4 4 0 1 1 8 0v4" />
-                  </svg>
-                </span>
-                <div className="font-semibold text-lg text-gray-900 mb-2">Privacy Guaranteed</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">Your personal details are completely safe with us. We protect your academic data with strong encryption when you pay for statistics assignment canada, the UK, the US, or anywhere else.</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHAT MAKES OUR EXPERTS SO SPECIAL (Carousel) ── */}
-        <section className="w-full bg-[#F7FAFC] py-10">
-          <div className="max-w-6xl mx-auto px-4 bg-[#F7FAFC] shadow-none border-none">
-            <SpecialStatisticsHelpCarousel />
-          </div>
-        </section>
-
-        {/* ── ASSIGNMENT HELP SERVICES WE OFFER ── */}
-        <section className="w-full bg-white py-16">
-          <div className="max-w-5xl mx-auto px-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-gray-900">Assignment Help Services We Offer</h2>
-            <div className="prose prose-lg max-w-none text-gray-700 mb-10">
-              <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
-                At Essay Embassy, we specialize in providing top quality university statistics assignment help. Statistics classes require you to understand many different topics and analyze quantitative research data. When you find yourself thinking "I need to pay someone to do statistics assignment tasks", we are here for you. We offer the best statistics assignment help for university students worldwide.
-              </p>
-              <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
-                Whether you need statistics assignment help uk or statistics assignment help australia, our experts can assist you. We provide the best statistics assignment solver online to help you pass your classes. Our team handles everything from basic probability to advanced ANOVA testing. We also use tools like R programming for stats to make sure you get accurate statistical calculations every single time.
-              </p>
-              <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
-                In addition to our data tasks, we also offer a broad range of other academic services. Here is a list of the core assignment help services we offer:
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { name: 'SPSS Assignment Help', link: '/assignment-help/statistics/spss' },
-                { name: 'R Studio Assignment Help', link: '/assignment-help/statistics/r-studio' },
-                { name: 'Hypothesis Testing Assignment Help', link: '/assignment-help/statistics/hypothesis-testing' },
-                { name: 'Regression Analysis Assignment Help', link: '/assignment-help/statistics/regression-analysis' },
-                { name: 'Data Analysis Assignment Help', link: '/assignment-help/statistics/data-analysis' },
-                { name: 'Biostatistics Assignment Help', link: '/assignment-help/statistics/biostatistics' },
-                { name: 'Descriptive Statistics Assignment Help', link: '/assignment-help/statistics/descriptive-statistics' },
-                { name: 'Inferential Statistics Assignment Help', link: '/assignment-help/statistics/inferential-statistics' },
-              ].map((service) => (
-                <Link
-                  key={service.name}
-                  to={service.link}
-                  className="flex items-center gap-3 bg-[#F7FAFC] border border-gray-200 rounded-xl px-5 py-4 text-gray-800 font-medium text-sm hover:border-emerald-400 hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-200 shadow-sm group"
-                >
-                  <span className="flex-shrink-0 w-2 h-2 rounded-full bg-emerald-400 group-hover:bg-emerald-500 transition-colors"></span>
-                  {service.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── HOW IT WORKS ── */}
-        <section className="w-full bg-[#F7FAFC] py-12">
-          <div className="max-w-md mx-auto px-4 relative flex items-center justify-center">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 flex flex-col items-center relative z-10 w-full">
-              <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">How It Works</h2>
-              <div className="flex flex-col items-center relative w-full">
-                {/* Step 1 */}
-                <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up w-full">
-                  <span className="text-2xl mb-1">✍️</span>
-                  <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Submit Your Requirements</div>
-                  <div className="text-gray-400 text-sm mb-2">Fill out our simple order form. Upload your instructions and tell us your deadline. Provide your grading rubric. Let us know if you need help with SPSS data analysis or basic math tasks.</div>
-                  <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
-                </div>
-                <div className="flex flex-col items-center mb-3">
-                  <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                </div>
-                {/* Step 2 */}
-                <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up w-full" style={{ animationDelay: '0.15s' }}>
-                  <span className="text-2xl mb-1">🔍</span>
-                  <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Get Matched with an Expert</div>
-                  <div className="text-gray-400 text-sm">We match you with cheap stats assignment solvers online who understand your exact subject. Your writer will have the right academic background to help you succeed.</div>
-                </div>
-                <div className="flex flex-col items-center mb-3">
-                  <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                </div>
-                {/* Step 3 */}
-                <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up w-full" style={{ animationDelay: '0.3s' }}>
-                  <span className="text-2xl mb-1">💳</span>
-                  <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Track Progress</div>
-                  <div className="text-gray-400 text-sm">Stay in touch with your writer. You can monitor the progress of your coursework and ask questions at any time.</div>
-                </div>
-                <div className="flex flex-col items-center mb-3">
-                  <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                </div>
-                {/* Step 4 */}
-                <div className="flex flex-col items-center text-center animate-fade-in-up w-full" style={{ animationDelay: '0.45s' }}>
-                  <span className="text-2xl mb-1">📄</span>
-                  <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">4. Download and Submit</div>
-                  <div className="text-gray-400 text-sm">Receive your completed task by the deadline. Download your finished files and submit your coursework with total confidence.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <style>{`
-            @keyframes fade-in-up {
-              0% { opacity: 0; transform: translateY(40px); }
-              100% { opacity: 1; transform: translateY(0); }
-            }
-            .animate-fade-in-up {
-              animation: fade-in-up 0.8s cubic-bezier(.4,0,.2,1) both;
-            }
-          `}</style>
-        </section>
-
-        {/* ── PRICES AND SERVICES ── */}
-        <section className="w-full bg-[#F7FAFC] py-12">
-          <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-gray-900">Prices and services</h2>
-            <div className="text-center text-lg text-gray-600 mb-4">
-              Prices start at <span className="font-bold text-gray-900 relative inline-block"><span className="z-10 relative">$16.00/page</span><span className="absolute left-0 right-0 bottom-0 h-2 bg-yellow-300 rounded -z-10" style={{ height: '0.5em', bottom: '0.1em' }}></span></span> and depend on the page count, deadline, and expert's level
-            </div>
-            <div className="flex justify-center mb-4">
-              <Link to="/refund-policy" className="flex items-center gap-2 text-primary-600 text-base font-medium hover:underline">
-                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 17v.01" /><path d="M12 7v4" /><circle cx="12" cy="12" r="10" /></svg>
-                How we secure your payment
-              </Link>
-            </div>
-
-            {/* Value propositions + calculator */}
-            <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch mt-8 mb-10">
-              {/* Left: Value props */}
-              <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col gap-5">
-                <h3 className="text-2xl font-bold text-gray-900 mb-1">Why our pricing works for you</h3>
-                <div className="border-t border-gray-100 mb-2"></div>
-                <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center mt-0.5">
-                    <svg width="18" height="18" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M12 1v22M17 5H9a3 3 0 0 0 0 6h6a3 3 0 0 1 0 6H7" /></svg>
-                  </span>
-                  <div>
-                    <div className="font-semibold text-gray-800 text-sm">Transparent Pricing</div>
-                    <div className="text-gray-500 text-sm">Our rates start at just $16.00 per order for basic college levels.</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center mt-0.5">
-                    <svg width="18" height="18" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" /><rect x="3" y="3" width="18" height="18" rx="2" /></svg>
-                  </span>
-                  <div>
-                    <div className="font-semibold text-gray-800 text-sm">No Hidden Fees</div>
-                    <div className="text-gray-500 text-sm">Pay only for the text you need. Pricing updates in real time with no surprises.</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center mt-0.5">
-                    <svg width="18" height="18" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                  </span>
-                  <div>
-                    <div className="font-semibold text-gray-800 text-sm">Free Features Included</div>
-                    <div className="text-gray-500 text-sm">Get a free title page, free formatting, and direct chat with every order.</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center mt-0.5">
-                    <svg width="18" height="18" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M17 1l4 4-4 4" /><path d="M21 5H7a4 4 0 0 0 0 8h1" /></svg>
-                  </span>
-                  <div>
-                    <div className="font-semibold text-gray-800 text-sm">Satisfaction Promise</div>
-                    <div className="text-gray-500 text-sm">We offer free revisions and a secure money back guarantee to protect your funds.</div>
-                  </div>
-                </div>
-              </div>
-              {/* Right: included / additional */}
-              <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
-                <h3 className="text-2xl font-bold text-gray-900 mb-1">Included services</h3>
-                <div className="text-gray-400 text-base mb-4">You'll always get them for free</div>
-                <div className="border-t border-gray-100 mb-4"></div>
-                <ul className="flex-1 space-y-3">
-                  <li className="flex justify-between items-center font-semibold text-gray-800">Topic suggestion <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
-                  <li className="flex justify-between items-center font-semibold text-gray-800">Formatting <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
-                  <li className="flex justify-between items-center font-semibold text-gray-800">Title page & references <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
-                  <li className="flex justify-between items-center font-semibold text-gray-800">Editor quality check <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
-                  <li className="flex justify-between items-center font-semibold text-gray-800">Unlimited revisions <span className="bg-green-50 text-green-600 text-xs font-bold px-3 py-1 rounded-full">Free</span></li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Payment methods */}
-            <div className="flex flex-col items-center gap-2 mb-8">
-              <div className="text-gray-500 text-base">We accept:</div>
-              <div className="flex items-center gap-4">
-                <img src="/images/visa.svg" alt="Visa" className="h-10" />
-                <img src="/images/mastercard.svg" alt="Mastercard" className="h-10" />
-                <img src="/images/amex.svg" alt="Amex" className="h-10" />
-                <img src="/images/discover.svg" alt="Discover" className="h-10" />
-                <img src="/images/paypal.svg" alt="PayPal" className="h-10" />
-              </div>
-            </div>
-            <div className="flex justify-center mt-2">
-              <a
-                href="/order-now"
-                className="inline-block px-12 py-4 rounded-full bg-primary-600 text-white text-lg font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
-              >
-                Create an order
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* ── GUARANTEES (Dark Background) ── */}
-        <section className="w-full bg-gray-900 py-16">
-          <div className="max-w-5xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-white">Our Guarantees</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="flex flex-col items-center text-center bg-white/10 rounded-2xl px-6 py-8 border border-white/10">
-                <span className="flex items-center justify-center w-14 h-14 rounded-full bg-emerald-500/20 mb-4">
-                  <svg width="28" height="28" fill="none" stroke="#34d399" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-                </span>
-                <div className="font-semibold text-white text-base mb-2">Quality Commitment</div>
-                <div className="text-gray-400 text-sm leading-relaxed">Our experts write perfectly structured papers. We make sure your charts, graphs, and data models are completely accurate.</div>
-              </div>
-              <div className="flex flex-col items-center text-center bg-white/10 rounded-2xl px-6 py-8 border border-white/10">
-                <span className="flex items-center justify-center w-14 h-14 rounded-full bg-emerald-500/20 mb-4">
-                  <svg width="28" height="28" fill="none" stroke="#34d399" strokeWidth="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
-                </span>
-                <div className="font-semibold text-white text-base mb-2">On Time Delivery</div>
-                <div className="text-gray-400 text-sm leading-relaxed">We always meet your deadlines so you can submit your coursework on time.</div>
-              </div>
-              <div className="flex flex-col items-center text-center bg-white/10 rounded-2xl px-6 py-8 border border-white/10">
-                <span className="flex items-center justify-center w-14 h-14 rounded-full bg-emerald-500/20 mb-4">
-                  <svg width="28" height="28" fill="none" stroke="#34d399" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M17 1l4 4-4 4" /><path d="M21 5H7a4 4 0 0 0 0 8h1" /></svg>
-                </span>
-                <div className="font-semibold text-white text-base mb-2">Free Revisions</div>
-                <div className="text-gray-400 text-sm leading-relaxed">We revise your paper for free until it matches your exact needs perfectly.</div>
-              </div>
-              <div className="flex flex-col items-center text-center bg-white/10 rounded-2xl px-6 py-8 border border-white/10">
-                <span className="flex items-center justify-center w-14 h-14 rounded-full bg-emerald-500/20 mb-4">
-                  <svg width="28" height="28" fill="none" stroke="#34d399" strokeWidth="2.2" viewBox="0 0 24 24"><rect x="6" y="11" width="12" height="8" rx="2" /><path d="M12 11V7a4 4 0 1 1 8 0v4" /></svg>
-                </span>
-                <div className="font-semibold text-white text-base mb-2">Privacy First</div>
-                <div className="text-gray-400 text-sm leading-relaxed">Strict confidentiality policies keep your academic and payment data completely safe.</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHY ESSAY EMBASSY STATS ── */}
-        <section className="w-full bg-[#F7FAFC] py-10">
-          <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 tracking-tight">Why Essay Embassy</h2>
-            <div className="flex flex-col md:flex-row justify-center items-stretch md:space-x-0 gap-4 md:gap-0">
-              <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-                <span className="text-3xl md:text-4xl font-bold text-emerald-500">250K+</span>
-                <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Happy students<br className='hidden md:block' />served worldwide</span>
-              </div>
-              <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
-              <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-                <span className="text-3xl md:text-4xl font-bold text-emerald-500">900+</span>
-                <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block' />and verified experts</span>
-              </div>
-              <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
-              <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-                <span className="text-3xl md:text-4xl font-bold text-emerald-500">99%</span>
-                <span className="text-sm md:text-base font-medium text-gray-500 mt-1">On time delivery<br className='hidden md:block' />rate</span>
-              </div>
-              <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
-              <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-                <div className="flex items-center justify-center gap-1">
-                  <span className="text-3xl md:text-4xl font-bold text-emerald-500">4.8</span>
-                  <span className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} width="20" height="20" fill="#FACC15" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
-                    ))}
-                  </span>
-                </div>
-                <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Average<br className='hidden md:block' />user rating</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── CLIENT TESTIMONIALS ── */}
-        <section className="w-full bg-[#F7FAFC] py-12">
-          <div className="max-w-4xl mx-auto px-4">
-            <ClientTestimonialsCarousel />
-          </div>
-        </section>
-
-        {/* ── SAMPLE ASSIGNMENTS ── */}
-        <section id="samples" className="w-full py-10 px-2 bg-[#F7FAFC]">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Sample Statistics Assignments
-            </h2>
-            <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
-            <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.6' }}>
-              Preview real statistics assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                { title: "SPSS Data Analysis Report", pages: 8, level: "University", type: "Data Analysis", citation: "APA" },
-                { title: "Regression Analysis Paper", pages: 10, level: "Master's", type: "Research Paper", citation: "MLA" },
-                { title: "Hypothesis Testing Assignment", pages: 6, level: "College", type: "Assignment", citation: "Chicago" },
-                { title: "Probability Distributions Study", pages: 7, level: "University", type: "Case Study", citation: "Harvard" },
-              ].map((sample, idx) => (
-                <div key={idx} className="bg-white border border-blue-200 rounded-2xl shadow-sm p-6 flex flex-col min-h-[270px] text-left">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center justify-center w-7 h-7 bg-red-100 rounded-md">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#EF4444" /><text x="6" y="15" fontSize="9" fill="white" fontWeight="bold">PDF</text></svg>
-                      </span>
-                      <span className="font-bold text-gray-900 text-base">{sample.title}</span>
-                    </div>
-                    <span className="text-gray-400 text-sm font-medium">{sample.pages} Pages</span>
-                  </div>
-                  <hr className="my-3 border-gray-200" />
-                  <div className="flex-1 flex flex-col gap-2 text-sm">
-                    <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Academic Level:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.level}</span></div>
-                    <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Document Type:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.type}</span></div>
-                    <div className="flex flex-row flex-nowrap items-center"><span className="w-32 text-left text-gray-500 flex-shrink-0">Citation Style:</span> <span className="flex-1 font-bold text-gray-900 ml-2 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap">{sample.citation}</span></div>
-                  </div>
-                  <button className="mt-6 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-2 rounded-full shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 text-left pl-6">Read</button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── WHY YOU NEED OUR ASSIGNMENT HELP (Scrollable) ── */}
-        <section className="py-12 bg-white">
-          <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
-            <div className="flex items-center mb-4">
-              <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-              <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Statistics Assignment Help</h2>
-            </div>
-            <p className="text-base text-gray-700 text-left mb-4">
-              Tackling statistics assignments can be overwhelming, especially with tight deadlines and high academic standards. Our expert statistics assignment help service is designed to relieve your stress and ensure you never miss a deadline.
-            </p>
-            <p className="text-sm text-gray-600 mb-3 text-left">
-              Students turn to Essay Embassy for statistics assignment help because:
-            </p>
-            <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
-              <ul className="list-disc pl-5 mb-3">
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality statistics assignments.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Statistics requires deep understanding of probability, distributions, regression, ANOVA, and more.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Software Proficiency:</span> Tools like SPSS, R, and Python require technical expertise that takes time to master.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Data Accuracy:</span> One error in your calculations can cascade through an entire paper and cost you your grade.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
-              </ul>
-              <p className="text-sm text-gray-700 mb-3">
-                Our service ensures you submit well-researched, accurate, and properly formatted statistics assignments on time, every time.
-              </p>
-              <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Statistics Assignment Types We Handle</h3>
-              <ul className="list-disc pl-5 mb-3">
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Data Analysis Reports:</span> SPSS, R, Python-based quantitative and qualitative analysis.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Hypothesis Testing:</span> T-tests, chi-square, ANOVA, and more.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Regression Analysis:</span> Simple, multiple, logistic, and non-linear regression.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Probability Problems:</span> Distributions, expected values, and combinatorics.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Methods:</span> Survey design, sampling, and statistical inference.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Biostatistics:</span> Clinical trials, survival analysis, and epidemiological data.</li>
-              </ul>
-              <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
-              <ul className="list-none pl-0 mb-3">
-                <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in statistics or a related field.</span></li>
-                <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
-                <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline.</span></li>
-                <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work.</span></li>
-                <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Free Revisions and Money-Back Guarantee:</span> Your satisfaction is our priority. We offer unlimited free revisions. If we miss a confirmed deadline, you are covered by our money-back guarantee.</span></li>
-                <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security and Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute.</span></li>
-                <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
-              </ul>
-              <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Statistics Assignment Today</h3>
-              <p className="text-sm text-gray-700 mb-1">
-                Stop wondering, "Who can do my statistics assignment and guarantee quality?" The answer is right here.
-              </p>
-              <p className="text-sm text-gray-700 mb-1">
-                At Essay Embassy, we deliver high-quality, custom-written statistics assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
-              </p>
-              <p className="text-sm text-gray-700 mb-1">
-                Place your order now and let a true subject matter expert handle the hard work for you.
-              </p>
-            </div>
-          </div>
-          <style>{`
-            .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-            .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-            .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
-            .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
-          `}</style>
-        </section>
-
-        {/* ── FAQ + SUPPORT ── */}
-        <section className="w-full bg-[#F7FAFC] py-10">
-          <div className="max-w-5xl mx-auto px-2 md:px-4">
-            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-start">
-              {/* FAQ Column */}
-              <div className="flex-1 w-full">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-900">Frequently Asked Questions</h2>
-                <div className="bg-white/80 rounded-3xl shadow-lg p-4 md:p-8">
-                  <div className="space-y-2">
-                    {[
-                      {
-                        question: 'How much does statistics assignment help cost?',
-                        answer: 'Our pricing starts at just $16.00 per order. The final cost depends on your academic level, deadline, and length. Ordering early gets you the lowest price possible.'
-                      },
-                      {
-                        question: 'Who can do my statistics assignment fast?',
-                        answer: 'Our professional writers can handle urgent tasks easily. We can complete your order in just a few hours to help you avoid last minute stress.'
-                      },
-                      {
-                        question: 'How do your experts perform SPSS data analysis?',
-                        answer: 'Our experts use proven methods for SPSS data analysis. They input your quantitative research data into the software, run the necessary tests like ANOVA or regression, and provide clear reports explaining the results.'
-                      },
-                      {
-                        question: 'Is it safe to get stats assignment help online?',
-                        answer: 'Yes. We keep your personal details completely private and never share them with third parties. We also use secure payment methods to protect your financial information. Our agency is very safe to use.'
-                      },
-                      {
-                        question: 'Can I get help with a masters level statistics assignment?',
-                        answer: 'Absolutely. We provide excellent assistance for all college and university levels. Our native English experts have advanced master\'s and PhD degrees. They can easily tackle the most complex projects for higher education.'
-                      }
-                    ].map((faq, idx) => {
-                      const isOpen = openFAQ === idx;
-                      return (
-                        <div
-                          key={idx}
-                          className={`transition-all duration-300 rounded-xl border border-gray-200 shadow-sm ${isOpen ? 'bg-gray-50' : 'bg-white'} overflow-hidden`}
-                        >
-                          <button
-                            type="button"
-                            className={`w-full flex justify-between items-center px-4 py-3 text-left focus:outline-none transition-colors duration-300 ${isOpen ? 'bg-gray-50' : 'hover:bg-gray-50'}`}
-                            style={{ background: isOpen ? '#f9fafb' : 'inherit' }}
-                            onClick={() => setOpenFAQ(isOpen ? null : idx)}
-                            aria-expanded={isOpen}
-                            aria-controls={`faq-content-${idx}`}
-                          >
-                            <span className={`text-sm md:text-base font-medium transition-colors duration-300 ${isOpen ? 'text-emerald-600' : 'text-gray-900'}`}>{faq.question}</span>
-                            <svg
-                              className={`w-4 h-4 ml-2 text-emerald-400 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
-                              fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
-                          </button>
-                          <div
-                            id={`faq-content-${idx}`}
-                            className={`px-4 pb-2 text-gray-600 text-sm transition-all duration-300 ease-in-out ${isOpen ? 'max-h-40 opacity-100 py-1' : 'max-h-0 opacity-0 py-0 overflow-hidden'}`}
-                          >
-                            {faq.answer}
-                          </div>
+                    <h3 className="text-3xl font-black mb-4">Plagiarism-Free Stats Answers + Free Turnitin Report</h3>
+                    <p className="text-gray-300 text-lg mb-6 leading-loose">
+                      We offer strict guarantees for completely original work on every order. You get <span className="text-white font-bold">custom files built from scratch</span> using your exact data and instructions. Every order includes a <span className="text-white font-bold">free originality report</span> to prove your work is unique and safe to submit — with <span className="text-white font-bold">zero artificial intelligence involvement</span> in your project.
+                    </p>
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      {[
+                        { icon: CheckCircle2, color: 'text-green-300', title: 'Free Turnitin Report', sub: '0% plagiarism guaranteed' },
+                        { icon: Brain, color: 'text-purple-300', title: 'Zero AI Involvement', sub: '100% human written' },
+                        { icon: BarChart, color: 'text-yellow-300', title: 'Built From Scratch', sub: 'Your data, your results' },
+                        { icon: Lock, color: 'text-pink-300', title: 'Full Ownership Rights', sub: 'Yours permanently' },
+                      ].map((item, i) => (
+                        <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                          <item.icon className={`w-6 h-6 ${item.color} mb-2`} />
+                          <p className="font-bold text-lg">{item.title}</p>
+                          <p className="text-gray-300 text-sm">{item.sub}</p>
                         </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-              {/* Support Widget */}
-              <aside className="w-full md:w-80 flex-shrink-0 flex flex-col items-center md:items-start">
-                <div className="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center text-center border border-gray-100 mt-0 md:mt-[38px] w-full">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Have more questions?</h3>
-                  <img
-                    src="/images/andrea head of support.avif"
-                    alt="Andrea, Head of Support"
-                    className="w-32 h-32 object-cover rounded-2xl shadow ring-2 ring-transparent hover:ring-emerald-200 focus:ring-emerald-300 transition-all duration-200 mb-4"
-                    loading="lazy"
-                    tabIndex={0}
-                  />
-                  <div className="font-medium text-gray-800 mb-1">Andrea, Head of Support</div>
-                  <Link
-                    to="/contact"
-                    className="mt-4 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 transform hover:scale-105 active:scale-95 hover:shadow-lg"
-                    aria-label="Contact support"
-                    tabIndex={0}
-                  >
-                    Contact support
-                  </Link>
-                </div>
-              </aside>
-            </div>
-          </div>
-        </section>
-
-        {/* ── SERVICES INTERLINK (Tabbed) ── */}
-        <section className="w-full py-12 rounded-2xl border-t border-gray-100 shadow-sm" style={{ background: '#F7FAFC' }}>
-          <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center md:items-start">
-            <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start mb-10 md:mb-0">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>Your #1 paper writing service</h2>
-              <p className="text-lg text-gray-600 mb-8 max-w-md">Our expert essay writers can tackle any academic task you entrust them with. Here are some of the services we offer.</p>
-              <Link
-                to="/writers"
-                className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold text-lg px-8 py-3 rounded-xl shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-300 focus:ring-offset-2"
-                style={{ textAlign: 'center' }}
-              >
-                Find your writer <span className="ml-2">→</span>
-              </Link>
-            </div>
-            <div className="flex-1 w-full">
-              {(() => {
-                const allServices = [
-                  { name: 'Essay Writing', link: '/services/essay-writing' },
-                  { name: 'Book Review', link: '/services/book-review' },
-                  { name: 'Term Paper', link: '/services/term-paper' },
-                  { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
-                  { name: 'Research Proposal', link: '/services/research-proposal' },
-                  { name: 'Thesis Writing', link: '/services/thesis-writing' },
-                  { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
-                  { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
-                  { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
-                  { name: 'Admission Essay', link: '/services/admission-essay' },
-                  { name: 'Case Study', link: '/services/case-study' },
-                  { name: 'Lab Report', link: '/services/lab-report' },
-                  { name: 'Homework Help', link: '/services/homework-help' },
-                  { name: 'Management Assignment Help', link: '/assignment-help/management' },
-                  { name: 'English Assignment Help', link: '/services/english-assignment-help' },
-                  { name: 'Programming Help', link: '/services/programming-help' },
-                  { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
-                  { name: 'Assignment Help', link: '/services/assignment-help' },
-                  { name: 'Narrative Essay', link: '/services/narrative-essay' },
-                  { name: 'Law Assignment Help', link: '/assignment-help/law' },
-                  { name: 'Statistics Assignment Help', link: '/assignment-help/statistics' },
-                ];
-                const paperwork = ['Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Case Study', 'Lab Report', 'Homework Help', 'Assignment Help', 'Narrative Essay', 'Law Assignment Help', 'Statistics Assignment Help'];
-                const coursework = ['Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'Management Assignment Help', 'English Assignment Help', 'Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Statistics Assignment Help'];
-                const other = ['Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Law Assignment Help', 'Statistics Assignment Help', 'Narrative Essay'];
-                const tabData = [
-                  { key: 'paperwork', label: 'Paperwork', services: paperwork.map(name => allServices.find(s => s.name === name)).filter(Boolean) },
-                  { key: 'coursework', label: 'Coursework / homework', services: coursework.map(name => allServices.find(s => s.name === name)).filter(Boolean) },
-                  { key: 'other', label: 'Other assignments', services: other.map(name => allServices.find(s => s.name === name)).filter(Boolean) },
-                ];
-                const [activeTab, setActiveTab] = React.useState('paperwork');
-                const active = tabData.find(t => t.key === activeTab) || tabData[0];
-                const filteredServices: { name: string; link: string }[] = (active.services.filter(Boolean) as { name: string; link: string }[]);
-                const columns: { name: string; link: string }[][] = [[], [], []];
-                filteredServices.forEach((s, i) => columns[i % 3].push(s));
-                return (
-                  <div className="w-full">
-                    <div className="flex gap-8 border-b border-gray-200 mb-6">
-                      {tabData.map(tab => {
-                        const isActive = activeTab === tab.key;
-                        return (
-                          <button
-                            key={tab.key}
-                            className={`relative pb-2 text-lg font-semibold transition-colors duration-200 tracking-tight focus:outline-none ${isActive ? 'text-primary-600' : 'text-gray-700 hover:text-primary-700'}`}
-                            style={{ background: 'none', outline: 'none' }}
-                            onClick={() => setActiveTab(tab.key)}
-                          >
-                            <span className={isActive ? 'text-primary-600' : ''}>{tab.label}</span>
-                            {isActive && (
-                              <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{ content: '""' }}></span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                      {columns.map((col, idx) => (
-                        <ul key={idx} className="space-y-2">
-                          {col.map(service => (
-                            <li key={service.name} className="text-[15px] text-gray-800 flex items-center gap-2">
-                              <span className="inline-block w-2 h-2 rounded-full bg-primary-200"></span>
-                              <Link
-                                to={service.link}
-                                className="transition-colors duration-150 font-normal text-gray-800 hover:text-primary-700 hover:font-medium focus:text-primary-600 focus:font-medium active:text-primary-600 active:font-medium"
-                                style={{ textDecoration: 'none' }}
-                              >
-                                {service.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
                       ))}
                     </div>
+                    <div className="bg-green-500 text-white px-6 py-3 rounded-xl inline-flex items-center gap-2 font-bold text-lg shadow-xl">
+                      <Trophy className="w-6 h-6" /> Your Data, Perfectly Analysed
+                    </div>
                   </div>
-                );
-              })()}
+                </div>
+
+                {/* Card 2 — Qualified University Experts */}
+                <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-[#1652A0]">
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <GraduationCap className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Qualified University Experts</h3>
+                  <p className="text-gray-600 leading-loose mb-6">
+                    We hire experienced writers with advanced degrees in data science and mathematics. They know exactly how to handle complex probability distributions and regression analysis problems to help you get top grades easily.
+                  </p>
+                  <ul className="space-y-3">
+                    {['Data science & maths degrees', 'Probability distributions', 'Regression analysis experts', 'SPSS, R & Python proficient'].map((item, i) => (
+                      <li key={i} className="flex items-center text-gray-700 font-medium">
+                        <CheckCircle2 className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" /> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Card 3 — On-Time Delivery */}
+                <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-purple-500">
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-400 to-pink-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <Zap className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">On-Time Delivery Commitment</h3>
+                  <p className="text-gray-600 leading-loose mb-6">
+                    You will never miss a deadline again. We offer fast delivery options to help you avoid late penalties. We can finish your project in just a few hours if you are in a rush.
+                  </p>
+                  <ul className="space-y-3">
+                    {['Rush delivery available', 'Same-day turnaround', 'Late penalty protection', 'Guaranteed on-time delivery'].map((item, i) => (
+                      <li key={i} className="flex items-center text-gray-700 font-medium">
+                        <Rocket className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0" /> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Card 4 — Direct Communication */}
+                <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-orange-500">
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <MessageCircle className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Responsive Support & Direct Communication</h3>
+                  <p className="text-gray-600 leading-loose mb-6">
+                    Need statistics assignment help right now? Our customer support team works around the clock. You can chat with your statistics assignment helper online directly to share ideas and ask questions at any stage.
+                  </p>
+                  <ul className="space-y-3">
+                    {['24/7 customer support', 'Direct solver chat', 'Share your dataset & rubric', 'Instant responses'].map((item, i) => (
+                      <li key={i} className="flex items-center text-gray-700 font-medium">
+                        <Headphones className="w-5 h-5 text-orange-500 mr-3 flex-shrink-0" /> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Card 5 — Free Revisions */}
+                <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-red-500">
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-red-400 to-rose-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <RefreshCw className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Free Revisions Policy</h3>
+                  <p className="text-gray-600 leading-loose mb-6">
+                    Your happiness is our main goal. We offer a free revision period so your coursework turns out exactly as you want. We will keep refining outputs, charts, and interpretations until every result is perfect.
+                  </p>
+                  <ul className="space-y-3">
+                    {['Free revision window', 'Charts & graphs corrected', 'Interpretations refined', 'Zero additional costs'].map((item, i) => (
+                      <li key={i} className="flex items-center text-gray-700 font-medium">
+                        <Edit3 className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" /> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Card 6 — Privacy */}
+                <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-indigo-500">
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-400 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <Lock className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Privacy Guaranteed</h3>
+                  <p className="text-gray-600 leading-loose mb-6">
+                    Your personal details are completely safe with us. We protect your academic data with strong encryption when you pay for statistics assignment help in Canada, the UK, the US, or anywhere else.
+                  </p>
+                  <ul className="space-y-3">
+                    {['256-bit SSL encryption', 'Data never shared', 'Zero data sharing', 'GDPR compliant'].map((item, i) => (
+                      <li key={i} className="flex items-center text-gray-700 font-medium">
+                        <Shield className="w-5 h-5 text-indigo-500 mr-3 flex-shrink-0" /> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-16 text-center">
+                <Link
+                  to="/order-now"
+                  className="inline-flex items-center gap-3 px-10 py-5 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg"
+                >
+                  Get My Statistics Assignment Done Today <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── FINAL CTA (Dark Background) ── */}
-        <section className="w-full bg-gray-900 py-16 px-4">
-          <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Ready to Get Better Grades Today?</h2>
-            <p className="text-lg text-gray-300 mb-8 max-w-2xl">
-              Stop stressing over your coursework. Let our professional experts handle your data analysis and testing. Get reliable statistics assignment help today.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center mb-8">
-              <a
-                href="/order-now"
-                className="inline-block px-10 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white text-lg font-bold shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105"
-              >
-                Start Your Statistics Assignment Now
-              </a>
-              <a
-                href="#samples"
-                className="inline-block px-10 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-lg font-bold border border-white/20 shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2"
-              >
-                Browse Samples
-              </a>
-            </div>
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-6 text-gray-400 text-sm">
-              <span className="flex items-center gap-2">
-                <span>🛡️</span> Plagiarism Free Stats Answers
-              </span>
-              <span className="flex items-center gap-2">
-                <span>🔄</span> Revisions Included
-              </span>
-              <span className="flex items-center gap-2">
-                <span>🔒</span> 100% Confidential
-              </span>
+        {/* ── STATISTICS SERVICES ───────────────────────────────────────────── */}
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-5 py-2 rounded-full text-sm font-semibold mb-4">
+                  STATISTICS HELP SERVICES WE OFFER
+                </div>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">
+                  Statistics Assignment Help & Related Services We Offer
+                </h2>
+                <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-[1.8]">
+                  At EssayEmbassy, we specialize in providing top-quality university statistics assignment help. Statistics classes require you to understand many different topics and analyze quantitative research data. When you find yourself thinking, "I need to pay someone to do statistics assignment tasks," we are here for you — offering the best statistics assignment help for university students worldwide.
+                </p>
+                <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-[1.8] mt-4">
+                  Whether you need statistics assignment help in the UK, Australia, Canada, or the US, our experts can assist. Our team handles everything from basic probability to advanced ANOVA testing, and we use tools like R programming for stats to make sure you get accurate statistical calculations every single time.
+                </p>
+              </div>
+              <StatisticsServicesGrid />
+              <div className="mt-12 bg-gray-50 rounded-2xl p-10 text-center border border-gray-200">
+                <h3 className="text-2xl font-bold text-[#0B1F42] mb-3">Ready to Get Top Grades on Your Statistics Assignment?</h3>
+                <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                  Every solution is built using your exact data — accurate calculations, clear charts, and full written interpretations included.
+                </p>
+                <Link
+                  to="/order-now"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#1652A0] text-white font-bold rounded-xl hover:bg-[#0B1F42] transition-all shadow-md"
+                >
+                  Order Statistics Assignment Help Now <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ── JOIN OUR HAPPY CLIENTS ── */}
-        <section className="pt-10 pb-0 bg-[#F7FAFC] w-full px-4 md:px-0">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-5xl mx-auto py-14">
-            <img
-              src="/images/logo.png"
-              alt="Essay Embassy Logo"
-              className="w-36 h-36 object-contain mb-4 md:mb-0 md:mr-10 shadow-lg rounded-2xl bg-white/80"
-              loading="lazy"
-              style={{ boxShadow: '0 8px 32px 0 rgba(16, 185, 129, 0.10)' }}
-            />
-            <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
-              <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4">Join our 5,000+ happy clients</h2>
-              <ul className="text-gray-700 text-base md:text-lg mb-6 list-disc list-inside">
-                <li className="flex items-center gap-3 mb-2"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>20,000+ papers delivered with a 98% success rate</li>
-                <li className="flex items-center gap-3 mb-2"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>Get original papers written according to your instructions</li>
-                <li className="flex items-center gap-3"><span className="flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6ee7b7" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#059669" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>Save time for what matters most</li>
-              </ul>
+        {/* ── HOW IT WORKS ─────────────────────────────────────────────────── */}
+        <section className="py-24 bg-[#F8FAFC]">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-5 py-2 rounded-full text-sm font-semibold mb-4">
+                  HOW IT WORKS
+                </div>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">
+                  Simple Process, Powerful Results
+                </h2>
+                <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-[1.8]">
+                  A streamlined four-step process designed to get your statistics assignment solved and submitted on time. Get started in minutes.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                {[
+                  {
+                    step: '1', icon: FileText,
+                    stepBg: 'bg-[#1652A0]', iconBg: 'bg-[#1652A0]/10', iconText: 'text-[#1652A0]',
+                    badgeBg: 'bg-[#1652A0]/10', badgeText: 'text-[#1652A0]', checkColor: 'text-[#1652A0]',
+                    title: 'Submit Your Requirements',
+                    desc: 'Fill out our simple order form. Upload your instructions and tell us your deadline. Provide your grading rubric. Let us know if you need help with SPSS data analysis or basic math tasks and we will take it from there.',
+                    highlight: 'Takes 2 minutes',
+                    features: ['Secure file upload', 'Share your rubric & dataset', 'Set your deadline', 'Request SPSS or R help'],
+                  },
+                  {
+                    step: '2', icon: Users,
+                    stepBg: 'bg-[#0B1F42]', iconBg: 'bg-[#0B1F42]/10', iconText: 'text-[#0B1F42]',
+                    badgeBg: 'bg-[#0B1F42]/10', badgeText: 'text-[#0B1F42]', checkColor: 'text-[#0B1F42]',
+                    title: 'Get Matched with an Expert',
+                    desc: 'We match you with stats assignment solvers who understand your exact subject. Your writer will have the right academic background in data science or mathematics to help you succeed.',
+                    highlight: 'Subject-matched solver',
+                    features: ['Expert solver profiles', 'Subject-area match', 'Verified advanced degrees', 'Choose your expert'],
+                  },
+                  {
+                    step: '3', icon: LineChart,
+                    stepBg: 'bg-[#10B981]', iconBg: 'bg-[#10B981]/10', iconText: 'text-[#10B981]',
+                    badgeBg: 'bg-[#10B981]/10', badgeText: 'text-[#10B981]', checkColor: 'text-[#10B981]',
+                    title: 'Track Progress & Communicate',
+                    desc: 'Stay in touch with your writer throughout the process. You can monitor the progress of your coursework and ask questions at any time to ensure every calculation and result is exactly right.',
+                    highlight: 'Full transparency guaranteed',
+                    features: ['24/7 access', 'Live tracking', 'Direct solver chat', 'Ask questions anytime'],
+                  },
+                  {
+                    step: '4', icon: Trophy,
+                    stepBg: 'bg-[#D4A853]', iconBg: 'bg-[#D4A853]/10', iconText: 'text-[#D4A853]',
+                    badgeBg: 'bg-[#D4A853]/10', badgeText: 'text-[#D4A853]', checkColor: 'text-[#D4A853]',
+                    title: 'Download & Submit',
+                    desc: 'Receive your completed task by the deadline. Download your finished files — accurate calculations, clean charts, and clear written interpretations — and submit your coursework with total confidence.',
+                    highlight: 'On-time guarantee',
+                    features: ['Instant download', 'Free Turnitin report', 'Free revisions', 'Submit with confidence'],
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-gray-200 hover:border-[#1652A0] group">
+                    <div className="flex items-start gap-6">
+                      <div className={`flex-shrink-0 w-14 h-14 rounded-full ${item.stepBg} flex items-center justify-center text-white text-xl font-bold shadow-md group-hover:scale-110 transition-transform`}>
+                        {item.step}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className={`w-10 h-10 rounded-lg ${item.iconBg} flex items-center justify-center ${item.iconText}`}>
+                            <item.icon className="w-6 h-6" />
+                          </div>
+                          <h3 className="text-xl font-bold text-[#0B1F42]">{item.title}</h3>
+                        </div>
+                        <p className="text-gray-600 leading-loose mb-4">{item.desc}</p>
+                        <div className={`inline-block ${item.badgeBg} ${item.badgeText} px-4 py-2 rounded-lg text-sm font-semibold mb-4`}>
+                          ✓ {item.highlight}
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          {item.features.map((f, idx) => (
+                            <div key={idx} className="flex items-center text-sm text-gray-600">
+                              <CheckCircle className={`w-4 h-4 ${item.checkColor} mr-2`} /> {f}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="text-center bg-[#0B1F42] rounded-2xl p-10">
+                <h3 className="text-2xl font-bold text-white mb-3">Ready to Get Top Grades on Your Statistics Assignment?</h3>
+                <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Your accurately solved, submission-ready coursework is just one step away.</p>
+                <Link
+                  to="/order-now"
+                  className="px-10 py-4 bg-[#D4A853] text-[#0B1F42] font-bold text-lg rounded-xl hover:bg-[#C49843] transition-all shadow-md inline-flex items-center gap-3"
+                >
+                  Place Your Order <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── PRICING ──────────────────────────────────────────────────────── */}
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                    TRANSPARENT PRICING
+                  </div>
+                  <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+                    Affordable Statistics Assignment Help Pricing
+                  </h2>
+                  <p className="text-lg text-gray-600 mb-8 leading-loose">
+                    Our rates start at just $16.00 per order for basic college levels. Pricing updates in real time with no surprises — making professional statistics homework help accessible for every student.
+                  </p>
+                  <div className="space-y-4">
+                    {[
+                      { icon: DollarSign, title: 'Starting at $16.00/page', desc: 'Transparent pricing with zero hidden costs.' },
+                      { icon: FileCheck, title: 'No Hidden Fees', desc: 'Pay only for the text you need. Pricing updates in real time.' },
+                      { icon: Award, title: 'Free Features Included', desc: 'Free title page, free formatting, and direct chat with every order.' },
+                      { icon: Shield, title: 'Satisfaction Promise', desc: 'Free revisions and a secure money-back guarantee to protect your funds.' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center text-[#1652A0] flex-shrink-0 border border-gray-200">
+                          <item.icon className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900 mb-0.5">{item.title}</h4>
+                          <p className="text-gray-600 text-sm">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <PriceCalculator />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── GUARANTEES ───────────────────────────────────────────────────── */}
+        <section className="py-24 bg-[#0B1F42] text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+          </div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <div className="inline-block bg-white/10 backdrop-blur-sm text-white px-5 py-2 rounded-full text-sm font-semibold mb-6 border border-white/20">
+                  OUR COMMITMENTS
+                </div>
+                <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Our Guarantees to You</h2>
+                <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-[1.8]">
+                  Commitments we take seriously with every statistics assignment we solve and deliver.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                {[
+                  {
+                    icon: Trophy,
+                    title: 'Quality Commitment',
+                    description: 'Our experts write perfectly structured papers. We make sure your charts, graphs, and data models are completely accurate and clearly interpreted.',
+                  },
+                  {
+                    icon: Clock,
+                    title: 'On-Time Delivery',
+                    description: 'We always meet your deadlines so you can submit your coursework on time. Missing a submission window is never an option.',
+                  },
+                  {
+                    icon: RefreshCw,
+                    title: 'Free Revisions',
+                    description: 'We revise your paper for free until it matches your exact needs perfectly — calculations, outputs, charts, and written reports all adjusted.',
+                  },
+                  {
+                    icon: Lock,
+                    title: 'Privacy First',
+                    description: 'Strict confidentiality policies keep your academic and payment data completely safe. Your work and data are never shared with anyone.',
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl hover:bg-white/20 transition-all group">
+                    <div className="w-16 h-16 rounded-xl bg-[#1652A0] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                      <item.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-black mb-4">{item.title}</h3>
+                    <p className="text-gray-300 leading-[1.8] text-sm">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="text-center bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
+                <h3 className="text-2xl font-bold mb-3">We Stand Behind Every Statistics Assignment We Deliver</h3>
+                <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Confidence in quality and integrity is at the core of everything we do.</p>
+                <Link
+                  to="/guarantees"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#1652A0] font-bold rounded-xl hover:bg-gray-100 transition-all"
+                >
+                  Learn More About Our Guarantees <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── TESTIMONIALS ─────────────────────────────────────────────────── */}
+        <section className="py-24 bg-[#F8FAFC]">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <div
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold mb-6"
+                  style={{ background: 'linear-gradient(135deg, rgba(212,168,83,0.12) 0%, rgba(212,168,83,0.06) 100%)', border: '1px solid rgba(212,168,83,0.3)', color: '#D4A853' }}
+                >
+                  <Star className="w-4 h-4" /> CLIENT REVIEWS
+                </div>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">Testimonials & Statistics Assignment Examples</h2>
+                <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-[1.8]">
+                  Authentic reviews from verified students who improved their grades with our statistics assignment help.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {[
+                  { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Data Science', rating: 5, text: 'I told them to do my statistics assignment for my class. The research was perfect. This is the best statistics assignment help for university.' },
+                  { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Probability', rating: 5, text: 'I needed university statistics assignment help for a tough paper. The probability distributions were completely accurate and delivered early.' },
+                  { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Research Methods', rating: 4.9, text: 'My expert provided amazing help with SPSS data analysis. The formatting was excellent and totally original.' },
+                  { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Analytics', rating: 5, text: 'Long-time fan here. I use this statistics assignment helper online often. The writing is always flawless and avoids plagiarism completely.' },
+                  { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Applied Math', rating: 5, text: 'I had to pay someone to do statistics assignment tasks for my class. The ANOVA testing was deeply engaging and very professional.' },
+                  { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'R Programming', rating: 4.8, text: 'If you need stats assignment solvers online, use this site. They used excellent R programming for stats and helped me meet a very tight deadline.' },
+                ].map((review, i) => (
+                  <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <span className="font-semibold text-[#0B1F42]">{review.name}</span>
+                        <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-[#10B981]/10 text-[#10B981]">{review.tag}</span>
+                      </div>
+                      <span className="text-xs text-gray-400">{review.date}</span>
+                    </div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xs font-medium text-[#1652A0] bg-[#1652A0]/5 px-3 py-1 rounded-full">{review.subject}</span>
+                      <div className="flex items-center gap-1">
+                        {[...Array(Math.floor(review.rating))].map((_, idx) => (
+                          <Star key={idx} className="w-3.5 h-3.5 text-[#D4A853] fill-[#D4A853]" />
+                        ))}
+                        {review.rating % 1 !== 0 && (
+                          <span className="text-xs text-[#D4A853] font-bold ml-0.5">{review.rating}</span>
+                        )}
+                      </div>
+                    </div>
+                    <p className="text-gray-600 leading-[1.8] text-[14px]">"{review.text}"</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 text-center">
+                <Link
+                  to="/reviews"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-[#0B1F42] hover:bg-[#1652A0] text-white font-bold rounded-xl transition-all shadow-md"
+                >
+                  See All Reviews <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── FAQ ──────────────────────────────────────────────────────────── */}
+        <section className="py-24 bg-gray-50">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="text-center mb-16">
+              <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-5 py-2 rounded-full text-sm font-semibold mb-6">
+                FREQUENTLY ASKED QUESTIONS
+              </div>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6">Common Questions Answered</h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">Clear, honest answers to help you make an informed decision.</p>
+            </div>
+            <div className="space-y-4">
+              <FAQItem
+                question="How much does statistics assignment help cost?"
+                answer="Our pricing starts at just $16.00 per order. The final cost depends on your academic level, deadline, and length. Ordering early gets you the lowest price possible — use our live calculator above for an instant, transparent quote."
+              />
+              <FAQItem
+                question="Who can do my statistics assignment fast?"
+                answer="Our professional writers can handle urgent tasks easily. We can complete your order in just a few hours to help you avoid last-minute stress — whether your deadline is days away or just a few hours."
+              />
+              <FAQItem
+                question="How do your experts perform SPSS data analysis?"
+                answer="Our experts use proven methods for SPSS data analysis. They input your quantitative research data into the software, run the necessary tests like ANOVA or regression, and provide clear reports explaining the results — so you receive both accurate outputs and a full written interpretation."
+              />
+              <FAQItem
+                question="Is it safe to get stats assignment help online?"
+                answer="Yes. We keep your personal details completely private and never share them with third parties. We also use secure payment methods to protect your financial information. Our service is completely safe and secure to use anywhere in the world."
+              />
+              <FAQItem
+                question="Can I get help with a masters level statistics assignment?"
+                answer="Absolutely. We provide excellent assistance for all college and university levels. Our native English experts have advanced Master's and PhD degrees in data science, mathematics, and related fields. They can easily tackle the most complex projects for higher education — from undergraduate probability to graduate-level econometrics."
+              />
+            </div>
+            <div className="mt-12 bg-[#1652A0] rounded-2xl p-10 text-white text-center">
+              <h3 className="text-2xl font-bold mb-3">Still Have Questions?</h3>
+              <p className="text-gray-200 mb-6">Our 24/7 support team is always ready to help you.</p>
               <Link
-                to="/order-now"
-                className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-3 rounded-xl shadow-md transition-all duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105 active:scale-95"
+                to="/contact"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#1652A0] font-bold rounded-xl hover:bg-gray-100 transition-all shadow-md"
               >
-                Place an order
+                <Headphones className="w-5 h-5" /> Contact Support
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── FINAL CTA ─────────────────────────────────────────────────────── */}
+        <section className="py-24 bg-[#0B1F42]">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-6 leading-tight">
+                Ready to Get Better Grades Today?
+              </h2>
+              <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-loose">
+                Stop stressing over your coursework. Let our professional experts handle your data analysis and testing. Get reliable statistics assignment help today.
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
+                <Link
+                  to="/order-now"
+                  className="px-10 py-5 bg-[#D4A853] hover:bg-[#C49843] text-[#0B1F42] font-bold text-lg rounded-xl transition-all shadow-lg inline-flex items-center justify-center gap-3"
+                >
+                  Start Your Statistics Assignment Now <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
+                  to="/samples"
+                  className="px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold text-lg rounded-xl transition-all border border-white/20 inline-flex items-center gap-3"
+                >
+                  <FileCheck className="w-5 h-5" /> Browse Samples
+                </Link>
+              </div>
+              <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+                {[
+                  { icon: ShieldCheck, text: 'Plagiarism-Free Stats Answers' },
+                  { icon: RefreshCw, text: 'Revisions Included' },
+                  { icon: Lock, text: '100% Confidential' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <item.icon className="w-4 h-4 text-[#D4A853]" />
+                    <span className="font-medium">{item.text}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>

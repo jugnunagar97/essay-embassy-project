@@ -25,19 +25,6 @@ import {
     Lock,
     Edit3,
     FileCheck,
-    TrendingUp,
-    Scale,
-    Briefcase,
-    Calculator,
-    Code,
-    FlaskConical,
-    Cpu,
-    Monitor,
-    Heart,
-    PieChart,
-    BarChart2,
-    BookMarked,
-    Layers,
     Terminal,
     GitBranch,
     Bug,
@@ -179,137 +166,124 @@ const PriceCalculator = () => {
     );
 };
 
-// ─── Assignment Services Grid ─────────────────────────────────────────────────
-const AssignmentServicesGrid = () => {
+// ─── Programming Sub-Services Grid ─────────────────────────────────────────────────────
+const ProgrammingServicesGrid = () => {
     const services = [
         {
-            emoji: '💻',
-            icon: Code,
-            title: 'Programming Assignment Help',
-            description: 'Expert coding homework help across all major languages and frameworks — Python, Java, C++, JavaScript, SQL, R, MATLAB, and more. Clean, well-commented code built from scratch with step-by-step explanations included.',
-            features: ['Python, Java, C++, JavaScript', 'Algorithm design & analysis', 'Debugging & error fixing', 'Free code comments & explanations'],
-            cta: 'Do My Programming Assignment',
-            slug: '/assignment-help/programming',
+            emoji: '🐍',
+            title: 'Python Assignment Help',
+            description: 'Need python assignment help? We offer top-rated python homework help for all your coding tasks. Get reliable python programming assignment help for scripts, automation, and data tasks without the stress.',
+            features: ['Scripts & automation', 'Data tasks', 'Web scraping', 'Bug-free code'],
+            cta: 'Get Python Help',
+            slug: '/assignment-help/programming/python',
             popular: true,
         },
         {
-            emoji: '📊',
-            icon: Briefcase,
-            title: 'Management Assignment Help',
-            description: 'Expert business and management papers covering strategy, HR, operations, supply chain, and organizational behavior — all built from scratch by MBA-qualified writers.',
-            features: ['Strategic management case studies', 'SWOT & PESTLE analysis', 'Organizational behavior', 'APA & Harvard formatting'],
-            cta: 'Do My Management Assignment',
-            slug: '/assignment-help/management',
-            popular: false,
-        },
-        {
-            emoji: '➕',
-            icon: Calculator,
-            title: 'Math Assignment Help',
-            description: 'Step-by-step math solutions across all topics — algebra, calculus, statistics, geometry, discrete math, and more. Every working shown clearly.',
-            features: ['Algebra equations & calculus', 'Statistics data analysis', 'Geometry proofs', 'Step-by-step explanations'],
-            cta: 'Do My Math Assignment',
-            slug: '/assignment-help/math',
-            popular: false,
-        },
-        {
-            emoji: '🔬',
-            icon: FlaskConical,
-            title: 'Science Assignment Help',
-            description: 'Accurate science assignments across biology, chemistry, physics, and earth sciences. Expert-written lab reports, essays, and research tasks.',
-            features: ['Biology, chemistry, physics', 'Lab report writing', 'Research & analysis', 'Peer-reviewed sources'],
-            cta: 'Do My Science Assignment',
-            slug: '/assignment-help/science',
-            popular: false,
+            emoji: '☕',
+            title: 'Java Assignment Help',
+            description: 'Looking for java assignment help? Our coders can handle any project. If you\'re thinking "do my java assignment," we provide the best java programming assignment help for apps and software development.',
+            features: ['Object-oriented design', 'GUI development', 'Spring Boot apps', 'Clean coding'],
+            cta: 'Get Java Help',
+            slug: '/assignment-help/programming/java',
+            popular: true,
         },
         {
             emoji: '⚙️',
-            icon: Cpu,
-            title: 'Engineering Assignment Help',
-            description: 'Technical engineering solutions across civil, mechanical, electrical, and software disciplines. Precise calculations and detailed explanations.',
-            features: ['Civil, mechanical, electrical', 'Technical calculations', 'CAD & design tasks', 'Detailed explanations'],
-            cta: 'Do My Engineering Assignment',
-            slug: '/assignment-help/engineering',
+            title: 'C / C++ Assignment Help',
+            description: 'Get solid c programming assignment help and c++ assignment help for your tough memory management and systems coding tasks. We deliver fast and clear cpp homework help so you never fall behind.',
+            features: ['Memory management', 'Systems programming', 'Game development', 'Pointer logic'],
+            cta: 'Get C/C++ Help',
+            slug: '/assignment-help/programming/c-cpp',
             popular: false,
         },
         {
-            emoji: '🖥️',
-            icon: Monitor,
-            title: 'MS Office Assignment Help',
-            description: 'Professional help with Word, Excel, PowerPoint, and Access assignments. Spreadsheets, presentations, databases, and formatted documents done right.',
-            features: ['Excel formulas & macros', 'PowerPoint presentations', 'Word formatting & reports', 'Access database tasks'],
-            cta: 'Do My MS Office Assignment',
-            slug: '/assignment-help/ms-office',
+            emoji: '🌐',
+            title: 'JavaScript Assignment Help',
+            description: 'Struggling with front-end or back-end? Get reliable javascript assignment help and js programming assignment help for Node, React, or vanilla JS. Our javascript homework help makes web coding easy.',
+            features: ['React & Angular', 'Node.js backends', 'DOM manipulation', 'Async programming'],
+            cta: 'Get JavaScript Help',
+            slug: '/assignment-help/programming/javascript',
             popular: false,
         },
         {
-            emoji: '🏥',
-            icon: Heart,
-            title: 'Nursing Assignment Help',
-            description: 'Evidence-based nursing assignments written by healthcare experts. Care plans, case studies, reflective journals, and clinical analysis all covered.',
-            features: ['Evidence-based practice', 'Care plan writing', 'Clinical case studies', 'Reflective journals'],
-            cta: 'Do My Nursing Assignment',
-            slug: '/assignment-help/nursing',
+            emoji: '📊',
+            title: 'R Programming Assignment Help',
+            description: 'We offer top-notch r programming assignment help for all your data analysis needs. Get accurate statistics r assignment help and r studio assignment help for graphing, modeling, and data wrangling tasks.',
+            features: ['Data analysis', 'Statistical modeling', 'Data visualization', 'R Studio projects'],
+            cta: 'Get R Programming Help',
+            slug: '/assignment-help/programming/r',
             popular: false,
         },
         {
             emoji: '📈',
-            icon: TrendingUp,
-            title: 'Economics Assignment Help',
-            description: 'Clear, well-researched economics assignments covering microeconomics, macroeconomics, econometrics, and behavioral economics.',
-            features: ['Micro & macroeconomics', 'Econometrics & modelling', 'Policy analysis', 'Data interpretation'],
-            cta: 'Do My Economics Assignment',
-            slug: '/assignment-help/economics',
+            title: 'MATLAB Assignment Help',
+            description: 'Need quick matlab assignment help? We provide expert matlab programming assignment help for matrix logic, plotting, and simulations. Get the best matlab homework help without the headaches.',
+            features: ['Matrix calculations', 'Data plotting', 'Simulink models', 'Algorithm design'],
+            cta: 'Get MATLAB Help',
+            slug: '/assignment-help/programming/matlab',
             popular: false,
         },
         {
-            emoji: '💰',
-            icon: PieChart,
-            title: 'Finance Assignment Help',
-            description: 'Accurate finance assignments covering corporate finance, investment analysis, financial modelling, and portfolio management.',
-            features: ['Corporate finance', 'Investment analysis', 'Financial modelling', 'Portfolio management'],
-            cta: 'Do My Finance Assignment',
-            slug: '/assignment-help/finance',
+            emoji: '🗄️',
+            title: 'SQL & Database Assignment Help',
+            description: 'Get the best database assignment help and sql assignment help for writing complex queries and designing schemas. Our clear sql homework help covers MySQL, PostgreSQL, Oracle, and more.',
+            features: ['Database design', 'Complex SQL queries', 'Schema normalization', 'NoSQL setups'],
+            cta: 'Get SQL Help',
+            slug: '/assignment-help/programming/sql-database',
             popular: false,
         },
         {
-            emoji: '🧾',
-            icon: BarChart2,
-            title: 'Accounting Assignment Help',
-            description: 'Precise accounting assignments covering financial statements, management accounting, auditing, and tax calculations.',
-            features: ['Financial statements', 'Management accounting', 'Auditing & compliance', 'Tax calculations'],
-            cta: 'Do My Accounting Assignment',
-            slug: '/assignment-help/accounting',
+            emoji: '🎨',
+            title: 'HTML & CSS Assignment Help',
+            description: 'Searching for web development assignment help? We provide reliable html css assignment help and focused html assignment help to build responsive, beautiful layouts from scratch.',
+            features: ['Responsive layouts', 'Flexbox & Grid', 'Animations', 'Clean markup'],
+            cta: 'Get HTML/CSS Help',
+            slug: '/assignment-help/programming/html-css',
             popular: false,
         },
         {
-            emoji: '⚖️',
-            icon: Scale,
-            title: 'Law Assignment Help',
-            description: 'Well-argued law assignments covering contract law, criminal law, tort law, constitutional law, and international law.',
-            features: ['Contract & tort law', 'Criminal & constitutional law', 'Case law analysis', 'OSCOLA/Bluebook citations'],
-            cta: 'Do My Law Assignment',
-            slug: '/assignment-help/law',
+            emoji: '🧩',
+            title: 'Data Structures & Algorithms Assignment Help',
+            description: 'Master your coding logic with our dsa assignment help. We offer clear data structures assignment help and step-by-step algorithms assignment help to solve trees, graphs, and sorting problems easily.',
+            features: ['Trees & graphs', 'Sorting & searching', 'Time complexity', 'Dynamic programming'],
+            cta: 'Get DSA Help',
+            slug: '/assignment-help/programming/data-structures-algorithms',
+            popular: true,
+        },
+        {
+            emoji: '🤖',
+            title: 'Machine Learning Assignment Help',
+            description: 'Looking for machine learning assignment help? We provide accurate ml assignment help and machine learning homework help for training models, neural networks, and predictive tasks.',
+            features: ['Training models', 'Neural networks', 'Data preprocessing', 'Predictive tasks'],
+            cta: 'Get ML Help',
+            slug: '/assignment-help/programming/machine-learning',
             popular: false,
         },
         {
-            emoji: '📉',
-            icon: Layers,
-            title: 'Statistics Assignment Help',
-            description: 'Clear statistical solutions covering descriptive stats, hypothesis testing, regression analysis, and data visualization.',
-            features: ['Descriptive & inferential stats', 'Hypothesis testing', 'Regression analysis', 'SPSS & R support'],
-            cta: 'Do My Statistics Assignment',
-            slug: '/assignment-help/statistics',
+            emoji: '🧠',
+            title: 'Artificial Intelligence Assignment Help',
+            description: 'Get expert ai assignment help and artificial intelligence assignment help for logic systems, search algorithms, and intelligent agents. We offer the best ai homework help to clear up complex AI concepts.',
+            features: ['Search algorithms', 'Intelligent agents', 'Logic systems', 'Natural language'],
+            cta: 'Get AI Help',
+            slug: '/assignment-help/programming/artificial-intelligence',
             popular: false,
         },
         {
-            emoji: '🌍',
-            icon: BookMarked,
-            title: 'Humanities Assignment Help',
-            description: 'Well-researched humanities assignments covering history, philosophy, sociology, cultural studies, and political science.',
-            features: ['History & philosophy', 'Sociology & cultural studies', 'Political science', 'Critical analysis'],
-            cta: 'Do My Humanities Assignment',
-            slug: '/assignment-help/humanities',
+            emoji: '🐘',
+            title: 'PHP Assignment Help',
+            description: 'Building dynamic sites? Get reliable php assignment help and php homework help for Laravel, CRUD apps, and server-side scripting. Our php programming assignment help makes back-end simple.',
+            features: ['Laravel framework', 'CRUD operations', 'Server-side scripts', 'Session handling'],
+            cta: 'Get PHP Help',
+            slug: '/assignment-help/programming/php',
+            popular: false,
+        },
+        {
+            emoji: '💻',
+            title: 'Assembly Language Assignment Help',
+            description: 'Tackling low-level code? Get expert assembly language assignment help and asm assignment help for registers and memory. We provide accurate assembly programming assignment help so your code runs perfectly.',
+            features: ['Low-level coding', 'Register management', 'Memory allocation', 'Microprocessor tasks'],
+            cta: 'Get Assembly Help',
+            slug: '/assignment-help/programming/assembly-language',
             popular: false,
         },
     ];
@@ -317,8 +291,8 @@ const AssignmentServicesGrid = () => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
-                <div
-                    key={index}
+                <div 
+                    key={index} 
                     className={`bg-white rounded-2xl p-6 border-2 ${service.popular ? 'border-[#1652A0] shadow-xl' : 'border-gray-200 shadow-lg'} hover:shadow-2xl transition-all duration-300 group relative overflow-hidden`}
                 >
                     {service.popular && (
@@ -329,8 +303,12 @@ const AssignmentServicesGrid = () => {
                     <div className="w-16 h-16 rounded-xl bg-gray-50 flex items-center justify-center mb-5 group-hover:scale-110 transition-all text-3xl">
                         {service.emoji}
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1652A0] transition-colors leading-snug">{service.title}</h3>
-                    <p className="text-gray-600 mb-6 leading-[1.7] text-[15px]">{service.description}</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1652A0] transition-colors leading-snug">
+                        {service.title}
+                    </h3>
+                    <p className="text-gray-600 mb-6 leading-[1.7] text-[15px]">
+                        {service.description}
+                    </p>
                     <ul className="space-y-2.5 mb-6">
                         {service.features.map((f, idx) => (
                             <li key={idx} className="flex items-start text-sm text-gray-700">
@@ -339,10 +317,9 @@ const AssignmentServicesGrid = () => {
                             </li>
                         ))}
                     </ul>
-                    {/* ✅ Each card links to its own slug */}
                     <Link
                         to={service.slug}
-                        className={`w-full px-4 py-3 ${service.popular ? 'bg-[#1652A0] text-white hover:bg-[#0B1F42]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg`}
+                        className="w-full px-4 py-3 bg-[#1652A0]/10 text-[#1652A0] hover:bg-[#1652A0] hover:text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg"
                     >
                         {service.cta} <ArrowRight className="w-4 h-4" />
                     </Link>
@@ -597,7 +574,7 @@ export default function ProgrammingAssignmentHelp() {
                                     Whether you need programming assignment help in the UK, Australia, Canada, or the US, our experts can assist. We provide the best programming assignment writing service to help you pass your computer science coursework.
                                 </p>
                             </div>
-                            <AssignmentServicesGrid />
+                            <ProgrammingServicesGrid />
                             <div className="mt-12 bg-gray-50 rounded-2xl p-10 text-center border border-gray-200">
                                 <h3 className="text-2xl font-bold text-[#0B1F42] mb-3">Ready to Get Top Grades on Your Programming Assignment?</h3>
                                 <p className="text-gray-600 mb-6 max-w-2xl mx-auto">

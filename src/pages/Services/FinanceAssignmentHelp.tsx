@@ -173,15 +173,6 @@ const PriceCalculator = () => {
 const FinanceServicesGrid = () => {
   const services = [
     {
-      emoji: '💰',
-      title: 'Finance Assignment Help',
-      description: 'Expert help across all finance topics. Our masters and PhD-qualified writers handle everything from basic financial statement analysis to complex portfolio management tasks.',
-      features: ['Corporate & managerial finance', 'Investment valuation models', 'Portfolio management tasks', 'Financial statement analysis'],
-      cta: 'Do My Finance Assignment',
-      slug: '/assignment-help/finance',
-      popular: true,
-    },
-    {
       emoji: '🏦',
       title: 'Corporate Finance Assignment Help',
       description: 'Precise corporate finance assignments covering capital structure, dividend policy, capital budgeting, mergers and acquisitions, and firm valuation.',
@@ -282,7 +273,7 @@ const FinanceServicesGrid = () => {
           </ul>
           <Link
             to={service.slug}
-            className={`w-full px-4 py-3 ${service.popular ? 'bg-[#1652A0] text-white hover:bg-[#0B1F42]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg`}
+            className="w-full px-4 py-3 bg-[#1652A0]/10 text-[#1652A0] hover:bg-[#1652A0] hover:text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg"
           >
             {service.cta} <ArrowRight className="w-4 h-4" />
           </Link>

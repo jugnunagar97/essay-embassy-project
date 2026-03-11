@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   BookOpen,
   FileText,
@@ -7,449 +7,178 @@ import {
   FileCheck,
   Layout,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  CheckCircle2
 } from 'lucide-react';
 
 interface ServiceItem {
   id: string;
   title: string;
   description: string;
-  price: string;
   icon: React.ComponentType<any>;
   popular?: boolean;
   features: string[];
+  link: string;
+  cta: string;
 }
 
 const services: ServiceItem[] = [
   {
+    id: 'essay-writing',
+    title: 'Essay Writing Services',
+    description: 'From argumentative to narrative essays, we craft compelling, original papers that strictly adhere to your academic requirements.',
+    icon: PenTool,
+    popular: true,
+    features: ['100% Plagiarism-free', 'Any citation style', 'Free revisions', 'A+ Grade Guarantee'],
+    link: '/essay-writing',
+    cta: 'Explore Essay Writing'
+  },
+  {
     id: 'assignment-help',
     title: 'Assignment Help',
     description: 'Struggling with complex assignments? Our experts provide clear, step-by-step solutions for any subject or difficulty level.',
-    price: '$12.00',
     icon: Layout,
-    features: ['All subjects covered', 'Step-by-step logic', '24/7 expert support']
+    features: ['All subjects covered', 'Step-by-step logic', '24/7 expert support', 'Detailed Explanations'],
+    link: '/assignment-help',
+    cta: 'Get Assignment Help'
   },
   {
     id: 'homework-help',
     title: 'Homework Help',
     description: 'Daily coursework piling up? We handle your routine homework tasks efficiently so you can focus on what matters most.',
-    price: '$11.00',
     icon: FileCheck,
-    features: ['Fast turnaround', 'Accurate answers', 'Direct expert chat']
-  },
-  {
-    id: 'essay-writing',
-    title: 'Essay Writing Services',
-    description: 'From argumentative to narrative essays, we craft compelling, original papers that strictly adhere to your academic requirements.',
-    price: '$11.00',
-    icon: PenTool,
-    popular: true,
-    features: ['100% Plagiarism-free', 'Any citation style', 'Free revisions']
-  },
-  {
-    id: 'dissertation-help',
-    title: 'Dissertation Writing Help',
-    description: 'Comprehensive support for your PhD journey. We assist with proposals, individual chapters, or full dissertation writing.',
-    price: '$16.00',
-    icon: BookOpen,
-    features: ['PhD-level writers', 'Chapter-by-chapter', 'Confidentiality guaranteed']
-  },
-  {
-    id: 'thesis-help',
-    title: 'Thesis Writing Help',
-    description: 'Secure your Master’s degree with a meticulously researched thesis. We help you structure arguments and analyze data effectively.',
-    price: '$15.00',
-    icon: GraduationCap,
-    features: ['Data analysis help', 'Strong thesis statements', 'Rigorous editing']
+    features: ['Fast turnaround', 'Accurate answers', 'Direct expert chat', 'Zero AI Involvement'],
+    link: '/homework-help',
+    cta: 'Do My Homework'
   },
   {
     id: 'paper-writing',
     title: 'Paper Writing Services',
     description: 'Need a term paper or research paper? We deliver well-structured, thoroughly referenced academic papers on any topic.',
-    price: '$13.00',
     icon: FileText,
-    features: ['Deep research', 'Credible sources', 'Perfect formatting']
+    features: ['Deep research', 'Credible sources', 'Perfect formatting', 'Original Analysis'],
+    link: '/paper-writing-services',
+    cta: 'Order My Paper'
+  },
+  {
+    id: 'thesis-help',
+    title: 'Thesis Writing Services',
+    description: 'Secure your Master\'s degree with a meticulously researched thesis. We help you structure arguments and analyze data effectively.',
+    icon: GraduationCap,
+    features: ['Data analysis help', 'Strong thesis statements', 'Rigorous editing', 'Professional Formatting'],
+    link: '/thesis-writing-services',
+    cta: 'Write My Thesis'
+  },
+  {
+    id: 'dissertation-help',
+    title: 'Dissertation Writing Services',
+    description: 'Comprehensive support for your PhD journey. We assist with proposals, individual chapters, or full dissertation writing.',
+    icon: BookOpen,
+    features: ['PhD-level writers', 'Chapter-by-chapter', 'Confidentiality guaranteed', 'Proposal to Defense'],
+    link: '/dissertation-writing-services',
+    cta: 'Get Dissertation Help'
   }
 ];
 
 export default function ServicesOverviewSection() {
-  const navigate = useNavigate();
-
-  const handleServiceClick = (serviceType: string) => {
-    // Navigate to order page with pre-selected service if possible, or just general order page
-    const params = new URLSearchParams({ type: serviceType });
-    navigate(`/order-now?${params.toString()}`);
-  };
-
   return (
-    <section className="services-section" data-testid="services-section">
-      <div className="services-container">
-
-        {/* Header */}
-        <div className="services-header">
-          <div className="services-eyebrow">
-            <span className="eyebrow-line"></span>
-            <span className="eyebrow-text">ACADEMIC SOLUTIONS</span>
-            <span className="eyebrow-line"></span>
+    <section className="py-24 bg-[#F8FAFC]">
+      <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-5 py-2 rounded-full text-sm font-semibold mb-4 border border-[#0B1F42]/10">
+              OUR CORE SERVICES
+            </div>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6 tracking-tight">
+              Premium Academic <span className="text-[#1652A0]">Solutions</span>
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              From routine homework tasks to complex doctoral dissertations, our specialized teams deliver top-tier academic work tailored to your success.
+            </p>
           </div>
-          <h2 className="services-heading">
-            Everything You Need to <span className="highlight-text">Excel</span>
-          </h2>
-          <p className="services-subheading">
-            From quick homework help to complex doctoral research, our specialized teams cover the entire academic spectrum.
-          </p>
-        </div>
 
-        {/* Services Grid */}
-        <div className="services-grid">
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
-              <div
-                key={service.id}
-                className={`service-card ${service.popular ? 'popular-card' : ''}`}
-                onClick={() => handleServiceClick(service.title)}
-              >
-                {service.popular && (
-                  <div className="service-popular-badge">
-                    <Sparkles size={12} fill="currentColor" />
-                    <span>Most Popular</span>
-                  </div>
-                )}
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <div
+                  key={index}
+                  className={`bg-white rounded-3xl p-8 border-2 ${service.popular ? 'border-[#1652A0] shadow-2xl scale-[1.02]' : 'border-gray-100 shadow-xl'} hover:shadow-2xl transition-all duration-500 group relative overflow-hidden flex flex-col`}
+                >
+                  {service.popular && (
+                    <div className="absolute top-0 right-0 bg-[#0B1F42] text-[#D4A853] px-5 py-2 rounded-bl-2xl text-[10px] font-black tracking-widest flex items-center gap-2 uppercase z-10">
+                      <Sparkles className="w-3 h-3" /> Popular Choice
+                    </div>
+                  )}
 
-                <div className="service-icon-wrapper">
-                  <Icon size={28} strokeWidth={1.5} />
-                </div>
-
-                <div className="service-content">
-                  <h3 className="service-title">{service.title}</h3>
-                  <div className="service-price">
-                    <span className="price-label">from</span>
-                    <span className="price-amount">{service.price}</span>
-                    <span className="price-unit">/page</span>
+                  {/* Icon */}
+                  <div className={`w-16 h-16 rounded-2xl ${service.popular ? 'bg-[#1652A0] text-white' : 'bg-[#1652A0]/5 text-[#1652A0]'} flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-inner`}>
+                    <Icon className="w-8 h-8" />
                   </div>
 
-                  <p className="service-description">{service.description}</p>
+                  {/* Content */}
+                  <div className="flex-grow">
+                    <h3 className="text-2xl font-bold text-[#0B1F42] mb-4 group-hover:text-[#1652A0] transition-colors duration-300">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-600 mb-8 leading-relaxed text-[15px]">
+                      {service.description}
+                    </p>
 
-                  <ul className="service-features">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx}>
-                        <span className="feature-dot"></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                    {/* Features List */}
+                    <ul className="space-y-3.5 mb-8">
+                      {service.features.map((feature, fIdx) => (
+                        <li key={fIdx} className="flex items-center gap-3 text-sm text-gray-700 font-medium">
+                          <CheckCircle2 className={`w-5 h-5 ${service.popular ? 'text-[#1652A0]' : 'text-green-500'} flex-shrink-0`} />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                  <button className="service-cta">
-                    <span>Order Now</span>
-                    <ArrowRight size={16} />
-                  </button>
+                  {/* CTA */}
+                  <Link
+                    to={service.link}
+                    className="w-full py-4 px-6 bg-[#1652A0]/10 text-[#1652A0] hover:bg-[#1652A0] hover:text-white rounded-2xl font-bold text-base transition-all duration-300 flex items-center justify-center gap-2 mt-auto"
+                  >
+                    {service.cta}
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
+              );
+            })}
+          </div>
+
+          {/* Bottom Callout */}
+          <div className="mt-20 bg-gradient-to-r from-[#0B1F42] to-[#1652A0] rounded-[32px] p-10 md:p-16 text-center relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#D4A853]/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
+            
+            <div className="relative z-10">
+              <h3 className="text-3xl md:text-4xl font-black text-white mb-6">Need a Custom Academic Solution?</h3>
+              <p className="text-gray-300 mb-10 text-lg max-w-2xl mx-auto leading-relaxed">
+                Connect with our specialized team to discuss your unique project requirements. We cover over 200 subjects with 100% human-first expertise.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  to="/order-now"
+                  className="w-full sm:w-auto px-10 py-5 bg-[#D4A853] hover:bg-[#C49843] text-[#0B1F42] font-black text-lg rounded-2xl transition-all shadow-xl hover:-translate-y-1"
+                >
+                  Order Now
+                </Link>
+                <Link
+                  to="/contact"
+                  className="w-full sm:w-auto px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold text-lg rounded-2xl transition-all border border-white/20 backdrop-blur-sm"
+                >
+                  Contact Support
+                </Link>
               </div>
-            );
-          })}
+            </div>
+          </div>
         </div>
-
-
       </div>
-
-      <style>{`
-        .services-section {
-          /* Local theme variables fallback */
-          --deep-navy: #0B1F42;
-          --royal-blue: #1652A0;
-          --light-blue: #2B6CB0;
-          --gold: #D4A853;
-          --gold-dark: #B8903B;
-          --surface-light: #F8FAFC;
-          --white: #FFFFFF;
-          --text-secondary: #475569;
-          --text-muted: #64748B;
-          --border-light: #E2E8F0;
-          
-          background-color: var(--surface-light);
-          padding: 100px 0;
-          position: relative;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        .services-container {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding: 0 24px;
-        }
-
-        /* Header Styles */
-        .services-header {
-          text-align: center;
-          max-width: 760px;
-          margin: 0 auto 64px;
-        }
-
-        .services-eyebrow {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-          margin-bottom: 20px;
-        }
-
-        .eyebrow-line {
-          width: 40px;
-          height: 1px;
-          background: var(--royal-blue);
-          opacity: 0.3;
-        }
-
-        .eyebrow-text {
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: 1.2px;
-          color: var(--royal-blue);
-          text-transform: uppercase;
-        }
-
-        .services-heading {
-          font-size: clamp(32px, 4vw, 44px);
-          font-weight: 800;
-          color: var(--deep-navy);
-          line-height: 1.15;
-          margin-bottom: 20px;
-          letter-spacing: -0.02em;
-        }
-
-        .highlight-text {
-          color: var(--royal-blue);
-          position: relative;
-          display: inline-block;
-        }
-
-        .highlight-text::after {
-          content: '';
-          position: absolute;
-          bottom: 2px;
-          left: 0;
-          width: 100%;
-          height: 12px;
-          background: var(--gold);
-          opacity: 0.15;
-          transform: skewX(-12deg);
-          z-index: -1;
-        }
-
-        .services-subheading {
-          font-size: 18px;
-          line-height: 1.6;
-          color: var(--text-secondary);
-        }
-
-        /* Grid Styles */
-        .services-grid {
-          display: grid;
-          grid-template-columns: repeat(1, 1fr);
-          gap: 32px;
-          margin-bottom: 48px;
-        }
-
-        @media (min-width: 768px) {
-          .services-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .services-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-
-        .service-card {
-          background: var(--white);
-          border: 1px solid var(--border-light);
-          border-radius: 20px;
-          padding: 32px;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          cursor: pointer;
-          overflow: hidden;
-        }
-
-        .service-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 12px 32px rgba(11, 31, 66, 0.08);
-          border-color: rgba(22, 82, 160, 0.2);
-        }
-
-        .popular-card {
-          border-color: rgba(212, 168, 83, 0.4);
-          background: linear-gradient(180deg, #FFFCF5 0%, #FFFFFF 100%);
-        }
-
-        .service-popular-badge {
-          position: absolute;
-          top: 12px;
-          right: 12px;
-          background: linear-gradient(135deg, #D4A853 0%, #B8903B 100%) !important;
-          color: white;
-          font-size: 11px;
-          font-weight: 700;
-          padding: 6px 12px;
-          border-radius: 100px;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          box-shadow: 0 4px 12px rgba(212, 168, 83, 0.3);
-          z-index: 20;
-        }
-
-        .service-icon-wrapper {
-          width: 56px;
-          height: 56px;
-          background: var(--surface-light);
-          border-radius: 16px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--royal-blue);
-          margin-bottom: 24px;
-          transition: all 0.3s ease;
-        }
-
-        .service-card:hover .service-icon-wrapper {
-          background: var(--royal-blue);
-          color: white;
-          transform: scale(1.05) rotate(-5deg);
-        }
-
-        .service-content {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .service-title {
-          font-size: 20px;
-          font-weight: 700;
-          color: var(--deep-navy);
-          margin-bottom: 8px;
-        }
-
-        .service-price {
-          display: flex;
-          align-items: baseline;
-          gap: 4px;
-          margin-bottom: 16px;
-        }
-
-        .price-label {
-          font-size: 13px;
-          color: var(--text-muted);
-          font-weight: 500;
-        }
-
-        .price-amount {
-          font-size: 20px;
-          font-weight: 800;
-          color: #1652A0 !important;
-        }
-
-        .price-unit {
-          font-size: 13px;
-          color: var(--text-muted);
-        }
-
-        .service-description {
-          font-size: 14px;
-          line-height: 1.6;
-          color: var(--text-secondary);
-          margin-bottom: 24px;
-          flex-grow: 1;
-        }
-
-        .service-features {
-          margin: 0 0 24px 0;
-          padding: 0;
-          list-style: none;
-        }
-
-        .service-features li {
-          font-size: 13px;
-          color: var(--text-secondary);
-          margin-bottom: 8px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .feature-dot {
-          width: 4px;
-          height: 4px;
-          background: var(--gold);
-          border-radius: 50%;
-        }
-
-        .service-cta {
-          margin-top: auto;
-          width: 100%;
-          padding: 14px;
-          background: transparent;
-          border: 1px solid var(--border-light);
-          border-radius: 12px;
-          color: var(--royal-blue);
-          font-weight: 600;
-          font-size: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          transition: all 0.2s ease;
-        }
-
-        .service-card:hover .service-cta {
-          background: var(--royal-blue);
-          border-color: var(--royal-blue);
-          color: white;
-        }
-
-        /* Footer */
-        .services-footer {
-          text-align: center;
-          color: var(--text-secondary);
-          font-size: 15px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 8px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-          .services-section {
-            padding: 60px 0;
-          }
-          
-          .services-header {
-            margin-bottom: 40px;
-          }
-
-          .services-grid {
-            grid-template-columns: 1fr;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-            gap: 24px;
-          }
-
-          .service-card {
-            padding: 24px;
-          }
-        }
-      `}</style>
     </section>
   );
 }

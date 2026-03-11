@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import UnifiedPriceCalculator from '../../components/Services/UnifiedPriceCalculator';
@@ -272,7 +272,7 @@ const HomeworkTypesGrid = () => {
           </ul>
           <Link
             to={type.link || "/order-now"}
-            className={`w-full px-4 py-3 ${type.popular ? 'bg-[#1652A0] text-white hover:bg-[#0B1F42]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg`}
+            className="w-full px-4 py-3 bg-[#1652A0]/10 text-[#1652A0] hover:bg-[#1652A0] hover:text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg"
           >
             {type.cta} <ArrowRight className="w-4 h-4" />
           </Link>

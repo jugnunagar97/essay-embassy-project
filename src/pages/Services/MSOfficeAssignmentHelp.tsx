@@ -177,124 +177,79 @@ const PriceCalculator = () => {
     );
 };
 
-// ─── Assignment Services Grid ─────────────────────────────────────────────────
-const AssignmentServicesGrid = () => {
+// ─── MS Office Sub-Services Grid ─────────────────────────────────────────────
+const MSOfficeServicesGrid = () => {
     const services = [
         {
-            emoji: '🖥️',
-            title: 'MS Office Assignment Help',
-            description: 'Expert help across Word, Excel, PowerPoint, Access, and Office 365. Our trained experts handle everything from basic document formatting to complex spreadsheet automation and database assignments.',
-            features: ['Excel, Word, PowerPoint & Access', 'VBA macros & automation', 'Integrated suite projects', 'Office 365 coursework'],
-            cta: 'Do My MS Office Assignment',
-            slug: '/assignment-help/ms-office',
-            popular: true,
+            emoji: '📝',
+            title: 'Microsoft Word Help',
+            description: 'Use our Microsoft Word assignment writing service to get your essays and reports done. We give you help with MS Word assignment tasks and offer professional Word document formatting help to make your pages look clean.',
+            features: ['Clean page layouts', 'Help with MS Word tasks', 'Essay and report writing', 'Fixing Word errors'],
+            cta: 'Get Word Help',
+            slug: '/assignment-help/ms-office/word',
+            popular: false,
         },
         {
             emoji: '📊',
-            title: 'Management Assignment Help',
-            description: 'Expert business and management papers covering strategy, HR, operations, supply chain, and organizational behavior, built from scratch by MBA-qualified writers.',
-            features: ['Strategic management case studies', 'SWOT & PESTLE analysis', 'Organizational behavior', 'APA & Harvard formatting'],
-            cta: 'Do My Management Assignment',
-            slug: '/assignment-help/management',
+            title: 'Microsoft Excel Help',
+            description: 'Work with a Microsoft Excel assignment expert to fix your spreadsheets. We offer Excel assignment help online for any level. Just say, "Do my Microsoft Excel assignment," and we will handle the rows and columns for you.',
+            features: ['Expert spreadsheet help', 'Do my Excel work', 'Fixing sheet errors', 'Online Excel support'],
+            cta: 'Get Excel Help',
+            slug: '/assignment-help/ms-office/excel',
+            popular: true,
+        },
+        {
+            emoji: '🎭',
+            title: 'PowerPoint Help',
+            description: 'Get PowerPoint presentation assignment help to make slides that look great. We provide help with MS PowerPoint assignment work and professional PPT assignment writing so you can give a great talk.',
+            features: ['Cool slide designs', 'PPT writing service', 'Help with MS slides', 'Better presentations'],
+            cta: 'Get PPT Help',
+            slug: '/assignment-help/ms-office/powerpoint',
             popular: false,
         },
         {
-            emoji: '➕',
-            title: 'Math Assignment Help',
-            description: 'Step-by-step math solutions across all topics including algebra, calculus, statistics, geometry, and discrete math. Every working is shown clearly.',
-            features: ['Algebra equations & calculus', 'Statistics data analysis', 'Geometry proofs', 'Step-by-step explanations'],
-            cta: 'Do My Math Assignment',
-            slug: '/assignment-help/math',
+            emoji: '🗄️',
+            title: 'Microsoft Access Help',
+            description: 'Our Microsoft Access database assignment help makes sorting info easy. Use our MS Access assignment solver to fix your tables. We give you help with Access database assignment tasks so your data stays organized.',
+            features: ['Database table help', 'Access solver service', 'Organizing big lists', 'Data entry help'],
+            cta: 'Get Access Help',
+            slug: '/assignment-help/ms-office/access',
             popular: false,
         },
         {
-            emoji: '💻',
-            title: 'Programming Assignment Help',
-            description: 'Working, well-commented code across all major languages including Python, Java, C++, JavaScript, SQL, R, and MATLAB. Built from scratch and fully tested.',
-            features: ['Python, Java, C++, JavaScript', 'Algorithm design & analysis', 'Debugging & error fixing', 'Free code comments & explanations'],
-            cta: 'Do My Programming Assignment',
-            slug: '/assignment-help/programming',
+            emoji: '📧',
+            title: 'Microsoft Outlook Help',
+            description: 'Find Microsoft Outlook assignment help online for email tasks. Our MS Outlook assignment writing service explains how to manage your inbox. Get Outlook configuration assignment help to set up your account the right way.',
+            features: ['Email setup help', 'Outlook writing service', 'Inbox management', 'Account config help'],
+            cta: 'Get Outlook Help',
+            slug: '/assignment-help/ms-office/outlook',
             popular: false,
         },
         {
-            emoji: '🔬',
-            title: 'Science Assignment Help',
-            description: 'Accurate science assignments across biology, chemistry, physics, and earth sciences. Expert-written lab reports, essays, and research tasks with peer-reviewed citations.',
-            features: ['Biology, chemistry, physics', 'Lab report writing', 'Hypothesis testing', 'Peer-reviewed citations'],
-            cta: 'Do My Science Assignment',
-            slug: '/assignment-help/science',
+            emoji: '🧮',
+            title: 'Excel Formula Help',
+            description: 'Get Excel formulas and functions assignment help for your math tasks. We provide help with complex Excel formulas that are hard to remember. Our advanced Excel function solver makes sure your math is always right.',
+            features: ['Hard math formulas', 'Advanced function solver', 'Complex math help', 'Formula error fixing'],
+            cta: 'Get Formula Help',
+            slug: '/assignment-help/ms-office/excel-formulas',
             popular: false,
         },
         {
-            emoji: '⚙️',
-            title: 'Engineering Assignment Help',
-            description: 'Expert engineering homework across civil, mechanical, electrical, and chemical disciplines. Technical report writing, CAD software assignments, and system modeling all covered.',
-            features: ['Civil, mechanical, electrical & more', 'AutoCAD, SolidWorks & MATLAB', 'Technical report writing', 'Engineering schematics & diagrams'],
-            cta: 'Do My Engineering Assignment',
-            slug: '/assignment-help/engineering',
-            popular: false,
-        },
-        {
-            emoji: '🏥',
-            title: 'Nursing Assignment Help',
-            description: 'Evidence-based nursing assignments written by healthcare experts. Care plans, case studies, reflective journals, and clinical analysis all covered.',
-            features: ['Evidence-based practice', 'Care plan writing', 'Clinical case studies', 'Reflective journals'],
-            cta: 'Do My Nursing Assignment',
-            slug: '/assignment-help/nursing',
+            emoji: '🤖',
+            title: 'Excel VBA Macro Help',
+            description: 'Our Excel VBA macro assignment help makes your sheets work on their own. Tell us, "Write my Excel VBA macro," to save time. Work with an Excel automation assignment expert to make your work fly.',
+            features: ['Write my VBA code', 'Automation expert help', 'Speed up your work', 'Macro error fixing'],
+            cta: 'Get VBA Help',
+            slug: '/assignment-help/ms-office/excel-vba-macro',
             popular: false,
         },
         {
             emoji: '📈',
-            title: 'Economics Assignment Help',
-            description: 'Clear, well-researched economics assignments covering microeconomics, macroeconomics, econometrics, and behavioral economics.',
-            features: ['Micro & macroeconomics', 'Econometrics & modelling', 'Policy analysis', 'Data interpretation'],
-            cta: 'Do My Economics Assignment',
-            slug: '/assignment-help/economics',
-            popular: false,
-        },
-        {
-            emoji: '💰',
-            title: 'Finance Assignment Help',
-            description: 'Accurate finance assignments covering corporate finance, investment analysis, financial modelling, and portfolio management.',
-            features: ['Corporate finance', 'Investment analysis', 'Financial modelling', 'Portfolio management'],
-            cta: 'Do My Finance Assignment',
-            slug: '/assignment-help/finance',
-            popular: false,
-        },
-        {
-            emoji: '🧾',
-            title: 'Accounting Assignment Help',
-            description: 'Precise accounting assignments covering financial statements, management accounting, auditing, and tax calculations.',
-            features: ['Financial statements', 'Management accounting', 'Auditing & compliance', 'Tax calculations'],
-            cta: 'Do My Accounting Assignment',
-            slug: '/assignment-help/accounting',
-            popular: false,
-        },
-        {
-            emoji: '⚖️',
-            title: 'Law Assignment Help',
-            description: 'Well-argued law assignments covering contract law, criminal law, tort law, constitutional law, and international law.',
-            features: ['Contract & tort law', 'Criminal & constitutional law', 'Case law analysis', 'OSCOLA/Bluebook citations'],
-            cta: 'Do My Law Assignment',
-            slug: '/assignment-help/law',
-            popular: false,
-        },
-        {
-            emoji: '📉',
-            title: 'Statistics Assignment Help',
-            description: 'Clear statistical solutions covering descriptive stats, hypothesis testing, regression analysis, and data visualization.',
-            features: ['Descriptive & inferential stats', 'Hypothesis testing', 'Regression analysis', 'SPSS & R support'],
-            cta: 'Do My Statistics Assignment',
-            slug: '/assignment-help/statistics',
-            popular: false,
-        },
-        {
-            emoji: '🌍',
-            title: 'Humanities Assignment Help',
-            description: 'Well-researched humanities assignments covering history, philosophy, sociology, cultural studies, and political science.',
-            features: ['History & philosophy', 'Sociology & cultural studies', 'Political science', 'Critical analysis'],
-            cta: 'Do My Humanities Assignment',
-            slug: '/assignment-help/humanities',
+            title: 'Excel Data Analysis',
+            description: 'Get data analysis in Excel assignment help to understand your numbers. Our Excel data visualization assignment service makes pretty charts. We give you help with Excel pivot tables and analysis today.',
+            features: ['Pivot table help', 'Making data charts', 'Reading your numbers', 'Data analysis service'],
+            cta: 'Get Analysis Help',
+            slug: '/assignment-help/ms-office/excel-data-analysis',
             popular: false,
         },
     ];
@@ -326,7 +281,7 @@ const AssignmentServicesGrid = () => {
                     </ul>
                     <Link
                         to={service.slug}
-                        className={`w-full px-4 py-3 ${service.popular ? 'bg-[#1652A0] text-white hover:bg-[#0B1F42]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg`}
+                        className="w-full px-4 py-3 bg-[#1652A0]/10 text-[#1652A0] hover:bg-[#1652A0] hover:text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg"
                     >
                         {service.cta} <ArrowRight className="w-4 h-4" />
                     </Link>
@@ -581,7 +536,7 @@ export default function MSOfficeAssignmentHelp() {
                                     Whether you need MS Office assignment help in the UK or Microsoft Office assignment help in Australia, our experts can assist. We provide the best MS Office assignment writing service to help you pass your classes. Our team handles everything from basic digital literacy assignments to complex Microsoft Office suite projects. We cover advanced Excel charts, Word formatting, and PowerPoint themes.
                                 </p>
                             </div>
-                            <AssignmentServicesGrid />
+                            <MSOfficeServicesGrid />
                             <div className="mt-12 bg-gray-50 rounded-2xl p-10 text-center border border-gray-200">
                                 <h3 className="text-2xl font-bold text-[#0B1F42] mb-3">Ready to Get Top Grades on Your MS Office Assignment?</h3>
                                 <p className="text-gray-600 mb-6 max-w-2xl mx-auto">

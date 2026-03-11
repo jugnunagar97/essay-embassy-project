@@ -174,15 +174,6 @@ const PriceCalculator = () => {
 const NursingServicesGrid = () => {
     const services = [
         {
-            emoji: '🏥',
-            title: 'Nursing Assignment Help',
-            description: 'Expert help across all nursing topics. Our BSN, MSN, and DNP-qualified writers handle everything from clinical case studies to healthcare ethics and evidence-based practice assignments.',
-            features: ['Clinical case study analysis', 'Care plans & pharmacology', 'Healthcare ethics & law', 'Evidence-based practice'],
-            cta: 'Do My Nursing Assignment',
-            slug: '/assignment-help/nursing',
-            popular: true,
-        },
-        {
             emoji: '🧠',
             title: 'Mental Health Nursing Assignment Help',
             description: 'Well-researched mental health nursing papers covering psychiatric theories, patient assessment, treatment planning, and therapeutic communication.',
@@ -215,7 +206,7 @@ const NursingServicesGrid = () => {
             description: 'Professionally written nursing care plans using NANDA diagnoses, measurable goals, evidence-based interventions, and outcome evaluations.',
             features: ['NANDA nursing diagnoses', 'Measurable goal setting', 'Evidence-based interventions', 'Outcome evaluations'],
             cta: 'Get Care Plan Help',
-            slug: '/assignment-help/nursing/nursing-care-plan',
+            slug: '/assignment-help/nursing/care-plan',
             popular: false,
         },
         {
@@ -292,7 +283,7 @@ const NursingServicesGrid = () => {
                     </ul>
                     <Link
                         to={service.slug}
-                        className={`w-full px-4 py-3 ${service.popular ? 'bg-[#1652A0] text-white hover:bg-[#0B1F42]' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg`}
+                        className="w-full px-4 py-3 bg-[#1652A0]/10 text-[#1652A0] hover:bg-[#1652A0] hover:text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:shadow-lg"
                     >
                         {service.cta} <ArrowRight className="w-4 h-4" />
                     </Link>
