@@ -103,6 +103,7 @@ import MSOfficeAssignmentHelp from './pages/Services/MSOfficeAssignmentHelp';
 import NursingAssignmentHelp from './pages/Services/NursingAssignmentHelp';
 import EconomicsAssignmentHelp from './pages/Services/EconomicsAssignmentHelp';
 import FinanceAssignmentHelp from './pages/Services/FinanceAssignmentHelp';
+import StatisticsAssignmentHelp from './pages/Services/StatisticsAssignmentHelp';
 import DynamicServicePage from './pages/DynamicServicePage';
 
 // --- Dashboard & Admin Page Imports ---
@@ -275,6 +276,7 @@ function App() {
                 <Route path="assignment-help/nursing" element={<NursingAssignmentHelp />} />
                 <Route path="assignment-help/economics" element={<EconomicsAssignmentHelp />} />
                 <Route path="assignment-help/finance" element={<FinanceAssignmentHelp />} />
+                <Route path="assignment-help/statistics" element={<StatisticsAssignmentHelp />} />
                 <Route path="assignment-help/biotechnology" element={<BiotechnologyAssignmentHelp />} />
                 <Route path="book-review" element={<BookReview />} />
                 <Route path="case-study-help" element={<CaseStudyHelp />} />

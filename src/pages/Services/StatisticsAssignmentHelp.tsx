@@ -8,7 +8,7 @@ import WritersCarousel from './WritersCarousel';
 import React, { useRef, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
-// --- SpecialHumanitiesHelpCarousel ---
+// --- SpecialStatisticsHelpCarousel ---
 const carouselItems = [
   {
     imgSrc: '/images/verification.jpg',
@@ -42,7 +42,7 @@ const carouselItems = [
   }
 ];
 
-export function SpecialHumanitiesHelpCarousel() {
+export function SpecialStatisticsHelpCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragStartX, setDragStartX] = useState<number | null>(null);
   const [dragDelta, setDragDelta] = useState(0);
@@ -141,11 +141,11 @@ export function SpecialHumanitiesHelpCarousel() {
               <div className="mb-4 flex items-center">
                 <span className="inline-block w-1 h-7 bg-primary-400 rounded-full mr-3"></span>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 tracking-wide leading-snug" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em' }}>
-                  What Makes Humanities Assignment Help From Our Experts So Special?
+                  What Makes Statistics Assignment Help From Our Experts So Special?
                 </h2>
               </div>
               <p className="text-base md:text-lg text-gray-400 leading-relaxed mt-2 mb-10 max-w-md" style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.01em' }}>
-                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top humanities experts</span> in literature, history, philosophy, and social sciences. Get your humanities assignments guided by a professional and be sure everything will be done on time.
+                Essay Embassy gives you a chance to cooperate with <span className="text-primary-500 font-medium">top statistics experts</span> in data science and mathematics. Get your statistics assignments guided by a professional and be sure everything will be done on time.
               </p>
             </div>
             <div className="flex gap-4 mt-8">
@@ -197,51 +197,57 @@ export function SpecialHumanitiesHelpCarousel() {
 function ClientTestimonialsCarousel() {
   const testimonials = [
     {
-      id: 'HUM-10021',
+      id: 'STAT-10021',
       rating: 5,
-      text: 'I told them to do my humanities assignment for my world history class. The research was perfect. This is the best humanities assignment writing service.',
+      text: 'I told them to do my statistics assignment for my class. The research was perfect. This is the best statistics assignment help for university.',
       date: '10/12/2025',
-      subject: 'History',
+      level: 'Undergraduate',
+      subject: 'Data Science',
       tag: 'Verified',
     },
     {
-      id: 'HUM-10022',
+      id: 'STAT-10022',
       rating: 5,
-      text: 'I needed university humanities assignment help for a tough paper. The sociology essays were completely accurate and delivered early.',
+      text: 'I needed university statistics assignment help for a tough paper. The probability distributions were completely accurate and delivered early.',
       date: '11/02/2025',
-      subject: 'Sociology',
+      level: 'Undergraduate',
+      subject: 'Probability',
       tag: 'Returning Client',
     },
     {
-      id: 'HUM-10023',
+      id: 'STAT-10023',
       rating: 4.9,
-      text: 'My expert provided amazing philosophy coursework. The formatting was excellent and totally original.',
+      text: 'My expert provided amazing help with SPSS data analysis. The formatting was excellent and totally original.',
       date: '11/18/2025',
-      subject: 'Philosophy',
+      level: 'Graduate',
+      subject: 'Research Methods',
       tag: 'First-Time User',
     },
     {
-      id: 'HUM-10024',
+      id: 'STAT-10024',
       rating: 5,
-      text: 'Long time fan here. I use this humanities assignment helper online often. The writing is always flawless and avoids plagiarism completely.',
+      text: 'Long time fan here. I use this statistics assignment helper online often. The writing is always flawless and avoids plagiarism completely.',
       date: '12/05/2025',
-      subject: 'Literature',
+      level: 'Graduate',
+      subject: 'Analytics',
       tag: 'Returning Client',
     },
     {
-      id: 'HUM-10025',
+      id: 'STAT-10025',
       rating: 5,
-      text: 'I had to pay someone to write humanities assignment tasks for my arts class. The cultural studies analysis was deeply engaging and very professional.',
+      text: 'I had to pay someone to do statistics assignment tasks for my class. The ANOVA testing was deeply engaging and very professional.',
       date: '01/14/2026',
-      subject: 'Cultural Studies',
+      level: 'Undergraduate',
+      subject: 'Applied Math',
       tag: 'Verified',
     },
     {
-      id: 'HUM-10026',
+      id: 'STAT-10026',
       rating: 4.8,
-      text: 'If you need cheap humanities coursework writers online, use this site. They used excellent logic and helped me meet a very tight deadline.',
+      text: 'If you need cheap stats assignment solvers online, use this site. They used excellent R programming for stats and helped me meet a very tight deadline.',
       date: '02/22/2026',
-      subject: 'Linguistics',
+      level: 'Graduate',
+      subject: 'R Programming',
       tag: 'First-Time User',
     },
   ];
@@ -375,7 +381,7 @@ function ClientTestimonialsCarousel() {
 const academicLevels = ["High School", "College", "University", "Master's", "PhD"];
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 
-export default function HumanitiesAssignmentHelp() {
+export default function StatisticsAssignmentHelp() {
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm<{
     academicLevel: string;
@@ -483,12 +489,12 @@ export default function HumanitiesAssignmentHelp() {
   return (
     <>
       <Helmet>
-        <title>Best Humanities Assignment Help for College Students</title>
+        <title>Best Statistics Assignment Help for University Students</title>
         <meta
           name="description"
-          content="Need humanities assignment help? Pay someone to write humanities assignment tasks today. Hire the best humanities assignment writing service online for top grades."
+          content="Need a reliable statistics assignment solver? Pay someone to do statistics assignment tasks today. Hire our expert service online for top grades."
         />
-        <link rel="canonical" href="https://essayembassy.com/assignment-help/humanities" />
+        <link rel="canonical" href="https://essayembassy.com/assignment-help/statistics" />
       </Helmet>
       <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
 
@@ -507,20 +513,20 @@ export default function HumanitiesAssignmentHelp() {
                 PLAGIARISM & AI FREE
               </div>
               <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
-                Professional Humanities Assignment Help Online
+                Professional Statistics Assignment Help Online
               </h1>
               <p className="text-lg text-gray-600">
-                Expert Writers, Original Work, and On Time Delivery. Get Perfect Grades Every Time.
+                Expert Solvers, Accurate Statistical Calculations, and On Time Delivery. Get Perfect Grades Every Time.
               </p>
               {/* Trust Badges */}
               <div className="flex flex-wrap gap-3">
                 <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-sm font-medium px-4 py-2 rounded-full border border-emerald-200">
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  Plagiarism Free Arts Assignments
+                  Plagiarism Free Stats Answers
                 </span>
                 <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-sm font-medium px-4 py-2 rounded-full border border-emerald-200">
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  Native English Humanities Experts
+                  Expert Solvers
                 </span>
                 <span className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-sm font-medium px-4 py-2 rounded-full border border-emerald-200">
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -533,7 +539,7 @@ export default function HumanitiesAssignmentHelp() {
                   href="/order-now"
                   className="inline-block px-8 py-4 rounded-xl bg-primary-600 text-white text-base font-bold shadow-md hover:bg-primary-700 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 transform hover:scale-105"
                 >
-                  Do My Humanities Assignment
+                  Do My Statistics Assignment
                 </a>
                 <a
                   href="#samples"
@@ -619,7 +625,7 @@ export default function HumanitiesAssignmentHelp() {
                   <span className="font-bold text-2xl text-primary-600">${price.toFixed(2)}</span>
                 </div>
                 <button type="submit" className="w-full mt-8 bg-primary-500 hover:bg-primary-600 text-white font-bold py-4 rounded-lg shadow-md transition-all duration-200 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                  Do My Humanities Assignment
+                  Do My Statistics Assignment
                 </button>
               </form>
               <p className="text-center text-sm text-gray-500 mt-4">
@@ -647,7 +653,7 @@ export default function HumanitiesAssignmentHelp() {
                 <span className="text-sm text-gray-500 mt-1 font-medium">On Time Delivery</span>
               </div>
               <div className="flex-1 flex flex-col items-center text-center px-6 py-2">
-                <span className="text-3xl font-bold text-emerald-500">5000+</span>
+                <span className="text-3xl font-bold text-emerald-500">900+</span>
                 <span className="text-sm text-gray-500 mt-1 font-medium">Verified Experts</span>
               </div>
               <div className="flex-1 flex flex-col items-center text-center px-6 py-2">
@@ -670,7 +676,7 @@ export default function HumanitiesAssignmentHelp() {
           <div className="max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Who Are the Experts?</h2>
             <div className="text-lg md:text-xl text-gray-700 mb-1 leading-snug">
-              We engage alumni of the world's top universities to become Essay Embassy humanities experts.<br />
+              We engage alumni of the world's top universities to become Essay Embassy statistics experts.<br />
               We carefully check each candidate's academic credentials and professional background before hiring.
             </div>
             <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 mt-4 w-full">
@@ -694,28 +700,28 @@ export default function HumanitiesAssignmentHelp() {
         <section className="w-full bg-[#F7FAFC] py-16">
           <div className="max-w-5xl mx-auto px-4">
             <h2 className="text-4xl md:text-5xl font-semibold text-center mb-14 tracking-wide text-gray-900 drop-shadow-md" style={{ letterSpacing: '0.03em' }}>
-              We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">humanities assignment help services</span>
+              We go beyond <span className="bg-gradient-to-r from-primary-500 via-blue-400 to-primary-600 bg-clip-text text-transparent">statistics assignment help services</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Card 1 */}
-              <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
+              {/* Card 1 - Hero Feature */}
+              <div className="sm:col-span-2 lg:col-span-1 flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
                 <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                   <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
                     <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </span>
-                <div className="font-semibold text-lg text-gray-900 mb-2">Plagiarism Free Arts Assignments and Turnitin Report</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">We offer strict guarantees for completely original work. You get custom papers built from scratch. Every order includes a free report to prove your work is unique and safe. We guarantee zero artificial intelligence involvement in your work.</div>
+                <div className="font-semibold text-lg text-gray-900 mb-2">Plagiarism Free Stats Answers and Turnitin Report</div>
+                <div className="text-gray-500 text-base leading-relaxed font-normal">We offer strict guarantees for completely original work. You get custom files built from scratch. Every order includes a free report to prove your work is unique and safe. We guarantee zero artificial intelligence involvement in your project.</div>
               </div>
               {/* Card 2 */}
               <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
                 <span className="flex items-center justify-center w-16 h-16 rounded-full bg-primary-50 mb-6 ring-2 ring-primary/20 shadow-sm">
                   <svg width="32" height="32" fill="none" stroke="#10b981" strokeWidth="2.2" viewBox="0 0 24 24">
-                    <path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    <path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                   </svg>
                 </span>
-                <div className="font-semibold text-lg text-gray-900 mb-2">Native English Humanities Experts</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">We hire experienced writers with advanced master and PhD degrees. They know exactly how to write deep sociology essays and detailed history research papers. They help you get top grades easily.</div>
+                <div className="font-semibold text-lg text-gray-900 mb-2">Qualified University Experts</div>
+                <div className="text-gray-500 text-base leading-relaxed font-normal">We hire experienced writers with advanced degrees in data science and mathematics. They know exactly how to handle complex probability distributions and regression analysis problems. They help you get top grades easily.</div>
               </div>
               {/* Card 3 */}
               <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -725,7 +731,7 @@ export default function HumanitiesAssignmentHelp() {
                   </svg>
                 </span>
                 <div className="font-semibold text-lg text-gray-900 mb-2">On Time Delivery Commitment</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">You will never miss a deadline again. We offer fast delivery options to help you avoid late penalties. We can finish your paper in just a few hours if you are in a rush.</div>
+                <div className="text-gray-500 text-base leading-relaxed font-normal">You will never miss a deadline again. We offer fast delivery options to help you avoid late penalties. We can finish your project in just a few hours if you are in a rush.</div>
               </div>
               {/* Card 4 */}
               <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -735,7 +741,7 @@ export default function HumanitiesAssignmentHelp() {
                   </svg>
                 </span>
                 <div className="font-semibold text-lg text-gray-900 mb-2">Responsive Support and Direct Communication</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">Do you need humanities assignment help near me right now? Our customer support team works around the clock. You can chat with your humanities assignment helper online directly to share ideas and ask questions.</div>
+                <div className="text-gray-500 text-base leading-relaxed font-normal">Do you need statistics assignment help near me right now? Our customer support team works around the clock. You can chat with your statistics assignment helper online directly to share ideas and ask questions.</div>
               </div>
               {/* Card 5 */}
               <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -745,7 +751,7 @@ export default function HumanitiesAssignmentHelp() {
                   </svg>
                 </span>
                 <div className="font-semibold text-lg text-gray-900 mb-2">Free Revisions Policy</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">Your happiness is our main goal. We offer a free revision period so your paper turns out exactly as you want.</div>
+                <div className="text-gray-500 text-base leading-relaxed font-normal">Your happiness is our main goal. We offer a free revision period so your coursework turns out exactly as you want.</div>
               </div>
               {/* Card 6 */}
               <div className="flex flex-col items-center text-center bg-white/30 backdrop-blur-2xl shadow-2xl shadow-primary/10 rounded-3xl px-7 py-12 border border-white/40 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20">
@@ -755,7 +761,7 @@ export default function HumanitiesAssignmentHelp() {
                   </svg>
                 </span>
                 <div className="font-semibold text-lg text-gray-900 mb-2">Privacy Guaranteed</div>
-                <div className="text-gray-500 text-base leading-relaxed font-normal">Your personal details are completely safe with us. We protect your academic data with strong encryption when you buy humanities assignment canada, the UK, the US, or anywhere else.</div>
+                <div className="text-gray-500 text-base leading-relaxed font-normal">Your personal details are completely safe with us. We protect your academic data with strong encryption when you pay for statistics assignment canada, the UK, the US, or anywhere else.</div>
               </div>
             </div>
           </div>
@@ -764,7 +770,7 @@ export default function HumanitiesAssignmentHelp() {
         {/* ── WHAT MAKES OUR EXPERTS SO SPECIAL (Carousel) ── */}
         <section className="w-full bg-[#F7FAFC] py-10">
           <div className="max-w-6xl mx-auto px-4 bg-[#F7FAFC] shadow-none border-none">
-            <SpecialHumanitiesHelpCarousel />
+            <SpecialStatisticsHelpCarousel />
           </div>
         </section>
 
@@ -774,27 +780,25 @@ export default function HumanitiesAssignmentHelp() {
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-gray-900">Assignment Help Services We Offer</h2>
             <div className="prose prose-lg max-w-none text-gray-700 mb-10">
               <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
-                At Essay Embassy, we specialize in providing top quality university humanities assignment help. Humanities classes require you to understand many different topics and conduct deep research. You must study human culture, literature, philosophy, and history. When you find yourself thinking "I need to pay someone to write humanities assignment tasks", we are here for you. We offer the best humanities assignment help for college students worldwide.
+                At Essay Embassy, we specialize in providing top quality university statistics assignment help. Statistics classes require you to understand many different topics and analyze quantitative research data. When you find yourself thinking "I need to pay someone to do statistics assignment tasks", we are here for you. We offer the best statistics assignment help for university students worldwide.
               </p>
               <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
-                Whether you need humanities assignment help uk or humanities assignment help australia, our experts can assist you. We provide the best humanities assignment writing service to help you pass your classes. Our team handles everything from basic philosophy coursework to complex cultural studies analysis. We base all our writing on accurate qualitative research methods and current facts.
+                Whether you need statistics assignment help uk or statistics assignment help australia, our experts can assist you. We provide the best statistics assignment solver online to help you pass your classes. Our team handles everything from basic probability to advanced ANOVA testing. We also use tools like R programming for stats to make sure you get accurate statistical calculations every single time.
               </p>
               <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
-                In addition to our arts tasks, we also offer a broad range of other academic services. Here is a list of the core assignment help services we offer:
+                In addition to our data tasks, we also offer a broad range of other academic services. Here is a list of the core assignment help services we offer:
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { name: 'Psychology Assignment Help', link: '/assignment-help/humanities/psychology' },
-                { name: 'History Assignment Help', link: '/assignment-help/humanities/history' },
-                { name: 'Sociology Assignment Help', link: '/assignment-help/humanities/sociology' },
-                { name: 'Philosophy Assignment Help', link: '/assignment-help/humanities/philosophy' },
-                { name: 'Political Science Assignment Help', link: '/assignment-help/humanities/political-science' },
-                { name: 'Anthropology Assignment Help', link: '/assignment-help/humanities/anthropology' },
-                { name: 'English Literature Assignment Help', link: '/assignment-help/humanities/english-literature' },
-                { name: 'Geography Assignment Help', link: '/assignment-help/humanities/geography' },
-                { name: 'Education Assignment Help', link: '/assignment-help/humanities/education' },
-                { name: 'Social Work Assignment Help', link: '/assignment-help/humanities/social-work' },
+                { name: 'SPSS Assignment Help', link: '/assignment-help/statistics/spss' },
+                { name: 'R Studio Assignment Help', link: '/assignment-help/statistics/r-studio' },
+                { name: 'Hypothesis Testing Assignment Help', link: '/assignment-help/statistics/hypothesis-testing' },
+                { name: 'Regression Analysis Assignment Help', link: '/assignment-help/statistics/regression-analysis' },
+                { name: 'Data Analysis Assignment Help', link: '/assignment-help/statistics/data-analysis' },
+                { name: 'Biostatistics Assignment Help', link: '/assignment-help/statistics/biostatistics' },
+                { name: 'Descriptive Statistics Assignment Help', link: '/assignment-help/statistics/descriptive-statistics' },
+                { name: 'Inferential Statistics Assignment Help', link: '/assignment-help/statistics/inferential-statistics' },
               ].map((service) => (
                 <Link
                   key={service.name}
@@ -819,7 +823,7 @@ export default function HumanitiesAssignmentHelp() {
                 <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up w-full">
                   <span className="text-2xl mb-1">✍️</span>
                   <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">1. Submit Your Requirements</div>
-                  <div className="text-gray-400 text-sm mb-2">Fill out our simple order form. Upload your instructions and tell us your deadline. Provide your grading rubric. Let us know if you need help with history research paper documents or a basic essay.</div>
+                  <div className="text-gray-400 text-sm mb-2">Fill out our simple order form. Upload your instructions and tell us your deadline. Provide your grading rubric. Let us know if you need help with SPSS data analysis or basic math tasks.</div>
                   <a href="/order-now" className="inline-block px-5 py-2 rounded-full bg-primary-600 text-white text-sm font-medium shadow hover:bg-primary-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 mb-1">Get started</a>
                 </div>
                 <div className="flex flex-col items-center mb-3">
@@ -829,14 +833,14 @@ export default function HumanitiesAssignmentHelp() {
                 <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up w-full" style={{ animationDelay: '0.15s' }}>
                   <span className="text-2xl mb-1">🔍</span>
                   <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">2. Get Matched with an Expert</div>
-                  <div className="text-gray-400 text-sm">We match you with cheap humanities coursework writers online who understand your exact subject. Your writer will have the right academic background to help you succeed.</div>
+                  <div className="text-gray-400 text-sm">We match you with cheap stats assignment solvers online who understand your exact subject. Your writer will have the right academic background to help you succeed.</div>
                 </div>
                 <div className="flex flex-col items-center mb-3">
                   <svg width="18" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 0v18m0 0l-5-5m5 5l5-5" stroke="#cbd5e1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 </div>
                 {/* Step 3 */}
                 <div className="flex flex-col items-center text-center mb-3 animate-fade-in-up w-full" style={{ animationDelay: '0.3s' }}>
-                  <span className="text-2xl mb-1">💬</span>
+                  <span className="text-2xl mb-1">💳</span>
                   <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">3. Track Progress</div>
                   <div className="text-gray-400 text-sm">Stay in touch with your writer. You can monitor the progress of your coursework and ask questions at any time.</div>
                 </div>
@@ -847,7 +851,7 @@ export default function HumanitiesAssignmentHelp() {
                 <div className="flex flex-col items-center text-center animate-fade-in-up w-full" style={{ animationDelay: '0.45s' }}>
                   <span className="text-2xl mb-1">📄</span>
                   <div className="font-medium text-base md:text-lg text-gray-900 mb-0.5">4. Download and Submit</div>
-                  <div className="text-gray-400 text-sm">Receive your completed task by the deadline. Download your finished files. We ensure your paper uses the correct MLA formatting style and includes proper citations.</div>
+                  <div className="text-gray-400 text-sm">Receive your completed task by the deadline. Download your finished files and submit your coursework with total confidence.</div>
                 </div>
               </div>
             </div>
@@ -876,6 +880,8 @@ export default function HumanitiesAssignmentHelp() {
                 How we secure your payment
               </Link>
             </div>
+
+            {/* Value propositions + calculator */}
             <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch mt-8 mb-10">
               {/* Left: Value props */}
               <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col gap-5">
@@ -918,7 +924,7 @@ export default function HumanitiesAssignmentHelp() {
                   </div>
                 </div>
               </div>
-              {/* Right: Included services */}
+              {/* Right: included / additional */}
               <div className="flex-1 bg-white rounded-2xl border border-gray-200 shadow p-8 flex flex-col">
                 <h3 className="text-2xl font-bold text-gray-900 mb-1">Included services</h3>
                 <div className="text-gray-400 text-base mb-4">You'll always get them for free</div>
@@ -932,6 +938,7 @@ export default function HumanitiesAssignmentHelp() {
                 </ul>
               </div>
             </div>
+
             {/* Payment methods */}
             <div className="flex flex-col items-center gap-2 mb-8">
               <div className="text-gray-500 text-base">We accept:</div>
@@ -964,14 +971,14 @@ export default function HumanitiesAssignmentHelp() {
                   <svg width="28" height="28" fill="none" stroke="#34d399" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                 </span>
                 <div className="font-semibold text-white text-base mb-2">Quality Commitment</div>
-                <div className="text-gray-400 text-sm leading-relaxed">Our experts write perfectly structured papers. We make sure your research and arguments are completely accurate.</div>
+                <div className="text-gray-400 text-sm leading-relaxed">Our experts write perfectly structured papers. We make sure your charts, graphs, and data models are completely accurate.</div>
               </div>
               <div className="flex flex-col items-center text-center bg-white/10 rounded-2xl px-6 py-8 border border-white/10">
                 <span className="flex items-center justify-center w-14 h-14 rounded-full bg-emerald-500/20 mb-4">
                   <svg width="28" height="28" fill="none" stroke="#34d399" strokeWidth="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
                 </span>
                 <div className="font-semibold text-white text-base mb-2">On Time Delivery</div>
-                <div className="text-gray-400 text-sm leading-relaxed">We always meet your deadlines so you can submit your assignment on time.</div>
+                <div className="text-gray-400 text-sm leading-relaxed">We always meet your deadlines so you can submit your coursework on time.</div>
               </div>
               <div className="flex flex-col items-center text-center bg-white/10 rounded-2xl px-6 py-8 border border-white/10">
                 <span className="flex items-center justify-center w-14 h-14 rounded-full bg-emerald-500/20 mb-4">
@@ -1002,7 +1009,7 @@ export default function HumanitiesAssignmentHelp() {
               </div>
               <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
               <div className="flex-1 flex flex-col items-center text-center px-2 md:px-4 max-w-xs mx-auto bg-white/80 rounded-xl shadow-md py-4">
-                <span className="text-3xl md:text-4xl font-bold text-emerald-500">5000+</span>
+                <span className="text-3xl md:text-4xl font-bold text-emerald-500">900+</span>
                 <span className="text-sm md:text-base font-medium text-gray-500 mt-1">Highly qualified<br className='hidden md:block' />and verified experts</span>
               </div>
               <div className="hidden md:flex items-center"><div className="h-12 border-l border-gray-200 mx-2"></div></div>
@@ -1037,18 +1044,18 @@ export default function HumanitiesAssignmentHelp() {
         <section id="samples" className="w-full py-10 px-2 bg-[#F7FAFC]">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight mb-2 drop-shadow-sm text-center" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Sample Humanities Assignments
+              Sample Statistics Assignments
             </h2>
             <div className="border-b border-gray-200/70 w-16 mx-auto mb-6"></div>
             <p className="text-lg md:text-xl text-gray-500/90 font-light text-center max-w-2xl mx-auto mb-10" style={{ fontFamily: 'Inter, sans-serif', lineHeight: '1.6' }}>
-              Preview real humanities assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity.
+              Preview real statistics assignment samples completed by our experts. Each sample demonstrates our commitment to quality, originality, and academic integrity.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                { title: "World History Research Paper", pages: 10, level: "University", type: "Research Paper", citation: "Chicago" },
-                { title: "Sociology Essay", pages: 6, level: "College", type: "Essay", citation: "APA" },
-                { title: "Philosophy Coursework", pages: 8, level: "University", type: "Coursework", citation: "MLA" },
-                { title: "Cultural Studies Analysis", pages: 7, level: "Master's", type: "Analysis", citation: "Harvard" },
+                { title: "SPSS Data Analysis Report", pages: 8, level: "University", type: "Data Analysis", citation: "APA" },
+                { title: "Regression Analysis Paper", pages: 10, level: "Master's", type: "Research Paper", citation: "MLA" },
+                { title: "Hypothesis Testing Assignment", pages: 6, level: "College", type: "Assignment", citation: "Chicago" },
+                { title: "Probability Distributions Study", pages: 7, level: "University", type: "Case Study", citation: "Harvard" },
               ].map((sample, idx) => (
                 <div key={idx} className="bg-white border border-blue-200 rounded-2xl shadow-sm p-6 flex flex-col min-h-[270px] text-left">
                   <div className="flex items-center justify-between mb-2">
@@ -1078,37 +1085,37 @@ export default function HumanitiesAssignmentHelp() {
           <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md relative overflow-hidden p-6 md:p-8">
             <div className="flex items-center mb-4">
               <div className="w-1.5 h-10 md:h-12 bg-yellow-400 rounded-full mr-4" />
-              <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Humanities Assignment Help</h2>
+              <h2 className="text-2xl md:text-2xl font-bold text-gray-900 text-left">Why You Need Our Statistics Assignment Help</h2>
             </div>
             <p className="text-base text-gray-700 text-left mb-4">
-              Tackling humanities assignments can be overwhelming, especially with tight deadlines and high academic standards. Our expert humanities assignment help service is designed to relieve your stress and ensure you never miss a deadline.
+              Tackling statistics assignments can be overwhelming, especially with tight deadlines and high academic standards. Our expert statistics assignment help service is designed to relieve your stress and ensure you never miss a deadline.
             </p>
             <p className="text-sm text-gray-600 mb-3 text-left">
-              Students turn to Essay Embassy for humanities assignment help because:
+              Students turn to Essay Embassy for statistics assignment help because:
             </p>
             <div className="custom-scrollbar max-h-60 overflow-y-auto pr-1 mb-3 bg-gray-50 rounded-lg border border-gray-100">
               <ul className="list-disc pl-5 mb-3">
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality humanities assignments.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Humanities require deep understanding of culture, history, philosophy, literature, and social theory.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Formatting and Citations:</span> Strict adherence to MLA, Chicago, APA, or Harvard formats can be confusing and time-consuming.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Originality Concerns:</span> Avoiding plagiarism and ensuring unique content is a must for top grades.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Time Management:</span> Balancing coursework, part-time jobs, and personal life leaves little time for quality statistics assignments.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Complex Topics:</span> Statistics requires deep understanding of probability, distributions, regression, ANOVA, and more.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Software Proficiency:</span> Tools like SPSS, R, and Python require technical expertise that takes time to master.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Data Accuracy:</span> One error in your calculations can cascade through an entire paper and cost you your grade.</li>
                 <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Performance Pressure:</span> The pressure to maintain high grades can be overwhelming without the right support.</li>
               </ul>
               <p className="text-sm text-gray-700 mb-3">
-                Our service ensures you submit well-researched, original, and properly formatted humanities assignments on time, every time.
+                Our service ensures you submit well-researched, accurate, and properly formatted statistics assignments on time, every time.
               </p>
-              <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Humanities Assignment Types We Handle</h3>
+              <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Statistics Assignment Types We Handle</h3>
               <ul className="list-disc pl-5 mb-3">
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Essays and Reports:</span> Analytical, argumentative, comparative, and reflective essays.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">History Research Papers:</span> In-depth historical analysis and source evaluation.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Philosophy Coursework:</span> Critical thinking, ethical theory, and logic-based assignments.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Sociology Essays:</span> Social theory, cultural analysis, and fieldwork reports.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Literature Reviews:</span> Textual analysis, critical commentary, and literary theory.</li>
-                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Political Science Papers:</span> Policy analysis, comparative politics, and international relations.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Data Analysis Reports:</span> SPSS, R, Python-based quantitative and qualitative analysis.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Hypothesis Testing:</span> T-tests, chi-square, ANOVA, and more.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Regression Analysis:</span> Simple, multiple, logistic, and non-linear regression.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Probability Problems:</span> Distributions, expected values, and combinatorics.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Research Methods:</span> Survey design, sampling, and statistical inference.</li>
+                <li className="mb-1 text-gray-600 text-sm"><span className="font-semibold">Biostatistics:</span> Clinical trials, survival analysis, and epidemiological data.</li>
               </ul>
               <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">The Essay Embassy Guarantee: What Sets Us Apart</h3>
               <ul className="list-none pl-0 mb-3">
-                <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in a humanities discipline.</span></li>
+                <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Verified Academic Professionals, Not AI:</span> Your assignment will be crafted by a real human expert with an advanced degree in statistics or a related field.</span></li>
                 <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Guaranteed 100% Original, AI-Free Content:</span> Every assignment is built from scratch. You'll receive a comprehensive plagiarism report with your order to prove its authenticity.</span></li>
                 <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Transparent and Fair Pricing:</span> No hidden fees, ever. Our pricing is clearly laid out based on your academic level, page count, and deadline.</span></li>
                 <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Real Reviews and Quality Samples:</span> We believe in transparency. We encourage you to read authentic client testimonials and review our sample work.</span></li>
@@ -1116,12 +1123,12 @@ export default function HumanitiesAssignmentHelp() {
                 <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Ironclad Security and Confidentiality:</span> We use end-to-end encryption to protect your personal and payment information. Your privacy is absolute.</span></li>
                 <li className="mb-1 flex items-start text-gray-700 text-sm"><span className="mr-2 text-emerald-500">✅</span> <span><span className="font-semibold">Punctuality is Non-Negotiable:</span> We respect your deadlines. Our experts have a proven track record of on-time delivery, and you can track your order's progress every step of the way.</span></li>
               </ul>
-              <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Humanities Assignment Today</h3>
+              <h3 className="text-base font-semibold text-gray-900 mb-1 mt-4">Get Your Expertly-Completed Statistics Assignment Today</h3>
               <p className="text-sm text-gray-700 mb-1">
-                Stop wondering, "Who can write my humanities assignment and guarantee quality?" The answer is right here.
+                Stop wondering, "Who can do my statistics assignment and guarantee quality?" The answer is right here.
               </p>
               <p className="text-sm text-gray-700 mb-1">
-                At Essay Embassy, we deliver high-quality, custom-written humanities assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
+                At Essay Embassy, we deliver high-quality, custom-written statistics assignments that are guaranteed to be 100% original and AI-free. Our affordable service is designed to help you succeed while protecting your privacy.
               </p>
               <p className="text-sm text-gray-700 mb-1">
                 Place your order now and let a true subject matter expert handle the hard work for you.
@@ -1147,24 +1154,24 @@ export default function HumanitiesAssignmentHelp() {
                   <div className="space-y-2">
                     {[
                       {
-                        question: 'How much does humanities assignment help cost?',
+                        question: 'How much does statistics assignment help cost?',
                         answer: 'Our pricing starts at just $16.00 per order. The final cost depends on your academic level, deadline, and length. Ordering early gets you the lowest price possible.'
                       },
                       {
-                        question: 'Who can write my humanities assignment fast?',
+                        question: 'Who can do my statistics assignment fast?',
                         answer: 'Our professional writers can handle urgent tasks easily. We can complete your order in just a few hours to help you avoid last minute stress.'
                       },
                       {
-                        question: 'How do your writers structure a humanities essay?',
-                        answer: 'Our writers follow strict academic rules. They organize your essay with a clear introduction, strong body paragraphs, and a logical conclusion. They develop a clear thesis statement and support it with evidence.'
+                        question: 'How do your experts perform SPSS data analysis?',
+                        answer: 'Our experts use proven methods for SPSS data analysis. They input your quantitative research data into the software, run the necessary tests like ANOVA or regression, and provide clear reports explaining the results.'
                       },
                       {
-                        question: 'Is it safe to buy humanities assignments online?',
+                        question: 'Is it safe to get stats assignment help online?',
                         answer: 'Yes. We keep your personal details completely private and never share them with third parties. We also use secure payment methods to protect your financial information. Our agency is very safe to use.'
                       },
                       {
-                        question: 'Can I get help with a university level humanities assignment?',
-                        answer: 'Absolutely. We provide excellent assistance for all college and university levels. Our native English experts have advanced degrees. They can easily tackle the most complex projects for higher education.'
+                        question: 'Can I get help with a masters level statistics assignment?',
+                        answer: 'Absolutely. We provide excellent assistance for all college and university levels. Our native English experts have advanced master\'s and PhD degrees. They can easily tackle the most complex projects for higher education.'
                       }
                     ].map((faq, idx) => {
                       const isOpen = openFAQ === idx;
@@ -1265,11 +1272,10 @@ export default function HumanitiesAssignmentHelp() {
                   { name: 'Narrative Essay', link: '/services/narrative-essay' },
                   { name: 'Law Assignment Help', link: '/assignment-help/law' },
                   { name: 'Statistics Assignment Help', link: '/assignment-help/statistics' },
-                  { name: 'Humanities Assignment Help', link: '/assignment-help/humanities' },
                 ];
-                const paperwork = ['Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Case Study', 'Lab Report', 'Homework Help', 'Assignment Help', 'Narrative Essay', 'Law Assignment Help', 'Statistics Assignment Help', 'Humanities Assignment Help'];
-                const coursework = ['Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'Management Assignment Help', 'English Assignment Help', 'Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Statistics Assignment Help', 'Humanities Assignment Help'];
-                const other = ['Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Law Assignment Help', 'Statistics Assignment Help', 'Humanities Assignment Help', 'Narrative Essay'];
+                const paperwork = ['Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Case Study', 'Lab Report', 'Homework Help', 'Assignment Help', 'Narrative Essay', 'Law Assignment Help', 'Statistics Assignment Help'];
+                const coursework = ['Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'Management Assignment Help', 'English Assignment Help', 'Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Statistics Assignment Help'];
+                const other = ['Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Law Assignment Help', 'Statistics Assignment Help', 'Narrative Essay'];
                 const tabData = [
                   { key: 'paperwork', label: 'Paperwork', services: paperwork.map(name => allServices.find(s => s.name === name)).filter(Boolean) },
                   { key: 'coursework', label: 'Coursework / homework', services: coursework.map(name => allServices.find(s => s.name === name)).filter(Boolean) },
@@ -1294,7 +1300,7 @@ export default function HumanitiesAssignmentHelp() {
                           >
                             <span className={isActive ? 'text-primary-600' : ''}>{tab.label}</span>
                             {isActive && (
-                              <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600"></span>
+                              <span className="absolute left-0 right-0 -bottom-1 mx-auto h-[3px] w-8 rounded-full bg-primary-600" style={{ content: '""' }}></span>
                             )}
                           </button>
                         );
@@ -1330,14 +1336,14 @@ export default function HumanitiesAssignmentHelp() {
           <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Ready to Get Better Grades Today?</h2>
             <p className="text-lg text-gray-300 mb-8 max-w-2xl">
-              Stop stressing over your coursework. Let our professional experts handle your research and writing. Get reliable humanities assignment help today.
+              Stop stressing over your coursework. Let our professional experts handle your data analysis and testing. Get reliable statistics assignment help today.
             </p>
             <div className="flex flex-wrap gap-4 justify-center mb-8">
               <a
                 href="/order-now"
                 className="inline-block px-10 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white text-lg font-bold shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 transform hover:scale-105"
               >
-                Start Your Humanities Assignment Now
+                Start Your Statistics Assignment Now
               </a>
               <a
                 href="#samples"
@@ -1349,7 +1355,7 @@ export default function HumanitiesAssignmentHelp() {
             {/* Trust Indicators */}
             <div className="flex flex-wrap justify-center gap-6 text-gray-400 text-sm">
               <span className="flex items-center gap-2">
-                <span>🛡️</span> Plagiarism Free Arts Assignments
+                <span>🛡️</span> Plagiarism Free Stats Answers
               </span>
               <span className="flex items-center gap-2">
                 <span>🔄</span> Revisions Included

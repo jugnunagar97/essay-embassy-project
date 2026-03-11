@@ -96,6 +96,7 @@ export default function ServicesDropdown() {
             { id: 'p2-c6', name: 'Science Assignment Help', link: '/assignment-help/science' },
             { id: 'p2-c7', name: 'Engineering Assignment Help', link: '/assignment-help/engineering' },
             { id: 'p2-c8', name: 'Biotech Assignment Help', link: '/assignment-help/biotechnology' },
+            { id: 'p2-c9', name: 'Statistics Assignment Help', link: '/assignment-help/statistics' },
           ]
         },
         { id: 'p3', name: 'Homework Help', link: '/homework-help' },
