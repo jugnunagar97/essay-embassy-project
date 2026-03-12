@@ -60,7 +60,6 @@ import DissertationWriting from './pages/Services/DissertationWriting';
 import EnglishAssignmentHelp from './pages/Services/EnglishAssignmentHelp';
 import EssayWriting from './pages/Services/EssayWriting';
 import HomeworkHelp from './pages/Services/HomeworkHelp';
-import LabReport from './pages/Services/LabReport';
 import NarrativeEssayWriting from './pages/Services/NarrativeEssayWriting';
 import PhysicsAssignmentHelp from './pages/Services/PhysicsAssignmentHelp';
 import ProgrammingHelp from './pages/Services/ProgrammingHelp';
@@ -70,8 +69,6 @@ import JSProgrammingHelp from './pages/Services/JSProgrammingHelp';
 import CProgrammingHelp from './pages/Services/CProgrammingHelp';
 import CSharpProgrammingHelp from './pages/Services/CSharpProgrammingHelp';
 import ResearchPaperWriting from './pages/Services/ResearchPaperWriting';
-import TermPaper from './pages/Services/TermPaper';
-import ThesisWriting from './pages/Services/ThesisWriting';
 
 import ReflectiveEssay from './pages/Services/ReflectiveEssay';
 import CompareContrastEssay from './pages/Services/CompareContrastEssay';
@@ -91,6 +88,7 @@ import MatlabProgrammingHelp from './pages/Services/MatlabProgrammingHelp';
 import RubyProgrammingHelp from './pages/Services/RubyProgrammingHelp';
 import CPPProgrammingHelp from './pages/Services/CPPProgrammingHelp';
 import ManagementAssignmentHelp from './pages/Services/ManagementAssignmentHelp';
+import ManagementHomeworkHelp from './pages/Services/ManagementHomeworkHelp';
 import MathAssignmentHelp from './pages/Services/MathAssignmentHelp';
 import ComputerAssignmentHelp from './pages/Services/ComputerAssignmentHelp';
 import ProgrammingAssignmentHelp from './pages/Services/ProgrammingAssignmentHelp';
@@ -106,6 +104,18 @@ import FinanceAssignmentHelp from './pages/Services/FinanceAssignmentHelp';
 import AccountingAssignmentHelp from './pages/Services/AccountingAssignmentHelp';
 import StatisticsAssignmentHelp from './pages/Services/StatisticsAssignmentHelp';
 import DynamicServicePage from './pages/DynamicServicePage';
+import MathHomeworkHelp from './pages/Services/MathHomeworkHelp';
+import ProgrammingHomeworkHelp from './pages/Services/ProgrammingHomeworkHelp';
+import ScienceHomeworkHelp from './pages/Services/ScienceHomeworkHelp';
+import EngineeringHomeworkHelp from './pages/Services/EngineeringHomeworkHelp';
+import MSOfficeHomeworkHelp from './pages/Services/MSOfficeHomeworkHelp';
+import NursingHomeworkHelp from './pages/Services/NursingHomeworkHelp';
+import EconomicsHomeworkHelp from './pages/Services/EconomicsHomeworkHelp';
+import FinanceHomeworkHelp from './pages/Services/FinanceHomeworkHelp';
+import AccountingHomeworkHelp from './pages/Services/AccountingHomeworkHelp';
+import LawHomeworkHelp from './pages/Services/LawHomeworkHelp';
+import StatisticsHomeworkHelp from './pages/Services/StatisticsHomeworkHelp';
+import HumanitiesHomeworkHelp from './pages/Services/HumanitiesHomeworkHelp';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -286,7 +296,19 @@ function App() {
                 <Route path="english-assignment-help" element={<EnglishAssignmentHelp />} />
                 <Route path="essay-writing" element={<EssayWriting />} />
                 <Route path="homework-help" element={<HomeworkHelp />} />
-                <Route path="lab-report" element={<LabReport />} />
+                <Route path="homework-help/math" element={<MathHomeworkHelp />} />
+                <Route path="homework-help/management" element={<ManagementHomeworkHelp />} />
+                <Route path="homework-help/programming" element={<ProgrammingHomeworkHelp />} />
+                <Route path="homework-help/science" element={<ScienceHomeworkHelp />} />
+                <Route path="homework-help/engineering" element={<EngineeringHomeworkHelp />} />
+                <Route path="homework-help/ms-office" element={<MSOfficeHomeworkHelp />} />
+                <Route path="homework-help/nursing" element={<NursingHomeworkHelp />} />
+                <Route path="homework-help/economics" element={<EconomicsHomeworkHelp />} />
+                <Route path="homework-help/finance" element={<FinanceHomeworkHelp />} />
+                <Route path="homework-help/accounting" element={<AccountingHomeworkHelp />} />
+                <Route path="homework-help/law" element={<LawHomeworkHelp />} />
+                <Route path="homework-help/statistics" element={<StatisticsHomeworkHelp />} />
+                <Route path="homework-help/humanities" element={<HumanitiesHomeworkHelp />} />
                 <Route path="narrative-essay" element={<NarrativeEssayWriting />} />
                 <Route path="physics-assignment-help" element={<PhysicsAssignmentHelp />} />
                 <Route path="programming-help" element={<ProgrammingHelp />} />
@@ -302,8 +324,6 @@ function App() {
                 <Route path="paper-writing-services" element={<PaperWriting />} />
                 <Route path="thesis-writing-services" element={<ThesisWritingServices />} />
                 <Route path="dissertation-writing-services" element={<DissertationWritingServices />} />
-                <Route path="term-paper" element={<TermPaper />} />
-                <Route path="thesis-writing" element={<ThesisWriting />} />
                 <Route path="services/:slug" element={<DynamicServicePage />} />
 
 

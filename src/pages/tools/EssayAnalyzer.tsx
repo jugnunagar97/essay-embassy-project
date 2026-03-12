@@ -66,7 +66,7 @@ const CircularGauge = ({ score = 0, label, color = "emerald", delay = 0 }: { sco
   );
 };
 
-const FeaturePill = ({ icon: Icon, text }: { icon: React.ElementType, text: string }) => (
+const FeaturePill = ({ icon: Icon, text }: { icon: any, text: string }) => (
   <div className="flex items-center gap-2 px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-slate-200/60 shadow-sm">
     <Icon size={14} className="text-emerald-600" />
     <span className="text-xs font-medium text-slate-600">{text}</span>

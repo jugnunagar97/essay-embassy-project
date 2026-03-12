@@ -83,6 +83,7 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
         { id: 'p2-c7', name: '  ↳ Engineering Assignment Help', link: '/assignment-help/engineering' },
         { id: 'p2-c8', name: '  ↳ Biotech Assignment Help', link: '/assignment-help/biotechnology' },
         { id: 'p3', name: 'Homework Help', link: '/homework-help' },
+        { id: 'p3-c1', name: '  ↳ Management Homework Help', link: '/homework-help/management' },
         { id: 'p4', name: 'Paper Writing Services', link: '/paper-writing-services' },
         { id: 'p5', name: 'Thesis Writing Services', link: '/thesis-writing-services' },
         { id: 'p6', name: 'Dissertation Writing Services', link: '/dissertation-writing-services' },

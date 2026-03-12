@@ -1,8 +1,17 @@
 import { useRef, useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight, FaCheckCircle } from 'react-icons/fa';
 
+interface Writer {
+  name: string;
+  degree: string;
+  rating: number;
+  tags: string[];
+  stats: { label: string; value: string; }[];
+  imageUrl?: string;
+}
+
 // Writer mock data
-const writers = [
+const writers: Writer[] = [
   {
     name: 'Ashley Thompson',
     degree: "Master's degree",
@@ -75,7 +84,7 @@ export default function WritersCarousel() {
   const [index, setIndex] = useState(writers.length);
   const [isAutoScrolling, setIsAutoScrolling] = useState(false);
   const [scrollDirection, setScrollDirection] = useState<'left' | 'right' | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Create an infinite loop by duplicating the writers array
   const infiniteWriters = [

@@ -26,9 +26,9 @@ import {
   Lock,
   Edit3,
   FileCheck,
-  Wrench,
   Settings,
   Ruler,
+  Globe,
 } from 'lucide-react';
 
 // ─── FAQ Item ─────────────────────────────────────────────────────────────────
@@ -59,10 +59,10 @@ const PriceCalculator = () => {
   const [deadline, setDeadline] = useState('7days');
 
   const baseRates: Record<string, number> = {
-    highschool: 16.00,
-    undergraduate: 20.00,
-    masters: 26.00,
-    phd: 32.00,
+    highschool: 13.99,
+    undergraduate: 17.99,
+    masters: 23.99,
+    phd: 29.99,
   };
 
   const deadlineMultipliers: Record<string, number> = {
@@ -76,7 +76,7 @@ const PriceCalculator = () => {
   };
 
   const calculatePrice = () => {
-    const base = baseRates[academicLevel] || 20.00;
+    const base = baseRates[academicLevel] || 17.99;
     const mult = deadlineMultipliers[deadline] || 1.0;
     return (base * pages * mult).toFixed(2);
   };
@@ -85,7 +85,7 @@ const PriceCalculator = () => {
     <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
       <div className="text-center mb-8">
         <h3 className="text-2xl font-bold text-gray-900 mb-2">Calculate Your Live Price</h3>
-        <p className="text-gray-600 text-sm">Expert engineering assignment help starting at just $16.00/page. Pricing updates in real time — zero hidden fees.</p>
+        <p className="text-gray-600 text-sm">Expert management homework help starting at just $13.99/page. Pricing updates in real time — zero hidden fees.</p>
       </div>
       <div className="space-y-6">
         <div>
@@ -157,10 +157,10 @@ const PriceCalculator = () => {
             to="/order-now"
             className="w-full px-6 py-4 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
           >
-            Do My Engineering Assignment <ArrowRight className="w-5 h-5" />
+            Do My Management Homework <ArrowRight className="w-5 h-5" />
           </Link>
           <div className="flex flex-wrap justify-center gap-3 mt-4 text-xs font-medium text-gray-600">
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> Free Turnitin Report</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> Free Originality Report</span>
             <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#10B981]" /> Free Formatting & 24/7 Support</span>
           </div>
         </div>
@@ -169,115 +169,115 @@ const PriceCalculator = () => {
   );
 };
 
-// ─── Engineering Sub-Services Grid ─────────────────────────────────────────────
-const EngineeringServicesGrid = () => {
+// ─── Management Sub-Services Grid ─────────────────────────────────────────────
+const ManagementServicesGrid = () => {
   const services = [
     {
-      emoji: '⚙️',
-      title: 'Mechanical Engineering Help',
-      description: 'Need a mechanical engineering assignment writing service? We help with machines, tools, and engines. If you say "Do my mechanical engineering assignment," our mechanical engineering assignment solver will show you how parts move and work.',
-      features: ['How engines work', 'Machine part design', 'Heat and energy math', 'Mechanical solver help'],
-      cta: 'Get Mechanical Help',
-      slug: '/assignment-help/engineering/mechanical',
+      emoji: '💼',
+      title: 'Business Management',
+      description: 'If you ask, "who can do my business management homework online", our experts are ready. We offer excellent business plan writing help and general business studies academic assistance.',
+      features: ['Business plan writing', 'Academic assistance', 'Online homework help', 'General business studies'],
+      cta: 'Get Business Help',
+      slug: '/homework-help/management/business',
       popular: true,
     },
     {
-      emoji: '🏗️',
-      title: 'Civil Engineering Help',
-      description: 'Get civil engineering assignment help online for building roads, bridges, and big dams. Talk to a civil engineering assignment expert to get your plans right. If you need someone to "Write my civil engineering assignment," we are here.',
-      features: ['Building safe roads', 'Bridge and dam plans', 'Expert project help', 'Write my assignment'],
-      cta: 'Get Civil Help',
-      slug: '/assignment-help/engineering/civil',
+      emoji: '📊',
+      title: 'Project Management',
+      description: 'We provide affordable project management homework help. Our experts can handle complex charts, schedules, and plans.',
+      features: ['Complex charts', 'Schedules & plans', 'Affordable help', 'Project homework solver'],
+      cta: 'Get Project Help',
+      slug: '/homework-help/management/project',
+      popular: true,
+    },
+    {
+      emoji: '👥',
+      title: 'HR Management',
+      description: 'If you find yourself thinking, "who can help me with my human resource management homework", look no further. We cover hiring, training, and employee relations.',
+      features: ['Hiring & training', 'Employee relations', 'HR coursework help', 'Expert homework help'],
+      cta: 'Get HR Help',
+      slug: '/homework-help/management/hrm',
       popular: false,
     },
     {
-      emoji: '⚡',
-      title: 'Electrical Engineering Help',
-      description: 'We do electrical engineering assignment writing for wires and power systems. Get help with electrical engineering assignment tasks like circuits and lights. Our electrical engineering assignment solver makes hard power math easy.',
-      features: ['Circuit board help', 'Power and wires', 'Electrical math solver', 'Writing for students'],
-      cta: 'Get Electrical Help',
-      slug: '/assignment-help/engineering/electrical',
+      emoji: '⚙️',
+      title: 'Operations Management',
+      description: 'Do you need to hire an expert for operations management homework? We can solve hard equations and improve your grades.',
+      features: ['Operations tasks', 'Solve hard equations', 'Improve your grades', 'Hire an expert'],
+      cta: 'Get Operations Help',
+      slug: '/homework-help/management/operations',
       popular: false,
     },
     {
-      emoji: '💻',
-      title: 'Computer Science Help',
-      description: 'Get computer science engineering assignment help for coding and making apps. Instead of saying "Do my computer science assignment," let a computer science assignment expert show you how to fix bugs and write good code.',
-      features: ['Coding and apps', 'Fixing computer bugs', 'Expert coding help', 'Do my CSE work'],
-      cta: 'Get CS Help',
-      slug: '/assignment-help/engineering/computer-science',
+      emoji: '🎯',
+      title: 'Strategic Management',
+      description: 'If you need to say "do my strategic management homework for me", we provide deep strategic management case study solutions. We also offer MBA coursework assistance and corporate strategy paper help.',
+      features: ['Case study solutions', 'MBA coursework assistance', 'Corporate strategy papers', 'Leadership coursework solver'],
+      cta: 'Get Strategic Help',
+      slug: '/homework-help/management/strategic',
       popular: false,
     },
     {
-      emoji: '🧪',
-      title: 'Chemical Engineering Help',
-      description: 'Our chemical engineering assignment writing service handles gas, oil, and liquid problems. Get chemical engineering assignment help online for factory designs. Our chemical engineering assignment solver makes mixing chemicals simple.',
-      features: ['Chemical factory plans', 'Oil and gas science', 'Online writing help', 'Chemical math solver'],
-      cta: 'Get Chemical Help',
-      slug: '/assignment-help/engineering/chemical',
+      emoji: '🔗',
+      title: 'Supply Chain Management',
+      description: 'We hire experienced writers with advanced master\'s and PhD degrees. They know exactly how to provide accurate supply chain management tasks. They help you get top grades easily.',
+      features: ['Supply chain tasks', 'Master\'s & PhD experts', 'Accurate solutions', 'Top grades easily'],
+      cta: 'Get Supply Chain Help',
+      slug: '/homework-help/management/supply-chain',
       popular: false,
     },
     {
-      emoji: '🚀',
-      title: 'Aerospace Engineering Help',
-      description: 'Talk to an aerospace engineering assignment expert about planes and rockets. We give you help with aerospace engineering assignment work like flight and space travel. Our aerospace engineering assignment writing is clear and fast.',
-      features: ['Planes and rockets', 'How things fly', 'Expert space help', 'Aerospace writing'],
-      cta: 'Get Aerospace Help',
-      slug: '/assignment-help/engineering/aerospace',
+      emoji: '📈',
+      title: 'Marketing Management',
+      description: 'At EssayEmbassy, we specialize in providing top quality online management coursework help. We are the best website to pay for management coursework worldwide.',
+      features: ['Marketing coursework', 'Online management help', 'Top quality work', 'Worldwide service'],
+      cta: 'Get Marketing Help',
+      slug: '/homework-help/management/marketing',
       popular: false,
     },
     {
-      emoji: '🧬',
-      title: 'Biomedical Engineering Help',
-      description: 'Get biomedical engineering assignment help online for medical tools and health tech. If you ask us to "Do my biomedical engineering assignment," our biomedical engineering assignment writing service will help you finish it fast.',
-      features: ['Medical tool design', 'Health tech help', 'Do my science work', 'Biomedical writing'],
-      cta: 'Get Biomedical Help',
-      slug: '/assignment-help/engineering/biomedical',
+      emoji: '🌍',
+      title: 'International Business',
+      description: 'Business classes require you to understand many different topics. When you find yourself thinking "I need to pay someone to do my management homework", we are here for you.',
+      features: ['Business classes', 'Global topics', 'Management homework', 'Pay someone to do it'],
+      cta: 'Get International Help',
+      slug: '/homework-help/management/international-business',
       popular: false,
     },
     {
-      emoji: '🛠️',
-      title: 'Software Engineering Help',
-      description: 'We help with software engineering assignment writing for building large apps. Work with a software engineering assignment expert to learn about testing. Get help with software engineering assignment tasks any time.',
-      features: ['Building big apps', 'Testing software', 'Software expert help', 'Writing for coding'],
-      cta: 'Get Software Help',
-      slug: '/assignment-help/engineering/software',
+      emoji: '🧠',
+      title: 'Organizational Behavior',
+      description: 'We hire experienced writers with advanced degrees. They know exactly how to provide clear organizational behavior answers and help you succeed in your business studies.',
+      features: ['Clear OB answers', 'Experienced writers', 'Advanced degrees', 'Business studies help'],
+      cta: 'Get OB Help',
+      slug: '/homework-help/management/organizational-behavior',
       popular: false,
     },
     {
-      emoji: '🍃',
-      title: 'Environmental Engineering Help',
-      description: 'Our environmental engineering assignment solver helps with clean water and air. Tell us to "Do my environmental engineering assignment" to get it done. Find environmental engineering assignment help online for green projects.',
-      features: ['Clean water plans', 'Air and nature help', 'Online engineering help', 'Do my eco work'],
-      cta: 'Get Eco Help',
-      slug: '/assignment-help/engineering/environmental',
+      emoji: '💡',
+      title: 'Entrepreneurship',
+      description: 'We offer excellent business plan writing help and general business studies academic assistance. We provide affordable homework help so you can get better grades.',
+      features: ['Business studies', 'Plan writing help', 'Affordable prices', 'Better grades'],
+      cta: 'Get Entrepreneurship Help',
+      slug: '/homework-help/management/entrepreneurship',
       popular: false,
     },
     {
-      emoji: '🏭',
-      title: 'Industrial Engineering Help',
-      description: 'Our industrial engineering assignment writing service helps factories run better. An industrial engineering assignment expert can show you how to make things fast. Get help with industrial engineering assignment work here.',
-      features: ['Factory work flow', 'Making things fast', 'Industrial expert help', 'Writing service'],
-      cta: 'Get Industrial Help',
-      slug: '/assignment-help/engineering/industrial',
+      emoji: '🔄',
+      title: 'Change Management',
+      description: 'We provide a reliable leadership coursework solver for advanced degrees. Let our professional experts handle your research and business plans.',
+      features: ['Leadership solver', 'Advanced degrees', 'Research & plans', 'Professional experts'],
+      cta: 'Get Change Help',
+      slug: '/homework-help/management/change',
       popular: false,
     },
     {
-      emoji: '🏘️',
-      title: 'Structural Engineering Help',
-      description: 'Get structural engineering assignment help online for beams and tall buildings. If you need us to "Do my structural engineering assignment," our structural engineering assignment solver will make sure your math is 100% right.',
-      features: ['Tall building math', 'Strong beams and walls', 'Structural solver', 'Online math help'],
-      cta: 'Get Structural Help',
-      slug: '/assignment-help/engineering/structural',
-      popular: false,
-    },
-    {
-      emoji: '📻',
-      title: 'Electronics Engineering Help',
-      description: 'We do electronics engineering assignment writing for phones and small chips. Get help with electronics engineering assignment work on tiny parts. Work with an electronics engineering assignment expert today.',
-      features: ['Phone and chip tech', 'Tiny electronic parts', 'Expert tech help', 'Writing for electronics'],
-      cta: 'Get Electronics Help',
-      slug: '/assignment-help/engineering/electronics',
+      emoji: '🛡️',
+      title: 'Risk Management',
+      description: 'Let our professional experts handle your research. Get reliable management homework help today and stop stressing over your coursework.',
+      features: ['Handle your research', 'Reliable help', 'Stop stressing', 'Management experts'],
+      cta: 'Get Risk Help',
+      slug: '/homework-help/management/risk',
       popular: false,
     },
   ];
@@ -320,13 +320,13 @@ const EngineeringServicesGrid = () => {
 };
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
-export default function EngineeringAssignmentHelp() {
+export default function ManagementHomeworkHelp() {
   return (
     <>
       <Helmet>
-        <title>Best Engineering Assignment Help for University Students</title>
-        <meta name="description" content="Need engineering homework help? Pay someone to do engineering assignment tasks today. Hire the best engineering assignment writing service online for top grades." />
-        <meta name="keywords" content="engineering assignment help, engineering homework help, do my engineering assignment, engineering assignment writing service, civil engineering assignment help, mechanical engineering homework help" />
+        <title>Best Management Homework Help | Management Homework Solver</title>
+        <meta name="description" content="Need to pay someone to do my management homework? Get affordable project management homework help and MBA coursework assistance from top experts online." />
+        <meta name="keywords" content="management homework help, do my management homework, project management homework help, management homework solver, business management homework online, operations management homework" />
       </Helmet>
       <div className="min-h-screen bg-white font-sans">
 
@@ -336,30 +336,30 @@ export default function EngineeringAssignmentHelp() {
             <div className="max-w-5xl mx-auto text-center mb-10">
               <div className="flex flex-wrap justify-center gap-4 mb-8">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm">
-                  <ShieldCheck className="w-4 h-4 text-[#1652A0]" />
-                  <span className="text-sm font-bold text-gray-700">Plagiarism-Free Technical Solutions</span>
+                  <Brain className="w-4 h-4 text-[#1652A0]" />
+                  <span className="text-sm font-bold text-gray-700">100% Human Written</span>
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm">
-                  <Wrench className="w-4 h-4 text-yellow-500" />
-                  <span className="text-sm font-bold text-gray-700">Expert Engineering Tutors</span>
+                  <Globe className="w-4 h-4 text-yellow-500" />
+                  <span className="text-sm font-bold text-gray-700">Native English Experts</span>
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 border border-green-200 shadow-sm">
                   <Clock className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-bold text-green-700">On-Time Delivery</span>
+                  <span className="text-sm font-bold text-green-700">On Time Delivery</span>
                 </div>
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-5xl font-extrabold text-[#0B1F42] mb-10 leading-[1.2] tracking-tight">
-                Professional Engineering Assignment Help Online
+                Professional Management Homework Help Online
               </h1>
               <p className="text-[20px] text-gray-600 mb-14 max-w-3xl mx-auto leading-[1.9] font-medium opacity-90">
-                Expert Engineering Tutors, Flawless Work, and On-Time Delivery. Get Perfect Grades on Your Technical Projects Every Time.
+                Need a reliable management homework solver? Get expert business studies academic assistance and perfect grades every time.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
                   to="/order-now"
                   className="w-full sm:w-auto px-8 py-4 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-3"
                 >
-                  Do My Engineering Assignment <ArrowRight className="w-5 h-5" />
+                  Do My Management Homework <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
                   to="/samples"
@@ -378,10 +378,10 @@ export default function EngineeringAssignmentHelp() {
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-gray-100">
                 {[
-                  { value: '250K+', label: 'Happy Students', color: 'text-[#1652A0]' },
-                  { value: '97%', label: 'On-Time Delivery', color: 'text-[#1652A0]' },
-                  { value: '900+', label: 'Verified Experts', color: 'text-[#1652A0]' },
-                  { value: '4.8/5', label: 'Average Rating', color: 'text-[#D4A853]' },
+                  { value: '20K+', label: 'Happy Students', color: 'text-[#1652A0]' },
+                  { value: '95%', label: 'On Time Delivery', color: 'text-[#1652A0]' },
+                  { value: '10+', label: 'Years of Experience', color: 'text-[#1652A0]' },
+                  { value: '70%', label: 'Return Rate', color: 'text-[#D4A853]' },
                 ].map((stat, i) => (
                   <div key={i} className="px-4">
                     <div className={`text-4xl font-extrabold ${stat.color} mb-2`}>{stat.value}</div>
@@ -405,10 +405,10 @@ export default function EngineeringAssignmentHelp() {
                   WHY CHOOSE US
                 </div>
                 <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">
-                  Why Choose Our Engineering Assignment Help Service?
+                  Why Choose Our Management Homework Help Service?
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                  We offer the best engineering assignment help for university students tackling demanding technical projects. Here is why students worldwide trust us to help them get better grades.
+                  We offer the best management homework help for university students tackling demanding business projects. Here is why students worldwide trust us to help them get better grades.
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -420,16 +420,16 @@ export default function EngineeringAssignmentHelp() {
                     <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                       <ShieldCheck className="w-10 h-10 text-white" />
                     </div>
-                    <h3 className="text-3xl font-black mb-4">Plagiarism-Free Technical Solutions + Free Turnitin Report</h3>
+                    <h3 className="text-3xl font-black mb-4">100% Original Work and Free Reports</h3>
                     <p className="text-gray-300 text-lg mb-6 leading-loose">
-                      We offer strict guarantees for original work on every project. You get <span className="text-white font-bold">custom papers built completely from scratch</span> using verified technical sources. Every order includes a <span className="text-white font-bold">free originality report</span> to prove your work is unique and safe to submit — with <span className="text-white font-bold">zero AI involvement</span> guaranteed.
+                      Our management homework writing service offers strict guarantees for completely original work. You get <span className="text-white font-bold">custom papers built from scratch</span> with <span className="text-white font-bold">zero AI content</span>. Every order includes a <span className="text-white font-bold">free report</span> to prove your work is unique and safe to submit.
                     </p>
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       {[
-                        { icon: CheckCircle2, color: 'text-green-300', title: 'Free Turnitin Report', sub: '0% plagiarism guaranteed' },
-                        { icon: Brain, color: 'text-purple-300', title: 'Zero AI Involvement', sub: '100% human written' },
-                        { icon: Ruler, color: 'text-yellow-300', title: 'Built From Scratch', sub: 'Verified technical sources' },
-                        { icon: Lock, color: 'text-pink-300', title: 'Full Ownership Rights', sub: 'Yours permanently' },
+                        { icon: CheckCircle2, color: 'text-green-300', title: 'Free Originality Report', sub: 'Prove work is unique' },
+                        { icon: Brain, color: 'text-purple-300', title: 'Zero AI Content', sub: '100% human written' },
+                        { icon: Ruler, color: 'text-yellow-300', title: 'Built From Scratch', sub: 'Custom papers guaranteed' },
+                        { icon: Lock, color: 'text-pink-300', title: 'Safe & Secure', sub: 'Strict guarantees' },
                       ].map((item, i) => (
                         <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                           <item.icon className={`w-6 h-6 ${item.color} mb-2`} />
@@ -439,22 +439,22 @@ export default function EngineeringAssignmentHelp() {
                       ))}
                     </div>
                     <div className="bg-green-500 text-white px-6 py-3 rounded-xl inline-flex items-center gap-2 font-bold text-lg shadow-xl">
-                      <Trophy className="w-6 h-6" /> Your Project, Engineered to Perfection
+                      <Trophy className="w-6 h-6" /> Your Project, Perfected and Ready
                     </div>
                   </div>
                 </div>
 
-                {/* Card 2 — Expert Engineering Tutors */}
+                {/* Card 2 — Qualified University Experts */}
                 <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-[#1652A0]">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <GraduationCap className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Expert Engineering Tutors</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Qualified University Experts</h3>
                   <p className="text-gray-600 leading-loose mb-6">
-                    We hire writers with advanced degrees in fields like civil, mechanical, and electrical engineering. They know exactly how to apply engineering design principles to solve hard problems. They can also help you with complex system modeling and simulation tasks.
+                    We hire experienced writers with advanced master's and PhD degrees. They know exactly how to provide clear organizational behavior answers and accurate supply chain management tasks. They help you get top grades easily.
                   </p>
                   <ul className="space-y-3">
-                    {['Advanced engineering degrees', 'Engineering design principles', 'System modeling & simulation', 'All disciplines covered'].map((item, i) => (
+                    {['Advanced master\'s and PhDs', 'Clear organizational answers', 'Accurate supply chain tasks', 'Get top grades easily'].map((item, i) => (
                       <li key={i} className="flex items-center text-gray-700 font-medium">
                         <CheckCircle2 className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" /> {item}
                       </li>
@@ -462,17 +462,17 @@ export default function EngineeringAssignmentHelp() {
                   </ul>
                 </div>
 
-                {/* Card 3 — On-Time Delivery */}
+                {/* Card 3 — On Time Delivery Commitment */}
                 <div className="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 group hover:border-purple-500">
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-400 to-pink-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <Zap className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">On-Time Delivery Commitment</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">On Time Delivery Commitment</h3>
                   <p className="text-gray-600 leading-loose mb-6">
-                    You will never miss a deadline again. We offer fast delivery options to help you avoid late penalties. We can finish your paper quickly if you are in a rush, no matter how technical the project.
+                    You will never miss a deadline again. We offer fast delivery options to help you avoid late penalties. We can finish your paper in just a few hours if you are in a rush.
                   </p>
                   <ul className="space-y-3">
-                    {['Rush delivery available', 'Same-day turnaround', 'Late penalty protection', 'Guaranteed on-time delivery'].map((item, i) => (
+                    {['Fast delivery options', 'Avoid late penalties', 'Rush orders accepted', 'Guaranteed on time'].map((item, i) => (
                       <li key={i} className="flex items-center text-gray-700 font-medium">
                         <Rocket className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0" /> {item}
                       </li>
@@ -485,12 +485,12 @@ export default function EngineeringAssignmentHelp() {
                   <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <MessageCircle className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Responsive Support & Direct Communication</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Responsive Support and Direct Communication</h3>
                   <p className="text-gray-600 leading-loose mb-6">
-                    Need engineering assignment help right now? Our customer support team works around the clock. You can chat with your engineering assignment helper online directly to share ideas and ask questions at any stage.
+                    Do you need a management homework solver right now? Our customer support team works around the clock. You can also chat with your expert directly to share ideas and ask questions.
                   </p>
                   <ul className="space-y-3">
-                    {['24/7 customer support', 'Direct engineer chat', 'Share your rubric & diagrams', 'Instant responses'].map((item, i) => (
+                    {['Around the clock support', 'Direct expert chat', 'Share ideas instantly', 'Ask questions anytime'].map((item, i) => (
                       <li key={i} className="flex items-center text-gray-700 font-medium">
                         <Headphones className="w-5 h-5 text-orange-500 mr-3 flex-shrink-0" /> {item}
                       </li>
@@ -505,10 +505,10 @@ export default function EngineeringAssignmentHelp() {
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">Free Revisions Policy</h3>
                   <p className="text-gray-600 leading-loose mb-6">
-                    Your happiness is our main goal. We offer a free revision period so your project turns out exactly as you want. We will keep refining calculations, models, and diagrams until every detail is perfect.
+                    Your happiness is our main goal. We offer a free revision period so your paper turns out exactly as you want.
                   </p>
                   <ul className="space-y-3">
-                    {['Free revision window', 'Calculations re-checked', 'Models & diagrams refined', 'Zero additional costs'].map((item, i) => (
+                    {['Free revision period', 'Ensures your happiness', 'Turn out exactly as wanted', 'Zero additional costs'].map((item, i) => (
                       <li key={i} className="flex items-center text-gray-700 font-medium">
                         <Edit3 className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" /> {item}
                       </li>
@@ -523,10 +523,10 @@ export default function EngineeringAssignmentHelp() {
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">Privacy Guaranteed</h3>
                   <p className="text-gray-600 leading-loose mb-6">
-                    Your personal details are completely safe with us. We protect your academic data with strong encryption when you pay for engineering assignment help in Canada, the UK, the US, or anywhere else.
+                    Your personal details are completely safe with us. We protect your academic data with strong encryption when you pay for management homework on our site.
                   </p>
                   <ul className="space-y-3">
-                    {['256-bit SSL encryption', 'Work never shared', 'Zero data sharing', 'GDPR compliant'].map((item, i) => (
+                    {['Details completely safe', 'Strong encryption', 'Secure payments', 'Data never shared'].map((item, i) => (
                       <li key={i} className="flex items-center text-gray-700 font-medium">
                         <Shield className="w-5 h-5 text-indigo-500 mr-3 flex-shrink-0" /> {item}
                       </li>
@@ -539,7 +539,7 @@ export default function EngineeringAssignmentHelp() {
                   to="/order-now"
                   className="inline-flex items-center gap-3 px-10 py-5 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg"
                 >
-                  Get My Engineering Assignment Done Today <ArrowRight className="w-5 h-5" />
+                  Get My Management Homework Done Today <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </div>
@@ -552,29 +552,29 @@ export default function EngineeringAssignmentHelp() {
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
                 <div className="inline-block bg-[#0B1F42]/5 text-[#0B1F42] px-5 py-2 rounded-full text-sm font-semibold mb-4">
-                  ASSIGNMENT HELP SERVICES WE OFFER
+                  HOMEWORK HELP SERVICES WE OFFER
                 </div>
                 <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">
-                  Engineering Assignment Help & Other Academic Services We Offer
+                  Management Homework Help & Other Academic Services
                 </h2>
                 <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-[1.8]">
-                  At EssayEmbassy, we specialize in providing top-quality university engineering assignment help. Engineering classes require you to understand many different topics and conduct deep industrial project analysis. When you find yourself thinking, "I need to pay someone to do my engineering assignment," we are here for you — offering the best engineering assignment help for university students worldwide.
+                  At EssayEmbassy, we specialize in providing top quality online management coursework help. Business classes require you to understand many different topics. When you find yourself thinking "I need to pay someone to do my management homework", we are here for you.
                 </p>
                 <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-[1.8] mt-4">
-                  Whether you need engineering assignment help in the UK, Australia, Canada, or the US, our experts can assist. Our team handles everything from technical report writing to complex CAD software assignments — delivered accurately and on time.
+                  We are the best website to pay for management coursework worldwide. In addition to business tasks, we also offer a broad range of other academic services. Here is a list of the core homework help services we offer:
                 </p>
               </div>
-              <EngineeringServicesGrid />
+              <ManagementServicesGrid />
               <div className="mt-12 bg-gray-50 rounded-2xl p-10 text-center border border-gray-200">
-                <h3 className="text-2xl font-bold text-[#0B1F42] mb-3">Ready to Get Top Grades on Your Engineering Assignment?</h3>
+                <h3 className="text-2xl font-bold text-[#0B1F42] mb-3">Ready to Get Top Grades on Your Management Homework?</h3>
                 <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                  Every solution is built by a verified engineering expert — accurate calculations, clean diagrams, and proper technical formatting included.
+                  Every solution is built by a verified business expert — accurate charts, clear plans, and proper formatting included.
                 </p>
                 <Link
                   to="/order-now"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-[#1652A0] text-white font-bold rounded-xl hover:bg-[#0B1F42] transition-all shadow-md"
                 >
-                  Order Engineering Assignment Help Now <ArrowRight className="w-5 h-5" />
+                  Order Management Homework Help Now <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </div>
@@ -593,7 +593,7 @@ export default function EngineeringAssignmentHelp() {
                   Simple Process, Powerful Results
                 </h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-[1.8]">
-                  A streamlined four-step process designed to get your engineering assignment completed and submitted on time. Get started in minutes.
+                  A streamlined four-step process designed to get your management homework completed and submitted on time. Get started in minutes.
                 </p>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
@@ -603,36 +603,36 @@ export default function EngineeringAssignmentHelp() {
                     stepBg: 'bg-[#1652A0]', iconBg: 'bg-[#1652A0]/10', iconText: 'text-[#1652A0]',
                     badgeBg: 'bg-[#1652A0]/10', badgeText: 'text-[#1652A0]', checkColor: 'text-[#1652A0]',
                     title: 'Submit Your Requirements',
-                    desc: 'Upload your instructions and tell us your deadline. Provide your grading rubric and any design files. Let us know if you need help with a complex engineering project and we will take it from there.',
+                    desc: 'Fill out our simple order form. Upload your instructions and tell us your deadline. Let us know if you need a leadership coursework solver or basic help.',
                     highlight: 'Takes 2 minutes',
-                    features: ['Secure file upload', 'Share your rubric', 'Set your deadline', 'Attach design files'],
+                    features: ['Secure file upload', 'Simple order form', 'Set your deadline', 'Share your instructions'],
                   },
                   {
                     step: '2', icon: Users,
                     stepBg: 'bg-[#0B1F42]', iconBg: 'bg-[#0B1F42]/10', iconText: 'text-[#0B1F42]',
                     badgeBg: 'bg-[#0B1F42]/10', badgeText: 'text-[#0B1F42]', checkColor: 'text-[#0B1F42]',
                     title: 'Get Matched with an Expert',
-                    desc: 'We match you with engineering homework helpers who understand your exact discipline. Your writer will have the right academic background and real-world technical experience to help you succeed.',
-                    highlight: 'Discipline-matched engineer',
-                    features: ['Expert engineer profiles', 'Discipline-area match', 'Verified degree credentials', 'Choose your expert'],
+                    desc: 'We match you with an expert who understands your exact subject. Your writer will have the right academic background to help you succeed.',
+                    highlight: 'Subject-matched expert',
+                    features: ['Expert profiles', 'Subject-area match', 'Right academic background', 'Help you succeed'],
                   },
                   {
                     step: '3', icon: Settings,
                     stepBg: 'bg-[#10B981]', iconBg: 'bg-[#10B981]/10', iconText: 'text-[#10B981]',
                     badgeBg: 'bg-[#10B981]/10', badgeText: 'text-[#10B981]', checkColor: 'text-[#10B981]',
-                    title: 'Track Progress & Communicate',
-                    desc: 'Stay in touch with your writer throughout the process. You can monitor the progress of your engineering schematics and diagrams and ask questions at any time to ensure your project meets every requirement.',
+                    title: 'Track Progress',
+                    desc: 'Stay in touch with your writer. You can monitor the progress of your coursework and ask questions at any time.',
                     highlight: 'Full transparency guaranteed',
-                    features: ['24/7 access', 'Live tracking', 'Direct engineer chat', 'Monitor schematics & diagrams'],
+                    features: ['Stay in touch', 'Live tracking', 'Direct expert chat', 'Monitor coursework'],
                   },
                   {
                     step: '4', icon: Trophy,
                     stepBg: 'bg-[#D4A853]', iconBg: 'bg-[#D4A853]/10', iconText: 'text-[#D4A853]',
                     badgeBg: 'bg-[#D4A853]/10', badgeText: 'text-[#D4A853]', checkColor: 'text-[#D4A853]',
-                    title: 'Download & Submit',
-                    desc: 'Receive your completed task by the deadline. Download your finished files — accurate calculations, clean diagrams, and proper technical formatting — and submit your assignment with total confidence.',
-                    highlight: 'On-time guarantee',
-                    features: ['Instant download', 'Free Turnitin report', 'Free revisions', 'Submit with confidence'],
+                    title: 'Download and Submit',
+                    desc: 'Receive your completed task by the deadline. Download your finished files and submit your homework with total confidence.',
+                    highlight: 'On time guarantee',
+                    features: ['Instant download', 'Receive by deadline', 'Submit with confidence', 'Finished files ready'],
                   },
                 ].map((item, i) => (
                   <div key={i} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-gray-200 hover:border-[#1652A0] group">
@@ -664,8 +664,8 @@ export default function EngineeringAssignmentHelp() {
                 ))}
               </div>
               <div className="text-center bg-[#0B1F42] rounded-2xl p-10">
-                <h3 className="text-2xl font-bold text-white mb-3">Ready to Get Top Grades on Your Engineering Assignment?</h3>
-                <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Your expertly engineered, submission-ready project is just one step away.</p>
+                <h3 className="text-2xl font-bold text-white mb-3">Ready to Get Top Grades on Your Management Homework?</h3>
+                <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Your expertly crafted, submission-ready project is just one step away.</p>
                 <Link
                   to="/order-now"
                   className="px-10 py-4 bg-[#D4A853] text-[#0B1F42] font-bold text-lg rounded-xl hover:bg-[#C49843] transition-all shadow-md inline-flex items-center gap-3"
@@ -687,17 +687,17 @@ export default function EngineeringAssignmentHelp() {
                     TRANSPARENT PRICING
                   </div>
                   <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
-                    Affordable Engineering Assignment Help Pricing
+                    Affordable Management Homework Help Pricing
                   </h2>
                   <p className="text-lg text-gray-600 mb-8 leading-loose">
-                    Our rates start at just $16.00 per order for basic college levels. Pricing updates in real time with no surprises — making professional engineering homework help accessible for every student.
+                    Our rates start at just $13.99 per page. Pricing updates in real time with no surprises — making professional management homework help accessible for every student.
                   </p>
                   <div className="space-y-4">
                     {[
-                      { icon: DollarSign, title: 'Starting at $16.00/page', desc: 'Transparent pricing with zero hidden costs.' },
-                      { icon: FileCheck, title: 'No Hidden Fees', desc: 'Pay only for the text you need. Pricing updates in real time.' },
-                      { icon: Award, title: 'Free Features Included', desc: 'Free formatting, 24/7 support, and direct chat with every order.' },
-                      { icon: Shield, title: 'Satisfaction Promise', desc: 'Free revisions and a secure money-back guarantee to protect your funds.' },
+                      { icon: DollarSign, title: 'Starting at $13.99/page', desc: 'Transparent pricing with zero hidden costs.' },
+                      { icon: FileCheck, title: 'No Hidden Fees', desc: 'Pay only for the text you need. Pricing updates in real time with no surprises.' },
+                      { icon: Award, title: 'Free Features Included', desc: 'Get a free title page, free formatting, and direct chat with every order.' },
+                      { icon: Shield, title: 'Satisfaction Promise', desc: 'We offer free revisions and a secure money back guarantee to protect your funds.' },
                     ].map((item, i) => (
                       <div key={i} className="flex items-start gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
                         <div className="w-12 h-12 rounded-lg bg-white flex items-center justify-center text-[#1652A0] flex-shrink-0 border border-gray-200">
@@ -732,7 +732,7 @@ export default function EngineeringAssignmentHelp() {
                 </div>
                 <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Our Guarantees to You</h2>
                 <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-[1.8]">
-                  Commitments we take seriously with every engineering assignment we write and deliver.
+                  Commitments we take seriously with every management homework order we write and deliver.
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -740,17 +740,17 @@ export default function EngineeringAssignmentHelp() {
                   {
                     icon: Trophy,
                     title: 'Quality Commitment',
-                    description: 'Our experts write perfectly structured papers. We make sure your technical calculations are completely accurate and your designs meet all engineering standards.',
+                    description: 'Our experts write perfectly structured papers. We make sure your strategic management case study solutions are completely accurate.',
                   },
                   {
                     icon: Clock,
-                    title: 'On-Time Delivery',
-                    description: 'We always meet your deadlines so you can submit your assignment on time. Missing a submission window is never an option.',
+                    title: 'On Time Delivery',
+                    description: 'We always meet your deadlines so you can submit your coursework on time. Missing a submission window is never an option.',
                   },
                   {
                     icon: RefreshCw,
                     title: 'Free Revisions',
-                    description: 'We revise your paper for free until it matches your exact needs perfectly — calculations, diagrams, models, and formatting all adjusted.',
+                    description: 'We revise your paper for free until it matches your exact needs perfectly.',
                   },
                   {
                     icon: Lock,
@@ -768,7 +768,7 @@ export default function EngineeringAssignmentHelp() {
                 ))}
               </div>
               <div className="text-center bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold mb-3">We Stand Behind Every Engineering Assignment We Deliver</h3>
+                <h3 className="text-2xl font-bold mb-3">We Stand Behind Every Management Coursework We Deliver</h3>
                 <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Confidence in quality and integrity is at the core of everything we do.</p>
                 <Link
                   to="/guarantees"
@@ -792,19 +792,19 @@ export default function EngineeringAssignmentHelp() {
                 >
                   <Star className="w-4 h-4" /> CLIENT REVIEWS
                 </div>
-                <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">Testimonials & Engineering Assignment Examples</h2>
+                <h2 className="text-3xl md:text-5xl font-extrabold text-[#0B1F42] mb-6">Testimonials & Reviews</h2>
                 <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-[1.8]">
-                  Authentic reviews from verified students who improved their grades with our engineering assignment help.
+                  Authentic reviews from verified students who improved their grades with our management homework help.
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Civil Engineering', rating: 5, text: 'I told them to do my engineering assignment for my structures class. The research was perfect. This is the best engineering assignment writing service.' },
-                  { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Electrical Engineering', rating: 5, text: 'I needed university engineering assignment help for a tough paper. The circuit equations were completely accurate and delivered early.' },
-                  { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Mechanical Engineering', rating: 4.9, text: 'My expert provided amazing help with CAD software assignments. The formatting was excellent and totally original.' },
-                  { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Chemical Engineering', rating: 5, text: 'Long-time fan here. I use this engineering assignment helper online often. The writing is always flawless and avoids plagiarism completely.' },
-                  { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Aerospace Engineering', rating: 5, text: 'I had to pay someone to do engineering assignment tasks for my space class. The technical report writing was deeply engaging and very professional.' },
-                  { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Industrial Engineering', rating: 4.8, text: 'If you need engineering homework helpers online, use this site. They used excellent logic and helped me meet a very tight deadline.' },
+                  { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Business', rating: 5, text: 'I told them to do my management homework for my class. The research was perfect. This is the best management homework writing service.' },
+                  { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Operations', rating: 5, text: 'I needed to hire an expert for operations management homework. The math was completely accurate and delivered early.' },
+                  { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Strategy', rating: 4.9, text: 'My expert provided amazing strategic management case study solutions. I will definitely pay someone to do my business management homework online here again.' },
+                  { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Human Resources', rating: 5, text: 'Long time fan here. I asked who can help me with my human resource management homework and they delivered fast. The writing avoids plagiarism completely.' },
+                  { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'MBA', rating: 5, text: 'I had to pay for management homework tasks for my MBA class. The MBA coursework assistance was deeply engaging and very professional.' },
+                  { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Project Planning', rating: 4.8, text: 'If you need an affordable project management homework help site, use this one. They provided great organizational behavior answers.' },
                 ].map((review, i) => (
                   <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">
                     <div className="flex items-center justify-between mb-3">
@@ -853,24 +853,28 @@ export default function EngineeringAssignmentHelp() {
             </div>
             <div className="space-y-4">
               <FAQItem
-                question="How much does engineering assignment help cost?"
-                answer="Our pricing starts at $16.00 per page for high school and basic college levels. The final cost depends on your academic level, deadline, and length. Ordering early gets you the lowest price possible — use our live calculator above for an instant, transparent quote."
+                question="Can I pay someone to do my management homework?"
+                answer="Yes, you can absolutely pay us to complete your tasks. Our experts are ready to provide excellent online management coursework help so you can get better grades."
               />
               <FAQItem
-                question="Who can do my engineering assignment fast?"
-                answer="Our professional writers can handle urgent tasks easily. We can complete your order in just a few hours to help you avoid last-minute stress — whether your deadline is days away or just a few hours."
+                question="How much does it cost to hire a management homework solver?"
+                answer="Our pricing starts at just $13.99 per page. The final cost depends on your academic level, deadline, and length. We offer very affordable project management homework help."
               />
               <FAQItem
-                question="How do your experts solve engineering design problems?"
-                answer="Our experts analyze your instructions carefully. They use advanced tools like AutoCAD, SolidWorks, and MATLAB to create accurate models and solve design challenges. They also provide step-by-step explanations of the math and physics used so you understand every part of the solution."
+                question="Who can do my business management homework online?"
+                answer="Our team of qualified professionals can handle your workload. We hire experts with master's and PhD degrees to ensure you receive the best corporate strategy paper help."
               />
               <FAQItem
-                question="Is it safe to get engineering homework help online?"
-                answer="Yes. We keep your personal details completely private and never share them with third parties. We also use secure payment methods to protect your financial information. Our service is completely safe and secure to use anywhere in the world."
+                question="Are management homework writing services confidential?"
+                answer="Yes. We keep your personal details completely private and never share them with third parties. It is entirely safe to use our website."
               />
               <FAQItem
-                question="Can I get help with a masters level engineering project?"
-                answer="Absolutely. We provide excellent help for all college and university levels. Our native English experts have advanced degrees in civil, mechanical, electrical, and other engineering disciplines. They can easily tackle the most complex projects for higher education — from undergraduate design tasks to graduate-level system modeling."
+                question="How fast can I get my project management homework done?"
+                answer="Our professional writers can handle urgent tasks easily. We can complete your order in just a few hours to help you avoid last minute stress."
+              />
+              <FAQItem
+                question="Where can I find affordable help for my MBA homework?"
+                answer="You can find the best MBA coursework assistance right here. We offer student-friendly prices and high-quality work for all advanced degrees."
               />
             </div>
             <div className="mt-12 bg-[#1652A0] rounded-2xl p-10 text-white text-center">
@@ -894,14 +898,14 @@ export default function EngineeringAssignmentHelp() {
                 Ready to Get Better Grades Today?
               </h2>
               <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-loose">
-                Stop stressing over your technical coursework. Let our professional experts handle your research, models, and calculations. Get reliable engineering homework help today.
+                Stop stressing over your coursework. Let our professional experts handle your research and business plans. Get reliable management homework help today.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
                 <Link
                   to="/order-now"
                   className="px-10 py-5 bg-[#D4A853] hover:bg-[#C49843] text-[#0B1F42] font-bold text-lg rounded-xl transition-all shadow-lg inline-flex items-center justify-center gap-3"
                 >
-                  Start Your Engineering Assignment Now <ArrowRight className="w-5 h-5" />
+                  Start Your Homework Now <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
                   to="/samples"
@@ -912,7 +916,7 @@ export default function EngineeringAssignmentHelp() {
               </div>
               <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 {[
-                  { icon: ShieldCheck, text: 'Plagiarism-Free Technical Solutions' },
+                  { icon: Brain, text: '100% Human Written' },
                   { icon: RefreshCw, text: 'Revisions Included' },
                   { icon: Lock, text: '100% Confidential' },
                 ].map((item, i) => (

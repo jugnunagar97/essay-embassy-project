@@ -103,7 +103,24 @@ export default function ServicesDropdown() {
             { id: 'p2-c13', name: 'Accounting Assignment Help', link: '/assignment-help/accounting' },
           ]
         },
-        { id: 'p3', name: 'Homework Help', link: '/homework-help' },
+        {
+          id: 'p3', name: 'Homework Help', link: '/homework-help', children: [
+            { id: 'p3-c1', name: 'Management Homework Help', link: '/homework-help/management' },
+            { id: 'p3-c2', name: 'Math Homework Help', link: '/homework-help/math' },
+            { id: 'p3-c3', name: 'Programming Homework Help', link: '/homework-help/programming' },
+            { id: 'p3-c4', name: 'Science Homework Help', link: '/homework-help/science' },
+            { id: 'p3-c5', name: 'Engineering Homework Help', link: '/homework-help/engineering' },
+            { id: 'p3-c6', name: 'MS Office Homework Help', link: '/homework-help/ms-office' },
+            { id: 'p3-c7', name: 'Nursing Homework Help', link: '/homework-help/nursing' },
+            { id: 'p3-c8', name: 'Economics Homework Help', link: '/homework-help/economics' },
+            { id: 'p3-c9', name: 'Finance Homework Help', link: '/homework-help/finance' },
+            { id: 'p3-c10', name: 'Accounting Homework Help', link: '/homework-help/accounting' },
+            { id: 'p3-c11', name: 'Law Homework Help', link: '/homework-help/law' },
+            { id: 'p3-c12', name: 'Statistics Homework Help', link: '/homework-help/statistics' },
+            { id: 'p3-c13', name: 'Humanities Homework Help', link: '/homework-help/humanities' },
+
+          ]
+        },
         { id: 'p4', name: 'Paper Writing Services', link: '/paper-writing-services' },
         { id: 'p5', name: 'Thesis Writing Services', link: '/thesis-writing-services' },
         { id: 'p6', name: 'Dissertation Writing Services', link: '/dissertation-writing-services' },

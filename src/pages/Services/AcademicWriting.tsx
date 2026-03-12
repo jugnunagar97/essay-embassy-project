@@ -305,27 +305,8 @@ function ClientTestimonialsCarousel() {
             {testimonials.map((t, idx) => {
               const offset = idx - currentIndex;
                 return (
-
-                    <>
-
-                      <Helmet>
-
-                        <title>Academic Writing Service | Professional Help</title>
-
-                        <meta
-
-                          name="description"
-
-                          content="Expert academic writing service for essays, papers, and assignments. Professional writers, original content, on-time delivery."
-
-                        />
-
-                        <link rel="canonical" href="https://essayembassy.com/services/academic-writing" />
-
-                      </Helmet>
-
-                      <div
-                  key={t.id}
+                  <div
+                    key={t.id}
                   className={`bg-white rounded-2xl p-8 mx-2 shadow-xl transition-all duration-500 ease-in-out flex flex-col w-full max-w-xl absolute left-1/2 top-0" ${idx === currentIndex ? 'is-active' : ''}`}
                   style={{
                     ...getCardStyle(idx),
@@ -515,7 +496,16 @@ export default function HomeworkHelp() {
   };
 
   return (
-    <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
+    <>
+      <Helmet>
+        <title>Academic Writing Service | Professional Help</title>
+        <meta
+          name="description"
+          content="Expert academic writing service for essays, papers, and assignments. Professional writers, original content, on-time delivery."
+        />
+        <link rel="canonical" href="https://essayembassy.com/services/academic-writing" />
+      </Helmet>
+      <div className="background-icons min-h-screen" style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F7FAFC' }}>
       {/* Hero Section */}
       <section className="container mx-auto px-6 py-8 md:py-10 relative">
         <main className="grid md:grid-cols-2 gap-16 items-center">
@@ -1253,8 +1243,6 @@ export default function HomeworkHelp() {
           </div>
         </div>
       </section>
-
-
       {/* Final CTA Block - Join Our Happy Clients (Larger, Balanced, Modern) */}
       <section className="pt-10 pb-0 bg-[#F7FAFC] w-full px-4 md:px-0">
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-5xl mx-auto py-14">
@@ -1282,9 +1270,6 @@ export default function HomeworkHelp() {
         </div>
       </section>
     </div>
-
-        </>
-
-      );
-
-    }
+    </>
+  );
+}
