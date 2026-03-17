@@ -346,11 +346,6 @@ export default function HeroSectionV2() {
       </div>
 
       <style>{`
-        /* =====================================================
-           PREMIUM HERO SECTION STYLES
-           Sophisticated, conversion-focused design
-           ===================================================== */
-
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
         /* ========== BASE SECTION ========== */
@@ -372,8 +367,18 @@ export default function HeroSectionV2() {
           display: flex;
           align-items: center;
           padding: 100px 0 80px;
-          overflow: hidden;
+
+          /* FIX 1: Prevent horizontal overflow at section level */
+          overflow-x: hidden;
+          overflow-y: visible;
+
           font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+          box-sizing: border-box;
+          width: 100%;
+        }
+
+        *, *::before, *::after {
+          box-sizing: border-box;
         }
 
         /* ========== BACKGROUND LAYERS ========== */
@@ -403,11 +408,15 @@ export default function HeroSectionV2() {
           opacity: 0.4;
           z-index: 1;
           animation: glowPulse 8s ease-in-out infinite;
+          /* FIX 2: Contain glow elements so they don't cause overflow */
+          pointer-events: none;
+          max-width: 100vw;
         }
 
         .hero-glow-1 {
-          width: 600px;
-          height: 600px;
+          /* FIX 3: Use % sizing instead of fixed px to prevent overflow */
+          width: min(600px, 80vw);
+          height: min(600px, 80vw);
           background: radial-gradient(circle, rgba(22, 82, 160, 0.5) 0%, transparent 70%);
           top: -200px;
           left: -100px;
@@ -415,17 +424,17 @@ export default function HeroSectionV2() {
         }
 
         .hero-glow-2 {
-          width: 500px;
-          height: 500px;
+          width: min(500px, 70vw);
+          height: min(500px, 70vw);
           background: radial-gradient(circle, rgba(212, 168, 83, 0.2) 0%, transparent 70%);
           bottom: -100px;
-          right: 10%;
+          right: -50px; /* FIX 4: was 10% which can exceed viewport with large sizes */
           animation-delay: 2s;
         }
 
         .hero-glow-3 {
-          width: 400px;
-          height: 400px;
+          width: min(400px, 60vw);
+          height: min(400px, 60vw);
           background: radial-gradient(circle, rgba(43, 108, 176, 0.3) 0%, transparent 70%);
           top: 50%;
           left: 30%;
@@ -443,6 +452,8 @@ export default function HeroSectionV2() {
           inset: 0;
           z-index: 2;
           pointer-events: none;
+          /* FIX 5: Clip floating elements to section bounds */
+          overflow: hidden;
         }
 
         .floating-badge {
@@ -459,21 +470,23 @@ export default function HeroSectionV2() {
           font-weight: 500;
           color: rgba(255, 255, 255, 0.9);
           animation: floatBadge 6s ease-in-out infinite;
+          white-space: nowrap;
         }
 
         .floating-badge svg {
           color: var(--accent-gold);
+          flex-shrink: 0;
         }
 
         .floating-badge-1 {
           top: 15%;
-          right: 8%;
+          right: 5%; /* FIX 6: reduced from 8% to stay within bounds */
           animation-delay: 0s;
         }
 
         .floating-badge-2 {
           bottom: 20%;
-          left: 5%;
+          left: 2%; /* FIX 7: reduced from 5% for safety */
           animation-delay: 3s;
         }
 
@@ -494,6 +507,7 @@ export default function HeroSectionV2() {
 
         .hero-owl-image {
           width: 300px;
+          max-width: 25vw; /* FIX 8: prevent overflow on small/mid screens */
           transform: scaleX(-1);
           filter: drop-shadow(0 25px 50px rgba(0,0,0,0.4));
           animation: owlFloat 5s ease-in-out infinite;
@@ -504,14 +518,14 @@ export default function HeroSectionV2() {
           50% { transform: scaleX(-1) translateY(-12px); }
         }
 
-        /* Owl visibility at different breakpoints */
         @media (max-width: 1279px) {
           .hero-owl-container {
-            right: -5%;
+            right: -2%; /* FIX 9: was -5%, reduced to avoid overflow */
             opacity: 0.35;
           }
           .hero-owl-image {
             width: 220px;
+            max-width: 20vw;
           }
         }
 
@@ -522,6 +536,7 @@ export default function HeroSectionV2() {
           }
           .hero-owl-image {
             width: 340px;
+            max-width: 22vw;
           }
         }
 
@@ -546,6 +561,9 @@ export default function HeroSectionV2() {
           opacity: 0;
           transform: translateY(30px);
           transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          /* FIX 10: Ensure container never overflows viewport */
+          box-sizing: border-box;
+          min-width: 0;
         }
 
         .hero-premium-container.is-visible {
@@ -557,18 +575,16 @@ export default function HeroSectionV2() {
           .hero-premium-container {
             grid-template-columns: 1fr 420px;
             gap: 60px;
+            /* FIX 11: REMOVED padding-right: 180px at 1280px — this was the main overflow culprit */
           }
         }
 
-        @media (min-width: 1280px) {
-          .hero-premium-container {
-            padding-right: 180px;
-          }
-        }
+        /* FIX 12: Removed the @media (min-width: 1280px) padding-right: 180px rule entirely */
 
         /* ========== LEFT CONTENT ========== */
         .hero-content-left {
           max-width: 640px;
+          min-width: 0; /* FIX 13: allow grid child to shrink properly */
         }
 
         .premium-badge {
@@ -588,6 +604,7 @@ export default function HeroSectionV2() {
 
         .premium-badge svg {
           animation: sparkle 2s ease-in-out infinite;
+          flex-shrink: 0;
         }
 
         @keyframes shimmer {
@@ -601,12 +618,15 @@ export default function HeroSectionV2() {
         }
 
         .hero-headline {
-          font-size: clamp(36px, 5vw, 56px);
+          font-size: clamp(28px, 5vw, 56px);
           font-weight: 800;
           line-height: 1.1;
           color: var(--surface-white);
           margin-bottom: 24px;
           letter-spacing: -0.03em;
+          /* FIX 14: allow wrapping, never overflow */
+          overflow-wrap: break-word;
+          word-break: break-word;
         }
 
         .headline-accent {
@@ -625,7 +645,7 @@ export default function HeroSectionV2() {
 
         .headline-sub {
           display: block;
-          font-size: clamp(20px, 2.5vw, 28px);
+          font-size: clamp(16px, 2.5vw, 28px);
           font-weight: 500;
           color: rgba(255, 255, 255, 0.7);
           margin-top: 12px;
@@ -684,12 +704,14 @@ export default function HeroSectionV2() {
           margin-top: 4px;
           text-transform: uppercase;
           letter-spacing: 0.05em;
+          white-space: nowrap;
         }
 
         .metric-divider {
           width: 1px;
           height: 40px;
           background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2), transparent);
+          flex-shrink: 0;
         }
 
         /* ========== FEATURE BADGES ========== */
@@ -745,17 +767,20 @@ export default function HeroSectionV2() {
         .badge-content {
           display: flex;
           flex-direction: column;
+          min-width: 0; /* FIX 15: allow text to shrink/wrap */
         }
 
         .badge-title {
           font-size: 14px;
           font-weight: 600;
           color: var(--surface-white);
+          white-space: nowrap;
         }
 
         .badge-subtitle {
           font-size: 12px;
           color: rgba(255, 255, 255, 0.5);
+          white-space: nowrap;
         }
 
         /* ========== SOCIAL PROOF STRIP ========== */
@@ -771,6 +796,7 @@ export default function HeroSectionV2() {
         .proof-avatars {
           display: flex;
           align-items: center;
+          flex-shrink: 0;
         }
 
         .proof-avatar {
@@ -800,6 +826,7 @@ export default function HeroSectionV2() {
           display: flex;
           align-items: center;
           gap: 16px;
+          flex-wrap: wrap;
         }
 
         .rating-item {
@@ -831,6 +858,8 @@ export default function HeroSectionV2() {
         .hero-form-wrapper {
           position: relative;
           z-index: 20;
+          min-width: 0; /* FIX 16: prevent grid blowout */
+          width: 100%;
         }
 
         .hero-form-card {
@@ -842,8 +871,10 @@ export default function HeroSectionV2() {
             0 30px 60px rgba(0, 0, 0, 0.12),
             0 0 0 1px rgba(255, 255, 255, 0.1);
           overflow: hidden;
-          transform: perspective(1000px) rotateY(0deg);
           transition: transform 0.5s ease, box-shadow 0.5s ease;
+          /* FIX 17: Ensure card never overflows its wrapper */
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .hero-form-card:hover {
@@ -852,7 +883,8 @@ export default function HeroSectionV2() {
             0 15px 30px rgba(0, 0, 0, 0.12),
             0 40px 80px rgba(0, 0, 0, 0.15),
             0 0 0 1px rgba(255, 255, 255, 0.15);
-          transform: perspective(1000px) rotateY(-1deg) translateY(-4px);
+          transform: translateY(-4px);
+          /* FIX 18: Removed perspective rotateY which can cause visual overflow on mobile */
         }
 
         /* Form Header */
@@ -885,6 +917,7 @@ export default function HeroSectionV2() {
           background: #10B981;
           border-radius: 50%;
           animation: pulse 2s ease-in-out infinite;
+          flex-shrink: 0;
         }
 
         @keyframes pulse {
@@ -952,6 +985,7 @@ export default function HeroSectionV2() {
           appearance: none;
           cursor: pointer;
           transition: all 0.2s ease;
+          box-sizing: border-box; /* FIX 19 */
         }
 
         .premium-select:hover {
@@ -1004,6 +1038,7 @@ export default function HeroSectionV2() {
           color: var(--text-secondary);
           cursor: pointer;
           transition: all 0.2s ease;
+          flex-shrink: 0;
         }
 
         .page-btn:hover {
@@ -1033,8 +1068,6 @@ export default function HeroSectionV2() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 0;
-          border-radius: 0;
         }
 
         .price-breakdown {
@@ -1098,6 +1131,7 @@ export default function HeroSectionV2() {
           box-shadow: 
             0 4px 12px rgba(212, 168, 83, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          box-sizing: border-box;
         }
 
         .cta-button:hover {
@@ -1114,6 +1148,7 @@ export default function HeroSectionV2() {
 
         .cta-arrow {
           transition: transform 0.3s ease;
+          flex-shrink: 0;
         }
 
         .cta-button:hover .cta-arrow {
@@ -1136,13 +1171,15 @@ export default function HeroSectionV2() {
           font-size: 12px;
           font-weight: 500;
           color: var(--text-muted);
+          white-space: nowrap;
         }
 
         .trust-badge-mini svg {
           color: var(--accent-green);
+          flex-shrink: 0;
         }
 
-        /* ========== RESPONSIVE DESIGN ========== */
+        /* ========== TABLET (1024px and below) ========== */
         @media (max-width: 1023px) {
           .hero-premium-section {
             padding: 80px 0 60px;
@@ -1178,7 +1215,7 @@ export default function HeroSectionV2() {
           }
 
           .hero-form-wrapper {
-            max-width: 440px;
+            max-width: 480px;
             margin: 0 auto;
           }
 
@@ -1188,22 +1225,23 @@ export default function HeroSectionV2() {
           }
         }
 
+        /* ========== MOBILE (640px and below) ========== */
         @media (max-width: 640px) {
           .hero-premium-section {
-            padding: 60px 0 40px;
+            padding: 70px 0 40px;
           }
 
           .hero-premium-container {
             padding: 0 16px;
-            gap: 36px;
+            gap: 32px;
           }
 
           .hero-headline {
-            font-size: 32px;
+            font-size: 28px;
           }
 
           .headline-sub {
-            font-size: 18px;
+            font-size: 16px;
           }
 
           .hero-description {
@@ -1216,7 +1254,7 @@ export default function HeroSectionV2() {
           }
 
           .metric-value {
-            font-size: 24px;
+            font-size: 22px;
           }
 
           .metric-divider {
@@ -1234,12 +1272,17 @@ export default function HeroSectionV2() {
 
           .form-header,
           .form-body {
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: 16px;
+            padding-right: 16px;
+          }
+
+          .form-header {
+            padding-top: 20px;
+            padding-bottom: 16px;
           }
 
           .price-display {
-            padding: 20px;
+            padding: 20px 16px;
             flex-direction: column;
             gap: 12px;
             text-align: center;
@@ -1249,20 +1292,60 @@ export default function HeroSectionV2() {
             align-items: center;
           }
 
+          /* FIX 20: On mobile, stack Academic Level & Deadline */
+          .form-row-grid {
+            grid-template-columns: 1fr;
+          }
+
           .cta-button {
-            width: calc(100% - 40px);
-            margin-left: 20px;
-            margin-right: 20px;
+            width: calc(100% - 32px);
+            margin-left: 16px;
+            margin-right: 16px;
+            font-size: 15px;
+            padding: 16px 20px;
           }
 
           .form-trust-footer {
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: 16px;
+            padding-right: 16px;
+            gap: 10px;
+          }
+
+          .hero-price-amount {
+            font-size: 36px;
+          }
+
+          .social-proof-strip {
+            gap: 16px;
+          }
+
+          .proof-ratings {
+            gap: 10px;
+          }
+        }
+
+        /* ========== EXTRA SMALL (375px and below) ========== */
+        @media (max-width: 375px) {
+          .hero-premium-container {
+            padding: 0 12px;
+          }
+
+          .trust-metrics {
+            padding: 12px 14px;
             gap: 12px;
           }
 
-          .form-row-grid {
-            grid-template-columns: 1fr;
+          .metric-value {
+            font-size: 20px;
+          }
+
+          .metric-label {
+            font-size: 10px;
+          }
+
+          .form-trust-footer {
+            flex-direction: column;
+            align-items: center;
           }
         }
       `}</style>

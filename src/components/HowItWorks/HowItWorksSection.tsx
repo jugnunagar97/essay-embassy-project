@@ -59,7 +59,8 @@ export default function HowItWorksSection(): React.ReactElement {
 
   return (
     <section
-      className="relative bg-surface-light py-16 sm:py-20 lg:py-24 overflow-hidden"
+      className="relative py-16 sm:py-20 lg:py-24 overflow-hidden"
+      style={{ backgroundColor: '#F8FAFC' }}
       aria-labelledby="how-it-works-heading"
       data-testid="how-it-works-section"
     >
@@ -76,7 +77,8 @@ export default function HowItWorksSection(): React.ReactElement {
         {/* Section Header */}
         <header className="text-center mb-12 sm:mb-16 lg:mb-20">
           <span
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-royal-blue/10 text-royal-blue text-sm font-semibold tracking-wide mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold tracking-wide mb-4"
+            style={{ backgroundColor: 'rgba(22,82,160,0.1)', color: '#1652A0' }}
             data-testid="section-badge"
           >
             <Shield size={16} />
@@ -85,19 +87,20 @@ export default function HowItWorksSection(): React.ReactElement {
 
           <h2
             id="how-it-works-heading"
-            className="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-text-primary leading-tight mb-4 sm:mb-6"
+            className="font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 sm:mb-6"
+            style={{ color: '#0F172A' }}
           >
             From Stressed to Submitted
-            <span className="block text-royal-blue">In 4 Easy Steps</span>
+            <span className="block" style={{ color: '#1652A0' }}>In 4 Easy Steps</span>
           </h2>
 
-          <p className="text-text-secondary text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: '#475569' }}>
             No complicated signup. No endless emails. Just quality academic work
             delivered when you need it.
           </p>
         </header>
 
-        {/* Steps - Mobile: Vertical Timeline, Desktop: Horizontal Cards */}
+        {/* Steps */}
         <div className="relative">
 
           {/* Desktop Horizontal Layout */}
@@ -108,35 +111,57 @@ export default function HowItWorksSection(): React.ReactElement {
 
               return (
                 <div key={step.number} className="relative" data-testid={`step-${step.number}`}>
-                  {/* Connector Line */}
+                  {/* FIX 1: Connector line - simplified to avoid calc overflow */}
                   {!isLast && (
-                    <div className="absolute top-12 left-[calc(50%+40px)] w-[calc(100%-40px)] h-0.5 bg-gradient-to-r from-royal-blue/30 to-royal-blue/10 z-0" />
+                    <div
+                      className="absolute z-0 h-0.5"
+                      style={{
+                        top: '48px',
+                        left: '75%',
+                        width: '50%',
+                        background: 'linear-gradient(to right, rgba(22,82,160,0.3), rgba(22,82,160,0.1))'
+                      }}
+                    />
                   )}
 
-                  <article className="relative bg-white rounded-2xl p-6 xl:p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:border-royal-blue/20 transition-all duration-300 group h-full">
+                  <article
+                    className="relative bg-white rounded-2xl p-6 xl:p-8 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group h-full"
+                    style={{ borderColor: 'rgba(22,82,160,0)' }}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(22,82,160,0.2)')}
+                    onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(22,82,160,0)')}
+                  >
                     {/* Step Number Badge */}
                     <div className="absolute -top-4 left-6 xl:left-8">
-                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-royal-blue to-deep-navy text-white text-sm font-bold shadow-lg shadow-royal-blue/25">
+                      <span
+                        className="inline-flex items-center justify-center w-8 h-8 rounded-full text-white text-sm font-bold shadow-lg"
+                        style={{ background: 'linear-gradient(135deg, #1652A0, #0B1F42)' }}
+                      >
                         {step.number}
                       </span>
                     </div>
 
                     {/* Icon */}
-                    <div className="w-14 h-14 rounded-xl bg-royal-blue/10 flex items-center justify-center mb-5 group-hover:bg-royal-blue/15 transition-colors">
-                      <Icon className="w-7 h-7 text-royal-blue" strokeWidth={1.75} />
+                    <div
+                      className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-colors"
+                      style={{ backgroundColor: 'rgba(22,82,160,0.1)' }}
+                    >
+                      <Icon className="w-7 h-7" style={{ color: '#1652A0' }} strokeWidth={1.75} />
                     </div>
 
                     {/* Highlight Tag */}
-                    <span className="inline-block px-3 py-1 rounded-full bg-gold/15 text-gold-dark text-xs font-semibold mb-3">
+                    <span
+                      className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3"
+                      style={{ backgroundColor: 'rgba(212,168,83,0.15)', color: '#92700A' }}
+                    >
                       {step.highlight}
                     </span>
 
                     {/* Content */}
-                    <h3 className="font-bold text-lg xl:text-xl text-text-primary mb-3 leading-snug">
+                    <h3 className="font-bold text-lg xl:text-xl mb-3 leading-snug" style={{ color: '#0F172A' }}>
                       {step.title}
                     </h3>
 
-                    <p className="text-text-secondary text-sm leading-relaxed">
+                    <p className="text-sm leading-relaxed" style={{ color: '#475569' }}>
                       {step.description}
                     </p>
                   </article>
@@ -158,39 +183,49 @@ export default function HowItWorksSection(): React.ReactElement {
                   data-testid={`step-mobile-${step.number}`}
                 >
                   {/* Timeline Track */}
-                  <div className="flex flex-col items-center">
+                  <div className="flex flex-col items-center flex-shrink-0">
                     {/* Step Number Circle */}
-                    <div className="relative z-10 flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-royal-blue to-deep-navy flex items-center justify-center shadow-lg shadow-royal-blue/25">
+                    <div
+                      className="relative z-10 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-lg"
+                      style={{ background: 'linear-gradient(135deg, #1652A0, #0B1F42)' }}
+                    >
                       <span className="text-white font-bold text-lg sm:text-xl">{step.number}</span>
                     </div>
 
                     {/* Vertical Line */}
                     {!isLast && (
-                      <div className="w-0.5 flex-1 bg-gradient-to-b from-royal-blue/40 to-royal-blue/10 my-2" />
+                      <div
+                        className="w-0.5 flex-1 my-2"
+                        style={{ background: 'linear-gradient(to bottom, rgba(22,82,160,0.4), rgba(22,82,160,0.1))' }}
+                      />
                     )}
                   </div>
 
                   {/* Card Content */}
-                  <article className={`flex-1 bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-sm ${!isLast ? 'mb-4' : ''}`}>
+                  <article className={`flex-1 min-w-0 bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-sm ${!isLast ? 'mb-4' : ''}`}>
                     <div className="flex items-start gap-4">
                       {/* Icon */}
-                      <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-royal-blue/10 flex items-center justify-center">
-                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-royal-blue" strokeWidth={1.75} />
+                      <div
+                        className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center"
+                        style={{ backgroundColor: 'rgba(22,82,160,0.1)' }}
+                      >
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: '#1652A0' }} strokeWidth={1.75} />
                       </div>
 
                       <div className="flex-1 min-w-0">
                         {/* Highlight Tag */}
-                        <span className="inline-block px-2.5 py-0.5 rounded-full bg-gold/15 text-gold-dark text-xs font-semibold mb-2">
+                        <span
+                          className="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold mb-2"
+                          style={{ backgroundColor: 'rgba(212,168,83,0.15)', color: '#92700A' }}
+                        >
                           {step.highlight}
                         </span>
 
-                        {/* Title */}
-                        <h3 className="font-bold text-base sm:text-lg text-text-primary mb-2 leading-snug">
+                        <h3 className="font-bold text-base sm:text-lg mb-2 leading-snug" style={{ color: '#0F172A' }}>
                           {step.title}
                         </h3>
 
-                        {/* Description */}
-                        <p className="text-text-secondary text-sm leading-relaxed">
+                        <p className="text-sm leading-relaxed" style={{ color: '#475569' }}>
                           {step.description}
                         </p>
                       </div>
@@ -202,28 +237,39 @@ export default function HowItWorksSection(): React.ReactElement {
           </div>
         </div>
 
-        {/* Trust Stats Bar */}
+        {/* FIX 2: Trust Stats Bar - fixed divide borders on 2-col mobile */}
         <div
           className="mt-12 sm:mt-16 lg:mt-20 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
           data-testid="trust-stats"
         >
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
             {trustStats.map((stat, index) => {
               const Icon = stat.icon;
+              // FIX 2: Manual border logic instead of divide-x/y combos
+              const borderClasses = [
+                index % 2 === 1 ? 'border-l border-gray-100' : '',           // right col on mobile
+                index >= 2 ? 'border-t border-gray-100' : '',                  // bottom row on mobile
+                index % 4 !== 0 ? 'lg:border-l lg:border-gray-100' : '',      // all but first on desktop
+                'lg:border-t-0'                                                 // remove top border on desktop
+              ].join(' ');
+
               return (
                 <div
                   key={index}
-                  className="flex items-center justify-center gap-3 sm:gap-4 p-5 sm:p-6 lg:p-8"
+                  className={`flex items-center justify-center gap-3 sm:gap-4 p-5 sm:p-6 lg:p-8 ${borderClasses}`}
                   data-testid={`trust-stat-${index}`}
                 >
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-success/10 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-success" strokeWidth={2} />
+                  <div
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: 'rgba(16,185,129,0.1)' }}
+                  >
+                    <Icon className="w-5 h-5" style={{ color: '#10B981' }} strokeWidth={2} />
                   </div>
                   <div className="min-w-0">
-                    <p className="font-bold text-xl sm:text-2xl text-text-primary leading-none mb-0.5">
+                    <p className="font-bold text-xl sm:text-2xl leading-none mb-0.5" style={{ color: '#0F172A' }}>
                       {stat.value}
                     </p>
-                    <p className="text-text-muted text-xs sm:text-sm font-medium truncate">
+                    <p className="text-xs sm:text-sm font-medium truncate" style={{ color: '#94A3B8' }}>
                       {stat.label}
                     </p>
                   </div>
@@ -238,23 +284,25 @@ export default function HowItWorksSection(): React.ReactElement {
           className="mt-10 sm:mt-12 lg:mt-16 text-center"
           data-testid="cta-section"
         >
-          <p className="text-text-secondary text-sm sm:text-base mb-6">
+          <p className="text-sm sm:text-base mb-6" style={{ color: '#475569' }}>
             Ready to get started? See your price in under 60 seconds.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
               onClick={() => navigate('/order-now')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-royal-blue to-light-blue text-white font-semibold text-base rounded-xl shadow-lg shadow-royal-blue/25 hover:shadow-xl hover:shadow-royal-blue/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 text-white font-semibold text-base rounded-xl shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group"
+              style={{ background: 'linear-gradient(to right, #1652A0, #2B6CB0)', boxShadow: '0 4px 14px rgba(22,82,160,0.25)' }}
               data-testid="cta-primary"
             >
               Get My Free Quote
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
             </button>
 
             <button
               onClick={() => navigate('/contact')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-royal-blue font-semibold text-base rounded-xl border-2 border-royal-blue/20 hover:border-royal-blue/40 hover:bg-royal-blue/5 active:bg-royal-blue/10 transition-all duration-200"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-white font-semibold text-base rounded-xl border-2 hover:bg-blue-50 active:bg-blue-100 transition-all duration-200"
+              style={{ color: '#1652A0', borderColor: 'rgba(22,82,160,0.2)' }}
               data-testid="cta-secondary"
             >
               Talk to Support
@@ -262,8 +310,8 @@ export default function HowItWorksSection(): React.ReactElement {
           </div>
 
           {/* Trust Micro-copy */}
-          <p className="mt-5 text-text-muted text-xs sm:text-sm flex items-center justify-center gap-2">
-            <Shield size={14} className="text-success" />
+          <p className="mt-5 text-xs sm:text-sm flex items-center justify-center gap-2" style={{ color: '#94A3B8' }}>
+            <Shield size={14} style={{ color: '#10B981' }} />
             100% confidential. No commitment required.
           </p>
         </div>
