@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CurrencyProvider } from './context/CurrencyContext';
@@ -246,7 +246,7 @@ function App() {
                 <Route path="about" element={<About />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="services/" element={<Services />} />
-                <Route path="services" element={<ServicesPathRedirect />} />
+                <Route path="services" element={<Services />} />
 
                 {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
 

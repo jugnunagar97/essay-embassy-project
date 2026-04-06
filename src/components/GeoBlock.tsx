@@ -35,6 +35,17 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
     }
   }, [isDevelopment, bypassGeoblock]);
 
+  // Guard against a never-ending white screen if third-party geo APIs hang.
+  useEffect(() => {
+    if (isDevelopment || bypassGeoblock || !isChecking) return;
+    const watchdog = setTimeout(() => {
+      console.warn('[GeoBlock] Geo-check watchdog timeout, allowing access');
+      setIsBlocked(false); // fail-open
+      setIsChecking(false);
+    }, 12000);
+    return () => clearTimeout(watchdog);
+  }, [isDevelopment, bypassGeoblock, isChecking]);
+
   useEffect(() => {
     // Skip geoblock check if bypass is enabled
     if (isDevelopment || bypassGeoblock) {
@@ -259,9 +270,16 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
     return <>{children}</>;
   }
 
-  // Show nothing while checking (or a loading state if preferred)
+  // Show a visible loading state while checking to avoid a blank white screen.
   if (isChecking) {
-    return null; // Or return a minimal loading component
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <div className="h-10 w-10 mx-auto rounded-full border-2 border-gray-300 border-t-gray-800 animate-spin" />
+          <p className="mt-3 text-sm text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   // Show blocked page ONLY if country is IN or PK
