@@ -1,103 +1,462 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Root pages -->
+
+  <!-- ========================================================
+       ROOT / CORE PAGES
+       All confirmed indexed or high-value discovery targets
+       ======================================================== -->
+
   <url>
     <loc>https://essayembassy.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <url><loc>https://essayembassy.com/about</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://essayembassy.com/contact</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://essayembassy.com/services</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://essayembassy.com/writers</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/samples</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/reviews</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/blog</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/faq</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  
-  <!-- Policies -->
-  <url><loc>https://essayembassy.com/privacy-policy</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/terms-and-conditions</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/refund-policy</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/honor-code</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
 
-  <!-- Auth / ordering (allowed) -->
-  <url><loc>https://essayembassy.com/login</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://essayembassy.com/register</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://essayembassy.com/order-now</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  
+  <!-- NOTE: /home is a duplicate of / — do NOT include it here.
+       Fix this in your app by adding a canonical tag on /home
+       pointing to https://essayembassy.com/ -->
 
-  <!-- Essay-writing routes -->
-  <url><loc>https://essayembassy.com/essay-writing</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/personal-statement</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/argumentative</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/persuasive</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/narrative</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/descriptive</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/expository</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/analytical</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/compare-contrast</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/cause-effect</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/pro</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/critical-analysis</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/admission</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/scholarship</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/editing</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/proofreading</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/rewriting</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/essay-writing/reflective</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url>
+    <loc>https://essayembassy.com/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
-  <!-- Back-compat shortcuts present in routes -->
-  
+  <url>
+  <loc>https://essayembassy.com/pricing/</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
 
-  <!-- Assignment help categories -->
-  <url><loc>https://essayembassy.com/assignment-help</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/assignment-help/management</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/assignment-help/computer</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/assignment-help/humanities</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/assignment-help/math</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/assignment-help/law</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/assignment-help/science</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/assignment-help/engineering</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/assignment-help/biotechnology</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <!-- /services/ — using trailing slash version as canonical.
+       Make sure /services (without slash) redirects to /services/
+       to fix the duplicate issue Google flagged -->
+  <url>
+    <loc>https://essayembassy.com/services/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
-  <!-- Other standalone services -->
-  <url><loc>https://essayembassy.com/book-review</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/case-study-help</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/dissertation-writing</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/english-assignment-help</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/homework-help</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/math</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/management</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/programming</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/science</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/engineering</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/ms-office</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/nursing</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/economics</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/finance</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/accounting</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/law</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/statistics</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/homework-help/humanities</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://essayembassy.com/lab-report</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/physics-assignment-help</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/research-paper-writing</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/term-paper</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/thesis-writing</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url>
+    <loc>https://essayembassy.com/writers</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
 
-  <!-- Programming-help hub and subpages -->
-  <url><loc>https://essayembassy.com/programming-help</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://essayembassy.com/programming-help/python</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/programming-help/java</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/programming-help/js</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/programming-help/c</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/programming-help/csharp</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/programming-help/ruby</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/programming-help/cpp</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://essayembassy.com/programming-help/matlab</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url>
+    <loc>https://essayembassy.com/reviews</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
-  <!-- DO NOT include: /dashboard/* (client panel) or /admin/* (admin panel) -->
+  <url>
+    <loc>https://essayembassy.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/order-now</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- REMOVED: /login, /register — utility pages, waste crawl budget -->
+  <!-- REMOVED: /contact, /faq, /honor-code — not confirmed indexed, low SEO value -->
+  <!-- REMOVED: /samples — not confirmed indexed, risk of thin content signal -->
+
+
+  <!-- ========================================================
+       POLICY PAGES — confirmed indexed
+       ======================================================== -->
+
+  <url>
+    <loc>https://essayembassy.com/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/terms-and-conditions</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/refund-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+
+  <!-- ========================================================
+       ESSAY WRITING — hub + all subtypes
+       Hub page confirmed indexed. Subpages are high-value targets.
+       ======================================================== -->
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/personal-statement</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/argumentative</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/persuasive</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/narrative</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/descriptive</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/expository</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/analytical</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/compare-contrast</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/cause-effect</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/problem-solution</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/critical-analysis</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/admission</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/scholarship</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/editing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/proofreading</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/rewriting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/essay-writing/reflective</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
+  <!-- Standalone service landing pages -->
+<url>
+  <loc>https://essayembassy.com/paper-writing-services</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://essayembassy.com/thesis-writing-services</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://essayembassy.com/dissertation-writing-services</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+</url>
+
+
+  <!-- ========================================================
+       ASSIGNMENT HELP
+       Hub + subpages. /assignment-help/biotechnology was
+       "crawled not indexed" — keep it but improve its content.
+       ======================================================== -->
+
+  <url>
+    <loc>https://essayembassy.com/assignment-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/assignment-help/management</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/assignment-help/computer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/assignment-help/humanities</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/assignment-help/math</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/assignment-help/law</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/assignment-help/science</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/assignment-help/engineering</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/assignment-help/biotechnology</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+
+  <!-- ========================================================
+       HOMEWORK HELP
+       /homework-help was "crawled not indexed" — keep in sitemap
+       but make sure pages have substantial unique content (500+ words).
+       ======================================================== -->
+
+  <url>
+    <loc>https://essayembassy.com/homework-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/math</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/management</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/programming</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/science</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/engineering</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/ms-office</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/nursing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/economics</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/finance</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/accounting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/law</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/statistics</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/homework-help/humanities</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+
+  <!-- ========================================================
+       PROGRAMMING HELP
+       ======================================================== -->
+
+  <url>
+    <loc>https://essayembassy.com/programming-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/programming-help/python</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/programming-help/java</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/programming-help/js</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/programming-help/c</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/programming-help/csharp</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/programming-help/ruby</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/programming-help/cpp</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/programming-help/matlab</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+
+  <!-- ========================================================
+       BLOG POSTS — confirmed indexed
+       Add new blog posts here as you publish them
+       ======================================================== -->
+
+  <!-- Confirmed indexed — was MISSING from old sitemap! -->
+  <url>
+    <loc>https://essayembassy.com/blog/personal-swot-analysis-complete-guide-with-examples</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+
+  <!-- ========================================================
+       DO NOT INCLUDE (blocked or problematic):
+       - /dashboard/* and /admin/* (private panels)
+       - /checkout-2-2/ (blocked by robots.txt — intentional)
+       - /login and /register (utility, no SEO value)
+       - /home (duplicate of /)
+       - /sitemap.xml (never include the sitemap itself)
+       - Any URL with ?ref=, ?academicLevel=, ?wpr_templates= parameters
+       - http:// versions of any URL (only https://)
+       - http://www.essayembassy.com (wrong protocol+subdomain)
+       ======================================================== -->
+
 </urlset>
-
-

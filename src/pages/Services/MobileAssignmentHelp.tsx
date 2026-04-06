@@ -191,9 +191,13 @@ export default function MobileAssignmentHelp() {
             
             const writers = [
               { name: 'Stellan G.', degree: "Master's degree", image: '/images/Stellan%20G..jpg', subjects: ['Mathematics', 'Statistics'], finishTime: '97%', reviews: '4.9', success: '99%', repeatHire: '51%' },
+
               { name: 'Ashley Thompson', degree: "Master's degree", image: '/images/Ashley%20Thompson.jpg', subjects: ['Programming', 'Computer Science'], finishTime: '97%', reviews: '4.9', success: '98%', repeatHire: '53%' },
+
               { name: 'Bellamy K.', degree: "Master's degree", image: '/images/Bellamy%20K..jpg', subjects: ['Business', 'Finance'], finishTime: '95%', reviews: '4.8', success: '97%', repeatHire: '49%' },
+
               { name: 'Michael Johnson', degree: "Master's degree", image: '/images/Michael%20Johnson.jpg', subjects: ['Nursing', 'Healthcare'], finishTime: '98%', reviews: '5.0', success: '99%', repeatHire: '54%' },
+
               { name: 'Jessica Miller', degree: "Master's degree", image: '/images/Jessica%20Miller.jpg', subjects: ['Chemistry', 'Biology'], finishTime: '96%', reviews: '4.9', success: '98%', repeatHire: '52%' },
             ];
 
@@ -364,23 +368,35 @@ export default function MobileAssignmentHelp() {
             const reviews = {
               google: [
                 { name: 'Vera Larkspur', country: '🇺🇸', rating: 4.8, date: 'Oct 28, 2024', orderId: '#EE-4821', text: 'Excellent help with my calculus assignment! The expert showed every step and explained the process clearly. Got it done 3 hours before my deadline. Highly recommend for urgent math help!' },
+
                 { name: 'Osric Morrow', country: '🇬🇧', rating: 4.3, date: 'Oct 15, 2024', orderId: '#EE-4709', text: 'Got an A on my programming project! The code was clean, well-commented, and exactly what my professor wanted. The expert even helped me understand how it works.' },
+
                 { name: 'Indira Coen', country: '🇨🇦', rating: 4.1, date: 'Sep 30, 2024', orderId: '#EE-4592', text: 'Very professional service. My statistics assignment needed minor revisions but the expert fixed everything quickly. Good value and fair pricing.' },
+
                 { name: 'Calder Wynn', country: '🇦🇺', rating: 4.9, date: 'Sep 12, 2024', orderId: '#EE-4401', text: 'Third assignment I\'ve ordered and they never disappoint. Quality stays consistent and support team responds fast. Will use again next semester!' },
+
                 { name: 'Sable Hyland', country: '🇳🇿', rating: 4.6, date: 'Aug 25, 2024', orderId: '#EE-4287', text: 'Saved my grades! Had three assignments due the same week and they handled all perfectly. Each one was unique and met my professor\'s requirements.' },
               ],
               trustpilot: [
                 { name: 'Cyril Thane', country: '🇺🇸', rating: 4.7, date: 'Nov 2, 2024', orderId: '#EE-4890', text: 'Best assignment help service I\'ve tried. Quality is excellent and pricing is reasonable. My expert had a PhD in my subject and really knew their stuff.' },
+
                 { name: 'Elodie Bramwell', country: '🇬🇧', rating: 4.5, date: 'Oct 20, 2024', orderId: '#EE-4756', text: 'Impressed with the plagiarism report - completely original! Assignment was well-researched and met all academic standards. Support answered questions fast.' },
+
                 { name: 'Ronan Vale', country: '🇨🇦', rating: 4.2, date: 'Oct 8, 2024', orderId: '#EE-4651', text: 'Good experience overall. Assignment needed one revision but that was free and done within 24 hours. Expert was responsive and made all requested changes.' },
+
                 { name: 'Isolde March', country: '🇩🇪', rating: 4.9, date: 'Sep 22, 2024', orderId: '#EE-4523', text: 'Excellent work on my business case study! Expert used sources I hadn\'t found. Delivered early which gave me time to review before submission.' },
+
                 { name: 'Leif Harcourt', country: '🇦🇺', rating: 4.4, date: 'Sep 5, 2024', orderId: '#EE-4356', text: 'Professional and reliable. Used them for multiple assignments this term and quality has been consistent. Experts understand university requirements.' },
               ],
               sitejabber: [
                 { name: 'Maris Olander', country: '🇺🇸', rating: 4.6, date: 'Nov 5, 2024', orderId: '#EE-4921', text: 'Life saver during finals! Assignment was exactly what I needed. My professor commented on the quality of research. Worth every dollar!' },
+
                 { name: 'Noemi Gall', country: '🇬🇧', rating: 4.1, date: 'Oct 25, 2024', orderId: '#EE-4803', text: 'Solid service. Assignment was good but needed minor changes to conclusion. Support team was understanding and revisions were done quickly.' },
+
                 { name: 'Aster Mirren', country: '🇨🇦', rating: 4.9, date: 'Oct 12, 2024', orderId: '#EE-4688', text: 'Amazing experience! Expert kept me updated throughout and made sure everything was perfect. Got 92% on my chemistry lab report!' },
+
                 { name: 'Laird Fenwick', country: '🇳🇿', rating: 4.4, date: 'Sep 28, 2024', orderId: '#EE-4579', text: 'Best decision this semester. Assignment delivered early, well-researched, and perfectly formatted. Highly recommend for tight deadlines.' },
+
                 { name: 'Mireya Clois', country: '🇫🇷', rating: 4.7, date: 'Sep 14, 2024', orderId: '#EE-4423', text: 'Exceptional quality! Expert clearly understood the topic and provided well-argued solutions with excellent references. Customer support was very responsive.' },
               ],
             };

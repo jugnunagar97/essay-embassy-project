@@ -243,7 +243,7 @@ const EssayServicesGrid = () => {
             description: 'Identify problems and propose practical, well-reasoned solutions. Great for assignments that require structured critical thinking.',
             features: ['Actionable thesis statements', 'Viable real-world solutions', 'Right transition words', 'Peer-reviewed sources'],
             cta: 'Get Solution Help',
-            slug: '/essay-writing/pro',
+            slug: '/essay-writing/problem-solution',
             popular: false,
         },
         {
@@ -851,10 +851,15 @@ export default function CompareContrastEssayWritingService() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Management', rating: 5, text: 'I told them to write my compare and contrast essay for me. The writer had a deep understanding of business management. This is the best compare and contrast essay writing service for university students!' },
+
                   { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Engineering', rating: 5, text: 'I needed compare and contrast essay help for university assignments. The engineering analysis was accurate and completely free of AI.' },
+
                   { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Computer Science', rating: 4.9, text: 'I used their compare and contrast essay editing and proofreading service. My writer fixed all the errors in my software analysis perfectly. I will definitely hire compare and contrast essay writer experts here again.' },
+
                   { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Economics', rating: 5, text: 'Long-time fan here. I buy compare and contrast essay online assignments every month. This site always nails the economic details perfectly.' },
+
                   { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Law', rating: 5, text: 'I needed to pay someone to write comparison essay tasks for my legal class. They offer a great compare and contrast essay writing service with references. The citations were flawless.' },
+
                   { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Science', rating: 4.8, text: 'If you want to get compare and contrast essay help online cheap, use this service. The writer used the point-by-point method perfectly for my biology paper.' },
                 ].map((review, i) => (
                   <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

@@ -798,10 +798,15 @@ export default function HomeworkHelp() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   { name: 'Marcus J.', tag: 'Verified Client', date: 'Apr 22, 2024', subject: 'Engineering / Math', rating: 5, text: 'The quality of help I received with my math homework was top-tier. I just got an A on my stats assignment thanks to the crystal-clear explanations provided by the expert here.' },
+
                   { name: 'Clara M.', tag: 'Returning Client', date: 'Aug 30, 2025', subject: 'Management', rating: 5, text: 'The expert has done a really good job and delivered right on time. The work showcases in-depth study and dedication. Very happy with the final submission.' },
+
                   { name: 'Philip W.', tag: 'First-Time User', date: 'Dec 06, 2023', subject: 'Science (Physics)', rating: 5, text: 'The assignment involved a complex Physics experiment on wave-particle duality, and the level of expertise shown by the team was exceptional.' },
+
                   { name: 'Daniel C.', tag: 'Verified Client', date: 'Sep 03, 2025', subject: 'Computer Science', rating: 4.8, text: 'The code quality was excellent and I received the files right on time. Everything I needed for my final project was covered perfectly.' },
+
                   { name: 'Katherine B.', tag: 'Returning Client', date: 'Sep 05, 2025', subject: 'Economics', rating: 5, text: 'Professional and fast service. The economic analysis was thorough and the formatting was spot on. Highly recommend for college students.' },
+
                   { name: 'Victor G.', tag: 'First-Time User', date: 'Mar 08, 2024', subject: 'Law', rating: 5, text: 'Needed urgent help with my law coursework and the writer was super helpful. They really know their stuff and got me out of a tight spot with solid legal arguments.' },
                 ].map((review, i) => (
                   <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

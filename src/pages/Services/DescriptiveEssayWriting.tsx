@@ -245,7 +245,7 @@ const EssayServicesGrid = () => {
             description: 'Identify problems and propose practical, well-reasoned solutions. Great for assignments that require structured critical thinking.',
             features: ['Actionable thesis statements', 'Viable real-world solutions', 'Right transition words', 'Peer-reviewed sources'],
             cta: 'Get Solution Help',
-            slug: '/essay-writing/pro',
+            slug: '/essay-writing/problem-solution',
             popular: false,
         },
         {
@@ -853,10 +853,15 @@ export default function DescriptiveEssayWritingService() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Management', rating: 5, text: 'I told them to write my descriptive essay for me. The writer had a deep understanding of business environments. Their professionalism and the sensory details in descriptive essays they provided were amazing.' },
+
                                     { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Engineering', rating: 5, text: 'Absolutely no AI garbage detected in my engineering description. This descriptive essay writing service for university students is top-tier and always on time.' },
+
                                     { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Computer Science', rating: 4.9, text: 'I used their descriptive essay editing and proofreading service. My writer used amazing logic to fix my descriptive essay conclusion. I will definitely use this academic descriptive essay help again.' },
+
                                     { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Economics', rating: 5, text: 'Long-time fan here. I buy descriptive essay online assignments every month. This cheap descriptive essay writing service always nails the details perfectly.' },
+
                                     { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Law', rating: 5, text: 'I needed someone to describe a courtroom scene. They offer a great descriptive essay writing service with references. I highly recommend them if you want to hire descriptive essay writer experts.' },
+
                                     { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Science', rating: 4.8, text: 'Perfect descriptive essay introduction and body paragraphs! The writer provided the best descriptive essay help for university assignments I have ever received.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

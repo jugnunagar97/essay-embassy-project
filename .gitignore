@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Third-party tool repo (never track as submodule)
+cursor-free-vip/

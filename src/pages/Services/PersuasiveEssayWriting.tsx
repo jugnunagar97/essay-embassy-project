@@ -246,7 +246,7 @@ const EssayServicesGrid = () => {
             description: 'Identify problems and propose practical, well-reasoned solutions. Great for assignments that require structured critical thinking.',
             features: ['Actionable thesis statements', 'Viable real-world solutions', 'Right transition words', 'Peer-reviewed sources'],
             cta: 'Get Solution Help',
-            slug: '/essay-writing/pro',
+            slug: '/essay-writing/problem-solution',
             popular: false,
         },
         {
@@ -865,10 +865,15 @@ export default function PersuasiveEssayWriting() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Sarah M.', tag: 'Verified', date: 'Oct 10, 2025', subject: 'Management', rating: 5, text: 'I told them to write my persuasive essay for me. The writer used amazing logic and data for my management class. Great service!' },
+
                                     { name: 'John D.', tag: 'Returning Client', date: 'Nov 01, 2025', subject: 'History', rating: 5, text: 'I needed a persuasive essay writing service for university assignments. The historical references were perfect. I highly recommend them.' },
+
                                     { name: 'Emily R.', tag: 'First-Time User', date: 'Nov 15, 2025', subject: 'Science', rating: 4.9, text: 'They provide an amazing affordable persuasive essay writing service. The science facts were totally accurate and clearly explained.' },
+
                                     { name: 'Mark T.', tag: 'Verified', date: 'Dec 02, 2025', subject: 'Computer Science', rating: 5, text: 'I decided to hire persuasive essay writer for my final. The arguments were very strong and the formatting was flawless. Thank you!' },
+
                                     { name: 'Lisa P.', tag: 'Returning Client', date: 'Jan 08, 2026', subject: 'Economics', rating: 5, text: 'This is the best persuasive essay writing help for college students! The writer followed my exact economic models and instructions.' },
+
                                     { name: 'David K.', tag: 'Verified', date: 'Feb 14, 2026', subject: 'Law', rating: 4.8, text: 'They offer a great persuasive essay writing service with citations. I needed persuasive essay help with references, and the legal citations were spot on.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

@@ -191,9 +191,13 @@ export default function MobileHomeworkHelp() {
             
             const writers = [
               { name: 'Stellan G.', degree: "Master's degree", image: '/images/Stellan%20G..jpg', subjects: ['Algebra', 'Calculus'], finishTime: '98%', reviews: '4.9', success: '99%', repeatHire: '56%' },
+
               { name: 'Ashley Thompson', degree: "Master's degree", image: '/images/Ashley%20Thompson.jpg', subjects: ['English', 'Literature'], finishTime: '97%', reviews: '5.0', success: '98%', repeatHire: '54%' },
+
               { name: 'Bellamy K.', degree: "Master's degree", image: '/images/Bellamy%20K..jpg', subjects: ['History', 'Social Studies'], finishTime: '96%', reviews: '4.8', success: '97%', repeatHire: '52%' },
+
               { name: 'Michael Johnson', degree: "Master's degree", image: '/images/Michael%20Johnson.jpg', subjects: ['Chemistry', 'Physics'], finishTime: '98%', reviews: '5.0', success: '99%', repeatHire: '58%' },
+
               { name: 'Jessica Miller', degree: "Master's degree", image: '/images/Jessica%20Miller.jpg', subjects: ['Biology', 'Anatomy'], finishTime: '97%', reviews: '4.9', success: '98%', repeatHire: '55%' },
             ];
 
@@ -364,23 +368,35 @@ export default function MobileHomeworkHelp() {
             const reviews = {
               google: [
                 { name: 'Quinn Baxter', country: '🇺🇸', rating: 4.7, date: 'Oct 29, 2024', orderId: '#EE-5012', text: 'Saved me on my algebra homework! The tutor explained each step clearly and I actually understand how to solve these problems now. Got my homework in 6 hours!' },
+
                 { name: 'Thea Ashford', country: '🇬🇧', rating: 4.5, date: 'Oct 16, 2024', orderId: '#EE-4891', text: 'Great help with my chemistry homework. Solutions were accurate and well-explained. My teacher even complimented my work!' },
+
                 { name: 'Darius Vale', country: '🇨🇦', rating: 4.2, date: 'Oct 2, 2024', orderId: '#EE-4723', text: 'Good service for math homework. Had one question about a step and the tutor explained it right away. Fair pricing too.' },
+
                 { name: 'Freya Locke', country: '🇦🇺', rating: 4.9, date: 'Sep 18, 2024', orderId: '#EE-4578', text: 'Fourth time using them for homework help. Always reliable and answers are always right. Highly recommend for any subject!' },
+
                 { name: 'Coen Hartley', country: '🇳🇿', rating: 4.6, date: 'Aug 30, 2024', orderId: '#EE-4401', text: 'Helped me with three different homework assignments in one week. Quality stayed consistent across all subjects. Very helpful!' },
               ],
               trustpilot: [
                 { name: 'Elara Penn', country: '🇺🇸', rating: 4.8, date: 'Nov 3, 2024', orderId: '#EE-5089', text: 'Best homework help site I\'ve found. Tutors actually care about helping you understand, not just giving answers. Worth the money!' },
+
                 { name: 'Rowan Thorne', country: '🇬🇧', rating: 4.4, date: 'Oct 22, 2024', orderId: '#EE-4934', text: 'Really impressed with my physics homework. Tutor showed multiple ways to solve each problem. Support team was friendly too.' },
+
                 { name: 'Aria Cross', country: '🇨🇦', rating: 4.3, date: 'Oct 10, 2024', orderId: '#EE-4812', text: 'Good experience. Homework was done correctly but I asked for one clarification. Tutor responded within an hour. Professional service.' },
+
                 { name: 'Leif Sterling', country: '🇩🇪', rating: 4.9, date: 'Sep 24, 2024', orderId: '#EE-4667', text: 'Excellent biology homework help! Used references I hadn\'t even thought of. Delivered early which gave me time to review.' },
+
                 { name: 'Mira Langley', country: '🇦🇺', rating: 4.5, date: 'Sep 8, 2024', orderId: '#EE-4489', text: 'Reliable and consistent. Used them all semester for homework and never disappointed. Tutors know their subjects well.' },
               ],
               sitejabber: [
                 { name: 'Zane Merrick', country: '🇺🇸', rating: 4.7, date: 'Nov 6, 2024', orderId: '#EE-5124', text: 'Life saver for my calculus homework! Explained everything so clearly. Even my professor noticed improvement in my work!' },
+
                 { name: 'Lyra Finch', country: '🇬🇧', rating: 4.2, date: 'Oct 26, 2024', orderId: '#EE-4981', text: 'Solid homework help. Had to ask for one revision but tutor fixed it quickly. Good quality and reasonable price.' },
+
                 { name: 'Knox Warden', country: '🇨🇦', rating: 4.9, date: 'Oct 14, 2024', orderId: '#EE-4856', text: 'Amazing! Tutor kept me updated and made sure I understood everything. Got 95% on my homework assignment!' },
+
                 { name: 'Nova Crest', country: '🇳🇿', rating: 4.5, date: 'Sep 29, 2024', orderId: '#EE-4701', text: 'Best choice for homework help. Fast, accurate, and well-explained. Perfect for students with tight schedules.' },
+
                 { name: 'Atlas Monroe', country: '🇫🇷', rating: 4.8, date: 'Sep 15, 2024', orderId: '#EE-4567', text: 'Exceptional quality! Tutor really understood the material and explained it in simple terms. Customer service was very responsive.' },
               ],
             };

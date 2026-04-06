@@ -522,8 +522,27 @@ function ensureFirestore(res) {
   return true;
 }
 
+// --- /services → /services/ (canonical trailing slash; preserve query string) ---
+app.use((req, res, next) => {
+  if (req.path === '/services') {
+    const qs = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+    return res.redirect(301, `/services/${qs}`);
+  }
+  next();
+});
+
 // --- Central 301 redirect map (fixes 404s & duplicates) ---
 const redirects = {
+  '/essay-writing/pro': '/essay-writing/problem-solution',
+  '/book-review': '/paper-writing-services',
+  '/case-study-help': '/paper-writing-services',
+  '/dissertation-writing': '/dissertation-writing-services',
+  '/english-assignment-help': '/assignment-help/humanities',
+  '/lab-report': '/paper-writing-services',
+  '/physics-assignment-help': '/assignment-help/science',
+  '/research-paper-writing': '/paper-writing-services',
+  '/term-paper': '/paper-writing-services',
+  '/thesis-writing': '/thesis-writing-services',
   '/home': '/',
   '/contact-us/': '/contact',          // or '/#contact' if you have an anchor
   '/my-account-2/': '/my-account',
@@ -538,19 +557,6 @@ const redirects = {
 app.use((req, res, next) => {
   const dst = redirects[req.path];
   if (dst) return res.redirect(301, dst);
-  next();
-});
-
-// --- Feed URL redirects: /post-slug/feed/ → /post-slug/ ---
-app.use((req, res, next) => {
-  const path = req.path;
-  // Match URLs ending with /feed/ or /feed (e.g., /blog/post-slug/feed/ → /blog/post-slug/)
-  if (path.endsWith('/feed/') || path.endsWith('/feed')) {
-    // Remove /feed/ or /feed from the end to get canonical URL
-    const canonicalPath = path.replace(/\/feed\/?$/, '');
-    // Redirect to canonical URL (without trailing /feed/)
-    return res.redirect(301, canonicalPath || '/');
-  }
   next();
 });
 
@@ -1561,6 +1567,34 @@ app.get('/sitemap.xml', async (req, res) => {
     console.error('Failed to serve sitemap.xml:', error);
     res.status(500).type('text/plain').send('Unable to generate sitemap.');
   }
+});
+
+// --- Junk / low-value URL patterns: hard 404 (preserve crawl budget) ---
+app.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+
+  const raw = req.originalUrl || req.url || '';
+  // WP Rocket template previews and similar
+  if (raw.includes('wpr_templates') || Object.prototype.hasOwnProperty.call(req.query, 'wpr_templates')) {
+    return res.status(404).type('text/plain').send('Not Found');
+  }
+  // Legacy / spam query variants
+  if (raw.includes('academicLevel') || Object.prototype.hasOwnProperty.call(req.query, 'academicLevel')) {
+    return res.status(404).type('text/plain').send('Not Found');
+  }
+
+  const p = req.path || '';
+  if (p.endsWith('/feed/') || p.endsWith('/feed')) {
+    return res.status(404).type('text/plain').send('Not Found');
+  }
+
+  // /question/:questionNumber/... — real Q&A uses numeric questionNumber only
+  const qm = p.match(/^\/question\/([^/]+)/);
+  if (qm && !/^\d+$/.test(qm[1])) {
+    return res.status(404).type('text/plain').send('Not Found');
+  }
+
+  next();
 });
 
 // --- Serve Vite build ---

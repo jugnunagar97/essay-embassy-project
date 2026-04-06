@@ -126,7 +126,7 @@ const EssayServicesGrid = () => {
             description: 'Identify problems and propose practical, well-reasoned solutions. Great for assignments that require structured critical thinking.',
             features: ['Actionable thesis statements', 'Viable real-world solutions', 'Right transition words', 'Peer-reviewed sources'],
             cta: 'Get Solution Help',
-            slug: '/essay-writing/pro',
+            slug: '/essay-writing/problem-solution',
             popular: false,
         },
         {
@@ -744,10 +744,15 @@ export default function ArgumentativeEssayWriting() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: "Lucas S.", tag: "Verified", date: "Oct 12, 2025", subject: "Management", rating: 5, text: "For my MBA program, I needed a detailed case study analysis. The writer had a deep understanding of business strategies. Their professionalism and quality of work are worth the money spent!" },
+
                                     { name: "Fahid B.", tag: "Returning Client", date: "Nov 02, 2025", subject: "Engineering", rating: 5, text: "On point and delivered before the expected due date. Absolutely no AI garbage detected in my engineering work. This argumentative essay writing service is top-tier." },
+
                                     { name: "Johanna T.", tag: "First-Time User", date: "Nov 18, 2025", subject: "Computer Science", rating: 5, text: "I was stuck on a complex internet-of-things paper. My writer used amazing logic and coding context. I will definitely be using this argumentative essay help again!" },
+
                                     { name: "Ryan P.", tag: "Returning Client", date: "Dec 05, 2025", subject: "Economics", rating: 5, text: "Long-time fan here. I buy argumentative essay assignments every month to get the time I need. They always nail the economic models and statistical reasoning." },
+
                                     { name: "Darious D.", tag: "Verified", date: "Jan 14, 2026", subject: "Law", rating: 5, text: "I needed someone to write an essay on corporate ethics. The legal precedents used were spot-on. I highly recommend them if you ever think, 'I need someone to write argumentative essay for me'." },
+
                                     { name: "Liam K.", tag: "First-Time User", date: "Feb 22, 2026", subject: "Science", rating: 5, text: "Perfect thesis, counterarguments, and academic sources! The environmental science evidence was flawless and well-cited." }
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

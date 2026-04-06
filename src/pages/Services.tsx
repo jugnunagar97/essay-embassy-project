@@ -14,13 +14,13 @@ const servicesList = [
     icon: <FileText size={28} className="text-primary-500" />,
     title: 'Research Papers',
     description: 'In-depth research papers with proper citations and formatting, tailored to your requirements.',
-    link: '/services/research-paper-writing'
+    link: '/paper-writing-services'
   },
   {
     icon: <GraduationCap size={28} className="text-primary-500" />,
     title: 'Dissertation & Thesis',
     description: 'Comprehensive assistance with dissertation and thesis writing, from proposal to final draft.',
-    link: '/services/dissertation-writing'
+    link: '/dissertation-writing-services'
   },
   {
     icon: <Edit3 size={28} className="text-primary-500" />,
@@ -51,7 +51,7 @@ const Services = () => {
           name="description"
           content="Professional academic writing services including essays, research papers, dissertations, and assignment help. Expert writers available 24/7."
         />
-        <link rel="canonical" href="https://essayembassy.com/services" />
+        <link rel="canonical" href="https://essayembassy.com/services/" />
       </Helmet>
       <div className="animate-fade-in">
         {/* Page Header */}

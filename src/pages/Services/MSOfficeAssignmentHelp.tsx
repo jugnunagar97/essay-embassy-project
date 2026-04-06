@@ -772,10 +772,15 @@ export default function MSOfficeAssignmentHelp() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Excel', rating: 5, text: 'I told them to do my Microsoft Office assignment for my accounting class. The Excel formulas were perfect. This is the best MS Office assignment writing service.' },
+
                                     { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'PowerPoint', rating: 5, text: 'I needed university Microsoft Office assignment help for a big presentation. The slides were completely accurate and delivered early.' },
+
                                     { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Word', rating: 4.9, text: 'My expert provided amazing help with Microsoft suite integration project files. The formatting was excellent and totally original.' },
+
                                     { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Access', rating: 5, text: 'Long-time fan here. I use this MS Office assignment helper online often. The database files always work flawlessly.' },
+
                                     { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Project Management', rating: 5, text: 'I had to pay someone to do Microsoft Office assignment tasks for my management class. The Gantt chart in Excel was deeply engaging and very professional.' },
+
                                     { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Office 365', rating: 4.8, text: 'If you need cheap Office 365 homework helpers online, use this site. They used excellent logic and helped me meet a very tight deadline.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

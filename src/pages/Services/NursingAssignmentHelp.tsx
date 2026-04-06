@@ -774,10 +774,15 @@ export default function NursingAssignmentHelp() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Pediatrics', rating: 5, text: 'I told them to do my nursing assignment for my child care class. The research was perfect. This is the best nursing assignment writing service.' },
+
                                     { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Mental Health', rating: 5, text: 'I needed university nursing assignment help for a tough paper. The mental health theories were completely accurate and delivered early.' },
+
                                     { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Pharmacology', rating: 4.9, text: 'My expert provided amazing help with clinical care plan documents. The drug calculations were excellent and totally original.' },
+
                                     { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Medical Surgical', rating: 5, text: 'Long-time fan here. I use this nursing assignment helper online often. The writing is always flawless and avoids plagiarism completely.' },
+
                                     { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Healthcare Ethics', rating: 5, text: 'I had to pay someone to do nursing assignment tasks for my law class. The clinical case study analysis was deeply engaging and very professional.' },
+
                                     { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Community Health', rating: 4.8, text: 'If you need cheap nursing homework helpers online, use this site. They used excellent logic and helped me meet a very tight deadline.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

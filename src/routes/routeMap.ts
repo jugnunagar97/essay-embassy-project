@@ -16,13 +16,9 @@ export const ROUTES = {
   register: 'https://essayembassy.com/register',
 
   // Services
-  researchPaperWriting: 'https://essayembassy.com/research-paper-writing',
-  termPaper: 'https://essayembassy.com/academic-writing/term-paper',
-  bookReview: 'https://essayembassy.com/academic-writing/book-review',
-  labReport: 'https://essayembassy.com/academic-writing/lab-report',
-  caseStudyHelp: 'https://essayembassy.com/academic-writing/case-study-help',
+  paperWritingServices: 'https://essayembassy.com/paper-writing-services',
+  dissertationWritingServices: 'https://essayembassy.com/dissertation-writing-services',
   thesisWriting: 'https://essayembassy.com/thesis-writing',
-  dissertationWriting: 'https://essayembassy.com/dissertation-writing',
   essayWriting: 'https://essayembassy.com/essay-writing',
   essayAdmission: 'https://essayembassy.com/admission',
   essayNarrative: 'https://essayembassy.com/narrative',

@@ -2,11 +2,21 @@
 
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Header from './Header';
 import Footer from './Footer';
 import AdminSidebar from './AdminSidebar';
 import ClientSidebar from './ClientSidebar';
 import { useAuth } from '../../context/AuthContext';
+
+/** Aligns with server 404 rules for junk / crawler URLs (SPA fallback in dev). */
+function isJunkPublicUrl(pathname: string, search: string): boolean {
+  if (search.includes('wpr_templates') || search.includes('academicLevel')) return true;
+  if (pathname.endsWith('/feed/') || pathname.endsWith('/feed')) return true;
+  const qm = pathname.match(/^\/question\/([^/]+)/);
+  if (qm && !/^\d+$/.test(qm[1])) return true;
+  return false;
+}
 
 export default function Layout() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -70,16 +80,10 @@ export default function Layout() {
       ['/assignment-help/engineering', { title: 'Engineering Assignment Help — Essay Embassy', description: 'Engineering reports, designs, and calculations prepared to academic standards.' }],
       ['/assignment-help/biotechnology', { title: 'Biotechnology Assignment Help — Essay Embassy', description: 'Biotech writing support covering genetics, molecular biology, bioinformatics, and ethics.' }],
       // Other services
-      ['/book-review', { title: 'Book Review Service — Essay Embassy', description: 'Analytical book reviews with summary, critique, and academic references.' }],
-      ['/case-study-help', { title: 'Case Study Help — Essay Embassy', description: 'Structured case studies with problem analysis, alternatives, and evidence‑based recommendations.' }],
-      ['/dissertation-writing', { title: 'Dissertation Writing Help — Essay Embassy', description: 'End‑to‑end dissertation support: proposals, chapters, analysis, and editing.' }],
-      ['/english-assignment-help', { title: 'English Assignment Help — Essay Embassy', description: 'Support for literature analysis, composition, rhetoric, and linguistics assignments.' }],
       ['/homework-help', { title: 'Homework Help — Essay Embassy', description: 'Timely, reliable homework assistance across subjects and levels.' }],
-      ['/lab-report', { title: 'Lab Report Writing — Essay Embassy', description: 'Clear, replicable lab reports with methods, results, analysis, and references.' }],
-      ['/physics-assignment-help', { title: 'Physics Assignment Help — Essay Embassy', description: 'Accurate physics solutions with clear explanations and diagrams where needed.' }],
-      ['/research-paper-writing', { title: 'Research Paper Writing — Essay Embassy', description: 'Well‑structured research papers with strong thesis, scholarly sources, and correct citation style.' }],
-      ['/term-paper', { title: 'Term Paper Writing — Essay Embassy', description: 'Comprehensive term papers with solid research, analysis, and formatting.' }],
-      ['/thesis-writing', { title: 'Thesis Writing Help — Essay Embassy', description: 'Thesis assistance from proposal to final editing, tailored to your field and guidelines.' }],
+      ['/paper-writing-services', { title: 'Paper Writing Services — Essay Embassy', description: 'Custom research papers, essays, and academic papers written to your requirements with proper research and citations.' }],
+      ['/dissertation-writing-services', { title: 'Dissertation Writing Services — Essay Embassy', description: 'Dissertation and chapter support from proposal through final editing, aligned with your field and guidelines.' }],
+      ['/thesis-writing-services', { title: 'Thesis Writing Help — Essay Embassy', description: 'Thesis assistance from proposal to final editing, tailored to your field and guidelines.' }],
       // Programming help
       ['/programming-help', { title: 'Programming Help — Essay Embassy', description: 'Coding assignments, debugging, and code reviews in Python, Java, C/C++, JavaScript, MATLAB, and more.' }],
       ['/programming-help/python', { title: 'Python Programming Help — Essay Embassy', description: 'Python assignments, scripts, data analysis, and automation help.' }],
@@ -200,6 +204,20 @@ export default function Layout() {
     };
     setJsonLd('ld-breadcrumb', breadcrumb);
   }, [location.pathname, isAdminPage]);
+
+  if (!isAdminPage && !isClientDashboard && isJunkPublicUrl(location.pathname, location.search)) {
+    return (
+      <>
+        <Helmet>
+          <title>Not Found | Essay Embassy</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
+        <div className="min-h-screen flex items-center justify-center px-6 text-center text-gray-600">
+          Page not found.
+        </div>
+      </>
+    );
+  }
 
   if (isLoading) {
     return (

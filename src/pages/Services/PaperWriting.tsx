@@ -793,10 +793,15 @@ export default function PaperWritingServices() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Arthur S.', tag: 'Return Client', date: 'Feb 2026', subject: 'Management', rating: 5, text: 'Exceptional depth. The writer captured corporate nuances perfectlyâ€”a truly premium academic experience.' },
+
                                     { name: 'Eleanor R.', tag: 'First-Time', date: 'Jan 2026', subject: 'Engineering', rating: 5, text: 'Data-heavy structural mechanics paper was perfectly formatted. Impressed by the technical expertise.' },
+
                                     { name: 'Sebastian V.', tag: 'Verified', date: 'Feb 2026', subject: 'Computer Science', rating: 5, text: 'Finding an expert who understands high-level encryption was a relief. Thorough research and flawless citations.' },
+
                                     { name: 'Clara P.', tag: 'Return Client', date: 'Jan 2026', subject: 'Economics', rating: 5, text: 'Third time using this service. The consistency in quality and handling complex data sets is unmatched.' },
+
                                     { name: 'Lucas M.', tag: 'First-Time', date: 'Dec 2025', subject: 'Law', rating: 4.9, text: 'Legal research required specific Bluebook formatting. The writer nailed itâ€”logical and persuasive arguments.' },
+
                                     { name: 'Sophie G.', tag: 'Verified', date: 'Jan 2026', subject: 'Science', rating: 5, text: 'The scientific lab report was precise. Methodology handled with the detail of a Ph.D. researcher.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

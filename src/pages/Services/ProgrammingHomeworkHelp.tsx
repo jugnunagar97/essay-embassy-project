@@ -800,10 +800,15 @@ export default function ProgrammingHomeworkHelp() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Python', rating: 5, text: 'I told them to do my programming homework for my class. The code was perfect. This is the best coding homework service online.' },
+
                                     { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Java', rating: 5, text: 'I needed an affordable java homework solver. The program was completely accurate, compiled on the first try, and was delivered early.' },
+
                                     { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'SQL', rating: 4.9, text: 'I asked who can help me with my php homework and database tasks, and they answered instantly. I will definitely pay for programming homework here again.' },
+
                                     { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Algorithms', rating: 5, text: 'Long time fan here. I decided to hire an expert for data structures homework and they delivered fast. This is the best website to pay for coding coursework.' },
+
                                     { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Machine Learning', rating: 5, text: 'I had to ask them to do my matlab homework for me. The artificial intelligence coursework help was deeply engaging and very professional.' },
+
                                     { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'C++', rating: 4.8, text: 'If you need to pay someone to do my python homework online or C++, use this site. They provided great algorithm solutions online.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

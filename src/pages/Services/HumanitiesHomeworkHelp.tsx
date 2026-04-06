@@ -785,10 +785,15 @@ export default function HumanitiesHomeworkHelp() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Literature', rating: 5, text: 'I had to ask them to do my college humanities homework for me. The research was perfect. This is the best humanities homework writing service online.' },
+
                                     { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'World History', rating: 5, text: 'I needed to pay someone to do my humanities homework online. The history facts were completely accurate and delivered early.' },
+
                                     { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Philosophy', rating: 4.9, text: 'I asked who can help me with my university humanities homework and they answered instantly. I will definitely use this service here again.' },
+
                                     { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Anthropology', rating: 5, text: 'Long time fan here. I decided to hire an expert for liberal arts coursework and they delivered fast. This is the best website to pay for humanities coursework.' },
+
                                     { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Sociology', rating: 5, text: 'I needed college humanities homework help for my class. The reading responses were deeply engaging and very professional.' },
+
                                     { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Linguistics', rating: 4.8, text: 'If you need an affordable college humanities homework solver online, use this site. They provided great language structure answers.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

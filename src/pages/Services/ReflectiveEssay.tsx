@@ -1363,7 +1363,7 @@ const EssayServicesGrid = () => {
       description: 'Identify problems and propose practical, well-reasoned solutions. Great for assignments that require structured critical thinking.',
       features: ['Actionable thesis statements', 'Viable real-world solutions', 'Right transition words', 'Peer-reviewed sources'],
       cta: 'Get Solution Help',
-      slug: '/essay-writing/pro',
+      slug: '/essay-writing/problem-solution',
       popular: false,
     },
     {

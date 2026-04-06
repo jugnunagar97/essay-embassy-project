@@ -280,7 +280,7 @@ const EssayServicesGrid = () => {
             description: 'Identify problems and propose practical, well-reasoned solutions. Great for assignments that require structured critical thinking.',
             features: ['Actionable thesis statements', 'Viable real-world solutions', 'Right transition words', 'Peer-reviewed sources'],
             cta: 'Get Solution Help',
-            slug: '/essay-writing/pro',
+            slug: '/essay-writing/problem-solution',
             popular: false,
         },
         {
@@ -876,10 +876,15 @@ export default function ScholarshipEssayWritingService() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Management', rating: 5, text: 'I told them to write my scholarship essay for my MBA program. The writer understood exactly what the committee wanted. This is the best scholarship essay writing service for college.' },
+
                   { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Engineering', rating: 5, text: 'I needed college scholarship essay help for a STEM grant. The essay was completely accurate and delivered early. I won the money!' },
+
                   { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Computer Science', rating: 4.9, text: 'My writer highlighted my coding skills and my career goals essay was perfect. They used an amazing winning scholarship format.' },
+
                   { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Economics', rating: 5, text: 'Long-time fan here. I buy scholarship essay assignments from them often. The writing is always flawless and sounds just like me.' },
+
                   { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Law', rating: 5, text: 'I had to pay someone to write scholarship essay tasks for my law school financial aid application. The community service narrative was deeply engaging.' },
+
                   { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Science', rating: 4.8, text: 'If you need scholarship essay writers online, use this site. They used excellent formatting and helped me meet a very tight deadline.' },
                 ].map((review, i) => (
                   <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

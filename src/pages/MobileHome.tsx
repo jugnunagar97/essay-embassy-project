@@ -934,7 +934,7 @@ export default function MobileHome() {
           </div>
         </div>
 
-        <button onClick={() => navigate('/services/research-paper-writing')} style={{
+        <button onClick={() => navigate('/paper-writing-services')} style={{
           width: '100%',
           padding: '0.875rem',
           backgroundColor: '#268579',
@@ -1074,7 +1074,7 @@ export default function MobileHome() {
           </div>
         </div>
 
-        <button onClick={() => navigate('/services/dissertation-writing')} style={{
+        <button onClick={() => navigate('/dissertation-writing-services')} style={{
           width: '100%',
           padding: '0.875rem',
           backgroundColor: '#268579',

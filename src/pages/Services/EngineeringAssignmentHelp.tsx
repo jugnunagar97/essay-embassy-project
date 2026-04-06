@@ -800,10 +800,15 @@ export default function EngineeringAssignmentHelp() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Civil Engineering', rating: 5, text: 'I told them to do my engineering assignment for my structures class. The research was perfect. This is the best engineering assignment writing service.' },
+
                   { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Electrical Engineering', rating: 5, text: 'I needed university engineering assignment help for a tough paper. The circuit equations were completely accurate and delivered early.' },
+
                   { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Mechanical Engineering', rating: 4.9, text: 'My expert provided amazing help with CAD software assignments. The formatting was excellent and totally original.' },
+
                   { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Chemical Engineering', rating: 5, text: 'Long-time fan here. I use this engineering assignment helper online often. The writing is always flawless and avoids plagiarism completely.' },
+
                   { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Aerospace Engineering', rating: 5, text: 'I had to pay someone to do engineering assignment tasks for my space class. The technical report writing was deeply engaging and very professional.' },
+
                   { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Industrial Engineering', rating: 4.8, text: 'If you need engineering homework helpers online, use this site. They used excellent logic and helped me meet a very tight deadline.' },
                 ].map((review, i) => (
                   <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

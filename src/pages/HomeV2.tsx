@@ -16,6 +16,7 @@ export default function HomeV2() {
                 <title>Essay Embassy - Professional Academic Writing Service | Essays, Research Papers & More</title>
                 <meta name="description" content="Get expert academic writing help from 200+ PhD & Master's writers. 100% original, plagiarism-free essays, research papers, and dissertations. Starting at $11/page." />
                 <meta name="keywords" content="essay writing service, academic writing, research paper help, dissertation writing, college essays" />
+                <link rel="canonical" href="https://essayembassy.com/" />
             </Helmet>
 
             <div className="min-h-screen bg-white">

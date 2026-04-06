@@ -853,10 +853,15 @@ export default function MathAssignmentHelp() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Management', rating: 5, text: 'I told them to do my math assignment for my business finance class. The numbers were perfect. This is the best math assignment solver.' },
+
                   { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Engineering', rating: 5, text: 'I needed university math assignment help for a tough paper. The calculus problem solving was completely accurate and delivered early.' },
+
                   { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Computer Science', rating: 4.9, text: 'My expert provided amazing step-by-step math solutions. The discrete math help was excellent and totally original.' },
+
                   { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Economics', rating: 5, text: 'Long-time fan here. I use this math assignment helper online often. The writing is always flawless and avoids plagiarism completely.' },
+
                   { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Law', rating: 5, text: 'I had to pay someone to do math assignment tasks for my statistics class. The statistics data analysis was deeply engaging and very professional.' },
+
                   { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Science', rating: 4.8, text: 'If you need math homework solvers online, use this site. They used excellent formatting and helped me meet a very tight deadline.' },
                 ].map((review, i) => (
                   <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

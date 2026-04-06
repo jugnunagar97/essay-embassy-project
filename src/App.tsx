@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { CurrencyProvider } from './context/CurrencyContext';
@@ -27,6 +27,7 @@ import Writers from './pages/Writers';
 import Samples from './pages/Samples';
 import Reviews from './pages/Reviews';
 import OrderNow from './pages/Order/OrderNow';
+import Pricing from './pages/Pricing';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 // Old Q&A system removed - using new localStorage-based system
@@ -54,22 +55,15 @@ import DescriptiveEssayWriting from './pages/Services/DescriptiveEssayWriting';
 import ExpositoryEssayWritingService from './pages/Services/ExpositoryEssayWriting';
 import AnalyticalEssayWritingService from './pages/Services/AnalyticalEssayWriting';
 import AssignmentHelp from './pages/Services/AssignmentHelp';
-import BookReview from './pages/Services/BookReview';
-import CaseStudyHelp from './pages/Services/CaseStudyHelp';
-import DissertationWriting from './pages/Services/DissertationWriting';
-import EnglishAssignmentHelp from './pages/Services/EnglishAssignmentHelp';
 import EssayWriting from './pages/Services/EssayWriting';
 import HomeworkHelp from './pages/Services/HomeworkHelp';
 import NarrativeEssayWriting from './pages/Services/NarrativeEssayWriting';
-import PhysicsAssignmentHelp from './pages/Services/PhysicsAssignmentHelp';
 import ProgrammingHelp from './pages/Services/ProgrammingHelp';
 import PythonProgrammingHelp from './pages/Services/PythonProgrammingHelp';
 import JavaProgrammingHelp from './pages/Services/JavaProgrammingHelp';
 import JSProgrammingHelp from './pages/Services/JSProgrammingHelp';
 import CProgrammingHelp from './pages/Services/CProgrammingHelp';
 import CSharpProgrammingHelp from './pages/Services/CSharpProgrammingHelp';
-import ResearchPaperWriting from './pages/Services/ResearchPaperWriting';
-
 import ReflectiveEssay from './pages/Services/ReflectiveEssay';
 import CompareContrastEssay from './pages/Services/CompareContrastEssay';
 import CauseEffectEssay from './pages/Services/CauseEffectEssay';
@@ -248,16 +242,18 @@ function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route index element={<HomeV2 />} /> {/* New Standard Homepage */}
+                <Route path="home" element={<HomeV2 />} /> {/* Same as index; canonical in HomeV2 points to / */}
                 <Route path="about" element={<About />} />
                 <Route path="contact" element={<Contact />} />
-                <Route path="services" element={<Services />} /> {/* Main services overview page */}
+                <Route path="services/" element={<Services />} />
+                <Route path="services" element={<ServicesPathRedirect />} />
 
                 {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
 
                 <Route path="essay-writing/reflective" element={<ReflectiveEssay />} />
                 <Route path="essay-writing/compare-contrast" element={<CompareContrastEssay />} />
                 <Route path="essay-writing/cause-effect" element={<CauseEffectEssay />} />
-                <Route path="essay-writing/pro" element={<ProblemSolutionEssay />} />
+                <Route path="essay-writing/problem-solution" element={<ProblemSolutionEssay />} />
                 <Route path="essay-writing/critical-analysis" element={<CriticalAnalysisEssay />} />
                 <Route path="essay-writing/admission" element={<AdmissionEssay />} />
                 <Route path="essay-writing/narrative" element={<NarrativeEssayWriting />} />
@@ -272,6 +268,7 @@ function App() {
                 <Route path="essay-writing/proofreading" element={<EssayProofreading />} />
                 <Route path="essay-writing/rewriting" element={<EssayRewriting />} />
                 {/* Backward compatibility routes */}
+                <Route path="essay-writing/pro" element={<Navigate to="/essay-writing/problem-solution" replace />} />
                 <Route path="argumentative-essay" element={<ArgumentativeEssayWriting />} />
                 <Route path="narrative-essay" element={<NarrativeEssayWriting />} />
                 <Route path="assignment-help" element={<AssignmentHelp />} />
@@ -290,10 +287,6 @@ function App() {
                 <Route path="assignment-help/accounting" element={<AccountingAssignmentHelp />} />
                 <Route path="assignment-help/statistics" element={<StatisticsAssignmentHelp />} />
                 <Route path="assignment-help/biotechnology" element={<BiotechnologyAssignmentHelp />} />
-                <Route path="book-review" element={<BookReview />} />
-                <Route path="case-study-help" element={<CaseStudyHelp />} />
-                <Route path="dissertation-writing" element={<DissertationWriting />} />
-                <Route path="english-assignment-help" element={<EnglishAssignmentHelp />} />
                 <Route path="essay-writing" element={<EssayWriting />} />
                 <Route path="homework-help" element={<HomeworkHelp />} />
                 <Route path="homework-help/math" element={<MathHomeworkHelp />} />
@@ -310,7 +303,6 @@ function App() {
                 <Route path="homework-help/statistics" element={<StatisticsHomeworkHelp />} />
                 <Route path="homework-help/humanities" element={<HumanitiesHomeworkHelp />} />
                 <Route path="narrative-essay" element={<NarrativeEssayWriting />} />
-                <Route path="physics-assignment-help" element={<PhysicsAssignmentHelp />} />
                 <Route path="programming-help" element={<ProgrammingHelp />} />
                 <Route path="programming-help/python" element={<PythonProgrammingHelp />} />
                 <Route path="programming-help/java" element={<JavaProgrammingHelp />} />
@@ -320,7 +312,6 @@ function App() {
                 <Route path="programming-help/ruby" element={<RubyProgrammingHelp />} />
                 <Route path="programming-help/cpp" element={<CPPProgrammingHelp />} />
                 <Route path="programming-help/matlab" element={<MatlabProgrammingHelp />} />
-                <Route path="research-paper-writing" element={<ResearchPaperWriting />} />
                 <Route path="paper-writing-services" element={<PaperWriting />} />
                 <Route path="thesis-writing-services" element={<ThesisWritingServices />} />
                 <Route path="dissertation-writing-services" element={<DissertationWritingServices />} />
@@ -337,6 +328,7 @@ function App() {
                 <Route path="refund-policy" element={<RefundPolicy />} />
                 <Route path="honor-code" element={<HonorCode />} />
                 <Route path="faq" element={<FAQ />} />
+                <Route path="pricing" element={<Pricing />} />
                 <Route path="writers" element={<Writers />} />
                 <Route path="order-now" element={<OrderNow />} />
                 <Route path="checkout" element={<Checkout />} />

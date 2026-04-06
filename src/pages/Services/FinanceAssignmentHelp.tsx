@@ -764,10 +764,15 @@ export default function FinanceAssignmentHelp() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Corporate Finance', rating: 5, text: 'I told them to do my finance assignment for my business class. The research was perfect. This is the best finance assignment writing service.' },
+
                   { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Investment Banking', rating: 5, text: 'I needed university finance assignment help for a tough paper. The investment valuation models were completely accurate and delivered early.' },
+
                   { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Financial Planning', rating: 4.9, text: 'My expert provided amazing help with corporate finance case study files. The formatting was excellent and totally original.' },
+
                   { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Public Finance', rating: 5, text: 'Long-time fan here. I use this finance assignment helper online often. The writing is always flawless and avoids plagiarism completely.' },
+
                   { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Risk Management', rating: 5, text: 'I had to pay someone to do finance assignment tasks for my risk class. The risk and return calculations were deeply engaging and very professional.' },
+
                   { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'International Finance', rating: 4.8, text: 'If you need cheap finance homework helpers online, use this site. They used excellent logic and helped me meet a very tight deadline.' },
                 ].map((review, i) => (
                   <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

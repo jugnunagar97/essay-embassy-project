@@ -790,10 +790,15 @@ export default function ScienceAssignmentHelp() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Biology', rating: 5, text: 'I told them to do my science assignment for my biology class. The research was perfect. This is the best science assignment writing service.' },
+
                   { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Physics', rating: 5, text: 'I needed university science assignment help for a tough paper. The equations were completely accurate and delivered early.' },
+
                   { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Chemistry', rating: 4.9, text: 'My expert provided amazing help with science lab report documents. The formatting was excellent and totally original.' },
+
                   { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Environmental Science', rating: 5, text: 'Long-time fan here. I use this science assignment helper online often. The writing is always flawless and avoids plagiarism completely.' },
+
                   { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Astronomy', rating: 5, text: 'I had to pay someone to do science assignment tasks for my space class. The research was deeply engaging and very professional.' },
+
                   { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Earth Science', rating: 4.8, text: 'If you need science homework helpers online, use this site. They used excellent logic and helped me meet a very tight deadline.' },
                 ].map((review, i) => (
                   <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

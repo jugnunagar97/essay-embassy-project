@@ -245,7 +245,7 @@ const EssayServicesGrid = () => {
             description: 'Identify problems and propose practical, well-reasoned solutions. Great for assignments that require structured critical thinking.',
             features: ['Actionable thesis statements', 'Viable real-world solutions', 'Right transition words', 'Peer-reviewed sources'],
             cta: 'Get Solution Help',
-            slug: '/essay-writing/pro',
+            slug: '/essay-writing/problem-solution',
             popular: false,
         },
         {
@@ -853,10 +853,15 @@ export default function NarrativeEssayWritingService() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Sarah M.', tag: 'Verified', date: 'Oct 10, 2025', subject: 'English Literature', rating: 5, text: 'I told them to write my narrative essay for me. The writer captured my personal experience perfectly and the story arc was beautifully structured. Got an A+!' },
+
                                     { name: 'John D.', tag: 'Returning Client', date: 'Nov 01, 2025', subject: 'Creative Writing', rating: 5, text: 'I needed a narrative essay writing service for university and the result was outstanding. The opening scene pulled my professor right in. Highly recommend.' },
+
                                     { name: 'Emily R.', tag: 'First-Time User', date: 'Nov 15, 2025', subject: 'Psychology', rating: 4.9, text: 'They provide an amazing affordable service. The writer used vivid imagery and sensory language throughout. Completely human-written — the GPTZero report proved it.' },
+
                                     { name: 'Mark T.', tag: 'Verified', date: 'Dec 02, 2025', subject: 'Sociology', rating: 5, text: 'I decided to hire a narrative essay writer for my final assignment. The turning point in the story was handled brilliantly. Perfect formatting, delivered early.' },
+
                                     { name: 'Lisa P.', tag: 'Returning Client', date: 'Jan 08, 2026', subject: 'Education', rating: 5, text: 'This is the best narrative essay help for college students! The writer followed my exact storyline instructions and made the conclusion genuinely moving.' },
+
                                     { name: 'David K.', tag: 'Verified', date: 'Feb 14, 2026', subject: 'Communications', rating: 4.8, text: 'Needed help with a personal narrative essay and the service was top-notch. The writer knew exactly how to show growth and reflection within the story structure.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

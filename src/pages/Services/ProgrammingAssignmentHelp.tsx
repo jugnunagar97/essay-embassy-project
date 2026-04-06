@@ -810,10 +810,15 @@ export default function ProgrammingAssignmentHelp() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Python', rating: 5, text: 'I told them to do my programming assignment for my Python class. The code ran perfectly. This is the best programming assignment writing service.' },
+
                                     { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Java', rating: 5, text: 'I needed university programming assignment help for a tough Java paper. The object oriented programming concepts were completely accurate and delivered early.' },
+
                                     { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'C++', rating: 4.9, text: 'My expert provided amazing debugging and error fixing. The C++ help was excellent and totally original.' },
+
                                     { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Web Development', rating: 5, text: 'Long-time fan here. I use this programming assignment helper online often. The code compilation and execution always works flawlessly.' },
+
                                     { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Machine Learning', rating: 5, text: 'I had to pay someone to do programming assignment tasks for my AI class. The algorithm design and analysis was deeply engaging and very professional.' },
+
                                     { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'SQL Database', rating: 4.8, text: 'If you need coding homework helpers online, use this site. They used excellent logic and helped me meet a very tight deadline.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

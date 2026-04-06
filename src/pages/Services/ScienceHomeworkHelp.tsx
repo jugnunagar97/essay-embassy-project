@@ -801,10 +801,15 @@ export default function ScienceHomeworkHelp() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Lucas S.', tag: 'Verified', date: 'Oct 12, 2025', subject: 'Biology', rating: 5, text: 'I told them to do my science homework for my class. The research was perfect. This is the best science homework writing service online.' },
+
                                     { name: 'Fahid B.', tag: 'Returning Client', date: 'Nov 02, 2025', subject: 'Physics', rating: 5, text: 'I needed to pay someone to do my science homework online. The physics equations were completely accurate and delivered early.' },
+
                                     { name: 'Johanna T.', tag: 'First-Time User', date: 'Nov 18, 2025', subject: 'Chemistry', rating: 4.9, text: 'I asked who can help me with my lab report homework and they answered instantly. I will definitely use this service here again.' },
+
                                     { name: 'Ryan P.', tag: 'Returning Client', date: 'Dec 05, 2025', subject: 'Natural Sciences', rating: 5, text: 'Long time fan here. I decided to hire an expert for general science homework and they delivered fast. This is the best website to pay for science coursework.' },
+
                                     { name: 'Darious D.', tag: 'Verified', date: 'Jan 14, 2026', subject: 'Advanced Science', rating: 5, text: 'I had to ask them to do my college science homework for me. The university science solutions were deeply engaging and very professional.' },
+
                                     { name: 'Liam K.', tag: 'First-Time User', date: 'Feb 22, 2026', subject: 'Earth Science', rating: 4.8, text: 'If you need an affordable science homework solver, use this site. They provided great STEM homework help online.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

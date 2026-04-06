@@ -693,10 +693,15 @@ export default function ThesisWritingServices() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'J. Smith', tag: 'Returning Client', date: 'Feb 12, 2026', subject: 'Management', rating: 5, text: 'For my MBA program, I needed a detailed and professional thesis chapter. The writer assigned had a deep understanding of business strategies and delivered an insightful, well-researched analysis. Best thesis writing service I\'ve used!' },
+
                                     { name: 'A. Reynolds', tag: 'Verified', date: 'Feb 21, 2026', subject: 'Engineering', rating: 5, text: 'No AI garbage detected in my engineering work! The methodology was fully linked to the data and delivered well before my expected due date. Truly professional thesis writers.' },
+
                                     { name: 'T. Vance', tag: 'First-Time User', date: 'Jan 14, 2026', subject: 'Computer Science', rating: 5, text: 'I was skeptical about online thesis writing services, but my group project contribution looked fully original and meticulously coded. I didn\'t need to stress at all. Fantastic results.' },
+
                                     { name: 'M. O\'Connor', tag: 'Verified', date: 'Dec 11, 2025', subject: 'Economics', rating: 4.5, text: 'The assigned writer created a strong paper with a logical flow. I appreciated the quick direct communication and transparent pricing. Handled the statistical data perfectly.' },
+
                                     { name: 'L. Davis', tag: 'Returning Client', date: 'Jan 17, 2026', subject: 'Law', rating: 5, text: 'It is very organized, and I felt confident leaving my legal thesis to someone who knows exactly what they are doing. The citations were flawless and passed all plagiarism checks easily.' },
+
                                     { name: 'S. Chen', tag: 'Verified', date: 'Mar 4, 2026', subject: 'Science', rating: 5, text: 'I needed an expert in biology to analyze my lab data for my Master\'s thesis. Excellent work, incredibly fast delivery, and the free revisions polished it to absolute perfection. Will use this thesis help again.' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

@@ -1701,7 +1701,7 @@ export default function DesktopHomeContent(): React.ReactElement {
                   icon: Search,
                   features: ["Comprehensive Analysis", "Credible Sources", "Academic Formatting"],
                   buttonText: "Order Research",
-                  href: "/services/research-paper-writing"
+                  href: "/paper-writing-services"
                 },
                 {
                   title: "Thesis Writing Help",
@@ -1717,7 +1717,7 @@ export default function DesktopHomeContent(): React.ReactElement {
                   icon: ScrollText,
                   features: ["Proposal to Defense", "Expert Guidance", "Comprehensive Research"],
                   buttonText: "Begin Dissertation",
-                  href: "/services/dissertation-writing"
+                  href: "/dissertation-writing-services"
                 }
               ].map((service) => {
                 const IconComponent = service.icon;

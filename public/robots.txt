@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 Allow: /question/
-
+ 
 Disallow: /admin/
 Disallow: /editor/
 Disallow: /client/
@@ -13,9 +13,9 @@ Disallow: /cart/
 Disallow: /checkout/
 Disallow: /my-account/
 Disallow: /shop/
-Disallow: /search
+Disallow: /search/
 Disallow: /*?s=
 Disallow: /api/
-
+ 
 # Sitemap
-Sitemap: https://essay-embassy-project.onrender.com/sitemap.xml
+Sitemap: https://essayembassy.com/sitemap.xml

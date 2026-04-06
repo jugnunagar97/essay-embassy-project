@@ -814,10 +814,15 @@ export default function DissertationWritingServices() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {[
                                     { name: 'Robert M.', tag: 'Verified Client', date: 'March 12, 2026', subject: 'Management', rating: 5, text: 'My supervisor was thoroughly impressed with the depth of my Management dissertation. The writer clearly understood advanced HRM strategies and followed my instructions perfectly.' },
+
                                     { name: 'Aman I.', tag: 'First-Time User', date: 'February 28, 2026', subject: 'Engineering', rating: 5, text: 'I did not expect so much professionalism from an online dissertation writing service. The engineering calculations and structural analysis were flawless, and I received the draft right on time!' },
+
                                     { name: 'David G.', tag: 'Returning Client', date: 'February 15, 2026', subject: 'Computer Science', rating: 5, text: 'This was my second time getting custom dissertation writing here. My writer handled the complex Python programming algorithms incredibly well. Highly recommend this service.' },
+
                                     { name: 'Chloe W.', tag: 'Verified Client', date: 'February 11, 2026', subject: 'Economics', rating: 4.5, text: 'The statistical analysis in my PhD dissertation was fantastic. The writer aligned my research points with the right design perfectly. Will definitely hire again.' },
+
                                     { name: 'Ezra F.', tag: 'Returning Client', date: 'January 22, 2026', subject: 'Law', rating: 5, text: 'I struggled heavily with intellectual property laws for my Master\'s thesis. The expert assigned to me delivered a meticulously researched paper well before the deadline.' },
+
                                     { name: 'Bianca S.', tag: 'First-Time User', date: 'January 10, 2026', subject: 'Science', rating: 5, text: 'The service is easy to use and has a quick turnaround time. My writer handled my natural sciences literature review with absolute precision. Best dissertation help you can get!' },
                                 ].map((review, i) => (
                                     <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:border-[#1652A0]/30 transition-all">

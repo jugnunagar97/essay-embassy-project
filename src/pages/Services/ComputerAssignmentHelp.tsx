@@ -1143,37 +1143,39 @@ export default function ComputerAssignmentHelp() {
               // Only include services that have a corresponding file in src/pages/Services
               const allServices = [
                 { name: 'Essay Writing', link: '/services/essay-writing' },
-                { name: 'Book Review', link: '/services/book-review' },
-                { name: 'Term Paper', link: '/services/term-paper' },
-                { name: 'Research Paper Writing', link: '/services/research-paper-writing' },
+                { name: 'Paper Writing Services', link: '/paper-writing-services' },
+                { name: 'Dissertation Writing Services', link: '/dissertation-writing-services' },
                 { name: 'Research Proposal', link: '/services/research-proposal' },
+
                 { name: 'Thesis Writing', link: '/services/thesis-writing' },
-                { name: 'Dissertation Writing', link: '/services/dissertation-writing' },
                 { name: 'Scholarship Essay', link: '/services/scholarship-essay' },
+
                 { name: 'Argumentative Essay', link: '/services/argumentative-essay' },
+
                 { name: 'Admission Essay', link: '/services/admission-essay' },
+
                 { name: 'Admission Essay Writing', link: '/services/admission-essay-writing' },
+
                 { name: 'Case Study', link: '/services/case-study' },
-                { name: 'Case Study Help', link: '/services/case-study-help' },
-                { name: 'Lab Report', link: '/services/lab-report' },
                 { name: 'Homework Help', link: '/services/homework-help' },
+
                 { name: 'Management Assignment Help', link: '/assignment-help/management' },
-                { name: 'English Assignment Help', link: '/services/english-assignment-help' },
                 { name: 'Programming Help', link: '/services/programming-help' },
+
                 { name: 'C Programming Help', link: '/programming-help/c' },
-                { name: 'Physics Assignment Help', link: '/services/physics-assignment-help' },
                 { name: 'Assignment Help', link: '/services/assignment-help' },
+
                 { name: 'Narrative Essay', link: '/services/narrative-essay' },
               ];
               // Remove duplicates for each tab
               const paperwork = [
-                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Research Proposal', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study', 'Case Study Help', 'Lab Report', 'Homework Help', 'Management Assignment Help', 'English Assignment Help', 'Programming Help', 'C Programming Help', 'Physics Assignment Help', 'Assignment Help', 'Narrative Essay',
+                'Essay Writing',                 'Paper Writing Services',                 'Dissertation Writing Services',                 'Research Proposal',                 'Thesis Writing',                 'Scholarship Essay',                 'Argumentative Essay',                 'Admission Essay',                 'Admission Essay Writing',                 'Case Study',                 'Homework Help',                 'Management Assignment Help',                 'Programming Help',                 'C Programming Help',                 'Assignment Help',                 'Narrative Essay'
               ];
               const coursework = [
-                'Essay Writing', 'Book Review', 'Term Paper', 'Research Paper Writing', 'Case Study', 'Lab Report', 'Homework Help', 'Management Assignment Help', 'English Assignment Help', 'Programming Help', 'C Programming Help', 'Physics Assignment Help', 'Assignment Help',
+                'Essay Writing',                 'Paper Writing Services',                 'Dissertation Writing Services',                 'Case Study',                 'Homework Help',                 'Management Assignment Help',                 'Programming Help',                 'C Programming Help',                 'Assignment Help'
               ];
               const other = [
-                'Book Review', 'Thesis Writing', 'Dissertation Writing', 'Scholarship Essay', 'Argumentative Essay', 'Admission Essay', 'Admission Essay Writing', 'Case Study Help', 'C Programming Help',
+                'Paper Writing Services',                 'Dissertation Writing Services',                 'Thesis Writing',                 'Scholarship Essay',                 'Argumentative Essay',                 'Admission Essay',                 'Admission Essay Writing',                 'C Programming Help'
               ];
               const tabData = [
                 {
