@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BlockedPage from '../pages/BlockedPage';
+import TawkLazyLoader from './TawkLazyLoader';
 
 // Geo-blocking: ONLY block India (IN) and Pakistan (PK)
 // ALL OTHER COUNTRIES (including France, US, UK, etc.) should be ALLOWED
@@ -267,7 +268,12 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
 
   // If bypass is enabled, always allow access
   if (isDevelopment || bypassGeoblock) {
-    return <>{children}</>;
+    return (
+      <>
+        {children}
+        <TawkLazyLoader />
+      </>
+    );
   }
 
   // Show a visible loading state while checking to avoid a blank white screen.
@@ -290,7 +296,12 @@ const GeoBlock: React.FC<GeoBlockProps> = ({ children }) => {
 
   // Allow access for ALL other countries (including France, US, UK, etc.)
   console.log('[GeoBlock] Allowing access - country is not blocked');
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <TawkLazyLoader />
+    </>
+  );
 };
 
 export default GeoBlock;

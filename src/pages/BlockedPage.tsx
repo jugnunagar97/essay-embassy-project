@@ -191,6 +191,14 @@ const BlockedPage: React.FC = () => {
       // Remove Tawk.to script if it hasn't loaded yet
       const tawkScripts = document.querySelectorAll('script[src*="tawk.to"], script[src*="embed.tawk.to"]');
       tawkScripts.forEach(script => script.remove());
+
+      // Stale cached HTML may have an inline bootstrap; remove it
+      document.querySelectorAll('script:not([src])').forEach((script) => {
+        const t = script.textContent || '';
+        if (t.includes('embed.tawk.to')) {
+          script.remove();
+        }
+      });
     };
 
     // Hide Tawk.to immediately
