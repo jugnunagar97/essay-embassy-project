@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ChevronDown, XCircle } from 'lucide-react';
 import { useServiceCategories, useSubServices } from '../../hooks/useData';
 import type { ServiceCategory, SubService } from '../../types';
+import UsaAssignmentHelpNavLink from './UsaAssignmentHelpNavLink';
 
 interface MobileServicesMenuProps {
   onClose: () => void;
@@ -109,6 +110,11 @@ export default function MobileServicesMenu({ onClose }: MobileServicesMenuProps)
         <button onClick={onClose} className="text-gray-600 dark:text-gray-300 hover:text-primary-600" aria-label="Close menu">
           <XCircle size={24} />
         </button>
+      </div>
+
+      {/* Featured: USA service (high visibility for U.S. visitors) */}
+      <div className="px-4 pb-2 pt-1">
+        <UsaAssignmentHelpNavLink variant="mobile" onClick={onClose} />
       </div>
 
       {/* Main Navigation Links */}

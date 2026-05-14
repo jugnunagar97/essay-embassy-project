@@ -6,6 +6,7 @@ import { Menu, X, ChevronDown, Phone, Mail } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import ServicesDropdown from './ServicesDropdown';
 import MobileServicesMenu from './MobileServicesMenu';
+import UsaAssignmentHelpNavLink from './UsaAssignmentHelpNavLink';
 
 interface HeaderProps {
   onToggleSidebar?: () => void;
@@ -89,6 +90,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             {/* Center: Navigation (Desktop) */}
             <nav className="main-nav">
               <ServicesDropdown />
+              <UsaAssignmentHelpNavLink variant="desktop" />
               <Link to="/samples" className="nav-link">Samples</Link>
               <Link to="/reviews" className="nav-link">Reviews</Link>
               <Link to="/qa" className="nav-link">Q&A Library</Link>
