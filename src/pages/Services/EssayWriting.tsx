@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import UnifiedPriceCalculator from '../../components/Services/UnifiedPriceCalculator';
 import { CheckCircle2, Star, ShieldCheck, ArrowRight, Shield, Headphones, GraduationCap, FileText, ChevronDown, Clock, Award, Users, Zap, BookOpen, Target, Sparkles, MessageCircle, DollarSign, CheckCircle, RefreshCw, Brain, Rocket, Trophy, Lock, Edit3, FileCheck, Pen, AlignLeft, Search, Scale, TrendingUp, Lightbulb, Microscope } from 'lucide-react';
+import ScrollableContentPanel from '../../components/Services/ScrollableContentPanel';
+import { SERVICE_SEO_PLACEHOLDER_CARDS } from '../../components/Services/serviceSeoPlaceholderCards';
 
 // FAQ Item Component
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
@@ -975,6 +977,16 @@ export default function EssayWriting() {
                 </Link>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ── Service SEO scroll panel (placeholder) ── */}
+        <section className="bg-slate-50 py-12 md:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollableContentPanel
+              ariaLabel="Service overview"
+              cards={SERVICE_SEO_PLACEHOLDER_CARDS}
+            />
           </div>
         </section>
 

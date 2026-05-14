@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import {
+
     CheckCircle2,
     Star,
     ShieldCheck,
@@ -36,6 +37,8 @@ import {
     AlignLeft,
     Microscope
 } from 'lucide-react';
+import ScrollableContentPanel from '../../components/Services/ScrollableContentPanel';
+import { SERVICE_SEO_PLACEHOLDER_CARDS } from '../../components/Services/serviceSeoPlaceholderCards';
 
 // ─── FAQ Item ─────────────────────────────────────────────────────────────────
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
@@ -931,6 +934,16 @@ export default function AdmissionEssayWritingService() {
                             </div>
                         </div>
                     </div>
+                </section>
+
+                {/* ── Service SEO scroll panel (placeholder) ── */}
+                <section className="bg-slate-50 py-12 md:py-20">
+                  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <ScrollableContentPanel
+                      ariaLabel="Service overview"
+                      cards={SERVICE_SEO_PLACEHOLDER_CARDS}
+                    />
+                  </div>
                 </section>
 
                 {/* ── FAQ ──────────────────────────────────────────────────────────── */}

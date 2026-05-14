@@ -8,6 +8,8 @@ import WritersCarousel from './WritersCarousel';
 // --- SpecialHomeworkHelpCarousel: React-based interactive carousel ---
 import React, { useRef, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import ScrollableContentPanel from '../../components/Services/ScrollableContentPanel';
+import { SERVICE_SEO_PLACEHOLDER_CARDS } from '../../components/Services/serviceSeoPlaceholderCards';
 
 const carouselItems = [
   {
@@ -1041,6 +1043,16 @@ export default function HomeworkHelp() {
           }
         `}</style>
       </section>
+      {/* ── Service SEO scroll panel (placeholder) ── */}
+      <section className="bg-slate-50 py-12 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <ScrollableContentPanel
+            ariaLabel="Service overview"
+            cards={SERVICE_SEO_PLACEHOLDER_CARDS}
+          />
+        </div>
+      </section>
+
       {/* FAQ Block */}
       <section className="w-full bg-[#F7FAFC] py-10">
         <div className="max-w-5xl mx-auto px-2 md:px-4">

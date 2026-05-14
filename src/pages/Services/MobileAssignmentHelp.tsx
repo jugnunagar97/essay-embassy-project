@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import ScrollableContentPanel from '../../components/Services/ScrollableContentPanel';
+import { SERVICE_SEO_PLACEHOLDER_CARDS } from '../../components/Services/serviceSeoPlaceholderCards';
 
 const academicLevels = ["High School", "College", "University", "PhD"] as const;
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"] as const;
@@ -582,6 +584,16 @@ export default function MobileAssignmentHelp() {
                 <div style={{ fontSize: '0.875rem', color: '#6B7280', fontWeight: '500' }}>{stat.label}</div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ── Service SEO scroll panel (placeholder) ── */}
+        <section className="bg-slate-50 py-12 md:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ScrollableContentPanel
+              ariaLabel="Service overview"
+              cards={SERVICE_SEO_PLACEHOLDER_CARDS}
+            />
           </div>
         </section>
 

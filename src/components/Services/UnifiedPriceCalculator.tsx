@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Clock, FileText, GraduationCap } from 'lucide-react';
 
-export default function UnifiedPriceCalculator() {
+type UnifiedPriceCalculatorProps = {
+  compact?: boolean;
+};
+
+export default function UnifiedPriceCalculator({ compact = false }: UnifiedPriceCalculatorProps) {
   const [academicLevel, setAcademicLevel] = useState<'highschool' | 'undergraduate' | 'masters' | 'phd'>('undergraduate');
   const [pages, setPages] = useState(1);
   const [deadline, setDeadline] = useState<'3hours' | '6hours' | '12hours' | '24hours' | '3days' | '7days' | '14days' | '30days'>('7days');
@@ -29,13 +33,13 @@ export default function UnifiedPriceCalculator() {
   const perPage = Math.round(totalPrice / pages);
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
-      <div className="text-center mb-8">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Calculate Your Live Price</h3>
+    <div className={`bg-white rounded-2xl shadow-xl border border-gray-100 ${compact ? 'p-6 lg:p-5' : 'p-8'}`}>
+      <div className={`text-center ${compact ? 'mb-6' : 'mb-8'}`}>
+        <h3 className={`${compact ? 'text-xl' : 'text-2xl'} font-bold text-gray-900 mb-2`}>Calculate Your Live Price</h3>
         <p className="text-gray-600 text-sm">Expert help starting at just $10/page - no hidden fees.</p>
       </div>
 
-      <div className="space-y-6">
+      <div className={compact ? 'space-y-5' : 'space-y-6'}>
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
             <GraduationCap className="w-4 h-4 text-[#1652A0]" />
@@ -44,7 +48,7 @@ export default function UnifiedPriceCalculator() {
           <select
             value={academicLevel}
             onChange={(e) => setAcademicLevel(e.target.value as typeof academicLevel)}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#1652A0] focus:ring-2 focus:ring-[#1652A0]/10 transition-all outline-none text-gray-700 bg-gray-50"
+            className={`w-full px-4 ${compact ? 'py-2.5' : 'py-3'} rounded-xl border border-gray-200 focus:border-[#1652A0] focus:ring-2 focus:ring-[#1652A0]/10 transition-all outline-none text-gray-700 bg-gray-50`}
           >
             <option value="highschool">High School</option>
             <option value="undergraduate">Undergraduate</option>
@@ -84,7 +88,7 @@ export default function UnifiedPriceCalculator() {
           <select
             value={deadline}
             onChange={(e) => setDeadline(e.target.value as typeof deadline)}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#1652A0] focus:ring-2 focus:ring-[#1652A0]/10 transition-all outline-none text-gray-700 bg-gray-50"
+            className={`w-full px-4 ${compact ? 'py-2.5' : 'py-3'} rounded-xl border border-gray-200 focus:border-[#1652A0] focus:ring-2 focus:ring-[#1652A0]/10 transition-all outline-none text-gray-700 bg-gray-50`}
           >
             <option value="3hours">3 Hours (Super Urgent)</option>
             <option value="6hours">6 Hours (Urgent)</option>
@@ -97,21 +101,21 @@ export default function UnifiedPriceCalculator() {
           </select>
         </div>
 
-        <div className="bg-[#0B1F42]/5 rounded-2xl p-6 border border-[#0B1F42]/10">
-          <div className="flex justify-between items-center mb-6">
+        <div className={`bg-[#0B1F42]/5 rounded-2xl ${compact ? 'p-4' : 'p-6'} border border-[#0B1F42]/10`}>
+          <div className={`flex justify-between items-center ${compact ? 'mb-4' : 'mb-6'}`}>
             <div>
               <p className="text-[#0B1F42] text-sm font-semibold mb-1">Estimated Total:</p>
-              <p className="text-4xl font-black text-[#0B1F42]">${totalPrice}</p>
+              <p className={`${compact ? 'text-3xl' : 'text-4xl'} font-black text-[#0B1F42]`}>${totalPrice}</p>
             </div>
             <div className="text-right bg-white rounded-lg px-3 py-2 border border-[#0B1F42]/10">
               <p className="text-xs text-gray-500 font-medium">Per Page</p>
-              <p className="text-xl font-bold text-gray-900">${perPage}</p>
+              <p className={`${compact ? 'text-lg' : 'text-xl'} font-bold text-gray-900`}>${perPage}</p>
             </div>
           </div>
 
           <Link
             to="/order-now"
-            className="w-full px-6 py-4 bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold text-lg rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            className={`w-full px-6 ${compact ? 'py-3.5 text-base' : 'py-4 text-lg'} bg-[#1652A0] hover:bg-[#0B1F42] text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2`}
           >
             Proceed to Order <ArrowRight className="w-5 h-5" />
           </Link>

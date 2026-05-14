@@ -110,6 +110,7 @@ import AccountingHomeworkHelp from './pages/Services/AccountingHomeworkHelp';
 import LawHomeworkHelp from './pages/Services/LawHomeworkHelp';
 import StatisticsHomeworkHelp from './pages/Services/StatisticsHomeworkHelp';
 import HumanitiesHomeworkHelp from './pages/Services/HumanitiesHomeworkHelp';
+import UsaAssignmentHelp from './pages/Services/UsaAssignmentHelp';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -302,6 +303,7 @@ function App() {
                 <Route path="homework-help/law" element={<LawHomeworkHelp />} />
                 <Route path="homework-help/statistics" element={<StatisticsHomeworkHelp />} />
                 <Route path="homework-help/humanities" element={<HumanitiesHomeworkHelp />} />
+                <Route path="usa/assignment-help" element={<UsaAssignmentHelp />} />
                 <Route path="narrative-essay" element={<NarrativeEssayWriting />} />
                 <Route path="programming-help" element={<ProgrammingHelp />} />
                 <Route path="programming-help/python" element={<PythonProgrammingHelp />} />

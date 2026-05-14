@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import UnifiedPriceCalculator from '../../components/Services/UnifiedPriceCalculator';
 import {
+
     CheckCircle2,
     Star,
     ShieldCheck,
@@ -34,6 +35,8 @@ import {
     ListOrdered,
     Flag
 } from 'lucide-react';
+import ScrollableContentPanel from '../../components/Services/ScrollableContentPanel';
+import { SERVICE_SEO_PLACEHOLDER_CARDS } from '../../components/Services/serviceSeoPlaceholderCards';
 
 // â”€â”€â”€ FAQ Item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const FAQItem = ({ question, answer }: { question: string; answer: string }) => {
@@ -738,6 +741,16 @@ export default function ThesisWritingServices() {
                             </div>
                         </div>
                     </div>
+                </section>
+
+                {/* ── Service SEO scroll panel (placeholder) ── */}
+                <section className="bg-slate-50 py-12 md:py-20">
+                  <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <ScrollableContentPanel
+                      ariaLabel="Service overview"
+                      cards={SERVICE_SEO_PLACEHOLDER_CARDS}
+                    />
+                  </div>
                 </section>
 
                 {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
