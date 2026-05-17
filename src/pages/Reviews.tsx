@@ -201,35 +201,35 @@ export default function Reviews() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-500 to-primary-600 py-12 md:py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center text-white">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+      <section className="relative overflow-hidden bg-gradient-to-br from-royal-blue via-primary to-deep-navy py-12 md:py-20">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(255,255,255,0.12),transparent)]" aria-hidden />
+        <div className="container relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl md:leading-tight">
               Student Reviews & Testimonials
             </h1>
-            <p className="text-lg md:text-xl text-primary-100 mb-8 max-w-3xl mx-auto">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
               Read authentic reviews from students who have experienced our academic writing services.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-2xl md:text-3xl font-bold">{stats.totalReviews}</div>
-                <div className="text-primary-100 text-xs md:text-sm">Total Reviews</div>
+            <div className="mx-auto mt-8 grid max-w-4xl grid-cols-2 gap-4 md:mt-10 md:grid-cols-4 md:gap-6">
+              <div className="rounded-xl bg-white/10 p-4 backdrop-blur-sm ring-1 ring-white/10">
+                <div className="text-2xl font-bold text-white md:text-3xl">{stats.totalReviews}</div>
+                <div className="mt-1 text-xs text-white/85 md:text-sm">Total Reviews</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <div className="rounded-xl bg-white/10 p-4 backdrop-blur-sm ring-1 ring-white/10">
                 <div className="flex items-center justify-center">
-                  <span className="text-2xl md:text-3xl font-bold mr-2">{stats.averageRating.toFixed(1)}</span>
-                  <Star className="text-yellow-400 fill-current" size={20}/>
+                  <span className="mr-2 text-2xl font-bold text-white md:text-3xl">{stats.averageRating.toFixed(1)}</span>
+                  <Star className="fill-current text-yellow-400" size={20} />
                 </div>
-                <div className="text-primary-100 text-xs md:text-sm">Average Rating</div>
+                <div className="mt-1 text-xs text-white/85 md:text-sm">Average Rating</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-2xl md:text-3xl font-bold">{stats.verifiedPurchases}</div>
-                <div className="text-primary-100 text-xs md:text-sm">Verified Purchases</div>
+              <div className="rounded-xl bg-white/10 p-4 backdrop-blur-sm ring-1 ring-white/10">
+                <div className="text-2xl font-bold text-white md:text-3xl">{stats.verifiedPurchases}</div>
+                <div className="mt-1 text-xs text-white/85 md:text-sm">Verified Purchases</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="text-2xl md:text-3xl font-bold">98%</div>
-                <div className="text-primary-100 text-xs md:text-sm">Satisfaction Rate</div>
+              <div className="rounded-xl bg-white/10 p-4 backdrop-blur-sm ring-1 ring-white/10">
+                <div className="text-2xl font-bold text-white md:text-3xl">98%</div>
+                <div className="mt-1 text-xs text-white/85 md:text-sm">Satisfaction Rate</div>
               </div>
             </div>
           </div>
@@ -283,7 +283,7 @@ export default function Reviews() {
                   placeholder="Search reviews..." 
                   value={searchTerm} 
                   onChange={(e) => setSearchTerm(e.target.value)} 
-                  className="w-full pl-10 pr-4 py-2.5 md:py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:text-white text-sm md:text-base"
+                  className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 text-sm focus:border-transparent focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-white md:py-3 md:text-base dark:border-gray-600"
                 />
               </div>
             </div>
@@ -306,13 +306,13 @@ export default function Reviews() {
                       <div className="p-2">
                         <button 
                           onClick={() => { setFilterBy('all'); setShowFilters(false); }} 
-                          className={`w-full text-left px-3 py-2 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${filterBy === 'all' ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600' : ''}`}
+                          className={`w-full rounded px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 ${filterBy === 'all' ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-light-blue' : ''}`}
                         >
                           All Reviews
                         </button>
                         <button 
                           onClick={() => { setFilterBy('verified'); setShowFilters(false); }} 
-                          className={`w-full text-left px-3 py-2 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${filterBy === 'verified' ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600' : ''}`}
+                          className={`w-full rounded px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 ${filterBy === 'verified' ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-light-blue' : ''}`}
                         >
                           Verified Only
                         </button>
@@ -320,7 +320,7 @@ export default function Reviews() {
                           <button 
                             key={r} 
                             onClick={() => { setFilterBy(r.toString() as FilterOption); setShowFilters(false); }} 
-                            className={`w-full text-left px-3 py-2 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${filterBy === r.toString() ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600' : ''}`}
+                            className={`w-full rounded px-3 py-2 text-left text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 ${filterBy === r.toString() ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-light-blue' : ''}`}
                           >
                             {r} Stars
                           </button>
@@ -339,7 +339,7 @@ export default function Reviews() {
               <select 
                 value={sortBy} 
                 onChange={(e) => setSortBy(e.target.value as SortOption)} 
-                className="flex-1 sm:flex-initial px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 dark:bg-gray-800 dark:text-white text-sm md:text-base"
+                className="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-transparent focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-white sm:flex-initial md:text-base dark:border-gray-600"
               >
                 <option value="newest">Newest</option>
                 <option value="oldest">Oldest</option>
@@ -351,7 +351,7 @@ export default function Reviews() {
               {/* Write Review Button */}
               <button 
                 onClick={() => setShowSubmissionForm(true)} 
-                className="bg-primary-500 hover:bg-primary-600 text-white px-4 md:px-6 py-2.5 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors whitespace-nowrap text-sm md:text-base"
+                className="flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-deep-navy md:px-6 md:text-base"
               >
                 <Plus size={18} />
                 <span>Write Review</span>
@@ -399,8 +399,8 @@ export default function Reviews() {
                       {/* Header - Avatar + Name + Platform */}
                       <div className="flex items-start justify-between gap-2 mb-3">
                         <div className="flex items-center gap-2 min-w-0 flex-1">
-                          <div className="w-9 h-9 md:w-10 md:h-10 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span className="text-white font-bold text-sm">{name.charAt(0)}</span>
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary md:h-10 md:w-10">
+                            <span className="text-sm font-bold text-primary-foreground">{name.charAt(0)}</span>
                           </div>
                           <div className="min-w-0 flex-1">
                             <h3 className="font-semibold text-sm md:text-base text-gray-900 dark:text-white truncate">
@@ -416,11 +416,11 @@ export default function Reviews() {
 
                       {/* Comment - Excerpt (truncated) */}
                       <div className="flex-grow mb-3 overflow-hidden">
-                        <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-5 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                        <p className="line-clamp-5 text-sm leading-relaxed text-gray-600 transition-colors group-hover:text-primary dark:text-gray-300 dark:group-hover:text-light-blue md:text-base">
                           {comment}
                         </p>
                         {comment.length > 150 && (
-                          <span className="text-xs text-primary-500 mt-2 inline-block font-medium">
+                          <span className="mt-2 inline-block text-xs font-medium text-primary">
                             Click to read full review →
                           </span>
                         )}
@@ -430,7 +430,7 @@ export default function Reviews() {
                       <div className="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700 mt-auto">
                         <button 
                           onClick={(e) => handleMarkAsHelpful(review.id, e)} 
-                          className="flex items-center gap-1.5 text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors text-xs md:text-sm z-10"
+                          className="z-10 flex items-center gap-1.5 text-xs text-gray-500 transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-light-blue md:text-sm"
                         >
                           <ThumbsUp size={14} />
                           <span>({review.helpfulCount ?? 0})</span>
@@ -478,7 +478,7 @@ export default function Reviews() {
                                 onClick={() => goToPage(page)}
                                 className={`w-8 h-8 md:w-10 md:h-10 rounded-lg transition-colors text-sm md:text-base ${
                                   currentPage === page
-                                    ? 'bg-primary-500 text-white font-semibold'
+                                    ? 'bg-primary font-semibold text-primary-foreground'
                                     : 'border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'
                                 }`}
                               >
@@ -512,7 +512,7 @@ export default function Reviews() {
               </p>
               <button 
                 onClick={() => { setSearchTerm(''); setFilterBy('all'); }} 
-                className="text-primary-500 hover:text-primary-600 font-medium transition-colors text-sm md:text-base"
+                className="text-sm font-medium text-primary transition-colors hover:text-deep-navy md:text-base"
               >
                 Clear filters
               </button>
@@ -521,13 +521,15 @@ export default function Reviews() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 md:py-16 bg-gradient-to-r from-primary-500 to-primary-600">
-        <div className="container mx-auto px-4 text-center text-white">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Experience Excellence?</h2>
+      {/* CTA */}
+      <section className="bg-gradient-to-br from-royal-blue via-primary to-deep-navy py-12 md:py-16">
+        <div className="container mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight text-white md:text-3xl">
+            Ready to Experience Excellence?
+          </h2>
           <Link 
             to="/order-now" 
-            className="bg-white text-primary-500 px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold text-base md:text-lg hover:bg-gray-100 inline-flex items-center justify-center gap-2 transition-colors"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-base font-semibold text-primary transition-colors hover:bg-gray-100 md:px-8 md:py-4 md:text-lg"
           >
             Place Your Order Now
             <ArrowRight size={20} />
@@ -577,8 +579,8 @@ export default function Reviews() {
               {/* Header */}
               <div className="flex items-start justify-between gap-3 mb-4 pr-8">
                 <div className="flex items-center gap-3 min-w-0 flex-1">
-                  <div className="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold text-lg">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary">
+                    <span className="text-lg font-bold text-primary-foreground">
                       {(selectedReview.userName || '').charAt(0).toUpperCase()}
                     </span>
                   </div>
@@ -611,7 +613,7 @@ export default function Reviews() {
                     e.stopPropagation();
                     handleMarkAsHelpful(selectedReview.id, e);
                   }}
-                  className="flex items-center gap-2 text-gray-600 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors text-sm font-medium"
+                  className="flex items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-primary dark:text-gray-400 dark:hover:text-light-blue"
                 >
                   <ThumbsUp size={16} />
                   <span>Helpful ({selectedReview.helpfulCount ?? 0})</span>

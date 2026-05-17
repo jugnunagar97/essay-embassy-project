@@ -1,12 +1,8 @@
 import React from 'react';
-import PublicQaList from '../components/qa/PublicQaList';
+import QAHome from './QAHome';
 
 const QACatalog: React.FC = () => {
-  return (
-    <div className="min-h-[calc(100vh-64px)]">
-      <PublicQaList />
-    </div>
-  );
+  return <QAHome />;
 };
 
 export default QACatalog;

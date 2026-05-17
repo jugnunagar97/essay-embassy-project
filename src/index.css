@@ -144,3 +144,147 @@ html {
         @apply focus:outline-none focus:ring-2 focus:ring-royal-blue focus:ring-offset-2;
     }
 }
+
+@layer components {
+    /* College pages — Essay Embassy / HomeV2 design tokens */
+    .college-page {
+        --cp-navy: #0b1f42;
+        --cp-royal: #1652a0;
+        --cp-blue-light: #2b6cb0;
+        --cp-blue-soft: #e8f0fe;
+        --cp-gold: #d4a853;
+        --cp-surface: #ffffff;
+        --cp-surface-alt: #f8fafc;
+        --cp-surface-muted: #fafbfc;
+        --cp-text: #0f172a;
+        --cp-text-secondary: #475569;
+        --cp-text-muted: #64748b;
+        --cp-text-tertiary: #94a3b8;
+        --cp-border: #e2e8f0;
+        --cp-success: #059669;
+        --cp-success-soft: #ecfdf5;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        color: var(--cp-text);
+    }
+
+    .college-section {
+        @apply pt-20 sm:pt-24 lg:pt-32;
+    }
+
+    .college-eyebrow {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--cp-royal);
+        letter-spacing: 0.03em;
+        margin: 0 0 14px;
+    }
+
+    .college-h2 {
+        font-size: clamp(2rem, 4vw, 2.75rem);
+        font-weight: 700;
+        color: var(--cp-navy);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin: 0 0 18px;
+    }
+
+    .college-lead {
+        font-size: 1.0625rem;
+        line-height: 1.65;
+        color: var(--cp-text-secondary);
+        max-width: 42rem;
+    }
+
+    @media (min-width: 640px) {
+        .college-lead {
+            font-size: 1.125rem;
+        }
+    }
+
+    .college-card {
+        @apply rounded-2xl border bg-white transition-all duration-300;
+        border-color: var(--cp-border);
+        padding: 2rem 1.75rem;
+        box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+    }
+
+    @media (min-width: 640px) {
+        .college-card {
+            padding: 2.25rem 2rem;
+        }
+    }
+
+    .college-card:hover {
+        border-color: #cbd5e1;
+        box-shadow: 0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .college-btn-primary {
+        @apply inline-flex items-center justify-center gap-2.5 font-semibold text-base transition-all duration-200;
+        padding: 0.875rem 1.75rem;
+        border-radius: 12px;
+        background-color: var(--cp-royal);
+        color: #fff;
+        border: none;
+    }
+
+    .college-btn-primary:hover {
+        background-color: var(--cp-navy);
+    }
+
+    .college-btn-secondary {
+        @apply inline-flex items-center justify-center gap-2.5 font-semibold text-base transition-all duration-200;
+        padding: 0.875rem 1.75rem;
+        border-radius: 12px;
+        background-color: #fff;
+        color: var(--cp-text-secondary);
+        border: 1px solid var(--cp-border);
+    }
+
+    .college-btn-secondary:hover {
+        border-color: #cbd5e1;
+        color: var(--cp-navy);
+    }
+
+    .college-chip {
+        @apply inline-flex rounded-full font-mono text-sm font-medium;
+        padding: 0.5rem 1rem;
+        background: var(--cp-surface-alt);
+        border: 1px solid var(--cp-border);
+        color: var(--cp-text);
+    }
+
+    .college-icon-wrap {
+        @apply flex items-center justify-center shrink-0 rounded-xl;
+        width: 3rem;
+        height: 3rem;
+        background: var(--cp-blue-soft);
+        color: var(--cp-royal);
+        border: 1px solid rgba(22, 82, 160, 0.12);
+    }
+
+    @media (min-width: 640px) {
+        .college-icon-wrap {
+            width: 3.25rem;
+            height: 3.25rem;
+        }
+    }
+
+    /* Legacy aliases used in college components */
+    .eyebrow {
+        @apply college-eyebrow;
+    }
+
+    .btn-pill {
+        @apply college-btn-secondary;
+    }
+
+    .btn-pill.primary {
+        @apply college-btn-primary;
+        border: none;
+    }
+
+    .chip {
+        @apply college-chip;
+    }
+}

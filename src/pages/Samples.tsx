@@ -268,21 +268,21 @@ export default function Samples() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-500 to-primary-600 py-16">
-        <div className="container">
-          <div className="text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+      <section className="relative overflow-hidden bg-gradient-to-br from-royal-blue via-primary to-deep-navy py-14 md:py-20">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(255,255,255,0.12),transparent)]" aria-hidden />
+        <div className="container relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl md:leading-tight">
               Explore Our Work Quality
             </h1>
-            <p className="text-xl text-primary-100 mb-8 max-w-3xl mx-auto">
-              Browse a wide range of academic samples crafted by our expert writers. 
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl">
+              Browse a wide range of academic samples crafted by our expert writers.
               See the quality and professionalism that awaits your next assignment.
             </p>
             
             {/* Search and Filter Bar */}
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-white rounded-2xl p-6 shadow-xl">
+            <div className="mx-auto mt-10 max-w-4xl">
+              <div className="rounded-2xl bg-white p-6 shadow-strong ring-1 ring-black/5">
                 <div className="flex flex-col lg:flex-row gap-4">
                   {/* Search Bar */}
                   <div className="flex-1 relative">
@@ -292,14 +292,14 @@ export default function Samples() {
                       placeholder="Search samples by title, subject, or keywords..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
+                      className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   
                   {/* Filter Toggle Button */}
                   <button
                     onClick={() => setShowFilters(!showFilters)}
-                    className="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center"
+                    className="flex shrink-0 items-center justify-center rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-deep-navy"
                   >
                     <Filter size={20} className="mr-2" />
                     Filters
@@ -314,7 +314,7 @@ export default function Samples() {
                       <select
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
+                        className="rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-primary"
                       >
                         {categories.map(category => (
                           <option key={category} value={category}>{category}</option>
@@ -324,7 +324,7 @@ export default function Samples() {
                       <select
                         value={selectedSubject}
                         onChange={(e) => setSelectedSubject(e.target.value)}
-                        className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
+                        className="rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-primary"
                       >
                         {subjects.map(subject => (
                           <option key={subject} value={subject}>{subject}</option>
@@ -334,7 +334,7 @@ export default function Samples() {
                       <select
                         value={selectedLevel}
                         onChange={(e) => setSelectedLevel(e.target.value)}
-                        className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900"
+                        className="rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-primary"
                       >
                         {levels.map(level => (
                           <option key={level} value={level}>{level}</option>
@@ -345,7 +345,7 @@ export default function Samples() {
                     <div className="mt-4 flex justify-center">
                       <button
                         onClick={clearFilters}
-                        className="text-primary-600 hover:text-primary-700 font-medium"
+                        className="font-medium text-primary hover:text-deep-navy"
                       >
                         Clear All Filters
                       </button>
@@ -359,35 +359,35 @@ export default function Samples() {
       </section>
 
       {/* Samples Grid */}
-      <section className="py-16">
-        <div className="container">
+      <section className="py-14 md:py-16">
+        <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           {/* Results Header */}
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               Sample Documents ({filteredSamples.length})
             </h2>
             
             {/* Active Filters */}
             {(selectedCategory !== 'All Categories' || selectedSubject !== 'All Subjects' || selectedLevel !== 'All Levels' || searchTerm) && (
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="text-sm text-gray-600 dark:text-gray-400">Active filters:</span>
                 {selectedCategory !== 'All Categories' && (
-                  <span className="bg-primary-100 text-primary-800 px-2 py-1 rounded text-xs">
+                  <span className="rounded bg-primary/10 px-2 py-1 text-xs font-medium text-deep-navy dark:bg-primary/20 dark:text-light-blue">
                     {selectedCategory}
                   </span>
                 )}
                 {selectedSubject !== 'All Subjects' && (
-                  <span className="bg-primary-100 text-primary-800 px-2 py-1 rounded text-xs">
+                  <span className="rounded bg-primary/10 px-2 py-1 text-xs font-medium text-deep-navy dark:bg-primary/20 dark:text-light-blue">
                     {selectedSubject}
                   </span>
                 )}
                 {selectedLevel !== 'All Levels' && (
-                  <span className="bg-primary-100 text-primary-800 px-2 py-1 rounded text-xs">
+                  <span className="rounded bg-primary/10 px-2 py-1 text-xs font-medium text-deep-navy dark:bg-primary/20 dark:text-light-blue">
                     {selectedLevel}
                   </span>
                 )}
                 {searchTerm && (
-                  <span className="bg-primary-100 text-primary-800 px-2 py-1 rounded text-xs">
+                  <span className="rounded bg-primary/10 px-2 py-1 text-xs font-medium text-deep-navy dark:bg-primary/20 dark:text-light-blue">
                     "{searchTerm}"
                   </span>
                 )}
@@ -397,7 +397,7 @@ export default function Samples() {
 
           {/* Samples Grid */}
           {filteredSamples.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
               {filteredSamples.map((sample) => (
                 <div key={sample.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-soft hover:shadow-medium transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden hover:scale-105">
                   <div className="p-6">
@@ -409,7 +409,7 @@ export default function Samples() {
                           <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                             {sample.category}
                           </span>
-                          <div className="text-sm text-primary-600 dark:text-primary-400 font-medium">
+                          <div className="text-sm font-medium text-primary dark:text-light-blue">
                             {sample.subject}
                           </div>
                         </div>
@@ -443,7 +443,7 @@ export default function Samples() {
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-4">
                       {sample.tags.slice(0, 3).map((tag, index) => (
-                        <span key={index} className="bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 px-2 py-1 rounded text-xs">
+                        <span key={index} className="rounded bg-primary/10 px-2 py-1 text-xs text-primary dark:bg-primary/20 dark:text-light-blue">
                           {tag}
                         </span>
                       ))}
@@ -461,7 +461,7 @@ export default function Samples() {
                       <div className="flex space-x-2">
                         <button
                           onClick={() => setSelectedSample(sample)}
-                          className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center"
+                          className="flex items-center rounded-lg bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                         >
                           <Eye size={16} className="mr-1" />
                           Preview
@@ -469,7 +469,7 @@ export default function Samples() {
                         <button
                           onClick={() => handleDownload(sample)}
                           disabled={downloadingId === sample.id}
-                          className="bg-primary-500 hover:bg-primary-600 disabled:opacity-50 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center"
+                          className="flex items-center rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-deep-navy disabled:opacity-50"
                         >
                           {downloadingId === sample.id ? (
                             <Loader size={16} className="mr-1 animate-spin" />
@@ -495,7 +495,7 @@ export default function Samples() {
               </p>
               <button
                 onClick={clearFilters}
-                className="text-primary-500 hover:text-primary-600 font-medium"
+                className="font-medium text-primary hover:text-deep-navy"
               >
                 Clear all filters
               </button>
@@ -505,26 +505,26 @@ export default function Samples() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
-        <div className="container text-center">
+      <section className="bg-gradient-to-b from-surface-light to-white py-14 dark:from-gray-800 dark:to-gray-900 md:py-16">
+        <div className="container mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white md:text-4xl">
               Like What You See?
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
+            <p className="mb-8 text-lg text-gray-600 dark:text-gray-400 md:text-xl">
               Let our expert writers help you achieve the same level of quality and excellence for your assignments.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/order-now"
-                className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors inline-flex items-center justify-center shadow-medium transform hover:scale-105"
+                className="inline-flex transform items-center justify-center rounded-lg bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-medium transition-all hover:scale-[1.02] hover:bg-deep-navy"
               >
                 Place Your Order Now
                 <ArrowRight size={20} className="ml-2" />
               </Link>
               <Link
                 to="/contact"
-                className="border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors hover:scale-105"
+                className="inline-flex transform rounded-lg border-2 border-primary px-8 py-4 text-lg font-semibold text-primary transition-all hover:scale-[1.02] hover:bg-primary hover:text-primary-foreground"
               >
                 Get Free Quote
               </Link>
@@ -587,7 +587,7 @@ export default function Samples() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedSample.tags.map((tag, index) => (
-                    <span key={index} className="bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 px-3 py-1 rounded-full text-sm">
+                    <span key={index} className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary dark:bg-primary/20 dark:text-light-blue">
                       {tag}
                     </span>
                   ))}
@@ -608,7 +608,7 @@ export default function Samples() {
                   <button 
                     onClick={() => handleDownload(selectedSample)}
                     disabled={downloadingId === selectedSample.id}
-                    className="bg-primary-500 hover:bg-primary-600 disabled:opacity-50 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center"
+                    className="flex items-center rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-deep-navy disabled:opacity-50"
                   >
                     {downloadingId === selectedSample.id ? (
                       <>
@@ -638,7 +638,7 @@ export default function Samples() {
                 </p>
                 <Link
                   to="/order-now"
-                  className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors inline-flex items-center"
+                  className="inline-flex items-center rounded-lg bg-primary px-8 py-3 font-semibold text-primary-foreground transition-colors hover:bg-deep-navy"
                 >
                   Order Similar Work
                   <ArrowRight size={20} className="ml-2" />
