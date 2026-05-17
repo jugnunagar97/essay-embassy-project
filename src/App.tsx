@@ -111,6 +111,13 @@ import LawHomeworkHelp from './pages/Services/LawHomeworkHelp';
 import StatisticsHomeworkHelp from './pages/Services/StatisticsHomeworkHelp';
 import HumanitiesHomeworkHelp from './pages/Services/HumanitiesHomeworkHelp';
 import UsaAssignmentHelp from './pages/Services/UsaAssignmentHelp';
+import UkAssignmentHelp from './pages/Services/regional/UkAssignmentHelp';
+import CanadaAssignmentHelp from './pages/Services/regional/CanadaAssignmentHelp';
+import AusAssignmentHelp from './pages/Services/regional/AusAssignmentHelp';
+import NZAssignmentHelp from './pages/Services/regional/NZAssignmentHelp';
+import SgAssignmentHelp from './pages/Services/regional/SgAssignmentHelp';
+import ArabAssignmentHelp from './pages/Services/regional/ArabAssignmentHelp';
+import EuropeAssignmentHelp from './pages/Services/regional/EuropeAssignmentHelp';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -304,7 +311,13 @@ function App() {
                 <Route path="homework-help/statistics" element={<StatisticsHomeworkHelp />} />
                 <Route path="homework-help/humanities" element={<HumanitiesHomeworkHelp />} />
                 <Route path="usa/assignment-help" element={<UsaAssignmentHelp />} />
-                <Route path="narrative-essay" element={<NarrativeEssayWriting />} />
+                <Route path="uk/assignment-help" element={<UkAssignmentHelp />} />
+                <Route path="canada/assignment-help" element={<CanadaAssignmentHelp />} />
+                <Route path="aus/assignment-help" element={<AusAssignmentHelp />} />
+                <Route path="nz/assignment-help" element={<NZAssignmentHelp />} />
+                <Route path="sg/assignment-help" element={<SgAssignmentHelp />} />
+                <Route path="arab/assignment-help" element={<ArabAssignmentHelp />} />
+                <Route path="europe/assignment-help" element={<EuropeAssignmentHelp />} />
                 <Route path="programming-help" element={<ProgrammingHelp />} />
                 <Route path="programming-help/python" element={<PythonProgrammingHelp />} />
                 <Route path="programming-help/java" element={<JavaProgrammingHelp />} />

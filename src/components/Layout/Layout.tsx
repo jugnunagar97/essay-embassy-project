@@ -71,6 +71,8 @@ export default function Layout() {
       ['/narrative-essay', { title: 'Narrative Essay Service — Essay Embassy', description: 'Work with experts to create compelling narrative essays with strong structure and voice.' }],
       // Assignment help
       ['/assignment-help', { title: 'Assignment Help — Essay Embassy', description: 'Reliable assignment help across subjects including management, computer science, law, science, engineering, and more.' }],
+      ['/usa/assignment-help', { title: 'Trusted Online Assignment Help USA | Essay Embassy', description: 'Affordable assignment help USA from $10/page. Native writers, university formatting, essays through dissertations—trusted by US students.' }],
+      ['/uk/assignment-help', { title: 'UK Assignment Help | Essay Embassy', description: 'Dedicated UK assignment help from Essay Embassy—full regional page launching soon.' }],
       ['/assignment-help/management', { title: 'Management Assignment Help — Essay Embassy', description: 'Well‑researched management assignments covering strategy, marketing, HR, operations, and analytics.' }],
       ['/assignment-help/programming', { title: 'Programming Assignment Help — Essay Embassy', description: 'Assistance with programming assignments, algorithms, data structures, and more.' }],
       ['/assignment-help/humanities', { title: 'Humanities Assignment Help — Essay Embassy', description: 'Clear, critical writing for history, literature, philosophy, sociology, and more.' }],

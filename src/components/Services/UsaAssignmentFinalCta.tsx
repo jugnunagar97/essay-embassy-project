@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Clock, RefreshCcw, Lock, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Clock, RefreshCcw, Lock } from 'lucide-react';
+import RegionalAssignmentInterlink from './regional/RegionalAssignmentInterlink';
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -95,41 +96,7 @@ export default function UsaAssignmentFinalCta() {
         </div>
       </motion.section>
 
-      <motion.section
-        aria-label="Also available in"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="flex flex-col items-center pt-[20px]"
-      >
-        <span className="mb-[14px] text-[11px] font-black uppercase tracking-[0.12em] text-[#D4A853]">Also Available In</span>
-
-        <div className="grid w-full max-w-[800px] grid-cols-2 gap-[10px] px-4 sm:flex sm:flex-wrap sm:justify-center sm:px-0">
-          {[
-            { flag: '🇬🇧', label: 'Assignment Help UK', link: '#' },
-            { flag: '🇨🇦', label: 'Assignment Help Canada', link: '#' },
-            { flag: '🇦🇺', label: 'Assignment Help Australia', link: '#' },
-          ].map((pill, idx) => (
-            <a
-              key={idx}
-              href={pill.link}
-              aria-label={pill.label}
-              className="group flex items-center justify-center gap-[7px] rounded-full border border-slate-200 bg-white px-[12px] py-[10px] text-[13px] font-bold text-[#0B1F42] transition-all duration-150 hover:-translate-y-[1px] hover:border-[#1652A0]/45 hover:bg-slate-50 hover:shadow-sm sm:px-[18px] sm:py-[8px] sm:text-[13.5px]"
-            >
-              <span aria-hidden="true" className="text-[16px] leading-none">
-                {pill.flag}
-              </span>
-              <span className="truncate">{pill.label}</span>
-              <ArrowRight
-                size={12}
-                strokeWidth={2.5}
-                className="ml-[2px] shrink-0 text-slate-400 transition-all duration-150 group-hover:translate-x-[2px] group-hover:text-[#1652A0]"
-              />
-            </a>
-          ))}
-        </div>
-      </motion.section>
+      <RegionalAssignmentInterlink currentRegion="usa" />
     </div>
   );
 }
