@@ -21,6 +21,27 @@ export default {
   theme: {
     extend: {
       colors: {
+        // College landing page palette
+        brand: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#4a7fd4',
+          500: '#1a5fc4',
+          600: '#0f3fa8',
+          700: '#0c3289',
+        },
+        sand: {
+          50: '#faf9f7',
+          100: '#f5f3ef',
+          200: '#e8e4dc',
+          300: '#d4cec3',
+        },
+        ink: {
+          DEFAULT: '#0f172a',
+          muted: '#64748b',
+        },
         // Brand Colors
         'deep-navy': 'hsl(var(--deep-navy) / <alpha-value>)',
         'royal-blue': 'hsl(var(--royal-blue) / <alpha-value>)',
@@ -73,6 +94,7 @@ export default {
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',

@@ -98,6 +98,8 @@ import FinanceAssignmentHelp from './pages/Services/FinanceAssignmentHelp';
 import AccountingAssignmentHelp from './pages/Services/AccountingAssignmentHelp';
 import StatisticsAssignmentHelp from './pages/Services/StatisticsAssignmentHelp';
 import DynamicServicePage from './pages/DynamicServicePage';
+import AbileneChristianUniversity from './pages/Services/Colleges/abilene-christian-university';
+import NorthwesternUniversity from './pages/Services/Colleges/northwestern-university';
 import MathHomeworkHelp from './pages/Services/MathHomeworkHelp';
 import ProgrammingHomeworkHelp from './pages/Services/ProgrammingHomeworkHelp';
 import ScienceHomeworkHelp from './pages/Services/ScienceHomeworkHelp';
@@ -248,6 +250,16 @@ function App() {
                 <Route path="contact" element={<Contact />} />
                 <Route path="services/" element={<Services />} />
                 <Route path="services" element={<Services />} />
+
+                {/* College landing pages */}
+                <Route
+  path="colleges/abilene-christian-university"
+  element={<AbileneChristianUniversity />}
+/>
+<Route
+  path="colleges/northwestern-university"
+  element={<NorthwesternUniversity />}
+/>
 
                 {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
 

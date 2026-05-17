@@ -78,6 +78,21 @@ const paperTypes = ["Essay (Any Type)", "Admission Essay", "Analysis", "Annotate
 const subjects = ["Business Studies", "Computer Science", "Economics", "Education", "Engineering", "English", "Health Sciences", "History", "Law", "Literature", "Management", "Marketing", "Nursing", "Political Science", "Psychology", "Sociology", "Other"];
 // === UPDATED academicLevels to match Home.tsx ===
 const academicLevels = ["High School", "Undergraduate", "Masters", "PhD"];
+
+/** Map URL params to a value that exists in `academicLevels` (avoids blank/invisible select text). */
+function resolveAcademicLevelFromParams(levelParam: string | null, academicLevelParam: string | null): string {
+  if (levelParam) {
+    const lower = levelParam.toLowerCase();
+    if (lower === 'highschool') return 'High School';
+    if (lower === 'college' || lower === 'university') return 'Undergraduate';
+    if (lower === 'phd') return 'PhD';
+  }
+  if (academicLevelParam && academicLevels.includes(academicLevelParam)) return academicLevelParam;
+  // Legacy values that are no longer in the dropdown
+  if (academicLevelParam === 'College' || academicLevelParam === 'University') return 'Undergraduate';
+  return 'Undergraduate';
+}
+
 const deadlines = ["3 hours", "6 hours", "12 hours", "24 hours", "48 hours", "3 days", "5 days", "7 days", "10 days", "14 days"];
 const citationStyles = ["APA", "MLA", "Chicago", "Harvard", "Other"];
 
@@ -144,18 +159,10 @@ export default function OrderNow() {
     formState: { errors }
   } = useForm<OrderFormData>({
     defaultValues: {
-      // Read academicLevel from URL, if present. Otherwise, default to "College".
-      academicLevel: (() => {
-        const levelParam = searchParams.get('level');
-        if (levelParam) {
-          const normalized = levelParam.toLowerCase();
-          if (normalized === 'highschool') return "High School";
-          if (normalized === 'college') return "College";
-          if (normalized === 'university') return "University";
-          if (normalized === 'phd') return "PhD";
-        }
-        return searchParams.get('academicLevel') || "College";
-      })(),
+      academicLevel: resolveAcademicLevelFromParams(
+        searchParams.get('level'),
+        searchParams.get('academicLevel')
+      ),
       paperType: searchParams.get('paperType') || "Essay (Any Type)",
       pages: parseInt(searchParams.get('pages') || '1'),
       deadline: searchParams.get('deadline') || "48 hours",
@@ -181,21 +188,13 @@ export default function OrderNow() {
     calculatePrice();
   }, [calculatePrice]);
 
-  // === NEW EFFECT TO SET FORM VALUE FROM URL PARAMETER ===
+  // Sync academic level from URL using only valid dropdown values
   useEffect(() => {
-    const levelParam = searchParams.get('level');
-    let normalizedLevel: string | null = null;
-    if (levelParam) {
-      const lower = levelParam.toLowerCase();
-      if (lower === 'highschool') normalizedLevel = "High School";
-      else if (lower === 'college') normalizedLevel = "College";
-      else if (lower === 'university') normalizedLevel = "University";
-      else if (lower === 'phd') normalizedLevel = "PhD";
-    }
-    const academicLevelFromUrl = normalizedLevel || searchParams.get('academicLevel');
-    if (academicLevelFromUrl && academicLevels.includes(academicLevelFromUrl)) {
-      setValue('academicLevel', academicLevelFromUrl);
-    }
+    const resolved = resolveAcademicLevelFromParams(
+      searchParams.get('level'),
+      searchParams.get('academicLevel')
+    );
+    setValue('academicLevel', resolved);
     const paperTypeFromUrl = searchParams.get('paperType');
     if (paperTypeFromUrl) {
       setValue('paperType', paperTypeFromUrl);
@@ -399,9 +398,20 @@ export default function OrderNow() {
   };
 
   const labelStyle = "block text-sm font-semibold text-gray-700 mb-2";
-  const inputStyle = "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white text-gray-900 transition-colors placeholder-gray-400";
+  const inputStyle =
+    "w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 transition-colors placeholder-gray-400 focus:border-transparent focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-white dark:placeholder-gray-500";
+  const selectStyle = `${inputStyle} appearance-none bg-white text-gray-900 [&>option]:bg-white [&>option]:text-gray-900 dark:[&>option]:bg-gray-800 dark:[&>option]:text-white`;
   const errorStyle = "text-red-500 text-sm mt-1 flex items-center";
-  const stepperButtonStyle = "w-10 h-10 border-2 border-gray-300 rounded-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+  const stepperButtonStyle =
+    "flex h-10 w-10 items-center justify-center rounded-lg border-2 border-gray-300 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50";
+
+  const sourcesRegister = register('sources', {
+    valueAsNumber: true,
+    min: { value: 0, message: 'Sources cannot be negative' },
+    validate: (v) =>
+      (typeof v === 'number' && Number.isFinite(v) && !Number.isNaN(v) && v >= 0) ||
+      'Enter a valid number (0 or more)',
+  });
 
   if (isAuthLoading) {
     return (
@@ -446,7 +456,7 @@ export default function OrderNow() {
     <div className='min-h-screen safe-area bg-gray-50 py-8'>
       <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Place Your <span className="text-primary-500">Order</span></h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Place Your <span className="text-primary">Order</span></h1>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">Get professional academic writing help from our expert writers. Fill out the form below to get started.</p>
         </div>
 
@@ -458,7 +468,7 @@ export default function OrderNow() {
                   <label className={labelStyle}>Academic Level</label>
                   <select
                     {...register('academicLevel', { required: "Academic level is required" })}
-                    className={`${inputStyle} form-select`}
+                    className={selectStyle}
                   >
                     {academicLevels.map(level => (<option key={level} value={level}>{level}</option>))}
                   </select>
@@ -468,7 +478,7 @@ export default function OrderNow() {
                   <label className={labelStyle}>Type of Paper</label>
                   <select
                     {...register('paperType', { required: "Paper type is required" })}
-                    className={`${inputStyle} form-select`}
+                    className={selectStyle}
                   >
                     {paperTypes.map(type => <option key={type} value={type}>{type}</option>)}
                   </select>
@@ -479,7 +489,7 @@ export default function OrderNow() {
                 <label className={labelStyle}>Subject</label>
                 <select
                   {...register('subject', { required: "Subject is required" })}
-                  className={`${inputStyle} form-select`}
+                  className={selectStyle}
                 >
                   {subjects.map(subject => <option key={subject} value={subject}>{subject}</option>)}
                 </select>
@@ -494,7 +504,28 @@ export default function OrderNow() {
                 <label className={labelStyle}>Number of Sources</label>
                 <input
                   type="number"
-                  {...register('sources', { required: "Number of sources is required", min: 0 })}
+                  inputMode="numeric"
+                  min={0}
+                  step={1}
+                  {...sourcesRegister}
+                  onBlur={(e) => {
+                    sourcesRegister.onBlur(e);
+                    const raw = e.target.value;
+                    if (raw === '') return;
+                    const n = Number(raw);
+                    if (!Number.isFinite(n) || n < 0) {
+                      setValue('sources', 0, { shouldValidate: true, shouldDirty: true });
+                    }
+                  }}
+                  onChange={(e) => {
+                    sourcesRegister.onChange(e);
+                    const v = e.target.value.trim();
+                    if (v === '' || v === '-') return;
+                    const n = Number(v);
+                    if (Number.isFinite(n) && n < 0) {
+                      setValue('sources', 0, { shouldValidate: true });
+                    }
+                  }}
                   className={inputStyle}
                   placeholder="e.g., 5"
                 />
@@ -561,7 +592,7 @@ export default function OrderNow() {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl shadow-lg p-6 md:sticky md:top-24 space-y-6">
               <h3 className="text-xl font-bold text-gray-900 flex items-center">
-                <DollarSign className="mr-2 text-primary-500" size={24} />
+                <DollarSign className="mr-2 text-primary" size={24} />
                 Order Summary
               </h3>
               <div className="grid grid-cols-2 gap-4">
@@ -595,7 +626,7 @@ export default function OrderNow() {
                 </div>
                 <div>
                   <label className={labelStyle}>Spacing</label>
-                  <select {...register('spacing')} className={inputStyle}>
+                  <select {...register('spacing')} className={selectStyle}>
                     <option value="double">Double</option>
                     <option value="single">Single</option>
                   </select>
@@ -605,7 +636,7 @@ export default function OrderNow() {
                 <label className={labelStyle}>Deadline</label>
                 <select
                   {...register('deadline', { required: "Deadline is required" })}
-                  className={inputStyle}
+                  className={selectStyle}
                 >
                   {deadlines.map(d => (
                     <option key={d} value={d}>{d}</option>
@@ -617,7 +648,7 @@ export default function OrderNow() {
                 <label className={labelStyle}>Citation Style</label>
                 <select
                   {...register('citationStyle', { required: "Citation style is required" })}
-                  className={inputStyle}
+                  className={selectStyle}
                 >
                   {citationStyles.map(style => (
                     <option key={style} value={style}>{style}</option>
@@ -669,9 +700,10 @@ export default function OrderNow() {
                 </div>
               ) : (
                 <button
+                  type="button"
                   onClick={handleSubmit(handleFormSubmit)}
                   disabled={isSubmitting}
-                  className="w-full btn-primary tap-target py-3 flex items-center justify-center text-lg"
+                  className="inline-flex w-full min-h-[52px] items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3.5 text-lg font-semibold text-primary-foreground shadow-md transition-all hover:bg-deep-navy hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50 active:scale-[0.99]"
                 >
                   {isSubmitting ? (
                     <>
