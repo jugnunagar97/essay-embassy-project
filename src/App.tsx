@@ -98,8 +98,6 @@ import FinanceAssignmentHelp from './pages/Services/FinanceAssignmentHelp';
 import AccountingAssignmentHelp from './pages/Services/AccountingAssignmentHelp';
 import StatisticsAssignmentHelp from './pages/Services/StatisticsAssignmentHelp';
 import DynamicServicePage from './pages/DynamicServicePage';
-import AbileneChristianUniversity from './pages/Services/Colleges/abilene-christian-university';
-import NorthwesternUniversity from './pages/Services/Colleges/northwestern-university';
 import MathHomeworkHelp from './pages/Services/MathHomeworkHelp';
 import ProgrammingHomeworkHelp from './pages/Services/ProgrammingHomeworkHelp';
 import ScienceHomeworkHelp from './pages/Services/ScienceHomeworkHelp';
@@ -120,6 +118,14 @@ import NZAssignmentHelp from './pages/Services/regional/NZAssignmentHelp';
 import SgAssignmentHelp from './pages/Services/regional/SgAssignmentHelp';
 import ArabAssignmentHelp from './pages/Services/regional/ArabAssignmentHelp';
 import EuropeAssignmentHelp from './pages/Services/regional/EuropeAssignmentHelp';
+
+// --- College Service Page Imports ---
+import AbileneChristianUniversity from './pages/Services/Colleges/abilene-christian-university';
+import NorthwesternUniversity from './pages/Services/Colleges/northwestern-university';
+import NewYorkUniversityNYU from './pages/Services/Colleges/new-york-university-nyu';
+import UniversityOfMichiganAnnArbor from './pages/Services/Colleges/michigan-ann-arbor-university';
+import DukeUniversity from './pages/Services/Colleges/duke-university';
+import UniversityTexasAustin from './pages/Services/Colleges/university-texas-austin';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -260,13 +266,32 @@ function App() {
 
                 {/* College landing pages */}
                 <Route
-  path="colleges/abilene-christian-university"
-  element={<AbileneChristianUniversity />}
-/>
-<Route
-  path="colleges/northwestern-university"
-  element={<NorthwesternUniversity />}
-/>
+                  path="colleges/abilene-christian-university"
+                  element={<AbileneChristianUniversity />}
+                  />
+                <Route
+                  path="colleges/northwestern-university"
+                  element={<NorthwesternUniversity />}
+                />
+                {/* University of Michigan — use short slug without "of" */}
+                <Route
+                  path="colleges/university-michigan-ann-arbor"
+                  element={<UniversityOfMichiganAnnArbor />}
+                />
+                <Route
+                  path="colleges/new-york-university-nyu"
+                  element={<NewYorkUniversityNYU />}
+                />
+                <Route
+                  path="colleges/duke-university"
+                  element={<DukeUniversity />}
+                />
+                <Route
+                  path="colleges/university-texas-austin"
+                  element={<UniversityTexasAustin />}
+                />
+
+
 
                 {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
 

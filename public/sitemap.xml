@@ -224,6 +224,46 @@
 
 
   <!-- ========================================================
+       COLLEGE HUB PAGES
+       ======================================================== -->
+  <url>
+    <loc>https://essayembassy.com/colleges/abilene-christian-university</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/colleges/northwestern-university</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/colleges/university-michigan-ann-arbor</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/colleges/new-york-university-nyu</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/colleges/duke-university</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/colleges/university-texas-austin</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
+  <!-- ========================================================
        ASSIGNMENT HELP
        Hub + subpages. /assignment-help/biotechnology was
        "crawled not indexed" — keep it but improve its content.
@@ -237,6 +277,48 @@
 
   <url>
     <loc>https://essayembassy.com/usa/assignment-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/uk/assignment-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/canada/assignment-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/aus/assignment-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/nz/assignment-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/sg/assignment-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/arab/assignment-help</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://essayembassy.com/europe/assignment-help</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
