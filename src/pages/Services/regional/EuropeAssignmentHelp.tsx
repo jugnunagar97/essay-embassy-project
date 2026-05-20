@@ -38,7 +38,8 @@ import {
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import React, { useCallback, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import RegionalAssignmentStickySeoSection from '../../../components/Services/regional/RegionalAssignmentStickySeoSection';
+import ScrollableContentPanel from '../../../components/Services/ScrollableContentPanel';
+import type { ScrollableContentCard } from '../../../components/Services/scrollableContentPanel.types';
 import RegionalAssignmentInterlink from '../../../components/Services/regional/RegionalAssignmentInterlink';
 import AssignmentHelpSpecializationsGrid from '../../../components/Services/AssignmentHelpSpecializationsGrid';
 
@@ -188,6 +189,140 @@ const BRAND_IMG = {
   sitejabber: '/images/sitejabber-wordmark.svg',
   instagram: '/images/instagram-gradient.svg',
 } as const;
+
+const europeStickySeoCards: ScrollableContentCard[] = [
+  {
+    id: 'financial-weight',
+    Icon: BookOpen,
+    heading: 'The Financial Weight of Part Time Work',
+    body:
+      'Many students moving to Europe face severe financial pressure. With monthly living costs averaging between 1,100 and 2,200 Euros, students often take on part-time jobs to survive. However, international students are usually restricted to working only 20 hours a week. Juggling these work hours with a full university course schedule leaves very little time for complicated homework. Missing deadlines can seriously hurt your final grades. This is where our Europe Assignment Help services step in. By hiring professional writers, students get the comfort of submitting quality work on time while keeping their essential jobs.',
+  },
+  {
+    id: 'housing-shortage',
+    Icon: ClipboardList,
+    heading: 'The Severe Student Housing Shortage',
+    body:
+      'Finding a place to live is currently a major struggle for international learners in 2025. Europe is currently short about 3 million student rooms, and waitlists for university dorms stretch from six to twelve months. Consequently, rent can consume 60 to 80 percent of a student\'s monthly budget. This housing crisis creates immense daily stress, forcing students to live far from campus or work extra hours. Using a paid academic writing service provides relief from this pressure. Students can focus on securing their living arrangements while experts handle their demanding academic tasks.',
+  },
+  {
+    id: 'language-barrier',
+    Icon: Search,
+    heading: 'Tackling the Frustrating Language Barrier',
+    body:
+      'Studying in a non-English speaking country presents a massive hurdle. Even with programs taught in English, students struggle to master subject-specific jargon or follow fast lectures. For those studying in local languages, universities often require a B2 level certificate or higher. Writing a complex dissertation in German or Romanian is difficult for a non-native speaker. Europe Assignment Help connects you with native scholars and PhD experts. These professionals bridge the gap by delivering structured assignments in clear language, ensuring you are not penalized for grammar mistakes.',
+  },
+  {
+    id: 'ects-pressure',
+    Icon: ShieldCheck,
+    heading: 'Surviving the High Pressure of the ECTS System',
+    body:
+      'The European Credit Transfer System places immense pressure on university attendees, as every single assignment counts directly toward the final GPA. Top-tier institutions demand original research and enforce strict academic guidelines. Understanding the specific formatting rules and local grading rubrics can easily confuse newcomers. Our Europe Assignment Help professionals understand exactly what local professors expect. By providing carefully formatted papers and accurate citations, these experts guide students through confusing requirements and help them achieve academic results safely.',
+  },
+  {
+    id: 'emotional-toll',
+    Icon: MessageSquare,
+    heading: 'Managing the Emotional Toll and Homesickness',
+    body:
+      'Moving to a new continent brings the heavy emotional toll of homesickness. International students report higher rates of anxiety, depression, and loneliness compared to local citizens. The stress of adapting to new teaching styles, combined with distance from family, makes studying difficult. During this fragile transition period, hiring someone to write a paper is a common practice in Europe. A paid academic writing service acts as a support system. It gives students the necessary breathing room to make friends, join local clubs, and improve their mental well-being without falling behind in their classes.',
+  },
+  {
+    id: 'intensive-programs',
+    Icon: Award,
+    heading: 'Coping with Short and Intensive Degree Programs',
+    body:
+      'European education is highly efficient. Unlike the United States, a master\'s degree in Europe typically takes only one year to complete. While this shorter pathway saves a full year of living expenses and tuition fees, it creates an extremely dense and fast-paced academic schedule. Coursework deadlines pile up rapidly under this structure. Europe Assignment Help offers a solution for this time crunch. By delegating essays, case studies, or coding tasks to experienced professionals, students can successfully keep up with the intense pace of a one-year degree without burning out.',
+  },
+  {
+    id: 'regional-teaching',
+    Icon: Layout,
+    heading: 'Overcoming Unique Regional Teaching Styles',
+    body:
+      'Every European region has its own distinct educational culture. Northern European universities focus heavily on problem-based learning and team projects, while Germanic schools rely on classic written exams and lecture-heavy formats. Adapting to these new and varied assessment methods is a major struggle for international students. Paid academic writing services offer tailored assistance for these specific regional demands. Whether you need a deeply researched case study for a Dutch university or a complex technical report for an engineering school in Germany, expert helpers provide the precise format required by your specific institution.',
+  },
+  {
+    id: 'originality-penalties',
+    Icon: ShieldCheck,
+    heading: 'Achieving Originality to Avoid Severe Penalties',
+    body:
+      'Plagiarism is treated as a serious offense across European academic institutions. Professors at competitive schools are increasingly demanding original research and less generic summaries. Creating completely unique content from scratch is a massive challenge for stressed students. Our Europe Assignment Help service guarantees 100 percent human-written content. We maintain a strict zero AI policy. Every order is crafted manually by subject-matter experts and comes with a plagiarism report. This provides students with peace of mind, knowing their work is authentic and safe to submit.',
+  },
+];
+
+const europeStickySeoConfig = {
+  heading: 'Academic support designed for European assignment briefs',
+  description:
+    'Model essays, coursework, and dissertations for European university students, with transparent EUR pricing and major referencing styles like Harvard, APA, OSCOLA, and Chicago.',
+  badges: ['€10+ per page in EUR', 'Turnitin-ready original work', 'EU student confidentiality'],
+  schema: {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Europe Assignment Help',
+    description:
+      'Europe assignment help with euro pricing, academic English, and major referencing styles for students studying at European universities and colleges.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Essay Embassy',
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '50000',
+      },
+    },
+    areaServed: {
+      '@type': 'AdministrativeArea',
+      name: 'Europe',
+    },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Students at European universities and colleges',
+    },
+  },
+};
+
+function EuropeAssignmentStickySeoSection() {
+  return (
+    <section className="bg-slate-50 py-12 md:py-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(europeStickySeoConfig.schema) }} />
+
+      <style>{`
+        .seo-trust-badge {
+          font-size: 12px;
+          font-weight: 600;
+          background: #EFF6FF;
+          color: #1652A0;
+          padding: 6px 12px;
+          border-radius: 999px;
+          white-space: nowrap;
+        }
+      `}</style>
+
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-12">
+          <div className="flex-shrink-0 self-start lg:sticky lg:top-[80px] lg:w-[35%]">
+            <h2 className="text-3xl font-black tracking-tight text-[#0B1F42] sm:text-4xl">{europeStickySeoConfig.heading}</h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">{europeStickySeoConfig.description}</p>
+
+            <div className="mt-6 flex flex-wrap gap-2" aria-label="Service ratings and statistics">
+              {europeStickySeoConfig.badges.map((badge) => (
+                <span key={badge} className="seo-trust-badge">
+                  {badge}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <ScrollableContentPanel
+            className="w-full lg:w-[65%]"
+            ariaLabel="Europe assignment help information"
+            cards={europeStickySeoCards}
+            fadeBottomColor="#F8FAFC"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function AuthenticTestimonials() {
   return (
@@ -2020,7 +2155,7 @@ export default function EuropeAssignmentHelp() {
       <AuthenticTestimonials />
 
       {/* ── EUROPE ASSIGNMENT HELP CONTENT (SEO) — scrollable cards: fill cardsData above ── */}
-      <RegionalAssignmentStickySeoSection region="europe" />
+      <EuropeAssignmentStickySeoSection />
 
       {/* ── FAQ (LAST SECTION) — content edited manually ── */}
       <NzAssignmentFaqSection />

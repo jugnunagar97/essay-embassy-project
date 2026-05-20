@@ -38,7 +38,8 @@ import {
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import React, { useCallback, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import RegionalAssignmentStickySeoSection from '../../../components/Services/regional/RegionalAssignmentStickySeoSection';
+import ScrollableContentPanel from '../../../components/Services/ScrollableContentPanel';
+import type { ScrollableContentCard } from '../../../components/Services/scrollableContentPanel.types';
 import RegionalAssignmentInterlink from '../../../components/Services/regional/RegionalAssignmentInterlink';
 import AssignmentHelpSpecializationsGrid from '../../../components/Services/AssignmentHelpSpecializationsGrid';
 
@@ -188,6 +189,126 @@ const BRAND_IMG = {
   sitejabber: '/images/sitejabber-wordmark.svg',
   instagram: '/images/instagram-gradient.svg',
 } as const;
+
+const nzStickySeoCards: ScrollableContentCard[] = [
+  {
+    id: 'academic-shift',
+    Icon: BookOpen,
+    heading: 'The Overwhelming Academic Shift',
+    body:
+      'Moving to New Zealand brings a huge academic shock. Universities here do not want you to just memorize facts. They expect you to argue and analyze. Between January and August 2025 alone, over 85,500 international students enrolled in New Zealand institutions, and many quickly realized that summarizing textbooks is not enough. You must form your own academic argument. This is exactly where New Zealand Assignment Help becomes useful. A paid academic writing service can guide you through the exact structure that local markers reward, making you feel confident and comfortable in your new classroom.',
+  },
+  {
+    id: 'cost-of-living',
+    Icon: ClipboardList,
+    heading: 'The High Cost of Living and Time Pressure',
+    body:
+      'The financial pressure of studying abroad is real. In 2024, the average international student in New Zealand spent around NZD 45,000. With textbooks costing $120 each and living expenses climbing, many students take on part-time jobs. You are allowed to work up to 25 hours a week on a student visa, which severely cuts into your study time. When you get tired, New Zealand Assignment Help offers a practical solution. Professional writing services handle the heavy research, giving you extra time to manage your shifts and finances without sacrificing your grades.',
+  },
+  {
+    id: 'academic-english',
+    Icon: Search,
+    heading: 'Mastering New Zealand Academic English',
+    body:
+      'You might have passed your IELTS exam with high marks, but conversational English is entirely different from New Zealand academic writing. Assignments here follow strict formats like reflective journals, legal case studies, and structured reports. The difference between speaking fluently and writing academically is a major pain point that costs students crucial marks. New Zealand Assignment Help solves this problem. By working with an expert academic writing service, you receive perfectly formatted papers with accurate citations. This removes the confusion from your assignments and ensures your hard work gets the proper grades.',
+  },
+  {
+    id: 'visa-complications',
+    Icon: ShieldCheck,
+    heading: 'Overcoming the Fear of Visa Complications',
+    body:
+      'International students carry an invisible burden regarding their student visas. The conditions require you to stay enrolled and maintain a full study load. When academic difficulties happen, the fear of losing visa status often freezes students, preventing them from asking for support. This constant anxiety makes it hard to focus on actual learning. Using New Zealand Assignment Help provides a reliable backup plan. A professional writing service helps you meet strict university deadlines, keeping your academic record clean and ensuring your visa status remains secure while you adjust to life abroad.',
+  },
+  {
+    id: 'high-school-gap',
+    Icon: GraduationCap,
+    heading: 'The Gap Between High School and University',
+    body:
+      'Many domestic and international students face a harsh reality during their first year of university. The change from high school is difficult. University lecturers frequently warn that the National Certificate of Educational Achievement does not adequately prepare students for university standards. This huge jump in expectations is a big reason why a large percentage of students drop out after their first year. If you feel unprepared for the workload, New Zealand Assignment Help can be your guide. A professional academic writing service provides clear examples of high-level university writing to make you comfortable.',
+  },
+  {
+    id: 'month-three-loneliness',
+    Icon: Users,
+    heading: 'Beating the Month Three Loneliness',
+    body:
+      'While 86 percent of international students rate New Zealand as a positive study destination, the first few months can be lonely. By the third month, the excitement disappears, and the reality of being 10,000 kilometers away from home sets in. Coping with a casual new culture, unpredictable weather, and demanding group projects leaves many feeling isolated. New Zealand Assignment Help gives you back your free time. By letting a paid academic service handle your stressful essays, you can focus on making friends, exploring the city, and building a comfortable support system.',
+  },
+];
+
+const nzStickySeoConfig = {
+  heading: 'Academic support designed for New Zealand assignment briefs',
+  description:
+    'Assignment help for NZ university and polytechnic students, with NZD pricing, Aotearoa-aware academic English, and local referencing styles.',
+  badges: ['NZD pricing', '100% original writing', 'NZ student confidentiality'],
+  schema: {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'New Zealand Assignment Help',
+    description:
+      'New Zealand assignment help with NZD pricing, academic English, and referencing support for students at universities and polytechnics throughout New Zealand.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Essay Embassy',
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '50000',
+      },
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'New Zealand',
+    },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Students at New Zealand universities and polytechnics',
+    },
+  },
+};
+
+function NzAssignmentStickySeoSection() {
+  return (
+    <section className="bg-slate-50 py-12 md:py-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(nzStickySeoConfig.schema) }} />
+
+      <style>{`
+        .seo-trust-badge {
+          font-size: 12px;
+          font-weight: 600;
+          background: #EFF6FF;
+          color: #1652A0;
+          padding: 6px 12px;
+          border-radius: 999px;
+          white-space: nowrap;
+        }
+      `}</style>
+
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-12">
+          <div className="flex-shrink-0 self-start lg:sticky lg:top-[80px] lg:w-[35%]">
+            <h2 className="text-3xl font-black tracking-tight text-[#0B1F42] sm:text-4xl">{nzStickySeoConfig.heading}</h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">{nzStickySeoConfig.description}</p>
+
+            <div className="mt-6 flex flex-wrap gap-2" aria-label="Service ratings and statistics">
+              {nzStickySeoConfig.badges.map((badge) => (
+                <span key={badge} className="seo-trust-badge">
+                  {badge}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <ScrollableContentPanel
+            className="w-full lg:w-[65%]"
+            ariaLabel="New Zealand assignment help information"
+            cards={nzStickySeoCards}
+            fadeBottomColor="#F8FAFC"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function AuthenticTestimonials() {
   return (
@@ -2020,7 +2141,7 @@ export default function NZAssignmentHelp() {
       <AuthenticTestimonials />
 
       {/* ── NZ ASSIGNMENT HELP CONTENT (SEO) — scrollable cards: fill cardsData above ── */}
-      <RegionalAssignmentStickySeoSection region="nz" />
+      <NzAssignmentStickySeoSection />
 
       {/* ── FAQ (LAST SECTION) ── */}
       <NzAssignmentFaqSection />

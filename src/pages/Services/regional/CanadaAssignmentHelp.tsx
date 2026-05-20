@@ -38,7 +38,8 @@ import {
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import React, { useCallback, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import RegionalAssignmentStickySeoSection from '../../../components/Services/regional/RegionalAssignmentStickySeoSection';
+import ScrollableContentPanel from '../../../components/Services/ScrollableContentPanel';
+import type { ScrollableContentCard } from '../../../components/Services/scrollableContentPanel.types';
 import RegionalAssignmentInterlink from '../../../components/Services/regional/RegionalAssignmentInterlink';
 import AssignmentHelpSpecializationsGrid from '../../../components/Services/AssignmentHelpSpecializationsGrid';
 
@@ -180,6 +181,123 @@ function UnifiedPriceCalculator({ compact = false }: UnifiedPriceCalculatorProps
  * Paste your scrollable SEO cards here (right column of the sticky section below).
  * Example shape: { id: 1, Icon: BookOpen, heading: '...', body: `...` }
  */
+const canadaAssignmentStickySeoCards: ScrollableContentCard[] = [
+  {
+    id: 'academic-expectations',
+    Icon: Award,
+    heading: 'Meeting High Academic Expectations',
+    body: `Canadian universities demand rigorous coursework and a heavy focus on critical thinking and analysis. Students often struggle with the expectation to spend countless hours outside of class conducting independent research. This creates intense academic pressure and anxiety. Canada Assignment Help provides a reliable solution. A paid academic writing service allows students to submit thoroughly researched papers without spending every waking hour in the library. By taking the heavy writing tasks off your plate, Essay Embassy helps you feel comfortable and in control of your academic journey while maintaining the high grades expected by Canadian institutions.`,
+  },
+  {
+    id: 'part-time-jobs',
+    Icon: Clock,
+    heading: 'Balancing Part Time Jobs with University',
+    body: `Financial pressure is a massive struggle for students in Canada. For the 2025 to 2026 academic year, average undergraduate tuition reached nearly $41,746. To survive these costs, many students rely on part time jobs. Academic programs are often structured around 20 hours of class per week to allow time for work. However, balancing a job and homework is exhausting. Our paid academic writing service gives working students their time back. Using Canada Assignment Help ensures your essays are completed on time, letting you earn your paycheck comfortably without failing your classes.`,
+  },
+  {
+    id: 'teaching-styles',
+    Icon: Layout,
+    heading: 'Adjusting to Unfamiliar Teaching Styles',
+    body: `International students often face culture shock when encountering Canadian teaching methods. Universities here prioritize student participation, open debates, and independent projects over traditional lectures. Adapting to these new academic systems and unfamiliar grading rubrics causes severe anxiety. A paid academic writing service acts as a safety net during this adjustment period. Canada Assignment Help provides expertly formatted papers that adhere to strict academic honesty rules. Essay Embassy gives international students the exact reference material they need to feel comfortable and secure in their new educational setting.`,
+  },
+  {
+    id: 'language-barriers',
+    Icon: MessageSquare,
+    heading: 'Overcoming Language Barriers in Assignments',
+    body: `Even students with high English test scores struggle with language barriers in Canadian classrooms. Understanding fast speech, regional accents, and local slang is difficult. This language gap becomes a painful struggle when writing complex university papers. A paid academic writing service removes this burden completely. Through Canada Assignment Help, non native speakers can submit flawlessly written essays that express their ideas perfectly. Essay Embassy ensures that a student's grade reflects their actual knowledge of the subject, rather than their current comfort level with the English language.`,
+  },
+  {
+    id: 'seasonal-depression',
+    Icon: RefreshCcw,
+    heading: 'Managing Seasonal Depression and Study Stress',
+    body: `Canada experiences extreme temperatures, including heavy snowfall and long freezing winters. Students migrating from warmer countries often lack the experience to deal with this cold. Many develop seasonal affective disorder, which severely impacts their focus and motivation to study. When the weather drains your energy, Canada Assignment Help is here to support you. Relying on a paid academic writing service allows you to stay warm, prioritize your mental health, and avoid academic penalties. Essay Embassy handles your deadlines so you can recover comfortably indoors during the harsh winter months.`,
+  },
+  {
+    id: 'rent-living-costs',
+    Icon: MapPin,
+    heading: 'Surviving High Rent and Living Costs',
+    body: `Finding affordable housing is a major pain point for students. The average rent for a one bedroom apartment in Vancouver is currently $2,380, and in Toronto, it is $2,170. Living in these expensive cities forces students to work extra shifts just to pay for rent, groceries, and internet. This leaves almost zero time for essay writing. Using a paid academic writing service like Canada Assignment Help lifts this heavy financial burden. Essay Embassy writes your research papers so you can focus on working and paying your bills comfortably.`,
+  },
+  {
+    id: 'competitive-programs',
+    Icon: Star,
+    heading: 'Standing Out in Competitive Programs',
+    body: `Admissions to Canadian universities are incredibly tough. Over 2 million students enrolled in the 2021 to 2022 academic year. Because spaces are limited in popular fields like engineering and business, students face immense pressure to keep their grades at the very top. The fear of failing and losing a university seat is a constant struggle. Canada Assignment Help provides the perfect academic advantage. Our paid academic writing service guarantees well researched, high quality papers. Essay Embassy helps you secure top marks and remain comfortably ahead of your peers.`,
+  },
+];
+
+const canadaAssignmentStickySeoConfig = {
+  heading: 'Academic support built for Canadian assignment briefs',
+  description:
+    'Trusted by students at Canadian universities and colleges — from first-year essays to graduate dissertations and capstone projects.',
+  badges: ['⭐ 4.9/5 rating', '50,000+ orders completed', '100% original writing'],
+  schema: {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Canada Assignment Help',
+    description:
+      'Assignment help for Canadian students. Model essays in Canadian English with CAD pricing and major citation styles.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Essay Embassy',
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '50000',
+      },
+    },
+    areaServed: { '@type': 'Country', name: 'Canada' },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Students at Canadian universities and colleges',
+    },
+  },
+};
+
+function CanadaAssignmentStickySeoSection() {
+  return (
+    <section className="bg-slate-50 py-12 md:py-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(canadaAssignmentStickySeoConfig.schema) }} />
+
+      <style>{`
+        .seo-trust-badge {
+          font-size: 12px;
+          font-weight: 600;
+          background: #EFF6FF;
+          color: #1652A0;
+          padding: 6px 12px;
+          border-radius: 999px;
+          white-space: nowrap;
+        }
+      `}</style>
+
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-12">
+          <div className="flex-shrink-0 self-start lg:sticky lg:top-[80px] lg:w-[35%]">
+            <h2 className="text-3xl font-black tracking-tight text-[#0B1F42] sm:text-4xl">{canadaAssignmentStickySeoConfig.heading}</h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">{canadaAssignmentStickySeoConfig.description}</p>
+
+            <div className="mt-6 flex flex-wrap gap-2" aria-label="Service ratings and statistics">
+              {canadaAssignmentStickySeoConfig.badges.map((badge) => (
+                <span key={badge} className="seo-trust-badge">
+                  {badge}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <ScrollableContentPanel
+            className="w-full lg:w-[65%]"
+            ariaLabel="Assignment help information"
+            cards={canadaAssignmentStickySeoCards}
+            fadeBottomColor="#F8FAFC"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /** Local assets under /public/images (brand SVGs). */
 const BRAND_IMG = {
   gmail: '/images/gmail-icon.svg',
@@ -2020,7 +2138,7 @@ export default function CanadaAssignmentHelp() {
       <AuthenticTestimonials />
 
       {/* ── CANADA ASSIGNMENT HELP CONTENT (SEO) — scrollable cards: fill cardsData above ── */}
-      <RegionalAssignmentStickySeoSection region="canada" />
+      <CanadaAssignmentStickySeoSection />
 
       {/* ── FAQ (LAST SECTION) — content edited manually ── */}
       <NzAssignmentFaqSection />

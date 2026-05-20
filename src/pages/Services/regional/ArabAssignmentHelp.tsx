@@ -38,7 +38,8 @@ import {
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import React, { useCallback, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import RegionalAssignmentStickySeoSection from '../../../components/Services/regional/RegionalAssignmentStickySeoSection';
+import ScrollableContentPanel from '../../../components/Services/ScrollableContentPanel';
+import type { ScrollableContentCard } from '../../../components/Services/scrollableContentPanel.types';
 import RegionalAssignmentInterlink from '../../../components/Services/regional/RegionalAssignmentInterlink';
 import AssignmentHelpSpecializationsGrid from '../../../components/Services/AssignmentHelpSpecializationsGrid';
 
@@ -182,6 +183,135 @@ function UnifiedPriceCalculator({ compact = false }: UnifiedPriceCalculatorProps
  * Paste your scrollable SEO cards here (right column of the sticky section below).
  * Example shape: { id: 1, Icon: BookOpen, heading: '...', body: `...` }
  */
+const arabAssignmentStickySeoCards: ScrollableContentCard[] = [
+  {
+    id: 'language-barriers',
+    Icon: BookOpen,
+    heading: 'Overcoming Language Barriers in UAE Universities',
+    body: `The United Arab Emirates currently hosts nearly 1.7 million enrolled students, with Dubai alone welcoming over 200 different nationalities. For many of these learners, English is a second language. Students often understand the core subject but struggle to write professional academic answers, losing marks due to weak sentence structure and limited vocabulary. Paid academic writing services solve this issue by providing written materials. These services give international students comfort by delivering clear, properly structured texts that serve as study guides to improve their own language skills.`,
+  },
+  {
+    id: 'vision-2030',
+    Icon: MapPin,
+    heading: 'Meeting Vision 2030 Standards in Saudi Arabia',
+    body: `Saudi Arabia is transforming its higher education system into a global powerhouse under the Vision 2030 initiative, investing billions of dollars. With 90,000 international students joining local scholars, the pressure to perform is intense. Students must quickly master complex research methodologies and international formatting rules. A single poorly referenced paper can cause significant academic setbacks. Paid assignment helpers provide practical support by breaking down strict university rubrics and delivering original research. This allows students to submit high-quality work that matches the new rigorous expectations of Saudi universities.`,
+  },
+  {
+    id: 'gulf-part-time-jobs',
+    Icon: Users,
+    heading: 'Balancing Part Time Jobs and Studies in the Gulf',
+    body: `Many students in the UAE and Saudi Arabia juggle university classes with part-time jobs and family responsibilities. Working students face severe time constraints, which leads to delayed research and rushed submissions near deadlines. This constant time pressure creates mental exhaustion and affects overall grades. Hiring a professional writing service takes this heavy weight off their shoulders. By outsourcing complex essays, working students gain the freedom to manage their jobs and personal lives while ensuring their academic tasks are submitted on time.`,
+  },
+  {
+    id: 'formatting-referencing',
+    Icon: ShieldCheck,
+    heading: 'Solving Formatting and Referencing Confusion',
+    body: `A major pain point for Arab students is a lack of training in proper academic formatting. Many local universities previously focused on memorization rather than research skills. Today, failing to format an APA or Harvard paper correctly can cost a student 10 to 20 percent of their grade before the professor even reads the content. Paid academic writers are familiar with international citation styles. They remove the frustration of referencing rules by formatting citations and bibliography entries, saving students from losing marks over technical errors.`,
+  },
+  {
+    id: 'stem-assignments',
+    Icon: ScrollText,
+    heading: 'Tackling Complex STEM Assignments in Saudi Arabia',
+    body: `Saudi Arabia is a rapidly growing center for engineering and technology students. The coursework for these programs involves high-level mathematics, CAD designs, and deep structural analysis. Students often lack the hours of undivided attention required to complete these highly technical tasks. Professional academic services employ subject-matter experts who understand the specific details of STEM fields. They provide clean code, functional databases, and precise calculations to help students understand the underlying logic.`,
+  },
+  {
+    id: 'research-gap',
+    Icon: Search,
+    heading: 'Closing the Research Gap for University Students',
+    body: `Writing a high-scoring university assignment requires access to premium academic databases like JSTOR or IEEE. Many students struggle to find credible sources and rely on weak websites instead of peer-reviewed journals, which reduces the value of their work. Furthermore, research is sometimes underestimated in Arab culture, leaving students without proper training. Paid assignment services address this struggle by conducting original research using current market reports and academic journals to build logical arguments.`,
+  },
+  {
+    id: 'burnout-exhaustion',
+    Icon: Clock,
+    heading: 'Reducing Academic Burnout and Mental Exhaustion',
+    body: `The competitive academic culture in the UAE often leads to anxiety, sleep deprivation, and burnout among students. Learners constantly manage multiple overlapping deadlines, which reduces their concentration and problem-solving abilities. The fear of low grades can impact confidence. Using an academic writing service provides immediate relief. Knowing that a qualified expert is handling a difficult dissertation allows students to rest, recover, and focus on their regular exams.`,
+  },
+  {
+    id: 'curricula-demands',
+    Icon: GraduationCap,
+    heading: 'Adjusting to International Curricula Demands',
+    body: `Expatriate and local families in the Gulf frequently choose British, American, or IB educational pathways. Students transferring from different systems face learning gaps regarding subject content, grading systems, and analytical thinking. They often find research-based assignments difficult because they are used to simpler exam formats. Professional writing services help smooth this transition by providing custom-written examples that guide students on analytical writing standards.`,
+  },
+  {
+    id: 'affordable-support',
+    Icon: Award,
+    heading: 'Affordable Academic Support for Tight Budgets',
+    body: `Higher education in the Gulf region requires a massive financial commitment. In Saudi Arabia, international school tuition fees can reach up to 100,000 SAR annually. Meanwhile, international students in the UAE face high costs for housing, transport, and daily living. Paid assignment writing companies offer budget-friendly pricing models specifically designed for students, providing free revisions and plagiarism-free guarantees to secure their educational investment.`,
+  },
+];
+
+const arabAssignmentStickySeoConfig = {
+  heading: 'Academic support built for UAE & Saudi assignment briefs',
+  description:
+    'Trusted by English-medium students across the Gulf — from weekly essays to final-year projects and dissertation chapters.',
+  badges: ['⭐ 4.9/5 rating', '50,000+ orders completed', '100% original writing'],
+  schema: {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Arab Gulf Assignment Help',
+    description:
+      'Assignment help for UAE and Saudi Arabia English-medium students, with model essays, coursework, and dissertation support in USD pricing.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Essay Embassy',
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '50000',
+      },
+    },
+    areaServed: { '@type': 'AdministrativeArea', name: 'Gulf Cooperation Council' },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Students at UAE and Saudi Arabian universities',
+    },
+  },
+};
+
+function ArabAssignmentStickySeoSection() {
+  return (
+    <section className="bg-slate-50 py-12 md:py-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(arabAssignmentStickySeoConfig.schema) }} />
+
+      <style>{`
+        .seo-trust-badge {
+          font-size: 12px;
+          font-weight: 600;
+          background: #EFF6FF;
+          color: #1652A0;
+          padding: 6px 12px;
+          border-radius: 999px;
+          white-space: nowrap;
+        }
+      `}</style>
+
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-12">
+          <div className="flex-shrink-0 self-start lg:sticky lg:top-[80px] lg:w-[35%]">
+            <h2 className="text-3xl font-black tracking-tight text-[#0B1F42] sm:text-4xl">{arabAssignmentStickySeoConfig.heading}</h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">{arabAssignmentStickySeoConfig.description}</p>
+
+            <div className="mt-6 flex flex-wrap gap-2" aria-label="Service ratings and statistics">
+              {arabAssignmentStickySeoConfig.badges.map((badge) => (
+                <span key={badge} className="seo-trust-badge">
+                  {badge}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <ScrollableContentPanel
+            className="w-full lg:w-[65%]"
+            ariaLabel="Assignment help information"
+            cards={arabAssignmentStickySeoCards}
+            fadeBottomColor="#F8FAFC"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /** Local assets under /public/images (brand SVGs). */
 const BRAND_IMG = {
   gmail: '/images/gmail-icon.svg',
@@ -2019,7 +2149,7 @@ export default function ArabAssignmentHelp() {
       <AuthenticTestimonials />
 
       {/* ── UAE / SAUDI ARABIA ASSIGNMENT HELP CONTENT (SEO) — scrollable cards: fill cardsData above ── */}
-      <RegionalAssignmentStickySeoSection region="arab" />
+      <ArabAssignmentStickySeoSection />
 
       {/* ── FAQ (LAST SECTION) — content edited manually ── */}
       <NzAssignmentFaqSection />

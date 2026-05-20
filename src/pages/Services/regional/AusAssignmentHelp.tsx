@@ -9,6 +9,7 @@ import {
   ArrowRight,
   Award,
   BookOpen,
+  Brain,
   Check,
   CheckCircle,
   CheckCircle2,
@@ -38,7 +39,8 @@ import {
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import React, { useCallback, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import RegionalAssignmentStickySeoSection from '../../../components/Services/regional/RegionalAssignmentStickySeoSection';
+import ScrollableContentPanel from '../../../components/Services/ScrollableContentPanel';
+import type { ScrollableContentCard } from '../../../components/Services/scrollableContentPanel.types';
 import RegionalAssignmentInterlink from '../../../components/Services/regional/RegionalAssignmentInterlink';
 import AssignmentHelpSpecializationsGrid from '../../../components/Services/AssignmentHelpSpecializationsGrid';
 
@@ -180,6 +182,117 @@ function UnifiedPriceCalculator({ compact = false }: UnifiedPriceCalculatorProps
  * Paste your scrollable SEO cards here (right column of the sticky section below).
  * Example shape: { id: 1, Icon: BookOpen, heading: '...', body: `...` }
  */
+const ausAssignmentStickySeoCards: ScrollableContentCard[] = [
+  {
+    id: 'high-cost',
+    Icon: BookOpen,
+    heading: 'Navigating the High Cost of Australian Universities',
+    body: `Studying in Australia is a massive financial commitment for local and international students alike. With university tuition fees steadily increasing, your annual costs can reach up to AUD 50,000. This heavy financial burden forces many students to take on part-time jobs just to survive the high cost of living. Trying to balance demanding work shifts with strict university deadlines leaves little room to actually breathe or study effectively. Paid academic writing services step in to relieve this crushing pressure. By taking over complex assignments, these services give you the comfort of knowing your grades are safe while you earn the money needed to support your lifestyle.`,
+  },
+  {
+    id: 'group-projects',
+    Icon: Users,
+    heading: 'Surviving the Stress of Group Projects',
+    body: `Group assignments are a major source of frustration and anxiety for university students. In fact, political figures have recently called for Australian universities to scrap group projects entirely because students absolutely hate them. The common struggle is that one person ends up doing all the heavy lifting while others reap the benefits of the final grade. Language barriers and unmotivated peers only add to the daily stress. Expert writing services offer a comfortable way out of this academic trap. When you are stuck carrying your entire team, hiring a professional writer ensures your portion of the project is completed on time.`,
+  },
+  {
+    id: 'language-barriers',
+    Icon: ShieldCheck,
+    heading: 'Breaking Through Language and Formatting Barriers',
+    body: `International students face unique hurdles when adjusting to Australian university standards. Expressing complex ideas clearly in English is a major barrier for non-native speakers. Furthermore, mastering strict referencing styles like Harvard, APA, and Chicago adds unnecessary stress to the writing process. Getting help from a qualified academic service makes this transition comfortable and smooth. Platforms employing thousands of native PhD experts can refine your language and ensure proper formatting. These professionals guarantee completely original content and provide detailed plagiarism reports so you do not have to worry about strict academic integrity checks.`,
+  },
+  {
+    id: 'deadlines-burnout',
+    Icon: Clock,
+    heading: 'Conquering Tight Deadlines and Academic Burnout',
+    body: `Time management is an ongoing battle for university students. Between attending lectures, participating in extracurricular activities, and managing a personal life, finding hours to write lengthy papers is demanding. Procrastination often kicks in, leaving you facing tight schedules close to your submission deadlines. Paid assignment help offers comfort for exhausted students. With round-the-clock support, professional writers can deliver high-quality urgent assignments in as little as six hours, helping to prevent academic burnout.`,
+  },
+  {
+    id: 'complex-subjects',
+    Icon: Brain,
+    heading: 'Mastering Complex Subjects with Professional Guidance',
+    body: `University coursework often involves highly complex topics that leave students feeling completely lost. Understanding intricate assignment briefs and gathering relevant data requires analytical skills that take years to develop. When you are struggling with a difficult subject, hiring an expert can assist. Top writing platforms cover over 600 different subjects and offer personalized assistance tailored to your exact grading rubric. By providing clear and well-researched papers, these services have successfully helped over 92,000 students.`,
+  },
+  {
+    id: 'affordable-help',
+    Icon: Award,
+    heading: 'Affordable Academic Help for Every Budget',
+    body: `Money is always tight when you are studying, which makes many students hesitate to ask for professional help. However, premium academic assistance does not have to drain your bank account. Many top-tier assignment services are designed specifically for student budgets and offer massive discounts of up to 51% off your initial order. Some platforms even allow you to secure an assignment expert for just a $10 initial booking fee. This transparent pricing structure gives you clarity on exactly what you will pay.`,
+  },
+];
+
+const ausAssignmentStickySeoConfig = {
+  heading: 'Academic support built for Australian assignment briefs',
+  description:
+    'Trusted by students at Group of Eight universities and institutes nationwide — from weekly LMS tasks to honours theses and postgraduate dissertations.',
+  badges: ['⭐ 4.9/5 rating', '50,000+ orders completed', '100% original writing'],
+  schema: {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Australia Assignment Help',
+    description:
+      'Assignment help for Australian students. Model essays in Australian English with AUD pricing and major citation styles.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Essay Embassy',
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '50000',
+      },
+    },
+    areaServed: { '@type': 'Country', name: 'Australia' },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Students at Australian universities and TAFE pathways',
+    },
+  },
+};
+
+function AusAssignmentStickySeoSection() {
+  return (
+    <section className="bg-slate-50 py-12 md:py-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ausAssignmentStickySeoConfig.schema) }} />
+
+      <style>{`
+        .seo-trust-badge {
+          font-size: 12px;
+          font-weight: 600;
+          background: #EFF6FF;
+          color: #1652A0;
+          padding: 6px 12px;
+          border-radius: 999px;
+          white-space: nowrap;
+        }
+      `}</style>
+
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-12">
+          <div className="flex-shrink-0 self-start lg:sticky lg:top-[80px] lg:w-[35%]">
+            <h2 className="text-3xl font-black tracking-tight text-[#0B1F42] sm:text-4xl">{ausAssignmentStickySeoConfig.heading}</h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">{ausAssignmentStickySeoConfig.description}</p>
+
+            <div className="mt-6 flex flex-wrap gap-2" aria-label="Service ratings and statistics">
+              {ausAssignmentStickySeoConfig.badges.map((badge) => (
+                <span key={badge} className="seo-trust-badge">
+                  {badge}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <ScrollableContentPanel
+            className="w-full lg:w-[65%]"
+            ariaLabel="Assignment help information"
+            cards={ausAssignmentStickySeoCards}
+            fadeBottomColor="#F8FAFC"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /** Local assets under /public/images (brand SVGs). */
 const BRAND_IMG = {
   gmail: '/images/gmail-icon.svg',
@@ -2020,7 +2133,7 @@ export default function AusAssignmentHelp() {
       <AuthenticTestimonials />
 
       {/* ── AUSTRALIA ASSIGNMENT HELP CONTENT (SEO) — scrollable cards: fill cardsData above ── */}
-      <RegionalAssignmentStickySeoSection region="aus" />
+      <AusAssignmentStickySeoSection />
 
       {/* ── FAQ (LAST SECTION) — content edited manually ── */}
       <NzAssignmentFaqSection />

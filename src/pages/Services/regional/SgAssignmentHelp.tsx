@@ -38,7 +38,8 @@ import {
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import React, { useCallback, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import RegionalAssignmentStickySeoSection from '../../../components/Services/regional/RegionalAssignmentStickySeoSection';
+import ScrollableContentPanel from '../../../components/Services/ScrollableContentPanel';
+import type { ScrollableContentCard } from '../../../components/Services/scrollableContentPanel.types';
 import RegionalAssignmentInterlink from '../../../components/Services/regional/RegionalAssignmentInterlink';
 import AssignmentHelpSpecializationsGrid from '../../../components/Services/AssignmentHelpSpecializationsGrid';
 
@@ -180,6 +181,117 @@ function UnifiedPriceCalculator({ compact = false }: UnifiedPriceCalculatorProps
  * Paste your scrollable SEO cards here (right column of the sticky section below).
  * Example shape: { id: 1, Icon: BookOpen, heading: '...', body: `...` }
  */
+const sgAssignmentStickySeoCards: ScrollableContentCard[] = [
+  {
+    id: 'bell-curve',
+    Icon: Award,
+    heading: 'Surviving the Competitive Bell Curve Grading System',
+    body: `The academic culture at the National University of Singapore places a massive emphasis on achieving high grades. Students face the added pressure of a grading system based on a bell curve. This means students are graded relative to their peers, making the environment highly competitive and stressful. It is common to see students working late into the night and sleeping in campus libraries just to keep up. Singapore Assignment Help steps in to relieve this intense pressure. A paid academic writing service allows students to submit high-quality assignments without sacrificing their health or sleep to beat the strict grading curve.`,
+  },
+  {
+    id: 'high-expenses',
+    Icon: Clock,
+    heading: 'Balancing High Expenses with Academic Demands',
+    body: `Studying in Singapore comes with steep financial requirements. Public university tuition fees run between SGD 15,000 and SGD 35,000 a year. Furthermore, rent consumes approximately 42.3 percent of a student's monthly expenses. International students typically spend around SGD 1,100 to SGD 1,400 per month on living costs alone. Many students must work part-time jobs to cover these high expenses, which takes time away from their coursework. Singapore Assignment Help provides a reliable safety net. By delegating complex writing tasks to a paid academic writing service, working students gain the extra time needed to earn money and pay their bills comfortably.`,
+  },
+  {
+    id: 'arms-race',
+    Icon: ShieldCheck,
+    heading: 'Overcoming the Anxiety of the Education Arms Race',
+    body: `The local education system is frequently described as an arms race. Families in Singapore spent a staggering 1.8 billion dollars on private tuition in 2023, up from 1.1 billion dollars in 2013. This culture of heavy studying takes a severe toll on mental health. According to an OECD study, 86 percent of Singaporean students worry about poor grades, and 76 percent feel anxious before a test even when fully prepared. Singapore Assignment Help offers expert guidance to ease this overwhelming anxiety. A paid academic writing service ensures your papers meet strict university standards, helping you achieve peace of mind.`,
+  },
+  {
+    id: 'perfectionism',
+    Icon: Star,
+    heading: 'Escaping the Trap of Maladaptive Perfectionism',
+    body: `Singapore consistently ranks at the top globally, including coming in first place for science and mathematics in a 2015 survey of 76 countries. However, this success breeds maladaptive perfectionism where students become terrified of making mistakes. Unrealistically high parental expectations often lead to burnout, depression, and severe emotional distress over time. Tragically, this high-pressure environment contributed to a spike in adolescent suicide rates in 2015. Singapore Assignment Help helps you find a healthy emotional balance. Using a paid academic writing service takes the weight of perfection off your shoulders, allowing you to learn at a comfortable pace.`,
+  },
+  {
+    id: 'social-life',
+    Icon: Users,
+    heading: 'Reclaiming Your Weekends and Social Life',
+    body: `While academic rigor is intense, Singapore offers a vibrant lifestyle, modern facilities, and excellent safety. Food is a huge part of the local culture, and grabbing meals at hawker centres on weekends is a popular social activity. Yet, heavy university workloads often leave students with zero free time. It is vital to set aside time for exercising and socializing to stay healthy. Singapore Assignment Help gives you your weekends back. By trusting your essays to a paid academic writing service, you can finally enjoy the city, explore nature, and experience a comfortable and well-rounded student life.`,
+  },
+  {
+    id: 'university-workloads',
+    Icon: BookOpen,
+    heading: 'Adapting to Intense University Workloads',
+    body: `Singapore hosts a massive international student population, with past projections showing 150,000 foreign students contributing 2 percent of the national GDP. Foreign students flock to renowned institutions like the National University of Singapore and Nanyang Technological University. Many international learners face a massive culture shock regarding the sheer intensity of the workload compared to their home countries. Staying on top of numerous research papers and assignments is a massive struggle. Singapore Assignment Help assists international students with this difficult transition. A paid academic writing service handles the heavy lifting, giving you the breathing room to adjust to your new academic environment.`,
+  },
+];
+
+const sgAssignmentStickySeoConfig = {
+  heading: 'Academic support designed for Singapore assignment briefs',
+  description:
+    'Trusted by students across NUS, NTU, SMU, SUSS, and private colleges \u2014 from first-year essays to honours and postgraduate dissertations.',
+  badges: ['⭐ 4.9/5 rating', '50,000+ orders completed', '100% original writing'],
+  schema: {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Singapore Assignment Help',
+    description:
+      'Assignment help for Singapore students. Model essays in Singapore English with SGD pricing and major citation styles.',
+    provider: {
+      '@type': 'Organization',
+      name: 'Essay Embassy',
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        reviewCount: '50000',
+      },
+    },
+    areaServed: { '@type': 'Country', name: 'Singapore' },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Students at Singapore universities and colleges',
+    },
+  },
+};
+
+function SgAssignmentStickySeoSection() {
+  return (
+    <section className="bg-slate-50 py-12 md:py-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sgAssignmentStickySeoConfig.schema) }} />
+
+      <style>{`
+        .seo-trust-badge {
+          font-size: 12px;
+          font-weight: 600;
+          background: #EFF6FF;
+          color: #1652A0;
+          padding: 6px 12px;
+          border-radius: 999px;
+          white-space: nowrap;
+        }
+      `}</style>
+
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-12 lg:flex-row lg:gap-12">
+          <div className="flex-shrink-0 self-start lg:sticky lg:top-[80px] lg:w-[35%]">
+            <h2 className="text-3xl font-black tracking-tight text-[#0B1F42] sm:text-4xl">{sgAssignmentStickySeoConfig.heading}</h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">{sgAssignmentStickySeoConfig.description}</p>
+
+            <div className="mt-6 flex flex-wrap gap-2" aria-label="Service ratings and statistics">
+              {sgAssignmentStickySeoConfig.badges.map((badge) => (
+                <span key={badge} className="seo-trust-badge">
+                  {badge}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <ScrollableContentPanel
+            className="w-full lg:w-[65%]"
+            ariaLabel="Assignment help information"
+            cards={sgAssignmentStickySeoCards}
+            fadeBottomColor="#F8FAFC"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /** Local assets under /public/images (brand SVGs). */
 const BRAND_IMG = {
   gmail: '/images/gmail-icon.svg',
@@ -2020,7 +2132,7 @@ export default function SgAssignmentHelp() {
       <AuthenticTestimonials />
 
       {/* ── SG ASSIGNMENT HELP CONTENT (SEO) — scrollable cards: fill cardsData above ── */}
-      <RegionalAssignmentStickySeoSection region="sg" />
+      <SgAssignmentStickySeoSection />
 
       {/* ── FAQ (LAST SECTION) — content edited manually ── */}
       <NzAssignmentFaqSection />
