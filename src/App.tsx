@@ -126,6 +126,44 @@ import NewYorkUniversityNYU from './pages/Services/Colleges/new-york-university-
 import UniversityOfMichiganAnnArbor from './pages/Services/Colleges/michigan-ann-arbor-university';
 import DukeUniversity from './pages/Services/Colleges/duke-university';
 import UniversityTexasAustin from './pages/Services/Colleges/university-texas-austin';
+import RiceUniversity from './pages/Services/Colleges/rice-university';
+import TexasAMUniversity from './pages/Services/Colleges/texas-am-university';
+import UniversitySouthernCalifornia from './pages/Services/Colleges/university-southern-california';
+import MichiganStateUniversity from './pages/Services/Colleges/michigan-state-university';
+import ArizonaStateUniversity from './pages/Services/Colleges/arizona-state-university';
+import EmoryUniversity from './pages/Services/Colleges/emory-university';
+import OhioStateUniversity from './pages/Services/Colleges/ohio-state-university';
+import UniversityMarylandCollegePark from './pages/Services/Colleges/university-maryland-college-park';
+import UniversityMinnesotaSystem from './pages/Services/Colleges/university-minnesota-system';
+import UniversityFlorida from './pages/Services/Colleges/university-florida';
+import UniversityRochester from './pages/Services/Colleges/university-rochester';
+import DartmouthCollege from './pages/Services/Colleges/dartmouth-college';
+import UniversityMassachusettsAmherst from './pages/Services/Colleges/university-massachusetts-amherst';
+import VanderbiltUniversity from './pages/Services/Colleges/vanderbilt-university';
+import NorthCarolinaStateUniversity from './pages/Services/Colleges/north-carolina-state-university';
+import UniversityVirginia from './pages/Services/Colleges/university-virginia';
+import UniversityPittsburgh from './pages/Services/Colleges/university-pittsburgh';
+import GeorgetownUniversity from './pages/Services/Colleges/georgetown-university';
+import UniversityArizona from './pages/Services/Colleges/university-arizona';
+import UniversityCaliforniaIrvine from './pages/Services/Colleges/university-california-irvine';
+import CaseWesternReserveUniversity from './pages/Services/Colleges/case-western-reserve-university';
+import UniversityNotreDame from './pages/Services/Colleges/university-notre-dame';
+import UniversityColoradoBoulder from './pages/Services/Colleges/university-colorado-boulder';
+import IndianaUniversityBloomington from './pages/Services/Colleges/indiana-university-bloomington';
+import UniversityMiami from './pages/Services/Colleges/university-miami';
+import RutgersUniversityNewBrunswick from './pages/Services/Colleges/rutgers-university-new-brunswick';
+import TuftsUniversity from './pages/Services/Colleges/tufts-university';
+import UniversityIllinoisChicagoUIC from './pages/Services/Colleges/university-illinois-chicago-uic';
+import GeorgeWashingtonUniversity from './pages/Services/Colleges/george-washington-university';
+import VirginiaTech from './pages/Services/Colleges/virginia-polytechnic-institute-state-university';
+import NortheasternUniversity from './pages/Services/Colleges/northeastern-university';
+import UniversityBuffaloSUNY from './pages/Services/Colleges/university-buffalo-suny';
+import WashingtonStateUniversity from './pages/Services/Colleges/washington-state-university';
+import UniversityCaliforniaRiverside from './pages/Services/Colleges/university-california-riverside';
+import IowaStateUniversity from './pages/Services/Colleges/iowa-state-university';
+import StonyBrookUniversity from './pages/Services/Colleges/stony-brook-university-state-university-new-york';
+import ColoradoStateUniversity from './pages/Services/Colleges/colorado-state-university';
+import UniversityCaliforniaSantaCruz from './pages/Services/Colleges/university-california-santa-cruz';
 
 // --- Dashboard & Admin Page Imports ---
 import ClientDashboard from './pages/Dashboard/ClientDashboard';
@@ -290,8 +328,158 @@ function App() {
                   path="colleges/university-texas-austin"
                   element={<UniversityTexasAustin />}
                 />
-
-
+                <Route
+                  path="colleges/rice-university"
+                  element={<RiceUniversity />}
+                />
+                <Route
+                  path="colleges/texas-am-university"
+                  element={<TexasAMUniversity />}
+                />
+                <Route
+                  path="colleges/university-southern-california"
+                  element={<UniversitySouthernCalifornia />}
+                />
+                <Route
+                  path="colleges/michigan-state-university"
+                  element={<MichiganStateUniversity />}
+                />
+                <Route
+                  path="colleges/arizona-state-university"
+                  element={<ArizonaStateUniversity />}
+                />
+                <Route
+                  path="colleges/emory-university"
+                  element={<EmoryUniversity />}
+                />
+                <Route
+                  path="colleges/ohio-state-university"
+                  element={<OhioStateUniversity />}
+                />
+                <Route
+                  path="colleges/university-maryland-college-park"
+                  element={<UniversityMarylandCollegePark />}
+                />
+                <Route
+                  path="colleges/university-minnesota-system"
+                  element={<UniversityMinnesotaSystem />}
+                />
+                <Route
+                  path="colleges/university-florida"
+                  element={<UniversityFlorida />}
+                />
+                <Route
+                  path="colleges/university-rochester"
+                  element={<UniversityRochester />}
+                />
+                <Route
+                  path="colleges/dartmouth-college"
+                  element={<DartmouthCollege />}
+                />
+                <Route
+                  path="colleges/university-massachusetts-amherst"
+                  element={<UniversityMassachusettsAmherst />}
+                />
+                <Route
+                  path="colleges/vanderbilt-university"
+                  element={<VanderbiltUniversity />}
+                />
+                <Route
+                  path="colleges/north-carolina-state-university"
+                  element={<NorthCarolinaStateUniversity />}
+                />
+                <Route
+                  path="colleges/university-virginia"
+                  element={<UniversityVirginia />}
+                />
+                <Route
+                  path="colleges/university-pittsburgh"
+                  element={<UniversityPittsburgh />}
+                />
+                <Route
+                  path="colleges/georgetown-university"
+                  element={<GeorgetownUniversity />}
+                />
+                <Route
+                  path="colleges/university-arizona"
+                  element={<UniversityArizona />}
+                />
+                <Route
+                  path="colleges/university-california-irvine"
+                  element={<UniversityCaliforniaIrvine />}
+                />
+                <Route
+                  path="colleges/case-western-reserve-university"
+                  element={<CaseWesternReserveUniversity />}
+                />
+                <Route
+                  path="colleges/university-notre-dame"
+                  element={<UniversityNotreDame />}
+                />
+                <Route
+                  path="colleges/university-colorado-boulder"
+                  element={<UniversityColoradoBoulder />}
+                />
+                <Route
+                  path="colleges/indiana-university-bloomington"
+                  element={<IndianaUniversityBloomington />}
+                />
+                <Route
+                  path="colleges/university-miami"
+                  element={<UniversityMiami />}
+                />
+                <Route
+                  path="colleges/rutgers-university-new-brunswick"
+                  element={<RutgersUniversityNewBrunswick />}
+                />
+                <Route
+                  path="colleges/tufts-university"
+                  element={<TuftsUniversity />}
+                />
+                <Route
+                  path="colleges/university-illinois-chicago-uic"
+                  element={<UniversityIllinoisChicagoUIC />}
+                />
+                <Route
+                  path="colleges/george-washington-university"
+                  element={<GeorgeWashingtonUniversity />}
+                />
+                <Route
+                  path="colleges/virginia-polytechnic-institute-state-university"
+                  element={<VirginiaTech />}
+                />
+                <Route
+                  path="colleges/northeastern-university"
+                  element={<NortheasternUniversity />}
+                />
+                <Route
+                  path="colleges/university-buffalo-suny"
+                  element={<UniversityBuffaloSUNY />}
+                />
+                <Route
+                  path="colleges/washington-state-university"
+                  element={<WashingtonStateUniversity />}
+                />
+                <Route
+                  path="colleges/university-california-riverside"
+                  element={<UniversityCaliforniaRiverside />}
+                />
+                <Route
+                  path="colleges/iowa-state-university"
+                  element={<IowaStateUniversity />}
+                />
+                <Route
+                  path="colleges/stony-brook-university-state-university-new-york"
+                  element={<StonyBrookUniversity />}
+                />
+                <Route
+                  path="colleges/colorado-state-university"
+                  element={<ColoradoStateUniversity />}
+                />
+                <Route
+                  path="colleges/university-california-santa-cruz"
+                  element={<UniversityCaliforniaSantaCruz />}
+                />
 
                 {/* Static service page routes - NEW STRUCTURE WITHOUT "services" PREFIX */}
 

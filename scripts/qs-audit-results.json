@@ -1,0 +1,192 @@
+[
+  {
+    "slug": "rice-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "texas-am-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-southern-california",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "michigan-state-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "arizona-state-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "emory-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "ohio-state-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-maryland-college-park",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-minnesota-system",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-florida",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-rochester",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "dartmouth-college",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-massachusetts-amherst",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "vanderbilt-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "north-carolina-state-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-virginia",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-pittsburgh",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "georgetown-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-arizona",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-california-irvine",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "case-western-reserve-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-notre-dame",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-colorado-boulder",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "indiana-university-bloomington",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-miami",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "rutgers-university-new-brunswick",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "tufts-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-illinois-chicago-uic",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "george-washington-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "virginia-polytechnic-institute-state-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "northeastern-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-buffalo-suny",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "washington-state-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-california-riverside",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "iowa-state-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "stony-brook-university-state-university-new-york",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "colorado-state-university",
+    "fetched": false,
+    "error": "HTTP 403"
+  },
+  {
+    "slug": "university-california-santa-cruz",
+    "fetched": false,
+    "error": "HTTP 403"
+  }
+]
